@@ -5,7 +5,7 @@ const db = require("./database");
 const { calculateEtatPrice } = require("./conditionPricing");
 const { startScheduler } = require("./scheduler");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
