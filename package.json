@@ -1,0 +1,21 @@
+{
+  "name": "mtg-portfolio",
+  "version": "1.0.0",
+  "description": "Magic Portfolio Tracker",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "update:cardmarket": "node backend/updateCardmarketFromPriceGuide.js",
+    "update:portfolio": "node backend/updatePortfolioValue.js",
+    "update:daily": "npm run update:cardmarket && npm run update:portfolio"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "node-cron": "^4.5.0",
+    "sqlite3": "^5.1.7",
+    "xlsx": "^0.18.5"
+  }
+}

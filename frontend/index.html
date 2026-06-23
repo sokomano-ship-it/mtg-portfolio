@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>MTG Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+    <h1>MTG Portfolio</h1>
+    <p>Suivi automatique de collection Magic avec prix Cardmarket</p>
+</header>
+
+<nav class="tabs">
+    <button class="tab-button active" data-tab="tab-general">📊 Général</button>
+    <button class="tab-button" data-tab="tab-movers">📈 Top hausses / baisses</button>
+    <button class="tab-button" data-tab="tab-opportunities">🔥 Opportunités</button>
+    <button class="tab-button" data-tab="tab-collection">🃏 Ma collection</button>
+</nav>
+
+<main>
+
+    <section id="tab-general" class="tab-content active">
+
+        <section class="summary">
+            <div class="summary-card">
+                <span>Cartes totales</span>
+                <strong id="total-cards">0</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Valeur portefeuille prix-état</span>
+                <strong id="total-value">0 €</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Variation depuis hier</span>
+                <strong id="portfolio-change">0 €</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Variation %</span>
+                <strong id="portfolio-change-pct">0 %</strong>
+            </div>
+        </section>
+
+        <section class="card chart-card">
+            <h2>Évolution du portefeuille prix-état</h2>
+            <canvas id="portfolioChart"></canvas>
+        </section>
+
+        <section class="card">
+            <h2>📊 Résumé par catégorie</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Cartes</th>
+                            <th>Valeur prix-état</th>
+                        </tr>
+                    </thead>
+                    <tbody id="category-summary-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </section>
+
+    <section id="tab-movers" class="tab-content">
+
+        <section class="card">
+            <h2>🔥 Top hausses / 📉 Top baisses</h2>
+
+            <div id="movers-status">Chargement...</div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="nomCarte">Carte</th>
+                            <th class="sortable" data-sort="edition">Edition</th>
+                            <th class="sortable" data-sort="etat">Etat</th>
+                            <th class="sortable" data-sort="quantity">Qté</th>
+                            <th class="sortable" data-sort="currentPrice">Prix état</th>
+                            <th class="sortable" data-sort="lotValue">Valeur lot</th>
+                            <th class="sortable" data-sort="perf7d">7j</th>
+                            <th class="sortable" data-sort="perf30d">30j</th>
+                            <th class="sortable" data-sort="perf90d">90j</th>
+                            <th class="sortable" data-sort="perf180d">180j</th>
+                            <th class="sortable" data-sort="perf365d">365j</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movers-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </section>
+
+    <section id="tab-opportunities" class="tab-content">
+
+        <section class="card">
+            <h2>🔥 Opportunités court terme</h2>
+
+            <div id="opportunities-status">Chargement...</div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="opportunity-sortable sortable" data-sort="nomCarte">Carte</th>
+                            <th class="opportunity-sortable sortable" data-sort="edition">Edition</th>
+                            <th class="opportunity-sortable sortable" data-sort="etat">Etat</th>
+                            <th class="opportunity-sortable sortable" data-sort="trendPrice">Trend</th>
+                            <th class="opportunity-sortable sortable" data-sort="avg30">Avg30</th>
+                            <th class="opportunity-sortable sortable" data-sort="trendVs30">Trend vs 30j</th>
+                            <th class="opportunity-sortable sortable" data-sort="avg7Vs30">Avg7 vs 30j</th>
+                            <th class="opportunity-sortable sortable" data-sort="score">Score</th>
+                            <th class="opportunity-sortable sortable" data-sort="signal">Signal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="opportunities-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </section>
+
+    <section id="tab-collection" class="tab-content">
+
+        <section class="card">
+            <h2>Ma collection</h2>
+
+            <div class="table-toolbar">
+                <div>
+                    <label for="category-filter">Catégorie</label>
+                    <select id="category-filter">
+                        <option value="Toutes">Toutes</option>
+                    </select>
+                </div>
+
+                <div class="toolbar-stat">
+                    <span>Cartes</span>
+                    <strong id="category-count">0</strong>
+                </div>
+
+                <div class="toolbar-stat">
+                    <span>Valeur prix-état</span>
+                    <strong id="category-value">0 €</strong>
+                </div>
+            </div>
+
+            <div id="status">Chargement...</div>
+
+            <div class="table-wrapper table-attached">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th class="collection-sortable sortable" data-sort="nomCarte">Carte</th>
+                            <th class="collection-sortable sortable" data-sort="version">Version</th>
+                            <th class="collection-sortable sortable" data-sort="edition">Edition</th>
+                            <th class="collection-sortable sortable" data-sort="langue">Langue</th>
+                            <th class="collection-sortable sortable" data-sort="etat">Etat</th>
+                            <th class="collection-sortable sortable" data-sort="categorie">Catégorie</th>
+                            <th class="collection-sortable sortable" data-sort="prixEtat">Prix état</th>
+                            <th class="collection-sortable sortable" data-sort="trendPrice">Trend NM</th>
+                            <th class="collection-sortable sortable" data-sort="lowPrice">Low</th>
+                            <th class="collection-sortable sortable" data-sort="avgPrice">Avg</th>
+                            <th>Liens</th>
+                        </tr>
+
+                        <tr class="collection-filter-row">
+                            <th></th>
+                            <th><input class="collection-filter" data-filter="nomCarte" placeholder="Filtrer carte"></th>
+                            <th><input class="collection-filter" data-filter="version" placeholder="Version"></th>
+                            <th><input class="collection-filter" data-filter="edition" placeholder="Edition"></th>
+                            <th><input class="collection-filter" data-filter="langue" placeholder="Langue"></th>
+                            <th><input class="collection-filter" data-filter="etat" placeholder="Etat"></th>
+                            <th><input class="collection-filter" data-filter="categorie" placeholder="Catégorie"></th>
+                            <th><input class="collection-filter" data-filter="prixEtat" placeholder=">10 / 5-20"></th>
+                            <th><input class="collection-filter" data-filter="trendPrice" placeholder=">10 / 5-20"></th>
+                            <th><input class="collection-filter" data-filter="lowPrice" placeholder=">10 / 5-20"></th>
+                            <th><input class="collection-filter" data-filter="avgPrice" placeholder=">10 / 5-20"></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="cards-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </section>
+
+</main>
+
+<div id="card-detail-modal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeCardDetail()">×</button>
+
+        <h2 id="detail-title">Détail carte</h2>
+
+        <div class="detail-layout">
+            <div id="detail-image" class="detail-image"></div>
+
+            <div class="detail-info-panel">
+                <div id="detail-info"></div>
+
+                <div class="detail-chart">
+                    <canvas id="cardDetailChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
