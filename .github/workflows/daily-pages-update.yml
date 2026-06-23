@@ -1,15 +1,24 @@
-name: Daily Portfolio Update
+name: Daily Portfolio Update and Pages Deploy
 
 on:
   schedule:
     - cron: "0 5 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  update:
+  update-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,4 +42,15 @@ jobs:
           git config user.email "github-actions@github.com"
           git add database/portfolio.db frontend/data/portfolio.json
           git commit -m "Daily portfolio update" || echo "No changes to commit"
-          git push
+          git push || echo "Nothing to push"
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
