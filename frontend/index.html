@@ -106,6 +106,10 @@
 
         <section class="card">
             <h2>🔥 Opportunités court terme</h2>
+            <p class="section-help">
+                Analyse basée sur le prix NM Cardmarket, avec dédoublonnage par carte / édition / version / langue.
+                Le score conviction est volontairement strict pour ne retenir que quelques achats potentiels.
+            </p>
 
             <div id="opportunities-status">Chargement...</div>
 
@@ -115,13 +119,20 @@
                         <tr>
                             <th class="opportunity-sortable sortable" data-sort="nomCarte">Carte</th>
                             <th class="opportunity-sortable sortable" data-sort="edition">Edition</th>
-                            <th class="opportunity-sortable sortable" data-sort="etat">Etat</th>
-                            <th class="opportunity-sortable sortable" data-sort="trendPrice">Trend</th>
+                            <th class="opportunity-sortable sortable" data-sort="version">Version</th>
+                            <th class="opportunity-sortable sortable" data-sort="langue">Langue</th>
+                            <th class="opportunity-sortable sortable" data-sort="quantityOwned">Possédé ?</th>
+                            <th class="opportunity-sortable sortable" data-sort="quantityOwned">Ex.</th>
+                            <th class="opportunity-sortable sortable" data-sort="ownedStates">États possédés</th>
+                            <th class="opportunity-sortable sortable" data-sort="nmPrice">Prix NM</th>
+                            <th class="opportunity-sortable sortable" data-sort="lowPrice">Low NM</th>
                             <th class="opportunity-sortable sortable" data-sort="avg30">Avg30</th>
                             <th class="opportunity-sortable sortable" data-sort="trendVs30">Trend vs 30j</th>
-                            <th class="opportunity-sortable sortable" data-sort="avg7Vs30">Avg7 vs 30j</th>
-                            <th class="opportunity-sortable sortable" data-sort="score">Score</th>
+                            <th class="opportunity-sortable sortable" data-sort="avg1Vs7">Momentum</th>
+                            <th class="opportunity-sortable sortable" data-sort="convictionScore">Conviction</th>
+                            <th class="opportunity-sortable sortable" data-sort="recommendation">Recommandation</th>
                             <th class="opportunity-sortable sortable" data-sort="signal">Signal</th>
+                            <th>Raisons</th>
                         </tr>
                     </thead>
                     <tbody id="opportunities-body"></tbody>
@@ -222,7 +233,6 @@
 
 <script src="api-adapter.js"></script>
 <script src="script.js"></script>
-
 
 </body>
 </html>
