@@ -553,13 +553,17 @@ function renderOpportunities() {
     const tbody = document.getElementById("opportunities-body");
     if (!tbody) return;
 
-    const sorted = [...allOpportunities].sort((a, b) => {
-        return compareValues(
-            a[currentOpportunitySort],
-            b[currentOpportunitySort],
-            currentOpportunityDirection
-        );
-    });
+    const sorted = [...allOpportunities]
+        .sort((a, b) => {
+            const result = compareValues(
+                a[currentOpportunitySort],
+                b[currentOpportunitySort],
+                currentOpportunityDirection
+            );
+
+            return result;
+        })
+        .slice(0, 30);
 
     tbody.innerHTML = "";
 
@@ -574,42 +578,32 @@ function renderOpportunities() {
 
         const details = [reasons, warnings].filter(Boolean).join("<br>");
 
-        tbody.innerHTML += `
-            <tr>
-                <td><strong>${escapeHtml(card.nomCarte)}</strong></td>
-                <td>${escapeHtml(card.edition || "-")}</td>
-                <td>${escapeHtml(card.version || "-")}</td>
-                <td>${escapeHtml(card.langue || "-")}</td>
+        const ownedLabel =
+            card.ownedLabel ||
+            (Number(card.quantityOwned || 0) > 0 ? "Oui" : "Non");
 
-                <td>${escapeHtml(card.ownedLabel || (Number(card.quantityOwned || 0) > 0 ? "Oui" : "Non"))}</td>
-                <td>${Number(card.quantityOwned || 0)}</td>
-                <td>${escapeHtml(card.ownedStates || "-")}</td>
+tbody.innerHTML += `
+    <tr>
+        <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
+        <td>${escapeHtml(card.edition || "-")}</td>
+        <td>${escapeHtml(card.version || "-")}</td>
+        <td>${escapeHtml(card.langue || "-")}</td>
 
-                <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
-                <td class="price">${formatEuro(card.lowPrice)}</td>
-                <td class="price">${formatEuro(card.avg30)}</td>
+        <td>${escapeHtml(card.ownedLabel || "-")}</td>
+        <td>${Number(card.quantityOwned || 0)}</td>
+        <td>${escapeHtml(card.ownedStates || "-")}</td>
 
-                <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
-                <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
+        <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
+        <td class="price">${formatEuro(card.avg7)}</td>
+        <td class="price">${formatEuro(card.avg30)}</td>
 
-                <td>
-                    <strong>${Number(card.convictionScore || 0)}/100</strong>
-                    <br>
-                    <span class="${getConfidenceClass(card.confidenceScore)}">
-                        Confiance ${Number(card.confidenceScore || 0)}/100
-                        ${card.confidenceLabel ? `(${escapeHtml(card.confidenceLabel)})` : ""}
-                    </span>
-                </td>
+        <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
+        <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
 
-                <td>${escapeHtml(card.recommendation || "-")}</td>
-<td>
-    <span class="${getSignalClass(card.signal)}">
-        ${escapeHtml(card.signal || "Neutre")}
-    </span>
-</td>                <td>${details || "-"}</td>
-            </tr>
-        `;
-    });
+        <td><strong>${Number(card.convictionScore || 0)}/100</strong></td>
+        <td>${details || "-"}</td>
+    </tr>
+`;    });
 
     updateOpportunityHeaderState();
 }
@@ -753,15 +747,31 @@ function performanceClass(value) {
 }
 
 function getSignalClass(signal) {
-    if (!signal) return "muted";
+    if (!signal) {
+        return "muted";
+    }
 
-    if (signal.includes("Conviction")) return "signal-strong";
-    if (signal.includes("Achat")) return "signal-up";
-    if (signal.includes("Surveillance")) return "signal-watch";
-    if (signal.includes("surveiller")) return "signal-watch";
-    if (signal.includes("Neutre")) return "muted";
-    if (signal.includes("Baisse")) return "signal-down";
-    if (signal.includes("Correction")) return "signal-down";
+    signal = String(signal);
+
+    if (signal.includes("Conviction achat")) {
+        return "signal-strong";
+    }
+
+    if (signal.includes("Achat sélectif")) {
+        return "signal-up";
+    }
+
+    if (
+        signal.includes("À surveiller") ||
+        signal.includes("Surveillance") ||
+        signal.includes("surveiller")
+    ) {
+        return "signal-watch";
+    }
+
+    if (signal.includes("Neutre")) {
+        return "muted";
+    }
 
     return "muted";
 }
@@ -769,9 +779,17 @@ function getSignalClass(signal) {
 function getConfidenceClass(score) {
     const value = Number(score || 0);
 
-    if (value >= 80) return "signal-strong";
-    if (value >= 60) return "signal-up";
-    if (value >= 40) return "muted";
+    if (value >= 80) {
+        return "signal-strong";
+    }
+
+    if (value >= 60) {
+        return "signal-up";
+    }
+
+    if (value >= 40) {
+        return "muted";
+    }
 
     return "score-negative";
 }
