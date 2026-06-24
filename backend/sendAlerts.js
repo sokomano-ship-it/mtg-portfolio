@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
+const { isStrongOpportunity } = require("./opportunityScoring");
 
 const dataPath = path.join(__dirname, "..", "frontend", "data", "portfolio.json");
 
@@ -22,14 +23,6 @@ function formatEuro(value) {
 function formatPercent(value) {
     const number = Number(value) || 0;
     return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
-}
-
-function isStrongOpportunity(card) {
-    return (
-        Number(card.score || 0) >= 15 ||
-        Number(card.trendVs30 || 0) >= 20 ||
-        String(card.signal || "").includes("Forte")
-    );
 }
 
 async function main() {
@@ -69,27 +62,39 @@ async function main() {
         <tr>
             <td><strong>${card.nomCarte}</strong></td>
             <td>${card.edition || "-"}</td>
-            <td>${formatEuro(card.trendPrice)}</td>
+            <td>${card.version || "-"}</td>
+            <td>${card.langue || "-"}</td>
+            <td>${card.ownedStates || "-"}</td>
+            <td>${formatEuro(card.nmPrice)}</td>
+            <td>${formatEuro(card.lowPrice)}</td>
             <td>${formatEuro(card.avg30)}</td>
             <td>${formatPercent(card.trendVs30)}</td>
+            <td>${formatPercent(card.avg1Vs7)}</td>
             <td>${formatPercent(card.score)}</td>
             <td>${card.signal || "-"}</td>
+            <td>${card.alert || "-"}</td>
         </tr>
     `).join("");
 
     const html = `
-        <h2>🔥 Opportunités MTG détectées</h2>
+        <h2>🔥 Opportunités MTG NM détectées</h2>
         <p>${alerts.length} opportunité(s) forte(s) détectée(s).</p>
         <table border="1" cellpadding="6" cellspacing="0">
             <thead>
                 <tr>
                     <th>Carte</th>
                     <th>Édition</th>
+                    <th>Version</th>
+                    <th>Langue</th>
+                    <th>États possédés</th>
                     <th>Prix NM</th>
+                    <th>Low NM</th>
                     <th>Avg 30j</th>
                     <th>Trend vs 30j</th>
+                    <th>Momentum 1j/7j</th>
                     <th>Score</th>
                     <th>Signal</th>
+                    <th>Alerte</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,7 +107,7 @@ async function main() {
     await transporter.sendMail({
         from: `"MTG Portfolio Alerts" <${SMTP_USER}>`,
         to: ALERT_EMAIL_TO,
-        subject: `🔥 ${alerts.length} opportunité(s) MTG détectée(s)`,
+        subject: `🔥 ${alerts.length} opportunité(s) MTG NM détectée(s)`,
         html
     });
 
