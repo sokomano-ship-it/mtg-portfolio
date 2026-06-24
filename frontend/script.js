@@ -564,17 +564,26 @@ function renderOpportunities() {
     tbody.innerHTML = "";
 
     sorted.forEach(card => {
+        const reasons = Array.isArray(card.reasons)
+            ? card.reasons.slice(0, 3).join("<br>")
+            : "";
+
         tbody.innerHTML += `
             <tr>
                 <td><strong>${escapeHtml(card.nomCarte)}</strong></td>
                 <td>${escapeHtml(card.edition || "-")}</td>
-                <td>${escapeHtml(card.etat || "-")}</td>
-                <td>${formatEuro(card.trendPrice)}</td>
-                <td>${formatEuro(card.avg30)}</td>
+                <td>${escapeHtml(card.version || "-")}</td>
+                <td>${escapeHtml(card.langue || "-")}</td>
+                <td>${escapeHtml(card.ownedStates || "-")}</td>
+                <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
+                <td class="price">${formatEuro(card.lowPrice)}</td>
+                <td class="price">${formatEuro(card.avg30)}</td>
                 <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
-                <td class="${performanceClass(card.avg7Vs30)}">${formatPercent(card.avg7Vs30)}</td>
-                <td class="${performanceClass(card.score)}">${formatPercent(card.score)}</td>
-                <td class="${getSignalClass(card.signal)}">${escapeHtml(card.signal)}</td>
+                <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
+                <td><strong>${card.convictionScore || 0}/100</strong></td>
+                <td>${escapeHtml(card.recommendation || "-")}</td>
+                <td class="${getSignalClass(card.signal)}">${escapeHtml(card.signal || "-")}</td>
+                <td>${reasons}</td>
             </tr>
         `;
     });

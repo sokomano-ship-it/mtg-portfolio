@@ -60,34 +60,74 @@ function computeNmOpportunity(card) {
         ? ((trendPrice - lowPrice) / trendPrice) * 100
         : 0;
 
-    let score =
+    let marketScore =
         trendVs30 * 0.35 +
         avg7Vs30 * 0.30 +
         avg1Vs7 * 0.25 +
         lowDiscount * 0.10;
 
-    let signal = "Neutre";
-    let alert = "";
+    let convictionScore = 0;
+    const reasons = [];
 
-    if (trendVs30 >= 25 && avg7Vs30 >= 10 && avg1Vs7 >= 5) {
-        signal = "🔥 Breakout NM";
-        alert = "Forte accélération court terme";
-        score += 10;
-    } else if (avg1 > avg7 && avg7 > avg30 && trendVs30 >= 10) {
-        signal = "📈 Momentum positif NM";
-        alert = "Tendance haussière régulière";
-        score += 5;
-    } else if (trendVs30 >= 35) {
-        signal = "⚠️ Sur-extension NM";
-        alert = "Hausse forte, risque de correction";
-        score -= 5;
-    } else if (trendVs30 <= -15) {
-        signal = "📉 Correction NM";
-        alert = "Prix sous la moyenne 30 jours";
-    } else if (lowDiscount >= 20 && trendVs30 >= 5) {
-        signal = "💎 Opportunité achat NM";
-        alert = "Low price inférieur au trend";
-        score += 5;
+    if (trendPrice >= 5) {
+        convictionScore += 10;
+        reasons.push("Prix NM significatif > 5 €");
+    }
+
+    if (trendVs30 >= 10 && trendVs30 <= 35) {
+        convictionScore += 20;
+        reasons.push(`Trend NM supérieur à la moyenne 30j (${round(trendVs30)} %)`);
+    }
+
+    if (avg1 > avg7 && avg7 > avg30) {
+        convictionScore += 25;
+        reasons.push("Momentum propre : Avg1 > Avg7 > Avg30");
+    }
+
+    if (avg7Vs30 >= 5 && avg7Vs30 <= 25) {
+        convictionScore += 15;
+        reasons.push(`Hausse récente progressive (${round(avg7Vs30)} %)`);
+    }
+
+    if (avg1Vs7 >= 2 && avg1Vs7 <= 20) {
+        convictionScore += 10;
+        reasons.push(`Accélération court terme raisonnable (${round(avg1Vs7)} %)`);
+    }
+
+    if (lowPrice > 0 && lowDiscount >= 5 && lowDiscount <= 25) {
+        convictionScore += 10;
+        reasons.push(`Low NM intéressant (${round(lowDiscount)} % sous le trend)`);
+    }
+
+    if (trendVs30 > 50) {
+        convictionScore -= 25;
+        reasons.push("Pénalité : hausse déjà trop violente");
+    }
+
+    if (avg1Vs7 > 35) {
+        convictionScore -= 15;
+        reasons.push("Pénalité : spike court terme trop brutal");
+    }
+
+    if (trendPrice < 2) {
+        convictionScore -= 20;
+        reasons.push("Pénalité : carte trop peu chère");
+    }
+
+    convictionScore = Math.max(0, Math.min(100, round(convictionScore, 0)));
+
+    let recommendation = "Ignorer";
+    let signal = "Neutre";
+
+    if (convictionScore >= 90) {
+        recommendation = "⭐ Achat fort";
+        signal = "🔥 Conviction achat NM";
+    } else if (convictionScore >= 85) {
+        recommendation = "👍 Achat intéressant";
+        signal = "📈 Achat sélectif NM";
+    } else if (convictionScore >= 75) {
+        recommendation = "👀 Surveillance";
+        signal = "👀 À surveiller";
     }
 
     return {
@@ -108,9 +148,11 @@ function computeNmOpportunity(card) {
         avg1Vs7: round(avg1Vs7),
         lowDiscount: round(lowDiscount),
 
-        score: round(score),
+        score: round(marketScore),
+        convictionScore,
+        recommendation,
         signal,
-        alert
+        reasons
     };
 }
 
@@ -121,19 +163,29 @@ function buildNmOpportunities(cards) {
             number(card.avg30) > 0
         )
         .map(computeNmOpportunity)
-        .sort((a, b) => number(b.score) - number(a.score));
+        .sort((a, b) =>
+            number(b.convictionScore) - number(a.convictionScore) ||
+            number(b.score) - number(a.score)
+        );
 }
 
 function isStrongOpportunity(card) {
-    return (
-        number(card.score) >= 15 ||
-        card.signal === "🔥 Breakout NM" ||
-        card.signal === "💎 Opportunité achat NM"
-    );
+    return number(card.convictionScore) >= 85;
+}
+
+function getEmailOpportunities(opportunities) {
+    return opportunities
+        .filter(isStrongOpportunity)
+        .sort((a, b) =>
+            number(b.convictionScore) - number(a.convictionScore) ||
+            number(b.score) - number(a.score)
+        )
+        .slice(0, 3);
 }
 
 module.exports = {
     buildNmOpportunities,
     computeNmOpportunity,
-    isStrongOpportunity
+    isStrongOpportunity,
+    getEmailOpportunities
 };

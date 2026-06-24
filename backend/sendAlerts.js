@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
-const { isStrongOpportunity } = require("./opportunityScoring");
+const { getEmailOpportunities } = require("./opportunityScoring");
 
 const dataPath = path.join(__dirname, "..", "frontend", "data", "portfolio.json");
 
@@ -33,14 +33,10 @@ async function main() {
 
     const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
     const opportunities = data.opportunities || [];
-
-    const alerts = opportunities
-        .filter(isStrongOpportunity)
-        .sort((a, b) => Number(b.score || 0) - Number(a.score || 0))
-        .slice(0, 10);
+    const alerts = getEmailOpportunities(opportunities);
 
     if (alerts.length === 0) {
-        console.log("Aucune opportunité forte, aucun email envoyé.");
+        console.log("Aucune conviction achat >= 85, aucun email envoyé.");
         return;
     }
 
@@ -58,60 +54,44 @@ async function main() {
         }
     });
 
-    const htmlRows = alerts.map(card => `
-        <tr>
-            <td><strong>${card.nomCarte}</strong></td>
-            <td>${card.edition || "-"}</td>
-            <td>${card.version || "-"}</td>
-            <td>${card.langue || "-"}</td>
-            <td>${card.ownedStates || "-"}</td>
-            <td>${formatEuro(card.nmPrice)}</td>
-            <td>${formatEuro(card.lowPrice)}</td>
-            <td>${formatEuro(card.avg30)}</td>
-            <td>${formatPercent(card.trendVs30)}</td>
-            <td>${formatPercent(card.avg1Vs7)}</td>
-            <td>${formatPercent(card.score)}</td>
-            <td>${card.signal || "-"}</td>
-            <td>${card.alert || "-"}</td>
-        </tr>
+    const cardsHtml = alerts.map((card, index) => `
+        <h3>${index + 1}. ${card.recommendation} — ${card.nomCarte}</h3>
+        <p>
+            <strong>Édition :</strong> ${card.edition || "-"} |
+            <strong>Version :</strong> ${card.version || "-"} |
+            <strong>Langue :</strong> ${card.langue || "-"}
+        </p>
+        <p>
+            <strong>Score conviction :</strong> ${card.convictionScore}/100<br>
+            <strong>Prix NM :</strong> ${formatEuro(card.nmPrice)}<br>
+            <strong>Low NM :</strong> ${formatEuro(card.lowPrice)}<br>
+            <strong>Avg 30j :</strong> ${formatEuro(card.avg30)}<br>
+            <strong>Trend vs 30j :</strong> ${formatPercent(card.trendVs30)}<br>
+            <strong>Momentum 1j/7j :</strong> ${formatPercent(card.avg1Vs7)}
+        </p>
+        <p><strong>Pourquoi :</strong></p>
+        <ul>
+            ${(card.reasons || []).map(reason => `<li>${reason}</li>`).join("")}
+        </ul>
+        <hr>
     `).join("");
 
     const html = `
-        <h2>🔥 Opportunités MTG NM détectées</h2>
-        <p>${alerts.length} opportunité(s) forte(s) détectée(s).</p>
-        <table border="1" cellpadding="6" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Carte</th>
-                    <th>Édition</th>
-                    <th>Version</th>
-                    <th>Langue</th>
-                    <th>États possédés</th>
-                    <th>Prix NM</th>
-                    <th>Low NM</th>
-                    <th>Avg 30j</th>
-                    <th>Trend vs 30j</th>
-                    <th>Momentum 1j/7j</th>
-                    <th>Score</th>
-                    <th>Signal</th>
-                    <th>Alerte</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${htmlRows}
-            </tbody>
-        </table>
+        <h2>🎯 Convictions achat MTG</h2>
+        <p>${alerts.length} carte(s) seulement ont dépassé le seuil strict de 85/100.</p>
+        ${cardsHtml}
         <p>Site : https://sokomano-ship-it.github.io/mtg-portfolio/</p>
+        <p><em>Rappel : ce filtre est volontairement très sélectif. S’il n’y a pas de vraie conviction, aucun email n’est envoyé.</em></p>
     `;
 
     await transporter.sendMail({
         from: `"MTG Portfolio Alerts" <${SMTP_USER}>`,
         to: ALERT_EMAIL_TO,
-        subject: `🔥 ${alerts.length} opportunité(s) MTG NM détectée(s)`,
+        subject: `🎯 ${alerts.length} conviction(s) achat MTG détectée(s)`,
         html
     });
 
-    console.log(`Email envoyé avec ${alerts.length} opportunité(s).`);
+    console.log(`Email envoyé avec ${alerts.length} conviction(s) achat.`);
 }
 
 main().catch(error => {
