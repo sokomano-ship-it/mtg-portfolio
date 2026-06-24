@@ -602,8 +602,11 @@ function renderOpportunities() {
                 </td>
 
                 <td>${escapeHtml(card.recommendation || "-")}</td>
-                <td class="${getSignalClass(card.signal)}">${escapeHtml(card.signal || "-")}</td>
-                <td>${details || "-"}</td>
+<td>
+    <span class="${getSignalClass(card.signal)}">
+        ${escapeHtml(card.signal || "Neutre")}
+    </span>
+</td>                <td>${details || "-"}</td>
             </tr>
         `;
     });
@@ -750,16 +753,17 @@ function performanceClass(value) {
 }
 
 function getSignalClass(signal) {
-    if (!signal) return "";
+    if (!signal) return "muted";
 
     if (signal.includes("Conviction")) return "signal-strong";
     if (signal.includes("Achat")) return "signal-up";
     if (signal.includes("Surveillance")) return "signal-watch";
     if (signal.includes("surveiller")) return "signal-watch";
+    if (signal.includes("Neutre")) return "muted";
     if (signal.includes("Baisse")) return "signal-down";
     if (signal.includes("Correction")) return "signal-down";
 
-    return "";
+    return "muted";
 }
 
 function getConfidenceClass(score) {
