@@ -30,18 +30,20 @@ function deduplicateNmOpportunities(cards) {
             map.set(key, {
                 ...card,
                 quantityOwned: 1,
-                ownedStates: new Set([card.etat || ""])
+                ownedStatesSet: new Set([card.etat || ""])
             });
         } else {
             const existing = map.get(key);
             existing.quantityOwned += 1;
-            existing.ownedStates.add(card.etat || "");
+            existing.ownedStatesSet.add(card.etat || "");
         }
     });
 
     return [...map.values()].map(card => ({
         ...card,
-        ownedStates: [...card.ownedStates].filter(Boolean).join(", ")
+        owned: card.quantityOwned > 0,
+        ownedLabel: card.quantityOwned > 0 ? "Oui" : "Non",
+        ownedStates: [...card.ownedStatesSet].filter(Boolean).join(", ")
     }));
 }
 
@@ -52,72 +54,90 @@ function computeNmOpportunity(card) {
     const avg1 = number(card.avg1);
     const avg7 = number(card.avg7);
     const avg30 = number(card.avg30);
+    const quantityOwned = number(card.quantityOwned);
 
     const trendVs30 = pct(trendPrice, avg30);
     const avg7Vs30 = pct(avg7, avg30);
     const avg1Vs7 = pct(avg1, avg7);
-    const lowDiscount = trendPrice > 0 && lowPrice > 0
-        ? ((trendPrice - lowPrice) / trendPrice) * 100
-        : 0;
 
-    let marketScore =
-        trendVs30 * 0.35 +
-        avg7Vs30 * 0.30 +
-        avg1Vs7 * 0.25 +
-        lowDiscount * 0.10;
+    const lowDiscount =
+        trendPrice > 0 && lowPrice > 0
+            ? ((trendPrice - lowPrice) / trendPrice) * 100
+            : 0;
 
     let convictionScore = 0;
+    let confidenceScore = 0;
     const reasons = [];
+    const warnings = [];
 
     if (trendPrice >= 5) {
         convictionScore += 10;
-        reasons.push("Prix NM significatif > 5 €");
+        confidenceScore += 10;
+        reasons.push("Prix NM significatif supérieur à 5 €");
+    } else {
+        convictionScore -= 20;
+        warnings.push("Carte peu chère : signal moins fiable");
     }
 
     if (trendVs30 >= 10 && trendVs30 <= 35) {
         convictionScore += 20;
+        confidenceScore += 20;
         reasons.push(`Trend NM supérieur à la moyenne 30j (${round(trendVs30)} %)`);
+    } else if (trendVs30 > 50) {
+        convictionScore -= 25;
+        warnings.push("Hausse déjà très forte : risque de spike tardif");
     }
 
     if (avg1 > avg7 && avg7 > avg30) {
         convictionScore += 25;
+        confidenceScore += 25;
         reasons.push("Momentum propre : Avg1 > Avg7 > Avg30");
     }
 
     if (avg7Vs30 >= 5 && avg7Vs30 <= 25) {
         convictionScore += 15;
+        confidenceScore += 15;
         reasons.push(`Hausse récente progressive (${round(avg7Vs30)} %)`);
     }
 
     if (avg1Vs7 >= 2 && avg1Vs7 <= 20) {
         convictionScore += 10;
+        confidenceScore += 10;
         reasons.push(`Accélération court terme raisonnable (${round(avg1Vs7)} %)`);
+    } else if (avg1Vs7 > 35) {
+        convictionScore -= 15;
+        warnings.push("Accélération trop brutale : risque de correction");
     }
 
     if (lowPrice > 0 && lowDiscount >= 5 && lowDiscount <= 25) {
         convictionScore += 10;
+        confidenceScore += 10;
         reasons.push(`Low NM intéressant (${round(lowDiscount)} % sous le trend)`);
     }
 
-    if (trendVs30 > 50) {
-        convictionScore -= 25;
-        reasons.push("Pénalité : hausse déjà trop violente");
-    }
-
-    if (avg1Vs7 > 35) {
+    if (quantityOwned >= 4) {
+        convictionScore -= 35;
+        warnings.push("Déjà possédé en 4+ exemplaires : achat déconseillé");
+    } else if (quantityOwned >= 2) {
         convictionScore -= 15;
-        reasons.push("Pénalité : spike court terme trop brutal");
-    }
-
-    if (trendPrice < 2) {
-        convictionScore -= 20;
-        reasons.push("Pénalité : carte trop peu chère");
+        warnings.push("Déjà possédé en plusieurs exemplaires");
+    } else if (quantityOwned === 1) {
+        convictionScore -= 5;
+        warnings.push("Déjà possédé en 1 exemplaire");
+    } else {
+        convictionScore += 10;
+        reasons.push("Non possédé : diversification intéressante");
     }
 
     convictionScore = Math.max(0, Math.min(100, round(convictionScore, 0)));
+    confidenceScore = Math.max(0, Math.min(100, round(confidenceScore, 0)));
 
     let recommendation = "Ignorer";
     let signal = "Neutre";
+    let confidenceLabel = "Faible";
+
+    if (confidenceScore >= 80) confidenceLabel = "Forte";
+    else if (confidenceScore >= 60) confidenceLabel = "Moyenne";
 
     if (convictionScore >= 90) {
         recommendation = "⭐ Achat fort";
@@ -132,8 +152,10 @@ function computeNmOpportunity(card) {
 
     return {
         ...card,
-        quantityOwned: number(card.quantityOwned) || 1,
-        ownedStates: card.ownedStates || card.etat || "-",
+        quantityOwned,
+        owned: quantityOwned > 0,
+        ownedLabel: quantityOwned > 0 ? "Oui" : "Non",
+        ownedStates: card.ownedStates || "-",
 
         nmPrice: round(trendPrice, 2),
         trendPrice: round(trendPrice, 2),
@@ -148,11 +170,20 @@ function computeNmOpportunity(card) {
         avg1Vs7: round(avg1Vs7),
         lowDiscount: round(lowDiscount),
 
-        score: round(marketScore),
+        score: round(
+            trendVs30 * 0.35 +
+            avg7Vs30 * 0.30 +
+            avg1Vs7 * 0.25 +
+            lowDiscount * 0.10
+        ),
+
         convictionScore,
+        confidenceScore,
+        confidenceLabel,
         recommendation,
         signal,
-        reasons
+        reasons,
+        warnings
     };
 }
 
@@ -165,12 +196,13 @@ function buildNmOpportunities(cards) {
         .map(computeNmOpportunity)
         .sort((a, b) =>
             number(b.convictionScore) - number(a.convictionScore) ||
+            number(b.confidenceScore) - number(a.confidenceScore) ||
             number(b.score) - number(a.score)
         );
 }
 
 function isStrongOpportunity(card) {
-    return number(card.convictionScore) >= 85;
+    return number(card.convictionScore) >= 85 && number(card.confidenceScore) >= 60;
 }
 
 function getEmailOpportunities(opportunities) {
@@ -178,7 +210,7 @@ function getEmailOpportunities(opportunities) {
         .filter(isStrongOpportunity)
         .sort((a, b) =>
             number(b.convictionScore) - number(a.convictionScore) ||
-            number(b.score) - number(a.score)
+            number(b.confidenceScore) - number(a.confidenceScore)
         )
         .slice(0, 3);
 }
