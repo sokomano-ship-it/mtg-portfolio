@@ -1,6 +1,3 @@
-const fs = require("fs");
-const path = require("path");
-
 const isEligible = require("./scoring/eligibilityEngine");
 const computeTrendQuality = require("./scoring/trendEngine");
 const computeMomentumQuality = require("./scoring/momentumEngine");
@@ -11,52 +8,17 @@ const {
     getDecision
 } = require("./scoring/probabilityEngine");
 const buildExplanation = require("./scoring/explanationEngine");
+const {
+    buildHistoryMap,
+    getHistoricalProfile
+} = require("./history/historyEngine");
 const { pct, round } = require("./scoring/utils");
-
-const historyAnalysisPath = path.join(
-    __dirname,
-    "..",
-    "frontend",
-    "data",
-    "price-history-analysis.json"
-);
 
 function number(value) {
     return Number(value) || 0;
 }
 
-function loadJson(filePath, fallback) {
-    if (!fs.existsSync(filePath)) return fallback;
-
-    try {
-        return JSON.parse(fs.readFileSync(filePath, "utf8"));
-    } catch {
-        return fallback;
-    }
-}
-
-function cardKey(card) {
-    return [
-        card.cardmarketId || "",
-        String(card.nomCarte || "").trim().toLowerCase(),
-        String(card.edition || "").trim().toLowerCase(),
-        String(card.version || "").trim().toLowerCase(),
-        String(card.langue || "").trim().toLowerCase()
-    ].join("|");
-}
-
-function buildHistoryMap() {
-    const history = loadJson(historyAnalysisPath, []);
-    const map = new Map();
-
-    history.forEach(row => {
-        map.set(cardKey(row), row);
-    });
-
-    return map;
-}
-
-function opportunityKey(card) {
+function cardIdentityKey(card) {
     return [
         card.nomCarte || "",
         card.edition || "",
@@ -69,7 +31,7 @@ function deduplicateNmOpportunities(cards) {
     const map = new Map();
 
     cards.forEach(card => {
-        const key = opportunityKey(card);
+        const key = cardIdentityKey(card);
 
         if (!map.has(key)) {
             map.set(key, {
@@ -104,7 +66,7 @@ function computeNmOpportunity(card, historyMap) {
     const avg7Vs30 = pct(avg7, avg30);
     const avg1Vs7 = pct(avg1, avg7);
 
-    const historical = historyMap.get(cardKey(card)) || null;
+    const historical = getHistoricalProfile(card, historyMap);
 
     const reasons = [];
     const warnings = [];

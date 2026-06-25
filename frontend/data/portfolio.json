@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T19:31:19.548Z",
+  "generatedAt": "2026-06-25T19:50:09.033Z",
   "cards": [
     {
       "id": 255,
@@ -5895,25 +5895,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 15672,
-        "nomCarte": "Strip Mine",
-        "edition": "Renaissance",
-        "version": "",
-        "langue": "French",
-        "latestDate": "2026-06-25",
         "historyPoints": 2,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 6.8,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 1,
-        "volatility": null,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
         "acceleration": null,
+        "volatility30": 0,
+        "high30d": 6.8,
+        "low30d": 6.8,
+        "position30dPct": 100,
         "high90d": 6.8,
         "low90d": 6.8,
-        "position90dPct": 100,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": 100
       }
     },
     {
@@ -5950,9 +5947,9 @@
       "trendQuality": 99,
       "momentumQuality": 80,
       "remainingPotential": 90,
-      "riskMultiplier": 0.91,
-      "buyProbability": 83,
-      "convictionScore": 83,
+      "riskMultiplier": 0.88,
+      "buyProbability": 80,
+      "convictionScore": 80,
       "decision": "🟡 Achat intéressant",
       "reasons": [
         "Momentum propre"
@@ -5976,25 +5973,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 5535,
-        "nomCarte": "Dark Ritual",
-        "edition": "Foreign White Bordered",
-        "version": "",
-        "langue": "French",
-        "latestDate": "2026-06-25",
         "historyPoints": 3,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 2.71,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 2,
-        "volatility": 0,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
         "acceleration": null,
+        "volatility30": 0,
+        "high30d": 2.71,
+        "low30d": 2.71,
+        "position30dPct": 100,
         "high90d": 2.71,
         "low90d": 2.71,
-        "position90dPct": 100,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": 100
       }
     },
     {
@@ -6057,111 +6051,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 7226,
-        "nomCarte": "Urborg",
-        "edition": "Legends",
-        "version": "",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 19.85,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
-      }
-    },
-    {
-      "id": 356,
-      "nomCarte": "Dark Ritual",
-      "nomBase": "Dark Ritual",
-      "version": null,
-      "edition": "Revised",
-      "langue": "English",
-      "etat": "EX",
-      "scryfallId": "48cb9467-657e-453f-afc8-1bf7121570ad",
-      "imageUrl": "https://cards.scryfall.io/normal/front/4/8/48cb9467-657e-453f-afc8-1bf7121570ad.jpg?1559596684",
-      "priceUsd": 5.12,
-      "priceEur": 2.57,
-      "cardmarketId": 5535,
-      "createdAt": "2026-06-22 18:42:10",
-      "categorie": "Classeur",
-      "trendPrice": 2.71,
-      "lowPrice": 0.49,
-      "avgPrice": 2.33,
-      "avg1": 2.64,
-      "avg7": 2.47,
-      "avg30": 2.37,
-      "prixEtat": 2.49,
-      "quantityOwned": 4,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "EX, NM",
-      "nmPrice": 2.71,
-      "trendVs30": 14.35,
-      "avg7Vs30": 4.22,
-      "avg1Vs7": 6.88,
-      "trendQuality": 99,
-      "momentumQuality": 80,
-      "remainingPotential": 90,
-      "riskMultiplier": 0.77,
-      "buyProbability": 70,
-      "convictionScore": 70,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre"
-      ],
-      "warnings": [
-        "Historique encore court",
-        "Carte peu chère",
-        "Déjà possédé en 4 exemplaires ou plus"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        },
-        {
-          "type": "warning",
-          "text": "Déjà possédé en 4 exemplaires ou plus"
-        }
-      ],
-      "historical": {
-        "cardmarketId": 5535,
-        "nomCarte": "Dark Ritual",
-        "edition": "Revised",
-        "version": "",
-        "langue": "English",
-        "latestDate": "2026-06-25",
-        "historyPoints": 4,
-        "historyAgeDays": 0,
-        "latestTrendPrice": 2.71,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
-        "uptrendDays": 3,
-        "volatility": 0,
-        "acceleration": null,
-        "high90d": 2.71,
-        "low90d": 2.71,
-        "position90dPct": 100,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6224,25 +6129,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 6848,
-        "nomCarte": "War Elephant (V.1)",
-        "edition": "Arabian Nights",
-        "version": "V.1",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 5.72,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6305,25 +6207,105 @@
         }
       ],
       "historical": {
-        "cardmarketId": 6848,
-        "nomCarte": "War Elephant (V.2)",
-        "edition": "Arabian Nights",
-        "version": "V.2",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 5.72,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
+      }
+    },
+    {
+      "id": 356,
+      "nomCarte": "Dark Ritual",
+      "nomBase": "Dark Ritual",
+      "version": null,
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "48cb9467-657e-453f-afc8-1bf7121570ad",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/8/48cb9467-657e-453f-afc8-1bf7121570ad.jpg?1559596684",
+      "priceUsd": 5.12,
+      "priceEur": 2.57,
+      "cardmarketId": 5535,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Classeur",
+      "trendPrice": 2.71,
+      "lowPrice": 0.49,
+      "avgPrice": 2.33,
+      "avg1": 2.64,
+      "avg7": 2.47,
+      "avg30": 2.37,
+      "prixEtat": 2.49,
+      "quantityOwned": 4,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX, NM",
+      "nmPrice": 2.71,
+      "trendVs30": 14.35,
+      "avg7Vs30": 4.22,
+      "avg1Vs7": 6.88,
+      "trendQuality": 99,
+      "momentumQuality": 80,
+      "remainingPotential": 90,
+      "riskMultiplier": 0.75,
+      "buyProbability": 68,
+      "convictionScore": 68,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère",
+        "Déjà possédé en 4 exemplaires ou plus"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        },
+        {
+          "type": "warning",
+          "text": "Déjà possédé en 4 exemplaires ou plus"
+        }
+      ],
+      "historical": {
+        "historyPoints": 4,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 2.71,
+        "historyAgeDays": 0,
+        "uptrendDays": 3,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 2.71,
+        "low30d": 2.71,
+        "position30dPct": 100,
+        "high90d": 2.71,
+        "low90d": 2.71,
+        "position90dPct": 100
       }
     },
     {
@@ -6391,25 +6373,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 6783,
-        "nomCarte": "Erg Raiders (V.1)",
-        "edition": "Arabian Nights",
-        "version": "V.1",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 6.12,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6472,25 +6451,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 7053,
-        "nomCarte": "Undertow",
-        "edition": "Legends",
-        "version": "",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 1.86,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6558,25 +6534,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 5714,
-        "nomCarte": "Armageddon",
-        "edition": "Revised",
-        "version": "",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 13.53,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6633,25 +6606,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 6960,
-        "nomCarte": "Detonate",
-        "edition": "Antiquities",
-        "version": "",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 4.12,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6719,25 +6689,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 4865,
-        "nomCarte": "Llanowar Elves",
-        "edition": "Unlimited",
-        "version": "",
-        "langue": "English",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 10.84,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     },
     {
@@ -6794,25 +6761,22 @@
         }
       ],
       "historical": {
-        "cardmarketId": 15272,
-        "nomCarte": "Channel",
-        "edition": "Foreign Black Bordered",
-        "version": "",
-        "langue": "French",
-        "latestDate": "2026-06-25",
         "historyPoints": 1,
-        "historyAgeDays": 0,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
         "latestTrendPrice": 0.99,
-        "change7d": null,
-        "change30d": null,
-        "change90d": null,
+        "historyAgeDays": 0,
         "uptrendDays": 0,
-        "volatility": null,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
         "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
         "high90d": null,
         "low90d": null,
-        "position90dPct": null,
-        "trendClassification": "Historique insuffisant"
+        "position90dPct": null
       }
     }
   ],
