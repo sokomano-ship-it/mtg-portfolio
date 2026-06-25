@@ -4,6 +4,7 @@ let allOpportunities = [];
 
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
+
 let currentOpportunitySort = "buyProbability";
 
 let currentOpportunityDirection = "desc";
@@ -593,13 +594,12 @@ function renderOpportunities() {
                 <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
 
                 <td>
-                    <strong>${Number(card.buyProbability || card.convictionScore || 0)} %</strong><br>
+                    <strong>${Number(card.buyProbability || 0)} %</strong><br>
                     <span class="muted">${escapeHtml(card.decision || "")}</span>
                 </td>
 
-                <td>
-                    <strong>${Number(card.remainingPotential || 0)} %</strong>
-                </td>
+                <td><strong>${Number(card.timingScore || 0)} %</strong></td>
+                <td><strong>${Number(card.remainingPotential || 0)} %</strong></td>
 
                 <td>
                     <span class="muted">

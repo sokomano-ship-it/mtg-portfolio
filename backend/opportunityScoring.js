@@ -3,6 +3,7 @@ const computeTrendQuality = require("./scoring/trendEngine");
 const computeMomentumQuality = require("./scoring/momentumEngine");
 const computeRemainingPotential = require("./scoring/potentialEngine");
 const computeRiskMultiplier = require("./scoring/riskEngine");
+const computeTimingScore = require("./scoring/timingEngine");
 const {
     computeBuyProbability,
     getDecision
@@ -95,6 +96,14 @@ function computeNmOpportunity(card, historyMap) {
         warnings
     );
 
+    const timingScore = computeTimingScore(
+        trendVs30,
+        avg1Vs7,
+        historical,
+        reasons,
+        warnings
+    );
+
     const riskMultiplier = computeRiskMultiplier(
         trendPrice,
         trendVs30,
@@ -109,10 +118,11 @@ function computeNmOpportunity(card, historyMap) {
         trendQuality,
         momentumQuality,
         remainingPotential,
+        timingScore,
         riskMultiplier
     );
 
-    const decision = getDecision(buyProbability);
+    const decision = getDecision(buyProbability, timingScore);
     const explanation = buildExplanation(reasons, warnings);
 
     return {
@@ -136,6 +146,7 @@ function computeNmOpportunity(card, historyMap) {
         trendQuality,
         momentumQuality,
         remainingPotential,
+        timingScore,
         riskMultiplier,
         buyProbability,
 
@@ -165,6 +176,7 @@ function getEmailOpportunities(opportunities) {
     return opportunities
         .filter(card =>
             number(card.buyProbability) >= 85 &&
+            number(card.timingScore) >= 80 &&
             number(card.remainingPotential) >= 65 &&
             number(card.riskMultiplier) >= 0.75
         )

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T19:50:09.033Z",
+  "generatedAt": "2026-06-25T20:11:20.982Z",
   "cards": [
     {
       "id": 255,
@@ -5869,16 +5869,19 @@
       "trendQuality": 85,
       "momentumQuality": 80,
       "remainingPotential": 92,
+      "timingScore": 100,
       "riskMultiplier": 1,
       "buyProbability": 88,
       "convictionScore": 88,
       "decision": "🟢 Achat fort",
       "reasons": [
         "Momentum propre",
+        "Timing renforcé par une volatilité faible",
         "Prix NM significatif"
       ],
       "warnings": [
-        "Historique encore court"
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
       ],
       "explanation": [
         {
@@ -5887,11 +5890,19 @@
         },
         {
           "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
           "text": "Prix NM significatif"
         },
         {
           "type": "warning",
           "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         }
       ],
       "historical": {
@@ -5947,15 +5958,18 @@
       "trendQuality": 99,
       "momentumQuality": 80,
       "remainingPotential": 90,
+      "timingScore": 100,
       "riskMultiplier": 0.88,
       "buyProbability": 80,
       "convictionScore": 80,
       "decision": "🟡 Achat intéressant",
       "reasons": [
-        "Momentum propre"
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible"
       ],
       "warnings": [
         "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours",
         "Carte peu chère"
       ],
       "explanation": [
@@ -5964,8 +5978,16 @@
           "text": "Momentum propre"
         },
         {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
           "type": "warning",
           "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         },
         {
           "type": "warning",
@@ -5989,84 +6011,6 @@
         "high90d": 2.71,
         "low90d": 2.71,
         "position90dPct": 100
-      }
-    },
-    {
-      "id": 345,
-      "nomCarte": "Urborg",
-      "nomBase": "Urborg",
-      "version": null,
-      "edition": "Legends",
-      "langue": "English",
-      "etat": "EX",
-      "scryfallId": "d0a261d0-7678-46f7-9285-d541486567d8",
-      "imageUrl": "https://cards.scryfall.io/normal/front/d/0/d0a261d0-7678-46f7-9285-d541486567d8.jpg?1562860894",
-      "priceUsd": 18.22,
-      "priceEur": 19.85,
-      "cardmarketId": 7226,
-      "createdAt": "2026-06-22 18:42:10",
-      "categorie": "Mono Noir",
-      "trendPrice": 19.85,
-      "lowPrice": 11.99,
-      "avgPrice": 19.45,
-      "avg1": 23.67,
-      "avg7": 18.47,
-      "avg30": 18.14,
-      "prixEtat": 18.26,
-      "quantityOwned": 1,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "EX",
-      "nmPrice": 19.85,
-      "trendVs30": 9.43,
-      "avg7Vs30": 1.82,
-      "avg1Vs7": 28.15,
-      "trendQuality": 67,
-      "momentumQuality": 57,
-      "remainingPotential": 72,
-      "riskMultiplier": 1,
-      "buyProbability": 70,
-      "convictionScore": 70,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Historique encore court"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        }
-      ],
-      "historical": {
-        "historyPoints": 1,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-06-25",
-        "latestTrendPrice": 19.85,
-        "historyAgeDays": 0,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": null,
-        "slope30PerDay": null,
-        "acceleration": null,
-        "volatility30": null,
-        "high30d": null,
-        "low30d": null,
-        "position30dPct": null,
-        "high90d": null,
-        "low90d": null,
-        "position90dPct": null
       }
     },
     {
@@ -6103,9 +6047,10 @@
       "trendQuality": 88,
       "momentumQuality": 8,
       "remainingPotential": 85,
+      "timingScore": 88,
       "riskMultiplier": 1,
-      "buyProbability": 68,
-      "convictionScore": 68,
+      "buyProbability": 70,
+      "convictionScore": 70,
       "decision": "👀 Surveillance",
       "reasons": [
         "Prix NM significatif"
@@ -6181,9 +6126,10 @@
       "trendQuality": 88,
       "momentumQuality": 8,
       "remainingPotential": 85,
+      "timingScore": 88,
       "riskMultiplier": 1,
-      "buyProbability": 68,
-      "convictionScore": 68,
+      "buyProbability": 70,
+      "convictionScore": 70,
       "decision": "👀 Surveillance",
       "reasons": [
         "Prix NM significatif"
@@ -6211,6 +6157,85 @@
         "firstDate": "2026-06-25",
         "latestDate": "2026-06-25",
         "latestTrendPrice": 5.72,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      }
+    },
+    {
+      "id": 345,
+      "nomCarte": "Urborg",
+      "nomBase": "Urborg",
+      "version": null,
+      "edition": "Legends",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "d0a261d0-7678-46f7-9285-d541486567d8",
+      "imageUrl": "https://cards.scryfall.io/normal/front/d/0/d0a261d0-7678-46f7-9285-d541486567d8.jpg?1562860894",
+      "priceUsd": 18.22,
+      "priceEur": 19.85,
+      "cardmarketId": 7226,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Mono Noir",
+      "trendPrice": 19.85,
+      "lowPrice": 11.99,
+      "avgPrice": 19.45,
+      "avg1": 23.67,
+      "avg7": 18.47,
+      "avg30": 18.14,
+      "prixEtat": 18.26,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 19.85,
+      "trendVs30": 9.43,
+      "avg7Vs30": 1.82,
+      "avg1Vs7": 28.15,
+      "trendQuality": 67,
+      "momentumQuality": 57,
+      "remainingPotential": 72,
+      "timingScore": 76,
+      "riskMultiplier": 1,
+      "buyProbability": 70,
+      "convictionScore": 70,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 19.85,
         "historyAgeDays": 0,
         "uptrendDays": 0,
         "positiveDaysRatio30": null,
@@ -6259,15 +6284,18 @@
       "trendQuality": 99,
       "momentumQuality": 80,
       "remainingPotential": 90,
+      "timingScore": 100,
       "riskMultiplier": 0.75,
       "buyProbability": 68,
       "convictionScore": 68,
       "decision": "👀 Surveillance",
       "reasons": [
-        "Momentum propre"
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible"
       ],
       "warnings": [
         "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours",
         "Carte peu chère",
         "Déjà possédé en 4 exemplaires ou plus"
       ],
@@ -6277,8 +6305,16 @@
           "text": "Momentum propre"
         },
         {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
           "type": "warning",
           "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         },
         {
           "type": "warning",
@@ -6306,6 +6342,85 @@
         "high90d": 2.71,
         "low90d": 2.71,
         "position90dPct": 100
+      }
+    },
+    {
+      "id": 340,
+      "nomCarte": "Undertow",
+      "nomBase": "Undertow",
+      "version": null,
+      "edition": "Legends",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "cf05e5c9-b7e4-4bd8-ab73-b54565710527",
+      "imageUrl": "https://cards.scryfall.io/normal/front/c/f/cf05e5c9-b7e4-4bd8-ab73-b54565710527.jpg?1562860890",
+      "priceUsd": 1.54,
+      "priceEur": 1.86,
+      "cardmarketId": 7053,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Classeur",
+      "trendPrice": 1.86,
+      "lowPrice": 0.95,
+      "avgPrice": 1.84,
+      "avg1": 1.75,
+      "avg7": 1.75,
+      "avg30": 1.69,
+      "prixEtat": 1.71,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 1.86,
+      "trendVs30": 10.06,
+      "avg7Vs30": 3.55,
+      "avg1Vs7": 0,
+      "trendQuality": 72,
+      "momentumQuality": 54,
+      "remainingPotential": 85,
+      "timingScore": 89,
+      "riskMultiplier": 0.88,
+      "buyProbability": 67,
+      "convictionScore": 67,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 1.86,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
       }
     },
     {
@@ -6342,6 +6457,7 @@
       "trendQuality": 98,
       "momentumQuality": 10,
       "remainingPotential": 70,
+      "timingScore": 74,
       "riskMultiplier": 1,
       "buyProbability": 66,
       "convictionScore": 66,
@@ -6392,84 +6508,6 @@
       }
     },
     {
-      "id": 340,
-      "nomCarte": "Undertow",
-      "nomBase": "Undertow",
-      "version": null,
-      "edition": "Legends",
-      "langue": "English",
-      "etat": "EX",
-      "scryfallId": "cf05e5c9-b7e4-4bd8-ab73-b54565710527",
-      "imageUrl": "https://cards.scryfall.io/normal/front/c/f/cf05e5c9-b7e4-4bd8-ab73-b54565710527.jpg?1562860890",
-      "priceUsd": 1.54,
-      "priceEur": 1.86,
-      "cardmarketId": 7053,
-      "createdAt": "2026-06-22 18:42:10",
-      "categorie": "Classeur",
-      "trendPrice": 1.86,
-      "lowPrice": 0.95,
-      "avgPrice": 1.84,
-      "avg1": 1.75,
-      "avg7": 1.75,
-      "avg30": 1.69,
-      "prixEtat": 1.71,
-      "quantityOwned": 1,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "EX",
-      "nmPrice": 1.86,
-      "trendVs30": 10.06,
-      "avg7Vs30": 3.55,
-      "avg1Vs7": 0,
-      "trendQuality": 72,
-      "momentumQuality": 54,
-      "remainingPotential": 85,
-      "riskMultiplier": 0.88,
-      "buyProbability": 66,
-      "convictionScore": 66,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum positif"
-      ],
-      "warnings": [
-        "Historique encore court",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": {
-        "historyPoints": 1,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-06-25",
-        "latestTrendPrice": 1.86,
-        "historyAgeDays": 0,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": null,
-        "slope30PerDay": null,
-        "acceleration": null,
-        "volatility30": null,
-        "high30d": null,
-        "low30d": null,
-        "position30dPct": null,
-        "high90d": null,
-        "low90d": null,
-        "position90dPct": null
-      }
-    },
-    {
       "id": 351,
       "nomCarte": "Armageddon",
       "nomBase": "Armageddon",
@@ -6503,9 +6541,10 @@
       "trendQuality": 85,
       "momentumQuality": 10,
       "remainingPotential": 72,
+      "timingScore": 75,
       "riskMultiplier": 1,
-      "buyProbability": 63,
-      "convictionScore": 63,
+      "buyProbability": 64,
+      "convictionScore": 64,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum positif",
@@ -6586,9 +6625,10 @@
       "trendQuality": 68,
       "momentumQuality": 35,
       "remainingPotential": 86,
+      "timingScore": 90,
       "riskMultiplier": 0.88,
-      "buyProbability": 61,
-      "convictionScore": 61,
+      "buyProbability": 63,
+      "convictionScore": 63,
       "decision": "👀 Surveillance",
       "reasons": [],
       "warnings": [
@@ -6658,6 +6698,7 @@
       "trendQuality": 85,
       "momentumQuality": 10,
       "remainingPotential": 64,
+      "timingScore": 69,
       "riskMultiplier": 1,
       "buyProbability": 60,
       "convictionScore": 60,
@@ -6741,6 +6782,248 @@
       "trendQuality": 54,
       "momentumQuality": 35,
       "remainingPotential": 81,
+      "timingScore": 86,
+      "riskMultiplier": 0.88,
+      "buyProbability": 59,
+      "convictionScore": 59,
+      "decision": "Ignorer",
+      "reasons": [],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 0.99,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      }
+    },
+    {
+      "id": 334,
+      "nomCarte": "Avoid Fate",
+      "nomBase": "Avoid Fate",
+      "version": null,
+      "edition": "Legends",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "92f1509e-6ed5-4009-a031-ea84b43cbd1b",
+      "imageUrl": "https://cards.scryfall.io/normal/front/9/2/92f1509e-6ed5-4009-a031-ea84b43cbd1b.jpg?1562859699",
+      "priceUsd": 16.13,
+      "priceEur": 7.62,
+      "cardmarketId": 7060,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Classeur",
+      "trendPrice": 7.59,
+      "lowPrice": 5.95,
+      "avgPrice": 7.68,
+      "avg1": 8.22,
+      "avg7": 7.98,
+      "avg30": 7.96,
+      "prixEtat": 6.98,
+      "quantityOwned": 3,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 7.59,
+      "trendVs30": -4.65,
+      "avg7Vs30": 0.25,
+      "avg1Vs7": 3.01,
+      "trendQuality": 0,
+      "momentumQuality": 80,
+      "remainingPotential": 62,
+      "timingScore": 81,
+      "riskMultiplier": 1,
+      "buyProbability": 58,
+      "convictionScore": 58,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 7.59,
+        "historyAgeDays": 0,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 7.59,
+        "low30d": 7.59,
+        "position30dPct": 100,
+        "high90d": 7.59,
+        "low90d": 7.59,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 368,
+      "nomCarte": "Taiga",
+      "nomBase": "Taiga",
+      "version": null,
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "54c5c65a-a444-4e0f-ae44-a3722cdd32a1",
+      "imageUrl": "https://cards.scryfall.io/normal/front/5/4/54c5c65a-a444-4e0f-ae44-a3722cdd32a1.jpg?1559596847",
+      "priceUsd": 402.93,
+      "priceEur": 255.48,
+      "cardmarketId": 5830,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Classeur",
+      "trendPrice": 251.68,
+      "lowPrice": 175,
+      "avgPrice": 236.74,
+      "avg1": 233,
+      "avg7": 235.37,
+      "avg30": 236.71,
+      "prixEtat": 231.55,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 251.68,
+      "trendVs30": 6.32,
+      "avg7Vs30": -0.57,
+      "avg1Vs7": -1.01,
+      "trendQuality": 45,
+      "momentumQuality": 11,
+      "remainingPotential": 73,
+      "timingScore": 79,
+      "riskMultiplier": 1,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 251.68,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      }
+    },
+    {
+      "id": 373,
+      "nomCarte": "Wormwood Treefolk",
+      "nomBase": "Wormwood Treefolk",
+      "version": null,
+      "edition": "The Dark",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "2fa20173-e88a-4b14-9c54-14567ca5571c",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/f/2fa20173-e88a-4b14-9c54-14567ca5571c.jpg?1562906142",
+      "priceUsd": 4.53,
+      "priceEur": 4.17,
+      "cardmarketId": 7336,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Classeur",
+      "trendPrice": 4.2,
+      "lowPrice": 2.39,
+      "avgPrice": 4.94,
+      "avg1": 3.99,
+      "avg7": 3.63,
+      "avg30": 3.95,
+      "prixEtat": 3.86,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 4.2,
+      "trendVs30": 6.33,
+      "avg7Vs30": -8.1,
+      "avg1Vs7": 9.92,
+      "trendQuality": 45,
+      "momentumQuality": 35,
+      "remainingPotential": 78,
+      "timingScore": 83,
       "riskMultiplier": 0.88,
       "buyProbability": 56,
       "convictionScore": 56,
@@ -6764,7 +7047,86 @@
         "historyPoints": 1,
         "firstDate": "2026-06-25",
         "latestDate": "2026-06-25",
-        "latestTrendPrice": 0.99,
+        "latestTrendPrice": 4.2,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      }
+    },
+    {
+      "id": 332,
+      "nomCarte": "Hypnotic Specter",
+      "nomBase": "Hypnotic Specter",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "English",
+      "etat": "GD",
+      "scryfallId": "b5900350-be08-4904-8f1b-cc180ed08485",
+      "imageUrl": "https://cards.scryfall.io/normal/front/b/5/b5900350-be08-4904-8f1b-cc180ed08485.jpg?1591104637",
+      "priceUsd": 3.58,
+      "priceEur": 4.91,
+      "cardmarketId": 5860,
+      "createdAt": "2026-06-22 18:42:10",
+      "categorie": "Mono Noir",
+      "trendPrice": 5.63,
+      "lowPrice": 1.25,
+      "avgPrice": 5.75,
+      "avg1": 6.86,
+      "avg7": 6.05,
+      "avg30": 5.65,
+      "prixEtat": 4.62,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "GD",
+      "nmPrice": 5.63,
+      "trendVs30": -0.35,
+      "avg7Vs30": 7.08,
+      "avg1Vs7": 13.39,
+      "trendQuality": 0,
+      "momentumQuality": 80,
+      "remainingPotential": 62,
+      "timingScore": 70,
+      "riskMultiplier": 1,
+      "buyProbability": 55,
+      "convictionScore": 55,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-25",
+        "latestTrendPrice": 5.63,
         "historyAgeDays": 0,
         "uptrendDays": 0,
         "positiveDaysRatio30": null,
