@@ -4,8 +4,8 @@ let allOpportunities = [];
 
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
+let currentOpportunitySort = "convictionScore";
 
-let currentOpportunitySort = "score";
 let currentOpportunityDirection = "desc";
 
 let currentCollectionSort = "nomCarte";
@@ -553,57 +553,62 @@ function renderOpportunities() {
     const tbody = document.getElementById("opportunities-body");
     if (!tbody) return;
 
-    const sorted = [...allOpportunities]
-        .sort((a, b) => {
-            const result = compareValues(
-                a[currentOpportunitySort],
-                b[currentOpportunitySort],
-                currentOpportunityDirection
-            );
-
-            return result;
-        })
-        .slice(0, 30);
+    const sorted = [...allOpportunities].sort((a, b) => {
+        return compareValues(
+            a[currentOpportunitySort],
+            b[currentOpportunitySort],
+            currentOpportunityDirection
+        );
+    });
 
     tbody.innerHTML = "";
 
     sorted.forEach(card => {
         const reasons = Array.isArray(card.reasons)
-            ? card.reasons.map(reason => `✅ ${escapeHtml(reason)}`).join("<br>")
+            ? card.reasons.map(reason => "✅ " + escapeHtml(reason)).join("<br>")
             : "";
 
         const warnings = Array.isArray(card.warnings)
-            ? card.warnings.map(warning => `⚠️ ${escapeHtml(warning)}`).join("<br>")
+            ? card.warnings.map(warning => "⚠️ " + escapeHtml(warning)).join("<br>")
             : "";
 
         const details = [reasons, warnings].filter(Boolean).join("<br>");
 
-        const ownedLabel =
-            card.ownedLabel ||
-            (Number(card.quantityOwned || 0) > 0 ? "Oui" : "Non");
+        tbody.innerHTML += `
+            <tr>
+                <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
+                <td>${escapeHtml(card.edition || "-")}</td>
+                <td>${escapeHtml(card.version || "-")}</td>
+                <td>${escapeHtml(card.langue || "-")}</td>
 
-tbody.innerHTML += `
-    <tr>
-        <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
-        <td>${escapeHtml(card.edition || "-")}</td>
-        <td>${escapeHtml(card.version || "-")}</td>
-        <td>${escapeHtml(card.langue || "-")}</td>
+                <td>${escapeHtml(card.ownedLabel || "-")}</td>
+                <td>${Number(card.quantityOwned || 0)}</td>
+                <td>${escapeHtml(card.ownedStates || "-")}</td>
 
-        <td>${escapeHtml(card.ownedLabel || "-")}</td>
-        <td>${Number(card.quantityOwned || 0)}</td>
-        <td>${escapeHtml(card.ownedStates || "-")}</td>
+                <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
+                <td class="price">${formatEuro(card.avg7)}</td>
+                <td class="price">${formatEuro(card.avg30)}</td>
 
-        <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
-        <td class="price">${formatEuro(card.avg7)}</td>
-        <td class="price">${formatEuro(card.avg30)}</td>
+                <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
+                <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
 
-        <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
-        <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
+                <td>
+                    <strong>${Number(card.potentialScore || 0)}/25</strong>
+                </td>
 
-        <td><strong>${Number(card.convictionScore || 0)}/100</strong></td>
-        <td>${details || "-"}</td>
-    </tr>
-`;    });
+                <td>
+                    <strong>${Number(card.convictionScore || 0)}/100</strong><br>
+                    <span class="muted">
+                        Tendance ${Number(card.trendScore || 0)}/25 ·
+                        Momentum ${Number(card.momentumScore || 0)}/30 ·
+                        Risque ${Number(card.riskScore || 0)}/20
+                    </span>
+                </td>
+
+                <td>${details || "-"}</td>
+            </tr>
+        `;
+    });
 
     updateOpportunityHeaderState();
 }
