@@ -4,7 +4,7 @@ let allOpportunities = [];
 
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
-let currentOpportunitySort = "convictionScore";
+let currentOpportunitySort = "buyProbability";
 
 let currentOpportunityDirection = "desc";
 
@@ -593,15 +593,19 @@ function renderOpportunities() {
                 <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
 
                 <td>
-                    <strong>${Number(card.potentialScore || 0)}/25</strong>
+                    <strong>${Number(card.buyProbability || card.convictionScore || 0)} %</strong><br>
+                    <span class="muted">${escapeHtml(card.decision || "")}</span>
                 </td>
 
                 <td>
-                    <strong>${Number(card.convictionScore || 0)}/100</strong><br>
+                    <strong>${Number(card.remainingPotential || 0)} %</strong>
+                </td>
+
+                <td>
                     <span class="muted">
-                        Tendance ${Number(card.trendScore || 0)}/25 ·
-                        Momentum ${Number(card.momentumScore || 0)}/30 ·
-                        Risque ${Number(card.riskScore || 0)}/20
+                        Tendance ${Number(card.trendQuality || 0)} %<br>
+                        Momentum ${Number(card.momentumQuality || 0)} %<br>
+                        Risque ×${Number(card.riskMultiplier || 0)}
                     </span>
                 </td>
 
