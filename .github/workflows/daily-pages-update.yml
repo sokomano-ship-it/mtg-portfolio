@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: "0 5 * * *"
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 permissions:
   contents: write
@@ -24,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,10 +32,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Update portfolio data
+      - name: Build portfolio
         run: npm run build:pages
 
-      - name: Send opportunity alert email
+      - name: Send alerts
         run: npm run send:alerts
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -45,21 +44,29 @@ jobs:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
 
-      - name: Commit updated data
+      - name: Commit generated files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add database/portfolio.db frontend/data/portfolio.json
-          git commit -m "Daily portfolio update" || echo "No changes to commit"
-          git push || echo "Nothing to push"
 
-      - name: Configure GitHub Pages
+          git add database/portfolio.db
+          git add frontend/data/portfolio.json
+          git add frontend/data/price-history-snapshots.json
+          git add frontend/data/price-history-analysis.json
+          git add frontend/data/alerts-history.json
+
+          git diff --cached --quiet || git commit -m "Daily portfolio update"
+
+      - name: Push
+        run: git push || echo "Nothing to push"
+
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Pages artifact
+      - name: Upload Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy Pages
         uses: actions/deploy-pages@v4

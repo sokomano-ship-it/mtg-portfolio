@@ -1,8 +1,6 @@
-name: Daily Cardmarket Update
+name: Manual Cardmarket Update
 
 on:
-  schedule:
-    - cron: "0 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,25 +19,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm install
 
-      - name: Update prices
+      - name: Update Cardmarket prices
         run: |
           node backend/updateCardmarketFromPriceGuide.js
           node backend/updatePortfolioValue.js
 
-      - name: Commit database changes
+      - name: Commit database
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           git add database/portfolio.db
 
-          git diff --cached --quiet || git commit -m "Daily Cardmarket update"
+          git diff --cached --quiet || git commit -m "Manual Cardmarket update"
 
-      - name: Push changes
-        run: |
-          git push
+      - name: Push
+        run: git push || echo "Nothing to push"
