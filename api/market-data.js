@@ -1,5 +1,3 @@
-const { Octokit } = require("@octokit/rest");
-
 const OWNER = process.env.GITHUB_OWNER;
 const REPO = process.env.GITHUB_REPO;
 const TOKEN = process.env.GITHUB_TOKEN;
@@ -11,77 +9,106 @@ const FILES = {
   observations: "backend/data/marketObservations.json"
 };
 
+function sendCors(res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,x-admin-password");
+}
+
 function checkAuth(req) {
   const password = req.headers["x-admin-password"];
   return password && password === ADMIN_PASSWORD;
 }
 
-async function getJsonFile(octokit, path) {
-  try {
-    const res = await octokit.repos.getContent({
-      owner: OWNER,
-      repo: REPO,
-      path,
-      ref: BRANCH
-    });
-
-    const content = Buffer.from(res.data.content, "base64").toString("utf8");
-
-    return {
-      json: JSON.parse(content),
-      sha: res.data.sha
-    };
-  } catch {
-    return {
-      json: [],
-      sha: null
-    };
-  }
+function githubHeaders() {
+  return {
+    Authorization: `Bearer ${TOKEN}`,
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Content-Type": "application/json"
+  };
 }
 
-async function putJsonFile(octokit, path, json, sha, message) {
-  await octokit.repos.createOrUpdateFileContents({
-    owner: OWNER,
-    repo: REPO,
-    path,
-    branch: BRANCH,
-    message,
-    content: Buffer.from(JSON.stringify(json, null, 2)).toString("base64"),
-    sha: sha || undefined
+async function getJsonFile(path) {
+  const url =
+    `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}?ref=${BRANCH}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: githubHeaders()
   });
+
+  if (response.status === 404) {
+    return { json: [], sha: null };
+  }
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`GitHub GET failed ${response.status}: ${text}`);
+  }
+
+  const data = await response.json();
+  const content = Buffer.from(data.content, "base64").toString("utf8");
+
+  return {
+    json: JSON.parse(content),
+    sha: data.sha
+  };
+}
+
+async function putJsonFile(path, json, sha, message) {
+  const url =
+    `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}`;
+
+  const body = {
+    message,
+    branch: BRANCH,
+    content: Buffer.from(JSON.stringify(json, null, 2)).toString("base64")
+  };
+
+  if (sha) body.sha = sha;
+
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: githubHeaders(),
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`GitHub PUT failed ${response.status}: ${text}`);
+  }
+
+  return response.json();
 }
 
 module.exports = async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,x-admin-password");
+  sendCors(res);
 
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
-  if (!OWNER || !REPO || !TOKEN || !ADMIN_PASSWORD) {
-    return res.status(500).json({
-      ok: false,
-      error: "Missing Vercel environment variables"
-    });
-  }
-
-  if (!checkAuth(req)) {
-    return res.status(401).json({
-      ok: false,
-      error: "Unauthorized"
-    });
-  }
-
-  const octokit = new Octokit({ auth: TOKEN });
-
   try {
-    if (req.method === "GET") {
-      const manual = await getJsonFile(octokit, FILES.manualPrices);
-      const observations = await getJsonFile(octokit, FILES.observations);
+    if (!OWNER || !REPO || !TOKEN || !ADMIN_PASSWORD) {
+      return res.status(500).json({
+        ok: false,
+        error: "Missing Vercel environment variables"
+      });
+    }
 
-      return res.json({
+    if (!checkAuth(req)) {
+      return res.status(401).json({
+        ok: false,
+        error: "Unauthorized"
+      });
+    }
+
+    if (req.method === "GET") {
+      const manual = await getJsonFile(FILES.manualPrices);
+      const observations = await getJsonFile(FILES.observations);
+
+      return res.status(200).json({
         ok: true,
         manualPrices: manual.json,
         observations: observations.json
@@ -92,21 +119,20 @@ module.exports = async function handler(req, res) {
       const body = req.body || {};
 
       if (body.type === "manualPrices") {
-        const file = await getJsonFile(octokit, FILES.manualPrices);
+        const file = await getJsonFile(FILES.manualPrices);
 
         await putJsonFile(
-          octokit,
           FILES.manualPrices,
           body.data || [],
           file.sha,
           "Update manual special-card prices"
         );
 
-        return res.json({ ok: true });
+        return res.status(200).json({ ok: true });
       }
 
       if (body.type === "observation") {
-        const file = await getJsonFile(octokit, FILES.observations);
+        const file = await getJsonFile(FILES.observations);
         const observations = Array.isArray(file.json) ? file.json : [];
 
         observations.push({
@@ -123,30 +149,28 @@ module.exports = async function handler(req, res) {
         });
 
         await putJsonFile(
-          octokit,
           FILES.observations,
           observations,
           file.sha,
           "Add market observation"
         );
 
-        return res.json({ ok: true });
+        return res.status(200).json({ ok: true });
       }
 
       if (body.type === "deleteObservation") {
-        const file = await getJsonFile(octokit, FILES.observations);
+        const file = await getJsonFile(FILES.observations);
         const observations = Array.isArray(file.json) ? file.json : [];
         const filtered = observations.filter(obs => obs.id !== body.id);
 
         await putJsonFile(
-          octokit,
           FILES.observations,
           filtered,
           file.sha,
           "Delete market observation"
         );
 
-        return res.json({ ok: true });
+        return res.status(200).json({ ok: true });
       }
 
       return res.status(400).json({
