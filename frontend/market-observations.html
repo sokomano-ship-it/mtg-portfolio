@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Observations marché</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+    .admin-card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
+    .admin-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .admin-grid label { display: flex; flex-direction: column; font-size: 0.9rem; gap: 4px; }
+    .admin-grid input, .admin-grid select, .admin-grid textarea { padding: 8px; }
+    .admin-actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .admin-actions button { padding: 10px 14px; cursor: pointer; }
+    .admin-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .admin-table th, .admin-table td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
+    .muted { color: #777; }
+    .readonly { background: #f1f1f1; color: #666; }
+    .log { background: #111; color: #0f0; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <h1>📊 Observations marché</h1>
+    <p class="muted">
+      Cette page sert uniquement aux cartes spéciales et aux observations terrain par état.
+      Elle ne modifie pas le moteur Opportunités.
+    </p>
+
+    <div class="admin-card">
+      <h2>Connexion admin</h2>
+      <div class="admin-grid">
+        <label>
+          Mot de passe admin
+          <input id="admin-password" type="password" placeholder="Mot de passe" />
+        </label>
+        <label>
+          URL API Vercel
+          <input id="api-url" type="text" placeholder="https://ton-projet.vercel.app/api/market-data" />
+        </label>
+      </div>
+      <div class="admin-actions">
+        <button onclick="saveSettings()">Sauvegarder paramètres</button>
+        <button onclick="loadData()">Charger les données</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>1. Prix manuels spéciaux</h2>
+      <p class="muted">
+        Saisir seulement Jihad, Crusade Fourth Edition et Crusade Revised.
+        Crusade Foreign White Bordered reprend automatiquement Crusade Revised.
+      </p>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Carte</th>
+            <th>Édition</th>
+            <th>Langue</th>
+            <th>Tendance</th>
+            <th>Avg30</th>
+            <th>Avg7</th>
+            <th>Avg1</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody id="manual-body"></tbody>
+      </table>
+      <div class="admin-actions">
+        <button onclick="saveManualPrices()">💾 Sauvegarder prix spéciaux</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>2. Ajouter une observation par état</h2>
+      <div class="admin-grid">
+        <label>Carte <input id="obs-card" type="text" placeholder="Mox Diamond" /></label>
+        <label>Édition <input id="obs-edition" type="text" placeholder="Stronghold" /></label>
+        <label>Langue <input id="obs-langue" type="text" placeholder="English" /></label>
+        <label>
+          État
+          <select id="obs-condition">
+            <option>PO</option>
+            <option>PL</option>
+            <option>LP</option>
+            <option>GD</option>
+            <option>EX</option>
+            <option>NM</option>
+          </select>
+        </label>
+        <label>Prix mini observé (€) <input id="obs-price" type="number" step="0.01" /></label>
+        <label>Date <input id="obs-date" type="date" /></label>
+        <label>Source <input id="obs-source" type="text" value="Cardmarket lowest observed" /></label>
+        <label>Commentaire <input id="obs-comment" type="text" /></label>
+      </div>
+      <div class="admin-actions">
+        <button onclick="addObservation()">➕ Ajouter observation</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>3. Historique des observations</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Carte</th>
+            <th>Édition</th>
+            <th>Langue</th>
+            <th>État</th>
+            <th>Prix mini</th>
+            <th>Source</th>
+            <th>Commentaire</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="observations-body"></tbody>
+      </table>
+    </div>
+
+    <div class="admin-card">
+      <h2>Log</h2>
+      <pre id="log" class="log">Prêt.</pre>
+    </div>
+  </div>
+
+  <script>
+    const CONDITIONS = ["PO", "PL", "LP", "GD", "EX", "NM"];
+    let manualPrices = [];
+    let observations = [];
+
+    function $(id) { return document.getElementById(id); }
+
+    function log(message) {
+      $("log").textContent = message;
+    }
+
+    function getApiUrl() {
+      return localStorage.getItem("marketApiUrl") || $("api-url").value.trim();
+    }
+
+    function getPassword() {
+      return localStorage.getItem("marketAdminPassword") || $("admin-password").value;
+    }
+
+    function saveSettings() {
+      localStorage.setItem("marketApiUrl", $("api-url").value.trim());
+      localStorage.setItem("marketAdminPassword", $("admin-password").value);
+      log("Paramètres sauvegardés dans ce navigateur.");
+    }
+
+    function loadSettings() {
+      $("api-url").value = localStorage.getItem("marketApiUrl") || "";
+      $("admin-password").value = localStorage.getItem("marketAdminPassword") || "";
+      $("obs-date").value = new Date().toISOString().slice(0, 10);
+    }
+
+    async function api(method, body) {
+      const response = await fetch(getApiUrl(), {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-password": getPassword()
+        },
+        body: body ? JSON.stringify(body) : undefined
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Erreur API");
+      }
+
+      return data;
+    }
+
+    async function loadData() {
+      try {
+        const data = await api("GET");
+        manualPrices = data.manualPrices || [];
+        observations = data.observations || [];
+        renderManual();
+        renderObservations();
+        log("Données chargées.");
+      } catch (e) {
+        log("Erreur chargement : " + e.message);
+      }
+    }
+
+    function findCopySource(price) {
+      if (!price.copyFrom) return null;
+      return manualPrices.find(source =>
+        source.nomCarte === price.copyFrom.nomCarte &&
+        source.edition === price.copyFrom.edition &&
+        (!price.copyFrom.langue || source.langue === price.copyFrom.langue)
+      );
+    }
+
+    function renderManual() {
+      const tbody = $("manual-body");
+      tbody.innerHTML = "";
+
+      manualPrices.forEach((p, index) => {
+        const source = findCopySource(p);
+        const display = source || p;
+        const readonly = p.copyFrom ? "readonly" : "";
+        const cls = p.copyFrom ? "readonly" : "";
+
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${p.nomCarte}</strong></td>
+            <td>${p.edition}</td>
+            <td>${p.langue || "-"}</td>
+            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.trendPrice || ""}" onchange="setManual(${index}, 'trendPrice', this.value)"></td>
+            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.avg30 || ""}" onchange="setManual(${index}, 'avg30', this.value)"></td>
+            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.avg7 || ""}" onchange="setManual(${index}, 'avg7', this.value)"></td>
+            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.avg1 || ""}" onchange="setManual(${index}, 'avg1', this.value)"></td>
+            <td>${p.copyFrom ? "Copie Revised" : "Manuel"}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function setManual(index, field, value) {
+      if (manualPrices[index].copyFrom) return;
+      manualPrices[index][field] = Number(value || 0);
+      renderManual();
+    }
+
+    async function saveManualPrices() {
+      try {
+        await api("POST", { type: "manualPrices", data: manualPrices });
+        log("Prix spéciaux sauvegardés. Le workflow GitHub va reconstruire le site.");
+      } catch (e) {
+        log("Erreur sauvegarde prix : " + e.message);
+      }
+    }
+
+    async function addObservation() {
+      try {
+        const payload = {
+          type: "observation",
+          nomCarte: $("obs-card").value.trim(),
+          edition: $("obs-edition").value.trim(),
+          langue: $("obs-langue").value.trim(),
+          condition: $("obs-condition").value,
+          observedMinPrice: Number($("obs-price").value || 0),
+          date: $("obs-date").value,
+          source: $("obs-source").value.trim(),
+          comment: $("obs-comment").value.trim()
+        };
+
+        await api("POST", payload);
+        log("Observation ajoutée.");
+        await loadData();
+      } catch (e) {
+        log("Erreur ajout observation : " + e.message);
+      }
+    }
+
+    async function deleteObservation(id) {
+      if (!confirm("Supprimer cette observation ?")) return;
+
+      try {
+        await api("POST", { type: "deleteObservation", id });
+        log("Observation supprimée.");
+        await loadData();
+      } catch (e) {
+        log("Erreur suppression : " + e.message);
+      }
+    }
+
+    function renderObservations() {
+      const tbody = $("observations-body");
+      tbody.innerHTML = "";
+
+      const sorted = [...observations].sort((a, b) =>
+        String(b.date).localeCompare(String(a.date))
+      );
+
+      sorted.forEach(obs => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${obs.date || "-"}</td>
+            <td><strong>${obs.nomCarte || "-"}</strong></td>
+            <td>${obs.edition || "-"}</td>
+            <td>${obs.langue || "-"}</td>
+            <td>${obs.condition || "-"}</td>
+            <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
+            <td>${obs.source || "-"}</td>
+            <td>${obs.comment || ""}</td>
+            <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    loadSettings();
+  </script>
+</body>
+</html>
