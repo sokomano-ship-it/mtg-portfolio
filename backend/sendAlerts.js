@@ -22,22 +22,12 @@ function formatEuro(value) {
 }
 
 function formatPercent(value) {
-    const number = Number(value) || 0;
-    return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
+    const n = Number(value || 0);
+    return `${n >= 0 ? "+" : ""}${n.toFixed(1)} %`;
 }
 
 function todayIsoDate() {
     return new Date().toISOString().slice(0, 10);
-}
-
-function alertKey(alert) {
-    return [
-        alert.date,
-        alert.nomCarte,
-        alert.edition,
-        alert.version,
-        alert.langue
-    ].join("|");
 }
 
 function loadJson(filePath, fallback) {
@@ -45,58 +35,122 @@ function loadJson(filePath, fallback) {
 
     try {
         return JSON.parse(fs.readFileSync(filePath, "utf8"));
-    } catch (error) {
-        console.warn(`Impossible de lire ${filePath}, fallback utilisé.`);
+    } catch {
         return fallback;
     }
 }
 
-function saveAlertsHistory(newAlerts) {
-    const previousHistory = loadJson(alertsHistoryPath, []);
-    const merged = [...previousHistory];
-
-    const existingKeys = new Set(previousHistory.map(alertKey));
-
-    newAlerts.forEach(alert => {
-        const key = alertKey(alert);
-
-        if (!existingKeys.has(key)) {
-            merged.push(alert);
-            existingKeys.add(key);
-        }
-    });
-
-    fs.writeFileSync(
-        alertsHistoryPath,
-        JSON.stringify(merged, null, 2),
-        "utf8"
-    );
-
-    console.log(`${newAlerts.length} alerte(s) ajoutée(s) à alerts-history.json`);
+function saveJson(filePath, data) {
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
 }
 
-function buildAlertHistoryRows(alerts) {
-    const date = todayIsoDate();
+function alertKey(alert) {
+    return [
+        alert.date,
+        alert.nomCarte,
+        alert.edition || "",
+        alert.version || "",
+        alert.langue || ""
+    ].join("|");
+}
 
-    return alerts.map(card => ({
-        date,
+function saveAlertsHistory(alerts) {
+    const previous = loadJson(alertsHistoryPath, []);
+    const existingKeys = new Set(previous.map(alertKey));
+    const today = todayIsoDate();
+
+    const newRows = alerts.map(card => ({
+        date: today,
         nomCarte: card.nomCarte,
         edition: card.edition || "",
         version: card.version || "",
         langue: card.langue || "",
-        nmPriceAtAlert: Number(card.nmPrice || 0),
-        lowPriceAtAlert: Number(card.lowPrice || 0),
-        avg30AtAlert: Number(card.avg30 || 0),
+        nmPriceAtAlert: Number(card.nmPrice || card.trendPrice || 0),
+        buyProbability: Number(card.buyProbability || 0),
+        timingScore: Number(card.timingScore || 0),
+        remainingPotential: Number(card.remainingPotential || 0),
         trendVs30: Number(card.trendVs30 || 0),
         avg1Vs7: Number(card.avg1Vs7 || 0),
-        convictionScore: Number(card.convictionScore || 0),
-        confidenceScore: Number(card.confidenceScore || 0),
-        confidenceLabel: card.confidenceLabel || "",
-        recommendation: card.recommendation || "",
-        signal: card.signal || "",
+        riskMultiplier: Number(card.riskMultiplier || 0),
+        decision: card.decision || "",
         reasons: card.reasons || [],
         warnings: card.warnings || []
     }));
+
+    const merged = [...previous];
+
+    newRows.forEach(row => {
+        if (!existingKeys.has(alertKey(row))) {
+            merged.push(row);
+            existingKeys.add(alertKey(row));
+        }
+    });
+
+    saveJson(alertsHistoryPath, merged);
+}
+
+function listHtml(items, icon) {
+    if (!Array.isArray(items) || items.length === 0) {
+        return "<li>Aucun élément notable.</li>";
+    }
+
+    return items
+        .map(item => `<li>${icon} ${escapeHtml(item)}</li>`)
+        .join("");
+}
+
+function escapeHtml(value) {
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function buildCardHtml(card, index) {
+    return `
+        <div style="border:1px solid #ddd; border-radius:8px; padding:16px; margin-bottom:20px;">
+            <h2 style="margin-top:0;">
+                ${index + 1}. ${escapeHtml(card.decision || "Alerte")} — ${escapeHtml(card.nomCarte)}
+            </h2>
+
+            <p>
+                <strong>${escapeHtml(card.edition || "-")}</strong>
+                ${card.version ? " • " + escapeHtml(card.version) : ""}
+                • ${escapeHtml(card.langue || "-")}
+            </p>
+
+            <p>
+                <strong>Possédé :</strong> ${escapeHtml(card.ownedLabel || "-")}
+                (${Number(card.quantityOwned || 0)} exemplaire(s), ${escapeHtml(card.ownedStates || "-")})
+            </p>
+
+            <h3>📊 Décision</h3>
+            <p>
+                <strong>Probabilité d'achat :</strong> ${Number(card.buyProbability || 0)} %<br>
+                <strong>Timing d'achat :</strong> ${Number(card.timingScore || 0)} %<br>
+                <strong>Potentiel restant :</strong> ${Number(card.remainingPotential || 0)} %<br>
+                <strong>Risque :</strong> ×${Number(card.riskMultiplier || 0)}
+            </p>
+
+            <h3>📈 Marché</h3>
+            <p>
+                <strong>Prix NM :</strong> ${formatEuro(card.nmPrice || card.trendPrice)}<br>
+                <strong>Avg7 :</strong> ${formatEuro(card.avg7)}<br>
+                <strong>Avg30 :</strong> ${formatEuro(card.avg30)}<br>
+                <strong>Trend vs 30j :</strong> ${formatPercent(card.trendVs30)}<br>
+                <strong>Momentum court terme :</strong> ${formatPercent(card.avg1Vs7)}
+            </p>
+
+            <h3>✅ Points positifs</h3>
+            <ul>${listHtml(card.reasons, "✅")}</ul>
+
+            <h3>⚠️ Points de vigilance</h3>
+            <ul>${listHtml(card.warnings, "⚠️")}</ul>
+        </div>
+    `;
 }
 
 async function main() {
@@ -110,12 +164,11 @@ async function main() {
     const alerts = getEmailOpportunities(opportunities);
 
     if (alerts.length === 0) {
-        console.log("Aucune conviction achat >= 85 avec confiance suffisante, aucun email envoyé.");
+        console.log("Aucune opportunité forte aujourd'hui, aucun email envoyé.");
         return;
     }
 
-    const alertHistoryRows = buildAlertHistoryRows(alerts);
-    saveAlertsHistory(alertHistoryRows);
+    saveAlertsHistory(alerts);
 
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !ALERT_EMAIL_TO) {
         throw new Error("Secrets SMTP manquants.");
@@ -131,81 +184,39 @@ async function main() {
         }
     });
 
-    const cardsHtml = alerts.map((card, index) => {
-        const reasonsHtml = (card.reasons || [])
-            .map(reason => `<li>✅ ${reason}</li>`)
-            .join("");
-
-        const warningsHtml = (card.warnings || [])
-            .map(warning => `<li>⚠️ ${warning}</li>`)
-            .join("");
-
-        return `
-            <h3>${index + 1}. ${card.recommendation} — ${card.nomCarte}</h3>
-
-            <p>
-                <strong>Édition :</strong> ${card.edition || "-"} |
-                <strong>Version :</strong> ${card.version || "-"} |
-                <strong>Langue :</strong> ${card.langue || "-"}
-            </p>
-
-            <p>
-                <strong>Possédé :</strong> ${card.ownedLabel || "-"} |
-                <strong>Exemplaires :</strong> ${card.quantityOwned || 0} |
-                <strong>États :</strong> ${card.ownedStates || "-"}
-            </p>
-
-            <p>
-                <strong>Score conviction :</strong> ${card.convictionScore}/100<br>
-                <strong>Indice de confiance :</strong> ${card.confidenceScore}/100 (${card.confidenceLabel})<br>
-                <strong>Signal :</strong> ${card.signal || "-"}
-            </p>
-
-            <p>
-                <strong>Prix NM :</strong> ${formatEuro(card.nmPrice)}<br>
-                <strong>Low NM :</strong> ${formatEuro(card.lowPrice)}<br>
-                <strong>Avg 30j :</strong> ${formatEuro(card.avg30)}<br>
-                <strong>Trend vs 30j :</strong> ${formatPercent(card.trendVs30)}<br>
-                <strong>Momentum 1j/7j :</strong> ${formatPercent(card.avg1Vs7)}
-            </p>
-
-            <p><strong>Raisons positives :</strong></p>
-            <ul>${reasonsHtml || "<li>Aucune raison positive détaillée.</li>"}</ul>
-
-            <p><strong>Points de vigilance :</strong></p>
-            <ul>${warningsHtml || "<li>Aucun point de vigilance majeur.</li>"}</ul>
-
-            <hr>
-        `;
-    }).join("");
+    const cardsHtml = alerts.map(buildCardHtml).join("");
 
     const html = `
-        <h2>🎯 Convictions achat MTG</h2>
+        <h1>🎯 MTG Investment Alerts</h1>
+
         <p>
-            ${alerts.length} carte(s) seulement ont dépassé le seuil strict :
-            conviction ≥ 85 et confiance ≥ 60.
+            Le moteur d'investissement a identifié
+            <strong>${alerts.length}</strong> opportunité(s) forte(s) aujourd'hui.
+        </p>
+
+        <p>
+            Critères d'envoi :
+            probabilité d'achat ≥ 85 %, timing ≥ 80 %, potentiel restant ≥ 65 %,
+            risque acceptable.
         </p>
 
         ${cardsHtml}
 
-        <p>Site : https://sokomano-ship-it.github.io/mtg-portfolio/</p>
-
         <p>
-            <em>
-                Ce filtre est volontairement très sélectif.
-                S’il n’y a pas de vraie conviction, aucun email n’est envoyé.
-            </em>
+            <a href="https://sokomano-ship-it.github.io/mtg-portfolio/">
+                Ouvrir le portefeuille MTG
+            </a>
         </p>
     `;
 
     await transporter.sendMail({
         from: `"MTG Portfolio Alerts" <${SMTP_USER}>`,
         to: ALERT_EMAIL_TO,
-        subject: `🎯 ${alerts.length} conviction(s) achat MTG détectée(s)`,
+        subject: `🎯 ${alerts.length} opportunité(s) MTG forte(s) détectée(s)`,
         html
     });
 
-    console.log(`Email envoyé avec ${alerts.length} conviction(s) achat.`);
+    console.log(`Email envoyé avec ${alerts.length} opportunité(s) forte(s).`);
 }
 
 main().catch(error => {
