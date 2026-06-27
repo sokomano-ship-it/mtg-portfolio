@@ -455,3 +455,143 @@ tbody tr:hover {
         width: 100%;
     }
 }
+
+.admin-wrap,
+.observations-wrap {
+  max-width: 1400px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.admin-card,
+.observations-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.admin-card label,
+.observations-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.admin-card input,
+.admin-card select,
+.observations-card input,
+.observations-card select {
+  padding: 9px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.admin-card button,
+.observations-card button {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  background: #f5f5f5;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.admin-card button:hover,
+.observations-card button:hover {
+  background: #eaeaea;
+}
+
+.admin-hint,
+.obs-hint {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 6px;
+}
+
+.admin-log,
+.obs-log {
+  background: #111;
+  color: #00ff6a;
+  padding: 12px;
+  border-radius: 10px;
+  white-space: pre-wrap;
+}
+
+.obs-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.obs-summary-card {
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.obs-summary-card span {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.obs-summary-card strong {
+  display: block;
+  font-size: 1.4rem;
+  margin-top: 4px;
+}
+
+.obs-warning {
+  background: #fff8e1;
+  border: 1px solid #f0d98c;
+  color: #6b5200;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.obs-error {
+  background: #ffecec;
+  border: 1px solid #ffb3b3;
+  color: #8a0000;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.obs-table-wrapper {
+  overflow-x: auto;
+}
+
+.obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.obs-table th,
+.obs-table td {
+  border-bottom: 1px solid #eee;
+  padding: 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.obs-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eee;
+  font-size: 0.85rem;
+}

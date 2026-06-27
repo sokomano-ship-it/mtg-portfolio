@@ -5,7 +5,6 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const BRANCH = process.env.GITHUB_BRANCH || "main";
 
 const FILES = {
-  manualPrices: "backend/data/manualPrices.json",
   observations: "backend/data/marketObservations.json",
   trackedCards: "backend/data/trackedMarketCards.json"
 };
@@ -13,10 +12,7 @@ const FILES = {
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, X-Admin-Password, x-admin-password, Authorization"
-  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Admin-Password, x-admin-password, Authorization");
   res.setHeader("Access-Control-Max-Age", "86400");
 }
 
@@ -46,9 +42,7 @@ async function getJsonFile(filePath) {
     headers: githubHeaders()
   });
 
-  if (response.status === 404) {
-    return { json: [], sha: null };
-  }
+  if (response.status === 404) return { json: [], sha: null };
 
   if (!response.ok) {
     throw new Error(`GitHub GET ${filePath} failed: ${response.status} ${await response.text()}`);
@@ -114,7 +108,6 @@ function cleanObservation(body) {
 
   return {
     id: body.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-
     observationDate: now.toISOString().slice(0, 10),
 
     nomCarte: String(body.nomCarte || "").trim(),
@@ -123,7 +116,6 @@ function cleanObservation(body) {
     condition: String(body.condition || "").trim(),
 
     observedMinPrice,
-
     marketSnapshot,
 
     ratios: {
@@ -134,7 +126,6 @@ function cleanObservation(body) {
     },
 
     source: "Cardmarket",
-
     createdAt: body.createdAt || now.toISOString(),
     updatedAt: now.toISOString()
   };
@@ -157,9 +148,7 @@ function cleanTrackedCard(body) {
 module.exports = async function handler(req, res) {
   cors(res);
 
-  if (req.method === "OPTIONS") {
-  return res.status(204).end();
-}
+  if (req.method === "OPTIONS") return res.status(204).end();
 
   try {
     if (!checkEnv()) {
@@ -171,13 +160,11 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-      const manual = await getJsonFile(FILES.manualPrices);
       const observations = await getJsonFile(FILES.observations);
       const trackedCards = await getJsonFile(FILES.trackedCards);
 
       return res.status(200).json({
         ok: true,
-        manualPrices: manual.json,
         observations: observations.json,
         trackedCards: trackedCards.json
       });
@@ -185,19 +172,6 @@ module.exports = async function handler(req, res) {
 
     if (req.method === "POST") {
       const body = req.body || {};
-
-      if (body.type === "saveManualPrices") {
-        const file = await getJsonFile(FILES.manualPrices);
-
-        await putJsonFile(
-          FILES.manualPrices,
-          Array.isArray(body.data) ? body.data : [],
-          file.sha,
-          "Update manual special prices"
-        );
-
-        return res.status(200).json({ ok: true });
-      }
 
       if (body.type === "addObservation") {
         const file = await getJsonFile(FILES.observations);
@@ -226,6 +200,24 @@ module.exports = async function handler(req, res) {
           filtered,
           file.sha,
           "Delete market observation"
+        );
+
+        return res.status(200).json({ ok: true });
+      }
+
+      if (body.type === "deleteObservations") {
+        const ids = Array.isArray(body.ids) ? body.ids : [];
+
+        const file = await getJsonFile(FILES.observations);
+        const observations = Array.isArray(file.json) ? file.json : [];
+
+        const filtered = observations.filter(obs => !ids.includes(obs.id));
+
+        await putJsonFile(
+          FILES.observations,
+          filtered,
+          file.sha,
+          "Delete market observations"
         );
 
         return res.status(200).json({ ok: true });
