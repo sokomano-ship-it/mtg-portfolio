@@ -13,7 +13,11 @@ const FILES = {
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,x-admin-password");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, X-Admin-Password, x-admin-password, Authorization"
+  );
+  res.setHeader("Access-Control-Max-Age", "86400");
 }
 
 function checkEnv() {
@@ -135,7 +139,9 @@ function cleanTrackedCard(body) {
 module.exports = async function handler(req, res) {
   cors(res);
 
-  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method === "OPTIONS") {
+  return res.status(204).end();
+}
 
   try {
     if (!checkEnv()) {
