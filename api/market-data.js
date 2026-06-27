@@ -1,29 +1,178 @@
-module.exports = async function handler(req, res) {
-  // CORS
+const OWNER = process.env.GITHUB_OWNER;
+const REPO = process.env.GITHUB_REPO;
+const TOKEN = process.env.GITHUB_TOKEN;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const BRANCH = process.env.GITHUB_BRANCH || "main";
+
+const FILES = {
+  manualPrices: "backend/data/manualPrices.json",
+  observations: "backend/data/marketObservations.json"
+};
+
+function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type,x-admin-password"
-  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,x-admin-password");
+}
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
+function checkEnv() {
+  return OWNER && REPO && TOKEN && ADMIN_PASSWORD;
+}
+
+function checkAuth(req) {
+  return req.headers["x-admin-password"] === ADMIN_PASSWORD;
+}
+
+function githubHeaders() {
+  return {
+    Authorization: `Bearer ${TOKEN}`,
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Content-Type": "application/json"
+  };
+}
+
+function githubUrl(filePath) {
+  return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(filePath).replace(/%2F/g, "/")}`;
+}
+
+async function getJsonFile(filePath) {
+  const response = await fetch(`${githubUrl(filePath)}?ref=${BRANCH}`, {
+    headers: githubHeaders()
+  });
+
+  if (response.status === 404) return { json: [], sha: null };
+
+  if (!response.ok) {
+    throw new Error(`GitHub GET ${filePath} failed: ${response.status} ${await response.text()}`);
   }
 
-  // Informations de diagnostic
-  const info = {
-    ok: true,
-    message: "market-data API is alive",
-    node: process.version,
-    env: {
-      hasOwner: !!process.env.GITHUB_OWNER,
-      hasRepo: !!process.env.GITHUB_REPO,
-      hasToken: !!process.env.GITHUB_TOKEN,
-      hasPassword: !!process.env.ADMIN_PASSWORD,
-      branch: process.env.GITHUB_BRANCH || "main"
-    }
+  const data = await response.json();
+  const content = Buffer.from(data.content, "base64").toString("utf8");
+
+  return {
+    json: JSON.parse(content),
+    sha: data.sha
+  };
+}
+
+async function putJsonFile(filePath, json, sha, message) {
+  const body = {
+    message,
+    branch: BRANCH,
+    content: Buffer.from(JSON.stringify(json, null, 2)).toString("base64")
   };
 
-  return res.status(200).json(info);
+  if (sha) body.sha = sha;
+
+  const response = await fetch(githubUrl(filePath), {
+    method: "PUT",
+    headers: githubHeaders(),
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub PUT ${filePath} failed: ${response.status} ${await response.text()}`);
+  }
+
+  return response.json();
+}
+
+function cleanObservation(body) {
+  return {
+    id: body.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    date: body.date || new Date().toISOString().slice(0, 10),
+    nomCarte: String(body.nomCarte || "").trim(),
+    edition: String(body.edition || "").trim(),
+    langue: String(body.langue || "").trim(),
+    condition: String(body.condition || "").trim(),
+    observedMinPrice: Number(body.observedMinPrice || 0),
+    source: String(body.source || "Cardmarket lowest observed").trim(),
+    observable: Boolean(body.observable),
+    comment: String(body.comment || "").trim(),
+    createdAt: body.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+}
+
+module.exports = async function handler(req, res) {
+  cors(res);
+
+  if (req.method === "OPTIONS") return res.status(200).end();
+
+  try {
+    if (!checkEnv()) {
+      return res.status(500).json({ ok: false, error: "Missing environment variables" });
+    }
+
+    if (!checkAuth(req)) {
+      return res.status(401).json({ ok: false, error: "Unauthorized" });
+    }
+
+    if (req.method === "GET") {
+      const manual = await getJsonFile(FILES.manualPrices);
+      const observations = await getJsonFile(FILES.observations);
+
+      return res.status(200).json({
+        ok: true,
+        manualPrices: manual.json,
+        observations: observations.json
+      });
+    }
+
+    if (req.method === "POST") {
+      const body = req.body || {};
+
+      if (body.type === "saveManualPrices") {
+        const file = await getJsonFile(FILES.manualPrices);
+
+        await putJsonFile(
+          FILES.manualPrices,
+          Array.isArray(body.data) ? body.data : [],
+          file.sha,
+          "Update manual special prices"
+        );
+
+        return res.status(200).json({ ok: true });
+      }
+
+      if (body.type === "addObservation") {
+        const file = await getJsonFile(FILES.observations);
+        const observations = Array.isArray(file.json) ? file.json : [];
+
+        observations.push(cleanObservation(body));
+
+        await putJsonFile(
+          FILES.observations,
+          observations,
+          file.sha,
+          "Add market observation"
+        );
+
+        return res.status(200).json({ ok: true });
+      }
+
+      if (body.type === "deleteObservation") {
+        const file = await getJsonFile(FILES.observations);
+        const observations = Array.isArray(file.json) ? file.json : [];
+
+        const filtered = observations.filter(obs => obs.id !== body.id);
+
+        await putJsonFile(
+          FILES.observations,
+          filtered,
+          file.sha,
+          "Delete market observation"
+        );
+
+        return res.status(200).json({ ok: true });
+      }
+
+      return res.status(400).json({ ok: false, error: "Unknown action type" });
+    }
+
+    return res.status(405).json({ ok: false, error: "Method not allowed" });
+  } catch (error) {
+    return res.status(500).json({ ok: false, error: error.message });
+  }
 };
