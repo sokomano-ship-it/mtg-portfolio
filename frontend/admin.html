@@ -61,20 +61,24 @@
         <input id="langue" placeholder="English">
       </label>
 
-      <label>État
-        <select id="condition" onchange="validateObservationInput()">
-          <option>PO</option>
-          <option>PL</option>
-          <option>LP</option>
-          <option>GD</option>
-          <option>EX</option>
-          <option>NM</option>
-        </select>
-      </label>
-
-      <label>Prix minimum observé Cardmarket (€)
-        <input id="observedMinPrice" type="number" step="0.01" placeholder="ex: 900" oninput="validateObservationInput()">
-      </label>
+      <label>PO (€)
+  <input id="pricePO" type="number" step="0.01" oninput="validateObservationInput()">
+</label>
+<label>PL (€)
+  <input id="pricePL" type="number" step="0.01" oninput="validateObservationInput()">
+</label>
+<label>LP (€)
+  <input id="priceLP" type="number" step="0.01" oninput="validateObservationInput()">
+</label>
+<label>GD (€)
+  <input id="priceGD" type="number" step="0.01" oninput="validateObservationInput()">
+</label>
+<label>EX (€)
+  <input id="priceEX" type="number" step="0.01" oninput="validateObservationInput()">
+</label>
+<label>NM (€)
+  <input id="priceNM" type="number" step="0.01" oninput="validateObservationInput()">
+</label>
 
       <input id="snapshotTrendPrice" type="hidden">
       <input id="snapshotAvg30" type="hidden">
@@ -454,51 +458,73 @@ function updateSelectedCardPanel() {
 }
 
 function validateObservationInput() {
-  const price = Number($("observedMinPrice").value || 0);
-  const condition = $("condition").value;
-  const obs = matchingObservationsForCurrentCard();
+  const values = conditionOrder
+    .map(condition => ({
+      condition,
+      price: Number($("price" + condition)?.value || 0)
+    }))
+    .filter(x => x.price);
 
-  if (!price) {
+  if (!values.length) {
     $("inputValidationBox").className = "admin-validation-ok";
     $("inputValidationBox").textContent = "En attente de prix.";
     return;
   }
 
   const warnings = [];
+  const obs = matchingObservationsForCurrentCard();
 
-  const same = obs.find(o =>
-    o.condition === condition &&
-    Number(o.observedMinPrice || 0) === price
-  );
+  values.forEach(v => {
+    const duplicate = obs.find(o =>
+      o.condition === v.condition &&
+      Number(o.observedMinPrice || 0) === v.price
+    );
 
-  if (same) warnings.push("Observation identique déjà présente.");
+    if (duplicate) {
+      warnings.push(`${v.condition} : observation identique déjà présente.`);
+    }
+  });
 
-  const nmPrices = obs.filter(o => o.condition === "NM").map(o => Number(o.observedMinPrice || 0)).filter(Boolean);
-  const bestNm = nmPrices.length ? Math.min(...nmPrices) : null;
+  const entered = Object.fromEntries(values.map(v => [v.condition, v.price]));
 
-  if (condition !== "NM" && bestNm && price > bestNm) {
-    warnings.push(`${condition} supérieur au meilleur NM observé (${bestNm.toFixed(2)} €).`);
+  if (entered.NM) {
+    ["EX", "GD", "LP", "PL", "PO"].forEach(condition => {
+      if (entered[condition] && entered[condition] > entered.NM) {
+        warnings.push(`${condition} supérieur au NM saisi.`);
+      }
+    });
   }
 
-  const sameCondition = obs.filter(o => o.condition === condition).map(o => Number(o.observedMinPrice || 0)).filter(Boolean);
-  if (sameCondition.length >= 2) {
-    const avg = sameCondition.reduce((a, b) => a + b, 0) / sameCondition.length;
-    if (price > avg * 1.4 || price < avg * 0.6) {
-      warnings.push(`Prix très éloigné de la moyenne ${condition} (${avg.toFixed(2)} €).`);
+  for (let i = 0; i < conditionOrder.length - 1; i++) {
+    const worse = conditionOrder[i];
+    const better = conditionOrder[i + 1];
+
+    if (entered[worse] && entered[better] && entered[worse] > entered[better]) {
+      warnings.push(`${worse} supérieur à ${better}. Vérifier la cohérence des états.`);
     }
   }
 
-  const ref = Number($("snapshotTrendPrice").value || 0);
-  if (ref && price > ref * 1.5) {
-    warnings.push("Prix saisi très supérieur à la référence Cardmarket.");
-  }
+  values.forEach(v => {
+    const sameCondition = obs
+      .filter(o => o.condition === v.condition)
+      .map(o => Number(o.observedMinPrice || 0))
+      .filter(Boolean);
+
+    if (sameCondition.length >= 2) {
+      const avg = sameCondition.reduce((a, b) => a + b, 0) / sameCondition.length;
+
+      if (v.price > avg * 1.4 || v.price < avg * 0.6) {
+        warnings.push(`${v.condition} : prix éloigné de la moyenne historique (${avg.toFixed(2)} €).`);
+      }
+    }
+  });
 
   if (warnings.length) {
     $("inputValidationBox").className = "admin-validation-warning";
     $("inputValidationBox").innerHTML = "⚠ " + warnings.join("<br>⚠ ");
   } else {
     $("inputValidationBox").className = "admin-validation-ok";
-    $("inputValidationBox").textContent = "✓ Cohérent.";
+    $("inputValidationBox").textContent = `✓ Cohérent. ${values.length} état(s) seront enregistrés.`;
   }
 }
 
@@ -507,15 +533,24 @@ async function addObservation() {
     if (!$("nomCarte").value.trim()) throw new Error("Carte manquante.");
     if (!$("edition").value.trim()) throw new Error("Édition manquante.");
     if (!$("langue").value.trim()) throw new Error("Langue manquante.");
-    if (!Number($("observedMinPrice").value || 0)) throw new Error("Prix minimum observé manquant.");
+
+    const entries = conditionOrder
+      .map(condition => ({
+        condition,
+        observedMinPrice: Number($("price" + condition)?.value || 0)
+      }))
+      .filter(x => x.observedMinPrice);
+
+    if (!entries.length) {
+      throw new Error("Aucun prix minimum observé saisi.");
+    }
 
     await api("POST", {
-      type: "addObservation",
+      type: "addConditionObservations",
       nomCarte: $("nomCarte").value,
       edition: $("edition").value,
       langue: $("langue").value,
-      condition: $("condition").value,
-      observedMinPrice: Number($("observedMinPrice").value || 0),
+      entries,
       marketSnapshot: {
         trendPrice: Number($("snapshotTrendPrice").value || 0),
         avg30: Number($("snapshotAvg30").value || 0),
@@ -524,12 +559,16 @@ async function addObservation() {
       }
     });
 
-    $("observedMinPrice").value = "";
+    conditionOrder.forEach(condition => {
+      const input = $("price" + condition);
+      if (input) input.value = "";
+    });
+
     await loadData();
     updateSelectedCardPanel();
     validateObservationInput();
 
-    log("Observation ajoutée dans GitHub.");
+    log(`${entries.length} observation(s) ajoutée(s) dans GitHub.`);
   } catch (e) {
     log("Erreur : " + e.message);
   }

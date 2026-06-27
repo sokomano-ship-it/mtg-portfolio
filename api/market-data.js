@@ -189,6 +189,29 @@ module.exports = async function handler(req, res) {
 
         return res.status(200).json({ ok: true });
       }
+      if (body.type === "addConditionObservations") {
+  const file = await getJsonFile(FILES.observations);
+  const observations = Array.isArray(file.json) ? file.json : [];
+
+  const entries = Array.isArray(body.entries) ? body.entries : [];
+
+  entries.forEach(entry => {
+    observations.push(cleanObservation({
+      ...body,
+      condition: entry.condition,
+      observedMinPrice: entry.observedMinPrice
+    }));
+  });
+
+  await putJsonFile(
+    FILES.observations,
+    observations,
+    file.sha,
+    "Add condition market observations"
+  );
+
+  return res.status(200).json({ ok: true });
+}
 
       if (body.type === "deleteObservation") {
         const file = await getJsonFile(FILES.observations);
