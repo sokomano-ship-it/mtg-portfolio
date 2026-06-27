@@ -60,7 +60,7 @@ function num(v) {
 
 function extractPrices(price) {
   return {
-    trendPrice: num(price.trendPrice ?? price.priceTrend ?? price.trend ?? price.avg),
+    trendPrice: num(price.trendPrice ?? price.priceTrend ?? price.trend ?? price.eur),
     avg30: num(price.avg30 ?? price.avg30Days ?? price.avg30Price),
     avg7: num(price.avg7 ?? price.avg7Days ?? price.avg7Price),
     avg1: num(price.avg1 ?? price.avg1Day ?? price.avg1Price)
@@ -94,6 +94,69 @@ function mergeCards(...lists) {
   return [...map.values()];
 }
 
+function editionToScryfallSet(edition) {
+  const e = normalize(edition);
+
+  const map = {
+    "arabian nights": "arn",
+    "antiquities": "atq",
+    "legends": "leg",
+    "the dark": "drk",
+    "fallen empires": "fem",
+    "fourth edition": "4ed",
+    "revised": "3ed",
+    "foreign white bordered": "3ed",
+    "foreign black bordered": "3ed",
+    "renaissance": "ren",
+    "chronicles": "chr",
+    "stronghold": "sth",
+    "mirage": "mir",
+    "visions": "vis",
+    "weatherlight": "wth",
+    "tempest": "tmp",
+    "exodus": "exo",
+    "urzas saga": "usg",
+    "urzas legacy": "ulg",
+    "urzas destiny": "uds"
+  };
+
+  return map[e] || "";
+}
+
+async function fetchScryfallPrice(card) {
+  const name = encodeURIComponent(getName(card));
+  const set = editionToScryfallSet(getEdition(card));
+
+  const url = set
+    ? `https://api.scryfall.com/cards/named?exact=${name}&set=${set}`
+    : `https://api.scryfall.com/cards/named?exact=${name}`;
+
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "mtg-portfolio/1.0"
+    }
+  });
+
+  if (!response.ok) return null;
+
+  const data = await response.json();
+
+  const eur = num(data.prices?.eur);
+  if (!eur) return null;
+
+  return {
+    trendPrice: eur,
+    avg30: eur,
+    avg7: eur,
+    avg1: eur,
+    priceSource: "scryfall-eur"
+  };
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function main() {
   console.log("Construction market-reference.json...");
 
@@ -106,14 +169,14 @@ async function main() {
   const trackedCards = tracked.map(c => ({
     nomCarte: c.nomCarte,
     edition: c.edition,
-    langue: c.langue,
+    langue: c.langue || "English",
     sourceType: "tracked"
   }));
 
   const manualCards = manual.map(c => ({
     nomCarte: c.nomCarte,
     edition: c.edition,
-    langue: c.langue,
+    langue: c.langue || "English",
     sourceType: "manual",
     trendPrice: num(c.trendPrice),
     avg30: num(c.avg30),
@@ -140,61 +203,83 @@ async function main() {
     if (!priceMap.has(k)) priceMap.set(k, price);
   });
 
-  const output = cards.map(card => {
+  const output = [];
+
+  for (const card of cards) {
     const manualMatch = manualCards.find(m => key(m) === key(card));
 
-    if (manualMatch && (manualMatch.trendPrice || manualMatch.avg30 || manualMatch.avg7 || manualMatch.avg1)) {
-      return {
+    if (
+      manualMatch &&
+      (manualMatch.trendPrice || manualMatch.avg30 || manualMatch.avg7 || manualMatch.avg1)
+    ) {
+      output.push({
         ...card,
         ...extractPrices(manualMatch),
         priceSource: "manual"
-      };
+      });
+      continue;
     }
 
     const portfolioMatch = portfolio.find(p => key(p) === key(card));
 
-    if (portfolioMatch && (portfolioMatch.trendPrice || portfolioMatch.avg30 || portfolioMatch.avg7 || portfolioMatch.avg1)) {
-      return {
+    if (
+      portfolioMatch &&
+      (portfolioMatch.trendPrice || portfolioMatch.avg30 || portfolioMatch.avg7 || portfolioMatch.avg1)
+    ) {
+      output.push({
         ...card,
         ...extractPrices(portfolioMatch),
         priceSource: "portfolio"
-      };
+      });
+      continue;
     }
 
     let price = priceMap.get(priceKey(card));
 
-if (!price) {
-  const candidates = prices.filter(p =>
-    normalize(getProductName(p)) === normalize(getName(card))
-  );
+    if (!price) {
+      const candidates = prices.filter(p =>
+        normalize(getProductName(p)) === normalize(getName(card))
+      );
 
-  if (candidates.length === 1) {
-    price = candidates[0];
-  } else if (candidates.length > 1) {
-    price = candidates.find(p =>
-      normalize(getExpansionName(p)).includes(normalize(getEdition(card))) ||
-      normalize(getEdition(card)).includes(normalize(getExpansionName(p)))
-    );
-  }
-}
+      if (candidates.length === 1) {
+        price = candidates[0];
+      } else if (candidates.length > 1) {
+        price = candidates.find(p =>
+          normalize(getExpansionName(p)).includes(normalize(getEdition(card))) ||
+          normalize(getEdition(card)).includes(normalize(getExpansionName(p)))
+        );
+      }
+    }
 
-if (price) {
-      return {
+    if (price) {
+      output.push({
         ...card,
         ...extractPrices(price),
         priceSource: "cardmarket-price-guide"
-      };
+      });
+      continue;
     }
 
-    return {
+    const scryfallPrice = await fetchScryfallPrice(card);
+    await sleep(80);
+
+    if (scryfallPrice) {
+      output.push({
+        ...card,
+        ...scryfallPrice
+      });
+      continue;
+    }
+
+    output.push({
       ...card,
       trendPrice: 0,
       avg30: 0,
       avg7: 0,
       avg1: 0,
       priceSource: "missing"
-    };
-  });
+    });
+  }
 
   fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
   fs.writeFileSync(OUT_PATH, JSON.stringify(output, null, 2));
@@ -202,6 +287,12 @@ if (price) {
   console.log(`market-reference.json généré : ${output.length} ligne(s).`);
   console.log(`Trouvés : ${output.filter(x => x.priceSource !== "missing").length}`);
   console.log(`Manquants : ${output.filter(x => x.priceSource === "missing").length}`);
+
+  const missing = output.filter(x => x.priceSource === "missing");
+  if (missing.length) {
+    console.log("Manquants :");
+    missing.forEach(x => console.log(`- ${x.nomCarte} | ${x.edition} | ${x.langue}`));
+  }
 }
 
 main().catch(err => {
