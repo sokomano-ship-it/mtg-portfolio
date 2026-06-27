@@ -3,87 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <title>Observations Marché - MTG Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body { font-family: Arial, sans-serif; margin: 24px; background: #f7f7f7; }
-    .wrap { max-width: 1300px; margin: auto; }
-    .card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
-    input { padding: 8px; width: 300px; max-width: 100%; }
-    button { padding: 10px 14px; cursor: pointer; margin-right: 8px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-    th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
-    .muted { color: #777; }
-    .badge { padding: 3px 7px; border-radius: 8px; background: #eee; }
-    .log { background: #111; color: #0f0; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
-  </style>
+  <link rel="stylesheet" href="style.css?v=market-observations-v1" />
 </head>
-<body>
-<div class="wrap">
-  <h1>📊 Observations Marché</h1>
-  <p class="muted">Visualisation des observations saisies pour le futur modèle d’estimation selon l’état.</p>
 
-  <div class="card">
+<body class="admin-page observations-page">
+<header>
+  <h1>MTG Portfolio</h1>
+  <p>Contrôle des observations Cardmarket</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab-button" onclick="window.location.href='index.html'">📊 Général</button>
+  <button class="tab-button" onclick="window.location.href='index.html#tab-movers'">📈 Top hausses / baisses</button>
+  <button class="tab-button" onclick="window.location.href='index.html#tab-opportunities'">🔥 Opportunités</button>
+  <button class="tab-button" onclick="window.location.href='index.html#tab-collection'">🃏 Ma collection</button>
+  <button class="tab-button active">📊 Observations Marché</button>
+  <button class="tab-button" onclick="window.location.href='admin.html'">⚙️ Administration</button>
+</nav>
+
+<div class="observations-wrap">
+  <h1>📊 Observations Marché</h1>
+  <p class="muted">Page de contrôle des prix minimum observés sur Cardmarket.</p>
+
+  <div class="observations-card">
     <h2>Connexion API</h2>
-    <input id="apiUrl" placeholder="https://...vercel.app/api/market-data">
-    <input id="password" type="password" placeholder="Mot de passe admin">
+    <div class="admin-grid obs-login-grid">
+      <label>URL API Vercel
+        <input id="apiUrl" placeholder="https://mtg-portfolio-lac.vercel.app/api/market-data">
+      </label>
+      <label>Mot de passe admin
+        <input id="password" type="password">
+      </label>
+    </div>
+    <br>
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger observations</button>
   </div>
 
-  <div class="card">
+  <div class="observations-card">
+    <h2>Sélection</h2>
+    <div class="admin-grid obs-filter-grid">
+      <label>Carte / édition / langue
+        <select id="cardSelect" onchange="renderSelectedCard()">
+          <option value="">Charger les données...</option>
+        </select>
+      </label>
+      <label>État affiché
+        <select id="conditionFilter" onchange="renderSelectedCard()">
+          <option value="all">Tous</option>
+          <option value="NM">NM</option>
+          <option value="EX">EX</option>
+          <option value="GD">GD</option>
+          <option value="LP">LP</option>
+          <option value="PL">PL</option>
+          <option value="PO">PO</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="observations-card">
     <h2>Résumé</h2>
-    <p id="summary">Aucune donnée chargée.</p>
+    <div class="obs-summary">
+      <div class="obs-summary-card"><span>Carte</span><strong id="summaryCard">—</strong></div>
+      <div class="obs-summary-card"><span>Observations</span><strong id="summaryCount">0</strong></div>
+      <div class="obs-summary-card"><span>Relevés distincts</span><strong id="summaryDates">0</strong></div>
+      <div class="obs-summary-card"><span>Dernière date</span><strong id="summaryLastDate">—</strong></div>
+    </div>
+    <div id="alertsBox"></div>
   </div>
 
-  <div class="card">
-    <h2>Historique</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Carte</th>
-          <th>Édition</th>
-          <th>Langue</th>
-          <th>État</th>
-          <th>Prix mini</th>
-          <th>Trend</th>
-          <th>Avg30</th>
-          <th>Avg7</th>
-          <th>Avg1</th>
-          <th>Observable</th>
-          <th>Source</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="obsBody"></tbody>
-    </table>
+  <div class="observations-card">
+    <h2>Graphique par état</h2>
+    <div id="chartBox" class="obs-chart-box">Charge les données pour afficher le graphique.</div>
   </div>
 
-  <div class="card">
+  <div class="observations-card">
+    <h2>Tableau consolidé par date</h2>
+    <p class="muted">Une ligne correspond à un relevé Cardmarket. Les boutons d’une cellule suppriment uniquement cette observation d’état.</p>
+    <div class="obs-table-wrapper">
+      <table class="obs-table obs-condition-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>PO</th>
+            <th>PL</th>
+            <th>LP</th>
+            <th>GD</th>
+            <th>EX</th>
+            <th>NM</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="obsBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="observations-card">
     <h2>Log</h2>
-    <pre id="log" class="log">Prêt.</pre>
+    <pre id="log" class="obs-log">Prêt.</pre>
   </div>
 </div>
 
 <script>
 let observations = [];
 let trackedCards = [];
+let selectedRows = [];
+
+const conditionOrder = ["PO", "PL", "LP", "GD", "EX", "NM"];
+const graphOrder = ["NM", "EX", "GD", "LP", "PL", "PO"];
 
 function $(id) { return document.getElementById(id); }
 function log(msg) { $("log").textContent = msg; }
 
-function normalizeKey(item) {
+function normalizeText(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function cardKey(card) {
   return [
-    String(item.nomCarte || "").trim().toLowerCase(),
-    String(item.edition || "").trim().toLowerCase(),
-    String(item.langue || "").trim().toLowerCase()
+    normalizeText(card.nomCarte),
+    normalizeText(card.edition),
+    normalizeText(card.langue)
   ].join("|");
 }
 
-function isObservable(obs) {
-  const key = normalizeKey(obs);
-  const tracked = trackedCards.find(card => normalizeKey(card) === key);
-  return tracked ? tracked.observable === true : false;
+function labelForCard(card) {
+  return `${card.nomCarte || "-"} — ${card.edition || "-"} — ${card.langue || "-"}`;
+}
+
+function formatPrice(value) {
+  const n = Number(value || 0);
+  return n ? `${n.toFixed(2)} €` : "";
 }
 
 function saveSettings() {
@@ -93,7 +145,7 @@ function saveSettings() {
 }
 
 function loadSettings() {
-  $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "";
+  $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "https://mtg-portfolio-lac.vercel.app/api/market-data";
   $("password").value = localStorage.getItem("mtgAdminPassword") || "";
 }
 
@@ -117,63 +169,278 @@ async function loadData() {
     const data = await api("GET");
     observations = data.observations || [];
     trackedCards = data.trackedCards || [];
-    render();
+    buildCardSelect();
+    renderSelectedCard();
     log("Observations chargées.");
   } catch (e) {
     log("Erreur : " + e.message);
   }
 }
 
-function render() {
-  const total = observations.length;
-  const cards = new Set(observations.map(o => normalizeKey(o))).size;
-  const observableCount = observations.filter(isObservable).length;
-  const trackedCount = trackedCards.filter(c => c.observable).length;
+function buildCardSelect() {
+  const map = new Map();
 
-  $("summary").innerHTML = `
-    <strong>${total}</strong> observation(s) —
-    <strong>${cards}</strong> carte(s) distincte(s) —
-    <strong>${observableCount}</strong> observation(s) observable(s) —
-    <strong>${trackedCount}</strong> carte(s) suivie(s)
-  `;
+  observations.forEach(obs => {
+    const key = cardKey(obs);
+    if (!map.has(key)) map.set(key, obs);
+  });
 
-  const sorted = [...observations].sort((a, b) =>
-    String(b.observationDate || b.date || "").localeCompare(String(a.observationDate || a.date || ""))
+  trackedCards.forEach(card => {
+    const key = cardKey(card);
+    if (!map.has(key)) map.set(key, card);
+  });
+
+  const cards = [...map.values()].sort((a, b) =>
+    labelForCard(a).localeCompare(labelForCard(b))
   );
 
+  const select = $("cardSelect");
+  select.innerHTML = "";
+
+  if (!cards.length) {
+    select.innerHTML = `<option value="">Aucune donnée</option>`;
+    return;
+  }
+
+  cards.forEach(card => {
+    const option = document.createElement("option");
+    option.value = cardKey(card);
+    option.textContent = labelForCard(card);
+    select.appendChild(option);
+  });
+}
+
+function getSelectedObservations() {
+  const key = $("cardSelect").value;
+  const condition = $("conditionFilter").value;
+
+  return observations.filter(obs => {
+    const cardOk = cardKey(obs) === key;
+    const conditionOk = condition === "all" || obs.condition === condition;
+    return cardOk && conditionOk;
+  });
+}
+
+function groupByDate(obsList) {
+  const grouped = new Map();
+
+  obsList.forEach(obs => {
+    const date = obs.observationDate || obs.date || "-";
+    if (!grouped.has(date)) {
+      grouped.set(date, {
+        date,
+        ids: [],
+        prices: {},
+        observations: {}
+      });
+    }
+
+    const row = grouped.get(date);
+    row.ids.push(obs.id);
+    row.prices[obs.condition] = Number(obs.observedMinPrice || 0);
+    row.observations[obs.condition] = obs;
+  });
+
+  return [...grouped.values()].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+}
+
+function renderSelectedCard() {
+  const obs = getSelectedObservations();
+  const allForCard = observations.filter(o => cardKey(o) === $("cardSelect").value);
+  selectedRows = groupByDate(obs);
+
+  const selected = allForCard[0] || trackedCards.find(c => cardKey(c) === $("cardSelect").value);
+
+  $("summaryCard").textContent = selected ? selected.nomCarte : "—";
+  $("summaryCount").textContent = obs.length;
+  $("summaryDates").textContent = new Set(obs.map(o => o.observationDate || o.date || "-")).size;
+  $("summaryLastDate").textContent = obs.length
+    ? [...obs].sort((a, b) => String(b.observationDate || b.date || "").localeCompare(String(a.observationDate || a.date || "")))[0].observationDate || "—"
+    : "—";
+
+  renderAlerts(allForCard);
+  renderChart(obs);
+  renderTable(selectedRows);
+}
+
+function renderAlerts(obsList) {
+  const alerts = [];
+  const duplicateMap = new Map();
+
+  obsList.forEach(obs => {
+    const key = [obs.observationDate || obs.date || "-", obs.condition, Number(obs.observedMinPrice || 0)].join("|");
+    duplicateMap.set(key, (duplicateMap.get(key) || 0) + 1);
+  });
+
+  duplicateMap.forEach((count, key) => {
+    if (count > 1) alerts.push(`Doublon exact détecté : ${key.replaceAll("|", " / ")}`);
+  });
+
+  groupByDate(obsList).forEach(row => {
+    for (let i = 0; i < conditionOrder.length - 1; i++) {
+      const worse = conditionOrder[i];
+      const better = conditionOrder[i + 1];
+      if (row.prices[worse] && row.prices[better] && row.prices[worse] > row.prices[better]) {
+        alerts.push(`${row.date} : ${worse} supérieur à ${better}.`);
+      }
+    }
+  });
+
+  conditionOrder.forEach(condition => {
+    const values = obsList
+      .filter(o => o.condition === condition)
+      .map(o => Number(o.observedMinPrice || 0))
+      .filter(Boolean);
+
+    if (values.length >= 3) {
+      const avg = values.reduce((a, b) => a + b, 0) / values.length;
+      obsList
+        .filter(o => o.condition === condition)
+        .forEach(o => {
+          const price = Number(o.observedMinPrice || 0);
+          if (price > avg * 1.4 || price < avg * 0.6) {
+            alerts.push(`${condition} : prix très éloigné de la moyenne (${price.toFixed(2)} € vs ${avg.toFixed(2)} €).`);
+          }
+        });
+    }
+  });
+
+  const box = $("alertsBox");
+  if (!alerts.length) {
+    box.innerHTML = `<div class="admin-validation-ok">✓ Aucune alerte détectée.</div>`;
+    return;
+  }
+
+  box.innerHTML = `<div class="admin-validation-warning">⚠ ${alerts.join("<br>⚠ ")}</div>`;
+}
+
+function renderChart(obsList) {
+  const box = $("chartBox");
+
+  if (!obsList.length) {
+    box.innerHTML = "Aucune observation pour cette sélection.";
+    return;
+  }
+
+  const byDateAsc = groupByDate(obsList).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const values = obsList.map(o => Number(o.observedMinPrice || 0)).filter(Boolean);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const width = 920;
+  const height = 320;
+  const padLeft = 60;
+  const padRight = 20;
+  const padTop = 28;
+  const padBottom = 46;
+  const chartWidth = width - padLeft - padRight;
+  const chartHeight = height - padTop - padBottom;
+  const span = Math.max(max - min, 1);
+
+  function xFor(index) {
+    if (byDateAsc.length === 1) return padLeft + chartWidth / 2;
+    return padLeft + (index / (byDateAsc.length - 1)) * chartWidth;
+  }
+
+  function yFor(value) {
+    return padTop + chartHeight - ((value - min) / span) * chartHeight;
+  }
+
+  let svg = `
+    <svg viewBox="0 0 ${width} ${height}" class="obs-svg-chart" role="img">
+      <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${height - padBottom}" class="axis" />
+      <line x1="${padLeft}" y1="${height - padBottom}" x2="${width - padRight}" y2="${height - padBottom}" class="axis" />
+      <text x="${padLeft}" y="18" class="axis-label">Prix observés (€)</text>
+      <text x="8" y="${yFor(max) + 4}" class="tick">${max.toFixed(0)}€</text>
+      <text x="8" y="${yFor(min) + 4}" class="tick">${min.toFixed(0)}€</text>
+  `;
+
+  graphOrder.forEach(condition => {
+    const points = [];
+
+    byDateAsc.forEach((row, index) => {
+      const price = row.prices[condition];
+      if (price) points.push({ x: xFor(index), y: yFor(price), price, date: row.date });
+    });
+
+    if (!points.length) return;
+
+    const pointString = points.map(p => `${p.x},${p.y}`).join(" ");
+    svg += `<polyline points="${pointString}" class="line line-${condition}" />`;
+
+    points.forEach(p => {
+      svg += `
+        <circle cx="${p.x}" cy="${p.y}" r="4" class="dot dot-${condition}">
+          <title>${condition} — ${p.date} — ${p.price.toFixed(2)} €</title>
+        </circle>
+      `;
+    });
+  });
+
+  byDateAsc.forEach((row, index) => {
+    const x = xFor(index);
+    svg += `<text x="${x}" y="${height - 18}" class="date-label" text-anchor="middle">${row.date.slice(5) || row.date}</text>`;
+  });
+
+  svg += `
+      <g class="legend" transform="translate(${padLeft}, ${height - 4})">
+        ${graphOrder.map((c, i) => `<text x="${i * 70}" y="0" class="legend-${c}">● ${c}</text>`).join("")}
+      </g>
+    </svg>
+  `;
+
+  box.innerHTML = svg;
+}
+
+function renderTable(rows) {
   const tbody = $("obsBody");
   tbody.innerHTML = "";
 
-  sorted.forEach(obs => {
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="8">Aucune observation pour cette sélection.</td></tr>`;
+    return;
+  }
+
+  rows.forEach(row => {
+    const cells = conditionOrder.map(condition => {
+      const obs = row.observations[condition];
+      if (!obs) return `<td class="empty-cell">—</td>`;
+
+      return `
+        <td>
+          <strong>${formatPrice(obs.observedMinPrice)}</strong>
+          <button class="mini-delete" onclick="deleteSingleObservation('${obs.id}')">×</button>
+        </td>
+      `;
+    }).join("");
+
     tbody.innerHTML += `
       <tr>
-        <td>${obs.observationDate || obs.date || "-"}</td>
-        <td><strong>${obs.nomCarte || "-"}</strong></td>
-        <td>${obs.edition || "-"}</td>
-        <td>${obs.langue || "-"}</td>
-        <td><span class="badge">${obs.condition || "-"}</span></td>
-        <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
-        <td>${Number(obs.marketSnapshot?.trendPrice || 0).toFixed(2)} €</td>
-        <td>${Number(obs.marketSnapshot?.avg30 || 0).toFixed(2)} €</td>
-        <td>${Number(obs.marketSnapshot?.avg7 || 0).toFixed(2)} €</td>
-        <td>${Number(obs.marketSnapshot?.avg1 || 0).toFixed(2)} €</td>
-        <td>${isObservable(obs) ? "Oui" : "Non"}</td>
-        <td>${obs.source || "-"}</td>
-        <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
+        <td><strong>${row.date}</strong></td>
+        ${cells}
+        <td><button onclick='deleteObservationGroup(${JSON.stringify(row.ids)})'>Supprimer ligne</button></td>
       </tr>
     `;
   });
 }
 
-async function deleteObservation(id) {
+async function deleteSingleObservation(id) {
   if (!confirm("Supprimer cette observation ?")) return;
 
   try {
-    await api("POST", {
-      type: "deleteObservation",
-      id
-    });
+    await api("POST", { type: "deleteObservation", id });
     log("Observation supprimée.");
+    await loadData();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
+
+async function deleteObservationGroup(ids) {
+  if (!confirm("Supprimer tout le relevé de cette ligne ?")) return;
+
+  try {
+    await api("POST", { type: "deleteObservations", ids });
+    log(`${ids.length} observation(s) supprimée(s).`);
     await loadData();
   } catch (e) {
     log("Erreur : " + e.message);
