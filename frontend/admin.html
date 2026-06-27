@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     body { font-family: Arial, sans-serif; margin: 24px; background: #f7f7f7; }
-    .wrap { max-width: 1200px; margin: auto; }
+    .wrap { max-width: 1300px; margin: auto; }
     .card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
     .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
-    input, select, textarea { padding: 8px; }
+    input, select { padding: 8px; }
     button { padding: 10px 14px; cursor: pointer; margin-right: 8px; }
     table { width: 100%; border-collapse: collapse; margin-top: 12px; }
     th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
@@ -39,11 +39,13 @@
   </div>
 
   <div class="card">
-    <h2>Ajouter une observation marché</h2>
+    <h2>1. Ajouter une observation marché</h2>
+    <p class="muted">La date est automatique. L’observation correspond toujours au plus bas prix observable.</p>
+
     <div class="grid">
       <label>Carte <input id="nomCarte" placeholder="Mox Diamond"></label>
       <label>Édition <input id="edition" placeholder="Stronghold"></label>
-      <label>Langue <input id="langue" placeholder="English"></label>
+      <label>Langue <input id="langue" placeholder="English / French / German..."></label>
       <label>État
         <select id="condition">
           <option>PO</option>
@@ -54,33 +56,60 @@
           <option>NM</option>
         </select>
       </label>
+
       <label>Prix mini observé (€) <input id="observedMinPrice" type="number" step="0.01"></label>
       <label>Trend Cardmarket (€) <input id="snapshotTrendPrice" type="number" step="0.01"></label>
-<label>Avg 30j (€) <input id="snapshotAvg30" type="number" step="0.01"></label>
-<label>Avg 7j (€) <input id="snapshotAvg7" type="number" step="0.01"></label>
-<label>Avg 1j (€) <input id="snapshotAvg1" type="number" step="0.01"></label>
-      <label>Date <input id="date" type="date"></label>
-      <label>Source <input id="source" value="Cardmarket lowest observed"></label>
+      <label>Avg 30j (€) <input id="snapshotAvg30" type="number" step="0.01"></label>
+      <label>Avg 7j (€) <input id="snapshotAvg7" type="number" step="0.01"></label>
+      <label>Avg 1j (€) <input id="snapshotAvg1" type="number" step="0.01"></label>
+      <label>Source <input id="source" value="Cardmarket"></label>
+    </div>
+    <br>
+    <button onclick="addObservation()">Ajouter observation</button>
+  </div>
+
+  <div class="card">
+    <h2>2. Gérer les cartes observables</h2>
+    <p class="muted">
+      Cette liste indique quelles cartes doivent être suivies/visibles dans Observations Marché et, à terme, dans Opportunités.
+      Les observations alimentent toujours le modèle, même si la carte n’est pas observable.
+    </p>
+
+    <div class="grid">
+      <label>Carte <input id="trackNomCarte" placeholder="Mox Diamond"></label>
+      <label>Édition <input id="trackEdition" placeholder="Stronghold"></label>
+      <label>Langue <input id="trackLangue" placeholder="English"></label>
       <label>Observable ?
-        <select id="observable">
+        <select id="trackObservable">
           <option value="true">Oui</option>
           <option value="false">Non</option>
         </select>
       </label>
     </div>
     <br>
-    <label>Commentaire <textarea id="comment"></textarea></label>
-    <br>
-    <button onclick="addObservation()">Ajouter observation</button>
+    <button onclick="saveTrackedCard()">Enregistrer carte observable</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Carte</th>
+          <th>Édition</th>
+          <th>Langue</th>
+          <th>Observable</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="trackedBody"></tbody>
+    </table>
   </div>
 
   <div class="card">
-    <h2>Prix manuels spéciaux</h2>
+    <h2>3. Prix manuels spéciaux</h2>
     <p class="muted">Pour cartes absentes du flux automatique : Jihad, Crusade, etc.</p>
     <table>
       <thead>
         <tr>
-          <th>Carte</th><th>Édition</th><th>Langue</th><th>Trend</th><th>Avg30</th><th>Avg7</th><th>Avg1</th><th>Source</th>
+          <th>Carte</th><th>Édition</th><th>Langue</th><th>Trend</th><th>Avg30</th><th>Avg7</th><th>Avg1</th>
         </tr>
       </thead>
       <tbody id="manualBody"></tbody>
@@ -97,6 +126,7 @@
 
 <script>
 let manualPrices = [];
+let trackedCards = [];
 
 function $(id) { return document.getElementById(id); }
 function log(msg) { $("log").textContent = msg; }
@@ -110,7 +140,6 @@ function saveSettings() {
 function loadSettings() {
   $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "";
   $("password").value = localStorage.getItem("mtgAdminPassword") || "";
-  $("date").value = new Date().toISOString().slice(0, 10);
 }
 
 async function api(method, body) {
@@ -132,20 +161,97 @@ async function loadData() {
   try {
     const data = await api("GET");
     manualPrices = data.manualPrices || [];
+    trackedCards = data.trackedCards || [];
     renderManualPrices();
+    renderTrackedCards();
     log("Données chargées.");
   } catch (e) {
     log("Erreur : " + e.message);
   }
 }
 
-function findCopySource(price) {
-  if (!price.copyFrom) return null;
-  return manualPrices.find(p =>
-    p.nomCarte === price.copyFrom.nomCarte &&
-    p.edition === price.copyFrom.edition &&
-    (!price.copyFrom.langue || p.langue === price.copyFrom.langue)
+async function addObservation() {
+  try {
+    await api("POST", {
+      type: "addObservation",
+      nomCarte: $("nomCarte").value,
+      edition: $("edition").value,
+      langue: $("langue").value,
+      condition: $("condition").value,
+      observedMinPrice: Number($("observedMinPrice").value || 0),
+      marketSnapshot: {
+        trendPrice: Number($("snapshotTrendPrice").value || 0),
+        avg30: Number($("snapshotAvg30").value || 0),
+        avg7: Number($("snapshotAvg7").value || 0),
+        avg1: Number($("snapshotAvg1").value || 0)
+      },
+      source: $("source").value
+    });
+
+    $("observedMinPrice").value = "";
+    $("snapshotTrendPrice").value = "";
+    $("snapshotAvg30").value = "";
+    $("snapshotAvg7").value = "";
+    $("snapshotAvg1").value = "";
+
+    log("Observation ajoutée dans GitHub.");
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
+
+async function saveTrackedCard() {
+  try {
+    await api("POST", {
+      type: "saveTrackedCard",
+      nomCarte: $("trackNomCarte").value,
+      edition: $("trackEdition").value,
+      langue: $("trackLangue").value,
+      observable: $("trackObservable").value === "true"
+    });
+
+    log("Carte observable enregistrée.");
+    await loadData();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
+
+async function deleteTrackedCard(id) {
+  if (!confirm("Supprimer cette carte observable ?")) return;
+
+  try {
+    await api("POST", {
+      type: "deleteTrackedCard",
+      id
+    });
+
+    log("Carte observable supprimée.");
+    await loadData();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
+
+function renderTrackedCards() {
+  const tbody = $("trackedBody");
+  tbody.innerHTML = "";
+
+  const sorted = [...trackedCards].sort((a, b) =>
+    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(`${b.nomCarte} ${b.edition} ${b.langue}`)
   );
+
+  sorted.forEach(card => {
+    tbody.innerHTML += `
+      <tr>
+        <td><strong>${card.nomCarte || "-"}</strong></td>
+        <td>${card.edition || "-"}</td>
+        <td>${card.langue || "-"}</td>
+        <td>${card.observable ? "Oui" : "Non"}</td>
+        <td><button onclick="deleteTrackedCard('${card.id}')">Supprimer</button></td>
+      </tr>
+    `;
+  });
 }
 
 function renderManualPrices() {
@@ -153,29 +259,22 @@ function renderManualPrices() {
   tbody.innerHTML = "";
 
   manualPrices.forEach((p, i) => {
-    const source = findCopySource(p);
-    const display = source || p;
-    const readonly = p.copyFrom ? "readonly" : "";
-
     tbody.innerHTML += `
       <tr>
         <td>${p.nomCarte}</td>
         <td>${p.edition}</td>
         <td>${p.langue || "-"}</td>
-        <td><input ${readonly} type="number" step="0.01" value="${display.trendPrice || ""}" onchange="setManual(${i}, 'trendPrice', this.value)"></td>
-        <td><input ${readonly} type="number" step="0.01" value="${display.avg30 || ""}" onchange="setManual(${i}, 'avg30', this.value)"></td>
-        <td><input ${readonly} type="number" step="0.01" value="${display.avg7 || ""}" onchange="setManual(${i}, 'avg7', this.value)"></td>
-        <td><input ${readonly} type="number" step="0.01" value="${display.avg1 || ""}" onchange="setManual(${i}, 'avg1', this.value)"></td>
-        <td>${p.copyFrom ? "Copie Revised" : "Manuel"}</td>
+        <td><input type="number" step="0.01" value="${p.trendPrice || ""}" onchange="setManual(${i}, 'trendPrice', this.value)"></td>
+        <td><input type="number" step="0.01" value="${p.avg30 || ""}" onchange="setManual(${i}, 'avg30', this.value)"></td>
+        <td><input type="number" step="0.01" value="${p.avg7 || ""}" onchange="setManual(${i}, 'avg7', this.value)"></td>
+        <td><input type="number" step="0.01" value="${p.avg1 || ""}" onchange="setManual(${i}, 'avg1', this.value)"></td>
       </tr>
     `;
   });
 }
 
 function setManual(index, field, value) {
-  if (manualPrices[index].copyFrom) return;
   manualPrices[index][field] = Number(value || 0);
-  renderManualPrices();
 }
 
 async function saveManualPrices() {
@@ -185,41 +284,6 @@ async function saveManualPrices() {
       data: manualPrices
     });
     log("Prix manuels sauvegardés dans GitHub.");
-  } catch (e) {
-    log("Erreur : " + e.message);
-  }
-}
-
-async function addObservation() {
-  await api("POST", {
-  type: "addObservation",
-  nomCarte: $("nomCarte").value,
-  edition: $("edition").value,
-  langue: $("langue").value,
-  condition: $("condition").value,
-  observedMinPrice: Number($("observedMinPrice").value || 0),
-
-  marketSnapshot: {
-    trendPrice: Number($("snapshotTrendPrice").value || 0),
-    avg30: Number($("snapshotAvg30").value || 0),
-    avg7: Number($("snapshotAvg7").value || 0),
-    avg1: Number($("snapshotAvg1").value || 0)
-  },
-
-  date: $("date").value,
-  source: $("source").value,
-  observable: $("observable").value === "true",
-  comment: $("comment").value
-});
-
-$("snapshotTrendPrice").value = "";
-$("snapshotAvg30").value = "";
-$("snapshotAvg7").value = "";
-$("snapshotAvg1").value = "";
-
-    log("Observation ajoutée dans GitHub.");
-    $("observedMinPrice").value = "";
-    $("comment").value = "";
   } catch (e) {
     log("Erreur : " + e.message);
   }
