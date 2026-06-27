@@ -40,17 +40,21 @@
     <table>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Carte</th>
-          <th>Édition</th>
-          <th>Langue</th>
-          <th>État</th>
-          <th>Prix mini</th>
-          <th>Observable</th>
-          <th>Source</th>
-          <th>Commentaire</th>
-          <th></th>
-        </tr>
+  <th>Date</th>
+  <th>Carte</th>
+  <th>Édition</th>
+  <th>Langue</th>
+  <th>État</th>
+  <th>Prix mini</th>
+  <th>Trend</th>
+  <th>Avg30</th>
+  <th>Avg7</th>
+  <th>Avg1</th>
+  <th>Observable</th>
+  <th>Source</th>
+  <th>Commentaire</th>
+  <th></th>
+</tr>
       </thead>
       <tbody id="obsBody"></tbody>
     </table>
@@ -122,19 +126,23 @@ function render() {
 
   sorted.forEach(obs => {
     tbody.innerHTML += `
-      <tr>
-        <td>${obs.date || "-"}</td>
-        <td><strong>${obs.nomCarte || "-"}</strong></td>
-        <td>${obs.edition || "-"}</td>
-        <td>${obs.langue || "-"}</td>
-        <td><span class="badge">${obs.condition || "-"}</span></td>
-        <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
-        <td>${obs.observable ? "Oui" : "Non"}</td>
-        <td>${obs.source || "-"}</td>
-        <td>${obs.comment || ""}</td>
-        <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
-      </tr>
-    `;
+  <tr>
+    <td>${obs.date || "-"}</td>
+    <td><strong>${obs.nomCarte || "-"}</strong></td>
+    <td>${obs.edition || "-"}</td>
+    <td>${obs.langue || "-"}</td>
+    <td><span class="badge">${obs.condition || "-"}</span></td>
+    <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
+    <td>${Number(obs.marketSnapshot?.trendPrice || 0).toFixed(2)} €</td>
+    <td>${Number(obs.marketSnapshot?.avg30 || 0).toFixed(2)} €</td>
+    <td>${Number(obs.marketSnapshot?.avg7 || 0).toFixed(2)} €</td>
+    <td>${Number(obs.marketSnapshot?.avg1 || 0).toFixed(2)} €</td>
+    <td>${obs.observable ? "Oui" : "Non"}</td>
+    <td>${obs.source || "-"}</td>
+    <td>${obs.comment || ""}</td>
+    <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
+  </tr>
+`;
   });
 }
 

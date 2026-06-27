@@ -55,6 +55,10 @@
         </select>
       </label>
       <label>Prix mini observé (€) <input id="observedMinPrice" type="number" step="0.01"></label>
+      <label>Trend Cardmarket (€) <input id="snapshotTrendPrice" type="number" step="0.01"></label>
+<label>Avg 30j (€) <input id="snapshotAvg30" type="number" step="0.01"></label>
+<label>Avg 7j (€) <input id="snapshotAvg7" type="number" step="0.01"></label>
+<label>Avg 1j (€) <input id="snapshotAvg1" type="number" step="0.01"></label>
       <label>Date <input id="date" type="date"></label>
       <label>Source <input id="source" value="Cardmarket lowest observed"></label>
       <label>Observable ?
@@ -187,19 +191,31 @@ async function saveManualPrices() {
 }
 
 async function addObservation() {
-  try {
-    await api("POST", {
-      type: "addObservation",
-      nomCarte: $("nomCarte").value,
-      edition: $("edition").value,
-      langue: $("langue").value,
-      condition: $("condition").value,
-      observedMinPrice: Number($("observedMinPrice").value || 0),
-      date: $("date").value,
-      source: $("source").value,
-      observable: $("observable").value === "true",
-      comment: $("comment").value
-    });
+  await api("POST", {
+  type: "addObservation",
+  nomCarte: $("nomCarte").value,
+  edition: $("edition").value,
+  langue: $("langue").value,
+  condition: $("condition").value,
+  observedMinPrice: Number($("observedMinPrice").value || 0),
+
+  marketSnapshot: {
+    trendPrice: Number($("snapshotTrendPrice").value || 0),
+    avg30: Number($("snapshotAvg30").value || 0),
+    avg7: Number($("snapshotAvg7").value || 0),
+    avg1: Number($("snapshotAvg1").value || 0)
+  },
+
+  date: $("date").value,
+  source: $("source").value,
+  observable: $("observable").value === "true",
+  comment: $("comment").value
+});
+
+$("snapshotTrendPrice").value = "";
+$("snapshotAvg30").value = "";
+$("snapshotAvg7").value = "";
+$("snapshotAvg1").value = "";
 
     log("Observation ajoutée dans GitHub.");
     $("observedMinPrice").value = "";

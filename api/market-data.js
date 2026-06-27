@@ -82,14 +82,25 @@ function cleanObservation(body) {
   return {
     id: body.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
     date: body.date || new Date().toISOString().slice(0, 10),
+
     nomCarte: String(body.nomCarte || "").trim(),
     edition: String(body.edition || "").trim(),
     langue: String(body.langue || "").trim(),
     condition: String(body.condition || "").trim(),
+
     observedMinPrice: Number(body.observedMinPrice || 0),
-    source: String(body.source || "Cardmarket lowest observed").trim(),
+
+    marketSnapshot: {
+      trendPrice: Number(body.marketSnapshot?.trendPrice || 0),
+      avg30: Number(body.marketSnapshot?.avg30 || 0),
+      avg7: Number(body.marketSnapshot?.avg7 || 0),
+      avg1: Number(body.marketSnapshot?.avg1 || 0)
+    },
+
     observable: Boolean(body.observable),
+    source: String(body.source || "Cardmarket").trim(),
     comment: String(body.comment || "").trim(),
+
     createdAt: body.createdAt || new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
