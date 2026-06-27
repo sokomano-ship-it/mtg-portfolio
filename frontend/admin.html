@@ -138,11 +138,11 @@
       <label>Type de valorisation
         <select id="trackPriceMode">
           <option value="automatic">🟢 Automatique</option>
-<option value="manual">🔴 Manuelle par observations</option>
+          <option value="manual">🔴 Manuelle par observations</option>
         </select>
       </label>
 
-      <label>Suivie ?
+      <label>Afficher dans le suivi ?
         <select id="trackObservable">
           <option value="true">Oui</option>
           <option value="false">Non</option>
@@ -151,14 +151,6 @@
 
       <label>Filtrer
         <input id="trackedSearch" placeholder="Ali, Jihad, Crusade..." oninput="renderTrackedCards()">
-      </label>
-
-      <label>Mode
-        <select id="trackedModeFilter" onchange="renderTrackedCards()">
-          <option value="all">Toutes</option>
-          <option value="automatic">Automatiques</option>
-          <option value="manual">Manuelles</option>
-        </select>
       </label>
     </div>
 
@@ -589,7 +581,7 @@ function renderTrackedCards() {
   tbody.innerHTML = "";
 
   const text = normalizeText($("trackedSearch")?.value || "");
-  const mode = $("trackedModeFilter")?.value || "all";
+  const mode = "all";
 
   const filtered = trackedCards
     .filter(card => {
