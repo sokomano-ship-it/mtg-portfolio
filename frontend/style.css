@@ -1091,3 +1091,98 @@ body.admin-page .tab-button.active {
   color: #0f1117 !important;
   border-color: #7fb7ff !important;
 }
+
+/* ===========================
+   Admin Typography
+   =========================== */
+
+body.admin-page {
+    color: #f5f5f5;
+}
+
+body.admin-page h1 {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+body.admin-page h2 {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+body.admin-page label {
+    color: #d9deea !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+}
+
+body.admin-page .muted,
+body.admin-page .admin-hint {
+    color: #c7d0e0 !important;
+    font-weight: 500;
+}
+
+body.admin-page strong {
+    color: #ffffff;
+}
+
+body.admin-page td {
+    color: #f5f5f5;
+}
+
+body.admin-page th {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+body.admin-page .admin-card{
+    background:#171b26;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+body.admin-page input,
+body.admin-page select{
+
+    background:#202636;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    color:#ffffff;
+
+    font-weight:600;
+}
+
+body.admin-page input:focus,
+body.admin-page select:focus{
+
+    outline:none;
+
+    border-color:#7fb7ff;
+
+    box-shadow:0 0 0 3px rgba(127,183,255,.20);
+}
+
+body.admin-page button{
+
+    background:#2d73d5;
+
+    color:white;
+
+    border:none;
+
+    font-weight:700;
+}
+
+body.admin-page button:hover{
+
+    background:#4285f4;
+}
+
+body.admin-page .admin-reference-box{
+
+    background:#16263d;
+
+    border-left:5px solid #4ea1ff;
+}
