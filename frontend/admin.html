@@ -16,8 +16,10 @@
     th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
     .muted { color: #777; }
     .log { background: #111; color: #0f0; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
+    .hint { font-size: 0.85rem; color: #555; margin-top: 6px; }
   </style>
 </head>
+
 <body>
 <div class="wrap">
   <h1>⚙️ Administration</h1>
@@ -27,7 +29,7 @@
     <h2>Connexion API</h2>
     <div class="grid">
       <label>URL API Vercel
-        <input id="apiUrl" placeholder="https://...vercel.app/api/market-data">
+        <input id="apiUrl" placeholder="https://mtg-portfolio-lac.vercel.app/api/market-data">
       </label>
       <label>Mot de passe admin
         <input id="password" type="password">
@@ -36,11 +38,23 @@
     <br>
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger données</button>
+    <button onclick="loadPortfolio()">Charger collection locale</button>
   </div>
 
   <div class="card">
     <h2>1. Ajouter une observation marché</h2>
-    <p class="muted">La date est automatique. L’observation correspond toujours au plus bas prix observable.</p>
+    <p class="muted">
+      La date est automatique. L’observation correspond toujours au plus bas prix observable.
+      La recherche ci-dessous utilise ta collection locale pour préremplir les champs.
+    </p>
+
+    <label>Recherche carte / édition / langue
+      <input id="cardSearch" list="cardSuggestions" placeholder="Ex: Ali, Mox, Crusade..." oninput="handleSearchInput()">
+      <datalist id="cardSuggestions"></datalist>
+    </label>
+    <div class="hint" id="searchHint">Collection locale non chargée.</div>
+
+    <br>
 
     <div class="grid">
       <label>Carte <input id="nomCarte" placeholder="Mox Diamond"></label>
@@ -64,6 +78,7 @@
       <label>Avg 1j (€) <input id="snapshotAvg1" type="number" step="0.01"></label>
       <label>Source <input id="source" value="Cardmarket"></label>
     </div>
+
     <br>
     <button onclick="addObservation()">Ajouter observation</button>
   </div>
@@ -86,7 +101,9 @@
         </select>
       </label>
     </div>
+
     <br>
+    <button onclick="copyObservationCardToTracked()">Copier carte observation</button>
     <button onclick="saveTrackedCard()">Enregistrer carte observable</button>
 
     <table>
@@ -127,9 +144,28 @@
 <script>
 let manualPrices = [];
 let trackedCards = [];
+let portfolioCards = [];
+let cardSuggestionMap = new Map();
 
 function $(id) { return document.getElementById(id); }
 function log(msg) { $("log").textContent = msg; }
+
+function formatNumber(value) {
+  const n = Number(value || 0);
+  return n ? n.toFixed(2) : "";
+}
+
+function normalizeText(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function cardKey(card) {
+  return [
+    normalizeText(card.nomCarte),
+    normalizeText(card.edition),
+    normalizeText(card.langue)
+  ].join("|");
+}
 
 function saveSettings() {
   localStorage.setItem("mtgApiUrl", $("apiUrl").value.trim());
@@ -138,7 +174,7 @@ function saveSettings() {
 }
 
 function loadSettings() {
-  $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "";
+  $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "https://mtg-portfolio-lac.vercel.app/api/market-data";
   $("password").value = localStorage.getItem("mtgAdminPassword") || "";
 }
 
@@ -170,6 +206,100 @@ async function loadData() {
   }
 }
 
+async function loadPortfolio() {
+  try {
+    const response = await fetch("data/portfolio.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Impossible de charger data/portfolio.json");
+
+    const data = await response.json();
+    const rawCards = Array.isArray(data) ? data : (data.cards || data.portfolio || []);
+
+    portfolioCards = dedupePortfolioCards(rawCards);
+    buildSuggestions();
+
+    $("searchHint").textContent = `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis la collection.`;
+    log("Collection locale chargée.");
+  } catch (e) {
+    $("searchHint").textContent = "Erreur de chargement collection.";
+    log("Erreur : " + e.message);
+  }
+}
+
+function dedupePortfolioCards(cards) {
+  const map = new Map();
+
+  cards.forEach(card => {
+    const normalized = {
+      nomCarte: card.nomCarte || card.name || "",
+      edition: card.edition || card.setName || "",
+      langue: card.langue || card.language || "",
+      version: card.version || "",
+      trendPrice: card.trendPrice || card.nmPrice || card.priceTrend || 0,
+      avg30: card.avg30 || card.avg30Price || 0,
+      avg7: card.avg7 || card.avg7Price || 0,
+      avg1: card.avg1 || card.avg1Price || 0
+    };
+
+    const key = cardKey(normalized);
+    if (!key.replaceAll("|", "")) return;
+
+    if (!map.has(key)) {
+      map.set(key, normalized);
+    }
+  });
+
+  return [...map.values()].sort((a, b) =>
+    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(`${b.nomCarte} ${b.edition} ${b.langue}`)
+  );
+}
+
+function buildSuggestions() {
+  const datalist = $("cardSuggestions");
+  datalist.innerHTML = "";
+  cardSuggestionMap = new Map();
+
+  portfolioCards.forEach(card => {
+    const label = `${card.nomCarte} — ${card.edition} — ${card.langue || "-"}`;
+    cardSuggestionMap.set(label, card);
+
+    const option = document.createElement("option");
+    option.value = label;
+    datalist.appendChild(option);
+  });
+}
+
+function handleSearchInput() {
+  const value = $("cardSearch").value;
+  const card = cardSuggestionMap.get(value);
+  if (!card) return;
+
+  fillCardFields(card);
+}
+
+function fillCardFields(card) {
+  $("nomCarte").value = card.nomCarte || "";
+  $("edition").value = card.edition || "";
+  $("langue").value = card.langue || "";
+
+  $("snapshotTrendPrice").value = formatNumber(card.trendPrice);
+  $("snapshotAvg30").value = formatNumber(card.avg30);
+  $("snapshotAvg7").value = formatNumber(card.avg7);
+  $("snapshotAvg1").value = formatNumber(card.avg1);
+
+  $("trackNomCarte").value = card.nomCarte || "";
+  $("trackEdition").value = card.edition || "";
+  $("trackLangue").value = card.langue || "";
+
+  log(`Carte sélectionnée : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
+}
+
+function copyObservationCardToTracked() {
+  $("trackNomCarte").value = $("nomCarte").value;
+  $("trackEdition").value = $("edition").value;
+  $("trackLangue").value = $("langue").value;
+  log("Carte copiée vers la section cartes observables.");
+}
+
 async function addObservation() {
   try {
     await api("POST", {
@@ -189,11 +319,6 @@ async function addObservation() {
     });
 
     $("observedMinPrice").value = "";
-    $("snapshotTrendPrice").value = "";
-    $("snapshotAvg30").value = "";
-    $("snapshotAvg7").value = "";
-    $("snapshotAvg1").value = "";
-
     log("Observation ajoutée dans GitHub.");
   } catch (e) {
     log("Erreur : " + e.message);
@@ -290,6 +415,7 @@ async function saveManualPrices() {
 }
 
 loadSettings();
+loadPortfolio();
 </script>
 </body>
 </html>
