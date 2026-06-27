@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T21:21:52.350Z",
+  "generatedAt": "2026-06-27T08:31:18.900Z",
   "cards": [
     {
       "id": 566,
@@ -4717,13 +4717,17 @@
     {
       "date": "2026-06-26",
       "totalValue": 2521.54
+    },
+    {
+      "date": "2026-06-27",
+      "totalValue": 2521.54
     }
   ],
   "portfolioSummary": {
     "today": 2521.54,
-    "yesterday": 1897.62,
-    "change": 623.92,
-    "changePct": 32.88
+    "yesterday": 2521.54,
+    "change": 0,
+    "changePct": 0
   },
   "topMovers": [
     {
@@ -7542,17 +7546,19 @@
       "trendQuality": 90,
       "momentumQuality": 80,
       "remainingPotential": 87,
-      "timingScore": 90,
+      "timingScore": 100,
       "riskMultiplier": 1,
-      "buyProbability": 86,
-      "convictionScore": 86,
+      "buyProbability": 88,
+      "convictionScore": 88,
       "decision": "🟢 Achat fort",
       "reasons": [
         "Momentum propre",
+        "Timing renforcé par une volatilité faible",
         "Prix NM significatif"
       ],
       "warnings": [
-        "Historique encore court"
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
       ],
       "explanation": [
         {
@@ -7561,30 +7567,38 @@
         },
         {
           "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
           "text": "Prix NM significatif"
         },
         {
           "type": "warning",
           "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         }
       ],
       "historical": {
-        "historyPoints": 1,
+        "historyPoints": 2,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 51.8,
-        "historyAgeDays": 0,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": null,
-        "slope30PerDay": null,
+        "historyAgeDays": 1,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
         "acceleration": null,
-        "volatility30": null,
-        "high30d": null,
-        "low30d": null,
-        "position30dPct": null,
-        "high90d": null,
-        "low90d": null,
-        "position90dPct": null
+        "volatility30": 0,
+        "high30d": 51.8,
+        "low30d": 51.8,
+        "position30dPct": 100,
+        "high90d": 51.8,
+        "low90d": 51.8,
+        "position90dPct": 100
       }
     },
     {
@@ -7621,16 +7635,18 @@
       "trendQuality": 100,
       "momentumQuality": 80,
       "remainingPotential": 90,
-      "timingScore": 94,
+      "timingScore": 100,
       "riskMultiplier": 0.88,
-      "buyProbability": 79,
-      "convictionScore": 79,
+      "buyProbability": 80,
+      "convictionScore": 80,
       "decision": "🟡 Achat intéressant",
       "reasons": [
-        "Momentum propre"
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible"
       ],
       "warnings": [
         "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours",
         "Carte peu chère"
       ],
       "explanation": [
@@ -7639,8 +7655,16 @@
           "text": "Momentum propre"
         },
         {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
           "type": "warning",
           "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         },
         {
           "type": "warning",
@@ -7648,22 +7672,22 @@
         }
       ],
       "historical": {
-        "historyPoints": 1,
+        "historyPoints": 2,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 1.55,
-        "historyAgeDays": 0,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": null,
-        "slope30PerDay": null,
+        "historyAgeDays": 1,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
         "acceleration": null,
-        "volatility30": null,
-        "high30d": null,
-        "low30d": null,
-        "position30dPct": null,
-        "high90d": null,
-        "low90d": null,
-        "position90dPct": null
+        "volatility30": 0,
+        "high30d": 1.55,
+        "low30d": 1.55,
+        "position30dPct": 100,
+        "high90d": 1.55,
+        "low90d": 1.55,
+        "position90dPct": 100
       }
     },
     {
@@ -7700,13 +7724,14 @@
       "trendQuality": 50,
       "momentumQuality": 76,
       "remainingPotential": 79,
-      "timingScore": 96,
+      "timingScore": 99,
       "riskMultiplier": 1,
       "buyProbability": 76,
       "convictionScore": 76,
       "decision": "🟡 Achat intéressant",
       "reasons": [
         "Momentum propre",
+        "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
         "Prix NM significatif"
       ],
@@ -7718,6 +7743,10 @@
         {
           "type": "positive",
           "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
         },
         {
           "type": "positive",
@@ -7737,16 +7766,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 4,
+        "historyPoints": 6,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 20.46,
-        "historyAgeDays": 1,
-        "uptrendDays": 3,
+        "historyAgeDays": 2,
+        "uptrendDays": 5,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 1.237,
-        "acceleration": null,
-        "volatility30": 0.58,
+        "slope30PerDay": 0.619,
+        "acceleration": -1.237,
+        "volatility30": 0.49,
         "high30d": 20.46,
         "low30d": 20.21,
         "position30dPct": 100,
@@ -7789,7 +7818,7 @@
       "trendQuality": 94,
       "momentumQuality": 72,
       "remainingPotential": 83,
-      "timingScore": 96,
+      "timingScore": 97,
       "riskMultiplier": 0.88,
       "buyProbability": 75,
       "convictionScore": 75,
@@ -7826,16 +7855,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 2.81,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 10.63,
+        "slope30PerDay": 5.315,
         "acceleration": null,
-        "volatility30": 0,
+        "volatility30": 5.31,
         "high30d": 2.81,
         "low30d": 2.54,
         "position30dPct": 100,
@@ -7878,7 +7907,7 @@
       "trendQuality": 94,
       "momentumQuality": 72,
       "remainingPotential": 83,
-      "timingScore": 96,
+      "timingScore": 97,
       "riskMultiplier": 0.88,
       "buyProbability": 75,
       "convictionScore": 75,
@@ -7915,16 +7944,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 2.81,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 10.63,
+        "slope30PerDay": 5.315,
         "acceleration": null,
-        "volatility30": 0,
+        "volatility30": 5.31,
         "high30d": 2.81,
         "low30d": 2.54,
         "position30dPct": 100,
@@ -7967,10 +7996,10 @@
       "trendQuality": 88,
       "momentumQuality": 8,
       "remainingPotential": 85,
-      "timingScore": 97,
+      "timingScore": 99,
       "riskMultiplier": 1,
-      "buyProbability": 72,
-      "convictionScore": 72,
+      "buyProbability": 73,
+      "convictionScore": 73,
       "decision": "👀 Surveillance",
       "reasons": [
         "Timing renforcé par une volatilité faible",
@@ -8004,12 +8033,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 5.72,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -8056,10 +8085,10 @@
       "trendQuality": 88,
       "momentumQuality": 8,
       "remainingPotential": 85,
-      "timingScore": 97,
+      "timingScore": 99,
       "riskMultiplier": 1,
-      "buyProbability": 72,
-      "convictionScore": 72,
+      "buyProbability": 73,
+      "convictionScore": 73,
       "decision": "👀 Surveillance",
       "reasons": [
         "Timing renforcé par une volatilité faible",
@@ -8093,12 +8122,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 5.72,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -8145,7 +8174,7 @@
       "trendQuality": 67,
       "momentumQuality": 57,
       "remainingPotential": 72,
-      "timingScore": 86,
+      "timingScore": 87,
       "riskMultiplier": 1,
       "buyProbability": 72,
       "convictionScore": 72,
@@ -8182,12 +8211,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 19.85,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -8234,7 +8263,7 @@
       "trendQuality": 35,
       "momentumQuality": 78,
       "remainingPotential": 74,
-      "timingScore": 90,
+      "timingScore": 91,
       "riskMultiplier": 1,
       "buyProbability": 70,
       "convictionScore": 70,
@@ -8271,16 +8300,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 242.28,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 3.089,
+        "slope30PerDay": 1.545,
         "acceleration": null,
-        "volatility30": 0,
+        "volatility30": 1.54,
         "high30d": 242.28,
         "low30d": 235.02,
         "position30dPct": 100,
@@ -8323,7 +8352,7 @@
       "trendQuality": 72,
       "momentumQuality": 54,
       "remainingPotential": 85,
-      "timingScore": 98,
+      "timingScore": 100,
       "riskMultiplier": 0.88,
       "buyProbability": 69,
       "convictionScore": 69,
@@ -8360,12 +8389,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 1.86,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -8375,100 +8404,6 @@
         "position30dPct": 100,
         "high90d": 1.86,
         "low90d": 1.86,
-        "position90dPct": 100
-      }
-    },
-    {
-      "id": 418,
-      "nomCarte": "Erg Raiders (V.1)",
-      "nomBase": "Erg Raiders",
-      "version": "V.1",
-      "edition": "Arabian Nights",
-      "langue": "English",
-      "etat": "NM",
-      "scryfallId": "35c73a97-531d-4dd5-8236-39b89c183c38",
-      "imageUrl": "https://cards.scryfall.io/normal/front/3/5/35c73a97-531d-4dd5-8236-39b89c183c38.jpg?1562904951",
-      "priceUsd": 5.09,
-      "priceEur": 6.12,
-      "cardmarketId": 6783,
-      "createdAt": "2026-06-26 09:05:44",
-      "categorie": "Classeur",
-      "trendPrice": 6.12,
-      "lowPrice": 2.95,
-      "avgPrice": 4.93,
-      "avg1": 3.99,
-      "avg7": 9.32,
-      "avg30": 5.38,
-      "prixEtat": 6.12,
-      "quantityOwned": 1,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "NM",
-      "nmPrice": 6.12,
-      "trendVs30": 13.75,
-      "avg7Vs30": 73.23,
-      "avg1Vs7": -57.19,
-      "trendQuality": 98,
-      "momentumQuality": 10,
-      "remainingPotential": 70,
-      "timingScore": 83,
-      "riskMultiplier": 1,
-      "buyProbability": 68,
-      "convictionScore": 68,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum positif",
-        "Timing renforcé par une volatilité faible",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Momentum négatif",
-        "Historique encore court",
-        "Timing moins bon : proche du plus haut 90 jours"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        },
-        {
-          "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
-        }
-      ],
-      "historical": {
-        "historyPoints": 2,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 6.12,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
-        "positiveDaysRatio30": 100,
-        "slope30PerDay": 0,
-        "acceleration": null,
-        "volatility30": 0,
-        "high30d": 6.12,
-        "low30d": 6.12,
-        "position30dPct": 100,
-        "high90d": 6.12,
-        "low90d": 6.12,
         "position90dPct": 100
       }
     },
@@ -8506,7 +8441,106 @@
       "trendQuality": 75,
       "momentumQuality": 24,
       "remainingPotential": 74,
-      "timingScore": 91,
+      "timingScore": 95,
+      "riskMultiplier": 1,
+      "buyProbability": 69,
+      "convictionScore": 69,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif",
+        "Timing favorable : hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 7,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 6.81,
+        "historyAgeDays": 2,
+        "uptrendDays": 6,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0.074,
+        "acceleration": -0.147,
+        "volatility30": 0.05,
+        "high30d": 6.81,
+        "low30d": 6.8,
+        "position30dPct": 100,
+        "high90d": 6.81,
+        "low90d": 6.8,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 418,
+      "nomCarte": "Erg Raiders (V.1)",
+      "nomBase": "Erg Raiders",
+      "version": "V.1",
+      "edition": "Arabian Nights",
+      "langue": "English",
+      "etat": "NM",
+      "scryfallId": "35c73a97-531d-4dd5-8236-39b89c183c38",
+      "imageUrl": "https://cards.scryfall.io/normal/front/3/5/35c73a97-531d-4dd5-8236-39b89c183c38.jpg?1562904951",
+      "priceUsd": 5.09,
+      "priceEur": 6.12,
+      "cardmarketId": 6783,
+      "createdAt": "2026-06-26 09:05:44",
+      "categorie": "Classeur",
+      "trendPrice": 6.12,
+      "lowPrice": 2.95,
+      "avgPrice": 4.93,
+      "avg1": 3.99,
+      "avg7": 9.32,
+      "avg30": 5.38,
+      "prixEtat": 6.12,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "NM",
+      "nmPrice": 6.12,
+      "trendVs30": 13.75,
+      "avg7Vs30": 73.23,
+      "avg1Vs7": -57.19,
+      "trendQuality": 98,
+      "momentumQuality": 10,
+      "remainingPotential": 70,
+      "timingScore": 85,
       "riskMultiplier": 1,
       "buyProbability": 68,
       "convictionScore": 68,
@@ -8548,39 +8582,39 @@
         }
       ],
       "historical": {
-        "historyPoints": 4,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 6.81,
-        "historyAgeDays": 1,
-        "uptrendDays": 3,
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 6.12,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 0.147,
+        "slope30PerDay": 0,
         "acceleration": null,
-        "volatility30": 0.07,
-        "high30d": 6.81,
-        "low30d": 6.8,
+        "volatility30": 0,
+        "high30d": 6.12,
+        "low30d": 6.12,
         "position30dPct": 100,
-        "high90d": 6.81,
-        "low90d": 6.8,
+        "high90d": 6.12,
+        "low90d": 6.12,
         "position90dPct": 100
       }
     },
     {
-      "id": 506,
+      "id": 592,
       "nomCarte": "Armageddon",
       "nomBase": "Armageddon",
       "version": null,
-      "edition": "Revised",
-      "langue": "English",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
       "etat": "EX",
-      "scryfallId": "605e9a62-53e4-4771-9730-56c78237004a",
-      "imageUrl": "https://cards.scryfall.io/normal/front/6/0/605e9a62-53e4-4771-9730-56c78237004a.jpg?1559596761",
-      "priceUsd": 15.9,
-      "priceEur": 13.53,
+      "scryfallId": "e45f2bda-4867-4e30-8f27-4e4dbf9b43bc",
+      "imageUrl": "https://cards.scryfall.io/normal/front/e/4/e45f2bda-4867-4e30-8f27-4e4dbf9b43bc.jpg?1559592435",
+      "priceUsd": null,
+      "priceEur": null,
       "cardmarketId": 5714,
       "createdAt": "2026-06-26 09:05:44",
-      "categorie": "Classeur",
+      "categorie": "Mono Blanc",
       "trendPrice": 13.53,
       "lowPrice": 6,
       "avgPrice": 12.18,
@@ -8588,7 +8622,7 @@
       "avg7": 14.36,
       "avg30": 12.09,
       "prixEtat": 12.45,
-      "quantityOwned": 2,
+      "quantityOwned": 1,
       "ownedStatesSet": {},
       "owned": true,
       "ownedLabel": "Oui",
@@ -8643,11 +8677,105 @@
       ],
       "historical": {
         "historyPoints": 2,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 13.53,
         "historyAgeDays": 1,
         "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 13.53,
+        "low30d": 13.53,
+        "position30dPct": 100,
+        "high90d": 13.53,
+        "low90d": 13.53,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 506,
+      "nomCarte": "Armageddon",
+      "nomBase": "Armageddon",
+      "version": null,
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "605e9a62-53e4-4771-9730-56c78237004a",
+      "imageUrl": "https://cards.scryfall.io/normal/front/6/0/605e9a62-53e4-4771-9730-56c78237004a.jpg?1559596761",
+      "priceUsd": 15.9,
+      "priceEur": 13.53,
+      "cardmarketId": 5714,
+      "createdAt": "2026-06-26 09:05:44",
+      "categorie": "Classeur",
+      "trendPrice": 13.53,
+      "lowPrice": 6,
+      "avgPrice": 12.18,
+      "avg1": 10,
+      "avg7": 14.36,
+      "avg30": 12.09,
+      "prixEtat": 12.45,
+      "quantityOwned": 2,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 13.53,
+      "trendVs30": 11.91,
+      "avg7Vs30": 18.78,
+      "avg1Vs7": -30.36,
+      "trendQuality": 85,
+      "momentumQuality": 10,
+      "remainingPotential": 72,
+      "timingScore": 87,
+      "riskMultiplier": 1,
+      "buyProbability": 66,
+      "convictionScore": 66,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 4,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 13.53,
+        "historyAgeDays": 2,
+        "uptrendDays": 3,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -8694,7 +8822,7 @@
       "trendQuality": 68,
       "momentumQuality": 35,
       "remainingPotential": 86,
-      "timingScore": 99,
+      "timingScore": 100,
       "riskMultiplier": 0.88,
       "buyProbability": 65,
       "convictionScore": 65,
@@ -8726,12 +8854,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 4.12,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -8742,189 +8870,6 @@
         "high90d": 4.12,
         "low90d": 4.12,
         "position90dPct": 100
-      }
-    },
-    {
-      "id": 451,
-      "nomCarte": "Birds of Paradise",
-      "nomBase": "Birds of Paradise",
-      "version": null,
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "420aee9f-2b47-4385-ba4d-513738141a9d",
-      "imageUrl": "https://cards.scryfall.io/normal/front/4/2/420aee9f-2b47-4385-ba4d-513738141a9d.jpg?1559594726",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 5622,
-      "createdAt": "2026-06-26 09:05:44",
-      "categorie": "Classeur",
-      "trendPrice": 20.46,
-      "lowPrice": 8.95,
-      "avgPrice": 19.84,
-      "avg1": 20.2,
-      "avg7": 20.08,
-      "avg30": 19.11,
-      "prixEtat": 19.76,
-      "quantityOwned": 4,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "EX, GD",
-      "nmPrice": 20.46,
-      "trendVs30": 7.06,
-      "avg7Vs30": 5.08,
-      "avg1Vs7": 0.6,
-      "trendQuality": 50,
-      "momentumQuality": 76,
-      "remainingPotential": 79,
-      "timingScore": 100,
-      "riskMultiplier": 0.85,
-      "buyProbability": 65,
-      "convictionScore": 65,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Timing favorable : hausse récente mais pas trop mature",
-        "Timing renforcé par une volatilité faible",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Historique encore court",
-        "Timing moins bon : proche du plus haut 90 jours",
-        "Déjà possédé en 4 exemplaires ou plus"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        },
-        {
-          "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
-        },
-        {
-          "type": "warning",
-          "text": "Déjà possédé en 4 exemplaires ou plus"
-        }
-      ],
-      "historical": {
-        "historyPoints": 8,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 20.46,
-        "historyAgeDays": 1,
-        "uptrendDays": 7,
-        "positiveDaysRatio30": 100,
-        "slope30PerDay": 1.237,
-        "acceleration": -1.237,
-        "volatility30": 0.43,
-        "high30d": 20.46,
-        "low30d": 20.21,
-        "position30dPct": 100,
-        "high90d": 20.46,
-        "low90d": 20.21,
-        "position90dPct": 100
-      }
-    },
-    {
-      "id": 592,
-      "nomCarte": "Armageddon",
-      "nomBase": "Armageddon",
-      "version": null,
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "e45f2bda-4867-4e30-8f27-4e4dbf9b43bc",
-      "imageUrl": "https://cards.scryfall.io/normal/front/e/4/e45f2bda-4867-4e30-8f27-4e4dbf9b43bc.jpg?1559592435",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 5714,
-      "createdAt": "2026-06-26 09:05:44",
-      "categorie": "Mono Blanc",
-      "trendPrice": 13.53,
-      "lowPrice": 6,
-      "avgPrice": 12.18,
-      "avg1": 10,
-      "avg7": 14.36,
-      "avg30": 12.09,
-      "prixEtat": 12.45,
-      "quantityOwned": 1,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "EX",
-      "nmPrice": 13.53,
-      "trendVs30": 11.91,
-      "avg7Vs30": 18.78,
-      "avg1Vs7": -30.36,
-      "trendQuality": 85,
-      "momentumQuality": 10,
-      "remainingPotential": 72,
-      "timingScore": 75,
-      "riskMultiplier": 1,
-      "buyProbability": 64,
-      "convictionScore": 64,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum positif",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Momentum négatif",
-        "Historique encore court"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        }
-      ],
-      "historical": {
-        "historyPoints": 1,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 13.53,
-        "historyAgeDays": 0,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": null,
-        "slope30PerDay": null,
-        "acceleration": null,
-        "volatility30": null,
-        "high30d": null,
-        "low30d": null,
-        "position30dPct": null,
-        "high90d": null,
-        "low90d": null,
-        "position90dPct": null
       }
     },
     {
@@ -8961,10 +8906,10 @@
       "trendQuality": 13,
       "momentumQuality": 80,
       "remainingPotential": 67,
-      "timingScore": 89,
+      "timingScore": 94,
       "riskMultiplier": 1,
-      "buyProbability": 63,
-      "convictionScore": 63,
+      "buyProbability": 64,
+      "convictionScore": 64,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum propre",
@@ -9003,21 +8948,125 @@
         }
       ],
       "historical": {
-        "historyPoints": 6,
+        "historyPoints": 9,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 6.62,
-        "historyAgeDays": 1,
-        "uptrendDays": 5,
+        "historyAgeDays": 2,
+        "uptrendDays": 8,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 5.414,
+        "slope30PerDay": 2.707,
         "acceleration": 0,
-        "volatility30": 2.17,
+        "volatility30": 1.79,
         "high30d": 6.62,
         "low30d": 6.28,
         "position30dPct": 100,
         "high90d": 6.62,
         "low90d": 6.28,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 451,
+      "nomCarte": "Birds of Paradise",
+      "nomBase": "Birds of Paradise",
+      "version": null,
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "420aee9f-2b47-4385-ba4d-513738141a9d",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/2/420aee9f-2b47-4385-ba4d-513738141a9d.jpg?1559594726",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5622,
+      "createdAt": "2026-06-26 09:05:44",
+      "categorie": "Classeur",
+      "trendPrice": 20.46,
+      "lowPrice": 8.95,
+      "avgPrice": 19.84,
+      "avg1": 20.2,
+      "avg7": 20.08,
+      "avg30": 19.11,
+      "prixEtat": 19.76,
+      "quantityOwned": 4,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX, GD",
+      "nmPrice": 20.46,
+      "trendVs30": 7.06,
+      "avg7Vs30": 5.08,
+      "avg1Vs7": 0.6,
+      "trendQuality": 50,
+      "momentumQuality": 76,
+      "remainingPotential": 72,
+      "timingScore": 100,
+      "riskMultiplier": 0.85,
+      "buyProbability": 63,
+      "convictionScore": 63,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Hausse récente mais pas trop mature",
+        "Timing favorable : hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours",
+        "Déjà possédé en 4 exemplaires ou plus"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Très proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Déjà possédé en 4 exemplaires ou plus"
+        }
+      ],
+      "historical": {
+        "historyPoints": 12,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 20.46,
+        "historyAgeDays": 2,
+        "uptrendDays": 11,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0.619,
+        "acceleration": 0,
+        "volatility30": 0.36,
+        "high30d": 20.46,
+        "low30d": 20.21,
+        "position30dPct": 100,
+        "high90d": 20.46,
+        "low90d": 20.21,
         "position90dPct": 100
       }
     },
@@ -9055,7 +9104,7 @@
       "trendQuality": 14,
       "momentumQuality": 80,
       "remainingPotential": 67,
-      "timingScore": 84,
+      "timingScore": 85,
       "riskMultiplier": 1,
       "buyProbability": 63,
       "convictionScore": 63,
@@ -9092,16 +9141,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 5.79,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 2.842,
+        "slope30PerDay": 1.421,
         "acceleration": null,
-        "volatility30": 0,
+        "volatility30": 1.42,
         "high30d": 5.79,
         "low30d": 5.63,
         "position30dPct": 100,
@@ -9144,10 +9193,10 @@
       "trendQuality": 14,
       "momentumQuality": 80,
       "remainingPotential": 67,
-      "timingScore": 83,
+      "timingScore": 86,
       "riskMultiplier": 1,
-      "buyProbability": 62,
-      "convictionScore": 62,
+      "buyProbability": 63,
+      "convictionScore": 63,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum propre",
@@ -9181,12 +9230,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 4,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 114.39,
-        "historyAgeDays": 0,
-        "uptrendDays": 1,
+        "historyAgeDays": 1,
+        "uptrendDays": 3,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -9233,10 +9282,10 @@
       "trendQuality": 85,
       "momentumQuality": 10,
       "remainingPotential": 64,
-      "timingScore": 78,
+      "timingScore": 80,
       "riskMultiplier": 1,
-      "buyProbability": 62,
-      "convictionScore": 62,
+      "buyProbability": 63,
+      "convictionScore": 63,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum positif",
@@ -9275,12 +9324,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 10.84,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -9327,13 +9376,14 @@
       "trendQuality": 8,
       "momentumQuality": 80,
       "remainingPotential": 65,
-      "timingScore": 85,
+      "timingScore": 88,
       "riskMultiplier": 1,
-      "buyProbability": 61,
-      "convictionScore": 61,
+      "buyProbability": 62,
+      "convictionScore": 62,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum propre",
+        "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
         "Prix NM significatif"
       ],
@@ -9345,6 +9395,10 @@
         {
           "type": "positive",
           "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
         },
         {
           "type": "positive",
@@ -9364,16 +9418,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 4,
+        "historyPoints": 6,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 5.29,
-        "historyAgeDays": 1,
-        "uptrendDays": 3,
+        "historyAgeDays": 2,
+        "uptrendDays": 5,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 1.341,
-        "acceleration": null,
-        "volatility30": 0.63,
+        "slope30PerDay": 0.67,
+        "acceleration": -1.341,
+        "volatility30": 0.54,
         "high30d": 5.29,
         "low30d": 5.22,
         "position30dPct": 100,
@@ -9416,10 +9470,94 @@
       "trendQuality": 54,
       "momentumQuality": 35,
       "remainingPotential": 81,
-      "timingScore": 95,
+      "timingScore": 97,
       "riskMultiplier": 0.88,
-      "buyProbability": 60,
-      "convictionScore": 60,
+      "buyProbability": 61,
+      "convictionScore": 61,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Timing renforcé par une volatilité faible"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 0.99,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 0.99,
+        "low30d": 0.99,
+        "position30dPct": 100,
+        "high90d": 0.99,
+        "low90d": 0.99,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 586,
+      "nomCarte": "Witch Hunter",
+      "nomBase": "Witch Hunter",
+      "version": null,
+      "edition": "The Dark",
+      "langue": "English",
+      "etat": "GD",
+      "scryfallId": "4eef9bb7-cd3c-422e-a93b-90d98684675a",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/e/4eef9bb7-cd3c-422e-a93b-90d98684675a.jpg?1562913499",
+      "priceUsd": 6.59,
+      "priceEur": 4.53,
+      "cardmarketId": 7373,
+      "createdAt": "2026-06-26 09:05:44",
+      "categorie": "Mono Blanc",
+      "trendPrice": 4.53,
+      "lowPrice": 1.2,
+      "avgPrice": 5.45,
+      "avg1": 5,
+      "avg7": 3.94,
+      "avg30": 4.06,
+      "prixEtat": 3.71,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "GD",
+      "nmPrice": 4.53,
+      "trendVs30": 11.58,
+      "avg7Vs30": -2.96,
+      "avg1Vs7": 26.9,
+      "trendQuality": 83,
+      "momentumQuality": 14,
+      "remainingPotential": 79,
+      "timingScore": 91,
+      "riskMultiplier": 0.88,
+      "buyProbability": 61,
+      "convictionScore": 61,
       "decision": "👀 Surveillance",
       "reasons": [
         "Timing renforcé par une volatilité faible"
@@ -9449,20 +9587,20 @@
       ],
       "historical": {
         "historyPoints": 2,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 0.99,
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 4.53,
         "historyAgeDays": 1,
         "uptrendDays": 1,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
         "volatility30": 0,
-        "high30d": 0.99,
-        "low30d": 0.99,
+        "high30d": 4.53,
+        "low30d": 4.53,
         "position30dPct": 100,
-        "high90d": 0.99,
-        "low90d": 0.99,
+        "high90d": 4.53,
+        "low90d": 4.53,
         "position90dPct": 100
       }
     },
@@ -9500,7 +9638,7 @@
       "trendQuality": 0,
       "momentumQuality": 80,
       "remainingPotential": 62,
-      "timingScore": 86,
+      "timingScore": 90,
       "riskMultiplier": 1,
       "buyProbability": 59,
       "convictionScore": 59,
@@ -9542,12 +9680,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 6,
+        "historyPoints": 9,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 7.59,
-        "historyAgeDays": 1,
-        "uptrendDays": 5,
+        "historyAgeDays": 2,
+        "uptrendDays": 8,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": 0,
@@ -9558,79 +9696,6 @@
         "high90d": 7.59,
         "low90d": 7.59,
         "position90dPct": 100
-      }
-    },
-    {
-      "id": 586,
-      "nomCarte": "Witch Hunter",
-      "nomBase": "Witch Hunter",
-      "version": null,
-      "edition": "The Dark",
-      "langue": "English",
-      "etat": "GD",
-      "scryfallId": "4eef9bb7-cd3c-422e-a93b-90d98684675a",
-      "imageUrl": "https://cards.scryfall.io/normal/front/4/e/4eef9bb7-cd3c-422e-a93b-90d98684675a.jpg?1562913499",
-      "priceUsd": 6.59,
-      "priceEur": 4.53,
-      "cardmarketId": 7373,
-      "createdAt": "2026-06-26 09:05:44",
-      "categorie": "Mono Blanc",
-      "trendPrice": 4.53,
-      "lowPrice": 1.2,
-      "avgPrice": 5.45,
-      "avg1": 5,
-      "avg7": 3.94,
-      "avg30": 4.06,
-      "prixEtat": 3.71,
-      "quantityOwned": 1,
-      "ownedStatesSet": {},
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStates": "GD",
-      "nmPrice": 4.53,
-      "trendVs30": 11.58,
-      "avg7Vs30": -2.96,
-      "avg1Vs7": 26.9,
-      "trendQuality": 83,
-      "momentumQuality": 14,
-      "remainingPotential": 79,
-      "timingScore": 82,
-      "riskMultiplier": 0.88,
-      "buyProbability": 59,
-      "convictionScore": 59,
-      "decision": "Ignorer",
-      "reasons": [],
-      "warnings": [
-        "Historique encore court",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": {
-        "historyPoints": 1,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 4.53,
-        "historyAgeDays": 0,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": null,
-        "slope30PerDay": null,
-        "acceleration": null,
-        "volatility30": null,
-        "high30d": null,
-        "low30d": null,
-        "position30dPct": null,
-        "high90d": null,
-        "low90d": null,
-        "position90dPct": null
       }
     },
     {
@@ -9667,10 +9732,10 @@
       "trendQuality": 45,
       "momentumQuality": 11,
       "remainingPotential": 73,
-      "timingScore": 88,
+      "timingScore": 90,
       "riskMultiplier": 1,
-      "buyProbability": 58,
-      "convictionScore": 58,
+      "buyProbability": 59,
+      "convictionScore": 59,
       "decision": "Ignorer",
       "reasons": [
         "Timing renforcé par une volatilité faible",
@@ -9704,12 +9769,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 251.68,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -9756,10 +9821,10 @@
       "trendQuality": 0,
       "momentumQuality": 80,
       "remainingPotential": 62,
-      "timingScore": 80,
+      "timingScore": 83,
       "riskMultiplier": 1,
-      "buyProbability": 57,
-      "convictionScore": 57,
+      "buyProbability": 58,
+      "convictionScore": 58,
       "decision": "Ignorer",
       "reasons": [
         "Momentum propre",
@@ -9793,12 +9858,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 4,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 5.74,
-        "historyAgeDays": 0,
-        "uptrendDays": 1,
+        "historyAgeDays": 1,
+        "uptrendDays": 3,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -9845,10 +9910,10 @@
       "trendQuality": 0,
       "momentumQuality": 80,
       "remainingPotential": 62,
-      "timingScore": 80,
+      "timingScore": 83,
       "riskMultiplier": 1,
-      "buyProbability": 57,
-      "convictionScore": 57,
+      "buyProbability": 58,
+      "convictionScore": 58,
       "decision": "Ignorer",
       "reasons": [
         "Momentum propre",
@@ -9882,12 +9947,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 4,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-06-26",
+        "latestDate": "2026-06-27",
         "latestTrendPrice": 5.74,
-        "historyAgeDays": 0,
-        "uptrendDays": 1,
+        "historyAgeDays": 1,
+        "uptrendDays": 3,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
@@ -9934,7 +9999,91 @@
       "trendQuality": 39,
       "momentumQuality": 35,
       "remainingPotential": 76,
-      "timingScore": 91,
+      "timingScore": 92,
+      "riskMultiplier": 0.88,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Timing renforcé par une volatilité faible"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 4.28,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 4.28,
+        "low30d": 4.28,
+        "position30dPct": 100,
+        "high90d": 4.28,
+        "low90d": 4.28,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 425,
+      "nomCarte": "Sandstorm",
+      "nomBase": "Sandstorm",
+      "version": null,
+      "edition": "Arabian Nights",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "73cba9cd-73d9-442e-bd99-9cba9f398b64",
+      "imageUrl": "https://cards.scryfall.io/normal/front/7/3/73cba9cd-73d9-442e-bd99-9cba9f398b64.jpg?1562916488",
+      "priceUsd": 7.17,
+      "priceEur": 3.26,
+      "cardmarketId": 6817,
+      "createdAt": "2026-06-26 09:05:44",
+      "categorie": "Classeur",
+      "trendPrice": 3.26,
+      "lowPrice": 1.9,
+      "avgPrice": 2.78,
+      "avg1": 2.93,
+      "avg7": 2.89,
+      "avg30": 3.1,
+      "prixEtat": 3,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "EX",
+      "nmPrice": 3.26,
+      "trendVs30": 5.16,
+      "avg7Vs30": -6.77,
+      "avg1Vs7": 1.38,
+      "trendQuality": 37,
+      "momentumQuality": 33,
+      "remainingPotential": 75,
+      "timingScore": 92,
       "riskMultiplier": 0.88,
       "buyProbability": 55,
       "convictionScore": 55,
@@ -9966,21 +10115,115 @@
         }
       ],
       "historical": {
-        "historyPoints": 2,
+        "historyPoints": 3,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-06-26",
-        "latestTrendPrice": 4.28,
-        "historyAgeDays": 1,
-        "uptrendDays": 1,
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 3.26,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": null,
         "volatility30": 0,
-        "high30d": 4.28,
-        "low30d": 4.28,
+        "high30d": 3.26,
+        "low30d": 3.26,
         "position30dPct": 100,
-        "high90d": 4.28,
-        "low90d": 4.28,
+        "high90d": 3.26,
+        "low90d": 3.26,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 515,
+      "nomCarte": "Demonic Tutor",
+      "nomBase": "Demonic Tutor",
+      "version": null,
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "NM",
+      "scryfallId": "881e5922-b464-4a1a-b074-664bd6c0a7f6",
+      "imageUrl": "https://cards.scryfall.io/normal/front/8/8/881e5922-b464-4a1a-b074-664bd6c0a7f6.jpg?1559596930",
+      "priceUsd": 63.42,
+      "priceEur": 39.27,
+      "cardmarketId": 5541,
+      "createdAt": "2026-06-26 09:05:44",
+      "categorie": "Mono Noir",
+      "trendPrice": 39.27,
+      "lowPrice": 21.96,
+      "avgPrice": 36.34,
+      "avg1": 31.99,
+      "avg7": 40.42,
+      "avg30": 36.45,
+      "prixEtat": 39.27,
+      "quantityOwned": 1,
+      "ownedStatesSet": {},
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStates": "NM",
+      "nmPrice": 39.27,
+      "trendVs30": 7.74,
+      "avg7Vs30": 10.89,
+      "avg1Vs7": -20.86,
+      "trendQuality": 55,
+      "momentumQuality": 10,
+      "remainingPotential": 61,
+      "timingScore": 77,
+      "riskMultiplier": 1,
+      "buyProbability": 55,
+      "convictionScore": 55,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-06-27",
+        "latestTrendPrice": 39.27,
+        "historyAgeDays": 2,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0.205,
+        "acceleration": null,
+        "volatility30": 0.2,
+        "high30d": 39.27,
+        "low30d": 39.11,
+        "position30dPct": 100,
+        "high90d": 39.27,
+        "low90d": 39.11,
         "position90dPct": 100
       }
     }
@@ -10043,6 +10286,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.82,
+          "avgPrice": 2.83,
+          "lowPrice": 0.6
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.82,
           "avgPrice": 2.83,
           "lowPrice": 0.6
@@ -10116,6 +10365,12 @@
           "trendPrice": 87.79,
           "avgPrice": 131,
           "lowPrice": 79.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 87.79,
+          "avgPrice": 131,
+          "lowPrice": 79.95
         }
       ],
       "performance": {
@@ -10183,6 +10438,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 87.79,
+          "avgPrice": 131,
+          "lowPrice": 79.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 87.79,
           "avgPrice": 131,
           "lowPrice": 79.95
@@ -10256,6 +10517,12 @@
           "trendPrice": 1.75,
           "avgPrice": 2.04,
           "lowPrice": 0.68
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.75,
+          "avgPrice": 2.04,
+          "lowPrice": 0.68
         }
       ],
       "performance": {
@@ -10323,6 +10590,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 10.15,
+          "avgPrice": 9.55,
+          "lowPrice": 3.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 10.15,
           "avgPrice": 9.55,
           "lowPrice": 3.99
@@ -10396,6 +10669,12 @@
           "trendPrice": 11.03,
           "avgPrice": 9.55,
           "lowPrice": 3.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 11.03,
+          "avgPrice": 9.55,
+          "lowPrice": 3.99
         }
       ],
       "performance": {
@@ -10463,6 +10742,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 10.15,
+          "avgPrice": 9.55,
+          "lowPrice": 3.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 10.15,
           "avgPrice": 9.55,
           "lowPrice": 3.99
@@ -10536,6 +10821,12 @@
           "trendPrice": 3.66,
           "avgPrice": 3.67,
           "lowPrice": 2.25
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.66,
+          "avgPrice": 3.67,
+          "lowPrice": 2.25
         }
       ],
       "performance": {
@@ -10603,6 +10894,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.12,
+          "avgPrice": 4.93,
+          "lowPrice": 2.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.12,
           "avgPrice": 4.93,
           "lowPrice": 2.95
@@ -10676,6 +10973,12 @@
           "trendPrice": 3.94,
           "avgPrice": 3.81,
           "lowPrice": 1.74
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.94,
+          "avgPrice": 3.81,
+          "lowPrice": 1.74
         }
       ],
       "performance": {
@@ -10743,6 +11046,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.79,
+          "avgPrice": 3.13,
+          "lowPrice": 1.75
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.79,
           "avgPrice": 3.13,
           "lowPrice": 1.75
@@ -10816,6 +11125,12 @@
           "trendPrice": 3.38,
           "avgPrice": 3.37,
           "lowPrice": 1.49
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.38,
+          "avgPrice": 3.37,
+          "lowPrice": 1.49
         }
       ],
       "performance": {
@@ -10883,6 +11198,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.82,
+          "avgPrice": 7.54,
+          "lowPrice": 1.98
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.82,
           "avgPrice": 7.54,
           "lowPrice": 1.98
@@ -10956,6 +11277,12 @@
           "trendPrice": 11.42,
           "avgPrice": 4.55,
           "lowPrice": 2
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 11.42,
+          "avgPrice": 4.55,
+          "lowPrice": 2
         }
       ],
       "performance": {
@@ -11023,6 +11350,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.86,
+          "avgPrice": 6.42,
+          "lowPrice": 1.2
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.86,
           "avgPrice": 6.42,
           "lowPrice": 1.2
@@ -11096,6 +11429,12 @@
           "trendPrice": 3,
           "avgPrice": 2.78,
           "lowPrice": 1.9
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3,
+          "avgPrice": 2.78,
+          "lowPrice": 1.9
         }
       ],
       "performance": {
@@ -11163,6 +11502,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.26,
+          "avgPrice": 4.83,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.26,
           "avgPrice": 4.83,
           "lowPrice": 1
@@ -11236,6 +11581,12 @@
           "trendPrice": 5.26,
           "avgPrice": 4.83,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 5.26,
+          "avgPrice": 4.83,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -11303,6 +11654,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.44,
+          "avgPrice": 11.33,
+          "lowPrice": 3
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.44,
           "avgPrice": 11.33,
           "lowPrice": 3
@@ -11376,6 +11733,12 @@
           "trendPrice": 1.13,
           "avgPrice": 0.99,
           "lowPrice": 0.19
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.13,
+          "avgPrice": 0.99,
+          "lowPrice": 0.19
         }
       ],
       "performance": {
@@ -11443,6 +11806,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.01,
+          "avgPrice": 1.24,
+          "lowPrice": 0.19
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.01,
           "avgPrice": 1.24,
           "lowPrice": 0.19
@@ -11516,6 +11885,12 @@
           "trendPrice": 0.8,
           "avgPrice": 0.9,
           "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 0.8,
+          "avgPrice": 0.9,
+          "lowPrice": 0.2
         }
       ],
       "performance": {
@@ -11583,6 +11958,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.07,
+          "avgPrice": 5.7,
+          "lowPrice": 1.39
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.07,
           "avgPrice": 5.7,
           "lowPrice": 1.39
@@ -11656,6 +12037,12 @@
           "trendPrice": 4.07,
           "avgPrice": 5.7,
           "lowPrice": 1.39
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.07,
+          "avgPrice": 5.7,
+          "lowPrice": 1.39
         }
       ],
       "performance": {
@@ -11723,6 +12110,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.42,
+          "avgPrice": 5.7,
+          "lowPrice": 1.39
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.42,
           "avgPrice": 5.7,
           "lowPrice": 1.39
@@ -11796,6 +12189,12 @@
           "trendPrice": 4.07,
           "avgPrice": 5.7,
           "lowPrice": 1.39
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.07,
+          "avgPrice": 5.7,
+          "lowPrice": 1.39
         }
       ],
       "performance": {
@@ -11863,6 +12262,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 7.17,
+          "avgPrice": 13.14,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 7.17,
           "avgPrice": 13.14,
           "lowPrice": 1
@@ -11936,6 +12341,12 @@
           "trendPrice": 0.91,
           "avgPrice": 0.89,
           "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 0.91,
+          "avgPrice": 0.89,
+          "lowPrice": 0.2
         }
       ],
       "performance": {
@@ -12003,6 +12414,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.79,
+          "avgPrice": 7.59,
+          "lowPrice": 0.98
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.79,
           "avgPrice": 7.59,
           "lowPrice": 0.98
@@ -12076,6 +12493,12 @@
           "trendPrice": 6.29,
           "avgPrice": 7.59,
           "lowPrice": 0.98
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 6.29,
+          "avgPrice": 7.59,
+          "lowPrice": 0.98
         }
       ],
       "performance": {
@@ -12143,6 +12566,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 0.91,
+          "avgPrice": 0.88,
+          "lowPrice": 0.05
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 0.91,
           "avgPrice": 0.88,
           "lowPrice": 0.05
@@ -12216,6 +12645,12 @@
           "trendPrice": 12.86,
           "avgPrice": 13,
           "lowPrice": 7
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 12.86,
+          "avgPrice": 13,
+          "lowPrice": 7
         }
       ],
       "performance": {
@@ -12283,6 +12718,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.83,
+          "avgPrice": 13,
+          "lowPrice": 7
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.83,
           "avgPrice": 13,
           "lowPrice": 7
@@ -12356,6 +12797,12 @@
           "trendPrice": 11.83,
           "avgPrice": 13,
           "lowPrice": 7
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 11.83,
+          "avgPrice": 13,
+          "lowPrice": 7
         }
       ],
       "performance": {
@@ -12423,6 +12870,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.83,
+          "avgPrice": 13,
+          "lowPrice": 7
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.83,
           "avgPrice": 13,
           "lowPrice": 7
@@ -12529,6 +12982,12 @@
           "trendPrice": 2.7,
           "avgPrice": 3.67,
           "lowPrice": 0.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.7,
+          "avgPrice": 3.67,
+          "lowPrice": 0.8
         }
       ],
       "performance": {
@@ -12596,6 +13055,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.7,
+          "avgPrice": 3.67,
+          "lowPrice": 0.8
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.7,
           "avgPrice": 3.67,
           "lowPrice": 0.8
@@ -12669,6 +13134,12 @@
           "trendPrice": 2.7,
           "avgPrice": 3.67,
           "lowPrice": 0.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.7,
+          "avgPrice": 3.67,
+          "lowPrice": 0.8
         }
       ],
       "performance": {
@@ -12736,6 +13207,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.7,
+          "avgPrice": 3.67,
+          "lowPrice": 0.8
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.7,
           "avgPrice": 3.67,
           "lowPrice": 0.8
@@ -12809,6 +13286,12 @@
           "trendPrice": 4.45,
           "avgPrice": 13.88,
           "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.45,
+          "avgPrice": 13.88,
+          "lowPrice": 5
         }
       ],
       "performance": {
@@ -12876,6 +13359,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 19.76,
+          "avgPrice": 19.84,
+          "lowPrice": 8.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 19.76,
           "avgPrice": 19.84,
           "lowPrice": 8.95
@@ -12949,6 +13438,12 @@
           "trendPrice": 17.62,
           "avgPrice": 19.84,
           "lowPrice": 8.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 17.62,
+          "avgPrice": 19.84,
+          "lowPrice": 8.95
         }
       ],
       "performance": {
@@ -13016,6 +13511,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 17.62,
+          "avgPrice": 19.84,
+          "lowPrice": 8.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 17.62,
           "avgPrice": 19.84,
           "lowPrice": 8.95
@@ -13089,6 +13590,12 @@
           "trendPrice": 17.62,
           "avgPrice": 19.84,
           "lowPrice": 8.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 17.62,
+          "avgPrice": 19.84,
+          "lowPrice": 8.95
         }
       ],
       "performance": {
@@ -13156,6 +13663,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2,
+          "avgPrice": 2.47,
+          "lowPrice": 0.68
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2,
           "avgPrice": 2.47,
           "lowPrice": 0.68
@@ -13229,6 +13742,12 @@
           "trendPrice": 2.33,
           "avgPrice": 2.33,
           "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.33,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
         }
       ],
       "performance": {
@@ -13296,6 +13815,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.33,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.33,
           "avgPrice": 2.33,
           "lowPrice": 0.49
@@ -13369,6 +13894,12 @@
           "trendPrice": 2.33,
           "avgPrice": 2.33,
           "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.33,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
         }
       ],
       "performance": {
@@ -13436,6 +13967,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.1,
+          "avgPrice": 2.24,
+          "lowPrice": 0.5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.1,
           "avgPrice": 2.24,
           "lowPrice": 0.5
@@ -13509,6 +14046,12 @@
           "trendPrice": 4.31,
           "avgPrice": 7.92,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.31,
+          "avgPrice": 7.92,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -13576,6 +14119,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.85,
+          "avgPrice": 7.92,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.85,
           "avgPrice": 7.92,
           "lowPrice": 1
@@ -13649,6 +14198,12 @@
           "trendPrice": 3.85,
           "avgPrice": 7.92,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.85,
+          "avgPrice": 7.92,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -13716,6 +14271,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.31,
+          "avgPrice": 7.92,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.31,
           "avgPrice": 7.92,
           "lowPrice": 1
@@ -13789,6 +14350,12 @@
           "trendPrice": 4.31,
           "avgPrice": 7.92,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.31,
+          "avgPrice": 7.92,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -13856,6 +14423,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.31,
+          "avgPrice": 7.92,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.31,
           "avgPrice": 7.92,
           "lowPrice": 1
@@ -13929,6 +14502,12 @@
           "trendPrice": 1.64,
           "avgPrice": 2.32,
           "lowPrice": 0.4
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.64,
+          "avgPrice": 2.32,
+          "lowPrice": 0.4
         }
       ],
       "performance": {
@@ -13996,6 +14575,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.64,
+          "avgPrice": 2.32,
+          "lowPrice": 0.4
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.64,
           "avgPrice": 2.32,
           "lowPrice": 0.4
@@ -14069,6 +14654,12 @@
           "trendPrice": 1.89,
           "avgPrice": 2.12,
           "lowPrice": 0.5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.89,
+          "avgPrice": 2.12,
+          "lowPrice": 0.5
         }
       ],
       "performance": {
@@ -14136,6 +14727,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 8.6,
+          "avgPrice": 9.19,
+          "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 8.6,
           "avgPrice": 9.19,
           "lowPrice": 5
@@ -14209,6 +14806,12 @@
           "trendPrice": 7.91,
           "avgPrice": 9.19,
           "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 7.91,
+          "avgPrice": 9.19,
+          "lowPrice": 5
         }
       ],
       "performance": {
@@ -14276,6 +14879,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.33,
+          "avgPrice": 5.73,
+          "lowPrice": 3.59
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.33,
           "avgPrice": 5.73,
           "lowPrice": 3.59
@@ -14349,6 +14958,12 @@
           "trendPrice": 6.62,
           "avgPrice": 6.64,
           "lowPrice": 2.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 6.62,
+          "avgPrice": 6.64,
+          "lowPrice": 2.99
         }
       ],
       "performance": {
@@ -14416,6 +15031,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.09,
+          "avgPrice": 6.64,
+          "lowPrice": 2.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.09,
           "avgPrice": 6.64,
           "lowPrice": 2.99
@@ -14489,6 +15110,12 @@
           "trendPrice": 4.89,
           "avgPrice": 5.67,
           "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.89,
+          "avgPrice": 5.67,
+          "lowPrice": 2.8
         }
       ],
       "performance": {
@@ -14556,6 +15183,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.54,
+          "avgPrice": 8.19,
+          "lowPrice": 2.5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.54,
           "avgPrice": 8.19,
           "lowPrice": 2.5
@@ -14629,6 +15262,12 @@
           "trendPrice": 2.36,
           "avgPrice": 2.61,
           "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.36,
+          "avgPrice": 2.61,
+          "lowPrice": 0.2
         }
       ],
       "performance": {
@@ -14696,6 +15335,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.08,
+          "avgPrice": 15.41,
+          "lowPrice": 4.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.08,
           "avgPrice": 15.41,
           "lowPrice": 4.99
@@ -14769,6 +15414,12 @@
           "trendPrice": 12.04,
           "avgPrice": 15.41,
           "lowPrice": 4.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 12.04,
+          "avgPrice": 15.41,
+          "lowPrice": 4.99
         }
       ],
       "performance": {
@@ -14836,6 +15487,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 9.38,
+          "avgPrice": 15.41,
+          "lowPrice": 4.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 9.38,
           "avgPrice": 15.41,
           "lowPrice": 4.99
@@ -14909,6 +15566,12 @@
           "trendPrice": 11.08,
           "avgPrice": 15.41,
           "lowPrice": 4.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 11.08,
+          "avgPrice": 15.41,
+          "lowPrice": 4.99
         }
       ],
       "performance": {
@@ -14976,6 +15639,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.04,
+          "avgPrice": 2.95,
+          "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.04,
           "avgPrice": 2.95,
           "lowPrice": 0.49
@@ -15049,6 +15718,12 @@
           "trendPrice": 1.39,
           "avgPrice": 1.61,
           "lowPrice": 0.4
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.39,
+          "avgPrice": 1.61,
+          "lowPrice": 0.4
         }
       ],
       "performance": {
@@ -15116,6 +15791,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.24,
+          "avgPrice": 1.61,
+          "lowPrice": 0.4
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.24,
           "avgPrice": 1.61,
           "lowPrice": 0.4
@@ -15189,6 +15870,12 @@
           "trendPrice": 1.39,
           "avgPrice": 1.61,
           "lowPrice": 0.4
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.39,
+          "avgPrice": 1.61,
+          "lowPrice": 0.4
         }
       ],
       "performance": {
@@ -15256,6 +15943,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.39,
+          "avgPrice": 1.61,
+          "lowPrice": 0.4
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.39,
           "avgPrice": 1.61,
           "lowPrice": 0.4
@@ -15329,6 +16022,12 @@
           "trendPrice": 2.81,
           "avgPrice": 2.51,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.81,
+          "avgPrice": 2.51,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -15396,6 +16095,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.75,
+          "avgPrice": 5.75,
+          "lowPrice": 1.25
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.75,
           "avgPrice": 5.75,
           "lowPrice": 1.25
@@ -15469,6 +16174,12 @@
           "trendPrice": 2.08,
           "avgPrice": 2.7,
           "lowPrice": 0.5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.08,
+          "avgPrice": 2.7,
+          "lowPrice": 0.5
         }
       ],
       "performance": {
@@ -15536,6 +16247,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.98,
+          "avgPrice": 7.68,
+          "lowPrice": 5.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.98,
           "avgPrice": 7.68,
           "lowPrice": 5.95
@@ -15609,6 +16326,12 @@
           "trendPrice": 6.98,
           "avgPrice": 7.68,
           "lowPrice": 5.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 6.98,
+          "avgPrice": 7.68,
+          "lowPrice": 5.95
         }
       ],
       "performance": {
@@ -15676,6 +16399,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.98,
+          "avgPrice": 7.68,
+          "lowPrice": 5.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.98,
           "avgPrice": 7.68,
           "lowPrice": 5.95
@@ -15749,6 +16478,12 @@
           "trendPrice": 1.52,
           "avgPrice": 2.75,
           "lowPrice": 0.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.52,
+          "avgPrice": 2.75,
+          "lowPrice": 0.95
         }
       ],
       "performance": {
@@ -15816,6 +16551,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.8,
+          "avgPrice": 2.02,
+          "lowPrice": 0.59
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.8,
           "avgPrice": 2.02,
           "lowPrice": 0.59
@@ -15889,6 +16630,12 @@
           "trendPrice": 1.2,
           "avgPrice": 1.43,
           "lowPrice": 0.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.2,
+          "avgPrice": 1.43,
+          "lowPrice": 0.8
         }
       ],
       "performance": {
@@ -15956,6 +16703,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.71,
+          "avgPrice": 1.84,
+          "lowPrice": 0.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.71,
           "avgPrice": 1.84,
           "lowPrice": 0.95
@@ -16029,6 +16782,12 @@
           "trendPrice": 77.24,
           "avgPrice": 87.12,
           "lowPrice": 54.44
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 77.24,
+          "avgPrice": 87.12,
+          "lowPrice": 54.44
         }
       ],
       "performance": {
@@ -16096,6 +16855,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 77.24,
+          "avgPrice": 87.12,
+          "lowPrice": 54.44
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 77.24,
           "avgPrice": 87.12,
           "lowPrice": 54.44
@@ -16169,6 +16934,12 @@
           "trendPrice": 77.24,
           "avgPrice": 87.12,
           "lowPrice": 54.44
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 77.24,
+          "avgPrice": 87.12,
+          "lowPrice": 54.44
         }
       ],
       "performance": {
@@ -16236,6 +17007,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 68.85,
+          "avgPrice": 87.12,
+          "lowPrice": 54.44
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 68.85,
           "avgPrice": 87.12,
           "lowPrice": 54.44
@@ -16309,6 +17086,12 @@
           "trendPrice": 18.26,
           "avgPrice": 19.45,
           "lowPrice": 11.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 18.26,
+          "avgPrice": 19.45,
+          "lowPrice": 11.99
         }
       ],
       "performance": {
@@ -16376,6 +17159,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.76,
+          "avgPrice": 1.6,
+          "lowPrice": 0.74
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.76,
           "avgPrice": 1.6,
           "lowPrice": 0.74
@@ -16449,6 +17238,12 @@
           "trendPrice": 1.44,
           "avgPrice": 1.49,
           "lowPrice": 0.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.44,
+          "avgPrice": 1.49,
+          "lowPrice": 0.8
         }
       ],
       "performance": {
@@ -16516,6 +17311,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.33,
+          "avgPrice": 26.25,
+          "lowPrice": 15.03
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.33,
           "avgPrice": 26.25,
           "lowPrice": 15.03
@@ -16589,6 +17390,12 @@
           "trendPrice": 9.39,
           "avgPrice": 10.34,
           "lowPrice": 2.75
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 9.39,
+          "avgPrice": 10.34,
+          "lowPrice": 2.75
         }
       ],
       "performance": {
@@ -16656,6 +17463,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.27,
+          "avgPrice": 6.13,
+          "lowPrice": 2.45
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.27,
           "avgPrice": 6.13,
           "lowPrice": 2.45
@@ -16729,6 +17542,12 @@
           "trendPrice": 12.45,
           "avgPrice": 12.18,
           "lowPrice": 6
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 12.45,
+          "avgPrice": 12.18,
+          "lowPrice": 6
         }
       ],
       "performance": {
@@ -16796,6 +17615,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 16.78,
+          "avgPrice": 19.84,
+          "lowPrice": 8.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 16.78,
           "avgPrice": 19.84,
           "lowPrice": 8.95
@@ -16869,6 +17694,12 @@
           "trendPrice": 16.78,
           "avgPrice": 19.84,
           "lowPrice": 8.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 16.78,
+          "avgPrice": 19.84,
+          "lowPrice": 8.95
         }
       ],
       "performance": {
@@ -16936,6 +17767,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.67,
+          "avgPrice": 1.92,
+          "lowPrice": 0.3
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.67,
           "avgPrice": 1.92,
           "lowPrice": 0.3
@@ -17009,6 +17846,12 @@
           "trendPrice": 2,
           "avgPrice": 2.47,
           "lowPrice": 0.68
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2,
+          "avgPrice": 2.47,
+          "lowPrice": 0.68
         }
       ],
       "performance": {
@@ -17076,6 +17919,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.33,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.33,
           "avgPrice": 2.33,
           "lowPrice": 0.49
@@ -17149,6 +17998,12 @@
           "trendPrice": 2.33,
           "avgPrice": 2.33,
           "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.33,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
         }
       ],
       "performance": {
@@ -17216,6 +18071,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.33,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.33,
           "avgPrice": 2.33,
           "lowPrice": 0.49
@@ -17289,6 +18150,12 @@
           "trendPrice": 2.53,
           "avgPrice": 2.33,
           "lowPrice": 0.49
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.53,
+          "avgPrice": 2.33,
+          "lowPrice": 0.49
         }
       ],
       "performance": {
@@ -17356,6 +18223,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 39.27,
+          "avgPrice": 36.34,
+          "lowPrice": 21.96
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 39.27,
           "avgPrice": 36.34,
           "lowPrice": 21.96
@@ -17429,6 +18302,12 @@
           "trendPrice": 7.52,
           "avgPrice": 17.25,
           "lowPrice": 9.85
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 7.52,
+          "avgPrice": 17.25,
+          "lowPrice": 9.85
         }
       ],
       "performance": {
@@ -17496,6 +18375,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.31,
+          "avgPrice": 7.92,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.31,
           "avgPrice": 7.92,
           "lowPrice": 1
@@ -17569,6 +18454,12 @@
           "trendPrice": 4.31,
           "avgPrice": 7.92,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.31,
+          "avgPrice": 7.92,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -17636,6 +18527,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.91,
+          "avgPrice": 3.05,
+          "lowPrice": 0.7
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.91,
           "avgPrice": 3.05,
           "lowPrice": 0.7
@@ -17709,6 +18606,12 @@
           "trendPrice": 5.86,
           "avgPrice": 11.18,
           "lowPrice": 3
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 5.86,
+          "avgPrice": 11.18,
+          "lowPrice": 3
         }
       ],
       "performance": {
@@ -17776,6 +18679,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.4,
+          "avgPrice": 1.56,
+          "lowPrice": 0.1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.4,
           "avgPrice": 1.56,
           "lowPrice": 0.1
@@ -17849,6 +18758,12 @@
           "trendPrice": 1.29,
           "avgPrice": 1.56,
           "lowPrice": 0.1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 1.29,
+          "avgPrice": 1.56,
+          "lowPrice": 0.1
         }
       ],
       "performance": {
@@ -17916,6 +18831,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 231.55,
+          "avgPrice": 236.74,
+          "lowPrice": 175
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 231.55,
           "avgPrice": 236.74,
           "lowPrice": 175
@@ -17989,6 +18910,12 @@
           "trendPrice": 2.59,
           "avgPrice": 2.51,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.59,
+          "avgPrice": 2.51,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -18056,6 +18983,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.3,
+          "avgPrice": 3.55,
+          "lowPrice": 0.9
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.3,
           "avgPrice": 3.55,
           "lowPrice": 0.9
@@ -18129,6 +19062,12 @@
           "trendPrice": 3.03,
           "avgPrice": 3.4,
           "lowPrice": 1.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.03,
+          "avgPrice": 3.4,
+          "lowPrice": 1.99
         }
       ],
       "performance": {
@@ -18196,6 +19135,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.22,
+          "avgPrice": 3.63,
+          "lowPrice": 0.98
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.22,
           "avgPrice": 3.63,
           "lowPrice": 0.98
@@ -18269,6 +19214,12 @@
           "trendPrice": 4.16,
           "avgPrice": 4.94,
           "lowPrice": 2.39
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.16,
+          "avgPrice": 4.94,
+          "lowPrice": 2.39
         }
       ],
       "performance": {
@@ -18336,6 +19287,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 10.84,
+          "avgPrice": 11.85,
+          "lowPrice": 4.5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 10.84,
           "avgPrice": 11.85,
           "lowPrice": 4.5
@@ -18409,6 +19366,12 @@
           "trendPrice": 16.16,
           "avgPrice": 18.21,
           "lowPrice": 12.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 16.16,
+          "avgPrice": 18.21,
+          "lowPrice": 12.99
         }
       ],
       "performance": {
@@ -18476,6 +19439,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 14.41,
+          "avgPrice": 18.21,
+          "lowPrice": 12.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 14.41,
           "avgPrice": 18.21,
           "lowPrice": 12.99
@@ -18549,6 +19518,12 @@
           "trendPrice": 14.41,
           "avgPrice": 18.21,
           "lowPrice": 12.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 14.41,
+          "avgPrice": 18.21,
+          "lowPrice": 12.99
         }
       ],
       "performance": {
@@ -18616,6 +19591,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 16.16,
+          "avgPrice": 18.21,
+          "lowPrice": 12.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 16.16,
           "avgPrice": 18.21,
           "lowPrice": 12.99
@@ -18689,6 +19670,12 @@
           "trendPrice": 4.18,
           "avgPrice": 4.39,
           "lowPrice": 0.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.18,
+          "avgPrice": 4.39,
+          "lowPrice": 0.99
         }
       ],
       "performance": {
@@ -18756,6 +19743,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 0.4,
+          "avgPrice": 0.52,
+          "lowPrice": 0.02
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 0.4,
           "avgPrice": 0.52,
           "lowPrice": 0.02
@@ -18829,6 +19822,12 @@
           "trendPrice": 9.39,
           "avgPrice": 10.34,
           "lowPrice": 2.75
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 9.39,
+          "avgPrice": 10.34,
+          "lowPrice": 2.75
         }
       ],
       "performance": {
@@ -18896,6 +19895,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.86,
+          "avgPrice": 4.83,
+          "lowPrice": 2
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.86,
           "avgPrice": 4.83,
           "lowPrice": 2
@@ -18969,6 +19974,12 @@
           "trendPrice": 15.39,
           "avgPrice": 17.45,
           "lowPrice": 9.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 15.39,
+          "avgPrice": 17.45,
+          "lowPrice": 9.99
         }
       ],
       "performance": {
@@ -19036,6 +20047,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 266.51,
+          "avgPrice": 227.85,
+          "lowPrice": 179.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 266.51,
           "avgPrice": 227.85,
           "lowPrice": 179.99
@@ -19109,6 +20126,12 @@
           "trendPrice": 0.4,
           "avgPrice": 0.52,
           "lowPrice": 0.02
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 0.4,
+          "avgPrice": 0.52,
+          "lowPrice": 0.02
         }
       ],
       "performance": {
@@ -19176,6 +20199,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.39,
+          "avgPrice": 1.87,
+          "lowPrice": 0.6
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.39,
           "avgPrice": 1.87,
           "lowPrice": 0.6
@@ -19249,6 +20278,12 @@
           "trendPrice": 3.79,
           "avgPrice": 4.66,
           "lowPrice": 1.5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.79,
+          "avgPrice": 4.66,
+          "lowPrice": 1.5
         }
       ],
       "performance": {
@@ -19316,6 +20351,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.72,
+          "avgPrice": 4.39,
+          "lowPrice": 0.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.72,
           "avgPrice": 4.39,
           "lowPrice": 0.99
@@ -19389,6 +20430,12 @@
           "trendPrice": 6.96,
           "avgPrice": 8.21,
           "lowPrice": 5.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 6.96,
+          "avgPrice": 8.21,
+          "lowPrice": 5.8
         }
       ],
       "performance": {
@@ -19456,6 +20503,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.89,
+          "avgPrice": 5.67,
+          "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.89,
           "avgPrice": 5.67,
           "lowPrice": 2.8
@@ -19529,6 +20582,12 @@
           "trendPrice": 6.09,
           "avgPrice": 6.64,
           "lowPrice": 2.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 6.09,
+          "avgPrice": 6.64,
+          "lowPrice": 2.99
         }
       ],
       "performance": {
@@ -19596,6 +20655,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 7.3,
+          "avgPrice": 9.07,
+          "lowPrice": 6.5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 7.3,
           "avgPrice": 9.07,
           "lowPrice": 6.5
@@ -19669,6 +20734,12 @@
           "trendPrice": 7.3,
           "avgPrice": 9.07,
           "lowPrice": 6.5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 7.3,
+          "avgPrice": 9.07,
+          "lowPrice": 6.5
         }
       ],
       "performance": {
@@ -19736,6 +20807,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.29,
+          "avgPrice": 5.3,
+          "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.29,
           "avgPrice": 5.3,
           "lowPrice": 2.8
@@ -19809,6 +20886,12 @@
           "trendPrice": 4.87,
           "avgPrice": 5.3,
           "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.87,
+          "avgPrice": 5.3,
+          "lowPrice": 2.8
         }
       ],
       "performance": {
@@ -19876,6 +20959,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.6,
+          "avgPrice": 7.11,
+          "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.6,
           "avgPrice": 7.11,
           "lowPrice": 2.8
@@ -19949,6 +21038,12 @@
           "trendPrice": 19.76,
           "avgPrice": 17.25,
           "lowPrice": 9.85
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 19.76,
+          "avgPrice": 17.25,
+          "lowPrice": 9.85
         }
       ],
       "performance": {
@@ -20016,6 +21111,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 7.41,
+          "avgPrice": 7.11,
+          "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 7.41,
           "avgPrice": 7.11,
           "lowPrice": 2.8
@@ -20089,6 +21190,12 @@
           "trendPrice": 11.69,
           "avgPrice": 13.88,
           "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 11.69,
+          "avgPrice": 13.88,
+          "lowPrice": 5
         }
       ],
       "performance": {
@@ -20156,6 +21263,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.69,
+          "avgPrice": 13.88,
+          "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.69,
           "avgPrice": 13.88,
           "lowPrice": 5
@@ -20229,6 +21342,12 @@
           "trendPrice": 11.69,
           "avgPrice": 13.88,
           "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 11.69,
+          "avgPrice": 13.88,
+          "lowPrice": 5
         }
       ],
       "performance": {
@@ -20296,6 +21415,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.69,
+          "avgPrice": 13.88,
+          "lowPrice": 5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.69,
           "avgPrice": 13.88,
           "lowPrice": 5
@@ -20369,6 +21494,12 @@
           "trendPrice": 8.33,
           "avgPrice": 11.44,
           "lowPrice": 4.89
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 8.33,
+          "avgPrice": 11.44,
+          "lowPrice": 4.89
         }
       ],
       "performance": {
@@ -20436,6 +21567,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.27,
+          "avgPrice": 6.13,
+          "lowPrice": 2.45
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.27,
           "avgPrice": 6.13,
           "lowPrice": 2.45
@@ -20509,6 +21646,12 @@
           "trendPrice": 7.41,
           "avgPrice": 7.11,
           "lowPrice": 2.8
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 7.41,
+          "avgPrice": 7.11,
+          "lowPrice": 2.8
         }
       ],
       "performance": {
@@ -20576,6 +21719,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 21.48,
+          "avgPrice": 17.25,
+          "lowPrice": 9.85
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 21.48,
           "avgPrice": 17.25,
           "lowPrice": 9.85
@@ -20649,6 +21798,12 @@
           "trendPrice": 8.33,
           "avgPrice": 11.44,
           "lowPrice": 4.89
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 8.33,
+          "avgPrice": 11.44,
+          "lowPrice": 4.89
         }
       ],
       "performance": {
@@ -20716,6 +21871,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 7.42,
+          "avgPrice": 11.44,
+          "lowPrice": 4.89
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 7.42,
           "avgPrice": 11.44,
           "lowPrice": 4.89
@@ -20789,6 +21950,12 @@
           "trendPrice": 7.42,
           "avgPrice": 11.44,
           "lowPrice": 4.89
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 7.42,
+          "avgPrice": 11.44,
+          "lowPrice": 4.89
         }
       ],
       "performance": {
@@ -20856,6 +22023,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 47.55,
+          "avgPrice": 52.17,
+          "lowPrice": 44.9
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 47.55,
           "avgPrice": 52.17,
           "lowPrice": 44.9
@@ -20929,6 +22102,12 @@
           "trendPrice": 3.29,
           "avgPrice": 3.93,
           "lowPrice": 1.69
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.29,
+          "avgPrice": 3.93,
+          "lowPrice": 1.69
         }
       ],
       "performance": {
@@ -20996,6 +22175,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.8,
+          "avgPrice": 2.97,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.8,
           "avgPrice": 2.97,
           "lowPrice": 1
@@ -21069,6 +22254,12 @@
           "trendPrice": 3.15,
           "avgPrice": 3.43,
           "lowPrice": 1.4
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.15,
+          "avgPrice": 3.43,
+          "lowPrice": 1.4
         }
       ],
       "performance": {
@@ -21136,6 +22327,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.32,
+          "avgPrice": 1.56,
+          "lowPrice": 0.44
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.32,
           "avgPrice": 1.56,
           "lowPrice": 0.44
@@ -21209,6 +22406,12 @@
           "trendPrice": 73.17,
           "avgPrice": 77.41,
           "lowPrice": 40
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 73.17,
+          "avgPrice": 77.41,
+          "lowPrice": 40
         }
       ],
       "performance": {
@@ -21279,6 +22482,12 @@
           "trendPrice": 17.36,
           "avgPrice": 18.86,
           "lowPrice": 12.67
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 17.36,
+          "avgPrice": 18.86,
+          "lowPrice": 12.67
         }
       ],
       "performance": {
@@ -21346,6 +22555,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 0.91,
+          "avgPrice": 0.88,
+          "lowPrice": 0.05
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 0.91,
           "avgPrice": 0.88,
           "lowPrice": 0.05
@@ -21452,6 +22667,12 @@
           "trendPrice": 47.66,
           "avgPrice": 48.57,
           "lowPrice": 25
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 47.66,
+          "avgPrice": 48.57,
+          "lowPrice": 25
         }
       ],
       "performance": {
@@ -21519,6 +22740,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 11.08,
+          "avgPrice": 15.41,
+          "lowPrice": 4.99
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 11.08,
           "avgPrice": 15.41,
           "lowPrice": 4.99
@@ -21592,6 +22819,12 @@
           "trendPrice": 10.4,
           "avgPrice": 13.1,
           "lowPrice": 9
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 10.4,
+          "avgPrice": 13.1,
+          "lowPrice": 9
         }
       ],
       "performance": {
@@ -21662,6 +22895,12 @@
           "trendPrice": 10.4,
           "avgPrice": 13.1,
           "lowPrice": 9
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 10.4,
+          "avgPrice": 13.1,
+          "lowPrice": 9
         }
       ],
       "performance": {
@@ -21729,6 +22968,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.88,
+          "avgPrice": 3.13,
+          "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.88,
           "avgPrice": 3.13,
           "lowPrice": 1
@@ -21835,6 +23080,12 @@
           "trendPrice": 3.13,
           "avgPrice": 3.13,
           "lowPrice": 1
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 3.13,
+          "avgPrice": 3.13,
+          "lowPrice": 1
         }
       ],
       "performance": {
@@ -21902,6 +23153,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.71,
+          "avgPrice": 6.45,
+          "lowPrice": 1.79
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.71,
           "avgPrice": 6.45,
           "lowPrice": 1.79
@@ -21975,6 +23232,12 @@
           "trendPrice": 29.76,
           "avgPrice": 35.75,
           "lowPrice": 19.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 29.76,
+          "avgPrice": 35.75,
+          "lowPrice": 19.95
         }
       ],
       "performance": {
@@ -22042,6 +23305,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.71,
+          "avgPrice": 6.45,
+          "lowPrice": 1.79
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.71,
           "avgPrice": 6.45,
           "lowPrice": 1.79
@@ -22115,6 +23384,12 @@
           "trendPrice": 5.28,
           "avgPrice": 6.45,
           "lowPrice": 1.79
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 5.28,
+          "avgPrice": 6.45,
+          "lowPrice": 1.79
         }
       ],
       "performance": {
@@ -22185,6 +23460,12 @@
           "trendPrice": 4.39,
           "avgPrice": 4.7,
           "lowPrice": 3.97
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 4.39,
+          "avgPrice": 4.7,
+          "lowPrice": 3.97
         }
       ],
       "performance": {
@@ -22252,6 +23533,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.71,
+          "avgPrice": 5.45,
+          "lowPrice": 1.2
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.71,
           "avgPrice": 5.45,
           "lowPrice": 1.2
@@ -22358,6 +23645,12 @@
           "trendPrice": 2.36,
           "avgPrice": 2.61,
           "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.36,
+          "avgPrice": 2.61,
+          "lowPrice": 0.2
         }
       ],
       "performance": {
@@ -22425,6 +23718,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.54,
+          "avgPrice": 8.19,
+          "lowPrice": 2.5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.54,
           "avgPrice": 8.19,
           "lowPrice": 2.5
@@ -22498,6 +23797,12 @@
           "trendPrice": 5.54,
           "avgPrice": 8.19,
           "lowPrice": 2.5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 5.54,
+          "avgPrice": 8.19,
+          "lowPrice": 2.5
         }
       ],
       "performance": {
@@ -22565,6 +23870,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 9.39,
+          "avgPrice": 10.34,
+          "lowPrice": 2.75
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 9.39,
           "avgPrice": 10.34,
           "lowPrice": 2.75
@@ -22638,6 +23949,12 @@
           "trendPrice": 12.45,
           "avgPrice": 12.18,
           "lowPrice": 6
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 12.45,
+          "avgPrice": 12.18,
+          "lowPrice": 6
         }
       ],
       "performance": {
@@ -22705,6 +24022,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 6.27,
+          "avgPrice": 6.13,
+          "lowPrice": 2.45
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 6.27,
           "avgPrice": 6.13,
           "lowPrice": 2.45
@@ -22778,6 +24101,12 @@
           "trendPrice": 15.59,
           "avgPrice": 15.3,
           "lowPrice": 9.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 15.59,
+          "avgPrice": 15.3,
+          "lowPrice": 9.99
         }
       ],
       "performance": {
@@ -22848,6 +24177,12 @@
           "trendPrice": 12.45,
           "avgPrice": 12.18,
           "lowPrice": 6
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 12.45,
+          "avgPrice": 12.18,
+          "lowPrice": 6
         }
       ],
       "performance": {
@@ -22915,6 +24250,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 3.76,
+          "avgPrice": 4.41,
+          "lowPrice": 2.75
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 3.76,
           "avgPrice": 4.41,
           "lowPrice": 2.75
@@ -23021,6 +24362,12 @@
           "trendPrice": 0.91,
           "avgPrice": 0.88,
           "lowPrice": 0.05
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 0.91,
+          "avgPrice": 0.88,
+          "lowPrice": 0.05
         }
       ],
       "performance": {
@@ -23088,6 +24435,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 4.77,
+          "avgPrice": 4.7,
+          "lowPrice": 3.97
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 4.77,
           "avgPrice": 4.7,
           "lowPrice": 3.97
@@ -23161,6 +24514,12 @@
           "trendPrice": 5.54,
           "avgPrice": 8.19,
           "lowPrice": 2.5
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 5.54,
+          "avgPrice": 8.19,
+          "lowPrice": 2.5
         }
       ],
       "performance": {
@@ -23228,6 +24587,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.36,
+          "avgPrice": 2.61,
+          "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.36,
           "avgPrice": 2.61,
           "lowPrice": 0.2
@@ -23301,6 +24666,12 @@
           "trendPrice": 0.91,
           "avgPrice": 0.88,
           "lowPrice": 0.05
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 0.91,
+          "avgPrice": 0.88,
+          "lowPrice": 0.05
         }
       ],
       "performance": {
@@ -23368,6 +24739,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 105.24,
+          "avgPrice": 112.83,
+          "lowPrice": 79.95
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 105.24,
           "avgPrice": 112.83,
           "lowPrice": 79.95
@@ -23441,6 +24818,12 @@
           "trendPrice": 105.24,
           "avgPrice": 112.83,
           "lowPrice": 79.95
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 105.24,
+          "avgPrice": 112.83,
+          "lowPrice": 79.95
         }
       ],
       "performance": {
@@ -23508,6 +24891,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 1.43,
+          "avgPrice": 1.94,
+          "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 1.43,
           "avgPrice": 1.94,
           "lowPrice": 0.2
@@ -23581,6 +24970,12 @@
           "trendPrice": 2.31,
           "avgPrice": 2.99,
           "lowPrice": 0.75
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.31,
+          "avgPrice": 2.99,
+          "lowPrice": 0.75
         }
       ],
       "performance": {
@@ -23648,6 +25043,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.28,
+          "avgPrice": 6.45,
+          "lowPrice": 1.79
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.28,
           "avgPrice": 6.45,
           "lowPrice": 1.79
@@ -23721,6 +25122,12 @@
           "trendPrice": 0.91,
           "avgPrice": 0.88,
           "lowPrice": 0.05
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 0.91,
+          "avgPrice": 0.88,
+          "lowPrice": 0.05
         }
       ],
       "performance": {
@@ -23788,6 +25195,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 5.54,
+          "avgPrice": 8.19,
+          "lowPrice": 2.5
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 5.54,
           "avgPrice": 8.19,
           "lowPrice": 2.5
@@ -23894,6 +25307,12 @@
           "trendPrice": 2.47,
           "avgPrice": 3.03,
           "lowPrice": 0.99
+        },
+        {
+          "date": "2026-06-27",
+          "trendPrice": 2.47,
+          "avgPrice": 3.03,
+          "lowPrice": 0.99
         }
       ],
       "performance": {
@@ -23961,6 +25380,12 @@
         },
         {
           "date": "2026-06-26",
+          "trendPrice": 2.11,
+          "avgPrice": 2.61,
+          "lowPrice": 0.2
+        },
+        {
+          "date": "2026-06-27",
           "trendPrice": 2.11,
           "avgPrice": 2.61,
           "lowPrice": 0.2
