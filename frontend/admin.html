@@ -107,15 +107,15 @@
         <strong id="statTrackedTotal">0</strong>
       </div>
       <div class="obs-summary-card">
-        <span>Automatiques</span>
+        <span>Valorisation auto</span>
         <strong id="statTrackedAuto">0</strong>
       </div>
       <div class="obs-summary-card">
-        <span>Manuelles</span>
+        <span>Valorisation manuelle</span>
         <strong id="statTrackedManual">0</strong>
       </div>
       <div class="obs-summary-card">
-        <span>Observables</span>
+        <span>Affichées dans le suivi</span>
         <strong id="statTrackedObservable">0</strong>
       </div>
     </div>
@@ -135,14 +135,14 @@
         <input id="trackLangue" placeholder="English">
       </label>
 
-      <label>Mode prix
+      <label>Type de valorisation
         <select id="trackPriceMode">
-          <option value="automatic">Automatique</option>
-          <option value="manual">Manuel par observations</option>
+          <option value="automatic">🟢 Automatique</option>
+<option value="manual">🔴 Manuelle par observations</option>
         </select>
       </label>
 
-      <label>Observable ?
+      <label>Suivie ?
         <select id="trackObservable">
           <option value="true">Oui</option>
           <option value="false">Non</option>
@@ -172,8 +172,8 @@
             <th>Carte</th>
             <th>Édition</th>
             <th>Langue</th>
-            <th>Mode prix</th>
-            <th>Observable</th>
+            <th>Valorisation</th>
+            <th>Suivie</th>
             <th></th>
           </tr>
         </thead>
@@ -602,7 +602,10 @@ function renderTrackedCards() {
     );
 
   filtered.forEach(card => {
-    const modeLabel = (card.priceMode || "automatic") === "manual" ? "🔴 Manuel" : "🟢 Auto";
+    const modeLabel =
+  (card.priceMode || "automatic") === "manual"
+    ? "🔴 Manuelle"
+    : "🟢 Automatique";
 
     tbody.innerHTML += `
       <tr>
@@ -610,7 +613,7 @@ function renderTrackedCards() {
         <td>${card.edition || "-"}</td>
         <td>${card.langue || "-"}</td>
         <td>${modeLabel}</td>
-        <td>${card.observable ? "Oui" : "Non"}</td>
+        <td>${card.observable ? "✅ Oui" : "—"}</td>
         <td><button onclick="deleteTrackedCard('${card.id}')">Supprimer</button></td>
       </tr>
     `;
