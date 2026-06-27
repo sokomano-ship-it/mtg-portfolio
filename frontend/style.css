@@ -1210,3 +1210,51 @@ body.admin-page .admin-identity-card span {
   font-size: 12px;
   font-weight: 700;
 }
+
+/* Observations page compact connection layout */
+
+body.observations-page {
+  background: #0f1117 !important;
+  color: #f5f5f5 !important;
+}
+
+body.observations-page .observations-card {
+  background: #171b26 !important;
+  color: #f5f5f5 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+body.observations-page input,
+body.observations-page select {
+  background: #202636 !important;
+  color: #f5f5f5 !important;
+  border-color: rgba(255,255,255,0.14) !important;
+}
+
+body.observations-page label {
+  color: #d9deea !important;
+  font-weight: 700 !important;
+}
+
+body.observations-page .observations-card:first-of-type .admin-grid,
+body.observations-page .observations-card:first-of-type .observations-grid {
+  grid-template-columns: minmax(420px, 520px) minmax(160px, 220px) !important;
+  justify-content: start !important;
+  gap: 10px !important;
+}
+
+body.observations-page #apiUrl,
+body.observations-page #password {
+  width: 100% !important;
+}
+
+body.observations-page button {
+  background: #2d73d5 !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 700 !important;
+}
+
+body.observations-page button:hover {
+  background: #4285f4 !important;
+}
