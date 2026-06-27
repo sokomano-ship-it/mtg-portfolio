@@ -38,7 +38,7 @@
     <br>
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger données</button>
-    <button onclick="loadPortfolio()">Charger collection locale</button>
+    <button onclick="loadPortfolio()">📂 Charger le portefeuille</button>
   </div>
 
   <div class="card">
@@ -52,7 +52,7 @@
       <input id="cardSearch" list="cardSuggestions" placeholder="Ex: Ali, Mox, Crusade..." oninput="handleSearchInput()">
       <datalist id="cardSuggestions"></datalist>
     </label>
-    <div class="hint" id="searchHint">Collection locale non chargée.</div>
+    <div class="hint" id="searchHint">Portefeuille non chargé.</div>
 
     <br>
 
@@ -72,10 +72,14 @@
       </label>
 
       <label>Prix mini observé (€) <input id="observedMinPrice" type="number" step="0.01"></label>
-      <label>Trend Cardmarket (€) <input id="snapshotTrendPrice" type="number" step="0.01"></label>
-      <label>Avg 30j (€) <input id="snapshotAvg30" type="number" step="0.01"></label>
-      <label>Avg 7j (€) <input id="snapshotAvg7" type="number" step="0.01"></label>
-      <label>Avg 1j (€) <input id="snapshotAvg1" type="number" step="0.01"></label>
+      <input id="snapshotTrendPrice" type="hidden">
+<input id="snapshotAvg30" type="hidden">
+<input id="snapshotAvg7" type="hidden">
+<input id="snapshotAvg1" type="hidden">
+
+<div class="hint" id="marketSnapshotHint">
+  Prix de référence non chargés.
+</div>
       <label>Source <input id="source" value="Cardmarket"></label>
     </div>
 
@@ -217,10 +221,10 @@ async function loadPortfolio() {
     portfolioCards = dedupePortfolioCards(rawCards);
     buildSuggestions();
 
-    $("searchHint").textContent = `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis la collection.`;
-    log("Collection locale chargée.");
+    $("searchHint").textContent = `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis le portefeuille.`;
+    log("Portefeuille chargé.");
   } catch (e) {
-    $("searchHint").textContent = "Erreur de chargement collection.";
+    $("searchHint").textContent = "Erreur de chargement du portefeuille.";
     log("Erreur : " + e.message);
   }
 }
@@ -291,6 +295,8 @@ function fillCardFields(card) {
   $("trackLangue").value = card.langue || "";
 
   log(`Carte sélectionnée : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
+  $("marketSnapshotHint").textContent =
+  `Référence marché : Trend ${formatNumber(card.trendPrice) || "-"} € | Avg30 ${formatNumber(card.avg30) || "-"} € | Avg7 ${formatNumber(card.avg7) || "-"} € | Avg1 ${formatNumber(card.avg1) || "-"} €`;
 }
 
 function copyObservationCardToTracked() {
