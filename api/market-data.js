@@ -93,8 +93,24 @@ function normalizeCardKey(card) {
   ].join("|");
 }
 
+function safeRatio(numerator, denominator) {
+  const num = Number(numerator || 0);
+  const den = Number(denominator || 0);
+  if (!num || !den) return null;
+  return Number((num / den).toFixed(6));
+}
+
 function cleanObservation(body) {
   const now = new Date();
+
+  const observedMinPrice = Number(body.observedMinPrice || 0);
+
+  const marketSnapshot = {
+    trendPrice: Number(body.marketSnapshot?.trendPrice || 0),
+    avg30: Number(body.marketSnapshot?.avg30 || 0),
+    avg7: Number(body.marketSnapshot?.avg7 || 0),
+    avg1: Number(body.marketSnapshot?.avg1 || 0)
+  };
 
   return {
     id: body.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
@@ -106,16 +122,18 @@ function cleanObservation(body) {
     langue: String(body.langue || "").trim(),
     condition: String(body.condition || "").trim(),
 
-    observedMinPrice: Number(body.observedMinPrice || 0),
+    observedMinPrice,
 
-    marketSnapshot: {
-      trendPrice: Number(body.marketSnapshot?.trendPrice || 0),
-      avg30: Number(body.marketSnapshot?.avg30 || 0),
-      avg7: Number(body.marketSnapshot?.avg7 || 0),
-      avg1: Number(body.marketSnapshot?.avg1 || 0)
+    marketSnapshot,
+
+    ratios: {
+      vsTrendPrice: safeRatio(observedMinPrice, marketSnapshot.trendPrice),
+      vsAvg30: safeRatio(observedMinPrice, marketSnapshot.avg30),
+      vsAvg7: safeRatio(observedMinPrice, marketSnapshot.avg7),
+      vsAvg1: safeRatio(observedMinPrice, marketSnapshot.avg1)
     },
 
-    source: String(body.source || "Cardmarket").trim(),
+    source: "Cardmarket",
 
     createdAt: body.createdAt || now.toISOString(),
     updatedAt: now.toISOString()

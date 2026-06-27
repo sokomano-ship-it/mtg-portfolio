@@ -80,7 +80,7 @@
 <div class="hint" id="marketSnapshotHint">
   Prix de référence non chargés.
 </div>
-      <label>Source <input id="source" value="Cardmarket"></label>
+
     </div>
 
     <br>
@@ -321,7 +321,7 @@ async function addObservation() {
         avg7: Number($("snapshotAvg7").value || 0),
         avg1: Number($("snapshotAvg1").value || 0)
       },
-      source: $("source").value
+    
     });
 
     $("observedMinPrice").value = "";
