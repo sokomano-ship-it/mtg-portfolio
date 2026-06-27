@@ -150,6 +150,7 @@ let manualPrices = [];
 let trackedCards = [];
 let portfolioCards = [];
 let cardSuggestionMap = new Map();
+let allSelectableCards = [];
 
 function $(id) { return document.getElementById(id); }
 function log(msg) { $("log").textContent = msg; }
@@ -200,10 +201,15 @@ async function api(method, body) {
 async function loadData() {
   try {
     const data = await api("GET");
+
     manualPrices = data.manualPrices || [];
     trackedCards = data.trackedCards || [];
+
     renderManualPrices();
     renderTrackedCards();
+
+    rebuildSelectableCards();
+
     log("Données chargées.");
   } catch (e) {
     log("Erreur : " + e.message);
@@ -219,10 +225,12 @@ async function loadPortfolio() {
     const rawCards = Array.isArray(data) ? data : (data.cards || data.portfolio || []);
 
     portfolioCards = dedupePortfolioCards(rawCards);
-    buildSuggestions();
+rebuildSelectableCards();
 
-    $("searchHint").textContent = `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis le portefeuille.`;
-    log("Portefeuille chargé.");
+$("searchHint").textContent =
+  `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis le portefeuille.`;
+
+log("Portefeuille chargé.");
   } catch (e) {
     $("searchHint").textContent = "Erreur de chargement du portefeuille.";
     log("Erreur : " + e.message);
@@ -252,6 +260,67 @@ function dedupePortfolioCards(cards) {
     }
   });
 
+  function cardFromTrackedCard(card) {
+  return {
+    nomCarte: card.nomCarte || "",
+    edition: card.edition || "",
+    langue: card.langue || "",
+    version: "",
+    trendPrice: 0,
+    avg30: 0,
+    avg7: 0,
+    avg1: 0,
+    sourceType: "tracked"
+  };
+}
+
+function cardFromManualPrice(card) {
+  return {
+    nomCarte: card.nomCarte || "",
+    edition: card.edition || "",
+    langue: card.langue || "",
+    version: "",
+    trendPrice: card.trendPrice || 0,
+    avg30: card.avg30 || 0,
+    avg7: card.avg7 || 0,
+    avg1: card.avg1 || 0,
+    sourceType: "manual"
+  };
+}
+
+function rebuildSelectableCards() {
+  const map = new Map();
+
+  portfolioCards.forEach(card => {
+    map.set(cardKey(card), {
+      ...card,
+      sourceType: "portfolio"
+    });
+  });
+
+  trackedCards.forEach(card => {
+    const key = cardKey(card);
+    if (!map.has(key)) {
+      map.set(key, cardFromTrackedCard(card));
+    }
+  });
+
+  manualPrices.forEach(card => {
+    const key = cardKey(card);
+    if (!map.has(key)) {
+      map.set(key, cardFromManualPrice(card));
+    }
+  });
+
+  allSelectableCards = [...map.values()].sort((a, b) =>
+    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(
+      `${b.nomCarte} ${b.edition} ${b.langue}`
+    )
+  );
+
+  buildSuggestions();
+}
+
   return [...map.values()].sort((a, b) =>
     `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(`${b.nomCarte} ${b.edition} ${b.langue}`)
   );
@@ -262,8 +331,14 @@ function buildSuggestions() {
   datalist.innerHTML = "";
   cardSuggestionMap = new Map();
 
-  portfolioCards.forEach(card => {
-    const label = `${card.nomCarte} — ${card.edition} — ${card.langue || "-"}`;
+  allSelectableCards.forEach(card => {
+    const sourceLabel =
+      card.sourceType === "portfolio" ? "Portefeuille" :
+      card.sourceType === "manual" ? "Prix manuel" :
+      "Suivi";
+
+    const label = `${card.nomCarte} — ${card.edition} — ${card.langue || "-"} — ${sourceLabel}`;
+
     cardSuggestionMap.set(label, card);
 
     const option = document.createElement("option");
@@ -294,7 +369,12 @@ function fillCardFields(card) {
   $("trackEdition").value = card.edition || "";
   $("trackLangue").value = card.langue || "";
 
-  log(`Carte sélectionnée : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
+  const sourceLabel =
+  card.sourceType === "portfolio" ? "portefeuille" :
+  card.sourceType === "manual" ? "prix manuel" :
+  "carte suivie";
+
+log(`Carte sélectionnée depuis ${sourceLabel} : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
   $("marketSnapshotHint").textContent =
   `Référence marché : Trend ${formatNumber(card.trendPrice) || "-"} € | Avg30 ${formatNumber(card.avg30) || "-"} € | Avg7 ${formatNumber(card.avg7) || "-"} € | Avg1 ${formatNumber(card.avg1) || "-"} €`;
 }
