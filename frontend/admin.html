@@ -4,62 +4,64 @@
   <meta charset="UTF-8" />
   <title>Administration - MTG Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body { font-family: Arial, sans-serif; margin: 24px; background: #f7f7f7; }
-    .wrap { max-width: 1300px; margin: auto; }
-    .card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
-    input, select { padding: 8px; }
-    button { padding: 10px 14px; cursor: pointer; margin-right: 8px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-    th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
-    .muted { color: #777; }
-    .log { background: #111; color: #0f0; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
-    .hint { font-size: 0.85rem; color: #555; margin-top: 6px; }
-  </style>
 </head>
 
 <body>
-<div class="wrap">
+<div class="admin-wrap">
   <h1>⚙️ Administration</h1>
-  <p class="muted">Zone de saisie. Toutes les observations alimentent le futur modèle d’estimation selon l’état.</p>
+  <p class="muted">
+    Zone de saisie. Toutes les observations alimentent le futur modèle d’estimation selon l’état.
+  </p>
 
-  <div class="card">
+  <div class="admin-card">
     <h2>Connexion API</h2>
-    <div class="grid">
+
+    <div class="admin-grid">
       <label>URL API Vercel
         <input id="apiUrl" placeholder="https://mtg-portfolio-lac.vercel.app/api/market-data">
       </label>
+
       <label>Mot de passe admin
         <input id="password" type="password">
       </label>
     </div>
+
     <br>
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger données</button>
     <button onclick="loadPortfolio()">📂 Charger le portefeuille</button>
   </div>
 
-  <div class="card">
-    <h2>1. Ajouter une observation marché</h2>
+  <div class="admin-card">
+    <h2>1. Ajouter une observation Cardmarket</h2>
+
     <p class="muted">
-      La date est automatique. L’observation correspond toujours au plus bas prix observable.
-      La recherche ci-dessous utilise ta collection locale pour préremplir les champs.
+      Tu saisis uniquement le plus bas prix Cardmarket observé pour l’état choisi.
+      La date et la source Cardmarket sont enregistrées automatiquement.
     </p>
 
     <label>Recherche carte / édition / langue
-      <input id="cardSearch" list="cardSuggestions" placeholder="Ex: Ali, Mox, Crusade..." oninput="handleSearchInput()">
+      <input id="cardSearch" list="cardSuggestions" placeholder="Ex: Ali, Jihad, Crusade..." oninput="handleSearchInput()">
       <datalist id="cardSuggestions"></datalist>
     </label>
-    <div class="hint" id="searchHint">Portefeuille non chargé.</div>
+
+    <div class="admin-hint" id="searchHint">Portefeuille non chargé.</div>
 
     <br>
 
-    <div class="grid">
-      <label>Carte <input id="nomCarte" placeholder="Mox Diamond"></label>
-      <label>Édition <input id="edition" placeholder="Stronghold"></label>
-      <label>Langue <input id="langue" placeholder="English / French / German..."></label>
+    <div class="admin-grid">
+      <label>Carte
+        <input id="nomCarte" placeholder="Ali from Cairo">
+      </label>
+
+      <label>Édition
+        <input id="edition" placeholder="Arabian Nights">
+      </label>
+
+      <label>Langue
+        <input id="langue" placeholder="English / French / German...">
+      </label>
+
       <label>État
         <select id="condition">
           <option>PO</option>
@@ -71,33 +73,45 @@
         </select>
       </label>
 
-      <label>Prix mini observé (€) <input id="observedMinPrice" type="number" step="0.01"></label>
+      <label>Prix minimum observé Cardmarket (€)
+        <input id="observedMinPrice" type="number" step="0.01" placeholder="ex: 900">
+      </label>
+
       <input id="snapshotTrendPrice" type="hidden">
-<input id="snapshotAvg30" type="hidden">
-<input id="snapshotAvg7" type="hidden">
-<input id="snapshotAvg1" type="hidden">
+      <input id="snapshotAvg30" type="hidden">
+      <input id="snapshotAvg7" type="hidden">
+      <input id="snapshotAvg1" type="hidden">
+    </div>
 
-<div class="hint" id="marketSnapshotHint">
-  Prix de référence non chargés.
-</div>
-
+    <div class="admin-hint" id="marketSnapshotHint">
+      Référence marché non chargée.
     </div>
 
     <br>
     <button onclick="addObservation()">Ajouter observation</button>
   </div>
 
-  <div class="card">
-    <h2>2. Gérer les cartes observables</h2>
+  <div class="admin-card">
+    <h2>2. Gérer les cartes suivies</h2>
+
     <p class="muted">
-      Cette liste indique quelles cartes doivent être suivies/visibles dans Observations Marché et, à terme, dans Opportunités.
-      Les observations alimentent toujours le modèle, même si la carte n’est pas observable.
+      Cette liste sert à suivre des cartes hors collection.
+      Toutes les observations alimentent le modèle, mais seules les cartes marquées observables seront utilisées dans les vues de suivi/opportunités.
     </p>
 
-    <div class="grid">
-      <label>Carte <input id="trackNomCarte" placeholder="Mox Diamond"></label>
-      <label>Édition <input id="trackEdition" placeholder="Stronghold"></label>
-      <label>Langue <input id="trackLangue" placeholder="English"></label>
+    <div class="admin-grid">
+      <label>Carte
+        <input id="trackNomCarte" placeholder="Jihad">
+      </label>
+
+      <label>Édition
+        <input id="trackEdition" placeholder="Arabian Nights">
+      </label>
+
+      <label>Langue
+        <input id="trackLangue" placeholder="English">
+      </label>
+
       <label>Observable ?
         <select id="trackObservable">
           <option value="true">Oui</option>
@@ -108,52 +122,43 @@
 
     <br>
     <button onclick="copyObservationCardToTracked()">Copier carte observation</button>
-    <button onclick="saveTrackedCard()">Enregistrer carte observable</button>
+    <button onclick="saveTrackedCard()">Enregistrer carte suivie</button>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Carte</th>
-          <th>Édition</th>
-          <th>Langue</th>
-          <th>Observable</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="trackedBody"></tbody>
-    </table>
+    <div class="obs-table-wrapper">
+      <table class="obs-table">
+        <thead>
+          <tr>
+            <th>Carte</th>
+            <th>Édition</th>
+            <th>Langue</th>
+            <th>Observable</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="trackedBody"></tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>3. Prix manuels spéciaux</h2>
-    <p class="muted">Pour cartes absentes du flux automatique : Jihad, Crusade, etc.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Carte</th><th>Édition</th><th>Langue</th><th>Trend</th><th>Avg30</th><th>Avg7</th><th>Avg1</th>
-        </tr>
-      </thead>
-      <tbody id="manualBody"></tbody>
-    </table>
-    <br>
-    <button onclick="saveManualPrices()">Sauvegarder prix manuels</button>
-  </div>
-
-  <div class="card">
+  <div class="admin-card">
     <h2>Log</h2>
-    <pre id="log" class="log">Prêt.</pre>
+    <pre id="log" class="admin-log">Prêt.</pre>
   </div>
 </div>
 
 <script>
-let manualPrices = [];
 let trackedCards = [];
 let portfolioCards = [];
 let cardSuggestionMap = new Map();
 let allSelectableCards = [];
 
-function $(id) { return document.getElementById(id); }
-function log(msg) { $("log").textContent = msg; }
+function $(id) {
+  return document.getElementById(id);
+}
+
+function log(msg) {
+  $("log").textContent = msg;
+}
 
 function formatNumber(value) {
   const n = Number(value || 0);
@@ -179,8 +184,12 @@ function saveSettings() {
 }
 
 function loadSettings() {
-  $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "https://mtg-portfolio-lac.vercel.app/api/market-data";
-  $("password").value = localStorage.getItem("mtgAdminPassword") || "";
+  $("apiUrl").value =
+    localStorage.getItem("mtgApiUrl") ||
+    "https://mtg-portfolio-lac.vercel.app/api/market-data";
+
+  $("password").value =
+    localStorage.getItem("mtgAdminPassword") || "";
 }
 
 async function api(method, body) {
@@ -194,7 +203,11 @@ async function api(method, body) {
   });
 
   const data = await response.json();
-  if (!response.ok || !data.ok) throw new Error(data.error || "Erreur API");
+
+  if (!response.ok || !data.ok) {
+    throw new Error(data.error || "Erreur API");
+  }
+
   return data;
 }
 
@@ -202,12 +215,9 @@ async function loadData() {
   try {
     const data = await api("GET");
 
-    manualPrices = data.manualPrices || [];
     trackedCards = data.trackedCards || [];
 
-    renderManualPrices();
     renderTrackedCards();
-
     rebuildSelectableCards();
 
     log("Données chargées.");
@@ -218,19 +228,22 @@ async function loadData() {
 
 async function loadPortfolio() {
   try {
-    const response = await fetch("data/market-reference.json", { cache: "no-store" });
-    if (!response.ok) throw new Error("Impossible de charger data/portfolio.json");
+    const response = await fetch("data/portfolio.json", { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error("Impossible de charger data/portfolio.json");
+    }
 
     const data = await response.json();
     const rawCards = Array.isArray(data) ? data : (data.cards || data.portfolio || []);
 
     portfolioCards = dedupePortfolioCards(rawCards);
-rebuildSelectableCards();
+    rebuildSelectableCards();
 
-$("searchHint").textContent =
-`${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis les références marché.`;
+    $("searchHint").textContent =
+      `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis le portefeuille.`;
 
-log("Références marché chargées.");
+    log("Portefeuille chargé.");
   } catch (e) {
     $("searchHint").textContent = "Erreur de chargement du portefeuille.";
     log("Erreur : " + e.message);
@@ -249,10 +262,12 @@ function dedupePortfolioCards(cards) {
       trendPrice: card.trendPrice || card.nmPrice || card.priceTrend || 0,
       avg30: card.avg30 || card.avg30Price || 0,
       avg7: card.avg7 || card.avg7Price || 0,
-      avg1: card.avg1 || card.avg1Price || 0
+      avg1: card.avg1 || card.avg1Price || 0,
+      sourceType: "portfolio"
     };
 
     const key = cardKey(normalized);
+
     if (!key.replaceAll("|", "")) return;
 
     if (!map.has(key)) {
@@ -281,35 +296,22 @@ function cardFromTrackedCard(card) {
   };
 }
 
-function cardFromManualPrice(card) {
-  return {
-    nomCarte: card.nomCarte || "",
-    edition: card.edition || "",
-    langue: card.langue || "",
-    version: "",
-    trendPrice: card.trendPrice || 0,
-    avg30: card.avg30 || 0,
-    avg7: card.avg7 || 0,
-    avg1: card.avg1 || 0,
-    sourceType: "manual"
-  };
-}
-
 function rebuildSelectableCards() {
   const map = new Map();
 
   portfolioCards.forEach(card => {
-    map.set(cardKey(card), { ...card, sourceType: "portfolio" });
+    map.set(cardKey(card), {
+      ...card,
+      sourceType: "portfolio"
+    });
   });
 
   trackedCards.forEach(card => {
     const key = cardKey(card);
-    if (!map.has(key)) map.set(key, cardFromTrackedCard(card));
-  });
 
-  manualPrices.forEach(card => {
-    const key = cardKey(card);
-    if (!map.has(key)) map.set(key, cardFromManualPrice(card));
+    if (!map.has(key)) {
+      map.set(key, cardFromTrackedCard(card));
+    }
   });
 
   allSelectableCards = [...map.values()].sort((a, b) =>
@@ -328,11 +330,10 @@ function buildSuggestions() {
 
   allSelectableCards.forEach(card => {
     const sourceLabel =
-      card.sourceType === "portfolio" ? "Portefeuille" :
-      card.sourceType === "manual" ? "Prix manuel" :
-      "Suivi";
+      card.sourceType === "portfolio" ? "Portefeuille" : "Carte suivie";
 
-    const label = `${card.nomCarte} — ${card.edition} — ${card.langue || "-"} — ${sourceLabel}`;
+    const label =
+      `${card.nomCarte} — ${card.edition} — ${card.langue || "-"} — ${sourceLabel}`;
 
     cardSuggestionMap.set(label, card);
 
@@ -340,11 +341,17 @@ function buildSuggestions() {
     option.value = label;
     datalist.appendChild(option);
   });
+
+  if (allSelectableCards.length) {
+    $("searchHint").textContent =
+      `${allSelectableCards.length} carte(s) disponible(s) dans la recherche.`;
+  }
 }
 
 function handleSearchInput() {
   const value = $("cardSearch").value;
   const card = cardSuggestionMap.get(value);
+
   if (!card) return;
 
   fillCardFields(card);
@@ -365,24 +372,51 @@ function fillCardFields(card) {
   $("trackLangue").value = card.langue || "";
 
   const sourceLabel =
-  card.sourceType === "portfolio" ? "portefeuille" :
-  card.sourceType === "manual" ? "prix manuel" :
-  "carte suivie";
+    card.sourceType === "portfolio" ? "portefeuille" : "carte suivie";
 
-log(`Carte sélectionnée depuis ${sourceLabel} : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
-  $("marketSnapshotHint").textContent =
-  `Référence marché : Trend ${formatNumber(card.trendPrice) || "-"} € | Avg30 ${formatNumber(card.avg30) || "-"} € | Avg7 ${formatNumber(card.avg7) || "-"} € | Avg1 ${formatNumber(card.avg1) || "-"} €`;
+  const hasReference =
+    Number(card.trendPrice || 0) ||
+    Number(card.avg30 || 0) ||
+    Number(card.avg7 || 0) ||
+    Number(card.avg1 || 0);
+
+  if (hasReference) {
+    $("marketSnapshotHint").textContent =
+      `Référence marché : Trend ${formatNumber(card.trendPrice) || "-"} € | Avg30 ${formatNumber(card.avg30) || "-"} € | Avg7 ${formatNumber(card.avg7) || "-"} € | Avg1 ${formatNumber(card.avg1) || "-"} €`;
+  } else {
+    $("marketSnapshotHint").textContent =
+      "Aucune référence automatique disponible pour cette carte. L’observation sera quand même utilisée par le modèle.";
+  }
+
+  log(`Carte sélectionnée depuis ${sourceLabel} : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
 }
 
 function copyObservationCardToTracked() {
   $("trackNomCarte").value = $("nomCarte").value;
   $("trackEdition").value = $("edition").value;
   $("trackLangue").value = $("langue").value;
-  log("Carte copiée vers la section cartes observables.");
+
+  log("Carte copiée vers la section cartes suivies.");
 }
 
 async function addObservation() {
   try {
+    if (!$("nomCarte").value.trim()) {
+      throw new Error("Carte manquante.");
+    }
+
+    if (!$("edition").value.trim()) {
+      throw new Error("Édition manquante.");
+    }
+
+    if (!$("langue").value.trim()) {
+      throw new Error("Langue manquante.");
+    }
+
+    if (!Number($("observedMinPrice").value || 0)) {
+      throw new Error("Prix minimum observé manquant.");
+    }
+
     await api("POST", {
       type: "addObservation",
       nomCarte: $("nomCarte").value,
@@ -395,11 +429,11 @@ async function addObservation() {
         avg30: Number($("snapshotAvg30").value || 0),
         avg7: Number($("snapshotAvg7").value || 0),
         avg1: Number($("snapshotAvg1").value || 0)
-      },
-    
+      }
     });
 
     $("observedMinPrice").value = "";
+
     log("Observation ajoutée dans GitHub.");
   } catch (e) {
     log("Erreur : " + e.message);
@@ -408,6 +442,18 @@ async function addObservation() {
 
 async function saveTrackedCard() {
   try {
+    if (!$("trackNomCarte").value.trim()) {
+      throw new Error("Carte suivie manquante.");
+    }
+
+    if (!$("trackEdition").value.trim()) {
+      throw new Error("Édition manquante.");
+    }
+
+    if (!$("trackLangue").value.trim()) {
+      throw new Error("Langue manquante.");
+    }
+
     await api("POST", {
       type: "saveTrackedCard",
       nomCarte: $("trackNomCarte").value,
@@ -416,7 +462,7 @@ async function saveTrackedCard() {
       observable: $("trackObservable").value === "true"
     });
 
-    log("Carte observable enregistrée.");
+    log("Carte suivie enregistrée.");
     await loadData();
   } catch (e) {
     log("Erreur : " + e.message);
@@ -424,7 +470,7 @@ async function saveTrackedCard() {
 }
 
 async function deleteTrackedCard(id) {
-  if (!confirm("Supprimer cette carte observable ?")) return;
+  if (!confirm("Supprimer cette carte suivie ?")) return;
 
   try {
     await api("POST", {
@@ -432,7 +478,7 @@ async function deleteTrackedCard(id) {
       id
     });
 
-    log("Carte observable supprimée.");
+    log("Carte suivie supprimée.");
     await loadData();
   } catch (e) {
     log("Erreur : " + e.message);
@@ -444,7 +490,9 @@ function renderTrackedCards() {
   tbody.innerHTML = "";
 
   const sorted = [...trackedCards].sort((a, b) =>
-    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(`${b.nomCarte} ${b.edition} ${b.langue}`)
+    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(
+      `${b.nomCarte} ${b.edition} ${b.langue}`
+    )
   );
 
   sorted.forEach(card => {
@@ -458,41 +506,6 @@ function renderTrackedCards() {
       </tr>
     `;
   });
-}
-
-function renderManualPrices() {
-  const tbody = $("manualBody");
-  tbody.innerHTML = "";
-
-  manualPrices.forEach((p, i) => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${p.nomCarte}</td>
-        <td>${p.edition}</td>
-        <td>${p.langue || "-"}</td>
-        <td><input type="number" step="0.01" value="${p.trendPrice || ""}" onchange="setManual(${i}, 'trendPrice', this.value)"></td>
-        <td><input type="number" step="0.01" value="${p.avg30 || ""}" onchange="setManual(${i}, 'avg30', this.value)"></td>
-        <td><input type="number" step="0.01" value="${p.avg7 || ""}" onchange="setManual(${i}, 'avg7', this.value)"></td>
-        <td><input type="number" step="0.01" value="${p.avg1 || ""}" onchange="setManual(${i}, 'avg1', this.value)"></td>
-      </tr>
-    `;
-  });
-}
-
-function setManual(index, field, value) {
-  manualPrices[index][field] = Number(value || 0);
-}
-
-async function saveManualPrices() {
-  try {
-    await api("POST", {
-      type: "saveManualPrices",
-      data: manualPrices
-    });
-    log("Prix manuels sauvegardés dans GitHub.");
-  } catch (e) {
-    log("Erreur : " + e.message);
-  }
 }
 
 loadSettings();
