@@ -6,7 +6,8 @@ const BRANCH = process.env.GITHUB_BRANCH || "main";
 
 const FILES = {
   manualPrices: "backend/data/manualPrices.json",
-  observations: "backend/data/marketObservations.json"
+  observations: "backend/data/marketObservations.json",
+  trackedCards: "backend/data/trackedMarketCards.json"
 };
 
 function cors(res) {
@@ -41,7 +42,9 @@ async function getJsonFile(filePath) {
     headers: githubHeaders()
   });
 
-  if (response.status === 404) return { json: [], sha: null };
+  if (response.status === 404) {
+    return { json: [], sha: null };
+  }
 
   if (!response.ok) {
     throw new Error(`GitHub GET ${filePath} failed: ${response.status} ${await response.text()}`);
@@ -78,10 +81,21 @@ async function putJsonFile(filePath, json, sha, message) {
   return response.json();
 }
 
+function normalizeCardKey(card) {
+  return [
+    String(card.nomCarte || "").trim().toLowerCase(),
+    String(card.edition || "").trim().toLowerCase(),
+    String(card.langue || "").trim().toLowerCase()
+  ].join("|");
+}
+
 function cleanObservation(body) {
+  const now = new Date();
+
   return {
     id: body.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    date: body.date || new Date().toISOString().slice(0, 10),
+
+    observationDate: now.toISOString().slice(0, 10),
 
     nomCarte: String(body.nomCarte || "").trim(),
     edition: String(body.edition || "").trim(),
@@ -97,12 +111,24 @@ function cleanObservation(body) {
       avg1: Number(body.marketSnapshot?.avg1 || 0)
     },
 
-    observable: Boolean(body.observable),
     source: String(body.source || "Cardmarket").trim(),
-    comment: String(body.comment || "").trim(),
 
-    createdAt: body.createdAt || new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    createdAt: body.createdAt || now.toISOString(),
+    updatedAt: now.toISOString()
+  };
+}
+
+function cleanTrackedCard(body) {
+  const now = new Date();
+
+  return {
+    id: body.id || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    nomCarte: String(body.nomCarte || "").trim(),
+    edition: String(body.edition || "").trim(),
+    langue: String(body.langue || "").trim(),
+    observable: Boolean(body.observable),
+    createdAt: body.createdAt || now.toISOString(),
+    updatedAt: now.toISOString()
   };
 }
 
@@ -123,11 +149,13 @@ module.exports = async function handler(req, res) {
     if (req.method === "GET") {
       const manual = await getJsonFile(FILES.manualPrices);
       const observations = await getJsonFile(FILES.observations);
+      const trackedCards = await getJsonFile(FILES.trackedCards);
 
       return res.status(200).json({
         ok: true,
         manualPrices: manual.json,
-        observations: observations.json
+        observations: observations.json,
+        trackedCards: trackedCards.json
       });
     }
 
@@ -174,6 +202,41 @@ module.exports = async function handler(req, res) {
           filtered,
           file.sha,
           "Delete market observation"
+        );
+
+        return res.status(200).json({ ok: true });
+      }
+
+      if (body.type === "saveTrackedCard") {
+        const file = await getJsonFile(FILES.trackedCards);
+        const trackedCards = Array.isArray(file.json) ? file.json : [];
+        const incoming = cleanTrackedCard(body);
+        const incomingKey = normalizeCardKey(incoming);
+
+        const filtered = trackedCards.filter(card => normalizeCardKey(card) !== incomingKey);
+        filtered.push(incoming);
+
+        await putJsonFile(
+          FILES.trackedCards,
+          filtered,
+          file.sha,
+          "Update tracked market card"
+        );
+
+        return res.status(200).json({ ok: true });
+      }
+
+      if (body.type === "deleteTrackedCard") {
+        const file = await getJsonFile(FILES.trackedCards);
+        const trackedCards = Array.isArray(file.json) ? file.json : [];
+
+        const filtered = trackedCards.filter(card => card.id !== body.id);
+
+        await putJsonFile(
+          FILES.trackedCards,
+          filtered,
+          file.sha,
+          "Delete tracked market card"
         );
 
         return res.status(200).json({ ok: true });
