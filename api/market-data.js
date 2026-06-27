@@ -140,6 +140,7 @@ function cleanTrackedCard(body) {
     edition: String(body.edition || "").trim(),
     langue: String(body.langue || "").trim(),
     observable: Boolean(body.observable),
+    priceMode: body.priceMode === "manual" ? "manual" : "automatic",
     createdAt: body.createdAt || now.toISOString(),
     updatedAt: now.toISOString()
   };

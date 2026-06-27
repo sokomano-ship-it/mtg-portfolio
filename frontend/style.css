@@ -595,3 +595,37 @@ tbody tr:hover {
   background: #eee;
   font-size: 0.85rem;
 }
+
+
+.admin-selected-card,
+.admin-reference-box,
+.admin-validation-ok,
+.admin-validation-warning {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+}
+
+.admin-chip {
+  display: inline-block;
+  margin-top: 6px;
+  margin-right: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #eee;
+  font-size: 0.85rem;
+}
+
+.admin-validation-ok {
+  border-color: #b9dfc2;
+  background: #f0fff3;
+  color: #176b2c;
+}
+
+.admin-validation-warning {
+  border-color: #f0d98c;
+  background: #fff8e1;
+  color: #6b5200;
+}

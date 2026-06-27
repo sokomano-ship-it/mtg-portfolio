@@ -9,23 +9,18 @@
 <body>
 <div class="admin-wrap">
   <h1>⚙️ Administration</h1>
-  <p class="muted">
-    Zone de saisie. Toutes les observations alimentent le futur modèle d’estimation selon l’état.
-  </p>
+  <p class="muted">Saisie des observations Cardmarket et gestion du catalogue de cartes suivies.</p>
 
   <div class="admin-card">
     <h2>Connexion API</h2>
-
     <div class="admin-grid">
       <label>URL API Vercel
         <input id="apiUrl" placeholder="https://mtg-portfolio-lac.vercel.app/api/market-data">
       </label>
-
       <label>Mot de passe admin
         <input id="password" type="password">
       </label>
     </div>
-
     <br>
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger données</button>
@@ -33,11 +28,11 @@
   </div>
 
   <div class="admin-card">
-    <h2>1. Ajouter une observation Cardmarket</h2>
-
+    <h2>1. Saisir une observation de marché</h2>
     <p class="muted">
-      Tu saisis uniquement le plus bas prix Cardmarket observé pour l’état choisi.
-      La date et la source Cardmarket sont enregistrées automatiquement.
+      Saisissez le prix minimum observé sur Cardmarket pour un état donné.
+      Les références Cardmarket sont récupérées automatiquement lorsqu’elles sont disponibles.
+      Toutes les observations alimentent le modèle d’estimation.
     </p>
 
     <label>Recherche carte / édition / langue
@@ -46,6 +41,10 @@
     </label>
 
     <div class="admin-hint" id="searchHint">Portefeuille non chargé.</div>
+
+    <div class="admin-selected-card" id="selectedCardPanel">
+      Aucune carte sélectionnée.
+    </div>
 
     <br>
 
@@ -59,11 +58,11 @@
       </label>
 
       <label>Langue
-        <input id="langue" placeholder="English / French / German...">
+        <input id="langue" placeholder="English">
       </label>
 
       <label>État
-        <select id="condition">
+        <select id="condition" onchange="validateObservationInput()">
           <option>PO</option>
           <option>PL</option>
           <option>LP</option>
@@ -74,7 +73,7 @@
       </label>
 
       <label>Prix minimum observé Cardmarket (€)
-        <input id="observedMinPrice" type="number" step="0.01" placeholder="ex: 900">
+        <input id="observedMinPrice" type="number" step="0.01" placeholder="ex: 900" oninput="validateObservationInput()">
       </label>
 
       <input id="snapshotTrendPrice" type="hidden">
@@ -83,8 +82,12 @@
       <input id="snapshotAvg1" type="hidden">
     </div>
 
-    <div class="admin-hint" id="marketSnapshotHint">
-      Référence marché non chargée.
+    <div class="admin-reference-box" id="marketSnapshotHint">
+      Références Cardmarket non chargées.
+    </div>
+
+    <div id="inputValidationBox" class="admin-validation-ok">
+      En attente de saisie.
     </div>
 
     <br>
@@ -92,12 +95,32 @@
   </div>
 
   <div class="admin-card">
-    <h2>2. Gérer les cartes suivies</h2>
-
+    <h2>2. Catalogue des cartes suivies</h2>
     <p class="muted">
-      Cette liste sert à suivre des cartes hors collection.
-      Toutes les observations alimentent le modèle, mais seules les cartes marquées observables seront utilisées dans les vues de suivi/opportunités.
+      Les cartes de cette liste sont suivies hors collection. Les cartes automatiques utiliseront le flux quotidien.
+      Les cartes manuelles, comme Jihad ou Crusade, seront valorisées par observations Cardmarket par état.
     </p>
+
+    <div class="obs-summary">
+      <div class="obs-summary-card">
+        <span>Cartes suivies</span>
+        <strong id="statTrackedTotal">0</strong>
+      </div>
+      <div class="obs-summary-card">
+        <span>Automatiques</span>
+        <strong id="statTrackedAuto">0</strong>
+      </div>
+      <div class="obs-summary-card">
+        <span>Manuelles</span>
+        <strong id="statTrackedManual">0</strong>
+      </div>
+      <div class="obs-summary-card">
+        <span>Observables</span>
+        <strong id="statTrackedObservable">0</strong>
+      </div>
+    </div>
+
+    <br>
 
     <div class="admin-grid">
       <label>Carte
@@ -112,16 +135,34 @@
         <input id="trackLangue" placeholder="English">
       </label>
 
+      <label>Mode prix
+        <select id="trackPriceMode">
+          <option value="automatic">Automatique</option>
+          <option value="manual">Manuel par observations</option>
+        </select>
+      </label>
+
       <label>Observable ?
         <select id="trackObservable">
           <option value="true">Oui</option>
           <option value="false">Non</option>
         </select>
       </label>
+
+      <label>Filtrer
+        <input id="trackedSearch" placeholder="Ali, Jihad, Crusade..." oninput="renderTrackedCards()">
+      </label>
+
+      <label>Mode
+        <select id="trackedModeFilter" onchange="renderTrackedCards()">
+          <option value="all">Toutes</option>
+          <option value="automatic">Automatiques</option>
+          <option value="manual">Manuelles</option>
+        </select>
+      </label>
     </div>
 
     <br>
-    <button onclick="copyObservationCardToTracked()">Copier carte observation</button>
     <button onclick="saveTrackedCard()">Enregistrer carte suivie</button>
 
     <div class="obs-table-wrapper">
@@ -131,6 +172,7 @@
             <th>Carte</th>
             <th>Édition</th>
             <th>Langue</th>
+            <th>Mode prix</th>
             <th>Observable</th>
             <th></th>
           </tr>
@@ -148,17 +190,16 @@
 
 <script>
 let trackedCards = [];
+let observations = [];
 let portfolioCards = [];
 let cardSuggestionMap = new Map();
 let allSelectableCards = [];
+let selectedCardKey = "";
 
-function $(id) {
-  return document.getElementById(id);
-}
+const conditionOrder = ["PO", "PL", "LP", "GD", "EX", "NM"];
 
-function log(msg) {
-  $("log").textContent = msg;
-}
+function $(id) { return document.getElementById(id); }
+function log(msg) { $("log").textContent = msg; }
 
 function formatNumber(value) {
   const n = Number(value || 0);
@@ -187,9 +228,7 @@ function loadSettings() {
   $("apiUrl").value =
     localStorage.getItem("mtgApiUrl") ||
     "https://mtg-portfolio-lac.vercel.app/api/market-data";
-
-  $("password").value =
-    localStorage.getItem("mtgAdminPassword") || "";
+  $("password").value = localStorage.getItem("mtgAdminPassword") || "";
 }
 
 async function api(method, body) {
@@ -203,23 +242,20 @@ async function api(method, body) {
   });
 
   const data = await response.json();
-
-  if (!response.ok || !data.ok) {
-    throw new Error(data.error || "Erreur API");
-  }
-
+  if (!response.ok || !data.ok) throw new Error(data.error || "Erreur API");
   return data;
 }
 
 async function loadData() {
   try {
     const data = await api("GET");
-
     trackedCards = data.trackedCards || [];
-
+    observations = data.observations || [];
     renderTrackedCards();
+    renderTrackedStats();
     rebuildSelectableCards();
-
+    updateSelectedCardPanel();
+    validateObservationInput();
     log("Données chargées.");
   } catch (e) {
     log("Erreur : " + e.message);
@@ -229,15 +265,12 @@ async function loadData() {
 async function loadPortfolio() {
   try {
     const response = await fetch("data/portfolio.json", { cache: "no-store" });
-
-    if (!response.ok) {
-      throw new Error("Impossible de charger data/portfolio.json");
-    }
+    if (!response.ok) throw new Error("Impossible de charger data/portfolio.json");
 
     const data = await response.json();
     const rawCards = Array.isArray(data) ? data : (data.cards || data.portfolio || []);
-
     portfolioCards = dedupePortfolioCards(rawCards);
+
     rebuildSelectableCards();
 
     $("searchHint").textContent =
@@ -263,16 +296,14 @@ function dedupePortfolioCards(cards) {
       avg30: card.avg30 || card.avg30Price || 0,
       avg7: card.avg7 || card.avg7Price || 0,
       avg1: card.avg1 || card.avg1Price || 0,
-      sourceType: "portfolio"
+      sourceType: "portfolio",
+      priceMode: "automatic"
     };
 
     const key = cardKey(normalized);
-
     if (!key.replaceAll("|", "")) return;
 
-    if (!map.has(key)) {
-      map.set(key, normalized);
-    }
+    if (!map.has(key)) map.set(key, normalized);
   });
 
   return [...map.values()].sort((a, b) =>
@@ -292,7 +323,8 @@ function cardFromTrackedCard(card) {
     avg30: 0,
     avg7: 0,
     avg1: 0,
-    sourceType: "tracked"
+    sourceType: "tracked",
+    priceMode: card.priceMode || "automatic"
   };
 }
 
@@ -300,18 +332,12 @@ function rebuildSelectableCards() {
   const map = new Map();
 
   portfolioCards.forEach(card => {
-    map.set(cardKey(card), {
-      ...card,
-      sourceType: "portfolio"
-    });
+    map.set(cardKey(card), { ...card, sourceType: "portfolio", priceMode: "automatic" });
   });
 
   trackedCards.forEach(card => {
     const key = cardKey(card);
-
-    if (!map.has(key)) {
-      map.set(key, cardFromTrackedCard(card));
-    }
+    if (!map.has(key)) map.set(key, cardFromTrackedCard(card));
   });
 
   allSelectableCards = [...map.values()].sort((a, b) =>
@@ -329,11 +355,9 @@ function buildSuggestions() {
   cardSuggestionMap = new Map();
 
   allSelectableCards.forEach(card => {
-    const sourceLabel =
-      card.sourceType === "portfolio" ? "Portefeuille" : "Carte suivie";
-
-    const label =
-      `${card.nomCarte} — ${card.edition} — ${card.langue || "-"} — ${sourceLabel}`;
+    const sourceLabel = card.sourceType === "portfolio" ? "Portefeuille" : "Carte suivie";
+    const modeLabel = card.priceMode === "manual" ? "Manuel" : "Auto";
+    const label = `${card.nomCarte} — ${card.edition} — ${card.langue || "-"} — ${sourceLabel} — ${modeLabel}`;
 
     cardSuggestionMap.set(label, card);
 
@@ -349,11 +373,8 @@ function buildSuggestions() {
 }
 
 function handleSearchInput() {
-  const value = $("cardSearch").value;
-  const card = cardSuggestionMap.get(value);
-
+  const card = cardSuggestionMap.get($("cardSearch").value);
   if (!card) return;
-
   fillCardFields(card);
 }
 
@@ -370,9 +391,12 @@ function fillCardFields(card) {
   $("trackNomCarte").value = card.nomCarte || "";
   $("trackEdition").value = card.edition || "";
   $("trackLangue").value = card.langue || "";
+  $("trackPriceMode").value = card.priceMode || "automatic";
 
-  const sourceLabel =
-    card.sourceType === "portfolio" ? "portefeuille" : "carte suivie";
+  selectedCardKey = cardKey(card);
+
+  updateSelectedCardPanel();
+  validateObservationInput();
 
   const hasReference =
     Number(card.trendPrice || 0) ||
@@ -381,41 +405,117 @@ function fillCardFields(card) {
     Number(card.avg1 || 0);
 
   if (hasReference) {
-    $("marketSnapshotHint").textContent =
-      `Référence marché : Trend ${formatNumber(card.trendPrice) || "-"} € | Avg30 ${formatNumber(card.avg30) || "-"} € | Avg7 ${formatNumber(card.avg7) || "-"} € | Avg1 ${formatNumber(card.avg1) || "-"} €`;
+    $("marketSnapshotHint").innerHTML = `
+      <strong>Références Cardmarket</strong><br>
+      Prix de référence : ${formatNumber(card.trendPrice) || "-"} € |
+      Moyenne 30 jours : ${formatNumber(card.avg30) || "-"} € |
+      Moyenne 7 jours : ${formatNumber(card.avg7) || "-"} € |
+      Moyenne 1 jour : ${formatNumber(card.avg1) || "-"} €
+    `;
   } else {
-    $("marketSnapshotHint").textContent =
-      "Aucune référence automatique disponible pour cette carte. L’observation sera quand même utilisée par le modèle.";
+    $("marketSnapshotHint").innerHTML =
+      "<strong>Références Cardmarket</strong><br>Aucune référence automatique disponible. La carte sera estimée par observations.";
   }
 
-  log(`Carte sélectionnée depuis ${sourceLabel} : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
+  log(`Carte sélectionnée : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
 }
 
-function copyObservationCardToTracked() {
-  $("trackNomCarte").value = $("nomCarte").value;
-  $("trackEdition").value = $("edition").value;
-  $("trackLangue").value = $("langue").value;
+function matchingObservationsForCurrentCard() {
+  const temp = {
+    nomCarte: $("nomCarte").value,
+    edition: $("edition").value,
+    langue: $("langue").value
+  };
+  const key = cardKey(temp);
+  return observations.filter(obs => cardKey(obs) === key);
+}
 
-  log("Carte copiée vers la section cartes suivies.");
+function updateSelectedCardPanel() {
+  const current = {
+    nomCarte: $("nomCarte").value,
+    edition: $("edition").value,
+    langue: $("langue").value
+  };
+
+  if (!current.nomCarte || !current.edition || !current.langue) {
+    $("selectedCardPanel").innerHTML = "Aucune carte sélectionnée.";
+    return;
+  }
+
+  const obs = observations.filter(o => cardKey(o) === cardKey(current));
+  const counts = Object.fromEntries(conditionOrder.map(c => [c, 0]));
+  obs.forEach(o => { if (counts[o.condition] !== undefined) counts[o.condition]++; });
+
+  const tracked = trackedCards.find(c => cardKey(c) === cardKey(current));
+  const mode = tracked?.priceMode === "manual" ? "Prix manuel par observations" : "Prix automatique si disponible";
+  const trackedLabel = tracked ? "Carte suivie" : "Non suivie";
+
+  $("selectedCardPanel").innerHTML = `
+    <strong>${current.nomCarte}</strong><br>
+    ${current.edition} — ${current.langue}<br>
+    <span class="admin-chip">${trackedLabel}</span>
+    <span class="admin-chip">${mode}</span>
+    <br><br>
+    <strong>Observations existantes</strong><br>
+    NM : ${counts.NM} | EX : ${counts.EX} | GD : ${counts.GD} | LP : ${counts.LP} | PL : ${counts.PL} | PO : ${counts.PO}
+  `;
+}
+
+function validateObservationInput() {
+  const price = Number($("observedMinPrice").value || 0);
+  const condition = $("condition").value;
+  const obs = matchingObservationsForCurrentCard();
+
+  if (!price) {
+    $("inputValidationBox").className = "admin-validation-ok";
+    $("inputValidationBox").textContent = "En attente de prix.";
+    return;
+  }
+
+  const warnings = [];
+
+  const same = obs.find(o =>
+    o.condition === condition &&
+    Number(o.observedMinPrice || 0) === price
+  );
+
+  if (same) warnings.push("Observation identique déjà présente.");
+
+  const nmPrices = obs.filter(o => o.condition === "NM").map(o => Number(o.observedMinPrice || 0)).filter(Boolean);
+  const bestNm = nmPrices.length ? Math.min(...nmPrices) : null;
+
+  if (condition !== "NM" && bestNm && price > bestNm) {
+    warnings.push(`${condition} supérieur au meilleur NM observé (${bestNm.toFixed(2)} €).`);
+  }
+
+  const sameCondition = obs.filter(o => o.condition === condition).map(o => Number(o.observedMinPrice || 0)).filter(Boolean);
+  if (sameCondition.length >= 2) {
+    const avg = sameCondition.reduce((a, b) => a + b, 0) / sameCondition.length;
+    if (price > avg * 1.4 || price < avg * 0.6) {
+      warnings.push(`Prix très éloigné de la moyenne ${condition} (${avg.toFixed(2)} €).`);
+    }
+  }
+
+  const ref = Number($("snapshotTrendPrice").value || 0);
+  if (ref && price > ref * 1.5) {
+    warnings.push("Prix saisi très supérieur à la référence Cardmarket.");
+  }
+
+  if (warnings.length) {
+    $("inputValidationBox").className = "admin-validation-warning";
+    $("inputValidationBox").innerHTML = "⚠ " + warnings.join("<br>⚠ ");
+  } else {
+    $("inputValidationBox").className = "admin-validation-ok";
+    $("inputValidationBox").textContent = "✓ Cohérent.";
+  }
 }
 
 async function addObservation() {
   try {
-    if (!$("nomCarte").value.trim()) {
-      throw new Error("Carte manquante.");
-    }
-
-    if (!$("edition").value.trim()) {
-      throw new Error("Édition manquante.");
-    }
-
-    if (!$("langue").value.trim()) {
-      throw new Error("Langue manquante.");
-    }
-
-    if (!Number($("observedMinPrice").value || 0)) {
-      throw new Error("Prix minimum observé manquant.");
-    }
+    if (!$("nomCarte").value.trim()) throw new Error("Carte manquante.");
+    if (!$("edition").value.trim()) throw new Error("Édition manquante.");
+    if (!$("langue").value.trim()) throw new Error("Langue manquante.");
+    if (!Number($("observedMinPrice").value || 0)) throw new Error("Prix minimum observé manquant.");
 
     await api("POST", {
       type: "addObservation",
@@ -433,6 +533,9 @@ async function addObservation() {
     });
 
     $("observedMinPrice").value = "";
+    await loadData();
+    updateSelectedCardPanel();
+    validateObservationInput();
 
     log("Observation ajoutée dans GitHub.");
   } catch (e) {
@@ -442,24 +545,17 @@ async function addObservation() {
 
 async function saveTrackedCard() {
   try {
-    if (!$("trackNomCarte").value.trim()) {
-      throw new Error("Carte suivie manquante.");
-    }
-
-    if (!$("trackEdition").value.trim()) {
-      throw new Error("Édition manquante.");
-    }
-
-    if (!$("trackLangue").value.trim()) {
-      throw new Error("Langue manquante.");
-    }
+    if (!$("trackNomCarte").value.trim()) throw new Error("Carte suivie manquante.");
+    if (!$("trackEdition").value.trim()) throw new Error("Édition manquante.");
+    if (!$("trackLangue").value.trim()) throw new Error("Langue manquante.");
 
     await api("POST", {
       type: "saveTrackedCard",
       nomCarte: $("trackNomCarte").value,
       edition: $("trackEdition").value,
       langue: $("trackLangue").value,
-      observable: $("trackObservable").value === "true"
+      observable: $("trackObservable").value === "true",
+      priceMode: $("trackPriceMode").value
     });
 
     log("Carte suivie enregistrée.");
@@ -473,11 +569,7 @@ async function deleteTrackedCard(id) {
   if (!confirm("Supprimer cette carte suivie ?")) return;
 
   try {
-    await api("POST", {
-      type: "deleteTrackedCard",
-      id
-    });
-
+    await api("POST", { type: "deleteTrackedCard", id });
     log("Carte suivie supprimée.");
     await loadData();
   } catch (e) {
@@ -485,22 +577,39 @@ async function deleteTrackedCard(id) {
   }
 }
 
+function renderTrackedStats() {
+  $("statTrackedTotal").textContent = trackedCards.length;
+  $("statTrackedAuto").textContent = trackedCards.filter(c => (c.priceMode || "automatic") === "automatic").length;
+  $("statTrackedManual").textContent = trackedCards.filter(c => c.priceMode === "manual").length;
+  $("statTrackedObservable").textContent = trackedCards.filter(c => c.observable).length;
+}
+
 function renderTrackedCards() {
   const tbody = $("trackedBody");
   tbody.innerHTML = "";
 
-  const sorted = [...trackedCards].sort((a, b) =>
-    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(
-      `${b.nomCarte} ${b.edition} ${b.langue}`
-    )
-  );
+  const text = normalizeText($("trackedSearch")?.value || "");
+  const mode = $("trackedModeFilter")?.value || "all";
 
-  sorted.forEach(card => {
+  const filtered = trackedCards
+    .filter(card => {
+      const haystack = normalizeText(`${card.nomCarte} ${card.edition} ${card.langue}`);
+      const modeOk = mode === "all" || (card.priceMode || "automatic") === mode;
+      return haystack.includes(text) && modeOk;
+    })
+    .sort((a, b) =>
+      `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(`${b.nomCarte} ${b.edition} ${b.langue}`)
+    );
+
+  filtered.forEach(card => {
+    const modeLabel = (card.priceMode || "automatic") === "manual" ? "🔴 Manuel" : "🟢 Auto";
+
     tbody.innerHTML += `
       <tr>
         <td><strong>${card.nomCarte || "-"}</strong></td>
         <td>${card.edition || "-"}</td>
         <td>${card.langue || "-"}</td>
+        <td>${modeLabel}</td>
         <td>${card.observable ? "Oui" : "Non"}</td>
         <td><button onclick="deleteTrackedCard('${card.id}')">Supprimer</button></td>
       </tr>
