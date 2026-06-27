@@ -62,17 +62,15 @@
     <br>
 
     <div class="admin-grid">
-      <label>Carte
-        <input id="nomCarte" placeholder="Ali from Cairo">
-      </label>
+      <input id="nomCarte" type="hidden">
+<input id="edition" type="hidden">
+<input id="langue" type="hidden">
 
-      <label>Édition
-        <input id="edition" placeholder="Arabian Nights">
-      </label>
-
-      <label>Langue
-        <input id="langue" placeholder="English">
-      </label>
+<div class="admin-identity-card">
+  <strong id="identityName">Aucune carte sélectionnée</strong>
+  <span id="identityEdition">—</span>
+  <span id="identityLanguage">—</span>
+</div>
 
       <label>PO (€)
   <input id="pricePO" type="number" step="0.01" oninput="validateObservationInput()">
@@ -391,6 +389,9 @@ function fillCardFields(card) {
   $("nomCarte").value = card.nomCarte || "";
   $("edition").value = card.edition || "";
   $("langue").value = card.langue || "";
+  $("identityName").textContent = card.nomCarte || "Aucune carte sélectionnée";
+$("identityEdition").textContent = card.edition || "—";
+$("identityLanguage").textContent = card.langue || "—";
 
   $("snapshotTrendPrice").value = formatNumber(card.trendPrice);
   $("snapshotAvg30").value = formatNumber(card.avg30);
@@ -604,6 +605,7 @@ async function saveTrackedCard() {
 
     log("Carte suivie enregistrée.");
     await loadData();
+    $("cardSearch").value = "";
   } catch (e) {
     log("Erreur : " + e.message);
   }

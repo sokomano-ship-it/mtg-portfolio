@@ -1186,3 +1186,27 @@ body.admin-page .admin-reference-box{
 
     border-left:5px solid #4ea1ff;
 }
+
+body.admin-page .admin-identity-card {
+  min-height: 48px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: #111520;
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+body.admin-page .admin-identity-card strong {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+body.admin-page .admin-identity-card span {
+  color: #c7d0e0;
+  font-size: 12px;
+  font-weight: 700;
+}
