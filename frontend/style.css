@@ -63,7 +63,10 @@ header p {
 }
 
 main {
-    padding: 30px 40px;
+    max-width: 1700px;
+    width: calc(100% - 60px);
+    margin: auto;
+    padding: 30px 0;
 }
 
 .summary {
@@ -113,6 +116,12 @@ main {
 .table-wrapper {
     overflow-x: auto;
     border-radius: 12px;
+}
+
+.table-wrapper,
+.obs-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
 }
 
 table {
@@ -468,9 +477,10 @@ tbody tr:hover {
 
 .admin-wrap,
 .observations-wrap {
-  max-width: 1200px;
-  margin: 22px auto;
-  padding: 0 24px;
+    max-width: 1650px;
+    width: calc(100% - 60px);
+    margin: 24px auto;
+    padding: 0;
 }
 
 .admin-card,
@@ -481,6 +491,11 @@ tbody tr:hover {
   padding: 18px;
   margin-bottom: 18px;
   box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+.admin-card,
+.observations-card,
+.card {
+    padding: 22px;
 }
 
 .admin-card h2,
@@ -507,6 +522,16 @@ tbody tr:hover {
   grid-template-columns: repeat(6, minmax(95px, 1fr));
   gap: 10px;
   align-items: end;
+}
+
+.admin-grid,
+.observations-grid {
+    width: 100%;
+    grid-template-columns:
+        minmax(280px, 2fr)
+        minmax(180px, 1fr)
+        minmax(140px, 1fr)
+        repeat(6, 90px);
 }
 
 .admin-card input,
