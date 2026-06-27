@@ -218,7 +218,7 @@ async function loadData() {
 
 async function loadPortfolio() {
   try {
-    const response = await fetch("data/portfolio.json", { cache: "no-store" });
+    const response = await fetch("data/market-reference.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Impossible de charger data/portfolio.json");
 
     const data = await response.json();
@@ -228,9 +228,9 @@ async function loadPortfolio() {
 rebuildSelectableCards();
 
 $("searchHint").textContent =
-  `${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis le portefeuille.`;
+`${portfolioCards.length} carte(s) distincte(s) chargée(s) depuis les références marché.`;
 
-log("Portefeuille chargé.");
+log("Références marché chargées.");
   } catch (e) {
     $("searchHint").textContent = "Erreur de chargement du portefeuille.";
     log("Erreur : " + e.message);
