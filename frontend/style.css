@@ -940,3 +940,80 @@ tbody tr:hover {
     min-width: 0;
   }
 }
+
+/* Admin compact forced override */
+
+body.admin-page {
+  background: #f4f5f7 !important;
+  color: #222 !important;
+}
+
+body.admin-page .admin-wrap {
+  max-width: 1180px !important;
+}
+
+body.admin-page .admin-card {
+  padding: 12px 14px !important;
+  margin-bottom: 14px !important;
+}
+
+body.admin-page .admin-grid {
+  display: grid !important;
+  grid-template-columns: repeat(9, minmax(80px, 1fr)) !important;
+  gap: 7px !important;
+  align-items: end !important;
+}
+
+body.admin-page label {
+  font-size: 12px !important;
+}
+
+body.admin-page input,
+body.admin-page select {
+  height: 28px !important;
+  padding: 2px 6px !important;
+  font-size: 12px !important;
+  border-radius: 5px !important;
+}
+
+body.admin-page button {
+  height: 30px !important;
+  padding: 0 10px !important;
+  font-size: 12px !important;
+}
+
+body.admin-page #cardSearch {
+  width: 520px !important;
+  max-width: 100% !important;
+}
+
+body.admin-page #apiUrl {
+  width: 420px !important;
+}
+
+body.admin-page #password {
+  width: 180px !important;
+}
+
+body.admin-page #pricePO,
+body.admin-page #pricePL,
+body.admin-page #priceLP,
+body.admin-page #priceGD,
+body.admin-page #priceEX,
+body.admin-page #priceNM {
+  width: 80px !important;
+}
+
+body.admin-page .admin-selected-card,
+body.admin-page .admin-reference-box,
+body.admin-page .admin-validation-ok,
+body.admin-page .admin-validation-warning {
+  padding: 8px 10px !important;
+  font-size: 12px !important;
+}
+
+@media (max-width: 1200px) {
+  body.admin-page .admin-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
