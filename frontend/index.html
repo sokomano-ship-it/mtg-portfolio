@@ -19,8 +19,9 @@
     <button class="tab-button" data-tab="tab-movers">📈 Top hausses / baisses</button>
     <button class="tab-button" data-tab="tab-opportunities">🔥 Opportunités</button>
     <button class="tab-button" data-tab="tab-collection">🃏 Ma collection</button>
+    <button class="tab-button" onclick="window.location.href='market-observations.html'">📊 Observations Marché</button>
+    <button class="tab-button" onclick="window.location.href='admin.html'">⚙️ Administration</button>
 </nav>
-
 <main>
 
     <section id="tab-general" class="tab-content active">
@@ -130,12 +131,11 @@
     <th class="opportunity-sortable sortable" data-sort="avg30">Avg30</th>
     <th class="opportunity-sortable sortable" data-sort="trendVs30">Trend vs 30j</th>
     <th class="opportunity-sortable sortable" data-sort="avg1Vs7">Momentum</th>
-    <th class="opportunity-sortable sortable" data-sort="buyProbability">Probabilité</th>
-    <th class="opportunity-sortable sortable" data-sort="timingScore">Timing</th>
-    <th class="opportunity-sortable sortable" data-sort="remainingPotential">Potentiel</th>
+    <th class="opportunity-sortable sortable" data-sort="buyProbability">Probabilité achat</th>
+    <th class="opportunity-sortable sortable" data-sort="remainingPotential">Potentiel restant</th>
     <th>Détail scoring</th>
     <th>Raisons</th>
-</tr>                    </tr>
+</tr>                      </tr>
                     </thead>
                     <tbody id="opportunities-body"></tbody>
                 </table>
