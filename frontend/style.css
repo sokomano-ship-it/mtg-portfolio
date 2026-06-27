@@ -456,805 +456,312 @@ tbody tr:hover {
     }
 }
 
+/* ===========================
+   Shared admin / observations
+   =========================== */
+
+.admin-page,
+.observations-page {
+  background: #0f1117;
+  color: #f5f5f5;
+}
+
 .admin-wrap,
 .observations-wrap {
-  max-width: 1400px;
-  margin: 24px auto;
-  padding: 0 16px;
+  max-width: 1200px;
+  margin: 22px auto;
+  padding: 0 24px;
 }
 
 .admin-card,
 .observations-card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 14px;
+  background: #171b26;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
   padding: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
 }
 
-.admin-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(160px, 1fr));
-  gap: 12px;
+.admin-card h2,
+.observations-card h2 {
+  color: #fff;
+  margin: 0 0 14px;
+  font-size: 21px;
+  font-weight: 800;
 }
 
 .admin-card label,
 .observations-card label {
+  color: #d9deea;
+  font-size: 13px;
+  font-weight: 800;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  gap: 4px;
+}
+
+.admin-grid,
+.observations-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(95px, 1fr));
+  gap: 10px;
+  align-items: end;
 }
 
 .admin-card input,
 .admin-card select,
 .observations-card input,
 .observations-card select {
-  padding: 9px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  height: 32px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: #202636;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 7px;
+}
+
+.admin-card input:focus,
+.admin-card select:focus,
+.observations-card input:focus,
+.observations-card select:focus {
+  outline: none;
+  border-color: #7fb7ff;
+  box-shadow: 0 0 0 2px rgba(127,183,255,.22);
 }
 
 .admin-card button,
 .observations-card button {
-  padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 9px;
-  background: #f5f5f5;
+  height: 34px;
+  padding: 0 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2d73d5;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
   cursor: pointer;
-  margin-right: 8px;
 }
 
 .admin-card button:hover,
 .observations-card button:hover {
-  background: #eaeaea;
+  background: #4285f4;
 }
 
 .admin-hint,
-.obs-hint {
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: 6px;
+.obs-hint,
+.admin-page .muted,
+.observations-page .muted {
+  color: #c7d0e0;
+  font-weight: 600;
 }
 
 .admin-log,
 .obs-log {
-  background: #111;
+  background: #080a10;
   color: #00ff6a;
   padding: 12px;
   border-radius: 10px;
   white-space: pre-wrap;
+  font-size: 13px;
+}
+
+/* ===========================
+   Admin only
+   =========================== */
+
+.admin-page .admin-card:first-of-type .admin-grid {
+  grid-template-columns: minmax(420px, 520px) minmax(160px, 220px);
+  justify-content: start;
+}
+
+.admin-page #cardSearch {
+  max-width: 560px;
+}
+
+.admin-page #pricePO,
+.admin-page #pricePL,
+.admin-page #priceLP,
+.admin-page #priceGD,
+.admin-page #priceEX,
+.admin-page #priceNM {
+  max-width: 90px;
+}
+
+.admin-selected-card,
+.admin-reference-box,
+.admin-validation-ok,
+.admin-validation-warning {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.admin-selected-card {
+  background: #111520;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+.admin-reference-box {
+  background: #16263d;
+  border-left: 5px solid #4ea1ff;
+}
+
+.admin-validation-ok {
+  background: #173d23;
+  border-left: 5px solid #53d769;
+  color: #d8ffe1;
+}
+
+.admin-validation-warning {
+  background: #4a3312;
+  border-left: 5px solid #ffb020;
+  color: #ffe2a6;
+}
+
+.admin-chip {
+  display: inline-block;
+  margin-top: 6px;
+  margin-right: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #202636;
+  color: #d9deea;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* ===========================
+   Observations only
+   =========================== */
+
+.observations-page .observations-card:first-of-type .observations-grid,
+.observations-page .observations-card:first-of-type .admin-grid {
+  grid-template-columns: minmax(420px, 520px) minmax(160px, 220px);
+  justify-content: start;
 }
 
 .obs-summary {
   display: grid;
-  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
   gap: 12px;
 }
 
 .obs-summary-card {
-  background: #fafafa;
-  border: 1px solid #e5e5e5;
+  background: #111520;
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px;
   padding: 12px;
 }
 
 .obs-summary-card span {
-  display: block;
-  color: #666;
-  font-size: 0.85rem;
+  color: #c7d0e0;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .obs-summary-card strong {
+  color: #fff;
   display: block;
-  font-size: 1.4rem;
+  font-size: 22px;
   margin-top: 4px;
 }
 
+.obs-table-wrapper {
+  overflow-x: auto;
+}
+
+.obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.obs-table th,
+.obs-table td {
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 8px;
+  white-space: nowrap;
+}
+
+.obs-table th {
+  background: #202636;
+  color: #fff;
+  font-weight: 800;
+}
+
+.obs-table td {
+  color: #f5f5f5;
+}
+
 .obs-warning {
-  background: #fff8e1;
-  border: 1px solid #f0d98c;
-  color: #6b5200;
+  background: #4a3312;
+  border-left: 5px solid #ffb020;
+  color: #ffe2a6;
   border-radius: 10px;
   padding: 10px;
   margin-top: 10px;
 }
 
 .obs-error {
-  background: #ffecec;
-  border: 1px solid #ffb3b3;
-  color: #8a0000;
+  background: #4a1717;
+  border-left: 5px solid #ff6b6b;
+  color: #ffd5d5;
   border-radius: 10px;
   padding: 10px;
   margin-top: 10px;
 }
 
-.obs-table-wrapper {
-  overflow-x: auto;
-}
+/* Keep navigation identical everywhere */
 
-.obs-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-}
-
-.obs-table th,
-.obs-table td {
-  border-bottom: 1px solid #eee;
-  padding: 8px;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.obs-badge {
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: #eee;
-  font-size: 0.85rem;
-}
-
-
-.admin-selected-card,
-.admin-reference-box,
-.admin-validation-ok,
-.admin-validation-warning {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-}
-
-.admin-chip {
-  display: inline-block;
-  margin-top: 6px;
-  margin-right: 6px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: #eee;
-  font-size: 0.85rem;
-}
-
-.admin-validation-ok {
-  border-color: #b9dfc2;
-  background: #f0fff3;
-  color: #176b2c;
-}
-
-.admin-validation-warning {
-  border-color: #f0d98c;
-  background: #fff8e1;
-  color: #6b5200;
-}
-
-/* ==============================
-   Admin / Observations V2 layout
-   ============================== */
-
-.admin-wrap,
-.observations-wrap {
-  max-width: 1400px;
-  margin: 20px auto;
-  padding: 0 16px;
-}
-
-.admin-card,
-.observations-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 14px;
-  padding: 16px 18px;
-  margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-
-.admin-card h2,
-.observations-card h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.admin-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(130px, 1fr));
-  gap: 10px;
-  align-items: end;
-}
-
-.admin-card label,
-.observations-card label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #333;
+.admin-page .tabs,
+.observations-page .tabs {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.admin-card input,
-.admin-card select,
-.observations-card input,
-.observations-card select {
-  height: 34px;
-  padding: 4px 9px;
-  font-size: 14px;
-  border: 1px solid #cfcfcf;
-  border-radius: 8px;
-  box-sizing: border-box;
-  background: #fff;
-}
-
-.admin-card button,
-.observations-card button {
-  height: 36px;
-  padding: 0 14px;
-  border-radius: 9px;
-  border: 1px solid #ccc;
-  background: #f5f5f5;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.admin-card button:hover,
-.observations-card button:hover {
-  background: #e9e9e9;
-}
-
-.admin-hint,
-.obs-hint {
-  font-size: 0.82rem;
-  color: #666;
-  margin-top: 6px;
-}
-
-.admin-selected-card,
-.admin-reference-box,
-.admin-validation-ok,
-.admin-validation-warning {
-  margin-top: 12px;
-  padding: 11px 13px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-  font-size: 0.92rem;
-  line-height: 1.45;
-}
-
-.admin-reference-box {
-  background: #f8fbff;
-  border-color: #cddff5;
-}
-
-.admin-chip {
-  display: inline-block;
-  margin-top: 6px;
-  margin-right: 6px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: #eee;
-  font-size: 0.82rem;
-}
-
-.admin-validation-ok {
-  border-color: #b9dfc2;
-  background: #f0fff3;
-  color: #176b2c;
-}
-
-.admin-validation-warning {
-  border-color: #f0d98c;
-  background: #fff8e1;
-  color: #6b5200;
-}
-
-.admin-log,
-.obs-log {
-  background: #111;
-  color: #00ff6a;
-  padding: 12px;
-  border-radius: 10px;
-  white-space: pre-wrap;
-  font-size: 0.86rem;
-}
-
-.obs-summary {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(140px, 1fr));
   gap: 10px;
+  flex-wrap: wrap;
+  padding: 16px 40px 0;
+  background: #0f1117;
 }
 
-.obs-summary-card {
-  background: #fafafa;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 10px 12px;
-}
-
-.obs-summary-card span {
-  display: block;
-  color: #666;
-  font-size: 0.78rem;
-}
-
-.obs-summary-card strong {
-  display: block;
-  font-size: 1.25rem;
-  margin-top: 3px;
-}
-
-.obs-table-wrapper {
-  overflow-x: auto;
-}
-
-.obs-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-  font-size: 0.9rem;
-}
-
-.obs-table th,
-.obs-table td {
-  border-bottom: 1px solid #eee;
-  padding: 7px 8px;
-  text-align: left;
-  white-space: nowrap;
-}
-
-.obs-table th {
-  background: #fafafa;
+.admin-page .tab-button,
+.observations-page .tab-button {
+  height: auto;
+  background: #171b26;
+  color: #c8d0df;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  padding: 10px 16px;
   font-weight: 700;
+  font-size: 14px;
+}
+
+.admin-page .tab-button.active,
+.observations-page .tab-button.active {
+  background: #7fb7ff;
+  color: #0f1117;
+  border-color: #7fb7ff;
 }
 
 @media (max-width: 1000px) {
-  .admin-grid {
+  .admin-grid,
+  .observations-grid {
     grid-template-columns: repeat(2, minmax(140px, 1fr));
   }
 
   .obs-summary {
-    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    grid-template-columns: repeat(2, minmax(130px, 1fr));
   }
 }
 
 @media (max-width: 600px) {
   .admin-grid,
+  .observations-grid,
   .obs-summary {
     grid-template-columns: 1fr;
   }
-}
-
-/* Admin compact layout override */
-
-.admin-wrap {
-  max-width: 1200px;
-}
-
-.admin-card {
-  padding: 14px 16px;
-}
-
-.admin-grid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(90px, 1fr));
-  gap: 8px;
-  align-items: end;
-}
-
-.admin-card label {
-  font-size: 0.78rem;
-  gap: 3px;
-}
-
-.admin-card input,
-.admin-card select {
-  height: 30px;
-  padding: 3px 7px;
-  font-size: 13px;
-  border-radius: 6px;
-}
-
-.admin-card button {
-  height: 32px;
-  padding: 0 11px;
-  font-size: 13px;
-  border-radius: 7px;
-}
-
-#cardSearch {
-  max-width: 520px;
-}
-
-#apiUrl {
-  min-width: 360px;
-}
-
-#password {
-  max-width: 220px;
-}
-
-#nomCarte,
-#edition,
-#langue,
-#trackNomCarte,
-#trackEdition,
-#trackLangue {
-  min-width: 0;
-}
-
-#pricePO,
-#pricePL,
-#priceLP,
-#priceGD,
-#priceEX,
-#priceNM {
-  max-width: 95px;
-}
-
-.admin-selected-card,
-.admin-reference-box,
-.admin-validation-ok,
-.admin-validation-warning {
-  padding: 9px 11px;
-  font-size: 0.86rem;
-}
-
-.obs-summary {
-  grid-template-columns: repeat(4, minmax(110px, 1fr));
-}
-
-.obs-summary-card {
-  padding: 8px 10px;
-}
-
-.obs-summary-card strong {
-  font-size: 1.1rem;
-}
-
-.obs-table {
-  font-size: 0.84rem;
-}
-
-.obs-table th,
-.obs-table td {
-  padding: 6px 7px;
-}
-
-@media (max-width: 1100px) {
-  .admin-grid {
-    grid-template-columns: repeat(3, minmax(110px, 1fr));
-  }
-}
-
-@media (max-width: 700px) {
-  .admin-grid {
-    grid-template-columns: 1fr;
-  }
-
-  #apiUrl,
-  #password,
-  #cardSearch {
-    max-width: none;
-    min-width: 0;
-  }
-}
-
-/* Admin compact forced override */
-
-body.admin-page {
-  background: #0f1117 !important;
-  color: #f5f5f5 !important;
-}
-
-body.admin-page .admin-card,
-body.admin-page .observations-card {
-  background: #171b26 !important;
-  color: #f5f5f5 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-body.admin-page input,
-body.admin-page select {
-  background: #202636 !important;
-  color: #f5f5f5 !important;
-  border-color: rgba(255,255,255,0.14) !important;
-}
-
-body.admin-page .admin-selected-card,
-body.admin-page .admin-reference-box,
-body.admin-page .admin-validation-ok {
-  background: #111520 !important;
-  color: #d9deea !important;
-  border-color: rgba(255,255,255,0.10) !important;
-}
-
-body.admin-page .admin-validation-warning {
-  background: #3a2d12 !important;
-  color: #ffe2a6 !important;
-  border-color: #8a6a20 !important;
-}
-
-body.admin-page .admin-wrap {
-  max-width: 1180px !important;
-}
-
-body.admin-page .admin-card {
-  padding: 12px 14px !important;
-  margin-bottom: 14px !important;
-}
-
-body.admin-page .admin-grid {
-  display: grid !important;
-  grid-template-columns: repeat(9, minmax(80px, 1fr)) !important;
-  gap: 7px !important;
-  align-items: end !important;
-}
-
-body.admin-page label {
-  font-size: 12px !important;
-}
-
-body.admin-page input,
-body.admin-page select {
-  height: 28px !important;
-  padding: 2px 6px !important;
-  font-size: 12px !important;
-  border-radius: 5px !important;
-}
-
-body.admin-page button {
-  height: 30px !important;
-  padding: 0 10px !important;
-  font-size: 12px !important;
-}
-
-body.admin-page #cardSearch {
-  width: 520px !important;
-  max-width: 100% !important;
-}
-
-body.admin-page #apiUrl {
-  width: 420px !important;
-}
-
-body.admin-page #password {
-  width: 180px !important;
-}
-
-body.admin-page #pricePO,
-body.admin-page #pricePL,
-body.admin-page #priceLP,
-body.admin-page #priceGD,
-body.admin-page #priceEX,
-body.admin-page #priceNM {
-  width: 80px !important;
-}
-
-body.admin-page .admin-selected-card,
-body.admin-page .admin-reference-box,
-body.admin-page .admin-validation-ok,
-body.admin-page .admin-validation-warning {
-  padding: 8px 10px !important;
-  font-size: 12px !important;
-}
-
-@media (max-width: 1200px) {
-  body.admin-page .admin-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
-
-body.admin-page .admin-card:first-of-type .admin-grid {
-  grid-template-columns: minmax(420px, 520px) minmax(160px, 220px) !important;
-  justify-content: start !important;
-}
-
-body.admin-page #apiUrl {
-  width: 100% !important;
-}
-
-body.admin-page #password {
-  width: 100% !important;
-}
-
-/* Keep main navigation consistent on admin page */
-
-body.admin-page .tabs {
-  display: flex !important;
-  gap: 10px !important;
-  flex-wrap: wrap !important;
-  padding: 16px 40px 0 !important;
-  background: #0f1117 !important;
-}
-
-body.admin-page .tab-button {
-  height: auto !important;
-  background: #171b26 !important;
-  color: #c8d0df !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 999px !important;
-  padding: 10px 16px !important;
-  cursor: pointer !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-}
-
-body.admin-page .tab-button:hover {
-  background: #202636 !important;
-  color: #ffffff !important;
-}
-
-body.admin-page .tab-button.active {
-  background: #7fb7ff !important;
-  color: #0f1117 !important;
-  border-color: #7fb7ff !important;
-}
-
-/* ===========================
-   Admin Typography
-   =========================== */
-
-body.admin-page {
-    color: #f5f5f5;
-}
-
-body.admin-page h1 {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-body.admin-page h2 {
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: 700;
-}
-
-body.admin-page label {
-    color: #d9deea !important;
-    font-weight: 700 !important;
-    font-size: 13px !important;
-}
-
-body.admin-page .muted,
-body.admin-page .admin-hint {
-    color: #c7d0e0 !important;
-    font-weight: 500;
-}
-
-body.admin-page strong {
-    color: #ffffff;
-}
-
-body.admin-page td {
-    color: #f5f5f5;
-}
-
-body.admin-page th {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-body.admin-page .admin-card{
-    background:#171b26;
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 8px 20px rgba(0,0,0,.25);
-}
-
-body.admin-page input,
-body.admin-page select{
-
-    background:#202636;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    color:#ffffff;
-
-    font-weight:600;
-}
-
-body.admin-page input:focus,
-body.admin-page select:focus{
-
-    outline:none;
-
-    border-color:#7fb7ff;
-
-    box-shadow:0 0 0 3px rgba(127,183,255,.20);
-}
-
-body.admin-page button{
-
-    background:#2d73d5;
-
-    color:white;
-
-    border:none;
-
-    font-weight:700;
-}
-
-body.admin-page button:hover{
-
-    background:#4285f4;
-}
-
-body.admin-page .admin-reference-box{
-
-    background:#16263d;
-
-    border-left:5px solid #4ea1ff;
-}
-
-body.admin-page .admin-identity-card {
-  min-height: 48px;
-  padding: 8px 10px;
-  border-radius: 9px;
-  background: #111520;
-  border: 1px solid rgba(255,255,255,.12);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-}
-
-body.admin-page .admin-identity-card strong {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-body.admin-page .admin-identity-card span {
-  color: #c7d0e0;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-/* Observations page compact connection layout */
-
-body.observations-page {
-  background: #0f1117 !important;
-  color: #f5f5f5 !important;
-}
-
-body.observations-page .observations-card {
-  background: #171b26 !important;
-  color: #f5f5f5 !important;
-  border-color: rgba(255,255,255,0.08) !important;
-}
-
-body.observations-page input,
-body.observations-page select {
-  background: #202636 !important;
-  color: #f5f5f5 !important;
-  border-color: rgba(255,255,255,0.14) !important;
-}
-
-body.observations-page label {
-  color: #d9deea !important;
-  font-weight: 700 !important;
-}
-
-body.observations-page .observations-card:first-of-type .admin-grid,
-body.observations-page .observations-card:first-of-type .observations-grid {
-  grid-template-columns: minmax(420px, 520px) minmax(160px, 220px) !important;
-  justify-content: start !important;
-  gap: 10px !important;
-}
-
-body.observations-page #apiUrl,
-body.observations-page #password {
-  width: 100% !important;
-}
-
-body.observations-page button {
-  background: #2d73d5 !important;
-  color: #fff !important;
-  border: none !important;
-  font-weight: 700 !important;
-}
-
-body.observations-page button:hover {
-  background: #4285f4 !important;
 }
