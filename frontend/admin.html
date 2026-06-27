@@ -260,7 +260,14 @@ function dedupePortfolioCards(cards) {
     }
   });
 
-  function cardFromTrackedCard(card) {
+  return [...map.values()].sort((a, b) =>
+    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(
+      `${b.nomCarte} ${b.edition} ${b.langue}`
+    )
+  );
+}
+
+function cardFromTrackedCard(card) {
   return {
     nomCarte: card.nomCarte || "",
     edition: card.edition || "",
@@ -292,24 +299,17 @@ function rebuildSelectableCards() {
   const map = new Map();
 
   portfolioCards.forEach(card => {
-    map.set(cardKey(card), {
-      ...card,
-      sourceType: "portfolio"
-    });
+    map.set(cardKey(card), { ...card, sourceType: "portfolio" });
   });
 
   trackedCards.forEach(card => {
     const key = cardKey(card);
-    if (!map.has(key)) {
-      map.set(key, cardFromTrackedCard(card));
-    }
+    if (!map.has(key)) map.set(key, cardFromTrackedCard(card));
   });
 
   manualPrices.forEach(card => {
     const key = cardKey(card);
-    if (!map.has(key)) {
-      map.set(key, cardFromManualPrice(card));
-    }
+    if (!map.has(key)) map.set(key, cardFromManualPrice(card));
   });
 
   allSelectableCards = [...map.values()].sort((a, b) =>
@@ -319,11 +319,6 @@ function rebuildSelectableCards() {
   );
 
   buildSuggestions();
-}
-
-  return [...map.values()].sort((a, b) =>
-    `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(`${b.nomCarte} ${b.edition} ${b.langue}`)
-  );
 }
 
 function buildSuggestions() {
