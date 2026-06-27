@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     body { font-family: Arial, sans-serif; margin: 24px; background: #f7f7f7; }
-    .wrap { max-width: 1200px; margin: auto; }
+    .wrap { max-width: 1300px; margin: auto; }
     .card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
     input { padding: 8px; width: 300px; max-width: 100%; }
     button { padding: 10px 14px; cursor: pointer; margin-right: 8px; }
@@ -40,21 +40,20 @@
     <table>
       <thead>
         <tr>
-  <th>Date</th>
-  <th>Carte</th>
-  <th>Édition</th>
-  <th>Langue</th>
-  <th>État</th>
-  <th>Prix mini</th>
-  <th>Trend</th>
-  <th>Avg30</th>
-  <th>Avg7</th>
-  <th>Avg1</th>
-  <th>Observable</th>
-  <th>Source</th>
-  <th>Commentaire</th>
-  <th></th>
-</tr>
+          <th>Date</th>
+          <th>Carte</th>
+          <th>Édition</th>
+          <th>Langue</th>
+          <th>État</th>
+          <th>Prix mini</th>
+          <th>Trend</th>
+          <th>Avg30</th>
+          <th>Avg7</th>
+          <th>Avg1</th>
+          <th>Observable</th>
+          <th>Source</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody id="obsBody"></tbody>
     </table>
@@ -68,9 +67,24 @@
 
 <script>
 let observations = [];
+let trackedCards = [];
 
 function $(id) { return document.getElementById(id); }
 function log(msg) { $("log").textContent = msg; }
+
+function normalizeKey(item) {
+  return [
+    String(item.nomCarte || "").trim().toLowerCase(),
+    String(item.edition || "").trim().toLowerCase(),
+    String(item.langue || "").trim().toLowerCase()
+  ].join("|");
+}
+
+function isObservable(obs) {
+  const key = normalizeKey(obs);
+  const tracked = trackedCards.find(card => normalizeKey(card) === key);
+  return tracked ? tracked.observable === true : false;
+}
 
 function saveSettings() {
   localStorage.setItem("mtgApiUrl", $("apiUrl").value.trim());
@@ -102,6 +116,7 @@ async function loadData() {
   try {
     const data = await api("GET");
     observations = data.observations || [];
+    trackedCards = data.trackedCards || [];
     render();
     log("Observations chargées.");
   } catch (e) {
@@ -111,38 +126,42 @@ async function loadData() {
 
 function render() {
   const total = observations.length;
-  const observable = observations.filter(o => o.observable).length;
-  const cards = new Set(observations.map(o => `${o.nomCarte}|${o.edition}|${o.langue}`)).size;
+  const cards = new Set(observations.map(o => normalizeKey(o))).size;
+  const observableCount = observations.filter(isObservable).length;
+  const trackedCount = trackedCards.filter(c => c.observable).length;
 
   $("summary").innerHTML = `
     <strong>${total}</strong> observation(s) —
     <strong>${cards}</strong> carte(s) distincte(s) —
-    <strong>${observable}</strong> observable(s)
+    <strong>${observableCount}</strong> observation(s) observable(s) —
+    <strong>${trackedCount}</strong> carte(s) suivie(s)
   `;
 
-  const sorted = [...observations].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const sorted = [...observations].sort((a, b) =>
+    String(b.observationDate || b.date || "").localeCompare(String(a.observationDate || a.date || ""))
+  );
+
   const tbody = $("obsBody");
   tbody.innerHTML = "";
 
   sorted.forEach(obs => {
     tbody.innerHTML += `
-  <tr>
-    <td>${obs.date || "-"}</td>
-    <td><strong>${obs.nomCarte || "-"}</strong></td>
-    <td>${obs.edition || "-"}</td>
-    <td>${obs.langue || "-"}</td>
-    <td><span class="badge">${obs.condition || "-"}</span></td>
-    <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
-    <td>${Number(obs.marketSnapshot?.trendPrice || 0).toFixed(2)} €</td>
-    <td>${Number(obs.marketSnapshot?.avg30 || 0).toFixed(2)} €</td>
-    <td>${Number(obs.marketSnapshot?.avg7 || 0).toFixed(2)} €</td>
-    <td>${Number(obs.marketSnapshot?.avg1 || 0).toFixed(2)} €</td>
-    <td>${obs.observable ? "Oui" : "Non"}</td>
-    <td>${obs.source || "-"}</td>
-    <td>${obs.comment || ""}</td>
-    <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
-  </tr>
-`;
+      <tr>
+        <td>${obs.observationDate || obs.date || "-"}</td>
+        <td><strong>${obs.nomCarte || "-"}</strong></td>
+        <td>${obs.edition || "-"}</td>
+        <td>${obs.langue || "-"}</td>
+        <td><span class="badge">${obs.condition || "-"}</span></td>
+        <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
+        <td>${Number(obs.marketSnapshot?.trendPrice || 0).toFixed(2)} €</td>
+        <td>${Number(obs.marketSnapshot?.avg30 || 0).toFixed(2)} €</td>
+        <td>${Number(obs.marketSnapshot?.avg7 || 0).toFixed(2)} €</td>
+        <td>${Number(obs.marketSnapshot?.avg1 || 0).toFixed(2)} €</td>
+        <td>${isObservable(obs) ? "Oui" : "Non"}</td>
+        <td>${obs.source || "-"}</td>
+        <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
+      </tr>
+    `;
   });
 }
 
