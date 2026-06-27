@@ -2,300 +2,158 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Observations marché</title>
+  <title>Observations Marché - MTG Portfolio</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .admin-wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
-    .admin-card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
-    .admin-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .admin-grid label { display: flex; flex-direction: column; font-size: 0.9rem; gap: 4px; }
-    .admin-grid input, .admin-grid select, .admin-grid textarea { padding: 8px; }
-    .admin-actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
-    .admin-actions button { padding: 10px 14px; cursor: pointer; }
-    .admin-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-    .admin-table th, .admin-table td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
+    body { font-family: Arial, sans-serif; margin: 24px; background: #f7f7f7; }
+    .wrap { max-width: 1200px; margin: auto; }
+    .card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
+    input { padding: 8px; width: 300px; max-width: 100%; }
+    button { padding: 10px 14px; cursor: pointer; margin-right: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
     .muted { color: #777; }
-    .readonly { background: #f1f1f1; color: #666; }
+    .badge { padding: 3px 7px; border-radius: 8px; background: #eee; }
     .log { background: #111; color: #0f0; padding: 12px; border-radius: 8px; white-space: pre-wrap; }
   </style>
 </head>
 <body>
-  <div class="admin-wrap">
-    <h1>📊 Observations marché</h1>
-    <p class="muted">
-      Cette page sert uniquement aux cartes spéciales et aux observations terrain par état.
-      Elle ne modifie pas le moteur Opportunités.
-    </p>
+<div class="wrap">
+  <h1>📊 Observations Marché</h1>
+  <p class="muted">Visualisation des observations saisies pour le futur modèle d’estimation selon l’état.</p>
 
-    <div class="admin-card">
-      <h2>Connexion admin</h2>
-      <div class="admin-grid">
-        <label>
-          Mot de passe admin
-          <input id="admin-password" type="password" placeholder="Mot de passe" />
-        </label>
-        <label>
-          URL API Vercel
-          <input id="api-url" type="text" placeholder="https://ton-projet.vercel.app/api/market-data" />
-        </label>
-      </div>
-      <div class="admin-actions">
-        <button onclick="saveSettings()">Sauvegarder paramètres</button>
-        <button onclick="loadData()">Charger les données</button>
-      </div>
-    </div>
-
-    <div class="admin-card">
-      <h2>1. Prix manuels spéciaux</h2>
-      <p class="muted">
-        Saisir seulement Jihad, Crusade Fourth Edition et Crusade Revised.
-        Crusade Foreign White Bordered reprend automatiquement Crusade Revised.
-      </p>
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Carte</th>
-            <th>Édition</th>
-            <th>Langue</th>
-            <th>Tendance</th>
-            <th>Avg30</th>
-            <th>Avg7</th>
-            <th>Avg1</th>
-            <th>Source</th>
-          </tr>
-        </thead>
-        <tbody id="manual-body"></tbody>
-      </table>
-      <div class="admin-actions">
-        <button onclick="saveManualPrices()">💾 Sauvegarder prix spéciaux</button>
-      </div>
-    </div>
-
-    <div class="admin-card">
-      <h2>2. Ajouter une observation par état</h2>
-      <div class="admin-grid">
-        <label>Carte <input id="obs-card" type="text" placeholder="Mox Diamond" /></label>
-        <label>Édition <input id="obs-edition" type="text" placeholder="Stronghold" /></label>
-        <label>Langue <input id="obs-langue" type="text" placeholder="English" /></label>
-        <label>
-          État
-          <select id="obs-condition">
-            <option>PO</option>
-            <option>PL</option>
-            <option>LP</option>
-            <option>GD</option>
-            <option>EX</option>
-            <option>NM</option>
-          </select>
-        </label>
-        <label>Prix mini observé (€) <input id="obs-price" type="number" step="0.01" /></label>
-        <label>Date <input id="obs-date" type="date" /></label>
-        <label>Source <input id="obs-source" type="text" value="Cardmarket lowest observed" /></label>
-        <label>Commentaire <input id="obs-comment" type="text" /></label>
-      </div>
-      <div class="admin-actions">
-        <button onclick="addObservation()">➕ Ajouter observation</button>
-      </div>
-    </div>
-
-    <div class="admin-card">
-      <h2>3. Historique des observations</h2>
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Carte</th>
-            <th>Édition</th>
-            <th>Langue</th>
-            <th>État</th>
-            <th>Prix mini</th>
-            <th>Source</th>
-            <th>Commentaire</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="observations-body"></tbody>
-      </table>
-    </div>
-
-    <div class="admin-card">
-      <h2>Log</h2>
-      <pre id="log" class="log">Prêt.</pre>
-    </div>
+  <div class="card">
+    <h2>Connexion API</h2>
+    <input id="apiUrl" placeholder="https://...vercel.app/api/market-data">
+    <input id="password" type="password" placeholder="Mot de passe admin">
+    <button onclick="saveSettings()">Sauvegarder paramètres</button>
+    <button onclick="loadData()">Charger observations</button>
   </div>
 
-  <script>
-    const CONDITIONS = ["PO", "PL", "LP", "GD", "EX", "NM"];
-    let manualPrices = [];
-    let observations = [];
+  <div class="card">
+    <h2>Résumé</h2>
+    <p id="summary">Aucune donnée chargée.</p>
+  </div>
 
-    function $(id) { return document.getElementById(id); }
+  <div class="card">
+    <h2>Historique</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Carte</th>
+          <th>Édition</th>
+          <th>Langue</th>
+          <th>État</th>
+          <th>Prix mini</th>
+          <th>Observable</th>
+          <th>Source</th>
+          <th>Commentaire</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="obsBody"></tbody>
+    </table>
+  </div>
 
-    function log(message) {
-      $("log").textContent = message;
-    }
+  <div class="card">
+    <h2>Log</h2>
+    <pre id="log" class="log">Prêt.</pre>
+  </div>
+</div>
 
-    function getApiUrl() {
-      return localStorage.getItem("marketApiUrl") || $("api-url").value.trim();
-    }
+<script>
+let observations = [];
 
-    function getPassword() {
-      return localStorage.getItem("marketAdminPassword") || $("admin-password").value;
-    }
+function $(id) { return document.getElementById(id); }
+function log(msg) { $("log").textContent = msg; }
 
-    function saveSettings() {
-      localStorage.setItem("marketApiUrl", $("api-url").value.trim());
-      localStorage.setItem("marketAdminPassword", $("admin-password").value);
-      log("Paramètres sauvegardés dans ce navigateur.");
-    }
+function saveSettings() {
+  localStorage.setItem("mtgApiUrl", $("apiUrl").value.trim());
+  localStorage.setItem("mtgAdminPassword", $("password").value);
+  log("Paramètres sauvegardés.");
+}
 
-    function loadSettings() {
-      $("api-url").value = localStorage.getItem("marketApiUrl") || "";
-      $("admin-password").value = localStorage.getItem("marketAdminPassword") || "";
-      $("obs-date").value = new Date().toISOString().slice(0, 10);
-    }
+function loadSettings() {
+  $("apiUrl").value = localStorage.getItem("mtgApiUrl") || "";
+  $("password").value = localStorage.getItem("mtgAdminPassword") || "";
+}
 
-    async function api(method, body) {
-      const response = await fetch(getApiUrl(), {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          "x-admin-password": getPassword()
-        },
-        body: body ? JSON.stringify(body) : undefined
-      });
+async function api(method, body) {
+  const response = await fetch($("apiUrl").value.trim(), {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-password": $("password").value
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
 
-      const data = await response.json();
+  const data = await response.json();
+  if (!response.ok || !data.ok) throw new Error(data.error || "Erreur API");
+  return data;
+}
 
-      if (!response.ok || !data.ok) {
-        throw new Error(data.error || "Erreur API");
-      }
+async function loadData() {
+  try {
+    const data = await api("GET");
+    observations = data.observations || [];
+    render();
+    log("Observations chargées.");
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
 
-      return data;
-    }
+function render() {
+  const total = observations.length;
+  const observable = observations.filter(o => o.observable).length;
+  const cards = new Set(observations.map(o => `${o.nomCarte}|${o.edition}|${o.langue}`)).size;
 
-    async function loadData() {
-      try {
-        const data = await api("GET");
-        manualPrices = data.manualPrices || [];
-        observations = data.observations || [];
-        renderManual();
-        renderObservations();
-        log("Données chargées.");
-      } catch (e) {
-        log("Erreur chargement : " + e.message);
-      }
-    }
+  $("summary").innerHTML = `
+    <strong>${total}</strong> observation(s) —
+    <strong>${cards}</strong> carte(s) distincte(s) —
+    <strong>${observable}</strong> observable(s)
+  `;
 
-    function findCopySource(price) {
-      if (!price.copyFrom) return null;
-      return manualPrices.find(source =>
-        source.nomCarte === price.copyFrom.nomCarte &&
-        source.edition === price.copyFrom.edition &&
-        (!price.copyFrom.langue || source.langue === price.copyFrom.langue)
-      );
-    }
+  const sorted = [...observations].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const tbody = $("obsBody");
+  tbody.innerHTML = "";
 
-    function renderManual() {
-      const tbody = $("manual-body");
-      tbody.innerHTML = "";
+  sorted.forEach(obs => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${obs.date || "-"}</td>
+        <td><strong>${obs.nomCarte || "-"}</strong></td>
+        <td>${obs.edition || "-"}</td>
+        <td>${obs.langue || "-"}</td>
+        <td><span class="badge">${obs.condition || "-"}</span></td>
+        <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
+        <td>${obs.observable ? "Oui" : "Non"}</td>
+        <td>${obs.source || "-"}</td>
+        <td>${obs.comment || ""}</td>
+        <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
+      </tr>
+    `;
+  });
+}
 
-      manualPrices.forEach((p, index) => {
-        const source = findCopySource(p);
-        const display = source || p;
-        const readonly = p.copyFrom ? "readonly" : "";
-        const cls = p.copyFrom ? "readonly" : "";
+async function deleteObservation(id) {
+  if (!confirm("Supprimer cette observation ?")) return;
 
-        tbody.innerHTML += `
-          <tr>
-            <td><strong>${p.nomCarte}</strong></td>
-            <td>${p.edition}</td>
-            <td>${p.langue || "-"}</td>
-            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.trendPrice || ""}" onchange="setManual(${index}, 'trendPrice', this.value)"></td>
-            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.avg30 || ""}" onchange="setManual(${index}, 'avg30', this.value)"></td>
-            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.avg7 || ""}" onchange="setManual(${index}, 'avg7', this.value)"></td>
-            <td><input class="${cls}" ${readonly} type="number" step="0.01" value="${display.avg1 || ""}" onchange="setManual(${index}, 'avg1', this.value)"></td>
-            <td>${p.copyFrom ? "Copie Revised" : "Manuel"}</td>
-          </tr>
-        `;
-      });
-    }
+  try {
+    await api("POST", {
+      type: "deleteObservation",
+      id
+    });
+    log("Observation supprimée.");
+    await loadData();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
 
-    function setManual(index, field, value) {
-      if (manualPrices[index].copyFrom) return;
-      manualPrices[index][field] = Number(value || 0);
-      renderManual();
-    }
-
-    async function saveManualPrices() {
-      try {
-        await api("POST", { type: "manualPrices", data: manualPrices });
-        log("Prix spéciaux sauvegardés. Le workflow GitHub va reconstruire le site.");
-      } catch (e) {
-        log("Erreur sauvegarde prix : " + e.message);
-      }
-    }
-
-    async function addObservation() {
-      try {
-        const payload = {
-          type: "observation",
-          nomCarte: $("obs-card").value.trim(),
-          edition: $("obs-edition").value.trim(),
-          langue: $("obs-langue").value.trim(),
-          condition: $("obs-condition").value,
-          observedMinPrice: Number($("obs-price").value || 0),
-          date: $("obs-date").value,
-          source: $("obs-source").value.trim(),
-          comment: $("obs-comment").value.trim()
-        };
-
-        await api("POST", payload);
-        log("Observation ajoutée.");
-        await loadData();
-      } catch (e) {
-        log("Erreur ajout observation : " + e.message);
-      }
-    }
-
-    async function deleteObservation(id) {
-      if (!confirm("Supprimer cette observation ?")) return;
-
-      try {
-        await api("POST", { type: "deleteObservation", id });
-        log("Observation supprimée.");
-        await loadData();
-      } catch (e) {
-        log("Erreur suppression : " + e.message);
-      }
-    }
-
-    function renderObservations() {
-      const tbody = $("observations-body");
-      tbody.innerHTML = "";
-
-      const sorted = [...observations].sort((a, b) =>
-        String(b.date).localeCompare(String(a.date))
-      );
-
-      sorted.forEach(obs => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${obs.date || "-"}</td>
-            <td><strong>${obs.nomCarte || "-"}</strong></td>
-            <td>${obs.edition || "-"}</td>
-            <td>${obs.langue || "-"}</td>
-            <td>${obs.condition || "-"}</td>
-            <td>${Number(obs.observedMinPrice || 0).toFixed(2)} €</td>
-            <td>${obs.source || "-"}</td>
-            <td>${obs.comment || ""}</td>
-            <td><button onclick="deleteObservation('${obs.id}')">Supprimer</button></td>
-          </tr>
-        `;
-      });
-    }
-
-    loadSettings();
-  </script>
+loadSettings();
+</script>
 </body>
 </html>
