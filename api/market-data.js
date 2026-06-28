@@ -174,6 +174,39 @@ module.exports = async function handler(req, res) {
     if (req.method === "POST") {
       const body = req.body || {};
 
+      if (body.type === "deleteCardEverywhere") {
+  const target = {
+    nomCarte: body.nomCarte,
+    edition: body.edition,
+    langue: body.langue
+  };
+
+  const trackedFile = await getJsonFile(FILES.trackedCards);
+  const observationsFile = await getJsonFile(FILES.observations);
+
+  const trackedCards = Array.isArray(trackedFile.json) ? trackedFile.json : [];
+  const observations = Array.isArray(observationsFile.json) ? observationsFile.json : [];
+
+  const filteredTracked = trackedCards.filter(card => normalizeCardKey(card) !== normalizeCardKey(target));
+  const filteredObservations = observations.filter(obs => normalizeCardKey(obs) !== normalizeCardKey(target));
+
+  await putJsonFile(
+    FILES.trackedCards,
+    filteredTracked,
+    trackedFile.sha,
+    "Delete tracked card everywhere"
+  );
+
+  await putJsonFile(
+    FILES.observations,
+    filteredObservations,
+    observationsFile.sha,
+    "Delete card observations everywhere"
+  );
+
+  return res.status(200).json({ ok: true });
+}
+
       if (body.type === "addObservation") {
         const file = await getJsonFile(FILES.observations);
         const observations = Array.isArray(file.json) ? file.json : [];

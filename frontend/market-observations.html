@@ -38,6 +38,7 @@
     <br>
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger observations</button>
+    <button onclick="deleteSelectedCardEverywhere()">Supprimer cette carte</button>
   </div>
 
   <div class="observations-card">
@@ -441,6 +442,35 @@ async function deleteObservationGroup(ids) {
   try {
     await api("POST", { type: "deleteObservations", ids });
     log(`${ids.length} observation(s) supprimée(s).`);
+    await loadData();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
+
+async function deleteSelectedCardEverywhere() {
+  const card = getSelectedCard?.();
+
+  if (!card || !card.nomCarte || !card.edition || !card.langue) {
+    log("Erreur : aucune carte sélectionnée.");
+    return;
+  }
+
+  const ok = confirm(
+    `Supprimer complètement cette carte ?\n\n${card.nomCarte}\n${card.edition}\n${card.langue}\n\nCela supprimera la carte suivie et toutes ses observations.`
+  );
+
+  if (!ok) return;
+
+  try {
+    await api("POST", {
+      type: "deleteCardEverywhere",
+      nomCarte: card.nomCarte,
+      edition: card.edition,
+      langue: card.langue
+    });
+
+    log("Carte supprimée complètement.");
     await loadData();
   } catch (e) {
     log("Erreur : " + e.message);
