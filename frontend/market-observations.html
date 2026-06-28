@@ -44,11 +44,12 @@
   <div class="observations-card">
     <h2>Sélection</h2>
     <div class="admin-grid obs-filter-grid">
-      <label>Carte / édition / langue
-        <select id="cardSelect" onchange="renderSelectedCard()">
-          <option value="">Charger les données...</option>
-        </select>
-      </label>
+      <label>Recherche carte / édition / langue
+  <input id="cardSearch" list="cardSuggestions" placeholder="Ex: Ali, Jihad, Crusade..." oninput="handleSearchInput()">
+  <datalist id="cardSuggestions"></datalist>
+</label>
+
+<input id="selectedCardKey" type="hidden">
       <label>État affiché
         <select id="conditionFilter" onchange="renderSelectedCard()">
           <option value="all">Tous</option>
@@ -111,6 +112,7 @@
 let observations = [];
 let trackedCards = [];
 let selectedRows = [];
+let cardSuggestionMap = new Map();
 
 const conditionOrder = ["PO", "PL", "LP", "GD", "EX", "NM"];
 const graphOrder = ["NM", "EX", "GD", "LP", "PL", "PO"];
@@ -195,24 +197,43 @@ function buildCardSelect() {
     labelForCard(a).localeCompare(labelForCard(b))
   );
 
-  const select = $("cardSelect");
-  select.innerHTML = "";
-
-  if (!cards.length) {
-    select.innerHTML = `<option value="">Aucune donnée</option>`;
-    return;
-  }
+  const datalist = $("cardSuggestions");
+  datalist.innerHTML = "";
+  cardSuggestionMap = new Map();
 
   cards.forEach(card => {
+    const key = cardKey(card);
+    const label = labelForCard(card);
+
+    cardSuggestionMap.set(label, key);
+
     const option = document.createElement("option");
-    option.value = cardKey(card);
-    option.textContent = labelForCard(card);
-    select.appendChild(option);
+    option.value = label;
+    datalist.appendChild(option);
   });
+
+  if (cards.length) {
+    const first = cards[0];
+    $("cardSearch").value = labelForCard(first);
+    $("selectedCardKey").value = cardKey(first);
+  } else {
+    $("cardSearch").value = "";
+    $("selectedCardKey").value = "";
+  }
+}
+
+function handleSearchInput() {
+  const label = $("cardSearch").value;
+  const key = cardSuggestionMap.get(label);
+
+  if (!key) return;
+
+  $("selectedCardKey").value = key;
+  renderSelectedCard();
 }
 
 function getSelectedObservations() {
-  const key = $("cardSelect").value;
+  const key = $("selectedCardKey").value;
   const condition = $("conditionFilter").value;
 
   return observations.filter(obs => {
@@ -247,10 +268,10 @@ function groupByDate(obsList) {
 
 function renderSelectedCard() {
   const obs = getSelectedObservations();
-  const allForCard = observations.filter(o => cardKey(o) === $("cardSelect").value);
+  const allForCard = observations.filter(o => cardKey(o) === $("selectedCardKey").value);
   selectedRows = groupByDate(obs);
 
-  const selected = allForCard[0] || trackedCards.find(c => cardKey(c) === $("cardSelect").value);
+  const selected = allForCard[0] || trackedCards.find(c => cardKey(c) === $("selectedCardKey").value);
 
   $("summaryCard").textContent = selected ? selected.nomCarte : "—";
   $("summaryCount").textContent = obs.length;
@@ -449,33 +470,23 @@ async function deleteObservationGroup(ids) {
 }
 
 async function deleteSelectedCardEverywhere() {
-  const selector =
-    document.getElementById("cardSelector") ||
-    document.getElementById("cardSelect") ||
-    document.getElementById("selectedCard");
+  const key = $("selectedCardKey").value;
+  const label = $("cardSearch").value;
 
-  if (!selector) {
-    log("Erreur : menu carte introuvable.");
+  if (!key || !label) {
+    log("Erreur : aucune carte sélectionnée.");
     return;
   }
 
-  const option = selector.options[selector.selectedIndex];
-  const rawValue = selector.value || "";
-  const rawText = option ? option.textContent : "";
+  const parts = label.split("—").map(x => x.trim());
 
-  let card = null;
+  const card = {
+    nomCarte: parts[0] || "",
+    edition: parts[1] || "",
+    langue: parts[2] || ""
+  };
 
-  try {
-    card = JSON.parse(rawValue);
-  } catch (e) {
-    const parts = rawText.split("—").map(x => x.trim());
-
-    card = {
-      nomCarte: parts[0] || "",
-      edition: parts[1] || "",
-      langue: parts[2] || ""
-    };
-  }
+  
 
   if (!card.nomCarte || !card.edition) {
     log("Erreur : carte ou édition manquante.");
