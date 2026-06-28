@@ -107,12 +107,12 @@
 
     <br>
     <button onclick="addObservation()">Ajouter observation</button>
-<button onclick="loadRandomCards()">🎲 Charger 10 cartes au hasard</button>
+<button onclick="loadRandomCards()">🎲 Charger 3 cartes au hasard</button>
   </div>
 <div class="admin-card">
   <h2>1b. Saisie rapide aléatoire</h2>
   <p class="muted">
-    Charge 10 cartes au hasard depuis le portefeuille et les cartes suivies.
+    Charge 3 cartes au hasard depuis le portefeuille et les cartes suivies.
     Renseigne uniquement les états disponibles, puis enregistre les lignes utiles.
   </p>
 
@@ -277,7 +277,7 @@ function loadRandomCards() {
     return;
   }
 
-  randomCards = shuffleArray(allSelectableCards).slice(0, 10);
+  randomCards = shuffleArray(allSelectableCards).slice(0, 3);
   renderRandomCards();
 
   log(`${randomCards.length} cartes aléatoires chargées.`);
