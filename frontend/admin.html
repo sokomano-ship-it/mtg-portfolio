@@ -298,16 +298,46 @@ function renderRandomCards() {
         <td><strong>${card.nomCarte || "-"}</strong></td>
         <td>${card.edition || "-"}</td>
         <td>${card.langue || "-"}</td>
-        <td><input class="random-price" id="random-${index}-PO" type="number" step="0.01"></td>
-        <td><input class="random-price" id="random-${index}-PL" type="number" step="0.01"></td>
-        <td><input class="random-price" id="random-${index}-LP" type="number" step="0.01"></td>
-        <td><input class="random-price" id="random-${index}-GD" type="number" step="0.01"></td>
-        <td><input class="random-price" id="random-${index}-EX" type="number" step="0.01"></td>
-        <td><input class="random-price" id="random-${index}-NM" type="number" step="0.01"></td>
-        <td><button onclick="saveRandomObservation(${index})">Enregistrer</button></td>
-      </tr>
+        <td><input class="random-price" id="random-${index}-PO" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
+<td><input class="random-price" id="random-${index}-PL" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
+<td><input class="random-price" id="random-${index}-LP" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
+<td><input class="random-price" id="random-${index}-GD" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
+<td><input class="random-price" id="random-${index}-EX" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
+<td><input class="random-price" id="random-${index}-NM" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
+<td>
+  <button onclick="saveRandomObservation(${index})">Enregistrer</button>
+  <div id="random-warning-${index}" class="random-warning"></div>
+</td>      </tr>
     `;
   });
+}
+
+function validateRandomRow(index) {
+  const values = Object.fromEntries(
+    conditionOrder.map(condition => [
+      condition,
+      Number($(`random-${index}-${condition}`)?.value || 0)
+    ])
+  );
+
+  const warnings = [];
+
+  [
+    ["PO", "PL"],
+    ["PL", "LP"],
+    ["LP", "GD"],
+    ["GD", "EX"],
+    ["EX", "NM"]
+  ].forEach(([worse, better]) => {
+    if (values[worse] && values[better] && values[worse] > values[better]) {
+      warnings.push(`${worse} > ${better}`);
+    }
+  });
+
+  const box = $(`random-warning-${index}`);
+  if (!box) return;
+
+  box.textContent = warnings.length ? "⚠ " + warnings.join(" | ") : "";
 }
 
 function randomEntriesForIndex(index) {
@@ -833,7 +863,42 @@ function renderTrackedCards() {
   });
 }
 
+function validateRandomRow(index){
 
+    const get = condition =>
+        Number(document.getElementById(`random-${index}-${condition}`)?.value || 0);
+
+    const values = {
+        PO:get("PO"),
+        PL:get("PL"),
+        LP:get("LP"),
+        GD:get("GD"),
+        EX:get("EX"),
+        NM:get("NM")
+    };
+
+    const order=["PO","PL","LP","GD","EX","NM"];
+
+    for(let i=0;i<order.length-1;i++){
+
+        const a=order[i];
+        const b=order[i+1];
+
+        if(values[a] && values[b] && values[a]>values[b]){
+
+            document.getElementById(`random-status-${index}`).innerHTML=
+                `🟠 ${a} > ${b}`;
+
+            return false;
+        }
+
+    }
+
+    document.getElementById(`random-status-${index}`).innerHTML="🟢";
+
+    return true;
+
+}
 
 loadSettings();
 loadPortfolio();
