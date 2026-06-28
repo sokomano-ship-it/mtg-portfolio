@@ -129,12 +129,13 @@
           <th>GD</th>
           <th>EX</th>
           <th>NM</th>
-          <th>Action</th>
+          <th>Contrôle</th>
+<th>Action</th>
         </tr>
       </thead>
       <tbody id="randomCardsBody">
         <tr>
-          <td colspan="10" class="muted">Aucune carte chargée.</td>
+          <td colspan="11" class="muted">Aucune carte chargée.</td>
         </tr>
       </tbody>
     </table>
@@ -304,10 +305,8 @@ function renderRandomCards() {
 <td><input class="random-price" id="random-${index}-GD" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
 <td><input class="random-price" id="random-${index}-EX" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
 <td><input class="random-price" id="random-${index}-NM" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
-<td>
-  <button onclick="saveRandomObservation(${index})">Enregistrer</button>
-  <div id="random-warning-${index}" class="random-warning"></div>
-</td>      </tr>
+<td><div id="random-warning-${index}" class="random-warning"></div></td>
+<td><button onclick="saveRandomObservation(${index})">Enregistrer</button></td>      </tr>
     `;
   });
 }
