@@ -173,8 +173,8 @@ async function loadData() {
     observations = data.observations || [];
     trackedCards = data.trackedCards || [];
     buildCardSelect();
-    renderSelectedCard();
-    log("Observations chargées.");
+clearSelectedCardView();
+log("Observations chargées. Sélectionne une carte pour afficher les données.");
   } catch (e) {
     log("Erreur : " + e.message);
   }
@@ -212,14 +212,8 @@ function buildCardSelect() {
     datalist.appendChild(option);
   });
 
-  if (cards.length) {
-    const first = cards[0];
-    $("cardSearch").value = labelForCard(first);
-    $("selectedCardKey").value = cardKey(first);
-  } else {
-    $("cardSearch").value = "";
-    $("selectedCardKey").value = "";
-  }
+  $("cardSearch").value = "";
+$("selectedCardKey").value = "";
 }
 
 function handleSearchInput() {
@@ -230,6 +224,19 @@ function handleSearchInput() {
 
   $("selectedCardKey").value = key;
   renderSelectedCard();
+}
+
+function clearSelectedCardView() {
+  selectedRows = [];
+
+  $("summaryCard").textContent = "—";
+  $("summaryCount").textContent = "0";
+  $("summaryDates").textContent = "0";
+  $("summaryLastDate").textContent = "—";
+
+  $("alertsBox").innerHTML = "";
+  $("chartBox").innerHTML = "Sélectionne une carte pour afficher le graphique.";
+  $("obsBody").innerHTML = `<tr><td colspan="8">Sélectionne une carte pour afficher les observations.</td></tr>`;
 }
 
 function getSelectedObservations() {
