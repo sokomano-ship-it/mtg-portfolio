@@ -887,3 +887,83 @@ body.admin-page .random-warning {
   font-weight: 800;
   color: #ffb020;
 }
+
+/* Market observations chart colors by condition */
+
+body.observations-page .obs-svg-chart .line,
+body.observations-page .obs-svg-chart .dot {
+  fill: none;
+  stroke-width: 3;
+}
+
+body.observations-page .obs-svg-chart .dot {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+body.observations-page .obs-svg-chart .line-NM,
+body.observations-page .obs-svg-chart .dot-NM,
+body.observations-page .obs-svg-chart .legend-NM {
+  color: #4ade80;
+  stroke: #4ade80;
+  fill: #4ade80;
+}
+
+body.observations-page .obs-svg-chart .line-EX,
+body.observations-page .obs-svg-chart .dot-EX,
+body.observations-page .obs-svg-chart .legend-EX {
+  color: #a16207;
+  stroke: #a16207;
+  fill: #a16207;
+}
+
+body.observations-page .obs-svg-chart .line-GD,
+body.observations-page .obs-svg-chart .dot-GD,
+body.observations-page .obs-svg-chart .legend-GD {
+  color: #facc15;
+  stroke: #facc15;
+  fill: #facc15;
+}
+
+body.observations-page .obs-svg-chart .line-LP,
+body.observations-page .obs-svg-chart .dot-LP,
+body.observations-page .obs-svg-chart .legend-LP {
+  color: #fb923c;
+  stroke: #fb923c;
+  fill: #fb923c;
+}
+
+body.observations-page .obs-svg-chart .line-PL,
+body.observations-page .obs-svg-chart .dot-PL,
+body.observations-page .obs-svg-chart .legend-PL {
+  color: #ef4444;
+  stroke: #ef4444;
+  fill: #ef4444;
+}
+
+body.observations-page .obs-svg-chart .line-PO,
+body.observations-page .obs-svg-chart .dot-PO,
+body.observations-page .obs-svg-chart .legend-PO {
+  color: #7f1d1d;
+  stroke: #7f1d1d;
+  fill: #7f1d1d;
+}
+
+body.observations-page .obs-svg-chart .axis {
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 1;
+}
+
+body.observations-page .obs-svg-chart .axis-label,
+body.observations-page .obs-svg-chart .tick,
+body.observations-page .obs-svg-chart .date-label {
+  fill: #c7d0e0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+body.observations-page .obs-svg-chart .legend text,
+body.observations-page .obs-svg-chart [class^="legend-"] {
+  font-size: 12px;
+  font-weight: 800;
+}
