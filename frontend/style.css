@@ -872,3 +872,11 @@ tbody tr:hover {
     }
 }
 
+body.admin-page .random-price {
+  width: 78px;
+  max-width: 78px;
+}
+
+body.admin-page #randomCardsBody td {
+  vertical-align: middle;
+}

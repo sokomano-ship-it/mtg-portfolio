@@ -107,8 +107,42 @@
 
     <br>
     <button onclick="addObservation()">Ajouter observation</button>
+<button onclick="loadRandomCards()">🎲 Charger 10 cartes au hasard</button>
+  </div>
+<div class="admin-card">
+  <h2>1b. Saisie rapide aléatoire</h2>
+  <p class="muted">
+    Charge 10 cartes au hasard depuis le portefeuille et les cartes suivies.
+    Renseigne uniquement les états disponibles, puis enregistre les lignes utiles.
+  </p>
+
+  <div class="obs-table-wrapper">
+    <table class="obs-table">
+      <thead>
+        <tr>
+          <th>Carte</th>
+          <th>Édition</th>
+          <th>Langue</th>
+          <th>PO</th>
+          <th>PL</th>
+          <th>LP</th>
+          <th>GD</th>
+          <th>EX</th>
+          <th>NM</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="randomCardsBody">
+        <tr>
+          <td colspan="10" class="muted">Aucune carte chargée.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
+  <br>
+  <button onclick="saveAllRandomObservations()">Enregistrer toutes les lignes remplies</button>
+</div>
   <div class="admin-card">
     <h2>2. Catalogue des cartes suivies</h2>
     <p class="muted">
@@ -229,6 +263,139 @@ function saveSettings() {
   localStorage.setItem("mtgApiUrl", $("apiUrl").value.trim());
   localStorage.setItem("mtgAdminPassword", $("password").value);
   log("Paramètres sauvegardés.");
+}
+
+let randomCards = [];
+
+function shuffleArray(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function loadRandomCards() {
+  if (!allSelectableCards.length) {
+    log("Erreur : charge d'abord les données et le portefeuille.");
+    return;
+  }
+
+  randomCards = shuffleArray(allSelectableCards).slice(0, 10);
+  renderRandomCards();
+
+  log(`${randomCards.length} cartes aléatoires chargées.`);
+}
+
+function renderRandomCards() {
+  const tbody = $("randomCardsBody");
+  tbody.innerHTML = "";
+
+  if (!randomCards.length) {
+    tbody.innerHTML = `<tr><td colspan="10" class="muted">Aucune carte chargée.</td></tr>`;
+    return;
+  }
+
+  randomCards.forEach((card, index) => {
+    tbody.innerHTML += `
+      <tr>
+        <td><strong>${card.nomCarte || "-"}</strong></td>
+        <td>${card.edition || "-"}</td>
+        <td>${card.langue || "-"}</td>
+        <td><input class="random-price" id="random-${index}-PO" type="number" step="0.01"></td>
+        <td><input class="random-price" id="random-${index}-PL" type="number" step="0.01"></td>
+        <td><input class="random-price" id="random-${index}-LP" type="number" step="0.01"></td>
+        <td><input class="random-price" id="random-${index}-GD" type="number" step="0.01"></td>
+        <td><input class="random-price" id="random-${index}-EX" type="number" step="0.01"></td>
+        <td><input class="random-price" id="random-${index}-NM" type="number" step="0.01"></td>
+        <td><button onclick="saveRandomObservation(${index})">Enregistrer</button></td>
+      </tr>
+    `;
+  });
+}
+
+function randomEntriesForIndex(index) {
+  return conditionOrder
+    .map(condition => ({
+      condition,
+      observedMinPrice: Number($(`random-${index}-${condition}`)?.value || 0)
+    }))
+    .filter(x => x.observedMinPrice);
+}
+
+async function saveRandomObservation(index) {
+  const card = randomCards[index];
+
+  if (!card) {
+    log("Erreur : carte aléatoire introuvable.");
+    return;
+  }
+
+  const entries = randomEntriesForIndex(index);
+
+  if (!entries.length) {
+    log("Erreur : aucun prix saisi pour cette ligne.");
+    return;
+  }
+
+  try {
+    await api("POST", {
+      type: "addConditionObservations",
+      nomCarte: card.nomCarte,
+      edition: card.edition,
+      langue: card.langue,
+      entries,
+      marketSnapshot: {
+        trendPrice: Number(card.trendPrice || 0),
+        avg30: Number(card.avg30 || 0),
+        avg7: Number(card.avg7 || 0),
+        avg1: Number(card.avg1 || 0)
+      }
+    });
+
+    conditionOrder.forEach(condition => {
+      const input = $(`random-${index}-${condition}`);
+      if (input) input.value = "";
+    });
+
+    log(`${entries.length} observation(s) ajoutée(s) pour ${card.nomCarte}.`);
+    await loadData();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
+}
+
+async function saveAllRandomObservations() {
+  let savedLines = 0;
+  let savedEntries = 0;
+
+  for (let i = 0; i < randomCards.length; i++) {
+    const card = randomCards[i];
+    const entries = randomEntriesForIndex(i);
+
+    if (!entries.length) continue;
+
+    await api("POST", {
+      type: "addConditionObservations",
+      nomCarte: card.nomCarte,
+      edition: card.edition,
+      langue: card.langue,
+      entries,
+      marketSnapshot: {
+        trendPrice: Number(card.trendPrice || 0),
+        avg30: Number(card.avg30 || 0),
+        avg7: Number(card.avg7 || 0),
+        avg1: Number(card.avg1 || 0)
+      }
+    });
+
+    savedLines++;
+    savedEntries += entries.length;
+
+    conditionOrder.forEach(condition => {
+      const input = $(`random-${i}-${condition}`);
+      if (input) input.value = "";
+    });
+  }
+
+  await loadData();
+  log(`${savedEntries} observation(s) ajoutée(s) sur ${savedLines} carte(s).`);
 }
 
 function loadSettings() {
@@ -665,6 +832,8 @@ function renderTrackedCards() {
     `;
   });
 }
+
+
 
 loadSettings();
 loadPortfolio();
