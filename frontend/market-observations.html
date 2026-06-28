@@ -454,22 +454,36 @@ async function deleteSelectedCardEverywhere() {
     document.getElementById("cardSelect") ||
     document.getElementById("selectedCard");
 
-  if (!selector || !selector.value) {
-    log("Erreur : aucune carte sélectionnée.");
+  if (!selector) {
+    log("Erreur : menu carte introuvable.");
     return;
   }
 
-  let card;
+  const option = selector.options[selector.selectedIndex];
+  const rawValue = selector.value || "";
+  const rawText = option ? option.textContent : "";
+
+  let card = null;
 
   try {
-    card = JSON.parse(selector.value);
+    card = JSON.parse(rawValue);
   } catch (e) {
-    log("Erreur : sélection carte invalide.");
+    const parts = rawText.split("—").map(x => x.trim());
+
+    card = {
+      nomCarte: parts[0] || "",
+      edition: parts[1] || "",
+      langue: parts[2] || ""
+    };
+  }
+
+  if (!card.nomCarte || !card.edition) {
+    log("Erreur : carte ou édition manquante.");
     return;
   }
 
   const ok = confirm(
-    `Supprimer complètement cette carte ?\n\n${card.nomCarte}\n${card.edition}\n${card.langue}\n\nCela supprimera la carte suivie et toutes ses observations.`
+    `Supprimer complètement cette carte ?\n\n${card.nomCarte}\n${card.edition}\n${card.langue || "(langue vide)"}\n\nCela supprimera la carte suivie et toutes ses observations.`
   );
 
   if (!ok) return;
@@ -479,7 +493,7 @@ async function deleteSelectedCardEverywhere() {
       type: "deleteCardEverywhere",
       nomCarte: card.nomCarte,
       edition: card.edition,
-      langue: card.langue
+      langue: card.langue || ""
     });
 
     log("Carte supprimée complètement.");
