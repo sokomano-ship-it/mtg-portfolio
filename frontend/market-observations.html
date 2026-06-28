@@ -449,10 +449,22 @@ async function deleteObservationGroup(ids) {
 }
 
 async function deleteSelectedCardEverywhere() {
-  const card = getSelectedCard?.();
+  const selector =
+    document.getElementById("cardSelector") ||
+    document.getElementById("cardSelect") ||
+    document.getElementById("selectedCard");
 
-  if (!card || !card.nomCarte || !card.edition || !card.langue) {
+  if (!selector || !selector.value) {
     log("Erreur : aucune carte sélectionnée.");
+    return;
+  }
+
+  let card;
+
+  try {
+    card = JSON.parse(selector.value);
+  } catch (e) {
+    log("Erreur : sélection carte invalide.");
     return;
   }
 
