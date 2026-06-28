@@ -862,41 +862,28 @@ function renderTrackedCards() {
   });
 }
 
-function validateRandomRow(index){
+function validateRandomRow(index) {
+  const values = {
+    PO: Number($(`random-${index}-PO`)?.value || 0),
+    PL: Number($(`random-${index}-PL`)?.value || 0),
+    LP: Number($(`random-${index}-LP`)?.value || 0),
+    GD: Number($(`random-${index}-GD`)?.value || 0),
+    EX: Number($(`random-${index}-EX`)?.value || 0),
+    NM: Number($(`random-${index}-NM`)?.value || 0)
+  };
 
-    const get = condition =>
-        Number(document.getElementById(`random-${index}-${condition}`)?.value || 0);
+  const warnings = [];
 
-    const values = {
-        PO:get("PO"),
-        PL:get("PL"),
-        LP:get("LP"),
-        GD:get("GD"),
-        EX:get("EX"),
-        NM:get("NM")
-    };
+  if (values.PO && values.PL && values.PO > values.PL) warnings.push("PO > PL");
+  if (values.PL && values.LP && values.PL > values.LP) warnings.push("PL > LP");
+  if (values.LP && values.GD && values.LP > values.GD) warnings.push("LP > GD");
+  if (values.GD && values.EX && values.GD > values.EX) warnings.push("GD > EX");
+  if (values.EX && values.NM && values.EX > values.NM) warnings.push("EX > NM");
 
-    const order=["PO","PL","LP","GD","EX","NM"];
+  const box = $(`random-warning-${index}`);
+  if (!box) return;
 
-    for(let i=0;i<order.length-1;i++){
-
-        const a=order[i];
-        const b=order[i+1];
-
-        if(values[a] && values[b] && values[a]>values[b]){
-
-            document.getElementById(`random-status-${index}`).innerHTML=
-                `🟠 ${a} > ${b}`;
-
-            return false;
-        }
-
-    }
-
-    document.getElementById(`random-status-${index}`).innerHTML="🟢";
-
-    return true;
-
+  box.textContent = warnings.length ? "⚠ " + warnings.join(" | ") : "";
 }
 
 loadSettings();
