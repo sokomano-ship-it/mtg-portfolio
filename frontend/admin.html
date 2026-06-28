@@ -382,6 +382,20 @@ async function saveRandomObservation(index) {
   }
 
   const entries = randomEntriesForIndex(index);
+  const validation = validateEntriesBeforeSave(card, entries);
+
+if (validation.errors.length) {
+  log("Erreur : " + validation.errors.join(" | "));
+  return;
+}
+
+if (validation.duplicates.length) {
+  log(
+    "Erreur : observation identique déjà présente aujourd'hui : " +
+    validation.duplicates.join(", ")
+  );
+  return;
+}
 
   if (!entries.length) {
     log("Erreur : aucun prix saisi pour cette ligne.");
@@ -424,6 +438,18 @@ async function saveAllRandomObservations() {
     const entries = randomEntriesForIndex(i);
 
     if (!entries.length) continue;
+    const validation = validateEntriesBeforeSave(card, entries);
+
+if (validation.errors.length || validation.duplicates.length) {
+  log(
+    `Erreur sur ${card.nomCarte} : ` +
+    [
+      ...validation.errors,
+      ...validation.duplicates.map(x => `doublon ${x}`)
+    ].join(" | ")
+  );
+  return;
+}
 
     await api("POST", {
       type: "addConditionObservations",
@@ -843,6 +869,44 @@ function validateObservationInput() {
   }
 }
 
+function isValidPrice(value) {
+  if (value === "" || value === null || value === undefined) return true;
+  const n = Number(value);
+  return Number.isFinite(n) && n > 0;
+}
+
+function getTodayDate() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function hasDuplicateObservation(card, condition, price) {
+  const today = getTodayDate();
+
+  return observations.some(obs =>
+    cardKey(obs) === cardKey(card) &&
+    obs.condition === condition &&
+    Number(obs.observedMinPrice || 0) === Number(price) &&
+    (obs.observationDate || obs.date || "") === today
+  );
+}
+
+function validateEntriesBeforeSave(card, entries) {
+  const errors = [];
+  const duplicates = [];
+
+  entries.forEach(entry => {
+    if (!isValidPrice(entry.observedMinPrice)) {
+      errors.push(`${entry.condition} : prix invalide`);
+    }
+
+    if (hasDuplicateObservation(card, entry.condition, entry.observedMinPrice)) {
+      duplicates.push(`${entry.condition} ${Number(entry.observedMinPrice).toFixed(2)} €`);
+    }
+  });
+
+  return { errors, duplicates };
+}
+
 async function addObservation() {
   try {
     if (!$("nomCarte").value.trim()) throw new Error("Carte manquante.");
@@ -850,15 +914,36 @@ async function addObservation() {
     if (!$("langue").value.trim()) throw new Error("Langue manquante.");
 
     const entries = conditionOrder
-      .map(condition => ({
-        condition,
-        observedMinPrice: Number($("price" + condition)?.value || 0)
-      }))
-      .filter(x => x.observedMinPrice);
+  .map(condition => {
+    const raw = $("price" + condition)?.value || "";
+    return {
+      condition,
+      observedMinPrice: raw === "" ? "" : Number(raw)
+    };
+  })
+  .filter(x => x.observedMinPrice !== "");
 
     if (!entries.length) {
       throw new Error("Aucun prix minimum observé saisi.");
     }
+    const currentCard = {
+  nomCarte: $("nomCarte").value,
+  edition: $("edition").value,
+  langue: $("langue").value
+};
+
+const validation = validateEntriesBeforeSave(currentCard, entries);
+
+if (validation.errors.length) {
+  throw new Error(validation.errors.join(" | "));
+}
+
+if (validation.duplicates.length) {
+  throw new Error(
+    "Observation identique déjà présente aujourd'hui : " +
+    validation.duplicates.join(", ")
+  );
+}
 
     await api("POST", {
       type: "addConditionObservations",
