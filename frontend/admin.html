@@ -38,6 +38,7 @@
     <button onclick="saveSettings()">Sauvegarder paramètres</button>
     <button onclick="loadData()">Charger données</button>
     <button onclick="loadPortfolio()">📂 Charger le portefeuille</button>
+    <button onclick="analyzeDatabase()">🧹 Vérifier la base</button>
   </div>
 
   <div class="admin-card">
@@ -143,6 +144,30 @@
 
   <br>
   <button onclick="saveAllRandomObservations()">Enregistrer toutes les lignes remplies</button>
+</div>
+
+<div class="admin-card">
+  <h2>🧹 Nettoyage base</h2>
+  <p class="muted">
+    Détecte les observations présentes sans carte suivie correspondante.
+  </p>
+
+  <div class="obs-table-wrapper">
+    <table class="obs-table">
+      <thead>
+        <tr>
+          <th>Carte</th>
+          <th>Édition</th>
+          <th>Langue</th>
+          <th>Observations</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="databaseIssuesBody">
+        <tr><td colspan="5" class="muted">Aucune analyse lancée.</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
   <div class="admin-card">
     <h2>2. Catalogue des cartes suivies</h2>
@@ -425,6 +450,86 @@ async function saveAllRandomObservations() {
 
   await loadData();
   log(`${savedEntries} observation(s) ajoutée(s) sur ${savedLines} carte(s).`);
+}
+
+function analyzeDatabase() {
+  const tbody = $("databaseIssuesBody");
+  tbody.innerHTML = "";
+
+  const trackedKeys = new Set(trackedCards.map(card => cardKey(card)));
+  const obsMap = new Map();
+
+  observations.forEach(obs => {
+    const key = cardKey(obs);
+
+    if (!obsMap.has(key)) {
+      obsMap.set(key, {
+        nomCarte: obs.nomCarte || "",
+        edition: obs.edition || "",
+        langue: obs.langue || "",
+        count: 0
+      });
+    }
+
+    obsMap.get(key).count++;
+  });
+
+  const orphanObservations = [...obsMap.values()]
+    .filter(item => !trackedKeys.has(cardKey(item)))
+    .sort((a, b) =>
+      `${a.nomCarte} ${a.edition} ${a.langue}`.localeCompare(
+        `${b.nomCarte} ${b.edition} ${b.langue}`
+      )
+    );
+
+  if (!orphanObservations.length) {
+    tbody.innerHTML = `<tr><td colspan="5">✅ Aucune observation orpheline détectée.</td></tr>`;
+    log("Analyse terminée : aucune observation orpheline.");
+    return;
+  }
+
+  orphanObservations.forEach(item => {
+    tbody.innerHTML += `
+      <tr>
+        <td><strong>${item.nomCarte}</strong></td>
+        <td>${item.edition}</td>
+        <td>${item.langue || "-"}</td>
+        <td>${item.count}</td>
+        <td>
+          <button onclick='deleteOrphanCard(${JSON.stringify(JSON.stringify(item))})'>
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+
+  log(`${orphanObservations.length} entrée(s) orpheline(s) détectée(s).`);
+}
+
+async function deleteOrphanCard(serializedItem) {
+  const item = JSON.parse(serializedItem);
+
+  const ok = confirm(
+    `Supprimer définitivement cette entrée ?\n\n${item.nomCarte}\n${item.edition}\n${item.langue || "(langue vide)"}\n\nCela supprimera toutes les observations associées.`
+  );
+
+  if (!ok) return;
+
+  try {
+    await api("POST", {
+      type: "deleteCardEverywhere",
+      nomCarte: item.nomCarte,
+      edition: item.edition,
+      langue: item.langue || ""
+    });
+
+    log("Entrée supprimée complètement.");
+    await loadData();
+    analyzeDatabase();
+  } catch (e) {
+    log("Erreur : " + e.message);
+  }
 }
 
 function loadSettings() {
