@@ -2,46 +2,185 @@ const fs = require("fs");
 const path = require("path");
 const db = require("../database");
 
-const { getCardsWithLatestPrices, referencePrice } = require("./referencePrice");
-const { readObservations } = require("./observations");
-const { applyEditionModel } = require("./editionModel");
-const { applyConditionModel } = require("./conditionModel");
-
+const MODELS_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingSimulation.json");
 
-function finalConfidence(editionConfidence, conditionConfidence) {
-  if (!editionConfidence || !conditionConfidence) {
-    return Math.min(editionConfidence || 0, conditionConfidence || 0);
+const FALLBACK_CONDITION_RATIOS = {
+  NM: 1.00,
+  EX: 0.85,
+  GD: 0.70,
+  LP: 0.60,
+  PL: 0.45,
+  PO: 0.30
+};
+
+function normalize(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function cardKey(card) {
+  return [
+    normalize(card.nomCarte || card.nomBase),
+    normalize(card.edition),
+    normalize(card.langue)
+  ].join("|");
+}
+
+function marketAnchorPrice(card) {
+  return (
+    Number(card.trendPrice || 0) ||
+    Number(card.avg30 || 0) ||
+    Number(card.avg7 || 0) ||
+    Number(card.avg1 || 0) ||
+    Number(card.avgPrice || 0) ||
+    Number(card.lowPrice || 0) ||
+    0
+  );
+}
+
+function getCards() {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `
+      SELECT
+        c.*,
+        cp.trendPrice,
+        cp.avgPrice,
+        cp.lowPrice,
+        cp.avg1,
+        cp.avg7,
+        cp.avg30
+      FROM cards c
+      LEFT JOIN cardmarket_prices cp
+        ON cp.id = (
+          SELECT MAX(id)
+          FROM cardmarket_prices
+          WHERE cardId = c.id
+        )
+      ORDER BY c.id
+      `,
+      [],
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+}
+
+function readModels() {
+  if (!fs.existsSync(MODELS_PATH)) return {};
+  return JSON.parse(fs.readFileSync(MODELS_PATH, "utf8"));
+}
+
+function estimateCard(card, model) {
+  const condition = card.etat || "NM";
+  const anchor = marketAnchorPrice(card);
+
+  if (!model) {
+    const ratio = FALLBACK_CONDITION_RATIOS[condition] || 1;
+    return {
+      estimatedPrice: Number((anchor * ratio).toFixed(2)),
+      pricingModel: "missing_model_fallback",
+      marketAnchorPrice: anchor,
+      ratioUsed: ratio,
+      confidence: anchor ? 20 : 0
+    };
   }
 
-  return Math.round((editionConfidence * 0.4) + (conditionConfidence * 0.6));
+  const conditionModel = model.byCondition?.[condition];
+
+  if (model.modelType === "manual_only") {
+    if (conditionModel?.observedPrice) {
+      return {
+        estimatedPrice: conditionModel.observedPrice,
+        pricingModel: "manual_observed",
+        marketAnchorPrice: null,
+        ratioUsed: null,
+        confidence: Math.min(50 + conditionModel.observationCount * 10, 95),
+        observationCount: conditionModel.observationCount
+      };
+    }
+
+    return {
+      estimatedPrice: 0,
+      pricingModel: "manual_missing_observation",
+      marketAnchorPrice: null,
+      ratioUsed: null,
+      confidence: 0,
+      observationCount: 0
+    };
+  }
+
+  if (
+    model.modelType === "fwb_revised" ||
+    model.modelType === "legends_italian"
+  ) {
+    const referenceAnchor = Number(model.referenceMarketAnchorPrice || 0);
+
+    if (conditionModel?.ratioToReferenceMarketAnchor && referenceAnchor) {
+      const ratio = conditionModel.ratioToReferenceMarketAnchor;
+
+      return {
+        estimatedPrice: Number((referenceAnchor * ratio).toFixed(2)),
+        pricingModel: model.modelType,
+        marketAnchorPrice: anchor,
+        referenceMarketAnchorPrice: referenceAnchor,
+        ratioUsed: ratio,
+        confidence: Math.min(50 + conditionModel.observationCount * 10, 95),
+        observationCount: conditionModel.observationCount,
+        referenceCardFound: model.referenceCardFound
+      };
+    }
+
+    const fallbackRatio = FALLBACK_CONDITION_RATIOS[condition] || 1;
+    const fallbackBase = referenceAnchor || anchor;
+
+    return {
+      estimatedPrice: Number((fallbackBase * fallbackRatio).toFixed(2)),
+      pricingModel: `${model.modelType}_fallback`,
+      marketAnchorPrice: anchor,
+      referenceMarketAnchorPrice: referenceAnchor || null,
+      ratioUsed: fallbackRatio,
+      confidence: referenceAnchor ? 30 : 15,
+      observationCount: 0,
+      referenceCardFound: model.referenceCardFound
+    };
+  }
+
+  if (conditionModel?.ratioToMarketAnchor && anchor) {
+    const ratio = conditionModel.ratioToMarketAnchor;
+
+    return {
+      estimatedPrice: Number((anchor * ratio).toFixed(2)),
+      pricingModel: "standard_observed_condition_ratio",
+      marketAnchorPrice: anchor,
+      ratioUsed: ratio,
+      confidence: Math.min(55 + conditionModel.observationCount * 8, 95),
+      observationCount: conditionModel.observationCount
+    };
+  }
+
+  const fallbackRatio = FALLBACK_CONDITION_RATIOS[condition] || 1;
+
+  return {
+    estimatedPrice: Number((anchor * fallbackRatio).toFixed(2)),
+    pricingModel: "standard_fallback_condition_ratio",
+    marketAnchorPrice: anchor,
+    ratioUsed: fallbackRatio,
+    confidence: anchor ? 35 : 0,
+    observationCount: 0
+  };
 }
 
 async function main() {
-  const cards = await getCardsWithLatestPrices();
-  const observations = readObservations();
+  const cards = await getCards();
+  const models = readModels();
 
   const results = cards.map(card => {
-    const ref = referencePrice(card);
-
-    const edition = applyEditionModel(
-      card,
-      cards,
-      observations,
-      ref.referencePrice
-    );
-
-    const condition = applyConditionModel(
-  card,
-  observations,
-  edition.correctedReferencePrice,
-  edition
-);
-
-    const confidence = finalConfidence(
-      edition.editionConfidence,
-      condition.conditionConfidence
-    );
+    const model = models[cardKey(card)];
+    const estimated = estimateCard(card, model);
 
     return {
       id: card.id,
@@ -50,23 +189,7 @@ async function main() {
       langue: card.langue,
       etat: card.etat,
 
-      referencePrice: ref.referencePrice,
-      referenceSource: ref.referenceSource,
-
-      editionModel: edition.editionModel,
-      correctedReferencePrice: edition.correctedReferencePrice,
-      editionRatio: edition.editionRatio,
-      editionConfidence: edition.editionConfidence,
-      editionObservationCount: edition.editionObservationCount,
-      referenceCardFound: edition.referenceCardFound,
-
-      conditionModel: condition.conditionModel,
-      conditionRatio: condition.conditionRatio,
-      estimatedPrice: condition.estimatedPrice,
-      conditionConfidence: condition.conditionConfidence,
-      conditionObservationCount: condition.conditionObservationCount,
-
-      confidence
+      ...estimated
     };
   });
 
