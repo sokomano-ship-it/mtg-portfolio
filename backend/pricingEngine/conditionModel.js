@@ -14,9 +14,18 @@ function fallbackConditionRatio(condition) {
   return ratios[condition] || 1.00;
 }
 
-function applyConditionModel(card, observations, correctedReferencePrice) {
+function applyConditionModel(card, observations, correctedReferencePrice, editionModelInfo = {}) {
   const condition = card.etat || "NM";
   const observed = observedAverage(card, condition, observations);
+
+  const editionModel = editionModelInfo.editionModel || "standard";
+  const hasReliableReference =
+    correctedReferencePrice &&
+    (
+      editionModel === "standard" ||
+      editionModelInfo.referenceCardFound ||
+      editionModel === "manual_observations_only"
+    );
 
   if (isManualOnly(card)) {
     if (observed.value) {
@@ -38,7 +47,7 @@ function applyConditionModel(card, observations, correctedReferencePrice) {
     };
   }
 
-  if (observed.value && correctedReferencePrice) {
+  if (observed.value && hasReliableReference) {
     const ratio = observed.value / correctedReferencePrice;
 
     return {

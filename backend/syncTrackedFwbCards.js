@@ -4,40 +4,48 @@ const db = require("./database");
 
 const TRACKED_PATH = path.join(__dirname, "data", "trackedMarketCards.json");
 
-const FWB_EDITION = "Foreign White Bordered";
-const FWB_LANGUAGES = new Set(["French", "German", "Italian"]);
+const SPECIAL_RULES = [
+  {
+    edition: "Foreign White Bordered",
+    languages: ["French", "German", "Italian"],
+    pricingModel: "fwb_revised_ratio"
+  },
+  {
+    edition: "Legends",
+    languages: ["Italian"],
+    pricingModel: "legends_italian_ratio"
+  }
+];
 
-function normalize(value) {
-  return String(value || "").trim().toLowerCase();
+function normalize(v) {
+  return String(v || "").trim().toLowerCase();
 }
 
 function key(card) {
-  return [
-    normalize(card.nomCarte),
-    normalize(card.edition),
-    normalize(card.langue)
-  ].join("|");
+  return [normalize(card.nomCarte), normalize(card.edition), normalize(card.langue)].join("|");
 }
 
-function readTrackedCards() {
-  if (!fs.existsSync(TRACKED_PATH)) return [];
-  return JSON.parse(fs.readFileSync(TRACKED_PATH, "utf8"));
+function readJson(file, fallback) {
+  if (!fs.existsSync(file)) return fallback;
+  return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
-function writeTrackedCards(cards) {
-  fs.writeFileSync(TRACKED_PATH, JSON.stringify(cards, null, 2));
+function isSpecial(card) {
+  return SPECIAL_RULES.find(rule =>
+    normalize(card.edition) === normalize(rule.edition) &&
+    rule.languages.map(normalize).includes(normalize(card.langue))
+  );
 }
 
 db.all("SELECT nomCarte, edition, langue FROM cards", [], (err, rows) => {
   if (err) {
-    console.error("Erreur lecture cards:", err.message);
+    console.error(err.message);
     db.close();
     process.exit(1);
   }
 
-  const tracked = readTrackedCards();
-  const existingKeys = new Set(tracked.map(key));
-
+  const tracked = readJson(TRACKED_PATH, []);
+  const existing = new Set(tracked.map(key));
   let added = 0;
 
   rows.forEach(row => {
@@ -47,34 +55,31 @@ db.all("SELECT nomCarte, edition, langue FROM cards", [], (err, rows) => {
       langue: String(row.langue || "").trim()
     };
 
-    const isFwb =
-      normalize(card.edition) === normalize(FWB_EDITION) &&
-      FWB_LANGUAGES.has(card.langue);
+    const rule = isSpecial(card);
+    if (!rule) return;
 
-    if (!isFwb) return;
-
-    const cardKey = key(card);
-    if (existingKeys.has(cardKey)) return;
+    const k = key(card);
+    if (existing.has(k)) return;
 
     tracked.push({
-      id: `fwb-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      id: `special-${Date.now()}-${Math.random().toString(16).slice(2)}`,
       nomCarte: card.nomCarte,
       edition: card.edition,
       langue: card.langue,
       observable: true,
       priceMode: "manual",
-      pricingModel: "fwb_revised_ratio",
+      pricingModel: rule.pricingModel,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     });
 
-    existingKeys.add(cardKey);
+    existing.add(k);
     added++;
   });
 
-  writeTrackedCards(tracked);
+  fs.writeFileSync(TRACKED_PATH, JSON.stringify(tracked, null, 2));
 
-  console.log(`FWB ajoutées au catalogue suivi : ${added}`);
+  console.log(`Cartes spéciales ajoutées : ${added}`);
   console.log(`Total cartes suivies : ${tracked.length}`);
 
   db.close();

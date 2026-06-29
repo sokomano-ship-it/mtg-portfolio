@@ -32,10 +32,11 @@ async function main() {
     );
 
     const condition = applyConditionModel(
-      card,
-      observations,
-      edition.correctedReferencePrice
-    );
+  card,
+  observations,
+  edition.correctedReferencePrice,
+  edition
+);
 
     const confidence = finalConfidence(
       edition.editionConfidence,
