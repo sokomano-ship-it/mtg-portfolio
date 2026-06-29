@@ -74,7 +74,7 @@ function readModels() {
   return JSON.parse(fs.readFileSync(MODELS_PATH, "utf8"));
 }
 
-function estimateCard(card, model) {
+function estimateCard(card, model, globalConditionModel = null) {
   const condition = card.etat || "NM";
   const anchor = marketAnchorPrice(card);
 
@@ -134,7 +134,10 @@ function estimateCard(card, model) {
       };
     }
 
-    const fallbackRatio = FALLBACK_CONDITION_RATIOS[condition] || 1;
+    const fallbackRatio =
+  globalConditionModel?.byCondition?.[condition]?.ratioToMarketAnchor ??
+  FALLBACK_CONDITION_RATIOS[condition] ??
+  1;
     const fallbackBase = referenceAnchor || anchor;
 
     return {
@@ -162,7 +165,10 @@ function estimateCard(card, model) {
     };
   }
 
-  const fallbackRatio = FALLBACK_CONDITION_RATIOS[condition] || 1;
+const fallbackRatio =
+  globalConditionModel?.byCondition?.[condition]?.ratioToMarketAnchor ??
+  FALLBACK_CONDITION_RATIOS[condition] ??
+  1;
 
   return {
     estimatedPrice: Number((anchor * fallbackRatio).toFixed(2)),
@@ -180,7 +186,7 @@ async function main() {
 
   const results = cards.map(card => {
     const model = models[cardKey(card)];
-    const estimated = estimateCard(card, model);
+    const estimated = estimateCard(card, model, models.__globalConditionModel);
 
     return {
       id: card.id,

@@ -208,6 +208,43 @@ function trainEditionRatioModel(card, observations, catalogEntry) {
   };
 }
 
+function trainGlobalConditionModel(cards, observations) {
+  const byCondition = {};
+
+  CONDITIONS.forEach(condition => {
+    const ratios = [];
+
+    cards.forEach(card => {
+      const anchor = marketAnchorPrice(card);
+      if (!anchor) return;
+
+      const obs = observationsForCard(card, observations)
+        .filter(o => normalize(o.condition) === normalize(condition))
+        .map(o => ({
+          value: Number(o.observedMinPrice || 0) / anchor,
+          date: o.observationDate || o.date || o.createdAt
+        }))
+        .filter(x => x.value > 0);
+
+      ratios.push(...obs);
+    });
+
+    const avg = weightedAverage(ratios);
+
+    if (avg) {
+      byCondition[condition] = {
+        ratioToMarketAnchor: Number(avg.toFixed(4)),
+        observationCount: ratios.length
+      };
+    }
+  });
+
+  return {
+    modelType: "global_condition_market_anchor",
+    byCondition
+  };
+}
+
 async function main() {
   const cards = await getCards();
   const observations = readJson(OBS_PATH, []);
@@ -236,7 +273,7 @@ async function main() {
 
     models[key] = trainStandardModel(card, observations, anchor);
   });
-
+models.__globalConditionModel = trainGlobalConditionModel(cards, observations);
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(models, null, 2));
 
   console.log(`Modèles générés : ${OUTPUT_PATH}`);

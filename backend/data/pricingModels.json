@@ -716,7 +716,38 @@
   "strip mine|renaissance|french": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 6.43,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.381,
+        "observedPrice": 2.45,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.4355,
+        "observedPrice": 2.8,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.465,
+        "observedPrice": 2.99,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.6998,
+        "observedPrice": 4.5,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.8538,
+        "observedPrice": 5.49,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 0.9331,
+        "observedPrice": 6,
+        "observationCount": 1
+      }
+    }
   },
   "armageddon|revised|english": {
     "modelType": "standard_market_anchor",
@@ -1274,7 +1305,38 @@
   "savannah lions|revised|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 5.73,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.5218,
+        "observedPrice": 2.99,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.5236,
+        "observedPrice": 3,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.5585,
+        "observedPrice": 3.2,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.7766,
+        "observedPrice": 4.45,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.9913,
+        "observedPrice": 5.68,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.3962,
+        "observedPrice": 8,
+        "observationCount": 1
+      }
+    }
   },
   "armageddon|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
@@ -1361,7 +1423,38 @@
   "thunder spirit|legends|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 114.85,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.7401,
+        "observedPrice": 85,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.6961,
+        "observedPrice": 79.95,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.9142,
+        "observedPrice": 105,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.8881,
+        "observedPrice": 102,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 1.0013,
+        "observedPrice": 115,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.1276,
+        "observedPrice": 129.5,
+        "observationCount": 1
+      }
+    }
   },
   "divine offering|legends|english": {
     "modelType": "standard_market_anchor",
@@ -1635,5 +1728,34 @@
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 3.21,
     "byCondition": {}
+  },
+  "__globalConditionModel": {
+    "modelType": "global_condition_market_anchor",
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.4806,
+        "observationCount": 49
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.5248,
+        "observationCount": 64
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.6341,
+        "observationCount": 64
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.6903,
+        "observationCount": 64
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.8319,
+        "observationCount": 64
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.3563,
+        "observationCount": 64
+      }
+    }
   }
 }
