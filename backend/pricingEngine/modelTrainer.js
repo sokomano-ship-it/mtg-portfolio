@@ -3,28 +3,10 @@ const path = require("path");
 const db = require("../database");
 
 const OBS_PATH = path.join(__dirname, "..", "data", "marketObservations.json");
+const REFERENCE_CATALOG_PATH = path.join(__dirname, "..", "data", "referenceCatalog.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 
 const CONDITIONS = ["PO", "PL", "LP", "GD", "EX", "NM"];
-const { findReferenceMarketCard } = require("../referenceCatalog/referenceLookup");
-const EDITION_REFERENCE_RULES = [
-  {
-    model: "fwb_revised",
-    sourceEdition: "Foreign White Bordered",
-    sourceLanguages: ["French", "German", "Italian"],
-    referenceEdition: "Revised",
-    referenceLanguage: "English"
-  },
-  {
-    model: "legends_italian",
-    sourceEdition: "Legends",
-    sourceLanguages: ["Italian"],
-    referenceEdition: "Legends",
-    referenceLanguage: "English"
-  }
-];
-
-const MANUAL_ONLY = new Set(["jihad", "crusade"]);
 
 function normalize(value) {
   return String(value || "")
@@ -40,10 +22,6 @@ function cardKey(card) {
     normalize(card.edition),
     normalize(card.langue)
   ].join("|");
-}
-
-function cardNameKey(card) {
-  return normalize(card.nomCarte || card.nomBase);
 }
 
 function daysOld(dateText) {
@@ -76,6 +54,11 @@ function weightedAverage(values) {
   });
 
   return weights ? total / weights : null;
+}
+
+function readJson(file, fallback) {
+  if (!fs.existsSync(file)) return fallback;
+  return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
 function getCards() {
@@ -117,23 +100,15 @@ function marketAnchorPrice(card) {
   );
 }
 
-function readObservations() {
-  if (!fs.existsSync(OBS_PATH)) return [];
-  return JSON.parse(fs.readFileSync(OBS_PATH, "utf8"));
-}
+function referenceAnchorPrice(referenceCard) {
+  if (!referenceCard) return 0;
 
-function findEditionRule(card) {
-  return EDITION_REFERENCE_RULES.find(rule =>
-    normalize(card.edition) === normalize(rule.sourceEdition) &&
-    rule.sourceLanguages.map(normalize).includes(normalize(card.langue))
-  );
-}
-
-function findReferenceCard(card, cards, rule) {
-  return cards.find(ref =>
-    cardNameKey(ref) === cardNameKey(card) &&
-    normalize(ref.edition) === normalize(rule.referenceEdition) &&
-    normalize(ref.langue) === normalize(rule.referenceLanguage)
+  return (
+    Number(referenceCard.trendPrice || 0) ||
+    Number(referenceCard.avg30 || 0) ||
+    Number(referenceCard.avg7 || 0) ||
+    Number(referenceCard.avg1 || 0) ||
+    0
   );
 }
 
@@ -199,15 +174,8 @@ function trainStandardModel(card, observations, anchor) {
   };
 }
 
-function trainEditionRatioModel(card, cards, observations, rule) {
-  const referenceCard = findReferenceMarketCard({
-  nomCarte: card.nomCarte || card.nomBase,
-  nomBase: card.nomBase,
-  edition: rule.referenceEdition
-});
-
-const referenceAnchor = referenceCard ? Number(referenceCard.marketAnchorPrice || 0) : 0;
-
+function trainEditionRatioModel(card, observations, catalogEntry) {
+  const referenceAnchor = referenceAnchorPrice(catalogEntry.priceReferenceCard);
   const cardObs = observationsForCard(card, observations);
   const byCondition = {};
 
@@ -231,36 +199,38 @@ const referenceAnchor = referenceCard ? Number(referenceCard.marketAnchorPrice |
   });
 
   return {
-    modelType: rule.model,
-    referenceEdition: rule.referenceEdition,
-    referenceLanguage: rule.referenceLanguage,
-    referenceCardFound: Boolean(referenceCard),
-referenceMarketAnchorPrice: referenceAnchor,
-referenceCardmarketId: referenceCard ? referenceCard.cardmarketId : null,
-referenceName: referenceCard ? referenceCard.name : null,
-referenceEditionMatched: referenceCard ? referenceCard.edition : null,
+    modelType: "edition_ratio",
+    referenceFound: catalogEntry.referenceFound,
+    referenceMarketAnchorPrice: referenceAnchor,
+    expectedReference: catalogEntry.expectedReference || null,
+    priceReferenceCard: catalogEntry.priceReferenceCard || null,
     byCondition
   };
 }
 
 async function main() {
   const cards = await getCards();
-  const observations = readObservations();
+  const observations = readJson(OBS_PATH, []);
+  const referenceCatalog = readJson(REFERENCE_CATALOG_PATH, []);
+
+  const catalogByCardId = new Map(
+    referenceCatalog.map(entry => [String(entry.cardId), entry])
+  );
 
   const models = {};
 
   cards.forEach(card => {
     const key = cardKey(card);
     const anchor = marketAnchorPrice(card);
-    const editionRule = findEditionRule(card);
+    const catalogEntry = catalogByCardId.get(String(card.id));
 
-    if (MANUAL_ONLY.has(cardNameKey(card))) {
+    if (catalogEntry?.model === "manual_only") {
       models[key] = trainManualModel(card, observations);
       return;
     }
 
-    if (editionRule) {
-      models[key] = trainEditionRatioModel(card, cards, observations, editionRule);
+    if (catalogEntry?.model === "edition_ratio") {
+      models[key] = trainEditionRatioModel(card, observations, catalogEntry);
       return;
     }
 

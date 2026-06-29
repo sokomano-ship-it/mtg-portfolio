@@ -6,6 +6,7 @@ const { buildNmOpportunities } = require("./opportunityScoring");
 
 const outputDir = path.join(__dirname, "..", "frontend", "data");
 const outputFile = path.join(outputDir, "portfolio.json");
+const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
 
 function all(sql, params = []) {
     return new Promise((resolve, reject) => {
@@ -14,6 +15,16 @@ function all(sql, params = []) {
             else resolve(rows);
         });
     });
+}
+
+function readPricingSimulation() {
+    if (!fs.existsSync(pricingSimulationFile)) return new Map();
+
+    const rows = JSON.parse(fs.readFileSync(pricingSimulationFile, "utf8"));
+
+    return new Map(
+        rows.map(row => [Number(row.id), row])
+    );
 }
 
 function calculatePerformance(current, previous) {
@@ -30,6 +41,22 @@ function addPrixEtat(card) {
             card.edition,
             card.langue
         )
+    };
+}
+
+function addPricingSimulation(card, pricingMap) {
+    const simulation = pricingMap.get(Number(card.id));
+
+    return {
+        ...card,
+
+        estimatedPrice: simulation?.estimatedPrice ?? null,
+        pricingModel: simulation?.pricingModel ?? null,
+        pricingConfidence: simulation?.confidence ?? null,
+        pricingRatio: simulation?.ratioUsed ?? null,
+        pricingObservationCount: simulation?.observationCount ?? 0,
+        marketAnchorPrice: simulation?.marketAnchorPrice ?? null,
+        referenceMarketAnchorPrice: simulation?.referenceMarketAnchorPrice ?? null
     };
 }
 
@@ -57,6 +84,8 @@ function groupByCardEditionEtat(rows) {
 }
 
 async function main() {
+    const pricingMap = readPricingSimulation();
+
     const cardsRaw = await all(`
         SELECT
             c.*,
@@ -76,12 +105,15 @@ async function main() {
         ORDER BY c.edition, c.nomCarte
     `);
 
-    const cards = cardsRaw.map(addPrixEtat);
+    const cards = cardsRaw
+        .map(addPrixEtat)
+        .map(card => addPricingSimulation(card, pricingMap));
 
     const categoryMap = {};
 
     cards.forEach(card => {
         const categorie = card.categorie || "Non classé";
+        const value = Number(card.estimatedPrice ?? card.prixEtat ?? 0);
 
         if (!categoryMap[categorie]) {
             categoryMap[categorie] = {
@@ -92,7 +124,7 @@ async function main() {
         }
 
         categoryMap[categorie].cardsCount += 1;
-        categoryMap[categorie].totalValue += Number(card.prixEtat || 0);
+        categoryMap[categorie].totalValue += value;
     });
 
     const categorySummary = Object.values(categoryMap)
@@ -110,6 +142,22 @@ async function main() {
         ORDER BY date
     `);
 
+    const estimatedTotalValue = cards.reduce(
+        (sum, card) => sum + Number(card.estimatedPrice ?? card.prixEtat ?? 0),
+        0
+    );
+
+    const valuedCardsCount = cards.filter(card => Number(card.estimatedPrice || 0) > 0).length;
+    const missingEstimatedCardsCount = cards.length - valuedCardsCount;
+
+    const averageConfidenceRows = cards
+        .map(card => Number(card.pricingConfidence || 0))
+        .filter(Boolean);
+
+    const averagePricingConfidence = averageConfidenceRows.length
+        ? averageConfidenceRows.reduce((a, b) => a + b, 0) / averageConfidenceRows.length
+        : 0;
+
     const lastTwo = await all(`
         SELECT
             date,
@@ -119,8 +167,8 @@ async function main() {
         LIMIT 2
     `);
 
-    const today = lastTwo[0]?.totalValue || 0;
-    const yesterday = lastTwo[1]?.totalValue || today;
+    const today = Number(estimatedTotalValue.toFixed(2));
+    const yesterday = lastTwo[0]?.totalValue || today;
     const change = today - yesterday;
     const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
 
@@ -128,7 +176,11 @@ async function main() {
         today: Number(today.toFixed(2)),
         yesterday: Number(yesterday.toFixed(2)),
         change: Number(change.toFixed(2)),
-        changePct: Number(changePct.toFixed(2))
+        changePct: Number(changePct.toFixed(2)),
+        estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
+        valuedCardsCount,
+        missingEstimatedCardsCount,
+        averagePricingConfidence: Number(averagePricingConfidence.toFixed(0))
     };
 
     const moverRows = await all(`
@@ -323,6 +375,8 @@ async function main() {
     console.log(`Export JSON généré : ${outputFile}`);
     console.log(`${cards.length} cartes exportées`);
     console.log(`${opportunities.length} opportunités NM calculées`);
+    console.log(`Valeur estimée V2 : ${estimatedTotalValue.toFixed(2)} €`);
+    console.log(`Confiance moyenne : ${averagePricingConfidence.toFixed(0)}%`);
 
     db.close();
 }

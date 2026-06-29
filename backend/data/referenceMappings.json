@@ -1,0 +1,30 @@
+[
+  {
+    "match": {
+      "edition": "Foreign White Bordered",
+      "langues": ["French", "German", "Italian"]
+    },
+    "priceReference": {
+      "edition": "Revised",
+      "langue": "English"
+    },
+    "model": "edition_ratio"
+  },
+  {
+    "match": {
+      "edition": "Legends",
+      "langues": ["Italian"]
+    },
+    "priceReference": {
+      "edition": "Legends",
+      "langue": "English"
+    },
+    "model": "edition_ratio"
+  },
+  {
+    "match": {
+      "nomCarte": ["Jihad", "Crusade"]
+    },
+    "model": "manual_only"
+  }
+]
