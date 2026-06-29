@@ -228,201 +228,279 @@
     "byCondition": {}
   },
   "birds of paradise|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 18.58,
     "byCondition": {}
   },
   "blue elemental blast|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.3,
     "byCondition": {}
   },
   "dark ritual|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.26,
     "byCondition": {}
   },
   "elvish archers|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.28,
     "byCondition": {}
   },
   "hypnotic specter|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 5,
     "byCondition": {}
   },
   "lightning bolt|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.89,
     "byCondition": {}
   },
   "lord of the pit|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
-    "byCondition": {}
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.05,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.0488,
+        "observedPrice": 0.1,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.0732,
+        "observedPrice": 0.15,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.122,
+        "observedPrice": 0.25,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.122,
+        "observedPrice": 0.25,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.3902,
+        "observedPrice": 0.8,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 4.878,
+        "observedPrice": 10,
+        "observationCount": 1
+      }
+    }
   },
   "meekstone|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
-    "byCondition": {}
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 8.69,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.2877,
+        "observedPrice": 2.5,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.748,
+        "observedPrice": 6.5,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.5754,
+        "observedPrice": 5,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.5178,
+        "observedPrice": 4.5,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.5167,
+        "observedPrice": 4.49,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.0345,
+        "observedPrice": 8.99,
+        "observationCount": 1
+      }
+    }
   },
   "mind twist|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 5.44,
     "byCondition": {}
   },
   "nevinyrral's disk|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
-    "byCondition": {}
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 6.22,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.3055,
+        "observedPrice": 1.9,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.1608,
+        "observedPrice": 1,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.3698,
+        "observedPrice": 2.3,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.3135,
+        "observedPrice": 1.95,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.6431,
+        "observedPrice": 4,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.4453,
+        "observedPrice": 8.99,
+        "observationCount": 1
+      }
+    }
   },
   "red elemental blast|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 5.59,
     "byCondition": {}
   },
   "savannah lions|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 5.73,
     "byCondition": {}
   },
   "serra angel|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
-    "byCondition": {}
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.14,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.0935,
+        "observedPrice": 0.2,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.0421,
+        "observedPrice": 0.09,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.1636,
+        "observedPrice": 0.35,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.2196,
+        "observedPrice": 0.47,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.2336,
+        "observedPrice": 0.5,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 0.6262,
+        "observedPrice": 1.34,
+        "observationCount": 1
+      }
+    }
   },
   "sol ring|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
-    "byCondition": {}
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 9.69,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.516,
+        "observedPrice": 5,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.4128,
+        "observedPrice": 4,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.6708,
+        "observedPrice": 6.5,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.5108,
+        "observedPrice": 4.95,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.9288,
+        "observedPrice": 9,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.6512,
+        "observedPrice": 16,
+        "observationCount": 1
+      }
+    }
   },
   "sol ring|foreign white bordered|italian": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
-    "byCondition": {}
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 9.69,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.4087,
+        "observedPrice": 3.96,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.4128,
+        "observedPrice": 4,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.4644,
+        "observedPrice": 4.5,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.5676,
+        "observedPrice": 5.5,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.6708,
+        "observedPrice": 6.5,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.032,
+        "observedPrice": 10,
+        "observationCount": 1
+      }
+    }
   },
   "sorceress queen|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 3.3,
     "byCondition": {}
   },
   "the rack|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.54,
     "byCondition": {}
   },
   "verduran enchantress|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.68,
     "byCondition": {}
   },
   "hypnotic specter|fourth edition|english": {
@@ -762,14 +840,8 @@
     "byCondition": {}
   },
   "manabarbs|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 4.39,
     "byCondition": {}
   },
   "fireball|foreign black bordered|french": {
@@ -814,14 +886,8 @@
     "byCondition": {}
   },
   "wheel of fortune|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 264.5,
     "byCondition": {}
   },
   "disintegrate|unlimited|english": {
@@ -1176,14 +1242,8 @@
     }
   },
   "swords to plowshares|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 5.63,
     "byCondition": {}
   },
   "preacher|the dark|english": {
@@ -1217,14 +1277,8 @@
     "byCondition": {}
   },
   "armageddon|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 13.53,
     "byCondition": {}
   },
   "land tax|renaissance|french": {
@@ -1300,29 +1354,9 @@
     }
   },
   "crusade|fourth edition|french": {
-    "modelType": "manual_only",
-    "byCondition": {
-      "PO": {
-        "observedPrice": 2,
-        "observationCount": 1
-      },
-      "PL": {
-        "observedPrice": 2,
-        "observationCount": 1
-      },
-      "LP": {
-        "observedPrice": 2.5,
-        "observationCount": 1
-      },
-      "GD": {
-        "observedPrice": 4,
-        "observationCount": 1
-      },
-      "EX": {
-        "observedPrice": 4.45,
-        "observationCount": 1
-      }
-    }
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
+    "byCondition": {}
   },
   "thunder spirit|legends|english": {
     "modelType": "standard_market_anchor",
@@ -1524,14 +1558,15 @@
     "byCondition": {}
   },
   "serendib efreet|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
+    "modelType": "edition_ratio",
+    "referenceFound": false,
     "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "expectedReference": {
+      "nomCarte": "Serendib Efreet",
+      "edition": "Revised",
+      "langue": "English"
+    },
+    "priceReferenceCard": null,
     "byCondition": {}
   },
   "flying men|arabian nights|english": {
@@ -1540,25 +1575,20 @@
     "byCondition": {}
   },
   "braingeyser|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 10.9,
     "byCondition": {}
   },
   "lord of atlantis|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
+    "modelType": "edition_ratio",
+    "referenceFound": false,
     "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "expectedReference": {
+      "nomCarte": "Lord of Atlantis",
+      "edition": "Revised",
+      "langue": "English"
+    },
+    "priceReferenceCard": null,
     "byCondition": {}
   },
   "tolaria|legends|english": {
@@ -1572,14 +1602,8 @@
     "byCondition": {}
   },
   "clone|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1,
     "byCondition": {}
   },
   "svyelunite temple|fallen empires|english": {
@@ -1608,14 +1632,8 @@
     "byCondition": {}
   },
   "counterspell|foreign white bordered|french": {
-    "modelType": "fwb_revised",
-    "referenceEdition": "Revised",
-    "referenceLanguage": "English",
-    "referenceCardFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "referenceCardmarketId": null,
-    "referenceName": null,
-    "referenceEditionMatched": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 3.21,
     "byCondition": {}
   }
 }
