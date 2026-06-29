@@ -212,11 +212,15 @@ function filterCards() {
 
 function sortCollectionCards(cards) {
     const numericColumns = [
-        "prixEtat",
-        "trendPrice",
-        "lowPrice",
-        "avgPrice"
-    ];
+    "estimatedPrice",
+    "pricingConfidence",
+    "trendPrice",
+    "avg30",
+    "avg7",
+    "avg1",
+    "lowPrice",
+    "avgPrice"
+];
 
     cards.sort((a, b) => {
         const aValue =
@@ -262,11 +266,15 @@ function updateCollectionHeaderState() {
 
 function matchesCollectionFilter(card, key, value) {
     const numericKeys = [
-        "prixEtat",
-        "trendPrice",
-        "lowPrice",
-        "avgPrice"
-    ];
+    "estimatedPrice",
+    "pricingConfidence",
+    "trendPrice",
+    "avg30",
+    "avg7",
+    "avg1",
+    "lowPrice",
+    "avgPrice"
+];
 
     if (numericKeys.includes(key)) {
         return matchesNumericFilter(Number(card[key] || 0), value);
@@ -323,7 +331,7 @@ function updateCategoryStats(cards) {
 
 function calculateCardsValue(cards) {
     return cards.reduce((sum, card) => {
-        return sum + (Number(card.prixEtat) || 0);
+        return sum + (Number(card.estimatedPrice ?? card.prixEtat) || 0);
     }, 0);
 }
 
@@ -360,11 +368,13 @@ function renderCards(cards) {
                 <td>${escapeHtml(card.etat)}</td>
                 <td>${escapeHtml(card.categorie || "Non classé")}</td>
 
-                <td class="price">${card.prixEtat ? formatEuro(card.prixEtat) : "-"}</td>
-                <td>${card.trendPrice ? formatEuro(card.trendPrice) : "-"}</td>
-                <td>${card.lowPrice ? formatEuro(card.lowPrice) : "-"}</td>
-                <td>${card.avgPrice ? formatEuro(card.avgPrice) : "-"}</td>
-
+<td class="price"><strong>${card.estimatedPrice ? formatEuro(card.estimatedPrice) : "-"}</strong></td>
+<td>${card.pricingConfidence !== null && card.pricingConfidence !== undefined ? `${card.pricingConfidence} %` : "-"}</td>
+<td><span class="muted">${escapeHtml(card.pricingModel || "-")}</span></td>
+<td>${card.trendPrice ? formatEuro(card.trendPrice) : "-"}</td>
+<td>${card.avg30 ? formatEuro(card.avg30) : "-"}</td>
+<td>${card.avg7 ? formatEuro(card.avg7) : "-"}</td>
+<td>${card.avg1 ? formatEuro(card.avg1) : "-"}</td>
                 <td class="links">
                     ${scryfallUrl ? `<a href="${scryfallUrl}" target="_blank">Scryfall</a>` : ""}
                 </td>
@@ -677,11 +687,13 @@ async function openCardDetail(cardId) {
             <p><strong>Edition :</strong> ${escapeHtml(card.edition)}</p>
             <p><strong>Etat :</strong> ${escapeHtml(card.etat)}</p>
             <p><strong>Catégorie :</strong> ${escapeHtml(card.categorie || "Non classé")}</p>
-            <p><strong>Prix état :</strong> ${formatEuro(card.prixEtat)}</p>
-            <p><strong>Trend NM :</strong> ${formatEuro(card.trendPrice)}</p>
-            <p><strong>Low :</strong> ${formatEuro(card.lowPrice)}</p>
-            <p><strong>Avg :</strong> ${formatEuro(card.avgPrice)}</p>
-
+<p><strong>Estimation V2 :</strong> ${formatEuro(card.estimatedPrice)}</p>
+<p><strong>Confiance :</strong> ${card.pricingConfidence ?? "-"} %</p>
+<p><strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}</p>
+<p><strong>Trend :</strong> ${formatEuro(card.trendPrice)}</p>
+<p><strong>Avg30 :</strong> ${formatEuro(card.avg30)}</p>
+<p><strong>Avg7 :</strong> ${formatEuro(card.avg7)}</p>
+<p><strong>Avg1 :</strong> ${formatEuro(card.avg1)}</p>
             <div class="detail-performances">
                 <span>7j : ${formatOptionalPercent(performance.perf7d)}</span>
                 <span>30j : ${formatOptionalPercent(performance.perf30d)}</span>

@@ -33,7 +33,7 @@
             </div>
 
             <div class="summary-card">
-                <span>Valeur portefeuille prix-état</span>
+                <span>Valeur estimée portefeuille</span>
                 <strong id="total-value">0 €</strong>
             </div>
 
@@ -62,7 +62,7 @@
                         <tr>
                             <th>Catégorie</th>
                             <th>Cartes</th>
-                            <th>Valeur prix-état</th>
+                            <th>Valeur estimée</th>
                         </tr>
                     </thead>
                     <tbody id="category-summary-body"></tbody>
@@ -163,7 +163,7 @@
                 </div>
 
                 <div class="toolbar-stat">
-                    <span>Valeur prix-état</span>
+                    <span>Valeur estimée</span>
                     <strong id="category-value">0 €</strong>
                 </div>
             </div>
@@ -181,10 +181,13 @@
                             <th class="collection-sortable sortable" data-sort="langue">Langue</th>
                             <th class="collection-sortable sortable" data-sort="etat">Etat</th>
                             <th class="collection-sortable sortable" data-sort="categorie">Catégorie</th>
-                            <th class="collection-sortable sortable" data-sort="prixEtat">Prix état</th>
-                            <th class="collection-sortable sortable" data-sort="trendPrice">Trend NM</th>
-                            <th class="collection-sortable sortable" data-sort="lowPrice">Low</th>
-                            <th class="collection-sortable sortable" data-sort="avgPrice">Avg</th>
+<th class="collection-sortable sortable" data-sort="estimatedPrice">Estimation</th>
+<th class="collection-sortable sortable" data-sort="pricingConfidence">Confiance</th>
+<th class="collection-sortable sortable" data-sort="pricingModel">Modèle</th>
+<th class="collection-sortable sortable" data-sort="trendPrice">Trend</th>
+<th class="collection-sortable sortable" data-sort="avg30">Avg30</th>
+<th class="collection-sortable sortable" data-sort="avg7">Avg7</th>
+<th class="collection-sortable sortable" data-sort="avg1">Avg1</th>
                             <th>Liens</th>
                         </tr>
 
@@ -196,11 +199,13 @@
                             <th><input class="collection-filter" data-filter="langue" placeholder="Langue"></th>
                             <th><input class="collection-filter" data-filter="etat" placeholder="Etat"></th>
                             <th><input class="collection-filter" data-filter="categorie" placeholder="Catégorie"></th>
-                            <th><input class="collection-filter" data-filter="prixEtat" placeholder=">10 / 5-20"></th>
-                            <th><input class="collection-filter" data-filter="trendPrice" placeholder=">10 / 5-20"></th>
-                            <th><input class="collection-filter" data-filter="lowPrice" placeholder=">10 / 5-20"></th>
-                            <th><input class="collection-filter" data-filter="avgPrice" placeholder=">10 / 5-20"></th>
-                            <th></th>
+<th><input class="collection-filter" data-filter="estimatedPrice" placeholder=">10 / 5-20"></th>
+<th><input class="collection-filter" data-filter="pricingConfidence" placeholder=">60"></th>
+<th><input class="collection-filter" data-filter="pricingModel" placeholder="Modèle"></th>
+<th><input class="collection-filter" data-filter="trendPrice" placeholder=">10 / 5-20"></th>
+<th><input class="collection-filter" data-filter="avg30" placeholder=">10 / 5-20"></th>
+<th><input class="collection-filter" data-filter="avg7" placeholder=">10 / 5-20"></th>
+<th><input class="collection-filter" data-filter="avg1" placeholder=">10 / 5-20"></th>                            <th></th>
                         </tr>
                     </thead>
 
