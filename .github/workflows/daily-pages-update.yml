@@ -39,6 +39,7 @@ jobs:
         run: npm run build:pages
 
       - name: Send alerts
+        if: github.event_name == 'schedule'
         run: npm run send:alerts
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
