@@ -187,7 +187,38 @@
   "hasran ogress (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 3.09,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.5793,
+        "observedPrice": 1.79,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.7087,
+        "observedPrice": 2.19,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.6149,
+        "observedPrice": 1.9,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.644,
+        "observedPrice": 1.99,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.6796,
+        "observedPrice": 2.1,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.6181,
+        "observedPrice": 5,
+        "observationCount": 1
+      }
+    }
   },
   "hurr jackal|arabian nights|english": {
     "modelType": "standard_market_anchor",
@@ -197,7 +228,38 @@
   "moorish cavalry (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 3.99,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.4962,
+        "observedPrice": 1.98,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.4987,
+        "observedPrice": 1.99,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.6992,
+        "observedPrice": 2.79,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.7494,
+        "observedPrice": 2.99,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.8521,
+        "observedPrice": 3.4,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.2506,
+        "observedPrice": 4.99,
+        "observationCount": 1
+      }
+    }
   },
   "nafs asp (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
@@ -571,34 +633,34 @@
     "marketAnchorPrice": 2.39,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.0837,
-        "observedPrice": 0.2,
-        "observationCount": 1
+        "ratioToMarketAnchor": 0.0732,
+        "observedPrice": 0.17,
+        "observationCount": 2
       },
       "PL": {
         "ratioToMarketAnchor": 0.0377,
         "observedPrice": 0.09,
-        "observationCount": 1
+        "observationCount": 2
       },
       "LP": {
         "ratioToMarketAnchor": 0.1464,
         "observedPrice": 0.35,
-        "observationCount": 1
+        "observationCount": 2
       },
       "GD": {
         "ratioToMarketAnchor": 0.1967,
         "observedPrice": 0.47,
-        "observationCount": 1
+        "observationCount": 2
       },
       "EX": {
-        "ratioToMarketAnchor": 0.2092,
-        "observedPrice": 0.5,
-        "observationCount": 1
+        "ratioToMarketAnchor": 0.3661,
+        "observedPrice": 0.88,
+        "observationCount": 2
       },
       "NM": {
         "ratioToMarketAnchor": 0.5607,
         "observedPrice": 1.34,
-        "observationCount": 1
+        "observationCount": 2
       }
     }
   },
@@ -1055,7 +1117,38 @@
   "taiga|revised|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 257.15,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.6805,
+        "observedPrice": 175,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.7778,
+        "observedPrice": 200,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.7673,
+        "observedPrice": 197.3,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.8166,
+        "observedPrice": 210,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 1.0072,
+        "observedPrice": 259,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.1472,
+        "observedPrice": 295,
+        "observationCount": 1
+      }
+    }
   },
   "verduran enchantress|revised|english": {
     "modelType": "standard_market_anchor",
@@ -2031,7 +2124,38 @@
   "strip mine (v.3)|antiquities|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 23.44,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.6378,
+        "observedPrice": 14.95,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.6122,
+        "observedPrice": 14.35,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.8532,
+        "observedPrice": 20,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 1.1519,
+        "observedPrice": 27,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 1.4074,
+        "observedPrice": 32.99,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 2.5597,
+        "observedPrice": 60,
+        "observationCount": 1
+      }
+    }
   },
   "regrowth|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
@@ -2229,28 +2353,28 @@
     "modelType": "global_condition_market_anchor",
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.7215,
-        "observationCount": 89
+        "ratioToMarketAnchor": 0.7092,
+        "observationCount": 94
       },
       "PL": {
-        "ratioToMarketAnchor": 0.6705,
-        "observationCount": 104
+        "ratioToMarketAnchor": 0.6639,
+        "observationCount": 109
       },
       "LP": {
-        "ratioToMarketAnchor": 0.7797,
-        "observationCount": 104
+        "ratioToMarketAnchor": 0.7722,
+        "observationCount": 109
       },
       "GD": {
-        "ratioToMarketAnchor": 0.8431,
-        "observationCount": 104
+        "ratioToMarketAnchor": 0.837,
+        "observationCount": 109
       },
       "EX": {
-        "ratioToMarketAnchor": 1.0341,
-        "observationCount": 104
+        "ratioToMarketAnchor": 1.0276,
+        "observationCount": 109
       },
       "NM": {
-        "ratioToMarketAnchor": 1.5743,
-        "observationCount": 104
+        "ratioToMarketAnchor": 1.5675,
+        "observationCount": 109
       }
     }
   }

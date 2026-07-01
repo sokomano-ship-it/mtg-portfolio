@@ -9,6 +9,7 @@ const outputFile = path.join(outputDir, "portfolio.json");
 const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
 const estimatedPriceHistoryFile = path.join(__dirname, "..", "frontend", "data", "estimated-price-history.json");
+const trackedMarketCardsFile = path.join(__dirname, "data", "trackedMarketCards.json");
 
 function all(sql, params = []) {
     return new Promise((resolve, reject) => {
@@ -42,6 +43,88 @@ function readReferenceCatalog() {
     return new Map(
         rows.map(row => [Number(row.cardId), row])
     );
+}
+
+function readTrackedMarketCards() {
+    if (!fs.existsSync(trackedMarketCardsFile)) return [];
+    return JSON.parse(fs.readFileSync(trackedMarketCardsFile, "utf8"));
+}
+
+function normalizeKey(value) {
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
+function watchlistKey(card) {
+    return [
+        normalizeKey(card.nomCarte),
+        normalizeKey(card.edition),
+        normalizeKey(card.version),
+        normalizeKey(card.langue)
+    ].join("|");
+}
+
+function buildWatchlistCards(collectionCards, trackedCards) {
+    const ownedKeys = new Set(collectionCards.map(watchlistKey));
+
+    function findReferenceCard(card) {
+        if (card.pricingModel === "fwb_revised_ratio") {
+            return collectionCards.find(candidate =>
+                normalizeKey(candidate.nomCarte) === normalizeKey(card.nomCarte) &&
+                normalizeKey(candidate.edition) === normalizeKey("Revised") &&
+                normalizeKey(candidate.langue) === normalizeKey("English")
+            );
+        }
+
+        return null;
+    }
+
+    const trackedVirtualCards = trackedCards
+        .filter(card => !ownedKeys.has(watchlistKey(card)))
+        .map(card => {
+            const referenceCard = findReferenceCard(card);
+
+            return {
+                ...card,
+
+                id: card.id || `tracked-${card.cardmarketId || watchlistKey(card)}`,
+
+                etat: card.etat || "NM",
+                categorie: card.categorie || "Watchlist",
+
+                quantityOwned: 0,
+                owned: false,
+                ownedLabel: "Non",
+                ownedStates: "-",
+
+                trendPrice: Number(card.trendPrice || referenceCard?.trendPrice || 0),
+                avg1: Number(card.avg1 || referenceCard?.avg1 || 0),
+                avg7: Number(card.avg7 || referenceCard?.avg7 || 0),
+                avg30: Number(card.avg30 || referenceCard?.avg30 || 0),
+                lowPrice: Number(card.lowPrice || referenceCard?.lowPrice || 0),
+                avgPrice: Number(card.avgPrice || referenceCard?.avgPrice || 0),
+
+                estimatedPrice: Number(card.estimatedPrice || referenceCard?.trendPrice || 0),
+                pricingConfidence: referenceCard ? 25 : 0,
+                referenceCardFound: Boolean(referenceCard),
+                referenceSource: referenceCard
+                    ? `${referenceCard.nomCarte} | ${referenceCard.edition} | ${referenceCard.langue}`
+                    : null
+            };
+        });
+
+    return [
+        ...collectionCards.map(card => ({
+            ...card,
+            quantityOwned: card.quantityOwned || 1,
+            owned: true,
+            ownedLabel: "Oui"
+        })),
+        ...trackedVirtualCards
+    ];
 }
 
 function applyReferenceCatalog(card, referenceCatalogMap) {
@@ -347,8 +430,10 @@ estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
 
             return bScore - aScore;
         });
+    const trackedMarketCards = readTrackedMarketCards();
+const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
 
-    const opportunities = buildNmOpportunities(cards);
+    const opportunities = buildNmOpportunities(watchlistCards);
 
     const cardDetails = {};
 
@@ -409,6 +494,7 @@ estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
         JSON.stringify({
             generatedAt: new Date().toISOString(),
             cards,
+            watchlistCards,
             categorySummary,
             portfolioHistory: portfolioHistoryEstimated,
             portfolioSummary,
