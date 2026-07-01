@@ -658,6 +658,21 @@ function compareValues(aValue, bValue, direction) {
     return direction === "asc" ? result : -result;
 }
 
+
+
+
+let cardDetailChart = null;
+
+
+
+function closeCardDetail() {
+    const modal = document.getElementById("card-detail-modal");
+    if (modal) {
+        modal.classList.remove("visible");
+    }
+}
+
+
 async function openCardDetail(cardId) {
     try {
         const response = await fetch(`/api/card-detail/${cardId}`);
@@ -688,13 +703,14 @@ async function openCardDetail(cardId) {
             <p><strong>Edition :</strong> ${escapeHtml(card.edition)}</p>
             <p><strong>Etat :</strong> ${escapeHtml(card.etat)}</p>
             <p><strong>Catégorie :</strong> ${escapeHtml(card.categorie || "Non classé")}</p>
-<p><strong>Estimation V2 :</strong> ${formatEuro(card.estimatedPrice)}</p>
-<p><strong>Confiance :</strong> ${card.pricingConfidence ?? "-"} %</p>
-<p><strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}</p>
-<p><strong>Trend :</strong> ${formatEuro(card.trendPrice)}</p>
-<p><strong>Avg30 :</strong> ${formatEuro(card.avg30)}</p>
-<p><strong>Avg7 :</strong> ${formatEuro(card.avg7)}</p>
-<p><strong>Avg1 :</strong> ${formatEuro(card.avg1)}</p>
+            <p><strong>Estimation V2 :</strong> ${formatEuro(card.estimatedPrice)}</p>
+            <p><strong>Confiance :</strong> ${card.pricingConfidence ?? "-"} %</p>
+            <p><strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}</p>
+            <p><strong>Trend :</strong> ${formatEuro(card.trendPrice)}</p>
+            <p><strong>Avg30 :</strong> ${formatEuro(card.avg30)}</p>
+            <p><strong>Avg7 :</strong> ${formatEuro(card.avg7)}</p>
+            <p><strong>Avg1 :</strong> ${formatEuro(card.avg1)}</p>
+
             <div class="detail-performances">
                 <span>7j : ${formatOptionalPercent(performance.perf7d)}</span>
                 <span>30j : ${formatOptionalPercent(performance.perf30d)}</span>
@@ -706,11 +722,10 @@ async function openCardDetail(cardId) {
 
         modal.classList.add("visible");
 
-        const chartHistory = deduplicateHistoryByDate(
-    estimatedHistory.length ? estimatedHistory : history
-);
+        const sourceHistory = estimatedHistory.length ? estimatedHistory : history;
+        const chartHistory = deduplicateHistoryByDate(sourceHistory);
 
-renderCardDetailChart(chartHistory);
+        renderCardDetailChart(chartHistory);
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -727,16 +742,16 @@ function renderCardDetailChart(history) {
         cardDetailChart.destroy();
     }
 
+    const isEstimatedHistory = history.some(row => row.estimatedPrice !== undefined);
+
     cardDetailChart = new Chart(ctx, {
         type: "line",
         data: {
             labels: history.map(row => row.date),
             datasets: [
                 {
-                    label: history.some(row => row.estimatedPrice !== undefined)
-    ? "Prix estimé V2 (€)"
-    : "Trend marché (€)",
-data: history.map(row => row.estimatedPrice ?? row.trendPrice),
+                    label: isEstimatedHistory ? "Prix estimé V2 (€)" : "Trend marché (€)",
+                    data: history.map(row => row.estimatedPrice ?? row.trendPrice),
                     tension: 0.3
                 }
             ]
@@ -762,12 +777,6 @@ data: history.map(row => row.estimatedPrice ?? row.trendPrice),
     });
 }
 
-function closeCardDetail() {
-    const modal = document.getElementById("card-detail-modal");
-    if (modal) {
-        modal.classList.remove("visible");
-    }
-}
 function deduplicateHistoryByDate(history) {
     const byDate = new Map();
 
@@ -780,6 +789,9 @@ function deduplicateHistoryByDate(history) {
         String(a.date).localeCompare(String(b.date))
     );
 }
+
+
+
 
 function performanceClass(value) {
     if (value === null || value === undefined) return "muted";
