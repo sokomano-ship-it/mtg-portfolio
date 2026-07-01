@@ -7,6 +7,7 @@ const { buildNmOpportunities } = require("./opportunityScoring");
 const outputDir = path.join(__dirname, "..", "frontend", "data");
 const outputFile = path.join(outputDir, "portfolio.json");
 const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
+const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
 
 function all(sql, params = []) {
     return new Promise((resolve, reject) => {
@@ -25,6 +26,27 @@ function readPricingSimulation() {
     return new Map(
         rows.map(row => [Number(row.id), row])
     );
+}
+function readReferenceCatalog() {
+    if (!fs.existsSync(referenceCatalogFile)) return new Map();
+
+    const rows = JSON.parse(fs.readFileSync(referenceCatalogFile, "utf8"));
+
+    return new Map(
+        rows.map(row => [Number(row.cardId), row])
+    );
+}
+
+function applyReferenceCatalog(card, referenceCatalogMap) {
+    const ref = referenceCatalogMap.get(Number(card.id));
+
+    if (!ref?.displayCard) return card;
+
+    return {
+        ...card,
+        imageUrl: ref.displayCard.image || card.imageUrl,
+        scryfallUri: ref.displayCard.scryfallUri || card.scryfallUri
+    };
 }
 
 function calculatePerformance(current, previous) {
@@ -85,6 +107,7 @@ function groupByCardEditionEtat(rows) {
 
 async function main() {
     const pricingMap = readPricingSimulation();
+    const referenceCatalogMap = readReferenceCatalog();
 
     const cardsRaw = await all(`
         SELECT
@@ -106,8 +129,9 @@ async function main() {
     `);
 
     const cards = cardsRaw
-        .map(addPrixEtat)
-        .map(card => addPricingSimulation(card, pricingMap));
+    .map(addPrixEtat)
+    .map(card => addPricingSimulation(card, pricingMap))
+    .map(card => applyReferenceCatalog(card, referenceCatalogMap));
 
     const categoryMap = {};
 

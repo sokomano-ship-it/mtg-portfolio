@@ -131,8 +131,12 @@ function main() {
       langue: card.langue,
       etat: card.etat,
       model,
-      displayCard: slim(card),
-      priceReferenceCard: slim(reference),
+      displayCard: {
+  ...slim(card),
+  image: rule?.imageUrl || slim(card)?.image,
+  scryfallUri: rule?.scryfallUri || slim(card)?.scryfallUri
+},
+priceReferenceCard: slim(reference),
       referenceFound: Boolean(reference),
       expectedReference
     };
