@@ -51,10 +51,7 @@ async function loadCards() {
     const totalValue = document.getElementById("total-value");
 
     try {
-        const response = await fetch("/api/cards");
-        if (!response.ok) throw new Error("Impossible de charger la collection");
-
-        allCards = await response.json();
+        allCards = await window.apiAdapter.getCards();
 
         status.textContent = `${allCards.length} cartes chargées`;
         totalCards.textContent = allCards.length;
@@ -75,10 +72,7 @@ async function loadCategorySummary() {
     if (!tbody) return;
 
     try {
-        const response = await fetch("/api/category-summary");
-        if (!response.ok) throw new Error("Impossible de charger le résumé par catégorie");
-
-        const categories = await response.json();
+        const categories = await window.apiAdapter.getCategorySummary();
 
         tbody.innerHTML = "";
 
@@ -108,10 +102,7 @@ async function loadPortfolioSummary() {
     if (!change || !changePct) return;
 
     try {
-        const response = await fetch("/api/portfolio-summary");
-        if (!response.ok) throw new Error("Impossible de charger le résumé portefeuille");
-
-        const summary = await response.json();
+        const summary = await window.apiAdapter.getPortfolioSummary();
 
         change.textContent = formatSignedEuro(summary.change);
         changePct.textContent = formatPercent(summary.changePct);
@@ -384,10 +375,7 @@ function renderCards(cards) {
 }
 
 async function loadPortfolioHistory() {
-    const response = await fetch("/api/portfolio-history");
-    if (!response.ok) return;
-
-    const history = await response.json();
+    const history = await window.apiAdapter.getPortfolioHistory();
     const ctx = document.getElementById("portfolioChart");
     if (!ctx) return;
 
@@ -429,10 +417,7 @@ async function loadTopMovers() {
     if (!status) return;
 
     try {
-        const response = await fetch("/api/top-movers");
-        if (!response.ok) throw new Error("Impossible de charger les variations");
-
-        allMovers = await response.json();
+        allMovers = await window.apiAdapter.getTopMovers();
 
         status.textContent = `${allMovers.length} lignes analysées`;
 
@@ -526,10 +511,7 @@ async function loadOpportunities() {
     if (!status) return;
 
     try {
-        const response = await fetch("/api/opportunities");
-        if (!response.ok) throw new Error("Impossible de charger les opportunités");
-
-        allOpportunities = await response.json();
+        allOpportunities = await window.apiAdapter.getOpportunities();
 
         status.textContent =
             `${allOpportunities.length} lignes affichées : top 30 scores + 10 plus mauvais scores`;
@@ -673,13 +655,11 @@ function closeCardDetail() {
 
 async function openCardDetail(cardId) {
     try {
-        const response = await fetch(`/api/card-detail/${cardId}`);
+        const detail = await window.apiAdapter.getCardDetail(cardId);
 
-        if (!response.ok) {
-            throw new Error("Impossible de charger le détail de la carte");
-        }
-
-        const detail = await response.json();
+if (!detail) {
+    throw new Error("Impossible de charger le détail de la carte");
+}
 
         const card = detail.card;
         const history = detail.history || [];

@@ -1,53 +1,93 @@
-let portfolioDataCache = null;
+async function fetchJson(path) {
+    const response = await fetch(path);
 
-async function loadPortfolioData() {
-    if (!portfolioDataCache) {
-        const response = await fetch("data/portfolio.json");
-        if (!response.ok) {
-            throw new Error("Impossible de charger data/portfolio.json");
-        }
-        portfolioDataCache = await response.json();
+    if (!response.ok) {
+        throw new Error(`Erreur chargement ${path}`);
     }
-    return portfolioDataCache;
+
+    return response.json();
 }
 
-const originalFetch = window.fetch.bind(window);
+async function fetchFromPortfolioJson(key) {
+    const data = await fetchJson("data/portfolio.json");
+    return data[key];
+}
 
-window.fetch = async function(resource, options) {
-    const url = typeof resource === "string" ? resource : resource.url;
+window.apiAdapter = {
+    async getCards() {
+        try {
+            const data = await fetchJson("data/cards.json");
+            return data.cards || [];
+        } catch {
+            return fetchFromPortfolioJson("cards");
+        }
+    },
 
-    if (!url.startsWith("/api/")) {
-        return originalFetch(resource, options);
+    async getWatchlist() {
+        try {
+            const data = await fetchJson("data/watchlist.json");
+            return data.watchlistCards || [];
+        } catch {
+            return fetchFromPortfolioJson("watchlistCards");
+        }
+    },
+
+    async getOpportunities() {
+        try {
+            const data = await fetchJson("data/opportunities.json");
+            return data.opportunities || [];
+        } catch {
+            return fetchFromPortfolioJson("opportunities");
+        }
+    },
+
+    async getCardDetails() {
+        try {
+            const data = await fetchJson("data/card-details.json");
+            return data.cardDetails || {};
+        } catch {
+            return fetchFromPortfolioJson("cardDetails");
+        }
+    },
+
+    async getCardDetail(cardId) {
+        const details = await this.getCardDetails();
+        return details[String(cardId)];
+    },
+
+    async getPortfolioSummary() {
+        try {
+            const data = await fetchJson("data/portfolio-summary.json");
+            return data.portfolioSummary || {};
+        } catch {
+            return fetchFromPortfolioJson("portfolioSummary");
+        }
+    },
+
+    async getPortfolioHistory() {
+        try {
+            const data = await fetchJson("data/portfolio-history.json");
+            return data.portfolioHistory || [];
+        } catch {
+            return fetchFromPortfolioJson("portfolioHistory");
+        }
+    },
+
+    async getCategorySummary() {
+        try {
+            const data = await fetchJson("data/category-summary.json");
+            return data.categorySummary || [];
+        } catch {
+            return fetchFromPortfolioJson("categorySummary");
+        }
+    },
+
+    async getTopMovers() {
+        try {
+            const data = await fetchJson("data/top-movers.json");
+            return data.topMovers || [];
+        } catch {
+            return fetchFromPortfolioJson("topMovers");
+        }
     }
-
-    const data = await loadPortfolioData();
-
-    let payload;
-
-    if (url === "/api/cards") {
-        payload = data.cards;
-    } else if (url === "/api/category-summary") {
-        payload = data.categorySummary;
-    } else if (url === "/api/portfolio-history") {
-        payload = data.portfolioHistory;
-    } else if (url === "/api/portfolio-summary") {
-        payload = data.portfolioSummary;
-    } else if (url === "/api/top-movers") {
-        payload = data.topMovers;
-    } else if (url === "/api/opportunities") {
-        payload = data.opportunities;
-    } else if (url.startsWith("/api/card-detail/")) {
-        const id = Number(url.split("/").pop());
-        payload = data.cardDetails[String(id)];
-    } else {
-        return new Response(
-            JSON.stringify({ error: "Route statique inconnue" }),
-            { status: 404, headers: { "Content-Type": "application/json" } }
-        );
-    }
-
-    return new Response(JSON.stringify(payload), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-    });
 };

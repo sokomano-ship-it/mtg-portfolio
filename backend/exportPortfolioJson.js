@@ -10,7 +10,20 @@ const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.js
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
 const estimatedPriceHistoryFile = path.join(__dirname, "..", "frontend", "data", "estimated-price-history.json");
 const trackedMarketCardsFile = path.join(__dirname, "data", "trackedMarketCards.json");
+const splitOutputFiles = {
+    cards: path.join(outputDir, "cards.json"),
+    watchlist: path.join(outputDir, "watchlist.json"),
+    opportunities: path.join(outputDir, "opportunities.json"),
+    cardDetails: path.join(outputDir, "card-details.json"),
+    portfolioSummary: path.join(outputDir, "portfolio-summary.json"),
+    portfolioHistory: path.join(outputDir, "portfolio-history.json"),
+    categorySummary: path.join(outputDir, "category-summary.json"),
+    topMovers: path.join(outputDir, "top-movers.json")
+};
 
+function writeJson(file, data) {
+    fs.writeFileSync(file, JSON.stringify(data, null, 2), "utf8");
+}
 function all(sql, params = []) {
     return new Promise((resolve, reject) => {
         db.all(sql, params, (err, rows) => {
@@ -488,22 +501,66 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
     }
 
     fs.mkdirSync(outputDir, { recursive: true });
+    
 
-    fs.writeFileSync(
-        outputFile,
-        JSON.stringify({
-            generatedAt: new Date().toISOString(),
-            cards,
-            watchlistCards,
-            categorySummary,
-            portfolioHistory: portfolioHistoryEstimated,
-            portfolioSummary,
-            topMovers,
-            opportunities,
-            cardDetails
-        }, null, 2),
-        "utf8"
-    );
+
+    const generatedAt = new Date().toISOString();
+
+const fullPortfolio = {
+    generatedAt,
+    cards,
+    watchlistCards,
+    categorySummary,
+    portfolioHistory: portfolioHistoryEstimated,
+    portfolioSummary,
+    topMovers,
+    opportunities,
+    cardDetails
+};
+    
+    // Ancien fichier conservé temporairement pour compatibilité
+writeJson(outputFile, fullPortfolio);
+
+// Nouveaux fichiers séparés
+writeJson(splitOutputFiles.cards, {
+    generatedAt,
+    cards
+});
+
+writeJson(splitOutputFiles.watchlist, {
+    generatedAt,
+    watchlistCards
+});
+
+writeJson(splitOutputFiles.opportunities, {
+    generatedAt,
+    opportunities
+});
+
+writeJson(splitOutputFiles.cardDetails, {
+    generatedAt,
+    cardDetails
+});
+
+writeJson(splitOutputFiles.portfolioSummary, {
+    generatedAt,
+    portfolioSummary
+});
+
+writeJson(splitOutputFiles.portfolioHistory, {
+    generatedAt,
+    portfolioHistory
+});
+
+writeJson(splitOutputFiles.categorySummary, {
+    generatedAt,
+    categorySummary
+});
+
+writeJson(splitOutputFiles.topMovers, {
+    generatedAt,
+    topMovers
+});
 
     console.log(`Export JSON généré : ${outputFile}`);
     console.log(`${cards.length} cartes exportées`);
