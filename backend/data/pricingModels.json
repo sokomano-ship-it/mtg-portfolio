@@ -68,7 +68,7 @@
   },
   "wall of spears|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.9,
+    "marketAnchorPrice": 2.2,
     "byCondition": {}
   },
   "desert|arabian nights|english": {
@@ -109,35 +109,35 @@
   },
   "desert nomads|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.74,
+    "marketAnchorPrice": 4.11,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.6417,
+        "ratioToMarketAnchor": 0.5839,
         "observedPrice": 2.4,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.6631,
+        "ratioToMarketAnchor": 0.6034,
         "observedPrice": 2.48,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6658,
+        "ratioToMarketAnchor": 0.6058,
         "observedPrice": 2.49,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.6631,
+        "ratioToMarketAnchor": 0.6034,
         "observedPrice": 2.48,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.8369,
+        "ratioToMarketAnchor": 0.7616,
         "observedPrice": 3.13,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.869,
+        "ratioToMarketAnchor": 1.7007,
         "observedPrice": 6.99,
         "observationCount": 1
       }
@@ -145,17 +145,48 @@
   },
   "erg raiders (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.05,
-    "byCondition": {}
+    "marketAnchorPrice": 5.94,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.4966,
+        "observedPrice": 2.95,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.5808,
+        "observedPrice": 3.45,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.5051,
+        "observedPrice": 3,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.5471,
+        "observedPrice": 3.25,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.5724,
+        "observedPrice": 3.4,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 0.7997,
+        "observedPrice": 4.75,
+        "observationCount": 1
+      }
+    }
   },
   "ghazban ogre|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.95,
+    "marketAnchorPrice": 3.94,
     "byCondition": {}
   },
   "hasran ogress (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.82,
+    "marketAnchorPrice": 3.09,
     "byCondition": {}
   },
   "hurr jackal|arabian nights|english": {
@@ -170,7 +201,7 @@
   },
   "nafs asp (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.81,
+    "marketAnchorPrice": 10.93,
     "byCondition": {}
   },
   "piety (v.1)|arabian nights|english": {
@@ -231,17 +262,17 @@
   },
   "hymn to tourach (v.1)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.9,
+    "marketAnchorPrice": 0.86,
     "byCondition": {}
   },
   "hymn to tourach (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "hymn to tourach (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.94,
+    "marketAnchorPrice": 0.96,
     "byCondition": {}
   },
   "black knight|foreign black bordered|french": {
@@ -251,35 +282,35 @@
   },
   "black vise|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 12.85,
+    "marketAnchorPrice": 12.74,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.0778,
+        "ratioToMarketAnchor": 0.0785,
         "observedPrice": 1,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.2716,
+        "ratioToMarketAnchor": 0.2739,
         "observedPrice": 3.49,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.3105,
+        "ratioToMarketAnchor": 0.3132,
         "observedPrice": 3.99,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.5058,
+        "ratioToMarketAnchor": 0.5102,
         "observedPrice": 6.5,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.6226,
+        "ratioToMarketAnchor": 0.6279,
         "observedPrice": 8,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.7004,
+        "ratioToMarketAnchor": 0.7064,
         "observedPrice": 9,
         "observationCount": 1
       }
@@ -302,7 +333,7 @@
   },
   "gloom|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 12.86,
+    "marketAnchorPrice": 13.54,
     "byCondition": {}
   },
   "island (v.1)|foreign black bordered|french": {
@@ -312,7 +343,7 @@
   },
   "juggernaut|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.92,
+    "marketAnchorPrice": 3.05,
     "byCondition": {}
   },
   "lightning bolt|foreign black bordered|french": {
@@ -322,35 +353,35 @@
   },
   "birds of paradise|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.58,
+    "marketAnchorPrice": 18.37,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.3229,
+        "ratioToMarketAnchor": 0.3266,
         "observedPrice": 6,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.3229,
+        "ratioToMarketAnchor": 0.3266,
         "observedPrice": 6,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.43,
+        "ratioToMarketAnchor": 0.4349,
         "observedPrice": 7.99,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.4306,
+        "ratioToMarketAnchor": 0.4355,
         "observedPrice": 8,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.753,
+        "ratioToMarketAnchor": 0.7616,
         "observedPrice": 13.99,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.071,
+        "ratioToMarketAnchor": 1.0833,
         "observedPrice": 19.9,
         "observationCount": 1
       }
@@ -358,7 +389,7 @@
   },
   "blue elemental blast|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.29,
+    "marketAnchorPrice": 2.24,
     "byCondition": {}
   },
   "dark ritual|foreign white bordered|french": {
@@ -368,17 +399,17 @@
   },
   "elvish archers|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.28,
+    "marketAnchorPrice": 2.23,
     "byCondition": {}
   },
   "hypnotic specter|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5,
+    "marketAnchorPrice": 4.88,
     "byCondition": {}
   },
   "lightning bolt|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.89,
+    "marketAnchorPrice": 1.81,
     "byCondition": {}
   },
   "lord of the pit|foreign white bordered|french": {
@@ -419,35 +450,35 @@
   },
   "meekstone|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.69,
+    "marketAnchorPrice": 8.47,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.2877,
+        "ratioToMarketAnchor": 0.2952,
         "observedPrice": 2.5,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.748,
+        "ratioToMarketAnchor": 0.7674,
         "observedPrice": 6.5,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.5754,
+        "ratioToMarketAnchor": 0.5903,
         "observedPrice": 5,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.5178,
+        "ratioToMarketAnchor": 0.5313,
         "observedPrice": 4.5,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.5167,
+        "ratioToMarketAnchor": 0.5301,
         "observedPrice": 4.49,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.0345,
+        "ratioToMarketAnchor": 1.0614,
         "observedPrice": 8.99,
         "observationCount": 1
       }
@@ -460,35 +491,35 @@
   },
   "nevinyrral's disk|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.22,
+    "marketAnchorPrice": 5.94,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.3055,
+        "ratioToMarketAnchor": 0.3199,
         "observedPrice": 1.9,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.1608,
+        "ratioToMarketAnchor": 0.1684,
         "observedPrice": 1,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.3698,
+        "ratioToMarketAnchor": 0.3872,
         "observedPrice": 2.3,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.3135,
+        "ratioToMarketAnchor": 0.3283,
         "observedPrice": 1.95,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.6431,
+        "ratioToMarketAnchor": 0.6734,
         "observedPrice": 4,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.4453,
+        "ratioToMarketAnchor": 1.5135,
         "observedPrice": 8.99,
         "observationCount": 1
       }
@@ -496,35 +527,35 @@
   },
   "red elemental blast|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.59,
+    "marketAnchorPrice": 5.89,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.7138,
+        "ratioToMarketAnchor": 0.6774,
         "observedPrice": 3.99,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.5367,
+        "ratioToMarketAnchor": 0.5093,
         "observedPrice": 3,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6261,
+        "ratioToMarketAnchor": 0.5942,
         "observedPrice": 3.5,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.712,
+        "ratioToMarketAnchor": 0.6757,
         "observedPrice": 3.98,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.7156,
+        "ratioToMarketAnchor": 0.6791,
         "observedPrice": 4,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.7138,
+        "ratioToMarketAnchor": 0.6774,
         "observedPrice": 3.99,
         "observationCount": 1
       }
@@ -532,40 +563,40 @@
   },
   "savannah lions|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.73,
+    "marketAnchorPrice": 6.48,
     "byCondition": {}
   },
   "serra angel|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.14,
+    "marketAnchorPrice": 2.39,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.0935,
+        "ratioToMarketAnchor": 0.0837,
         "observedPrice": 0.2,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.0421,
+        "ratioToMarketAnchor": 0.0377,
         "observedPrice": 0.09,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.1636,
+        "ratioToMarketAnchor": 0.1464,
         "observedPrice": 0.35,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.2196,
+        "ratioToMarketAnchor": 0.1967,
         "observedPrice": 0.47,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.2336,
+        "ratioToMarketAnchor": 0.2092,
         "observedPrice": 0.5,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.6262,
+        "ratioToMarketAnchor": 0.5607,
         "observedPrice": 1.34,
         "observationCount": 1
       }
@@ -573,35 +604,35 @@
   },
   "sol ring|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.96,
+    "marketAnchorPrice": 9.44,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.502,
+        "ratioToMarketAnchor": 0.5297,
         "observedPrice": 5,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.4016,
+        "ratioToMarketAnchor": 0.4237,
         "observedPrice": 4,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6526,
+        "ratioToMarketAnchor": 0.6886,
         "observedPrice": 6.5,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.497,
+        "ratioToMarketAnchor": 0.5244,
         "observedPrice": 4.95,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.9036,
+        "ratioToMarketAnchor": 0.9534,
         "observedPrice": 9,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.6064,
+        "ratioToMarketAnchor": 1.6949,
         "observedPrice": 16,
         "observationCount": 1
       }
@@ -609,35 +640,35 @@
   },
   "sol ring|foreign white bordered|italian": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.96,
+    "marketAnchorPrice": 9.44,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.3976,
+        "ratioToMarketAnchor": 0.4195,
         "observedPrice": 3.96,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.4016,
+        "ratioToMarketAnchor": 0.4237,
         "observedPrice": 4,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.4518,
+        "ratioToMarketAnchor": 0.4767,
         "observedPrice": 4.5,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.5522,
+        "ratioToMarketAnchor": 0.5826,
         "observedPrice": 5.5,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.6526,
+        "ratioToMarketAnchor": 0.6886,
         "observedPrice": 6.5,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.004,
+        "ratioToMarketAnchor": 1.0593,
         "observedPrice": 10,
         "observationCount": 1
       }
@@ -645,35 +676,35 @@
   },
   "sorceress queen|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.3,
+    "marketAnchorPrice": 3.02,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.0758,
+        "ratioToMarketAnchor": 0.0828,
         "observedPrice": 0.25,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.0727,
+        "ratioToMarketAnchor": 0.0795,
         "observedPrice": 0.24,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.2121,
+        "ratioToMarketAnchor": 0.2318,
         "observedPrice": 0.7,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.303,
+        "ratioToMarketAnchor": 0.3311,
         "observedPrice": 1,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.5455,
+        "ratioToMarketAnchor": 0.596,
         "observedPrice": 1.8,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.303,
+        "ratioToMarketAnchor": 0.3311,
         "observedPrice": 1,
         "observationCount": 1
       }
@@ -681,17 +712,17 @@
   },
   "the rack|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.54,
+    "marketAnchorPrice": 1.39,
     "byCondition": {}
   },
   "verduran enchantress|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.68,
+    "marketAnchorPrice": 2.52,
     "byCondition": {}
   },
   "hypnotic specter|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.64,
+    "marketAnchorPrice": 5.75,
     "byCondition": {}
   },
   "royal assassin|fourth edition|french": {
@@ -727,7 +758,7 @@
   },
   "avoid fate|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.58,
+    "marketAnchorPrice": 7.74,
     "byCondition": {}
   },
   "relic bind|legends|english": {
@@ -901,35 +932,35 @@
   },
   "strip mine|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.16,
+    "marketAnchorPrice": 6.28,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.3977,
+        "ratioToMarketAnchor": 0.3901,
         "observedPrice": 2.45,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.4545,
+        "ratioToMarketAnchor": 0.4459,
         "observedPrice": 2.8,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.4854,
+        "ratioToMarketAnchor": 0.4761,
         "observedPrice": 2.99,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.7305,
+        "ratioToMarketAnchor": 0.7166,
         "observedPrice": 4.5,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.8912,
+        "ratioToMarketAnchor": 0.8742,
         "observedPrice": 5.49,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.974,
+        "ratioToMarketAnchor": 0.9554,
         "observedPrice": 6,
         "observationCount": 1
       }
@@ -937,35 +968,35 @@
   },
   "armageddon|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 13.53,
+    "marketAnchorPrice": 12.89,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.4435,
+        "ratioToMarketAnchor": 0.4655,
         "observedPrice": 6,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.51,
+        "ratioToMarketAnchor": 0.5353,
         "observedPrice": 6.9,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6282,
+        "ratioToMarketAnchor": 0.6594,
         "observedPrice": 8.5,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.7073,
+        "ratioToMarketAnchor": 0.7424,
         "observedPrice": 9.57,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.7391,
+        "ratioToMarketAnchor": 0.7758,
         "observedPrice": 10,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.0347,
+        "ratioToMarketAnchor": 1.0861,
         "observedPrice": 14,
         "observationCount": 1
       }
@@ -973,17 +1004,17 @@
   },
   "birds of paradise|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.58,
+    "marketAnchorPrice": 18.37,
     "byCondition": {}
   },
   "black vise|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.03,
+    "marketAnchorPrice": 1.92,
     "byCondition": {}
   },
   "blue elemental blast|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.29,
+    "marketAnchorPrice": 2.24,
     "byCondition": {}
   },
   "dark ritual|revised|english": {
@@ -993,17 +1024,17 @@
   },
   "demonic tutor|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 38.48,
+    "marketAnchorPrice": 37.94,
     "byCondition": {}
   },
   "fork|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 21.54,
+    "marketAnchorPrice": 20.05,
     "byCondition": {}
   },
   "hypnotic specter|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5,
+    "marketAnchorPrice": 4.88,
     "byCondition": {}
   },
   "nightmare|revised|english": {
@@ -1013,50 +1044,50 @@
   },
   "royal assassin|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.53,
+    "marketAnchorPrice": 6.52,
     "byCondition": {}
   },
   "sengir vampire|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.66,
+    "marketAnchorPrice": 1.42,
     "byCondition": {}
   },
   "taiga|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 263.15,
+    "marketAnchorPrice": 257.15,
     "byCondition": {}
   },
   "verduran enchantress|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.68,
+    "marketAnchorPrice": 2.52,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.3731,
+        "ratioToMarketAnchor": 0.3968,
         "observedPrice": 1,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.4664,
+        "ratioToMarketAnchor": 0.496,
         "observedPrice": 1.25,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.556,
+        "ratioToMarketAnchor": 0.5913,
         "observedPrice": 1.49,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.556,
+        "ratioToMarketAnchor": 0.5913,
         "observedPrice": 1.49,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.7463,
+        "ratioToMarketAnchor": 0.7937,
         "observedPrice": 2,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.0448,
+        "ratioToMarketAnchor": 1.1111,
         "observedPrice": 2.8,
         "observationCount": 1
       }
@@ -1141,17 +1172,17 @@
   },
   "llanowar elves|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.84,
+    "marketAnchorPrice": 10.65,
     "byCondition": {}
   },
   "sinkhole|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 17.88,
+    "marketAnchorPrice": 19,
     "byCondition": {}
   },
   "manabarbs|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.39,
+    "marketAnchorPrice": 4.42,
     "byCondition": {}
   },
   "fireball|foreign black bordered|french": {
@@ -1187,22 +1218,22 @@
   },
   "goblin king|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.84,
+    "marketAnchorPrice": 4.96,
     "byCondition": {}
   },
   "hammerheim|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 15.96,
+    "marketAnchorPrice": 15.58,
     "byCondition": {}
   },
   "wheel of fortune|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 270.2,
+    "marketAnchorPrice": 260.48,
     "byCondition": {}
   },
   "disintegrate|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.69,
+    "marketAnchorPrice": 1.73,
     "byCondition": {}
   },
   "detonate|antiquities|english": {
@@ -1212,35 +1243,35 @@
   },
   "ankh of mishra|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.57,
+    "marketAnchorPrice": 7.55,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.7926,
+        "ratioToMarketAnchor": 0.7947,
         "observedPrice": 6,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.5284,
+        "ratioToMarketAnchor": 0.5298,
         "observedPrice": 4,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6605,
+        "ratioToMarketAnchor": 0.6623,
         "observedPrice": 5,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.7926,
+        "ratioToMarketAnchor": 0.7947,
         "observedPrice": 6,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.9181,
+        "ratioToMarketAnchor": 0.9205,
         "observedPrice": 6.95,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.0568,
+        "ratioToMarketAnchor": 1.0596,
         "observedPrice": 8,
         "observationCount": 1
       }
@@ -1253,7 +1284,7 @@
   },
   "red elemental blast|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.36,
+    "marketAnchorPrice": 5.29,
     "byCondition": {}
   },
   "ball lightning|renaissance|french": {
@@ -1263,7 +1294,7 @@
   },
   "chain lightning|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.28,
+    "marketAnchorPrice": 9.55,
     "byCondition": {}
   },
   "force of will|alliances|french": {
@@ -1304,30 +1335,30 @@
   },
   "elvish spirit guide|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.19,
+    "marketAnchorPrice": 3.1,
     "byCondition": {
       "PL": {
-        "ratioToMarketAnchor": 0.5298,
+        "ratioToMarketAnchor": 0.5452,
         "observedPrice": 1.69,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6238,
+        "ratioToMarketAnchor": 0.6419,
         "observedPrice": 1.99,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.627,
+        "ratioToMarketAnchor": 0.6452,
         "observedPrice": 2,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.6583,
+        "ratioToMarketAnchor": 0.6774,
         "observedPrice": 2.1,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.7837,
+        "ratioToMarketAnchor": 0.8065,
         "observedPrice": 2.5,
         "observationCount": 1
       }
@@ -1340,7 +1371,7 @@
   },
   "lim-dul's vault|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.88,
+    "marketAnchorPrice": 3.92,
     "byCondition": {}
   },
   "heart of yavimaya|alliances|french": {
@@ -1386,7 +1417,7 @@
   },
   "army of allah (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 17.94,
+    "marketAnchorPrice": 23.72,
     "byCondition": {}
   },
   "jihad|arabian nights|english": {
@@ -1456,35 +1487,35 @@
   },
   "sol ring|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.96,
+    "marketAnchorPrice": 9.44,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.501,
+        "ratioToMarketAnchor": 0.5286,
         "observedPrice": 4.99,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.6024,
+        "ratioToMarketAnchor": 0.6356,
         "observedPrice": 6,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6024,
+        "ratioToMarketAnchor": 0.6356,
         "observedPrice": 6,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.9538,
+        "ratioToMarketAnchor": 1.0064,
         "observedPrice": 9.5,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 1.2048,
+        "ratioToMarketAnchor": 1.2712,
         "observedPrice": 12,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 2.5,
+        "ratioToMarketAnchor": 2.6377,
         "observedPrice": 24.9,
         "observationCount": 1
       }
@@ -1492,30 +1523,30 @@
   },
   "dust to dust|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 12.96,
+    "marketAnchorPrice": 12.52,
     "byCondition": {
       "PL": {
-        "ratioToMarketAnchor": 0.8488,
+        "ratioToMarketAnchor": 0.8786,
         "observedPrice": 11,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.7253,
+        "ratioToMarketAnchor": 0.7508,
         "observedPrice": 9.4,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.7716,
+        "ratioToMarketAnchor": 0.7987,
         "observedPrice": 10,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.9259,
+        "ratioToMarketAnchor": 0.9585,
         "observedPrice": 12,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.1181,
+        "ratioToMarketAnchor": 1.1573,
         "observedPrice": 14.49,
         "observationCount": 1
       }
@@ -1523,7 +1554,7 @@
   },
   "aeolipile|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.21,
+    "marketAnchorPrice": 3.15,
     "byCondition": {}
   },
   "crusade|foreign white bordered|french": {
@@ -1553,8 +1584,39 @@
   },
   "swords to plowshares|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.63,
-    "byCondition": {}
+    "marketAnchorPrice": 6.19,
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.2827,
+        "observedPrice": 1.75,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.2423,
+        "observedPrice": 1.5,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.2682,
+        "observedPrice": 1.66,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.3635,
+        "observedPrice": 2.25,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.3215,
+        "observedPrice": 1.99,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 0.727,
+        "observedPrice": 4.5,
+        "observationCount": 1
+      }
+    }
   },
   "preacher|the dark|english": {
     "modelType": "standard_market_anchor",
@@ -1563,12 +1625,12 @@
   },
   "swords to plowshares|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.63,
+    "marketAnchorPrice": 6.19,
     "byCondition": {}
   },
   "holy light|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.81,
+    "marketAnchorPrice": 5.12,
     "byCondition": {}
   },
   "witch hunter|the dark|english": {
@@ -1578,40 +1640,40 @@
   },
   "serra angel|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.14,
+    "marketAnchorPrice": 2.39,
     "byCondition": {}
   },
   "savannah lions|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.73,
+    "marketAnchorPrice": 6.48,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.5218,
+        "ratioToMarketAnchor": 0.4614,
         "observedPrice": 2.99,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.5236,
+        "ratioToMarketAnchor": 0.463,
         "observedPrice": 3,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.5585,
+        "ratioToMarketAnchor": 0.4938,
         "observedPrice": 3.2,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.7766,
+        "ratioToMarketAnchor": 0.6867,
         "observedPrice": 4.45,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.9913,
+        "ratioToMarketAnchor": 0.8765,
         "observedPrice": 5.68,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.3962,
+        "ratioToMarketAnchor": 1.2346,
         "observedPrice": 8,
         "observationCount": 1
       }
@@ -1619,7 +1681,7 @@
   },
   "armageddon|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 13.53,
+    "marketAnchorPrice": 12.89,
     "byCondition": {}
   },
   "land tax|renaissance|french": {
@@ -1737,7 +1799,7 @@
   },
   "divine offering|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.56,
+    "marketAnchorPrice": 1.52,
     "byCondition": {}
   },
   "balance|fourth edition|french": {
@@ -1783,35 +1845,35 @@
   },
   "pendelhaven|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 20.49,
+    "marketAnchorPrice": 20.6,
     "byCondition": {}
   },
   "sylvan library|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 39.06,
+    "marketAnchorPrice": 40.91,
     "byCondition": {
       "PL": {
-        "ratioToMarketAnchor": 0.5888,
+        "ratioToMarketAnchor": 0.5622,
         "observedPrice": 23,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6388,
+        "ratioToMarketAnchor": 0.6099,
         "observedPrice": 24.95,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.6912,
+        "ratioToMarketAnchor": 0.66,
         "observedPrice": 27,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.7097,
+        "ratioToMarketAnchor": 0.6776,
         "observedPrice": 27.72,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.8705,
+        "ratioToMarketAnchor": 0.8311,
         "observedPrice": 34,
         "observationCount": 1
       }
@@ -1820,7 +1882,38 @@
   "berserk|unlimited|english": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 101.58,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.886,
+        "observedPrice": 90,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.6399,
+        "observedPrice": 65,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.7063,
+        "observedPrice": 71.75,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 0.886,
+        "observedPrice": 90,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 0.8663,
+        "observedPrice": 88,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.2699,
+        "observedPrice": 129,
+        "observationCount": 1
+      }
+    }
   },
   "llanowar elves|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
@@ -1865,35 +1958,35 @@
   },
   "sol ring|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 34.26,
+    "marketAnchorPrice": 35.52,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.2919,
+        "ratioToMarketAnchor": 0.2815,
         "observedPrice": 10,
         "observationCount": 2
       },
       "PL": {
-        "ratioToMarketAnchor": 0.3795,
+        "ratioToMarketAnchor": 0.366,
         "observedPrice": 13,
         "observationCount": 2
       },
       "LP": {
-        "ratioToMarketAnchor": 0.5835,
+        "ratioToMarketAnchor": 0.5628,
         "observedPrice": 19.99,
         "observationCount": 2
       },
       "GD": {
-        "ratioToMarketAnchor": 0.7005,
+        "ratioToMarketAnchor": 0.6757,
         "observedPrice": 24,
         "observationCount": 2
       },
       "EX": {
-        "ratioToMarketAnchor": 0.8757,
+        "ratioToMarketAnchor": 0.8446,
         "observedPrice": 30,
         "observationCount": 2
       },
       "NM": {
-        "ratioToMarketAnchor": 1.7513,
+        "ratioToMarketAnchor": 1.6892,
         "observedPrice": 60,
         "observationCount": 2
       }
@@ -1906,7 +1999,7 @@
   },
   "strip mine (v.3)|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 25.51,
+    "marketAnchorPrice": 23.44,
     "byCondition": {}
   },
   "regrowth|foreign black bordered|french": {
@@ -1974,35 +2067,35 @@
   },
   "flying men|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.91,
+    "marketAnchorPrice": 10.42,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.7064,
+        "ratioToMarketAnchor": 0.6718,
         "observedPrice": 7,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.8073,
+        "ratioToMarketAnchor": 0.7678,
         "observedPrice": 8,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.8073,
+        "ratioToMarketAnchor": 0.7678,
         "observedPrice": 8,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.9657,
+        "ratioToMarketAnchor": 0.9184,
         "observedPrice": 9.57,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 1.0091,
+        "ratioToMarketAnchor": 0.9597,
         "observedPrice": 10,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 1.3118,
+        "ratioToMarketAnchor": 1.2476,
         "observedPrice": 13,
         "observationCount": 1
       }
@@ -2010,7 +2103,7 @@
   },
   "braingeyser|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.09,
+    "marketAnchorPrice": 11.13,
     "byCondition": {}
   },
   "lord of atlantis|foreign white bordered|french": {
@@ -2027,45 +2120,45 @@
   },
   "tolaria|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.69,
+    "marketAnchorPrice": 8.51,
     "byCondition": {}
   },
   "boomerang|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.29,
+    "marketAnchorPrice": 2.59,
     "byCondition": {}
   },
   "clone|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1,
+    "marketAnchorPrice": 0.98,
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.02,
+        "ratioToMarketAnchor": 0.0204,
         "observedPrice": 0.02,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.05,
+        "ratioToMarketAnchor": 0.051,
         "observedPrice": 0.05,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.09,
+        "ratioToMarketAnchor": 0.0918,
         "observedPrice": 0.09,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.2,
+        "ratioToMarketAnchor": 0.2041,
         "observedPrice": 0.2,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.2,
+        "ratioToMarketAnchor": 0.2041,
         "observedPrice": 0.2,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.38,
+        "ratioToMarketAnchor": 0.3878,
         "observedPrice": 0.38,
         "observationCount": 1
       }
@@ -2073,12 +2166,12 @@
   },
   "svyelunite temple|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.06,
+    "marketAnchorPrice": 2.02,
     "byCondition": {}
   },
   "unstable mutation|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.9,
+    "marketAnchorPrice": 3.64,
     "byCondition": {}
   },
   "mahamoti djinn|revised|english": {
@@ -2088,7 +2181,7 @@
   },
   "counterspell|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.21,
+    "marketAnchorPrice": 3.46,
     "byCondition": {}
   },
   "serendib djinn|arabian nights|french": {
@@ -2098,35 +2191,35 @@
   },
   "counterspell|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.21,
+    "marketAnchorPrice": 3.46,
     "byCondition": {}
   },
   "__globalConditionModel": {
     "modelType": "global_condition_market_anchor",
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.4653,
-        "observationCount": 76
+        "ratioToMarketAnchor": 0.7307,
+        "observationCount": 87
       },
       "PL": {
-        "ratioToMarketAnchor": 0.5035,
-        "observationCount": 91
+        "ratioToMarketAnchor": 0.6769,
+        "observationCount": 102
       },
       "LP": {
-        "ratioToMarketAnchor": 0.5988,
-        "observationCount": 91
+        "ratioToMarketAnchor": 0.7804,
+        "observationCount": 102
       },
       "GD": {
-        "ratioToMarketAnchor": 0.6822,
-        "observationCount": 91
+        "ratioToMarketAnchor": 0.8387,
+        "observationCount": 102
       },
       "EX": {
-        "ratioToMarketAnchor": 0.8308,
-        "observationCount": 91
+        "ratioToMarketAnchor": 1.002,
+        "observationCount": 102
       },
       "NM": {
-        "ratioToMarketAnchor": 1.3307,
-        "observationCount": 91
+        "ratioToMarketAnchor": 1.5673,
+        "observationCount": 102
       }
     }
   }
