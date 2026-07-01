@@ -370,7 +370,7 @@ function renderCards(cards) {
 
 <td class="price"><strong>${card.estimatedPrice ? formatEuro(card.estimatedPrice) : "-"}</strong></td>
 <td>${card.pricingConfidence !== null && card.pricingConfidence !== undefined ? `${card.pricingConfidence} %` : "-"}</td>
-<td><span class="muted">${escapeHtml(card.pricingModel || "-")}</span></td>
+
 <td>${card.trendPrice ? formatEuro(card.trendPrice) : "-"}</td>
 <td>${card.avg30 ? formatEuro(card.avg30) : "-"}</td>
 <td>${card.avg7 ? formatEuro(card.avg7) : "-"}</td>
