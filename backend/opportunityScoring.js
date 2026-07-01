@@ -33,27 +33,41 @@ function deduplicateNmOpportunities(cards) {
 
     cards.forEach(card => {
         const key = cardIdentityKey(card);
+        const qty = number(card.quantityOwned);
+        const isOwned = qty > 0 || card.owned === true;
 
         if (!map.has(key)) {
             map.set(key, {
                 ...card,
-                quantityOwned: 1,
-                ownedStatesSet: new Set([card.etat || ""])
+                quantityOwned: isOwned ? Math.max(qty, 1) : 0,
+                ownedStatesSet: new Set(isOwned && card.etat ? [card.etat] : [])
             });
         } else {
             const existing = map.get(key);
-            existing.quantityOwned += 1;
-            existing.ownedStatesSet.add(card.etat || "");
+
+            if (isOwned) {
+                existing.quantityOwned += Math.max(qty, 1);
+                if (card.etat) {
+                    existing.ownedStatesSet.add(card.etat);
+                }
+            }
         }
     });
 
-    return [...map.values()].map(card => ({
-        ...card,
-        quantityOwned: number(card.quantityOwned),
-        owned: number(card.quantityOwned) > 0,
-        ownedLabel: number(card.quantityOwned) > 0 ? "Oui" : "Non",
-        ownedStates: [...card.ownedStatesSet].filter(Boolean).join(", ")
-    }));
+    return [...map.values()].map(card => {
+        const quantityOwned = number(card.quantityOwned);
+        const owned = quantityOwned > 0;
+
+        return {
+            ...card,
+            quantityOwned,
+            owned,
+            ownedLabel: owned ? "Oui" : "Non",
+            ownedStates: owned
+                ? [...card.ownedStatesSet].filter(Boolean).join(", ")
+                : "-"
+        };
+    });
 }
 
 function computeNmOpportunity(card, historyMap) {

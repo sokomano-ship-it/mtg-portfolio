@@ -568,45 +568,43 @@ function renderOpportunities() {
         const details = [reasons, warnings].filter(Boolean).join("<br>");
 
         tbody.innerHTML += `
-            <tr>
-                <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
-                <td>${escapeHtml(card.edition || "-")}</td>
-                <td>${escapeHtml(card.version || "-")}</td>
-                <td>${escapeHtml(card.langue || "-")}</td>
+    <tr>
+        <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
+        <td>${escapeHtml(card.edition || "-")}</td>
+        <td>${escapeHtml(card.langue || "-")}</td>
 
-                <td>${escapeHtml(card.ownedLabel || "-")}</td>
-                <td>${Number(card.quantityOwned || 0)}</td>
-                <td>${escapeHtml(card.ownedStates || "-")}</td>
+        <td>${escapeHtml(card.ownedLabel || "Non")}</td>
+        <td>${Number(card.quantityOwned || 0)}</td>
+        <td>${escapeHtml(card.ownedStates || "-")}</td>
 
-                <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
-                <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
-                <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
+        <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
+        <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
+        <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
+        <td class="price">${formatEuro(card.avg7)}</td>
+        <td class="price">${formatEuro(card.avg30)}</td>
 
-                <td class="price">${formatEuro(card.avg7)}</td>
-                <td class="price">${formatEuro(card.avg30)}</td>
+        <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
+        <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
 
-                <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
-                <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
+        <td>
+            <strong>${Number(card.buyProbability || 0)} %</strong><br>
+            <span class="muted">${escapeHtml(card.decision || "")}</span>
+        </td>
 
-                <td>
-                    <strong>${Number(card.buyProbability || 0)} %</strong><br>
-                    <span class="muted">${escapeHtml(card.decision || "")}</span>
-                </td>
+        <td><strong>${Number(card.timingScore || 0)} %</strong></td>
+        <td><strong>${Number(card.remainingPotential || 0)} %</strong></td>
 
-                <td><strong>${Number(card.timingScore || 0)} %</strong></td>
-                <td><strong>${Number(card.remainingPotential || 0)} %</strong></td>
+        <td>
+            <span class="muted">
+                Tendance ${Number(card.trendQuality || 0)} %<br>
+                Momentum ${Number(card.momentumQuality || 0)} %<br>
+                Risque ×${Number(card.riskMultiplier || 0)}
+            </span>
+        </td>
 
-                <td>
-                    <span class="muted">
-                        Tendance ${Number(card.trendQuality || 0)} %<br>
-                        Momentum ${Number(card.momentumQuality || 0)} %<br>
-                        Risque ×${Number(card.riskMultiplier || 0)}
-                    </span>
-                </td>
-
-                <td>${details || "-"}</td>
-            </tr>
-        `;
+        <td>${details || "-"}</td>
+    </tr>
+`;
     });
 
     updateOpportunityHeaderState();
