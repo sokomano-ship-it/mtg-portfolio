@@ -579,6 +579,9 @@ function renderOpportunities() {
                 <td>${escapeHtml(card.ownedStates || "-")}</td>
 
                 <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
+                <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
+                <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
+
                 <td class="price">${formatEuro(card.avg7)}</td>
                 <td class="price">${formatEuro(card.avg30)}</td>
 
