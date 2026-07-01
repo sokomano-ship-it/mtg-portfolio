@@ -20,13 +20,14 @@
 
     "export:json": "node backend/exportPortfolioJson.js",
 
-    "build:pages": "npm run update:daily && npm run update:tracked && npm run manual:prices && npm run snapshot:prices && npm run analyze:history && npm run reference:catalog && npm run train:pricing && npm run simulate:pricing && npm run snapshot:estimated && npm run export:json",
+    "build:pages": "npm run update:daily && npm run resolve:tracked && npm run update:tracked && npm run manual:prices && npm run snapshot:prices && npm run analyze:history && npm run reference:catalog && npm run train:pricing && npm run simulate:pricing && npm run snapshot:estimated && npm run export:json",
     "sync:collection": "node backend/importExcel.js && node backend/enrichScryfall.js && npm run build:pages",
 
     "send:alerts": "node backend/sendAlerts.js",
     "manual:prices:server": "node backend/manualPricesServer.js",
     "snapshot:estimated": "node backend/saveEstimatedPriceSnapshot.js",
-    "update:tracked": "node backend/updateTrackedMarketCardsPrices.js"
+    "resolve:tracked": "node backend/resolveTrackedMarketCards.js",
+"update:tracked": "node backend/updateTrackedMarketCardsPrices.js"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
