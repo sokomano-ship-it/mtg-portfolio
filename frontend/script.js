@@ -661,8 +661,6 @@ function compareValues(aValue, bValue, direction) {
 
 
 
-let cardDetailChart = null;
-
 
 
 function closeCardDetail() {
