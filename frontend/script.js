@@ -564,6 +564,32 @@ function getDecisionClass(decision, score) {
     return "decision-neutral";
 }
 
+function getBuyingAction(card) {
+    const discount = Number(card.discountPct || 0);
+    const score = Number(card.buyProbability || 0);
+
+    if (discount <= -15 && score >= 75) return "⭐ Exceptionnel";
+    if (discount <= -10 && score >= 65) return "🟢 Acheter";
+    if (discount <= -5 && score >= 55) return "🟡 Observer";
+
+    return "⚪ Attendre";
+}
+
+function getBuyingActionClass(card) {
+    const action = getBuyingAction(card);
+
+    if (action.includes("Exceptionnel")) return "decision-buy";
+    if (action.includes("Acheter")) return "decision-buy";
+    if (action.includes("Observer")) return "decision-watch";
+
+    return "decision-neutral";
+}
+
+function formatDiscount(value) {
+    const number = Number(value || 0);
+    return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
+}
+
 function renderOpportunities() {
     const tbody = document.getElementById("opportunities-body");
     if (!tbody) return;
@@ -611,17 +637,13 @@ function renderOpportunities() {
         <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
         <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
 
-        <td class="${performanceClass(card.remainingPotential)}">
-            ${formatPercent(card.remainingPotential)}
+        <td class="${Number(card.discountPct || 0) < 0 ? "score-positive" : "score-negative"}">
+            ${formatDiscount(card.discountPct)}
         </td>
 
         <td>
-            <strong>${Number(card.buyProbability || 0)} %</strong>
-        </td>
-
-        <td>
-            <span class="${getDecisionClass(card.decision, card.buyProbability)}" title="${escapeHtml(card.explanation || "")}">
-                ${compactDecision(card.decision, card.buyProbability)}
+            <span class="${getBuyingActionClass(card)}" title="${escapeHtml(card.explanation || "")}">
+                ${getBuyingAction(card)}
             </span>
         </td>
     </tr>

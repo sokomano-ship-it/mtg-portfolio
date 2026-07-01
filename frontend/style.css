@@ -1033,3 +1033,70 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     background: rgba(160, 160, 160, 0.14);
     color: #ccc;
 }
+
+#opportunities table {
+    font-size: 0.82rem;
+    table-layout: auto;
+}
+
+#opportunities th,
+#opportunities td {
+    padding: 4px 7px;
+    line-height: 1.15;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+#opportunities td:first-child {
+    white-space: normal;
+    min-width: 130px;
+    max-width: 210px;
+}
+
+.opportunity-subline {
+    font-size: 0.72rem;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+.owned-yes {
+    color: #7ddc7a;
+    font-weight: 700;
+}
+
+.owned-no {
+    color: #ffb86c;
+    font-weight: 700;
+}
+
+.decision-buy,
+.decision-watch,
+.decision-possible,
+.decision-neutral {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.decision-buy {
+    background: rgba(46, 204, 113, 0.16);
+    color: #7ddc7a;
+}
+
+.decision-watch {
+    background: rgba(241, 196, 15, 0.16);
+    color: #f4d35e;
+}
+
+.decision-possible {
+    background: rgba(52, 152, 219, 0.16);
+    color: #7ec8ff;
+}
+
+.decision-neutral {
+    background: rgba(160, 160, 160, 0.14);
+    color: #ccc;
+}
