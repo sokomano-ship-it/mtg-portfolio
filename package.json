@@ -25,7 +25,7 @@
 
     "send:alerts": "node backend/sendAlerts.js",
     "manual:prices:server": "node backend/manualPricesServer.js",
-    "snapshot:estimated": "node backend/saveEstimatedPriceSnapshot.js",
+    "snapshot:estimated": "node backend/saveEstimatedPriceSnapshot.js"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
