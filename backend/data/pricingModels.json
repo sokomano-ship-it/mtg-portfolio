@@ -1995,7 +1995,38 @@
   "force of nature|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 9.32,
-    "byCondition": {}
+    "byCondition": {
+      "PO": {
+        "ratioToMarketAnchor": 0.3219,
+        "observedPrice": 3,
+        "observationCount": 1
+      },
+      "PL": {
+        "ratioToMarketAnchor": 0.3433,
+        "observedPrice": 3.2,
+        "observationCount": 1
+      },
+      "LP": {
+        "ratioToMarketAnchor": 0.7457,
+        "observedPrice": 6.95,
+        "observationCount": 1
+      },
+      "GD": {
+        "ratioToMarketAnchor": 1.0676,
+        "observedPrice": 9.95,
+        "observationCount": 1
+      },
+      "EX": {
+        "ratioToMarketAnchor": 2.6717,
+        "observedPrice": 24.9,
+        "observationCount": 1
+      },
+      "NM": {
+        "ratioToMarketAnchor": 1.9313,
+        "observedPrice": 18,
+        "observationCount": 1
+      }
+    }
   },
   "strip mine (v.3)|antiquities|english": {
     "modelType": "standard_market_anchor",
@@ -2198,28 +2229,28 @@
     "modelType": "global_condition_market_anchor",
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.7307,
-        "observationCount": 87
+        "ratioToMarketAnchor": 0.7215,
+        "observationCount": 89
       },
       "PL": {
-        "ratioToMarketAnchor": 0.6769,
-        "observationCount": 102
+        "ratioToMarketAnchor": 0.6705,
+        "observationCount": 104
       },
       "LP": {
-        "ratioToMarketAnchor": 0.7804,
-        "observationCount": 102
+        "ratioToMarketAnchor": 0.7797,
+        "observationCount": 104
       },
       "GD": {
-        "ratioToMarketAnchor": 0.8387,
-        "observationCount": 102
+        "ratioToMarketAnchor": 0.8431,
+        "observationCount": 104
       },
       "EX": {
-        "ratioToMarketAnchor": 1.002,
-        "observationCount": 102
+        "ratioToMarketAnchor": 1.0341,
+        "observationCount": 104
       },
       "NM": {
-        "ratioToMarketAnchor": 1.5673,
-        "observationCount": 102
+        "ratioToMarketAnchor": 1.5743,
+        "observationCount": 104
       }
     }
   }

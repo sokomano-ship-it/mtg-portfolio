@@ -170,6 +170,15 @@ async function main() {
         (sum, card) => sum + Number(card.estimatedPrice ?? card.prixEtat ?? 0),
         0
     );
+    const todayDate = new Date().toISOString().slice(0, 10);
+
+const portfolioHistoryEstimated = [
+    ...portfolioHistory.filter(row => row.date !== todayDate),
+    {
+        date: todayDate,
+        totalValue: Number(estimatedTotalValue.toFixed(2))
+    }
+];
 
     const valuedCardsCount = cards.filter(card => Number(card.estimatedPrice || 0) > 0).length;
     const missingEstimatedCardsCount = cards.length - valuedCardsCount;
@@ -198,6 +207,7 @@ async function main() {
 
     const portfolioSummary = {
         today: Number(today.toFixed(2)),
+estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
         yesterday: Number(yesterday.toFixed(2)),
         change: Number(change.toFixed(2)),
         changePct: Number(changePct.toFixed(2)),
@@ -387,7 +397,7 @@ async function main() {
             generatedAt: new Date().toISOString(),
             cards,
             categorySummary,
-            portfolioHistory,
+            portfolioHistory: portfolioHistoryEstimated,
             portfolioSummary,
             topMovers,
             opportunities,

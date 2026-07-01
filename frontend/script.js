@@ -397,8 +397,8 @@ async function loadPortfolioHistory() {
             labels: history.map(row => row.date),
             datasets: [
                 {
-                    label: "Valeur portefeuille prix-état (€)",
-                    data: history.map(row => row.totalValue),
+                    label: "Valeur estimée portefeuille (€)",
+data: history.map(row => row.totalValue),
                     tension: 0.3
                 }
             ]
