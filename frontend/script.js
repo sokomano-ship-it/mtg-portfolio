@@ -542,6 +542,28 @@ function setupOpportunitySorting() {
     });
 }
 
+function compactDecision(decision, score) {
+    const value = Number(score || 0);
+    const text = String(decision || "");
+
+    if (value >= 85 || text.includes("Conviction")) return "🟢 Acheter";
+    if (value >= 70 || text.includes("sélectif")) return "🟡 Surveiller";
+    if (value >= 55) return "🔵 Possible";
+
+    return "⚪ Attendre";
+}
+
+function getDecisionClass(decision, score) {
+    const value = Number(score || 0);
+    const text = String(decision || "");
+
+    if (value >= 85 || text.includes("Conviction")) return "decision-buy";
+    if (value >= 70 || text.includes("sélectif")) return "decision-watch";
+    if (value >= 55) return "decision-possible";
+
+    return "decision-neutral";
+}
+
 function renderOpportunities() {
     const tbody = document.getElementById("opportunities-body");
     if (!tbody) return;
@@ -569,40 +591,39 @@ function renderOpportunities() {
 
         tbody.innerHTML += `
     <tr>
-        <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
+        <td>
+            <strong>${escapeHtml(card.nomCarte || "-")}</strong>
+            <div class="opportunity-subline">
+                ${escapeHtml(card.ownedStates && card.ownedStates !== "-" ? `Possédé : ${card.ownedStates}` : "")}
+            </div>
+        </td>
+
         <td>${escapeHtml(card.edition || "-")}</td>
         <td>${escapeHtml(card.langue || "-")}</td>
 
-        <td>${escapeHtml(card.ownedLabel || "Non")}</td>
-        <td>${Number(card.quantityOwned || 0)}</td>
-        <td>${escapeHtml(card.ownedStates || "-")}</td>
+        <td>
+            <span class="${card.owned ? "owned-yes" : "owned-no"}">
+                ${card.owned ? "Oui" : "Non"}
+            </span>
+        </td>
 
         <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
         <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
         <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
-        <td class="price">${formatEuro(card.avg7)}</td>
-        <td class="price">${formatEuro(card.avg30)}</td>
 
-        <td class="${performanceClass(card.trendVs30)}">${formatPercent(card.trendVs30)}</td>
-        <td class="${performanceClass(card.avg1Vs7)}">${formatPercent(card.avg1Vs7)}</td>
-
-        <td>
-            <strong>${Number(card.buyProbability || 0)} %</strong><br>
-            <span class="muted">${escapeHtml(card.decision || "")}</span>
+        <td class="${performanceClass(card.remainingPotential)}">
+            ${formatPercent(card.remainingPotential)}
         </td>
 
-        <td><strong>${Number(card.timingScore || 0)} %</strong></td>
-        <td><strong>${Number(card.remainingPotential || 0)} %</strong></td>
+        <td>
+            <strong>${Number(card.buyProbability || 0)} %</strong>
+        </td>
 
         <td>
-            <span class="muted">
-                Tendance ${Number(card.trendQuality || 0)} %<br>
-                Momentum ${Number(card.momentumQuality || 0)} %<br>
-                Risque ×${Number(card.riskMultiplier || 0)}
+            <span class="${getDecisionClass(card.decision, card.buyProbability)}" title="${escapeHtml(card.explanation || "")}">
+                ${compactDecision(card.decision, card.buyProbability)}
             </span>
         </td>
-
-        <td>${details || "-"}</td>
     </tr>
 `;
     });
