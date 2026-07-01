@@ -706,7 +706,11 @@ async function openCardDetail(cardId) {
 
         modal.classList.add("visible");
 
-        renderCardDetailChart(estimatedHistory.length ? estimatedHistory : history);
+        const chartHistory = deduplicateHistoryByDate(
+    estimatedHistory.length ? estimatedHistory : history
+);
+
+renderCardDetailChart(chartHistory);
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -763,6 +767,18 @@ function closeCardDetail() {
     if (modal) {
         modal.classList.remove("visible");
     }
+}
+function deduplicateHistoryByDate(history) {
+    const byDate = new Map();
+
+    history.forEach(row => {
+        if (!row.date) return;
+        byDate.set(row.date, row);
+    });
+
+    return [...byDate.values()].sort((a, b) =>
+        String(a.date).localeCompare(String(b.date))
+    );
 }
 
 function performanceClass(value) {
