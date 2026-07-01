@@ -670,6 +670,7 @@ async function openCardDetail(cardId) {
 
         const card = detail.card;
         const history = detail.history || [];
+        const estimatedHistory = detail.estimatedHistory || [];
         const performance = detail.performance || {};
 
         const modal = document.getElementById("card-detail-modal");
@@ -705,7 +706,7 @@ async function openCardDetail(cardId) {
 
         modal.classList.add("visible");
 
-        renderCardDetailChart(history);
+        renderCardDetailChart(estimatedHistory.length ? estimatedHistory : history);
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -728,8 +729,10 @@ function renderCardDetailChart(history) {
             labels: history.map(row => row.date),
             datasets: [
                 {
-                    label: "Prix état (€)",
-                    data: history.map(row => row.trendPrice),
+                    label: history.some(row => row.estimatedPrice !== undefined)
+    ? "Prix estimé V2 (€)"
+    : "Trend marché (€)",
+data: history.map(row => row.estimatedPrice ?? row.trendPrice),
                     tension: 0.3
                 }
             ]

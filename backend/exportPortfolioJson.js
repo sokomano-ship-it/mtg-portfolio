@@ -8,6 +8,7 @@ const outputDir = path.join(__dirname, "..", "frontend", "data");
 const outputFile = path.join(outputDir, "portfolio.json");
 const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
+const estimatedPriceHistoryFile = path.join(__dirname, "..", "frontend", "data", "estimated-price-history.json");
 
 function all(sql, params = []) {
     return new Promise((resolve, reject) => {
@@ -27,6 +28,12 @@ function readPricingSimulation() {
         rows.map(row => [Number(row.id), row])
     );
 }
+
+function readEstimatedPriceHistory() {
+    if (!fs.existsSync(estimatedPriceHistoryFile)) return [];
+    return JSON.parse(fs.readFileSync(estimatedPriceHistoryFile, "utf8"));
+}
+
 function readReferenceCatalog() {
     if (!fs.existsSync(referenceCatalogFile)) return new Map();
 
@@ -107,6 +114,7 @@ function groupByCardEditionEtat(rows) {
 
 async function main() {
     const pricingMap = readPricingSimulation();
+    const estimatedPriceHistory = readEstimatedPriceHistory();
     const referenceCatalogMap = readReferenceCatalog();
 
     const cardsRaw = await all(`
@@ -376,9 +384,14 @@ estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
             );
         }
 
+        const estimatedHistory = estimatedPriceHistory
+    .filter(row => Number(row.cardId) === Number(card.id))
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+
         cardDetails[String(card.id)] = {
             card,
             history,
+            estimatedHistory,
             performance: {
                 perf7d: perf(7),
                 perf30d: perf(30),
