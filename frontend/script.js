@@ -631,6 +631,46 @@ function getBuyingActionClass(card) {
     return "decision-neutral";
 }
 
+function formatOpportunityExplanation(value) {
+    if (!value) return "-";
+
+    if (typeof value === "string") {
+        return escapeHtml(value);
+    }
+
+    if (Array.isArray(value)) {
+        return value
+            .map(item => {
+                if (typeof item === "string") return `• ${escapeHtml(item)}`;
+
+                if (typeof item === "object" && item !== null) {
+                    return `• ${escapeHtml(
+                        item.label ||
+                        item.text ||
+                        item.reason ||
+                        item.message ||
+                        JSON.stringify(item)
+                    )}`;
+                }
+
+                return `• ${escapeHtml(String(item))}`;
+            })
+            .join("<br>");
+    }
+
+    if (typeof value === "object") {
+        return escapeHtml(
+            value.label ||
+            value.text ||
+            value.reason ||
+            value.message ||
+            JSON.stringify(value)
+        );
+    }
+
+    return escapeHtml(String(value));
+}
+
 function formatDiscount(value) {
     const number = Number(value || 0);
     return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
@@ -856,7 +896,7 @@ function openOpportunityDetail(opportunityId) {
         <hr>
 
         <p><strong>Action :</strong> ${getBuyingAction(card)}</p>
-        <p><strong>Explication :</strong><br>${escapeHtml(card.explanation || "-")}</p>
+        <p><strong>Explication :</strong><br>${formatOpportunityExplanation(card.explanation)}</p>
     `;
 
     modal.classList.add("visible");
