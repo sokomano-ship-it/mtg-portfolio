@@ -519,7 +519,8 @@ const fullPortfolio = {
 };
     
     // Ancien fichier conservé temporairement pour compatibilité
-writeJson(outputFile, fullPortfolio);
+// Ancien fichier complet désactivé : trop gros pour GitHub Pages.
+// Les données sont maintenant servies via les fichiers séparés.
 
 // Nouveaux fichiers séparés
 writeJson(splitOutputFiles.cards, {
