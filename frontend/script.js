@@ -514,7 +514,7 @@ async function loadOpportunities() {
         allOpportunities = await window.apiAdapter.getOpportunities();
 
         status.textContent =
-            `${allOpportunities.length} lignes affichées : top 30 scores + 10 plus mauvais scores`;
+            `${allOpportunities.length} lignes affichées`;
 
         setupOpportunitySorting();
         renderOpportunities();
@@ -585,6 +585,52 @@ function getBuyingActionClass(card) {
     return "decision-neutral";
 }
 
+function getMomentumLabel(card) {
+    const momentum = Number(card.momentumQuality || 0);
+    const avg1Vs7 = Number(card.avg1Vs7 || 0);
+    const trendVs30 = Number(card.trendVs30 || 0);
+
+    if (momentum >= 80 || avg1Vs7 >= 8) return "🚀 Forte hausse";
+    if (momentum >= 65 || avg1Vs7 >= 4) return "📈 Hausse";
+    if (momentum >= 50 || trendVs30 >= 0) return "👀 À surveiller";
+
+    return "➖ Neutre";
+}
+
+function getMomentumClass(card) {
+    const momentum = Number(card.momentumQuality || 0);
+    const avg1Vs7 = Number(card.avg1Vs7 || 0);
+
+    if (momentum >= 80 || avg1Vs7 >= 8) return "momentum-strong";
+    if (momentum >= 65 || avg1Vs7 >= 4) return "momentum-up";
+    if (momentum >= 50) return "momentum-watch";
+
+    return "momentum-neutral";
+}
+
+function getBuyingAction(card) {
+    const score = Number(card.buyProbability || 0);
+    const timing = Number(card.timingScore || 0);
+    const momentum = Number(card.momentumQuality || 0);
+
+    if (score >= 85 && timing >= 80) return "🟢 Acheter";
+    if (score >= 75 && momentum >= 70) return "🟢 Acheter";
+    if (score >= 65 && momentum >= 55) return "🟡 Surveiller";
+    if (score >= 55) return "🔵 Possible";
+
+    return "⚪ Attendre";
+}
+
+function getBuyingActionClass(card) {
+    const action = getBuyingAction(card);
+
+    if (action.includes("Acheter")) return "decision-buy";
+    if (action.includes("Surveiller")) return "decision-watch";
+    if (action.includes("Possible")) return "decision-possible";
+
+    return "decision-neutral";
+}
+
 function formatDiscount(value) {
     const number = Number(value || 0);
     return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
@@ -618,7 +664,9 @@ function renderOpportunities() {
         tbody.innerHTML += `
     <tr>
         <td>
-            <strong>${escapeHtml(card.nomCarte || "-")}</strong>
+            <button class="card-link-button" onclick="openOpportunityDetail('${escapeHtml(String(card.id))}')">
+                <strong>${escapeHtml(card.nomCarte || "-")}</strong>
+            </button>
             <div class="opportunity-subline">
                 ${escapeHtml(card.ownedStates && card.ownedStates !== "-" ? `Possédé : ${card.ownedStates}` : "")}
             </div>
@@ -637,8 +685,10 @@ function renderOpportunities() {
         <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
         <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
 
-        <td class="${Number(card.discountPct || 0) < 0 ? "score-positive" : "score-negative"}">
-            ${formatDiscount(card.discountPct)}
+        <td>
+            <span class="${getMomentumClass(card)}">
+                ${getMomentumLabel(card)}
+            </span>
         </td>
 
         <td>
@@ -754,6 +804,70 @@ if (!detail) {
     }
 }
 
+function openOpportunityDetail(opportunityId) {
+    const card = allOpportunities.find(row => String(row.id) === String(opportunityId));
+
+    if (!card) {
+        alert("Impossible de charger le détail de l'opportunité");
+        return;
+    }
+
+    const modal = document.getElementById("card-detail-modal");
+    const title = document.getElementById("detail-title");
+    const image = document.getElementById("detail-image");
+    const info = document.getElementById("detail-info");
+
+    title.textContent = card.nomCarte;
+
+    image.innerHTML = card.imageUrl
+        ? `<img src="${card.imageUrl}" alt="${escapeHtml(card.nomCarte)}">`
+        : "";
+
+    info.innerHTML = `
+        <p><strong>Édition :</strong> ${escapeHtml(card.edition || "-")}</p>
+        <p><strong>Langue :</strong> ${escapeHtml(card.langue || "-")}</p>
+        <p><strong>Possédé :</strong> ${escapeHtml(card.ownedLabel || "Non")}</p>
+        <p><strong>États possédés :</strong> ${escapeHtml(card.ownedStates || "-")}</p>
+
+        <hr>
+
+        <p><strong>Prix marché :</strong> ${formatEuro(card.nmPrice || card.trendPrice)}</p>
+        <p><strong>Prix max NM :</strong> ${formatEuro(card.nmTargetPrice)}</p>
+        <p><strong>Prix max EX :</strong> ${formatEuro(card.exTargetPrice)}</p>
+
+        <hr>
+
+        <p><strong>Trend :</strong> ${formatEuro(card.trendPrice)}</p>
+        <p><strong>Avg1 :</strong> ${formatEuro(card.avg1)}</p>
+        <p><strong>Avg7 :</strong> ${formatEuro(card.avg7)}</p>
+        <p><strong>Avg30 :</strong> ${formatEuro(card.avg30)}</p>
+        <p><strong>Trend vs Avg30 :</strong> ${formatPercent(card.trendVs30)}</p>
+        <p><strong>Avg1 vs Avg7 :</strong> ${formatPercent(card.avg1Vs7)}</p>
+
+        <hr>
+
+        <p><strong>Momentum :</strong> ${getMomentumLabel(card)} (${Number(card.momentumQuality || 0)} %)</p>
+        <p><strong>Tendance :</strong> ${Number(card.trendQuality || 0)} %</p>
+        <p><strong>Timing :</strong> ${Number(card.timingScore || 0)} %</p>
+        <p><strong>Potentiel :</strong> ${Number(card.remainingPotential || 0)} %</p>
+        <p><strong>Risque :</strong> ×${Number(card.riskMultiplier || 0)}</p>
+        <p><strong>Score achat :</strong> ${Number(card.buyProbability || 0)} %</p>
+
+        <hr>
+
+        <p><strong>Action :</strong> ${getBuyingAction(card)}</p>
+        <p><strong>Explication :</strong><br>${escapeHtml(card.explanation || "-")}</p>
+    `;
+
+    modal.classList.add("visible");
+
+    const history = Array.isArray(card.historical?.history)
+        ? deduplicateHistoryByDate(card.historical.history)
+        : [];
+
+    renderCardDetailChart(history);
+}
+
 let cardDetailChart = null;
 
 function renderCardDetailChart(history) {
@@ -763,6 +877,14 @@ function renderCardDetailChart(history) {
     if (cardDetailChart) {
         cardDetailChart.destroy();
     }
+
+    if (!Array.isArray(history) || history.length === 0) {
+    if (cardDetailChart) {
+        cardDetailChart.destroy();
+        cardDetailChart = null;
+    }
+    return;
+}
 
     const isEstimatedHistory = history.some(row => row.estimatedPrice !== undefined);
 
