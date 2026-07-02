@@ -54,9 +54,19 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add database/portfolio.db
-          git add frontend/data/portfolio.json
+
+          git add frontend/data/cards.json
+          git add frontend/data/watchlist.json
+          git add frontend/data/opportunities.json
+          git add frontend/data/card-details.json
+          git add frontend/data/portfolio-summary.json
+          git add frontend/data/portfolio-history.json
+          git add frontend/data/category-summary.json
+          git add frontend/data/top-movers.json
+
           git add frontend/data/price-history-snapshots.json
           git add frontend/data/price-history-analysis.json
+          git add frontend/data/estimated-price-history.json
           git add frontend/data/alerts-history.json
 
           git diff --cached --quiet || git commit -m "Daily portfolio update"

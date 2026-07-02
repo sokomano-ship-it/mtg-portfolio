@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const PORTFOLIO_PATH = path.join(__dirname, "..", "..", "frontend", "data", "portfolio.json");
+const CARDS_PATH = path.join(__dirname, "..", "..", "frontend", "data", "cards.json");
 const REFERENCE_CARDS_PATH = path.join(__dirname, "..", "data", "referenceCards.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "referenceCatalog.json");
 const MISSING_PATH = path.join(__dirname, "..", "data", "missingReferences.json");
@@ -17,6 +17,11 @@ function normalize(value) {
 function readJson(file, fallback) {
   if (!fs.existsSync(file)) return fallback;
   return JSON.parse(fs.readFileSync(file, "utf8"));
+}
+
+function getCardsFromSplitFile(raw) {
+  if (Array.isArray(raw)) return raw;
+  return raw.cards || raw.portfolio || [];
 }
 
 function cardName(card) {
@@ -92,8 +97,8 @@ function buildMissingReferences(catalog) {
 }
 
 function main() {
-  const raw = readJson(PORTFOLIO_PATH, []);
-  const portfolio = Array.isArray(raw) ? raw : (raw.cards || raw.portfolio || []);
+  const rawCards = readJson(CARDS_PATH, {});
+  const portfolio = getCardsFromSplitFile(rawCards);
   const referenceCards = readJson(REFERENCE_CARDS_PATH, []);
 
   const catalog = portfolio.map(card => {
@@ -124,6 +129,8 @@ function main() {
       }
     }
 
+    const displaySlim = slim(card);
+
     return {
       cardId: card.id || null,
       nomCarte: cardName(card),
@@ -132,11 +139,11 @@ function main() {
       etat: card.etat,
       model,
       displayCard: {
-  ...slim(card),
-  image: rule?.imageUrl || slim(card)?.image,
-  scryfallUri: rule?.scryfallUri || slim(card)?.scryfallUri
-},
-priceReferenceCard: slim(reference),
+        ...displaySlim,
+        image: rule?.imageUrl || displaySlim?.image || null,
+        scryfallUri: rule?.scryfallUri || displaySlim?.scryfallUri || null
+      },
+      priceReferenceCard: slim(reference),
       referenceFound: Boolean(reference),
       expectedReference
     };

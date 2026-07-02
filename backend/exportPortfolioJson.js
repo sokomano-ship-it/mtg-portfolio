@@ -5,7 +5,7 @@ const { calculateEtatPrice } = require("./conditionPricing");
 const { buildNmOpportunities } = require("./opportunityScoring");
 
 const outputDir = path.join(__dirname, "..", "frontend", "data");
-const outputFile = path.join(outputDir, "portfolio.json");
+
 const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
 const estimatedPriceHistoryFile = path.join(__dirname, "..", "frontend", "data", "estimated-price-history.json");
@@ -506,17 +506,7 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
 
     const generatedAt = new Date().toISOString();
 
-const fullPortfolio = {
-    generatedAt,
-    cards,
-    watchlistCards,
-    categorySummary,
-    portfolioHistory: portfolioHistoryEstimated,
-    portfolioSummary,
-    topMovers,
-    opportunities,
-    cardDetails
-};
+
     
     // Ancien fichier conservé temporairement pour compatibilité
 // Ancien fichier complet désactivé : trop gros pour GitHub Pages.

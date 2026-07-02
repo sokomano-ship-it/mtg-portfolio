@@ -5,7 +5,7 @@ const PRICE_GUIDE_URL =
   "https://downloads.s3.cardmarket.com/productCatalog/priceGuide/price_guide_1.json";
 
 const ROOT = path.join(__dirname, "..");
-const PORTFOLIO_PATH = path.join(ROOT, "frontend", "data", "portfolio.json");
+const CARDS_PATH = path.join(ROOT, "frontend", "data", "cards.json");
 const TRACKED_PATH = path.join(ROOT, "backend", "data", "trackedMarketCards.json");
 const MANUAL_PATH = path.join(ROOT, "backend", "data", "manualPrices.json");
 const OUT_PATH = path.join(ROOT, "frontend", "data", "market-reference.json");
@@ -67,8 +67,8 @@ function extractPrices(price) {
   };
 }
 
-function normalizePortfolio(raw) {
-  const arr = Array.isArray(raw) ? raw : (raw.cards || raw.portfolio || []);
+function normalizeCardsFile(raw) {
+  const arr = Array.isArray(raw) ? raw : (raw.cards || []);
 
   return arr.map(c => ({
     nomCarte: getName(c),
@@ -160,11 +160,11 @@ async function sleep(ms) {
 async function main() {
   console.log("Construction market-reference.json...");
 
-  const portfolioRaw = readJson(PORTFOLIO_PATH, []);
+  const cardsRaw = readJson(CARDS_PATH, []);
   const tracked = readJson(TRACKED_PATH, []);
   const manual = readJson(MANUAL_PATH, []);
 
-  const portfolio = normalizePortfolio(portfolioRaw);
+  const portfolio = normalizeCardsFile(cardsRaw);
 
   const trackedCards = tracked.map(c => ({
     nomCarte: c.nomCarte,

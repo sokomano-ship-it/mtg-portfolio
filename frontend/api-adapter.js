@@ -1,5 +1,5 @@
 async function fetchJson(path) {
-    const response = await fetch(path);
+    const response = await fetch(path, { cache: "no-store" });
 
     if (!response.ok) {
         throw new Error(`Erreur chargement ${path}`);
@@ -8,46 +8,25 @@ async function fetchJson(path) {
     return response.json();
 }
 
-async function fetchFromPortfolioJson(key) {
-    const data = await fetchJson("data/portfolio.json");
-    return data[key];
-}
-
 window.apiAdapter = {
     async getCards() {
-        try {
-            const data = await fetchJson("data/cards.json");
-            return data.cards || [];
-        } catch {
-            return fetchFromPortfolioJson("cards");
-        }
+        const data = await fetchJson("data/cards.json");
+        return data.cards || [];
     },
 
     async getWatchlist() {
-        try {
-            const data = await fetchJson("data/watchlist.json");
-            return data.watchlistCards || [];
-        } catch {
-            return fetchFromPortfolioJson("watchlistCards");
-        }
+        const data = await fetchJson("data/watchlist.json");
+        return data.watchlistCards || [];
     },
 
     async getOpportunities() {
-        try {
-            const data = await fetchJson("data/opportunities.json");
-            return data.opportunities || [];
-        } catch {
-            return fetchFromPortfolioJson("opportunities");
-        }
+        const data = await fetchJson("data/opportunities.json");
+        return data.opportunities || [];
     },
 
     async getCardDetails() {
-        try {
-            const data = await fetchJson("data/card-details.json");
-            return data.cardDetails || {};
-        } catch {
-            return fetchFromPortfolioJson("cardDetails");
-        }
+        const data = await fetchJson("data/card-details.json");
+        return data.cardDetails || {};
     },
 
     async getCardDetail(cardId) {
@@ -56,38 +35,22 @@ window.apiAdapter = {
     },
 
     async getPortfolioSummary() {
-        try {
-            const data = await fetchJson("data/portfolio-summary.json");
-            return data.portfolioSummary || {};
-        } catch {
-            return fetchFromPortfolioJson("portfolioSummary");
-        }
+        const data = await fetchJson("data/portfolio-summary.json");
+        return data.portfolioSummary || {};
     },
 
     async getPortfolioHistory() {
-        try {
-            const data = await fetchJson("data/portfolio-history.json");
-            return data.portfolioHistory || [];
-        } catch {
-            return fetchFromPortfolioJson("portfolioHistory");
-        }
+        const data = await fetchJson("data/portfolio-history.json");
+        return data.portfolioHistory || [];
     },
 
     async getCategorySummary() {
-        try {
-            const data = await fetchJson("data/category-summary.json");
-            return data.categorySummary || [];
-        } catch {
-            return fetchFromPortfolioJson("categorySummary");
-        }
+        const data = await fetchJson("data/category-summary.json");
+        return data.categorySummary || [];
     },
 
     async getTopMovers() {
-        try {
-            const data = await fetchJson("data/top-movers.json");
-            return data.topMovers || [];
-        } catch {
-            return fetchFromPortfolioJson("topMovers");
-        }
+        const data = await fetchJson("data/top-movers.json");
+        return data.topMovers || [];
     }
 };

@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { getEmailOpportunities } = require("./opportunityScoring");
 
-const portfolioPath = path.join(__dirname, "..", "frontend", "data", "portfolio.json");
+const opportunitiesPath = path.join(__dirname, "..", "frontend", "data", "opportunities.json");
 const alertsHistoryPath = path.join(__dirname, "..", "frontend", "data", "alerts-history.json");
 
 const {
@@ -66,9 +66,16 @@ function saveAlertsHistory(alerts) {
         edition: card.edition || "",
         version: card.version || "",
         langue: card.langue || "",
+        ownedLabel: card.ownedLabel || "Non",
+        quantityOwned: Number(card.quantityOwned || 0),
+        ownedStates: card.ownedStates || "-",
         nmPriceAtAlert: Number(card.nmPrice || card.trendPrice || 0),
+        nmTargetPrice: Number(card.nmTargetPrice || 0),
+        exTargetPrice: Number(card.exTargetPrice || 0),
         buyProbability: Number(card.buyProbability || 0),
         timingScore: Number(card.timingScore || 0),
+        momentumQuality: Number(card.momentumQuality || 0),
+        trendQuality: Number(card.trendQuality || 0),
         remainingPotential: Number(card.remainingPotential || 0),
         trendVs30: Number(card.trendVs30 || 0),
         avg1Vs7: Number(card.avg1Vs7 || 0),
@@ -90,6 +97,15 @@ function saveAlertsHistory(alerts) {
     saveJson(alertsHistoryPath, merged);
 }
 
+function escapeHtml(value) {
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function listHtml(items, icon) {
     if (!Array.isArray(items) || items.length === 0) {
         return "<li>Aucun élément notable.</li>";
@@ -100,20 +116,23 @@ function listHtml(items, icon) {
         .join("");
 }
 
-function escapeHtml(value) {
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function getMomentumLabel(card) {
+    const momentum = Number(card.momentumQuality || 0);
+    const avg1Vs7 = Number(card.avg1Vs7 || 0);
+    const trendVs30 = Number(card.trendVs30 || 0);
+
+    if (momentum >= 80 || avg1Vs7 >= 8) return "Forte hausse";
+    if (momentum >= 65 || avg1Vs7 >= 4) return "Hausse";
+    if (momentum >= 50 || trendVs30 >= 0) return "À surveiller";
+
+    return "Neutre";
 }
 
 function buildCardHtml(card, index) {
     return `
         <div style="border:1px solid #ddd; border-radius:8px; padding:16px; margin-bottom:20px;">
             <h2 style="margin-top:0;">
-                ${index + 1}. ${escapeHtml(card.decision || "Alerte")} — ${escapeHtml(card.nomCarte)}
+                ${index + 1}. ${escapeHtml(card.nomCarte)}
             </h2>
 
             <p>
@@ -123,25 +142,31 @@ function buildCardHtml(card, index) {
             </p>
 
             <p>
-                <strong>Possédé :</strong> ${escapeHtml(card.ownedLabel || "-")}
+                <strong>Possédé :</strong> ${escapeHtml(card.ownedLabel || "Non")}
                 (${Number(card.quantityOwned || 0)} exemplaire(s), ${escapeHtml(card.ownedStates || "-")})
             </p>
 
-            <h3>📊 Décision</h3>
+            <h3>🎯 Prix d'achat</h3>
             <p>
-                <strong>Probabilité d'achat :</strong> ${Number(card.buyProbability || 0)} %<br>
-                <strong>Timing d'achat :</strong> ${Number(card.timingScore || 0)} %<br>
-                <strong>Potentiel restant :</strong> ${Number(card.remainingPotential || 0)} %<br>
-                <strong>Risque :</strong> ×${Number(card.riskMultiplier || 0)}
+                <strong>Prix marché NM :</strong> ${formatEuro(card.nmPrice || card.trendPrice)}<br>
+                <strong>Prix max NM :</strong> ${formatEuro(card.nmTargetPrice)}<br>
+                <strong>Prix max EX :</strong> ${formatEuro(card.exTargetPrice)}
             </p>
 
-            <h3>📈 Marché</h3>
+            <h3>📈 Signal récent</h3>
             <p>
-                <strong>Prix NM :</strong> ${formatEuro(card.nmPrice || card.trendPrice)}<br>
-                <strong>Avg7 :</strong> ${formatEuro(card.avg7)}<br>
-                <strong>Avg30 :</strong> ${formatEuro(card.avg30)}<br>
-                <strong>Trend vs 30j :</strong> ${formatPercent(card.trendVs30)}<br>
-                <strong>Momentum court terme :</strong> ${formatPercent(card.avg1Vs7)}
+                <strong>Momentum :</strong> ${escapeHtml(getMomentumLabel(card))} (${Number(card.momentumQuality || 0)} %)<br>
+                <strong>Trend vs Avg30 :</strong> ${formatPercent(card.trendVs30)}<br>
+                <strong>Avg1 vs Avg7 :</strong> ${formatPercent(card.avg1Vs7)}
+            </p>
+
+            <h3>📊 Décision moteur</h3>
+            <p>
+                <strong>Probabilité d'achat :</strong> ${Number(card.buyProbability || 0)} %<br>
+                <strong>Timing :</strong> ${Number(card.timingScore || 0)} %<br>
+                <strong>Potentiel restant :</strong> ${Number(card.remainingPotential || 0)} %<br>
+                <strong>Risque :</strong> ×${Number(card.riskMultiplier || 0)}<br>
+                <strong>Décision :</strong> ${escapeHtml(card.decision || "-")}
             </p>
 
             <h3>✅ Points positifs</h3>
@@ -154,12 +179,12 @@ function buildCardHtml(card, index) {
 }
 
 async function main() {
-    if (!fs.existsSync(portfolioPath)) {
-        console.log("portfolio.json introuvable, aucun email envoyé.");
+    if (!fs.existsSync(opportunitiesPath)) {
+        console.log("opportunities.json introuvable, aucun email envoyé.");
         return;
     }
 
-    const data = JSON.parse(fs.readFileSync(portfolioPath, "utf8"));
+    const data = loadJson(opportunitiesPath, {});
     const opportunities = data.opportunities || [];
     const alerts = getEmailOpportunities(opportunities);
 
@@ -190,14 +215,13 @@ async function main() {
         <h1>🎯 MTG Investment Alerts</h1>
 
         <p>
-            Le moteur d'investissement a identifié
+            Le moteur a identifié
             <strong>${alerts.length}</strong> opportunité(s) forte(s) aujourd'hui.
         </p>
 
         <p>
-            Critères d'envoi :
-            probabilité d'achat ≥ 85 %, timing ≥ 80 %, potentiel restant ≥ 65 %,
-            risque acceptable.
+            Ces alertes combinent score d'achat, timing, momentum récent et risque acceptable.
+            Les prix max NM/EX sont des plafonds théoriques à comparer manuellement aux annonces Cardmarket.
         </p>
 
         ${cardsHtml}

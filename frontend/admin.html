@@ -598,8 +598,8 @@ async function loadData() {
 
 async function loadPortfolio() {
   try {
-    const response = await fetch("data/portfolio.json", { cache: "no-store" });
-    if (!response.ok) throw new Error("Impossible de charger data/portfolio.json");
+    const response = await fetch("data/cards.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Impossible de charger data/cards.json");
 
     const data = await response.json();
     const rawCards = Array.isArray(data) ? data : (data.cards || data.portfolio || []);
