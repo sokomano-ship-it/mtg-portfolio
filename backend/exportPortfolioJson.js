@@ -553,7 +553,7 @@ writeJson(splitOutputFiles.topMovers, {
     topMovers
 });
 
-    console.log(`Export JSON généré : ${outputFile}`);
+    console.log(`Exports JSON séparés générés dans : ${outputDir}`);
     console.log(`${cards.length} cartes exportées`);
     console.log(`${opportunities.length} opportunités NM calculées`);
     console.log(`Valeur estimée V2 : ${estimatedTotalValue.toFixed(2)} €`);
