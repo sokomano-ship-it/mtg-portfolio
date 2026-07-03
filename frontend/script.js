@@ -353,21 +353,35 @@ function renderCards(cards) {
                     </button>
                 </td>
 
-                <td>${card.version ? escapeHtml(card.version) : "-"}</td>
                 <td>${escapeHtml(card.edition)}</td>
                 <td>${escapeHtml(card.langue)}</td>
                 <td>${escapeHtml(card.etat)}</td>
                 <td>${escapeHtml(card.categorie || "Non classé")}</td>
 
-<td class="price"><strong>${card.estimatedPrice ? formatEuro(card.estimatedPrice) : "-"}</strong></td>
-<td>${card.pricingConfidence !== null && card.pricingConfidence !== undefined ? `${card.pricingConfidence} %` : "-"}</td>
+                <td class="price">
+                    <strong>${card.estimatedPrice ? formatEuro(card.estimatedPrice) : "-"}</strong>
+                </td>
 
-<td>${card.trendPrice ? formatEuro(card.trendPrice) : "-"}</td>
-<td>${card.avg30 ? formatEuro(card.avg30) : "-"}</td>
-<td>${card.avg7 ? formatEuro(card.avg7) : "-"}</td>
-<td>${card.avg1 ? formatEuro(card.avg1) : "-"}</td>
+                <td>
+                    ${
+                        card.pricingConfidence !== null &&
+                        card.pricingConfidence !== undefined
+                            ? `${card.pricingConfidence} %`
+                            : "-"
+                    }
+                </td>
+
+                <td>${card.trendPrice ? formatEuro(card.trendPrice) : "-"}</td>
+                <td>${card.avg30 ? formatEuro(card.avg30) : "-"}</td>
+                <td>${card.avg7 ? formatEuro(card.avg7) : "-"}</td>
+                <td>${card.avg1 ? formatEuro(card.avg1) : "-"}</td>
+
                 <td class="links">
-                    ${scryfallUrl ? `<a href="${scryfallUrl}" target="_blank">Scryfall</a>` : ""}
+                    ${
+                        scryfallUrl
+                            ? `<a href="${scryfallUrl}" target="_blank">Scryfall</a>`
+                            : ""
+                    }
                 </td>
             </tr>
         `;
