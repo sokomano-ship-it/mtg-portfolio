@@ -323,8 +323,23 @@ function shuffleArray(arr) {
 
 function observationCountForCard(card) {
   const key = cardKey(card);
+  const dates = new Set();
 
-  return observations.filter(obs => cardKey(obs) === key).length;
+  observations
+    .filter(obs => cardKey(obs) === key)
+    .forEach(obs => {
+      const date =
+        obs.observationDate ||
+        obs.date ||
+        obs.createdAt ||
+        "";
+
+      if (date) {
+        dates.add(String(date).slice(0, 10));
+      }
+    });
+
+  return dates.size;
 }
 
 function loadRandomCards() {
