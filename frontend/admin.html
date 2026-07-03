@@ -297,16 +297,36 @@ function shuffleArray(arr) {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
+function observationCountForCard(card) {
+  const key = cardKey(card);
+
+  return observations.filter(obs => cardKey(obs) === key).length;
+}
+
 function loadRandomCards() {
   if (!allSelectableCards.length) {
     log("Erreur : charge d'abord les données et le portefeuille.");
     return;
   }
 
-  randomCards = shuffleArray(allSelectableCards).slice(0, 3);
+  const cardsWithCounts = allSelectableCards.map(card => ({
+    ...card,
+    observationCount: observationCountForCard(card)
+  }));
+
+  const minCount = Math.min(...cardsWithCounts.map(card => card.observationCount));
+
+  const leastDocumentedCards = cardsWithCounts.filter(
+    card => card.observationCount === minCount
+  );
+
+  randomCards = shuffleArray(leastDocumentedCards).slice(0, 3);
+
   renderRandomCards();
 
-  log(`${randomCards.length} cartes aléatoires chargées.`);
+  log(
+    `${randomCards.length} carte(s) chargée(s) parmi celles ayant le moins d'observations (${minCount}).`
+  );
 }
 
 function renderRandomCards() {
@@ -323,7 +343,10 @@ function renderRandomCards() {
       <tr>
         <td><strong>${card.nomCarte || "-"}</strong></td>
         <td>${card.edition || "-"}</td>
-        <td>${card.langue || "-"}</td>
+        <td>
+  ${card.langue || "-"}
+  <div class="muted">${card.observationCount || 0} obs.</div>
+</td>
         <td><input class="random-price" id="random-${index}-PO" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
 <td><input class="random-price" id="random-${index}-PL" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
 <td><input class="random-price" id="random-${index}-LP" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
