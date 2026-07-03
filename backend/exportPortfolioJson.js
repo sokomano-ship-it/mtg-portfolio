@@ -295,31 +295,27 @@ const portfolioHistoryEstimated = [
         ? averageConfidenceRows.reduce((a, b) => a + b, 0) / averageConfidenceRows.length
         : 0;
 
-    const lastTwo = await all(`
-        SELECT
-            date,
-            ROUND(totalValue, 2) AS totalValue
-        FROM portfolio_history
-        ORDER BY date DESC
-        LIMIT 2
-    `);
+    const portfolioHistoryEstimated = readEstimatedPortfolioHistory();
 
-    const today = Number(estimatedTotalValue.toFixed(2));
-    const yesterday = lastTwo[0]?.totalValue || today;
-    const change = today - yesterday;
-    const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
+const latestHistory = portfolioHistoryEstimated[portfolioHistoryEstimated.length - 1];
+const previousHistory = portfolioHistoryEstimated[portfolioHistoryEstimated.length - 2];
+
+const today = Number(latestHistory?.totalValue || estimatedTotalValue || 0);
+const yesterday = Number(previousHistory?.totalValue || today || 0);
+
+const change = today - yesterday;
+const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
 
     const portfolioSummary = {
-        today: Number(today.toFixed(2)),
-estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
-        yesterday: Number(yesterday.toFixed(2)),
-        change: Number(change.toFixed(2)),
-        changePct: Number(changePct.toFixed(2)),
-        estimatedTotalValue: Number(estimatedTotalValue.toFixed(2)),
-        valuedCardsCount,
-        missingEstimatedCardsCount,
-        averagePricingConfidence: Number(averagePricingConfidence.toFixed(0))
-    };
+    today: Number(today.toFixed(2)),
+    estimatedTotalValue: Number(today.toFixed(2)),
+    yesterday: Number(yesterday.toFixed(2)),
+    change: Number(change.toFixed(2)),
+    changePct: Number(changePct.toFixed(2)),
+    valuedCardsCount,
+    missingEstimatedCardsCount,
+    averagePricingConfidence: Number(averagePricingConfidence.toFixed(0))
+};
 
     const moverRows = await all(`
         WITH
