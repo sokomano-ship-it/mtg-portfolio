@@ -295,7 +295,7 @@ const portfolioHistoryEstimated = [
         ? averageConfidenceRows.reduce((a, b) => a + b, 0) / averageConfidenceRows.length
         : 0;
 
-    const portfolioHistoryEstimated = readEstimatedPortfolioHistory();
+    // portfolioHistoryEstimated est déjà calculé plus haut
 
 const latestHistory = portfolioHistoryEstimated[portfolioHistoryEstimated.length - 1];
 const previousHistory = portfolioHistoryEstimated[portfolioHistoryEstimated.length - 2];
