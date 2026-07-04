@@ -293,10 +293,44 @@ async function main() {
         ORDER BY date
     `);
 
-    const estimatedTotalValue = cards.reduce(
-        (sum, card) => sum + Number(card.estimatedPrice ?? card.prixEtat ?? 0),
+    function getEstimatedConditionPrice(card) {
+    const condition = String(card.etat || "").toUpperCase();
+
+    let estimatedByCondition = card.estimatedByCondition;
+
+    if (typeof estimatedByCondition === "string") {
+        try {
+            estimatedByCondition = JSON.parse(estimatedByCondition);
+        } catch {
+            estimatedByCondition = null;
+        }
+    }
+
+    if (
+        estimatedByCondition &&
+        typeof estimatedByCondition === "object"
+    ) {
+        return (
+            estimatedByCondition[condition] ??
+            estimatedByCondition.NM ??
+            card.estimatedPrice ??
+            card.prixEtat ??
+            0
+        );
+    }
+
+    return (
+        estimatedByCondition ??
+        card.estimatedPrice ??
+        card.prixEtat ??
         0
     );
+}
+
+const estimatedTotalValue = cards.reduce(
+    (sum, card) => sum + Number(getEstimatedConditionPrice(card) || 0),
+    0
+);
     const todayDate = new Date().toISOString().slice(0, 10);
 
 const portfolioHistoryEstimated = [
