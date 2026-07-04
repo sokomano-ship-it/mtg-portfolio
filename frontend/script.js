@@ -440,12 +440,25 @@ async function loadPortfolioHistory() {
         data: {
             labels: history.map(row => row.date),
             datasets: [
-                {
-                    label: "Valeur estimée portefeuille (€)",
-data: history.map(row => row.totalValue),
-                    tension: 0.3
-                }
-            ]
+    {
+        label: "Estimation état (€)",
+        data: history.map(row =>
+            getEstimatedConditionPrice(row) ??
+            row.estimatedPrice ??
+            null
+        ),
+        tension: 0.3
+    },
+    {
+        label: "Trend marché (€)",
+        data: history.map(row =>
+            row.trendPrice ??
+            row.avg30 ??
+            null
+        ),
+        tension: 0.3
+    }
+]
         },
         options: {
             responsive: true,
