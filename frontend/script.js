@@ -203,8 +203,9 @@ function filterCards() {
 
 function sortCollectionCards(cards) {
     const numericColumns = [
-    "estimatedPrice",
-    "pricingConfidence",
+    "estimatedByCondition",
+    "gradeModelConfidence",
+    "observationDaysCount",
     "trendPrice",
     "avg30",
     "avg7",
@@ -257,8 +258,9 @@ function updateCollectionHeaderState() {
 
 function matchesCollectionFilter(card, key, value) {
     const numericKeys = [
-    "estimatedPrice",
-    "pricingConfidence",
+    "estimatedByCondition",
+    "gradeModelConfidence",
+    "observationDaysCount",
     "trendPrice",
     "avg30",
     "avg7",
@@ -327,17 +329,13 @@ function calculateCardsValue(cards) {
 }
 
 function getEstimatedConditionPrice(card) {
-
-    if (!card.estimatedByCondition)
-        return card.estimatedPrice;
-
-    const condition = String(card.etat || "").toUpperCase();
-
     return (
-        card.estimatedByCondition[condition] ??
-        card.estimatedPrice
+        card.estimatedByCondition ??
+        card.estimatedPrice ??
+        card.avg30 ??
+        card.trendPrice ??
+        null
     );
-
 }
 
 function renderCards(cards) {
@@ -382,9 +380,9 @@ function renderCards(cards) {
 
                 <td>
                     ${
-                        card.pricingConfidence !== null &&
-                        card.pricingConfidence !== undefined
-                            ? `${card.pricingConfidence} %`
+                        card.gradeModelConfidence !== null &&
+                        card.gradeModelConfidence !== undefined
+                            ? `${card.gradeModelConfidence} %`
                             : "-"
                     }
                 </td>
@@ -847,9 +845,10 @@ if (!detail) {
             <p><strong>Edition :</strong> ${escapeHtml(card.edition)}</p>
             <p><strong>Etat :</strong> ${escapeHtml(card.etat)}</p>
             <p><strong>Catégorie :</strong> ${escapeHtml(card.categorie || "Non classé")}</p>
-            <p><strong>Estimation V2 :</strong> ${formatEuro(card.estimatedPrice)}</p>
-            <p><strong>Confiance :</strong> ${card.pricingConfidence ?? "-"} %</p>
-            <p><strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}</p>
+            <p><strong>Estimation état :</strong> ${formatEuro(getEstimatedConditionPrice(card))}</p>
+<p><strong>Confiance :</strong> ${card.gradeModelConfidence ?? "-"} %</p>
+<p><strong>Source modèle :</strong> ${escapeHtml(card.gradeModelSource || "-")}</p>
+<p><strong>Jours observés :</strong> ${card.observationDaysCount ?? "-"}</p>
             <p><strong>Trend :</strong> ${formatEuro(card.trendPrice)}</p>
             <p><strong>Avg30 :</strong> ${formatEuro(card.avg30)}</p>
             <p><strong>Avg7 :</strong> ${formatEuro(card.avg7)}</p>
