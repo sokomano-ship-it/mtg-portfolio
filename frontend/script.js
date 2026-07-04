@@ -891,14 +891,31 @@ if (!detail) {
 
         modal.classList.add("visible");
 
-        const sourceHistory = estimatedHistory.length ? estimatedHistory : history;
-const chartHistory = deduplicateHistoryByDate(sourceHistory);
+        const historyByDate = new Map();
 
-const chartHistoryWithCondition = chartHistory.map(row => ({
-    ...row,
-    etat: card.etat,
-    estimatedByCondition: card.estimatedByCondition
-}));
+history.forEach(row => {
+    if (!row.date) return;
+    historyByDate.set(row.date, { ...row });
+});
+
+estimatedHistory.forEach(row => {
+    if (!row.date) return;
+
+    const existing = historyByDate.get(row.date) || {};
+
+    historyByDate.set(row.date, {
+        ...existing,
+        ...row
+    });
+});
+
+const chartHistoryWithCondition = [...historyByDate.values()]
+    .map(row => ({
+        ...row,
+        etat: card.etat,
+        estimatedByCondition: card.estimatedByCondition
+    }))
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
 
 renderCardDetailChart(chartHistoryWithCondition);
         
