@@ -892,10 +892,12 @@ if (!detail) {
         modal.classList.add("visible");
 
         const sourceHistory = estimatedHistory.length ? estimatedHistory : history;
-        const chartHistory = deduplicateHistoryByDate(sourceHistory);
-        const chartHistoryWithCondition = chartHistory.map(row => ({
+const chartHistory = deduplicateHistoryByDate(sourceHistory);
+
+const chartHistoryWithCondition = chartHistory.map(row => ({
     ...row,
-    etat: card.etat
+    etat: card.etat,
+    estimatedByCondition: card.estimatedByCondition
 }));
 
 renderCardDetailChart(chartHistoryWithCondition);
