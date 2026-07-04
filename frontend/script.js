@@ -917,6 +917,10 @@ const chartHistoryWithCondition = [...historyByDate.values()]
     }))
     .sort((a, b) => String(a.date).localeCompare(String(b.date)));
 
+    console.log("history", history);
+console.log("estimatedHistory", estimatedHistory);
+console.log("chartHistoryWithCondition", chartHistoryWithCondition);
+
 renderCardDetailChart(chartHistoryWithCondition);
         
     } catch (error) {
