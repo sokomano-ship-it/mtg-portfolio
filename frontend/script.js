@@ -440,25 +440,12 @@ async function loadPortfolioHistory() {
         data: {
             labels: history.map(row => row.date),
             datasets: [
-    {
-        label: "Estimation état (€)",
-        data: history.map(row =>
-            getEstimatedConditionPrice(row) ??
-            row.estimatedPrice ??
-            null
-        ),
-        tension: 0.3
-    },
-    {
-        label: "Trend marché (€)",
-        data: history.map(row =>
-            row.trendPrice ??
-            row.avg30 ??
-            null
-        ),
-        tension: 0.3
-    }
-]
+                {
+                    label: "Valeur estimée portefeuille (€)",
+                    data: history.map(row => row.totalValue),
+                    tension: 0.3
+                }
+            ]
         },
         options: {
             responsive: true,
@@ -996,29 +983,31 @@ function renderCardDetailChart(history) {
     }
 
     if (!Array.isArray(history) || history.length === 0) {
-    if (cardDetailChart) {
-        cardDetailChart.destroy();
         cardDetailChart = null;
+        return;
     }
-    return;
-}
 
-    const isEstimatedHistory = history.some(row =>
-    row.estimatedByCondition !== undefined ||
-    row.estimatedPrice !== undefined
-);
     cardDetailChart = new Chart(ctx, {
         type: "line",
         data: {
             labels: history.map(row => row.date),
             datasets: [
                 {
-                    label: isEstimatedHistory ? "Prix estimé état (€)" : "Trend marché (€)",
-data: history.map(row =>
-    getEstimatedConditionPrice(row) ??
-    row.estimatedPrice ??
-    row.trendPrice
-),
+                    label: "Estimation état (€)",
+                    data: history.map(row =>
+                        getEstimatedConditionPrice(row) ??
+                        row.estimatedPrice ??
+                        null
+                    ),
+                    tension: 0.3
+                },
+                {
+                    label: "Trend marché (€)",
+                    data: history.map(row =>
+                        row.trendPrice ??
+                        row.avg30 ??
+                        null
+                    ),
                     tension: 0.3
                 }
             ]
