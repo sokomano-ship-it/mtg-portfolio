@@ -322,8 +322,22 @@ function updateCategoryStats(cards) {
 
 function calculateCardsValue(cards) {
     return cards.reduce((sum, card) => {
-        return sum + (Number(card.estimatedPrice ?? card.prixEtat) || 0);
+        return sum + (Number(getEstimatedConditionPrice(card)) || 0);
     }, 0);
+}
+
+function getEstimatedConditionPrice(card) {
+
+    if (!card.estimatedByCondition)
+        return card.estimatedPrice;
+
+    const condition = String(card.etat || "").toUpperCase();
+
+    return (
+        card.estimatedByCondition[condition] ??
+        card.estimatedPrice
+    );
+
 }
 
 function renderCards(cards) {
@@ -359,7 +373,11 @@ function renderCards(cards) {
                 <td>${escapeHtml(card.categorie || "Non classé")}</td>
 
                 <td class="price">
-                    <strong>${card.estimatedPrice ? formatEuro(card.estimatedPrice) : "-"}</strong>
+                    <strong>${
+    getEstimatedConditionPrice(card)
+        ? formatEuro(getEstimatedConditionPrice(card))
+        : "-"
+}</strong>
                 </td>
 
                 <td>
