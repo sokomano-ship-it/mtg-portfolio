@@ -214,16 +214,21 @@ function sortCollectionCards(cards) {
     "avgPrice"
 ];
 
+
     cards.sort((a, b) => {
         const aValue =
-            currentCollectionSort === "categorie"
-                ? (a.categorie || "Non classé")
-                : a[currentCollectionSort];
+    currentCollectionSort === "estimatedByCondition"
+        ? getEstimatedConditionPrice(a)
+        : currentCollectionSort === "categorie"
+            ? (a.categorie || "Non classé")
+            : a[currentCollectionSort];
 
-        const bValue =
-            currentCollectionSort === "categorie"
-                ? (b.categorie || "Non classé")
-                : b[currentCollectionSort];
+const bValue =
+    currentCollectionSort === "estimatedByCondition"
+        ? getEstimatedConditionPrice(b)
+        : currentCollectionSort === "categorie"
+            ? (b.categorie || "Non classé")
+            : b[currentCollectionSort];
 
         if (aValue === null || aValue === undefined) return 1;
         if (bValue === null || bValue === undefined) return -1;
@@ -270,7 +275,12 @@ function matchesCollectionFilter(card, key, value) {
 ];
 
     if (numericKeys.includes(key)) {
-        return matchesNumericFilter(Number(card[key] || 0), value);
+        const number =
+    key === "estimatedByCondition"
+        ? getEstimatedConditionPrice(card)
+        : card[key];
+
+return matchesNumericFilter(Number(number || 0), value);
     }
 
     const fieldValue =
@@ -329,6 +339,22 @@ function calculateCardsValue(cards) {
 }
 
 function getEstimatedConditionPrice(card) {
+    const condition = String(card.etat || "").toUpperCase();
+
+    if (
+        card.estimatedByCondition &&
+        typeof card.estimatedByCondition === "object"
+    ) {
+        return (
+            card.estimatedByCondition[condition] ??
+            card.estimatedByCondition.NM ??
+            card.estimatedPrice ??
+            card.avg30 ??
+            card.trendPrice ??
+            null
+        );
+    }
+
     return (
         card.estimatedByCondition ??
         card.estimatedPrice ??
