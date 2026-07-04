@@ -171,13 +171,36 @@ function addPrixEtat(card) {
 
 function addPricingSimulation(card, pricingMap) {
     const simulation = pricingMap.get(Number(card.id));
+    const ownedCondition = String(card.etat || "").toUpperCase();
+
+    const estimatedPriceForOwnedCondition =
+        simulation?.estimatedByCondition?.[ownedCondition] ??
+        simulation?.estimatedPrice ??
+        null;
 
     return {
         ...card,
 
-        estimatedPrice: simulation?.estimatedPrice ?? null,
+        estimatedPrice: estimatedPriceForOwnedCondition,
+        baseEstimatedPrice: simulation?.estimatedPrice ?? null,
+
+        estimatedByCondition: simulation?.estimatedByCondition || null,
+        buyTargetByCondition: simulation?.buyTargetByCondition || null,
+        ratioByCondition: simulation?.ratioByCondition || null,
+
+        gradeModelConfidence: simulation?.gradeModelConfidence ?? null,
+        gradeModelSource: simulation?.gradeModelSource || null,
+
+        lastObservedMinByCondition: simulation?.lastObservedMinByCondition || null,
+        observedMinByCondition: simulation?.observedMinByCondition || null,
+        observationDaysCount: simulation?.observationDaysCount || 0,
+        observationRowsCount: simulation?.observationRowsCount || 0,
+
         pricingModel: simulation?.pricingModel ?? null,
-        pricingConfidence: simulation?.confidence ?? null,
+        pricingConfidence:
+            simulation?.gradeModelConfidence ??
+            simulation?.confidence ??
+            null,
         pricingRatio: simulation?.ratioUsed ?? null,
         pricingObservationCount: simulation?.observationCount ?? 0,
         marketAnchorPrice: simulation?.marketAnchorPrice ?? null,

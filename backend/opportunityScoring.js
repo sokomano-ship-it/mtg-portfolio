@@ -72,20 +72,24 @@ function deduplicateNmOpportunities(cards) {
 
 function computeNmOpportunity(card, historyMap) {
     const trendPrice = number(card.trendPrice);
-    const nmTargetPrice = number(card.estimatedPrice || card.trendPrice);
 
-const exRatio =
-    number(card.exConditionRatio) ||
-    number(card.conditionRatios?.EX) ||
-    0.85;
+const estimatedNmPrice =
+    number(card.estimatedByCondition?.NM) ||
+    number(card.estimatedPrice) ||
+    trendPrice;
 
-const exTargetPrice = nmTargetPrice * exRatio;
-const exDiscountPct = nmTargetPrice > 0
-    ? ((exTargetPrice / nmTargetPrice) - 1) * 100
-    : 0;
-    const discountPct = trendPrice > 0
-    ? ((nmTargetPrice - trendPrice) / trendPrice) * 100
-    : 0;
+const estimatedExPrice =
+    number(card.estimatedByCondition?.EX) ||
+    estimatedNmPrice * 0.85;
+
+const nmTargetPrice =
+    number(card.buyTargetByCondition?.NM) ||
+    estimatedNmPrice * 0.90;
+
+const exTargetPrice =
+    number(card.buyTargetByCondition?.EX) ||
+    estimatedExPrice * 0.88;
+
     const avg1 = number(card.avg1);
     const avg7 = number(card.avg7);
     const avg30 = number(card.avg30);
@@ -163,10 +167,15 @@ const exDiscountPct = nmTargetPrice > 0
 
         nmPrice: round(trendPrice, 2),
         trendPrice: round(trendPrice, 2),
-        nmTargetPrice: round(nmTargetPrice, 2),
+        estimatedNmPrice: round(estimatedNmPrice, 2),
+estimatedExPrice: round(estimatedExPrice, 2),
+nmTargetPrice: round(nmTargetPrice, 2),
 exTargetPrice: round(exTargetPrice, 2),
-exDiscountPct: round(exDiscountPct, 2),
-discountPct: round(discountPct, 1),
+
+gradeModelConfidence: card.gradeModelConfidence ?? null,
+gradeModelSource: card.gradeModelSource || null,
+observationDaysCount: card.observationDaysCount || 0,
+lastObservedMinByCondition: card.lastObservedMinByCondition || null,
         avg1: round(avg1, 2),
         avg7: round(avg7, 2),
         avg30: round(avg30, 2),

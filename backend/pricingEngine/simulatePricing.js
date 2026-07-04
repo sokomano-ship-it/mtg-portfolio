@@ -4,6 +4,7 @@ const db = require("../database");
 
 const MODELS_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingSimulation.json");
+const { estimateCardByGrade } = require("./gradeEstimator");
 
 const FALLBACK_CONDITION_RATIOS = {
   NM: 1.00,
@@ -186,17 +187,59 @@ async function main() {
 
   const results = cards.map(card => {
     const model = models[cardKey(card)];
-    const estimated = estimateCard(card, model, models.__globalConditionModel);
+    const estimated = estimateCard(
+    card,
+    model,
+    models.__globalConditionModel
+);
 
-    return {
-      id: card.id,
-      nomCarte: card.nomCarte,
-      edition: card.edition,
-      langue: card.langue,
-      etat: card.etat,
+const gradeEstimate = estimateCardByGrade(card, {
+    anchorPrice: estimated.marketAnchorPrice,
+    estimatedPrice: estimated.estimatedPrice
+});
 
-      ...estimated
-    };
+return {
+
+    id: card.id,
+
+    nomCarte: card.nomCarte,
+
+    edition: card.edition,
+
+    langue: card.langue,
+
+    etat: card.etat,
+
+    ...estimated,
+
+    estimatedByCondition:
+        gradeEstimate.estimatedByCondition,
+
+    buyTargetByCondition:
+        gradeEstimate.buyTargetByCondition,
+
+    ratioByCondition:
+        gradeEstimate.ratioByCondition,
+
+    observationDaysCount:
+        gradeEstimate.observationDaysCount,
+
+    observationRowsCount:
+        gradeEstimate.observationRowsCount,
+
+    lastObservedMinByCondition:
+        gradeEstimate.lastObservedMinByCondition,
+
+    observedMinByCondition:
+        gradeEstimate.observedMinByCondition,
+
+    gradeModelConfidence:
+        gradeEstimate.confidence,
+
+    gradeModelSource:
+        gradeEstimate.source
+
+};
   });
 
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2));
