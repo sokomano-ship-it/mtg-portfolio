@@ -893,8 +893,13 @@ if (!detail) {
 
         const sourceHistory = estimatedHistory.length ? estimatedHistory : history;
         const chartHistory = deduplicateHistoryByDate(sourceHistory);
+        const chartHistoryWithCondition = chartHistory.map(row => ({
+    ...row,
+    etat: card.etat
+}));
 
-        renderCardDetailChart(chartHistory);
+renderCardDetailChart(chartHistoryWithCondition);
+        
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -983,16 +988,22 @@ function renderCardDetailChart(history) {
     return;
 }
 
-    const isEstimatedHistory = history.some(row => row.estimatedPrice !== undefined);
-
+    const isEstimatedHistory = history.some(row =>
+    row.estimatedByCondition !== undefined ||
+    row.estimatedPrice !== undefined
+);
     cardDetailChart = new Chart(ctx, {
         type: "line",
         data: {
             labels: history.map(row => row.date),
             datasets: [
                 {
-                    label: isEstimatedHistory ? "Prix estimé V2 (€)" : "Trend marché (€)",
-                    data: history.map(row => row.estimatedPrice ?? row.trendPrice),
+                    label: isEstimatedHistory ? "Prix estimé état (€)" : "Trend marché (€)",
+data: history.map(row =>
+    getEstimatedConditionPrice(row) ??
+    row.estimatedPrice ??
+    row.trendPrice
+),
                     tension: 0.3
                 }
             ]
