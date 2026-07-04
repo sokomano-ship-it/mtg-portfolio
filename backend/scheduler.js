@@ -40,8 +40,13 @@ async function runDailyUpdate() {
     try {
         console.log("Début mise à jour quotidienne MTG...");
 
+
+
         await runNodeScript("updateCardmarketFromPriceGuide.js");
-        await runNodeScript("updatePortfolioValue.js");
+await runNodeScript("updatePortfolioValue.js");
+await runNodeScript("pricingEngine/simulatePricing.js");
+await runNodeScript("saveEstimatedPriceSnapshot.js");
+await runNodeScript("exportPortfolioJson.js");
 
         console.log("Mise à jour quotidienne terminée.");
     } catch (error) {
