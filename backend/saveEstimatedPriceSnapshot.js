@@ -20,16 +20,36 @@ function main() {
     );
 
     const newRows = simulation.map(card => ({
-        date: today,
-        cardId: card.id,
-        nomCarte: card.nomCarte,
-        edition: card.edition,
-        langue: card.langue,
-        etat: card.etat,
-        estimatedPrice: Number(card.estimatedPrice || 0),
-        confidence: Number(card.confidence || 0),
-        pricingModel: card.pricingModel || null
-    }));
+    date: today,
+
+    cardId: card.id,
+    nomCarte: card.nomCarte,
+    edition: card.edition,
+    langue: card.langue,
+    etat: card.etat,
+
+    estimatedPrice: Number(card.estimatedPrice || 0),
+    estimatedByCondition: card.estimatedByCondition || null,
+    buyTargetByCondition: card.buyTargetByCondition || null,
+    ratioByCondition: card.ratioByCondition || null,
+
+    marketAnchorPrice: card.marketAnchorPrice || null,
+    referenceMarketAnchorPrice: card.referenceMarketAnchorPrice || null,
+
+    lastObservedMinByCondition: card.lastObservedMinByCondition || null,
+    observedMinByCondition: card.observedMinByCondition || null,
+
+    gradeModelConfidence: Number(card.gradeModelConfidence || card.confidence || 0),
+    gradeModelSource: card.gradeModelSource || null,
+
+    observationDaysCount: Number(card.observationDaysCount || 0),
+    observationRowsCount: Number(card.observationRowsCount || 0),
+
+    confidence: Number(card.confidence || card.gradeModelConfidence || 0),
+    observationCount: Number(card.observationCount || 0),
+    pricingModel: card.pricingModel || null,
+    pricingRatio: card.ratioUsed ?? null
+}));
 
     const merged = [...history];
 
