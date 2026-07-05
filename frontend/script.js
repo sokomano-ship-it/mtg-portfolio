@@ -1008,6 +1008,26 @@ function renderCardDetailChart(history) {
         return;
     }
 
+    // Dernière valeur connue
+    const latestRow = history[history.length - 1];
+
+    const latestEstimated =
+        getEstimatedConditionPrice(latestRow) ??
+        latestRow.estimatedPrice ??
+        null;
+
+    const latestTrend =
+        latestRow.prixEtat ??
+        latestRow.trendPrice ??
+        latestRow.avg30 ??
+        null;
+
+    // Ratio entre le modèle statistique et le prix marché état
+    const modelRatio =
+        latestEstimated && latestTrend
+            ? latestEstimated / latestTrend
+            : 1;
+
     cardDetailChart = new Chart(ctx, {
         type: "line",
         data: {
@@ -1015,16 +1035,23 @@ function renderCardDetailChart(history) {
             datasets: [
                 {
                     label: "Estimation état (€)",
-                    data: history.map(row =>
-                        getEstimatedConditionPrice(row) ??
-                        row.estimatedPrice ??
-                        null
-                    ),
+                    data: history.map(row => {
+                        const historicalTrend =
+                            row.prixEtat ??
+                            row.trendPrice ??
+                            row.avg30 ??
+                            null;
+
+                        return historicalTrend
+                            ? Number((historicalTrend * modelRatio).toFixed(2))
+                            : null;
+                    }),
                     tension: 0.3
                 },
                 {
-                    label: "Trend marché (€)",
+                    label: "Trend marché état (€)",
                     data: history.map(row =>
+                        row.prixEtat ??
                         row.trendPrice ??
                         row.avg30 ??
                         null
@@ -1037,17 +1064,27 @@ function renderCardDetailChart(history) {
             responsive: true,
             plugins: {
                 legend: {
-                    labels: { color: "#f5f5f5" }
+                    labels: {
+                        color: "#f5f5f5"
+                    }
                 }
             },
             scales: {
                 x: {
-                    ticks: { color: "#f5f5f5" },
-                    grid: { color: "rgba(255,255,255,0.1)" }
+                    ticks: {
+                        color: "#f5f5f5"
+                    },
+                    grid: {
+                        color: "rgba(255,255,255,0.1)"
+                    }
                 },
                 y: {
-                    ticks: { color: "#f5f5f5" },
-                    grid: { color: "rgba(255,255,255,0.1)" }
+                    ticks: {
+                        color: "#f5f5f5"
+                    },
+                    grid: {
+                        color: "rgba(255,255,255,0.1)"
+                    }
                 }
             }
         }
