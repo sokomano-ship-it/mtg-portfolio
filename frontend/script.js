@@ -1021,7 +1021,6 @@ function renderCardDetailChart(history) {
         null;
 
     const latestRow = history[history.length - 1];
-
     const latestEstimated = getEstimatedStatePrice(latestRow);
     const latestMarket = getMarketStatePrice(latestRow);
 
