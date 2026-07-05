@@ -1008,57 +1008,62 @@ function renderCardDetailChart(history) {
         return;
     }
 
-    // Dernière valeur connue
+    const getMarketStatePrice = row =>
+        row.prixEtat ??
+        row.trendPrice ??
+        row.avg30 ??
+        null;
+
+    const getEstimatedStatePrice = row =>
+        row.estimatedConditionPrice ??
+        row.estimatedPrice ??
+        getEstimatedConditionPrice(row) ??
+        null;
+
     const latestRow = history[history.length - 1];
 
-    const latestEstimated =
-        getEstimatedConditionPrice(latestRow) ??
-        latestRow.estimatedPrice ??
-        null;
+    const latestEstimated = getEstimatedStatePrice(latestRow);
+    const latestMarket = getMarketStatePrice(latestRow);
 
-    const latestTrend =
-        latestRow.prixEtat ??
-        latestRow.trendPrice ??
-        latestRow.avg30 ??
-        null;
-
-    // Ratio entre le modèle statistique et le prix marché état
     const modelRatio =
-        latestEstimated && latestTrend
-            ? latestEstimated / latestTrend
+        latestEstimated && latestMarket
+            ? latestEstimated / latestMarket
             : 1;
+
+    const hasMarketHistory = history.some(row =>
+        getMarketStatePrice(row) !== null &&
+        getMarketStatePrice(row) !== undefined
+    );
+
+    const datasets = [
+        {
+            label: "Estimation état (€)",
+            data: history.map(row => {
+                const market = getMarketStatePrice(row);
+
+                if (market) {
+                    return Number((market * modelRatio).toFixed(2));
+                }
+
+                return getEstimatedStatePrice(row);
+            }),
+            tension: 0.3
+        }
+    ];
+
+    if (hasMarketHistory) {
+        datasets.push({
+            label: "Trend marché état (€)",
+            data: history.map(row => getMarketStatePrice(row)),
+            tension: 0.3
+        });
+    }
 
     cardDetailChart = new Chart(ctx, {
         type: "line",
         data: {
             labels: history.map(row => row.date),
-            datasets: [
-                {
-                    label: "Estimation état (€)",
-                    data: history.map(row => {
-                        const historicalTrend =
-                            row.prixEtat ??
-                            row.trendPrice ??
-                            row.avg30 ??
-                            null;
-
-                        return historicalTrend
-                            ? Number((historicalTrend * modelRatio).toFixed(2))
-                            : null;
-                    }),
-                    tension: 0.3
-                },
-                {
-                    label: "Trend marché état (€)",
-                    data: history.map(row =>
-                        row.prixEtat ??
-                        row.trendPrice ??
-                        row.avg30 ??
-                        null
-                    ),
-                    tension: 0.3
-                }
-            ]
+            datasets
         },
         options: {
             responsive: true,
