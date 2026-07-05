@@ -593,7 +593,7 @@ writeJson(splitOutputFiles.portfolioSummary, {
 
 writeJson(splitOutputFiles.portfolioHistory, {
     generatedAt,
-    portfolioHistory
+    portfolioHistory: portfolioHistoryEstimated
 });
 
 writeJson(splitOutputFiles.categorySummary, {
