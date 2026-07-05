@@ -920,6 +920,9 @@ const chartHistoryWithCondition = [...historyByDate.values()]
     console.log("history", history);
 console.log("estimatedHistory", estimatedHistory);
 console.log("chartHistoryWithCondition", chartHistoryWithCondition);
+console.table(chartHistoryWithCondition);
+
+window.debugChartHistory = chartHistoryWithCondition;
 
 renderCardDetailChart(chartHistoryWithCondition);
         
