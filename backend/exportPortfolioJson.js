@@ -503,6 +503,31 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
 
     const cardDetails = {};
 
+    function buildEstimatedHistoryForCard(card, estimatedPriceHistory) {
+    const condition = String(card.etat || "").toUpperCase();
+
+    return estimatedPriceHistory
+        .filter(row => Number(row.cardId) === Number(card.id))
+        .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+        .map(row => {
+            const estimatedByCondition = row.estimatedByCondition || card.estimatedByCondition || null;
+
+            const estimatedConditionPrice =
+                estimatedByCondition?.[condition] ??
+                row.estimatedPrice ??
+                card.estimatedPrice ??
+                null;
+
+            return {
+                ...row,
+                etat: card.etat,
+                estimatedByCondition,
+                estimatedConditionPrice,
+                estimatedPrice: estimatedConditionPrice
+            };
+        });
+}
+
     for (const card of cards) {
         const history = await all(`
             SELECT
@@ -535,9 +560,7 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
             );
         }
 
-        const estimatedHistory = estimatedPriceHistory
-    .filter(row => Number(row.cardId) === Number(card.id))
-    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+        const estimatedHistory = buildEstimatedHistoryForCard(card, estimatedPriceHistory);
 
         cardDetails[String(card.id)] = {
             card,
