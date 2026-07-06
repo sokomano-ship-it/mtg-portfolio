@@ -181,6 +181,15 @@ const fallbackRatio =
   };
 }
 
+function getEstimatedConditionPrice(card, estimated, gradeEstimate) {
+  const condition = String(card.etat || "NM").toUpperCase();
+
+  return Number(
+    gradeEstimate?.estimatedByCondition?.[condition] ??
+    estimated.estimatedPrice ??
+    0
+  );
+}
 async function main() {
   const cards = await getCards();
   const models = readModels();
@@ -198,6 +207,12 @@ const gradeEstimate = estimateCardByGrade(card, {
     estimatedPrice: estimated.estimatedPrice
 });
 
+const estimatedConditionPrice = getEstimatedConditionPrice(
+    card,
+    estimated,
+    gradeEstimate
+);
+
 return {
 
     id: card.id,
@@ -211,6 +226,9 @@ return {
     etat: card.etat,
 
     ...estimated,
+
+estimatedPrice: estimatedConditionPrice,
+baseEstimatedPrice: estimated.estimatedPrice,
 
     estimatedByCondition:
         gradeEstimate.estimatedByCondition,
