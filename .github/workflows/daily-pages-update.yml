@@ -2,7 +2,7 @@ name: Daily Portfolio Update and Pages Deploy
 
 on:
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "17 5 * * *"
   workflow_dispatch:
   push:
     branches:
