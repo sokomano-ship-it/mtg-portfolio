@@ -49,19 +49,8 @@ window.apiAdapter = {
         return data.categorySummary || [];
     },
 
-    async getInvestmentAnalysis() {
-    const data = await fetchJson("data/investment-analysis.json");
-    return data.investmentAnalysis || [];
-},
-
-async getInvestmentForecasts() {
-    const data = await fetchJson("data/investment-forecasts.json");
-    return data.forecasts || [];
-}
-
     async getTopMovers() {
         const data = await fetchJson("data/top-movers.json");
         return data.topMovers || [];
     }
 };
-
