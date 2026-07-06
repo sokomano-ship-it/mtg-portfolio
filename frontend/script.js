@@ -1,6 +1,10 @@
 let allCards = [];
 let allMovers = [];
 let allOpportunities = [];
+let allInvestmentAnalysis = [];
+
+let currentInvestmentSort = "perf30d";
+let currentInvestmentDirection = "desc";
 
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
@@ -42,6 +46,8 @@ async function loadDashboard() {
     await loadPortfolioHistory();
     await loadCategorySummary();
     await loadTopMovers();
+    
+    await loadInvestmentAnalysis();
     await loadOpportunities();
 }
 
@@ -468,6 +474,41 @@ async function loadPortfolioHistory() {
     });
 }
 
+async function loadInvestmentAnalysis() {
+    const status = document.getElementById("investment-status");
+    if (!status) return;
+
+    try {
+        allInvestmentAnalysis = await window.apiAdapter.getInvestmentAnalysis();
+
+        status.textContent =
+            `${allInvestmentAnalysis.length} lignes analysées`;
+
+        document
+            .querySelectorAll("#tab-investment-analysis .sortable")
+            .forEach(header => {
+                header.onclick = () => {
+                    const newSort = header.dataset.sort;
+
+                    if (newSort === currentInvestmentSort) {
+                        currentInvestmentDirection =
+                            currentInvestmentDirection === "asc" ? "desc" : "asc";
+                    } else {
+                        currentInvestmentSort = newSort;
+                        currentInvestmentDirection = "desc";
+                    }
+
+                    renderInvestmentAnalysis();
+                };
+            });
+
+        renderInvestmentAnalysis();
+    } catch (error) {
+        console.error(error);
+        status.textContent = "Erreur : " + error.message;
+    }
+}
+
 async function loadTopMovers() {
     const status = document.getElementById("movers-status");
     if (!status) return;
@@ -498,6 +539,72 @@ async function loadTopMovers() {
         console.error(error);
         status.textContent = "Erreur : " + error.message;
     }
+}
+
+function renderInvestmentAnalysis() {
+    const tbody = document.getElementById("investment-analysis-body");
+    if (!tbody) return;
+
+    const sortedRows = [...allInvestmentAnalysis].sort((a, b) => {
+        return compareValues(
+            a[currentInvestmentSort],
+            b[currentInvestmentSort],
+            currentInvestmentDirection
+        );
+    });
+
+    tbody.innerHTML = "";
+
+    sortedRows.forEach(card => {
+        tbody.innerHTML += `
+            <tr>
+                <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
+                <td>${escapeHtml(card.edition || "-")}</td>
+                <td>${escapeHtml(card.langue || "-")}</td>
+                <td>${escapeHtml(card.etat || "-")}</td>
+                <td>${Number(card.quantity || 1)}</td>
+
+                <td class="price">
+                    ${formatEuro(card.currentEstimatedPrice)}
+                </td>
+
+                <td class="price">
+                    <strong>${formatEuro(card.lotValue)}</strong>
+                </td>
+
+                <td class="${performanceClass(card.perf7d)}">
+                    ${formatOptionalPercent(card.perf7d)}
+                </td>
+
+                <td class="${performanceClass(card.perf30d)}">
+                    ${formatOptionalPercent(card.perf30d)}
+                </td>
+
+                <td class="${performanceClass(card.perf60d)}">
+                    ${formatOptionalPercent(card.perf60d)}
+                </td>
+
+                <td class="${performanceClass(card.perf180d)}">
+                    ${formatOptionalPercent(card.perf180d)}
+                </td>
+
+                <td class="${performanceClass(card.perf365d)}">
+                    ${formatOptionalPercent(card.perf365d)}
+                </td>
+
+                <td>
+                    ${
+                        card.confidence !== null &&
+                        card.confidence !== undefined
+                            ? `${Number(card.confidence).toFixed(0)} %`
+                            : "-"
+                    }
+                </td>
+            </tr>
+        `;
+    });
+
+    updateInvestmentHeaderState();
 }
 
 function renderTopMovers() {
@@ -545,6 +652,21 @@ function renderTopMovers() {
     });
 
     updateMoverHeaderState();
+}
+
+function updateInvestmentHeaderState() {
+    document
+        .querySelectorAll("#tab-investment-analysis .sortable")
+        .forEach(header => {
+            header.classList.remove("active-sort", "sort-asc", "sort-desc");
+
+            if (header.dataset.sort === currentInvestmentSort) {
+                header.classList.add("active-sort");
+                header.classList.add(
+                    currentInvestmentDirection === "asc" ? "sort-asc" : "sort-desc"
+                );
+            }
+        });
 }
 
 function updateMoverHeaderState() {
