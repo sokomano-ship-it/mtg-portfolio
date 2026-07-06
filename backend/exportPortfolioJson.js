@@ -18,8 +18,8 @@ const splitOutputFiles = {
     portfolioSummary: path.join(outputDir, "portfolio-summary.json"),
     portfolioHistory: path.join(outputDir, "portfolio-history.json"),
     categorySummary: path.join(outputDir, "category-summary.json"),
-    topMovers: path.join(outputDir, "top-movers.json")
-    
+    topMovers: path.join(outputDir, "top-movers.json"),
+    investmentAnalysis: path.join(outputDir, "investment-analysis.json")
 };
 
 function writeJson(file, data) {
@@ -156,6 +156,153 @@ function applyReferenceCatalog(card, referenceCatalogMap) {
 function calculatePerformance(current, previous) {
     if (!current || !previous || previous <= 0) return null;
     return Number((((current - previous) / previous) * 100).toFixed(2));
+}
+
+function getEstimatedPriceFromSnapshot(row, etat) {
+    const condition = String(etat || "").toUpperCase();
+
+    let estimatedByCondition = row.estimatedByCondition;
+
+    if (typeof estimatedByCondition === "string") {
+        try {
+            estimatedByCondition = JSON.parse(estimatedByCondition);
+        } catch {
+            estimatedByCondition = null;
+        }
+    }
+
+    if (estimatedByCondition && typeof estimatedByCondition === "object") {
+        return Number(
+            estimatedByCondition[condition] ??
+            estimatedByCondition.NM ??
+            row.estimatedConditionPrice ??
+            row.estimatedPrice ??
+            0
+        );
+    }
+
+    return Number(
+        row.estimatedConditionPrice ??
+        row.estimatedPrice ??
+        0
+    );
+}
+
+function getPreviousSnapshot(historyRows, days) {
+    if (!historyRows.length) return null;
+
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() - days);
+
+    return [...historyRows]
+        .reverse()
+        .find(row => new Date(row.date) <= targetDate) || null;
+}
+
+function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
+    return groupByCardEditionEtat(cards)
+        .map(card => {
+            const historyRows = estimatedPriceHistory
+                .filter(row => Number(row.cardId) === Number(card.id))
+                .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+
+            const latestSnapshot = historyRows[historyRows.length - 1] || null;
+
+            const currentEstimatedPrice = latestSnapshot
+                ? getEstimatedPriceFromSnapshot(latestSnapshot, card.etat)
+                : Number(getEstimatedConditionPrice(card) || 0);
+
+            function buildPeriod(days) {
+                const previous = getPreviousSnapshot(historyRows, days);
+
+                const previousPrice = previous
+                    ? getEstimatedPriceFromSnapshot(previous, card.etat)
+                    : null;
+
+                return {
+                    price: previousPrice,
+                    performance: calculatePerformance(
+                        currentEstimatedPrice,
+                        previousPrice
+                    )
+                };
+            }
+
+            const d7 = buildPeriod(7);
+            const d30 = buildPeriod(30);
+            const d60 = buildPeriod(60);
+            const d180 = buildPeriod(180);
+            const d365 = buildPeriod(365);
+
+            return {
+                id: card.id,
+                nomCarte: card.nomCarte,
+                edition: card.edition,
+                langue: card.langue,
+                etat: card.etat,
+                version: card.version || null,
+                quantity: card.quantity || 1,
+
+                currentEstimatedPrice: Number(currentEstimatedPrice.toFixed(2)),
+                lotValue: Number((currentEstimatedPrice * (card.quantity || 1)).toFixed(2)),
+
+                price7d: d7.price,
+                perf7d: d7.performance,
+
+                price30d: d30.price,
+                perf30d: d30.performance,
+
+                price60d: d60.price,
+                perf60d: d60.performance,
+
+                price180d: d180.price,
+                perf180d: d180.performance,
+
+                price365d: d365.price,
+                perf365d: d365.performance,
+
+                confidence:
+                    latestSnapshot?.gradeModelConfidence ??
+                    latestSnapshot?.confidence ??
+                    card.gradeModelConfidence ??
+                    card.pricingConfidence ??
+                    null,
+
+                observationDaysCount:
+                    latestSnapshot?.observationDaysCount ??
+                    card.observationDaysCount ??
+                    0,
+
+                pricingModel:
+                    latestSnapshot?.pricingModel ??
+                    card.pricingModel ??
+                    null,
+
+                gradeModelSource:
+                    latestSnapshot?.gradeModelSource ??
+                    card.gradeModelSource ??
+                    null
+            };
+        })
+        .sort((a, b) => {
+            const aScore =
+                a.perf30d ??
+                a.perf7d ??
+                a.perf60d ??
+                a.perf180d ??
+                a.perf365d ??
+                0;
+
+            const bScore =
+                b.perf30d ??
+                b.perf7d ??
+                b.perf60d ??
+                b.perf180d ??
+                b.perf365d ??
+                0;
+
+            return bScore - aScore;
+        });
 }
 
 function addPrixEtat(card) {
@@ -538,6 +685,12 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
 
             return bScore - aScore;
         });
+
+    const investmentAnalysis = buildInvestmentAnalysis(
+    cards,
+    estimatedPriceHistory
+);
+
     const trackedMarketCards = readTrackedMarketCards();
 const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
 
@@ -685,11 +838,17 @@ writeJson(splitOutputFiles.topMovers, {
     topMovers
 });
 
+writeJson(splitOutputFiles.investmentAnalysis, {
+    generatedAt,
+    investmentAnalysis
+});
+
     console.log(`Exports JSON séparés générés dans : ${outputDir}`);
     console.log(`${cards.length} cartes exportées`);
     console.log(`${opportunities.length} opportunités NM calculées`);
     console.log(`Valeur estimée V2 : ${estimatedTotalValue.toFixed(2)} €`);
     console.log(`Confiance moyenne : ${averagePricingConfidence.toFixed(0)}%`);
+    console.log(`${investmentAnalysis.length} lignes analyse investissement exportées`);
 
     db.close();
 }
