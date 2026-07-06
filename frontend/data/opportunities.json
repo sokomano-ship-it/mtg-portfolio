@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T18:01:10.209Z",
+  "generatedAt": "2026-07-06T19:14:11.455Z",
   "opportunities": [
     {
       "id": 1275,
@@ -4176,6 +4176,90 @@
         "low90d": 32.35,
         "position90dPct": 100
       }
+    },
+    {
+      "id": "1783365225627-a84809475b78",
+      "nomCarte": "Plateau",
+      "edition": "Revised",
+      "langue": "English",
+      "observable": true,
+      "priceMode": "automatic",
+      "createdAt": "2026-07-06T19:13:45.627Z",
+      "updatedAt": "2026-07-06T19:13:45.627Z",
+      "cardmarketId": 5824,
+      "scryfallId": "c6ae9cff-8646-4069-8761-df734e067beb",
+      "scryfallUri": "https://scryfall.com/card/3ed/284/plateau?utm_source=api",
+      "imageUrl": "https://cards.scryfall.io/normal/front/c/6/c6ae9cff-8646-4069-8761-df734e067beb.jpg?1782722395",
+      "resolvedName": "Plateau",
+      "resolvedSet": "3ed",
+      "resolvedLang": "en",
+      "resolveStatus": "resolved",
+      "resolvedAt": "2026-07-06T19:14:05.273Z",
+      "trendPrice": 247.41,
+      "lowPrice": 179.95,
+      "avgPrice": 244.34,
+      "avg1": 283.99,
+      "avg7": 251.76,
+      "avg30": 245.6,
+      "priceUpdatedAt": "2026-07-06T19:14:05.952Z",
+      "etat": "NM",
+      "categorie": "Watchlist",
+      "quantityOwned": 0,
+      "owned": false,
+      "ownedLabel": "Non",
+      "ownedStates": "-",
+      "estimatedPrice": 0,
+      "pricingConfidence": 0,
+      "referenceCardFound": false,
+      "referenceSource": null,
+      "ownedStatesSet": {},
+      "nmPrice": 247.41,
+      "estimatedNmPrice": 247.41,
+      "estimatedExPrice": 210.3,
+      "nmTargetPrice": 222.67,
+      "exTargetPrice": 185.06,
+      "gradeModelConfidence": null,
+      "gradeModelSource": null,
+      "observationDaysCount": 0,
+      "lastObservedMinByCondition": null,
+      "trendVs30": 0.74,
+      "avg7Vs30": 2.51,
+      "avg1Vs7": 12.8,
+      "trendQuality": 5,
+      "momentumQuality": 80,
+      "remainingPotential": 62,
+      "timingScore": 62,
+      "riskMultiplier": 1,
+      "buyProbability": 55,
+      "convictionScore": 55,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Pas encore assez d'historique interne",
+        "Timing estimé avec peu d'historique"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Pas encore assez d'historique interne"
+        },
+        {
+          "type": "warning",
+          "text": "Timing estimé avec peu d'historique"
+        }
+      ],
+      "historical": null
     }
   ]
 }
