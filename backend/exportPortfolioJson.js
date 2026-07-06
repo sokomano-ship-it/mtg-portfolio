@@ -335,11 +335,22 @@ const estimatedTotalValue = cards.reduce(
     const todayDate = new Date().toISOString().slice(0, 10);
 
 function buildPortfolioHistoryFromEstimatedSnapshots(estimatedPriceHistory) {
+    const latestByDateAndCard = new Map();
+
+    estimatedPriceHistory.forEach((row, index) => {
+        if (!row.date || !row.cardId) return;
+
+        const key = `${row.date}|${row.cardId}`;
+
+        latestByDateAndCard.set(key, {
+            ...row,
+            _index: index
+        });
+    });
+
     const byDate = new Map();
 
-    estimatedPriceHistory.forEach(row => {
-        if (!row.date) return;
-
+    [...latestByDateAndCard.values()].forEach(row => {
         const value = Number(
             row.estimatedConditionPrice ??
             row.estimatedPrice ??
@@ -541,12 +552,26 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
         .filter(row => Number(row.cardId) === Number(card.id))
         .sort((a, b) => String(a.date).localeCompare(String(b.date)))
         .map(row => {
-            const estimatedByCondition = row.estimatedByCondition || card.estimatedByCondition || null;
+            let estimatedByCondition =
+                row.estimatedByCondition ||
+                null;
+
+            if (typeof estimatedByCondition === "string") {
+                try {
+                    estimatedByCondition = JSON.parse(estimatedByCondition);
+                } catch {
+                    estimatedByCondition = null;
+                }
+            }
+
+            const historicalEstimatedPrice =
+                row.estimatedConditionPrice ??
+                row.estimatedPrice ??
+                null;
 
             const estimatedConditionPrice =
+                historicalEstimatedPrice ??
                 estimatedByCondition?.[condition] ??
-                row.estimatedPrice ??
-                card.estimatedPrice ??
                 null;
 
             return {
