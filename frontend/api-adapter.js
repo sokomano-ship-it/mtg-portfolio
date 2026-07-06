@@ -52,5 +52,10 @@ window.apiAdapter = {
     async getTopMovers() {
         const data = await fetchJson("data/top-movers.json");
         return data.topMovers || [];
+    },
+
+    async getInvestmentAnalysis() {
+        const data = await fetchJson("data/investment-analysis.json");
+        return data.investmentAnalysis || [];
     }
 };
