@@ -19,6 +19,7 @@ const splitOutputFiles = {
     portfolioHistory: path.join(outputDir, "portfolio-history.json"),
     categorySummary: path.join(outputDir, "category-summary.json"),
     topMovers: path.join(outputDir, "top-movers.json")
+    
 };
 
 function writeJson(file, data) {
@@ -333,8 +334,38 @@ const estimatedTotalValue = cards.reduce(
 );
     const todayDate = new Date().toISOString().slice(0, 10);
 
+function buildPortfolioHistoryFromEstimatedSnapshots(estimatedPriceHistory) {
+    const byDate = new Map();
+
+    estimatedPriceHistory.forEach(row => {
+        if (!row.date) return;
+
+        const value = Number(
+            row.estimatedConditionPrice ??
+            row.estimatedPrice ??
+            0
+        );
+
+        if (!byDate.has(row.date)) {
+            byDate.set(row.date, 0);
+        }
+
+        byDate.set(row.date, byDate.get(row.date) + value);
+    });
+
+    return [...byDate.entries()]
+        .map(([date, totalValue]) => ({
+            date,
+            totalValue: Number(totalValue.toFixed(2))
+        }))
+        .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+}
+
+const portfolioHistoryFromSnapshots =
+    buildPortfolioHistoryFromEstimatedSnapshots(estimatedPriceHistory);
+
 const portfolioHistoryEstimated = [
-    ...portfolioHistory.filter(row => row.date !== todayDate),
+    ...portfolioHistoryFromSnapshots.filter(row => row.date !== todayDate),
     {
         date: todayDate,
         totalValue: Number(estimatedTotalValue.toFixed(2))
