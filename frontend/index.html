@@ -16,7 +16,9 @@
 
 <nav class="tabs">
     <button class="tab-button active" data-tab="tab-general">📊 Général</button>
-    <button class="tab-button" data-tab="tab-movers">📈 Top hausses / baisses</button>
+    <button class="tab-button" data-tab="tab-investment-analysis">
+    📈 Analyse investissements
+</button>
     <button class="tab-button" data-tab="tab-opportunities">🔥 Opportunités</button>
     <button class="tab-button" data-tab="tab-collection">🃏 Ma collection</button>
     <button class="tab-button" onclick="window.location.href='market-observations.html'">📊 Observations Marché</button>
@@ -72,36 +74,83 @@
 
     </section>
 
-    <section id="tab-movers" class="tab-content">
+    <section id="tab-investment-analysis" class="tab-content">
 
-        <section class="card">
-            <h2>🔥 Top hausses / 📉 Top baisses</h2>
+    <section class="card">
 
-            <div id="movers-status">Chargement...</div>
+        <h2>📊 Analyse des investissements</h2>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="sortable" data-sort="nomCarte">Carte</th>
-                            <th class="sortable" data-sort="edition">Edition</th>
-                            <th class="sortable" data-sort="etat">Etat</th>
-                            <th class="sortable" data-sort="quantity">Qté</th>
-                            <th class="sortable" data-sort="currentPrice">Prix état</th>
-                            <th class="sortable" data-sort="lotValue">Valeur lot</th>
-                            <th class="sortable" data-sort="perf7d">7j</th>
-                            <th class="sortable" data-sort="perf30d">30j</th>
-                            <th class="sortable" data-sort="perf90d">90j</th>
-                            <th class="sortable" data-sort="perf180d">180j</th>
-                            <th class="sortable" data-sort="perf365d">365j</th>
-                        </tr>
-                    </thead>
-                    <tbody id="movers-body"></tbody>
-                </table>
-            </div>
-        </section>
+        <div id="investment-status">
+            Chargement...
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th class="sortable" data-sort="nomCarte">Carte</th>
+
+                        <th class="sortable" data-sort="edition">Edition</th>
+
+                        <th class="sortable" data-sort="langue">Langue</th>
+
+                        <th class="sortable" data-sort="etat">Etat</th>
+
+                        <th class="sortable" data-sort="quantity">Qté</th>
+
+                        <th class="sortable" data-sort="currentEstimatedPrice">
+                            Prix modèle
+                        </th>
+
+                        <th class="sortable" data-sort="lotValue">
+                            Valeur lot
+                        </th>
+
+                        <th class="sortable" data-sort="perf7d">7j</th>
+
+                        <th class="sortable" data-sort="perf30d">30j</th>
+
+                        <th class="sortable" data-sort="perf60d">60j</th>
+
+                        <th class="sortable" data-sort="perf180d">180j</th>
+
+                        <th class="sortable" data-sort="perf365d">365j</th>
+
+                        <th class="sortable" data-sort="confidence">
+                            Confiance
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="investment-analysis-body">
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </section>
+
+    <section class="card">
+
+        <h2>Détails de l'investissement</h2>
+
+        <div id="investment-details">
+
+            Sélectionnez une carte dans le tableau ci-dessus.
+
+        </div>
+
+    </section>
+
+</section>
 
     <section id="tab-opportunities" class="tab-content">
 
