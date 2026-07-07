@@ -1200,3 +1200,16 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     border-top: 1px solid rgba(120, 170, 255, 0.45);
     border-bottom: 1px solid rgba(120, 170, 255, 0.45);
 }
+
+.investment-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    align-items: stretch;
+}
+
+@media (max-width: 900px) {
+    .investment-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
