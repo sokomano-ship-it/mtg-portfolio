@@ -45,7 +45,7 @@ async function loadDashboard() {
     await loadPortfolioSummary();
     await loadPortfolioHistory();
     await loadCategorySummary();
-    await loadTopMovers();
+    
     
     await loadInvestmentAnalysis();
     await loadOpportunities();
