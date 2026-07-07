@@ -16,7 +16,7 @@ let currentOpportunityDirection = "desc";
 
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
-
+let investmentChart = null;
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     loadDashboard();
@@ -662,6 +662,116 @@ function showInvestmentDetails(cardId) {
         <strong>Source :</strong> ${escapeHtml(card.gradeModelSource || "-")}
     </p>
 `;
+renderInvestmentChart(cardId);
+}
+
+async function renderInvestmentChart(cardId) {
+    const ctx = document.getElementById("investmentChart");
+    if (!ctx) return;
+
+    if (investmentChart) {
+        investmentChart.destroy();
+    }
+
+    try {
+        const detail = await window.apiAdapter.getCardDetail(cardId);
+
+        if (!detail) {
+            investmentChart = null;
+            return;
+        }
+
+        const card = detail.card || {};
+        const history = detail.history || [];
+        const estimatedHistory = detail.estimatedHistory || [];
+
+        const historyByDate = new Map();
+
+        history.forEach(row => {
+            if (!row.date) return;
+            historyByDate.set(row.date, { ...row });
+        });
+
+        estimatedHistory.forEach(row => {
+            if (!row.date) return;
+
+            const existing = historyByDate.get(row.date) || {};
+
+            historyByDate.set(row.date, {
+                ...existing,
+                ...row
+            });
+        });
+
+        const chartRows = [...historyByDate.values()]
+            .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+
+        if (!chartRows.length) {
+            investmentChart = null;
+            return;
+        }
+
+        const getMarketPrice = row =>
+            row.trendPrice ??
+            row.avg30 ??
+            null;
+
+        const getEstimatedPrice = row =>
+            row.estimatedConditionPrice ??
+            row.estimatedPrice ??
+            null;
+
+        investmentChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: chartRows.map(row => row.date),
+                datasets: [
+                    {
+                        label: "Prix modèle (€)",
+                        data: chartRows.map(row => getEstimatedPrice(row)),
+                        tension: 0.3
+                    },
+                    {
+                        label: "Trend marché (€)",
+                        data: chartRows.map(row => getMarketPrice(row)),
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "#f5f5f5"
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#f5f5f5"
+                        },
+                        grid: {
+                            color: "rgba(255,255,255,0.1)"
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: "#f5f5f5"
+                        },
+                        grid: {
+                            color: "rgba(255,255,255,0.1)"
+                        }
+                    }
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        investmentChart = null;
+    }
 }
 
 function renderTopMovers() {
@@ -1176,6 +1286,7 @@ function openOpportunityDetail(opportunityId) {
 }
 
 let cardDetailChart = null;
+
 
 function renderCardDetailChart(history) {
     const ctx = document.getElementById("cardDetailChart");
