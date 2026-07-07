@@ -557,7 +557,7 @@ function renderInvestmentAnalysis() {
 
     sortedRows.forEach(card => {
         tbody.innerHTML += `
-            <tr>
+            <tr onclick="showInvestmentDetails(${card.id})" style="cursor:pointer;">
                 <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
                 <td>${escapeHtml(card.edition || "-")}</td>
                 <td>${escapeHtml(card.langue || "-")}</td>
@@ -605,6 +605,51 @@ function renderInvestmentAnalysis() {
     });
 
     updateInvestmentHeaderState();
+}
+
+function showInvestmentDetails(cardId) {
+    const card = allInvestmentAnalysis.find(row =>
+        Number(row.id) === Number(cardId)
+    );
+
+    const container = document.getElementById("investment-details");
+    if (!container || !card) return;
+
+    container.innerHTML = `
+        <h3>${escapeHtml(card.nomCarte || "-")}</h3>
+
+        <p>
+            <strong>Édition :</strong> ${escapeHtml(card.edition || "-")}<br>
+            <strong>Langue :</strong> ${escapeHtml(card.langue || "-")}<br>
+            <strong>État :</strong> ${escapeHtml(card.etat || "-")}<br>
+            <strong>Quantité :</strong> ${Number(card.quantity || 1)}
+        </p>
+
+        <p>
+            <strong>Prix modèle :</strong> ${formatEuro(card.currentEstimatedPrice)}<br>
+            <strong>Valeur lot :</strong> ${formatEuro(card.lotValue)}<br>
+            <strong>Confiance :</strong> ${
+                card.confidence !== null && card.confidence !== undefined
+                    ? `${Number(card.confidence).toFixed(0)} %`
+                    : "-"
+            }<br>
+            <strong>Jours observés :</strong> ${card.observationDaysCount ?? "-"}
+        </p>
+
+        <p>
+            <strong>Performance :</strong><br>
+            7j : ${formatOptionalPercent(card.perf7d)}<br>
+            30j : ${formatOptionalPercent(card.perf30d)}<br>
+            60j : ${formatOptionalPercent(card.perf60d)}<br>
+            180j : ${formatOptionalPercent(card.perf180d)}<br>
+            365j : ${formatOptionalPercent(card.perf365d)}
+        </p>
+
+        <p>
+            <strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}<br>
+            <strong>Source :</strong> ${escapeHtml(card.gradeModelSource || "-")}
+        </p>
+    `;
 }
 
 function renderTopMovers() {
