@@ -2,6 +2,7 @@ let allCards = [];
 let allMovers = [];
 let allOpportunities = [];
 let allInvestmentAnalysis = [];
+let selectedInvestmentCardId = null;
 
 let currentInvestmentSort = "perf30d";
 let currentInvestmentDirection = "desc";
@@ -557,7 +558,11 @@ function renderInvestmentAnalysis() {
 
     sortedRows.forEach(card => {
         tbody.innerHTML += `
-            <tr onclick="showInvestmentDetails(${card.id})" style="cursor:pointer;">
+            <tr
+    onclick="showInvestmentDetails(${card.id})"
+    class="${Number(selectedInvestmentCardId) === Number(card.id) ? "selected-row" : ""}"
+    style="cursor:pointer;"
+>
                 <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
                 <td>${escapeHtml(card.edition || "-")}</td>
                 <td>${escapeHtml(card.langue || "-")}</td>
@@ -608,6 +613,9 @@ function renderInvestmentAnalysis() {
 }
 
 function showInvestmentDetails(cardId) {
+    selectedInvestmentCardId = cardId;
+    renderInvestmentAnalysis();
+
     const card = allInvestmentAnalysis.find(row =>
         Number(row.id) === Number(cardId)
     );

@@ -1191,3 +1191,12 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     background: rgba(160, 160, 160, 0.14);
     color: #ccc;
 }
+
+.selected-row {
+    background: rgba(80, 140, 255, 0.18);
+}
+
+.selected-row td {
+    border-top: 1px solid rgba(120, 170, 255, 0.45);
+    border-bottom: 1px solid rgba(120, 170, 255, 0.45);
+}
