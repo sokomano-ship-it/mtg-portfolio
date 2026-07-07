@@ -624,40 +624,44 @@ function showInvestmentDetails(cardId) {
     if (!container || !card) return;
 
     container.innerHTML = `
-        <h3>${escapeHtml(card.nomCarte || "-")}</h3>
+    <h3>${escapeHtml(card.nomCarte || "-")}</h3>
 
-        <p>
-            <strong>Édition :</strong> ${escapeHtml(card.edition || "-")}<br>
-            <strong>Langue :</strong> ${escapeHtml(card.langue || "-")}<br>
-            <strong>État :</strong> ${escapeHtml(card.etat || "-")}<br>
-            <strong>Quantité :</strong> ${Number(card.quantity || 1)}
-        </p>
+    <p class="muted">
+        ${escapeHtml(card.edition || "-")} ·
+        ${escapeHtml(card.langue || "-")} ·
+        ${escapeHtml(card.etat || "-")} ·
+        Qté ${Number(card.quantity || 1)}
+    </p>
 
-        <p>
-            <strong>Prix modèle :</strong> ${formatEuro(card.currentEstimatedPrice)}<br>
-            <strong>Valeur lot :</strong> ${formatEuro(card.lotValue)}<br>
-            <strong>Confiance :</strong> ${
-                card.confidence !== null && card.confidence !== undefined
-                    ? `${Number(card.confidence).toFixed(0)} %`
-                    : "-"
-            }<br>
-            <strong>Jours observés :</strong> ${card.observationDaysCount ?? "-"}
-        </p>
+    <div class="detail-performances">
+        <span><strong>Prix modèle</strong><br>${formatEuro(card.currentEstimatedPrice)}</span>
+        <span><strong>Valeur lot</strong><br>${formatEuro(card.lotValue)}</span>
+        <span><strong>Confiance</strong><br>${
+            card.confidence !== null && card.confidence !== undefined
+                ? `${Number(card.confidence).toFixed(0)} %`
+                : "-"
+        }</span>
+        <span><strong>Jours observés</strong><br>${card.observationDaysCount ?? "-"}</span>
+    </div>
 
-        <p>
-            <strong>Performance :</strong><br>
-            7j : ${formatOptionalPercent(card.perf7d)}<br>
-            30j : ${formatOptionalPercent(card.perf30d)}<br>
-            60j : ${formatOptionalPercent(card.perf60d)}<br>
-            180j : ${formatOptionalPercent(card.perf180d)}<br>
-            365j : ${formatOptionalPercent(card.perf365d)}
-        </p>
+    <hr>
 
-        <p>
-            <strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}<br>
-            <strong>Source :</strong> ${escapeHtml(card.gradeModelSource || "-")}
-        </p>
-    `;
+    <p>
+        <strong>Performance :</strong><br>
+        7j : <span class="${performanceClass(card.perf7d)}">${formatOptionalPercent(card.perf7d)}</span><br>
+        30j : <span class="${performanceClass(card.perf30d)}">${formatOptionalPercent(card.perf30d)}</span><br>
+        60j : <span class="${performanceClass(card.perf60d)}">${formatOptionalPercent(card.perf60d)}</span><br>
+        180j : <span class="${performanceClass(card.perf180d)}">${formatOptionalPercent(card.perf180d)}</span><br>
+        365j : <span class="${performanceClass(card.perf365d)}">${formatOptionalPercent(card.perf365d)}</span>
+    </p>
+
+    <hr>
+
+    <p>
+        <strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}<br>
+        <strong>Source :</strong> ${escapeHtml(card.gradeModelSource || "-")}
+    </p>
+`;
 }
 
 function renderTopMovers() {
