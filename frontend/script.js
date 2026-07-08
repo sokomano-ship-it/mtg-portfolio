@@ -19,6 +19,7 @@ let currentCollectionDirection = "asc";
 let investmentChart = null;
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
+    setupInvestmentDrawerTabs();
     loadDashboard();
 });
 
@@ -37,6 +38,29 @@ function setupTabs() {
 
             button.classList.add("active");
             document.getElementById(target).classList.add("active");
+        });
+    });
+}
+
+function setupInvestmentDrawerTabs() {
+    document.querySelectorAll(".investment-drawer-tab").forEach(button => {
+        button.addEventListener("click", () => {
+            const target = button.dataset.investmentPanel;
+
+            document.querySelectorAll(".investment-drawer-tab").forEach(tab => {
+                tab.classList.remove("active");
+            });
+
+            document.querySelectorAll(".investment-drawer-panel").forEach(panel => {
+                panel.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            const panel = document.getElementById(`investment-panel-${target}`);
+            if (panel) {
+                panel.classList.add("active");
+            }
         });
     });
 }
@@ -626,6 +650,61 @@ function closeInvestmentDrawer() {
     }
 }
 
+function calculateInvestmentScore(card) {
+    const confidence = Number(card.confidence || 0);
+    const observationDays = Number(card.observationDaysCount || 0);
+
+    const confidenceScore = Math.min(confidence, 100);
+    const observationScore = Math.min(observationDays * 10, 100);
+
+    const performanceScore = Math.max(
+        0,
+        Math.min(
+            100,
+            50 + Number(card.perf30d || card.perf7d || 0)
+        )
+    );
+
+    return Math.round(
+        confidenceScore * 0.5 +
+        observationScore * 0.25 +
+        performanceScore * 0.25
+    );
+}
+
+function formatStars(score) {
+    const value = Number(score || 0);
+
+    if (value >= 85) return "★★★★★";
+    if (value >= 70) return "★★★★☆";
+    if (value >= 55) return "★★★☆☆";
+    if (value >= 40) return "★★☆☆☆";
+    return "★☆☆☆☆";
+}
+
+function updateInvestmentDrawerHeader(card) {
+    const title = document.getElementById("investment-drawer-title");
+    const subtitle = document.getElementById("investment-drawer-subtitle");
+    const score = document.getElementById("investment-drawer-score");
+
+    const investmentScore = calculateInvestmentScore(card);
+
+    if (title) {
+        title.textContent = card.nomCarte || "-";
+    }
+
+    if (subtitle) {
+        subtitle.textContent = `${card.edition || "-"} · ${card.langue || "-"} · ${card.etat || "-"} · Qté ${Number(card.quantity || 1)}`;
+    }
+
+    if (score) {
+        score.innerHTML = `
+            <strong>${formatStars(investmentScore)}</strong>
+            <span>Score investissement : ${investmentScore} / 100</span>
+        `;
+    }
+}
+
 function showInvestmentDetails(cardId) {
     selectedInvestmentCardId = cardId;
     renderInvestmentAnalysis();
@@ -634,6 +713,8 @@ function showInvestmentDetails(cardId) {
     const card = allInvestmentAnalysis.find(row =>
         Number(row.id) === Number(cardId)
     );
+    updateInvestmentDrawerHeader(card);
+renderInvestmentModelAnalysis(card);
 
     const container = document.getElementById("investment-details");
     if (!container || !card) return;
@@ -680,7 +761,51 @@ function showInvestmentDetails(cardId) {
 renderInvestmentChart(cardId);
 }
 
+function renderInvestmentModelAnalysis(card) {
+    const container = document.getElementById("investment-model-analysis");
+    if (!container || !card) return;
 
+    const confidence = Number(card.confidence || 0);
+    const observationDays = Number(card.observationDaysCount || 0);
+
+    let confidenceLabel = "Faible";
+    if (confidence >= 80) confidenceLabel = "Très bonne";
+    else if (confidence >= 60) confidenceLabel = "Bonne";
+    else if (confidence >= 40) confidenceLabel = "Moyenne";
+
+    let coverageLabel = "Très limitée";
+    if (observationDays >= 30) coverageLabel = "Solide";
+    else if (observationDays >= 7) coverageLabel = "Correcte";
+    else if (observationDays >= 2) coverageLabel = "Initiale";
+
+    container.innerHTML = `
+        <div class="model-quality-block">
+            <h3>Confiance</h3>
+            <p><strong>${confidence.toFixed(0)} %</strong> — ${confidenceLabel}</p>
+        </div>
+
+        <div class="model-quality-block">
+            <h3>Couverture des observations</h3>
+            <p><strong>${observationDays}</strong> jour(s) observé(s)</p>
+            <p>Niveau : ${coverageLabel}</p>
+        </div>
+
+        <div class="model-quality-block">
+            <h3>Source</h3>
+            <p>${escapeHtml(card.gradeModelSource || "-")}</p>
+            <p class="muted">${escapeHtml(card.pricingModel || "-")}</p>
+        </div>
+
+        <div class="model-quality-block">
+            <h3>Lecture</h3>
+            <p>
+                Le modèle dispose actuellement d'une confiance ${confidenceLabel.toLowerCase()}.
+                La couverture des observations est ${coverageLabel.toLowerCase()}.
+                Cette estimation pourra devenir plus robuste avec davantage de relevés quotidiens.
+            </p>
+        </div>
+    `;
+}
 
 async function renderInvestmentChart(cardId) {
     const ctx = document.getElementById("investmentChart");

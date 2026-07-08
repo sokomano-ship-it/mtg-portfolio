@@ -144,25 +144,46 @@
         ×
     </button>
 
-    <h2>Détails de l'investissement</h2>
+    <div id="investment-drawer-header" class="investment-drawer-header">
+    <h2 id="investment-drawer-title">Détails</h2>
+    <p id="investment-drawer-subtitle" class="muted">
+        Sélectionnez une carte.
+    </p>
 
+    <div id="investment-drawer-score" class="investment-score">
+        Score investissement : -
+    </div>
+</div>
+
+<div class="investment-drawer-tabs">
+    <button class="investment-drawer-tab active" data-investment-panel="analysis">
+        📊 Analyse
+    </button>
+    <button class="investment-drawer-tab" data-investment-panel="chart">
+        📈 Graphique
+    </button>
+    <button class="investment-drawer-tab" data-investment-panel="model">
+        🧠 Modèle
+    </button>
+</div>
+
+<section id="investment-panel-analysis" class="investment-drawer-panel active">
     <div id="investment-details">
         Sélectionnez une carte.
     </div>
+</section>
 
-    <section class="drawer-section">
-        <h3>Évolution</h3>
-        <div class="detail-chart">
-            <canvas id="investmentChart"></canvas>
-        </div>
-    </section>
+<section id="investment-panel-chart" class="investment-drawer-panel">
+    <div class="detail-chart">
+        <canvas id="investmentChart"></canvas>
+    </div>
+</section>
 
-    <section class="drawer-section">
-        <h3>Analyse du modèle</h3>
-        <div id="investment-forecast">
-            Les indicateurs qualité du modèle apparaîtront ici.
-        </div>
-    </section>
+<section id="investment-panel-model" class="investment-drawer-panel">
+    <div id="investment-model-analysis">
+        Les indicateurs qualité du modèle apparaîtront ici.
+    </div>
+</section>
 
 </aside>
 
