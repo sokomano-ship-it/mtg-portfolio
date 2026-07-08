@@ -37,7 +37,7 @@ jobs:
         run: npm install
 
       - name: Build portfolio
-        run: npm run sync:collection
+        run: npm run build:pages
 
       - name: Send alerts
         if: github.event_name == 'schedule'

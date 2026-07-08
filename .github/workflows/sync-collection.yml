@@ -1,0 +1,36 @@
+name: Sync Collection from Excel
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-collection:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Sync collection and build portfolio
+        run: npm run sync:collection
+
+      - name: Commit updated portfolio data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add database/portfolio.db frontend/data
+          git diff --cached --quiet || git commit -m "Sync collection from Excel"
+          git push
