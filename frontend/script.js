@@ -768,6 +768,14 @@ function renderInvestmentModelAnalysis(card) {
     const confidence = Number(card.confidence || 0);
     const observationDays = Number(card.observationDaysCount || 0);
 
+    const collectionCard = allCards.find(row =>
+        Number(row.id) === Number(card.id)
+    ) || {};
+
+    const trendPrice = Number(collectionCard.trendPrice || 0);
+    const avg30 = Number(collectionCard.avg30 || 0);
+    const modelPrice = Number(card.currentEstimatedPrice || 0);
+
     let confidenceLabel = "Faible";
     if (confidence >= 80) confidenceLabel = "Très bonne";
     else if (confidence >= 60) confidenceLabel = "Bonne";
@@ -779,6 +787,41 @@ function renderInvestmentModelAnalysis(card) {
     else if (observationDays >= 2) coverageLabel = "Initiale";
 
     container.innerHTML = `
+        <div class="model-quality-block">
+            <h3>Pourquoi cette estimation ?</h3>
+
+            <p>
+                Le prix estimé est de <strong>${formatEuro(modelPrice)}</strong> car :
+            </p>
+
+            <ul>
+                ${
+                    trendPrice
+                        ? `<li>le Trend Cardmarket actuel est de <strong>${formatEuro(trendPrice)}</strong> ;</li>`
+                        : `<li>le Trend Cardmarket n'est pas disponible pour cette carte ;</li>`
+                }
+
+                ${
+                    avg30
+                        ? `<li>la moyenne 30 jours est de <strong>${formatEuro(avg30)}</strong> ;</li>`
+                        : `<li>la moyenne 30 jours n'est pas disponible ;</li>`
+                }
+
+                <li>
+                    <strong>${observationDays}</strong> jour(s) d'observations réelles alimentent le modèle ;
+                </li>
+
+                <li>
+                    le modèle applique les ratios observés ou estimés pour l'état
+                    <strong>${escapeHtml(card.etat || "-")}</strong> ;
+                </li>
+
+                <li>
+                    la confiance actuelle est de <strong>${confidence.toFixed(0)} %</strong>.
+                </li>
+            </ul>
+        </div>
+
         <div class="model-quality-block">
             <h3>Confiance</h3>
             <p><strong>${confidence.toFixed(0)} %</strong> — ${confidenceLabel}</p>
@@ -853,32 +896,38 @@ async function renderInvestmentChart(cardId) {
             return;
         }
 
-        const getMarketPrice = row =>
-            row.trendPrice ??
-            row.avg30 ??
-            null;
+        const getTrendPrice = row =>
+    row.trendPrice ?? null;
 
-        const getEstimatedPrice = row =>
-            row.estimatedConditionPrice ??
-            row.estimatedPrice ??
-            null;
+const getAvg30Price = row =>
+    row.avg30 ?? null;
+
+const getEstimatedPrice = row =>
+    row.estimatedConditionPrice ??
+    row.estimatedPrice ??
+    null;
 
         investmentChart = new Chart(ctx, {
             type: "line",
             data: {
                 labels: chartRows.map(row => row.date),
                 datasets: [
-                    {
-                        label: "Prix modèle (€)",
-                        data: chartRows.map(row => getEstimatedPrice(row)),
-                        tension: 0.3
-                    },
-                    {
-                        label: "Trend marché (€)",
-                        data: chartRows.map(row => getMarketPrice(row)),
-                        tension: 0.3
-                    }
-                ]
+    {
+        label: "Prix modèle (€)",
+        data: chartRows.map(row => getEstimatedPrice(row)),
+        tension: 0.3
+    },
+    {
+        label: "Trend Cardmarket (€)",
+        data: chartRows.map(row => getTrendPrice(row)),
+        tension: 0.3
+    },
+    {
+        label: "Moyenne 30 jours (€)",
+        data: chartRows.map(row => getAvg30Price(row)),
+        tension: 0.3
+    }
+]
             },
             options: {
                 responsive: true,
