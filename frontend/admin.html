@@ -815,6 +815,8 @@ $("identityLanguage").textContent = card.langue || "—";
     $("marketSnapshotHint").innerHTML =
       "<strong>Références Cardmarket</strong><br>Aucune référence automatique disponible. La carte sera estimée par observations.";
   }
+  $("cardSearch").value = "";
+$("cardSearch").focus();
 
   log(`Carte sélectionnée : ${card.nomCarte} | ${card.edition} | ${card.langue || "-"}`);
 }

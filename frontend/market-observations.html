@@ -224,6 +224,9 @@ function handleSearchInput() {
 
   $("selectedCardKey").value = key;
   renderSelectedCard();
+
+  $("cardSearch").value = "";
+  $("cardSearch").focus();
 }
 
 function clearSelectedCardView() {
