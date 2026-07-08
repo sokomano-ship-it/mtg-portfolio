@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T17:08:13.201Z",
+  "generatedAt": "2026-07-08T07:20:41.982Z",
   "opportunities": [
     {
       "id": 1275,
@@ -133,16 +133,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 39,
+        "historyPoints": 42,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 20.75,
-        "historyAgeDays": 12,
-        "uptrendDays": 11,
-        "positiveDaysRatio30": 92.1,
-        "slope30PerDay": -0.283,
+        "historyAgeDays": 13,
+        "uptrendDays": 14,
+        "positiveDaysRatio30": 92.7,
+        "slope30PerDay": -0.261,
         "acceleration": 0,
-        "volatility30": 2.21,
+        "volatility30": 2.12,
         "high30d": 22.97,
         "low30d": 19.4,
         "position30dPct": 37.8,
@@ -246,6 +246,152 @@
         "Momentum propre",
         "Hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Très proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 14,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 5.42,
+        "historyAgeDays": 13,
+        "uptrendDays": 4,
+        "positiveDaysRatio30": 84.6,
+        "slope30PerDay": 0.886,
+        "acceleration": -2.39,
+        "volatility30": 3.42,
+        "high30d": 5.42,
+        "low30d": 4.75,
+        "position30dPct": 100,
+        "high90d": 5.42,
+        "low90d": 4.75,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 1418,
+      "nomCarte": "Tolaria",
+      "nomBase": "Tolaria",
+      "version": null,
+      "edition": "Legends",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "d43c01b7-443d-4061-a934-6863d230c9b8",
+      "imageUrl": "https://cards.scryfall.io/normal/front/d/4/d43c01b7-443d-4061-a934-6863d230c9b8.jpg?1616399923",
+      "priceUsd": 7,
+      "priceEur": 7.69,
+      "cardmarketId": 7224,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Bleu",
+      "trendPrice": 8.86,
+      "lowPrice": 3.5,
+      "avgPrice": 8.15,
+      "avg1": 9.4,
+      "avg7": 8.09,
+      "avg30": 7.56,
+      "prixEtat": 8.15,
+      "estimatedPrice": 7.1,
+      "baseEstimatedPrice": 7.1,
+      "estimatedByCondition": {
+        "NM": 9.36,
+        "EX": 7.1,
+        "GD": 5.76,
+        "LP": 5.21,
+        "PL": 4.59,
+        "PO": 4.04
+      },
+      "buyTargetByCondition": {
+        "NM": 8.42,
+        "EX": 6.25
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7731,
+        "GD": 0.6349,
+        "LP": 0.5675,
+        "PL": 0.4888,
+        "PO": 0.4228
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 9.4,
+        "EX": 6.5,
+        "GD": 4.99,
+        "LP": 4.5,
+        "PL": 4,
+        "PO": 3.5
+      },
+      "observedMinByCondition": {
+        "NM": 9.4,
+        "EX": 6.5,
+        "GD": 4.99,
+        "LP": 4.5,
+        "PL": 4,
+        "PO": 3.5
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 12,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.7336,
+      "pricingObservationCount": 2,
+      "marketAnchorPrice": 8.86,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 8.86,
+      "estimatedNmPrice": 9.36,
+      "estimatedExPrice": 7.1,
+      "nmTargetPrice": 8.42,
+      "exTargetPrice": 6.25,
+      "trendVs30": 17.2,
+      "avg7Vs30": 7.01,
+      "avg1Vs7": 16.19,
+      "trendQuality": 92,
+      "momentumQuality": 78,
+      "remainingPotential": 79,
+      "timingScore": 100,
+      "riskMultiplier": 1,
+      "buyProbability": 86,
+      "convictionScore": 86,
+      "decision": "🟢 Achat fort",
+      "reasons": [
+        "Momentum propre",
+        "Hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
         "Accélération historique favorable",
         "Prix NM significatif"
       ],
@@ -284,21 +430,21 @@
         }
       ],
       "historical": {
-        "historyPoints": 13,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 5.42,
-        "historyAgeDays": 12,
+        "historyPoints": 20,
+        "firstDate": "2026-06-29",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 8.86,
+        "historyAgeDays": 9,
         "uptrendDays": 3,
-        "positiveDaysRatio30": 83.3,
-        "slope30PerDay": 0.96,
-        "acceleration": 4.111,
-        "volatility30": 3.55,
-        "high30d": 5.42,
-        "low30d": 4.75,
+        "positiveDaysRatio30": 89.5,
+        "slope30PerDay": 1.691,
+        "acceleration": 2.071,
+        "volatility30": 2.47,
+        "high30d": 8.86,
+        "low30d": 7.69,
         "position30dPct": 100,
-        "high90d": 5.42,
-        "low90d": 4.75,
+        "high90d": 8.86,
+        "low90d": 7.69,
         "position90dPct": 100
       }
     },
@@ -388,11 +534,11 @@
       "trendQuality": 96,
       "momentumQuality": 80,
       "remainingPotential": 82,
-      "timingScore": 82,
+      "timingScore": 84,
       "riskMultiplier": 1,
-      "buyProbability": 84,
-      "convictionScore": 84,
-      "decision": "🟡 Achat intéressant",
+      "buyProbability": 85,
+      "convictionScore": 85,
+      "decision": "🟢 Achat fort",
       "reasons": [
         "Momentum propre",
         "Hausse récente mais pas trop mature",
@@ -440,16 +586,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 13,
+        "historyPoints": 14,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 5.23,
-        "historyAgeDays": 12,
-        "uptrendDays": 9,
-        "positiveDaysRatio30": 83.3,
-        "slope30PerDay": 3.478,
-        "acceleration": -30.816,
-        "volatility30": 18.14,
+        "historyAgeDays": 13,
+        "uptrendDays": 10,
+        "positiveDaysRatio30": 84.6,
+        "slope30PerDay": 3.21,
+        "acceleration": -38.176,
+        "volatility30": 17.46,
         "high30d": 5.23,
         "low30d": 2.96,
         "position30dPct": 100,
@@ -591,16 +737,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 24,
+        "historyPoints": 26,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 5.32,
-        "historyAgeDays": 11,
-        "uptrendDays": 7,
-        "positiveDaysRatio30": 82.6,
-        "slope30PerDay": 1.048,
-        "acceleration": -0.221,
-        "volatility30": 1.55,
+        "historyAgeDays": 12,
+        "uptrendDays": 9,
+        "positiveDaysRatio30": 84,
+        "slope30PerDay": 0.961,
+        "acceleration": -1.527,
+        "volatility30": 1.49,
         "high30d": 5.32,
         "low30d": 4.76,
         "position30dPct": 100,
@@ -625,7 +771,7 @@
       "createdAt": "2026-06-29 13:00:16",
       "categorie": "Mono Vert",
       "trendPrice": 38.72,
-      "lowPrice": 24,
+      "lowPrice": 23,
       "avgPrice": 39.47,
       "avg1": 50,
       "avg7": 38.73,
@@ -707,7 +853,6 @@
         "Timing favorable : position 90 jours équilibrée",
         "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
-        "Accélération historique favorable",
         "Prix NM significatif"
       ],
       "warnings": [],
@@ -738,24 +883,20 @@
         },
         {
           "type": "positive",
-          "text": "Accélération historique favorable"
-        },
-        {
-          "type": "positive",
           "text": "Prix NM significatif"
         }
       ],
       "historical": {
-        "historyPoints": 18,
+        "historyPoints": 20,
         "firstDate": "2026-06-29",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 38.72,
-        "historyAgeDays": 8,
-        "uptrendDays": 7,
-        "positiveDaysRatio30": 82.4,
-        "slope30PerDay": -0.08,
-        "acceleration": 4.762,
-        "volatility30": 2.15,
+        "historyAgeDays": 9,
+        "uptrendDays": 9,
+        "positiveDaysRatio30": 84.2,
+        "slope30PerDay": -0.071,
+        "acceleration": -4.762,
+        "volatility30": 2.03,
         "high30d": 40.91,
         "low30d": 36.96,
         "position30dPct": 44.6,
@@ -765,247 +906,100 @@
       }
     },
     {
-      "id": 1334,
-      "nomCarte": "Karakas",
-      "nomBase": "Karakas",
+      "id": 1330,
+      "nomCarte": "Lake of the Dead",
+      "nomBase": "Lake of the Dead",
       "version": null,
-      "edition": "Legends",
-      "langue": "English",
+      "edition": "Alliances",
+      "langue": "French",
       "etat": "EX",
-      "scryfallId": "31d2422a-bb7d-4cdd-9aac-e5a936a4be3b",
-      "imageUrl": "https://cards.scryfall.io/normal/front/3/1/31d2422a-bb7d-4cdd-9aac-e5a936a4be3b.jpg?1562858252",
-      "priceUsd": 48.41,
-      "priceEur": 51.74,
-      "cardmarketId": 7219,
+      "scryfallId": "aee806ce-effa-4244-9659-43246e944d80",
+      "imageUrl": "https://cards.scryfall.io/normal/front/a/e/aee806ce-effa-4244-9659-43246e944d80.jpg?1562770142",
+      "priceUsd": 126.09,
+      "priceEur": 81.66,
+      "cardmarketId": 8037,
       "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Blanc",
-      "trendPrice": 51.83,
-      "lowPrice": 25,
-      "avgPrice": 47.73,
-      "avg1": 42,
-      "avg7": 48.09,
-      "avg30": 45.41,
-      "prixEtat": 47.68,
-      "estimatedPrice": 40.23,
-      "baseEstimatedPrice": 40.23,
+      "categorie": "Classeur",
+      "trendPrice": 86.3,
+      "lowPrice": 50,
+      "avgPrice": 78.61,
+      "avg1": 95,
+      "avg7": 82.02,
+      "avg30": 79.07,
+      "prixEtat": 79.4,
+      "estimatedPrice": 74.16,
+      "baseEstimatedPrice": 74.16,
       "estimatedByCondition": {
-        "NM": 54.76,
-        "EX": 40.23,
-        "GD": 36.38,
-        "LP": 32.57,
-        "PL": 27.8,
-        "PO": 28.1
+        "NM": 90.65,
+        "EX": 74.16,
+        "GD": 78.31,
+        "LP": 63.15,
+        "PL": 67.39,
+        "PO": 45.74
       },
       "buyTargetByCondition": {
-        "NM": 49.28,
-        "EX": 35.4
+        "NM": 81.59,
+        "EX": 65.26
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7605,
-        "GD": 0.6606,
-        "LP": 0.5875,
-        "PL": 0.4975,
-        "PO": 0.4632
+        "EX": 0.8177,
+        "GD": 0.8122,
+        "LP": 0.6729,
+        "PL": 0.6636,
+        "PO": 0.489
       },
-      "gradeModelConfidence": 58,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "gradeModelConfidence": 66,
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
-        "NM": 54.99,
-        "EX": 35.7,
-        "GD": 33.91,
-        "LP": 30,
-        "PL": 25,
-        "PO": 27.89
+        "NM": 90,
+        "EX": 69.95,
+        "GD": 79.9,
+        "LP": 59.99,
+        "PL": 75,
+        "PO": 59.95
       },
       "observedMinByCondition": {
-        "NM": 54.99,
-        "EX": 35.7,
-        "GD": 33.91,
-        "LP": 30,
-        "PL": 25,
-        "PO": 27.89
+        "NM": 90,
+        "EX": 69.95,
+        "GD": 79.9,
+        "LP": 59.99,
+        "PL": 70,
+        "PO": 40
       },
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
+      "observationDaysCount": 2,
+      "observationRowsCount": 12,
       "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.6888,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 51.83,
+      "pricingConfidence": 66,
+      "pricingRatio": 0.8105,
+      "pricingObservationCount": 2,
+      "marketAnchorPrice": 86.3,
       "referenceMarketAnchorPrice": null,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
       "ownedStates": "EX",
-      "nmPrice": 51.83,
-      "estimatedNmPrice": 54.76,
-      "estimatedExPrice": 40.23,
-      "nmTargetPrice": 49.28,
-      "exTargetPrice": 35.4,
-      "trendVs30": 14.14,
-      "avg7Vs30": 5.9,
-      "avg1Vs7": -12.66,
-      "trendQuality": 100,
-      "momentumQuality": 10,
-      "remainingPotential": 93,
-      "timingScore": 97,
+      "nmPrice": 86.3,
+      "estimatedNmPrice": 90.65,
+      "estimatedExPrice": 74.16,
+      "nmTargetPrice": 81.59,
+      "exTargetPrice": 65.26,
+      "trendVs30": 9.14,
+      "avg7Vs30": 3.73,
+      "avg1Vs7": 15.83,
+      "trendQuality": 65,
+      "momentumQuality": 79,
+      "remainingPotential": 67,
+      "timingScore": 100,
       "riskMultiplier": 1,
       "buyProbability": 77,
       "convictionScore": 77,
       "decision": "🟡 Achat intéressant",
       "reasons": [
-        "Momentum positif",
-        "Position 90 jours équilibrée",
-        "Timing favorable : position 90 jours équilibrée",
-        "Timing renforcé par une volatilité faible",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Momentum négatif"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "positive",
-          "text": "Position 90 jours équilibrée"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : position 90 jours équilibrée"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        }
-      ],
-      "historical": {
-        "historyPoints": 12,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 51.83,
-        "historyAgeDays": 11,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": 72.7,
-        "slope30PerDay": 0.005,
-        "acceleration": -4.371,
-        "volatility30": 2,
-        "high30d": 53.57,
-        "low30d": 50.78,
-        "position30dPct": 37.6,
-        "high90d": 53.57,
-        "low90d": 50.78,
-        "position90dPct": 37.6
-      }
-    },
-    {
-      "id": 1309,
-      "nomCarte": "Red Elemental Blast",
-      "nomBase": "Red Elemental Blast",
-      "version": null,
-      "edition": "Fourth Edition",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "cb17ac84-48ae-4ac4-9906-985a64681db0",
-      "imageUrl": "https://cards.scryfall.io/normal/front/c/b/cb17ac84-48ae-4ac4-9906-985a64681db0.jpg?1559599140",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 6071,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Rouge",
-      "trendPrice": 5.67,
-      "lowPrice": 3,
-      "avgPrice": 5.31,
-      "avg1": 6.36,
-      "avg7": 5.57,
-      "avg30": 5.29,
-      "prixEtat": 5.67,
-      "estimatedPrice": 5.28,
-      "baseEstimatedPrice": 5.28,
-      "estimatedByCondition": {
-        "NM": 5.28,
-        "EX": 4.34,
-        "GD": 3.97,
-        "LP": 3.18,
-        "PL": 4.11,
-        "PO": 4.01
-      },
-      "buyTargetByCondition": {
-        "NM": 4.75,
-        "EX": 3.82
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.7378,
-        "GD": 0.6625,
-        "LP": 0.5179,
-        "PL": 0.5936,
-        "PO": 0.5213
-      },
-      "gradeModelConfidence": 58,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 3.9,
-        "EX": 4,
-        "GD": 3.65,
-        "LP": 3,
-        "PL": 4.5,
-        "PO": 4.8
-      },
-      "observedMinByCondition": {
-        "NM": 3.9,
-        "EX": 4,
-        "GD": 3.65,
-        "LP": 3,
-        "PL": 4.5,
-        "PO": 4.8
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.6878,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 5.67,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 2,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM, EX",
-      "nmPrice": 5.67,
-      "estimatedNmPrice": 5.28,
-      "estimatedExPrice": 4.34,
-      "nmTargetPrice": 4.75,
-      "exTargetPrice": 3.82,
-      "trendVs30": 7.18,
-      "avg7Vs30": 5.29,
-      "avg1Vs7": 14.18,
-      "trendQuality": 51,
-      "momentumQuality": 80,
-      "remainingPotential": 73,
-      "timingScore": 100,
-      "riskMultiplier": 1,
-      "buyProbability": 76,
-      "convictionScore": 76,
-      "decision": "🟡 Achat intéressant",
-      "reasons": [
         "Momentum propre",
-        "Hausse récente mais pas trop mature",
-        "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable",
         "Prix NM significatif"
       ],
       "warnings": [
@@ -1019,15 +1013,11 @@
         },
         {
           "type": "positive",
-          "text": "Hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
           "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
         },
         {
           "type": "positive",
@@ -1043,21 +1033,21 @@
         }
       ],
       "historical": {
-        "historyPoints": 26,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 5.67,
+        "historyPoints": 13,
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 86.3,
         "historyAgeDays": 12,
-        "uptrendDays": 11,
-        "positiveDaysRatio30": 88,
-        "slope30PerDay": 0.718,
-        "acceleration": -0.763,
-        "volatility30": 0.97,
-        "high30d": 5.67,
-        "low30d": 5.22,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 66.7,
+        "slope30PerDay": 0.709,
+        "acceleration": 6.426,
+        "volatility30": 2.43,
+        "high30d": 86.3,
+        "low30d": 79.12,
         "position30dPct": 100,
-        "high90d": 5.67,
-        "low90d": 5.22,
+        "high90d": 86.3,
+        "low90d": 79.12,
         "position90dPct": 100
       }
     },
@@ -1076,26 +1066,26 @@
       "cardmarketId": 6836,
       "createdAt": "2026-06-29 13:00:16",
       "categorie": "Mono Blanc",
-      "trendPrice": 22.79,
+      "trendPrice": 22.67,
       "lowPrice": 12.77,
       "avgPrice": 21.32,
-      "avg1": 21,
-      "avg7": 25.45,
-      "avg30": 20.24,
-      "prixEtat": 22.79,
-      "estimatedPrice": 24.32,
-      "baseEstimatedPrice": 24.32,
+      "avg1": 15,
+      "avg7": 24.93,
+      "avg30": 19.86,
+      "prixEtat": 22.67,
+      "estimatedPrice": 24.24,
+      "baseEstimatedPrice": 24.24,
       "estimatedByCondition": {
-        "NM": 24.32,
-        "EX": 16.87,
-        "GD": 15.47,
-        "LP": 13.43,
-        "PL": 12.79,
-        "PO": 11.93
+        "NM": 24.24,
+        "EX": 16.81,
+        "GD": 15.42,
+        "LP": 13.38,
+        "PL": 12.75,
+        "PO": 11.89
       },
       "buyTargetByCondition": {
-        "NM": 21.89,
-        "EX": 14.85
+        "NM": 21.82,
+        "EX": 14.79
       },
       "ratioByCondition": {
         "NM": 1,
@@ -1127,30 +1117,30 @@
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
       "pricingConfidence": 58,
-      "pricingRatio": 1.0926,
+      "pricingRatio": 1.0984,
       "pricingObservationCount": 1,
-      "marketAnchorPrice": 22.79,
+      "marketAnchorPrice": 22.67,
       "referenceMarketAnchorPrice": null,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
       "ownedStates": "NM",
-      "nmPrice": 22.79,
-      "estimatedNmPrice": 24.32,
-      "estimatedExPrice": 16.87,
-      "nmTargetPrice": 21.89,
-      "exTargetPrice": 14.85,
-      "trendVs30": 12.6,
-      "avg7Vs30": 25.74,
-      "avg1Vs7": -17.49,
-      "trendQuality": 90,
+      "nmPrice": 22.67,
+      "estimatedNmPrice": 24.24,
+      "estimatedExPrice": 16.81,
+      "nmTargetPrice": 21.82,
+      "exTargetPrice": 14.79,
+      "trendVs30": 14.15,
+      "avg7Vs30": 25.53,
+      "avg1Vs7": -39.83,
+      "trendQuality": 100,
       "momentumQuality": 10,
-      "remainingPotential": 79,
+      "remainingPotential": 78,
       "timingScore": 91,
       "riskMultiplier": 1,
-      "buyProbability": 70,
-      "convictionScore": 70,
+      "buyProbability": 72,
+      "convictionScore": 72,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum positif",
@@ -1179,22 +1169,173 @@
         }
       ],
       "historical": {
-        "historyPoints": 12,
+        "historyPoints": 13,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 22.79,
-        "historyAgeDays": 11,
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 22.67,
+        "historyAgeDays": 12,
         "uptrendDays": 0,
-        "positiveDaysRatio30": 81.8,
-        "slope30PerDay": 2.844,
-        "acceleration": 1.104,
-        "volatility30": 9.37,
+        "positiveDaysRatio30": 75,
+        "slope30PerDay": 2.549,
+        "acceleration": 0.965,
+        "volatility30": 9.02,
         "high30d": 23.78,
         "low30d": 17.36,
-        "position30dPct": 84.6,
+        "position30dPct": 82.7,
         "high90d": 23.78,
         "low90d": 17.36,
-        "position90dPct": 84.6
+        "position90dPct": 82.7
+      }
+    },
+    {
+      "id": 1233,
+      "nomCarte": "Red Elemental Blast",
+      "nomBase": "Red Elemental Blast",
+      "version": null,
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "924beb8b-4239-4eab-9785-8c8b1fbf1628",
+      "imageUrl": "https://cards.scryfall.io/normal/front/9/2/924beb8b-4239-4eab-9785-8c8b1fbf1628.jpg?1559592414",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5698,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Classeur",
+      "trendPrice": 6.18,
+      "lowPrice": 3.88,
+      "avgPrice": 5.84,
+      "avg1": 6.25,
+      "avg7": 6.03,
+      "avg30": 5.88,
+      "prixEtat": 5.69,
+      "estimatedPrice": 5.01,
+      "baseEstimatedPrice": 5.01,
+      "estimatedByCondition": {
+        "NM": 5.67,
+        "EX": 5.01,
+        "GD": 4.6,
+        "LP": 4,
+        "PL": 3.33,
+        "PO": 3.92
+      },
+      "buyTargetByCondition": {
+        "NM": 5.1,
+        "EX": 4.41
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.8308,
+        "GD": 0.7262,
+        "LP": 0.6202,
+        "PL": 0.4986,
+        "PO": 0.5319
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 3.99,
+        "EX": 4,
+        "GD": 3.98,
+        "LP": 3.5,
+        "PL": 3,
+        "PO": 3.99
+      },
+      "observedMinByCondition": {
+        "NM": 3.99,
+        "EX": 4,
+        "GD": 3.98,
+        "LP": 3.5,
+        "PL": 3,
+        "PO": 3.99
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.6472,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 6.18,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 6.18,
+      "estimatedNmPrice": 5.67,
+      "estimatedExPrice": 5.01,
+      "nmTargetPrice": 5.1,
+      "exTargetPrice": 4.41,
+      "trendVs30": 5.1,
+      "avg7Vs30": 2.55,
+      "avg1Vs7": 3.65,
+      "trendQuality": 36,
+      "momentumQuality": 80,
+      "remainingPotential": 68,
+      "timingScore": 100,
+      "riskMultiplier": 1,
+      "buyProbability": 71,
+      "convictionScore": 71,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Très proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 28,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 6.18,
+        "historyAgeDays": 13,
+        "uptrendDays": 3,
+        "positiveDaysRatio30": 88.9,
+        "slope30PerDay": 1.16,
+        "acceleration": 1.785,
+        "volatility30": 1.46,
+        "high30d": 6.19,
+        "low30d": 5.32,
+        "position30dPct": 98.9,
+        "high90d": 6.19,
+        "low90d": 5.32,
+        "position90dPct": 98.9
       }
     },
     {
@@ -1283,7 +1424,7 @@
       "trendQuality": 89,
       "momentumQuality": 14,
       "remainingPotential": 79,
-      "timingScore": 87,
+      "timingScore": 89,
       "riskMultiplier": 1,
       "buyProbability": 70,
       "convictionScore": 70,
@@ -1330,22 +1471,294 @@
         }
       ],
       "historical": {
-        "historyPoints": 13,
+        "historyPoints": 14,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 10.67,
-        "historyAgeDays": 12,
-        "uptrendDays": 6,
-        "positiveDaysRatio30": 91.7,
-        "slope30PerDay": -0.131,
-        "acceleration": -0.094,
-        "volatility30": 0.49,
+        "historyAgeDays": 13,
+        "uptrendDays": 7,
+        "positiveDaysRatio30": 92.3,
+        "slope30PerDay": -0.121,
+        "acceleration": 0,
+        "volatility30": 0.47,
         "high30d": 10.84,
         "low30d": 10.65,
         "position30dPct": 10.5,
         "high90d": 10.84,
         "low90d": 10.65,
         "position90dPct": 10.5
+      }
+    },
+    {
+      "id": 1341,
+      "nomCarte": "Swords to Plowshares",
+      "nomBase": "Swords to Plowshares",
+      "version": null,
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "GD",
+      "scryfallId": "8b8e9b5a-63df-4ccf-a8f1-78b9abaf3f56",
+      "imageUrl": "https://cards.scryfall.io/normal/front/8/b/8b8e9b5a-63df-4ccf-a8f1-78b9abaf3f56.jpg?1559592605",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5753,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Blanc",
+      "trendPrice": 7.42,
+      "lowPrice": 1.79,
+      "avgPrice": 7.42,
+      "avg1": 5.94,
+      "avg7": 8.12,
+      "avg30": 6.36,
+      "prixEtat": 6.08,
+      "estimatedPrice": 3.82,
+      "baseEstimatedPrice": 3.82,
+      "estimatedByCondition": {
+        "NM": 6.71,
+        "EX": 4.15,
+        "GD": 3.82,
+        "LP": 3.05,
+        "PL": 2.52,
+        "PO": 2.52
+      },
+      "buyTargetByCondition": {
+        "NM": 6.04,
+        "EX": 3.65
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.6635,
+        "GD": 0.577,
+        "LP": 0.4677,
+        "PL": 0.373,
+        "PO": 0.3485
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 4.5,
+        "EX": 1.99,
+        "GD": 2.25,
+        "LP": 1.66,
+        "PL": 1.5,
+        "PO": 1.75
+      },
+      "observedMinByCondition": {
+        "NM": 4.5,
+        "EX": 1.99,
+        "GD": 2.25,
+        "LP": 1.66,
+        "PL": 1.5,
+        "PO": 1.75
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.3032,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 7.42,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "GD",
+      "nmPrice": 7.42,
+      "estimatedNmPrice": 6.71,
+      "estimatedExPrice": 4.15,
+      "nmTargetPrice": 6.04,
+      "exTargetPrice": 3.65,
+      "trendVs30": 16.67,
+      "avg7Vs30": 27.67,
+      "avg1Vs7": -26.85,
+      "trendQuality": 93,
+      "momentumQuality": 10,
+      "remainingPotential": 76,
+      "timingScore": 87,
+      "riskMultiplier": 1,
+      "buyProbability": 69,
+      "convictionScore": 69,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        }
+      ],
+      "historical": {
+        "historyPoints": 26,
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 7.42,
+        "historyAgeDays": 12,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 88,
+        "slope30PerDay": 2.439,
+        "acceleration": -3.545,
+        "volatility30": 4.37,
+        "high30d": 7.63,
+        "low30d": 5.63,
+        "position30dPct": 89.5,
+        "high90d": 7.63,
+        "low90d": 5.63,
+        "position90dPct": 89.5
+      }
+    },
+    {
+      "id": 1344,
+      "nomCarte": "Swords to Plowshares",
+      "nomBase": "Swords to Plowshares",
+      "version": null,
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "057d2410-30d3-4b7a-9dc3-f2512c1cf31c",
+      "imageUrl": "https://cards.scryfall.io/normal/front/0/5/057d2410-30d3-4b7a-9dc3-f2512c1cf31c.jpg?1559596796",
+      "priceUsd": 6.83,
+      "priceEur": 5.63,
+      "cardmarketId": 5753,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Blanc",
+      "trendPrice": 7.42,
+      "lowPrice": 1.79,
+      "avgPrice": 7.42,
+      "avg1": 5.94,
+      "avg7": 8.12,
+      "avg30": 6.36,
+      "prixEtat": 6.83,
+      "estimatedPrice": 5.29,
+      "baseEstimatedPrice": 5.29,
+      "estimatedByCondition": {
+        "NM": 7.55,
+        "EX": 5.29,
+        "GD": 4.68,
+        "LP": 4.03,
+        "PL": 2.62,
+        "PO": 2.52
+      },
+      "buyTargetByCondition": {
+        "NM": 6.8,
+        "EX": 4.66
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7289,
+        "GD": 0.6201,
+        "LP": 0.5239,
+        "PL": 0.3707,
+        "PO": 0.3289
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 7,
+        "EX": 4.25,
+        "GD": 3.99,
+        "LP": 3.5,
+        "PL": 1.79,
+        "PO": 2
+      },
+      "observedMinByCondition": {
+        "NM": 7,
+        "EX": 4.25,
+        "GD": 3.99,
+        "LP": 3.5,
+        "PL": 1.79,
+        "PO": 2
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.5728,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 7.42,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 7.42,
+      "estimatedNmPrice": 7.55,
+      "estimatedExPrice": 5.29,
+      "nmTargetPrice": 6.8,
+      "exTargetPrice": 4.66,
+      "trendVs30": 16.67,
+      "avg7Vs30": 27.67,
+      "avg1Vs7": -26.85,
+      "trendQuality": 93,
+      "momentumQuality": 10,
+      "remainingPotential": 76,
+      "timingScore": 87,
+      "riskMultiplier": 1,
+      "buyProbability": 69,
+      "convictionScore": 69,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        }
+      ],
+      "historical": {
+        "historyPoints": 26,
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 7.42,
+        "historyAgeDays": 12,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 88,
+        "slope30PerDay": 2.439,
+        "acceleration": -3.545,
+        "volatility30": 4.37,
+        "high30d": 7.63,
+        "low30d": 5.63,
+        "position30dPct": 89.5,
+        "high90d": 7.63,
+        "low90d": 5.63,
+        "position90dPct": 89.5
       }
     },
     {
@@ -1434,10 +1847,10 @@
       "trendQuality": 14,
       "momentumQuality": 79,
       "remainingPotential": 80,
-      "timingScore": 90,
+      "timingScore": 93,
       "riskMultiplier": 1,
-      "buyProbability": 67,
-      "convictionScore": 67,
+      "buyProbability": 68,
+      "convictionScore": 68,
       "decision": "👀 Surveillance",
       "reasons": [
         "Momentum propre",
@@ -1476,16 +1889,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 24,
+        "historyPoints": 26,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 114.03,
-        "historyAgeDays": 11,
-        "uptrendDays": 5,
-        "positiveDaysRatio30": 95.7,
-        "slope30PerDay": -0.029,
+        "historyAgeDays": 12,
+        "uptrendDays": 7,
+        "positiveDaysRatio30": 96,
+        "slope30PerDay": -0.026,
         "acceleration": 0,
-        "volatility30": 0.17,
+        "volatility30": 0.16,
         "high30d": 114.85,
         "low30d": 114.03,
         "position30dPct": 0,
@@ -1580,15 +1993,15 @@
       "trendQuality": 55,
       "momentumQuality": 6,
       "remainingPotential": 86,
-      "timingScore": 99,
+      "timingScore": 93,
       "riskMultiplier": 1,
-      "buyProbability": 65,
-      "convictionScore": 65,
+      "buyProbability": 64,
+      "convictionScore": 64,
       "decision": "👀 Surveillance",
       "reasons": [
         "Hausse récente mais pas trop mature",
+        "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
-        "Accélération historique favorable",
         "Prix NM significatif"
       ],
       "warnings": [
@@ -1596,6 +2009,157 @@
         "Encore proche du bas 90 jours"
       ],
       "explanation": [
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Encore proche du bas 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 14,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 5.47,
+        "historyAgeDays": 13,
+        "uptrendDays": 5,
+        "positiveDaysRatio30": 69.2,
+        "slope30PerDay": -0.817,
+        "acceleration": 0,
+        "volatility30": 1.47,
+        "high30d": 6.12,
+        "low30d": 5.47,
+        "position30dPct": 0,
+        "high90d": 6.12,
+        "low90d": 5.47,
+        "position90dPct": 0
+      }
+    },
+    {
+      "id": 1230,
+      "nomCarte": "Mind Twist",
+      "nomBase": "Mind Twist",
+      "version": null,
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "50fe99a2-2760-472d-a8f8-e3412170e168",
+      "imageUrl": "https://cards.scryfall.io/normal/front/5/0/50fe99a2-2760-472d-a8f8-e3412170e168.jpg?1559592357",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5553,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Noir",
+      "trendPrice": 5.99,
+      "lowPrice": 3.16,
+      "avgPrice": 5.87,
+      "avg1": 7.24,
+      "avg7": 6.95,
+      "avg30": 5.85,
+      "prixEtat": 5.51,
+      "estimatedPrice": 5.1,
+      "baseEstimatedPrice": 5.1,
+      "estimatedByCondition": {
+        "NM": 7.55,
+        "EX": 5.1,
+        "GD": 4.22,
+        "LP": 3.5,
+        "PL": 2.69,
+        "PO": 3.89
+      },
+      "buyTargetByCondition": {
+        "NM": 6.8,
+        "EX": 4.49
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7108,
+        "GD": 0.5755,
+        "LP": 0.477,
+        "PL": 0.363,
+        "PO": 0.3969
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 10,
+        "EX": 6,
+        "GD": 4.95,
+        "LP": 4,
+        "PL": 3,
+        "PO": 5.5
+      },
+      "observedMinByCondition": {
+        "NM": 10,
+        "EX": 6,
+        "GD": 4.95,
+        "LP": 4,
+        "PL": 3,
+        "PO": 5.5
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 1.0017,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 5.99,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 5.99,
+      "estimatedNmPrice": 7.55,
+      "estimatedExPrice": 5.1,
+      "nmTargetPrice": 6.8,
+      "exTargetPrice": 4.49,
+      "trendVs30": 2.39,
+      "avg7Vs30": 18.8,
+      "avg1Vs7": 4.17,
+      "trendQuality": 17,
+      "momentumQuality": 80,
+      "remainingPotential": 61,
+      "timingScore": 96,
+      "riskMultiplier": 1,
+      "buyProbability": 64,
+      "convictionScore": 64,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
         {
           "type": "positive",
           "text": "Hausse récente mais pas trop mature"
@@ -1614,283 +2178,141 @@
         },
         {
           "type": "warning",
-          "text": "Momentum négatif"
+          "text": "Très proche du plus haut 90 jours"
         },
         {
           "type": "warning",
-          "text": "Encore proche du bas 90 jours"
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         }
       ],
       "historical": {
-        "historyPoints": 13,
+        "historyPoints": 14,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 5.47,
-        "historyAgeDays": 12,
-        "uptrendDays": 4,
-        "positiveDaysRatio30": 66.7,
-        "slope30PerDay": -0.885,
-        "acceleration": 1.849,
-        "volatility30": 1.51,
-        "high30d": 6.12,
-        "low30d": 5.47,
-        "position30dPct": 0,
-        "high90d": 6.12,
-        "low90d": 5.47,
-        "position90dPct": 0
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 5.99,
+        "historyAgeDays": 13,
+        "uptrendDays": 3,
+        "positiveDaysRatio30": 76.9,
+        "slope30PerDay": 1.907,
+        "acceleration": 1.276,
+        "volatility30": 4.9,
+        "high30d": 6,
+        "low30d": 4.64,
+        "position30dPct": 99.3,
+        "high90d": 6,
+        "low90d": 4.64,
+        "position90dPct": 99.3
       }
     },
     {
-      "id": 1425,
-      "nomCarte": "Clone",
-      "nomBase": "Clone",
+      "id": 1342,
+      "nomCarte": "Preacher",
+      "nomBase": "Preacher",
       "version": null,
-      "edition": "Foreign White Bordered",
-      "langue": "French",
+      "edition": "The Dark",
+      "langue": "English",
       "etat": "EX",
-      "scryfallId": "08048b52-db75-4ecb-93b3-160941bc2477",
-      "imageUrl": "https://cards.scryfall.io/normal/front/0/8/08048b52-db75-4ecb-93b3-160941bc2477.jpg?1559593144",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 5579,
+      "scryfallId": "1e03d335-d259-4ab4-814f-9333cfd3afc9",
+      "imageUrl": "https://cards.scryfall.io/normal/front/1/e/1e03d335-d259-4ab4-814f-9333cfd3afc9.jpg?1562902110",
+      "priceUsd": 28.79,
+      "priceEur": 32.35,
+      "cardmarketId": 7370,
       "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Bleu",
-      "trendPrice": 0.95,
-      "lowPrice": 0.09,
-      "avgPrice": 0.92,
-      "avg1": 1.48,
-      "avg7": 1.17,
-      "avg30": 0.88,
-      "prixEtat": 0.87,
-      "estimatedPrice": 0.53,
-      "baseEstimatedPrice": 0.53,
+      "categorie": "Mono Blanc",
+      "trendPrice": 34.54,
+      "lowPrice": 19.95,
+      "avgPrice": 30.16,
+      "avg1": 31.86,
+      "avg7": 31.29,
+      "avg30": 32.56,
+      "prixEtat": 31.78,
+      "estimatedPrice": 31.39,
+      "baseEstimatedPrice": 31.39,
       "estimatedByCondition": {
-        "NM": 0.79,
-        "EX": 0.53,
-        "GD": 0.46,
-        "LP": 0.32,
-        "PL": 0.23,
-        "PO": 0.19
+        "NM": 35.49,
+        "EX": 31.39,
+        "GD": 27.57,
+        "LP": 26.09,
+        "PL": 24.6,
+        "PO": 20.35
       },
       "buyTargetByCondition": {
-        "NM": 0.71,
-        "EX": 0.47
+        "NM": 31.94,
+        "EX": 27.62
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6887,
-        "GD": 0.5849,
-        "LP": 0.4281,
-        "PL": 0.318,
-        "PO": 0.2769
+        "EX": 0.8589,
+        "GD": 0.7337,
+        "LP": 0.6762,
+        "PL": 0.6223,
+        "PO": 0.5075
       },
       "gradeModelConfidence": 58,
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
-        "NM": 0.38,
-        "EX": 0.2,
-        "GD": 0.2,
-        "LP": 0.09,
-        "PL": 0.05,
-        "PO": 0.02
+        "NM": 33.68,
+        "EX": 30,
+        "GD": 26.85,
+        "LP": 25.99,
+        "PL": 24.5,
+        "PO": 19.95
       },
       "observedMinByCondition": {
-        "NM": 0.38,
-        "EX": 0.2,
-        "GD": 0.2,
-        "LP": 0.09,
-        "PL": 0.05,
-        "PO": 0.02
+        "NM": 33.68,
+        "EX": 30,
+        "GD": 26.85,
+        "LP": 25.99,
+        "PL": 24.5,
+        "PO": 19.95
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
       "pricingConfidence": 58,
-      "pricingRatio": 0.2105,
+      "pricingRatio": 0.8686,
       "pricingObservationCount": 1,
-      "marketAnchorPrice": 0.95,
+      "marketAnchorPrice": 34.54,
       "referenceMarketAnchorPrice": null,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
       "ownedStates": "EX",
-      "nmPrice": 0.95,
-      "estimatedNmPrice": 0.79,
-      "estimatedExPrice": 0.53,
-      "nmTargetPrice": 0.71,
-      "exTargetPrice": 0.47,
-      "trendVs30": 7.95,
-      "avg7Vs30": 32.95,
-      "avg1Vs7": 26.5,
-      "trendQuality": 57,
-      "momentumQuality": 60,
+      "nmPrice": 34.54,
+      "estimatedNmPrice": 35.49,
+      "estimatedExPrice": 31.39,
+      "nmTargetPrice": 31.94,
+      "exTargetPrice": 27.62,
+      "trendVs30": 6.08,
+      "avg7Vs30": -3.9,
+      "avg1Vs7": 1.82,
+      "trendQuality": 43,
+      "momentumQuality": 34,
       "remainingPotential": 70,
       "timingScore": 100,
-      "riskMultiplier": 0.88,
-      "buyProbability": 63,
-      "convictionScore": 63,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Timing favorable : position 90 jours équilibrée",
-        "Timing renforcé par une volatilité faible",
-        "Accélération historique favorable"
-      ],
-      "warnings": [
-        "Historique encore court",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : position 90 jours équilibrée"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Accélération historique favorable"
-        },
-        {
-          "type": "warning",
-          "text": "Historique encore court"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": {
-        "historyPoints": 9,
-        "firstDate": "2026-06-29",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 0.95,
-        "historyAgeDays": 8,
-        "uptrendDays": 1,
-        "positiveDaysRatio30": 62.5,
-        "slope30PerDay": -0.625,
-        "acceleration": 4.106,
-        "volatility30": 3.17,
-        "high30d": 1,
-        "low30d": 0.9,
-        "position30dPct": 50,
-        "high90d": 1,
-        "low90d": 0.9,
-        "position90dPct": 50
-      }
-    },
-    {
-      "id": 1418,
-      "nomCarte": "Tolaria",
-      "nomBase": "Tolaria",
-      "version": null,
-      "edition": "Legends",
-      "langue": "English",
-      "etat": "EX",
-      "scryfallId": "d43c01b7-443d-4061-a934-6863d230c9b8",
-      "imageUrl": "https://cards.scryfall.io/normal/front/d/4/d43c01b7-443d-4061-a934-6863d230c9b8.jpg?1616399923",
-      "priceUsd": 7,
-      "priceEur": 7.69,
-      "cardmarketId": 7224,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Bleu",
-      "trendPrice": 8.69,
-      "lowPrice": 3.5,
-      "avgPrice": 8.15,
-      "avg1": 6.5,
-      "avg7": 8.07,
-      "avg30": 7.52,
-      "prixEtat": 7.99,
-      "estimatedPrice": 7,
-      "baseEstimatedPrice": 7,
-      "estimatedByCondition": {
-        "NM": 9.24,
-        "EX": 7,
-        "GD": 5.69,
-        "LP": 5.14,
-        "PL": 4.53,
-        "PO": 3.99
-      },
-      "buyTargetByCondition": {
-        "NM": 8.32,
-        "EX": 6.16
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.7731,
-        "GD": 0.6349,
-        "LP": 0.5675,
-        "PL": 0.4888,
-        "PO": 0.4228
-      },
-      "gradeModelConfidence": 58,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 9.4,
-        "EX": 6.5,
-        "GD": 4.99,
-        "LP": 4.5,
-        "PL": 4,
-        "PO": 3.5
-      },
-      "observedMinByCondition": {
-        "NM": 9.4,
-        "EX": 6.5,
-        "GD": 4.99,
-        "LP": 4.5,
-        "PL": 4,
-        "PO": 3.5
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 12,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.748,
-      "pricingObservationCount": 2,
-      "marketAnchorPrice": 8.69,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 2,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 8.69,
-      "estimatedNmPrice": 9.24,
-      "estimatedExPrice": 7,
-      "nmTargetPrice": 8.32,
-      "exTargetPrice": 6.16,
-      "trendVs30": 15.56,
-      "avg7Vs30": 7.31,
-      "avg1Vs7": -19.45,
-      "trendQuality": 96,
-      "momentumQuality": 10,
-      "remainingPotential": 52,
-      "timingScore": 86,
       "riskMultiplier": 1,
-      "buyProbability": 63,
-      "convictionScore": 63,
+      "buyProbability": 64,
+      "convictionScore": 64,
       "decision": "👀 Surveillance",
       "reasons": [
-        "Momentum positif",
+        "Hausse récente mais pas trop mature",
+        "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
         "Prix NM significatif"
       ],
       "warnings": [
-        "Momentum négatif",
         "Très proche du plus haut 90 jours",
         "Timing moins bon : proche du plus haut 90 jours"
       ],
       "explanation": [
         {
           "type": "positive",
-          "text": "Momentum positif"
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
         },
         {
           "type": "positive",
@@ -1902,10 +2324,6 @@
         },
         {
           "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
           "text": "Très proche du plus haut 90 jours"
         },
         {
@@ -1914,22 +2332,22 @@
         }
       ],
       "historical": {
-        "historyPoints": 18,
-        "firstDate": "2026-06-29",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 8.69,
-        "historyAgeDays": 8,
-        "uptrendDays": 1,
-        "positiveDaysRatio30": 88.2,
-        "slope30PerDay": 1.625,
-        "acceleration": -0.115,
-        "volatility30": 2.59,
-        "high30d": 8.77,
-        "low30d": 7.69,
-        "position30dPct": 92.6,
-        "high90d": 8.77,
-        "low90d": 7.69,
-        "position90dPct": 92.6
+        "historyPoints": 13,
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 34.54,
+        "historyAgeDays": 12,
+        "uptrendDays": 12,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0.564,
+        "acceleration": -0.071,
+        "volatility30": 1.08,
+        "high30d": 34.54,
+        "low30d": 32.35,
+        "position30dPct": 100,
+        "high90d": 34.54,
+        "low90d": 32.35,
+        "position90dPct": 100
       }
     },
     {
@@ -2065,16 +2483,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 13,
+        "historyPoints": 14,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 2.29,
-        "historyAgeDays": 12,
-        "uptrendDays": 12,
+        "historyAgeDays": 13,
+        "uptrendDays": 13,
         "positiveDaysRatio30": 100,
-        "slope30PerDay": 1.711,
+        "slope30PerDay": 1.579,
         "acceleration": -1.81,
-        "volatility30": 4.38,
+        "volatility30": 4.23,
         "high30d": 2.29,
         "low30d": 1.9,
         "position30dPct": 100,
@@ -2084,263 +2502,256 @@
       }
     },
     {
-      "id": 1341,
-      "nomCarte": "Swords to Plowshares",
-      "nomBase": "Swords to Plowshares",
+      "id": 1307,
+      "nomCarte": "Blood Moon",
+      "nomBase": "Blood Moon",
       "version": null,
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "GD",
-      "scryfallId": "8b8e9b5a-63df-4ccf-a8f1-78b9abaf3f56",
-      "imageUrl": "https://cards.scryfall.io/normal/front/8/b/8b8e9b5a-63df-4ccf-a8f1-78b9abaf3f56.jpg?1559592605",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 5753,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Blanc",
-      "trendPrice": 7.63,
-      "lowPrice": 1.79,
-      "avgPrice": 7.42,
-      "avg1": 7.46,
-      "avg7": 9.29,
-      "avg30": 6.34,
-      "prixEtat": 6.26,
-      "estimatedPrice": 3.91,
-      "baseEstimatedPrice": 3.91,
-      "estimatedByCondition": {
-        "NM": 6.85,
-        "EX": 4.25,
-        "GD": 3.91,
-        "LP": 3.12,
-        "PL": 2.58,
-        "PO": 2.57
-      },
-      "buyTargetByCondition": {
-        "NM": 6.17,
-        "EX": 3.74
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.6635,
-        "GD": 0.577,
-        "LP": 0.4677,
-        "PL": 0.373,
-        "PO": 0.3485
-      },
-      "gradeModelConfidence": 58,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 4.5,
-        "EX": 1.99,
-        "GD": 2.25,
-        "LP": 1.66,
-        "PL": 1.5,
-        "PO": 1.75
-      },
-      "observedMinByCondition": {
-        "NM": 4.5,
-        "EX": 1.99,
-        "GD": 2.25,
-        "LP": 1.66,
-        "PL": 1.5,
-        "PO": 1.75
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.2949,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 7.63,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 2,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "GD",
-      "nmPrice": 7.63,
-      "estimatedNmPrice": 6.85,
-      "estimatedExPrice": 4.25,
-      "nmTargetPrice": 6.17,
-      "exTargetPrice": 3.74,
-      "trendVs30": 20.35,
-      "avg7Vs30": 46.53,
-      "avg1Vs7": -19.7,
-      "trendQuality": 85,
-      "momentumQuality": 10,
-      "remainingPotential": 57,
-      "timingScore": 87,
-      "riskMultiplier": 1,
-      "buyProbability": 62,
-      "convictionScore": 62,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum positif",
-        "Hausse récente mais pas trop mature",
-        "Timing favorable : hausse récente mais pas trop mature",
-        "Timing renforcé par une volatilité faible",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Momentum négatif",
-        "Très proche du plus haut 90 jours",
-        "Timing moins bon : proche du plus haut 90 jours"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "positive",
-          "text": "Hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Très proche du plus haut 90 jours"
-        },
-        {
-          "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
-        }
-      ],
-      "historical": {
-        "historyPoints": 24,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 7.63,
-        "historyAgeDays": 11,
-        "uptrendDays": 7,
-        "positiveDaysRatio30": 91.3,
-        "slope30PerDay": 2.993,
-        "acceleration": -2.482,
-        "volatility30": 4.47,
-        "high30d": 7.63,
-        "low30d": 5.63,
-        "position30dPct": 100,
-        "high90d": 7.63,
-        "low90d": 5.63,
-        "position90dPct": 100
-      }
-    },
-    {
-      "id": 1344,
-      "nomCarte": "Swords to Plowshares",
-      "nomBase": "Swords to Plowshares",
-      "version": null,
-      "edition": "Revised",
+      "edition": "Chronicles",
       "langue": "English",
       "etat": "EX",
-      "scryfallId": "057d2410-30d3-4b7a-9dc3-f2512c1cf31c",
-      "imageUrl": "https://cards.scryfall.io/normal/front/0/5/057d2410-30d3-4b7a-9dc3-f2512c1cf31c.jpg?1559596796",
-      "priceUsd": 6.83,
-      "priceEur": 5.63,
-      "cardmarketId": 5753,
+      "scryfallId": "49673567-c358-4de8-99eb-1a61b7198d46",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/9/49673567-c358-4de8-99eb-1a61b7198d46.jpg?1562909876",
+      "priceUsd": 8.93,
+      "priceEur": 7.73,
+      "cardmarketId": 7633,
       "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Blanc",
-      "trendPrice": 7.63,
-      "lowPrice": 1.79,
-      "avgPrice": 7.42,
-      "avg1": 7.46,
-      "avg7": 9.29,
-      "avg30": 6.34,
-      "prixEtat": 7.02,
-      "estimatedPrice": 5.4,
-      "baseEstimatedPrice": 5.4,
+      "categorie": "Mono Rouge",
+      "trendPrice": 7.73,
+      "lowPrice": 6,
+      "avgPrice": 8.47,
+      "avg1": 8.49,
+      "avg7": 8.3,
+      "avg30": 8.8,
+      "prixEtat": 7.11,
+      "estimatedPrice": 7.47,
+      "baseEstimatedPrice": 7.47,
       "estimatedByCondition": {
-        "NM": 7.69,
-        "EX": 5.4,
-        "GD": 4.77,
-        "LP": 4.11,
-        "PL": 2.68,
-        "PO": 2.57
+        "NM": 7.64,
+        "EX": 7.47,
+        "GD": 7.02,
+        "LP": 6.84,
+        "PL": 6.43,
+        "PO": 6.07
       },
       "buyTargetByCondition": {
-        "NM": 6.92,
-        "EX": 4.75
+        "NM": 6.88,
+        "EX": 6.57
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7289,
-        "GD": 0.6201,
-        "LP": 0.5239,
-        "PL": 0.3707,
-        "PO": 0.3289
+        "EX": 0.9465,
+        "GD": 0.8707,
+        "LP": 0.8298,
+        "PL": 0.7553,
+        "PO": 0.6893
       },
       "gradeModelConfidence": 58,
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
-        "NM": 7,
-        "EX": 4.25,
-        "GD": 3.99,
-        "LP": 3.5,
-        "PL": 1.79,
-        "PO": 2
+        "NM": 6.64,
+        "EX": 6.63,
+        "GD": 6.32,
+        "LP": 6.26,
+        "PL": 6,
+        "PO": 5.79
       },
       "observedMinByCondition": {
-        "NM": 7,
-        "EX": 4.25,
-        "GD": 3.99,
-        "LP": 3.5,
-        "PL": 1.79,
-        "PO": 2
+        "NM": 6.64,
+        "EX": 6.63,
+        "GD": 6.32,
+        "LP": 6.26,
+        "PL": 6,
+        "PO": 5.79
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
       "pricingConfidence": 58,
-      "pricingRatio": 0.557,
+      "pricingRatio": 0.8577,
       "pricingObservationCount": 1,
-      "marketAnchorPrice": 7.63,
+      "marketAnchorPrice": 7.73,
       "referenceMarketAnchorPrice": null,
       "quantityOwned": 2,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
       "ownedStates": "EX",
-      "nmPrice": 7.63,
-      "estimatedNmPrice": 7.69,
-      "estimatedExPrice": 5.4,
-      "nmTargetPrice": 6.92,
-      "exTargetPrice": 4.75,
-      "trendVs30": 20.35,
-      "avg7Vs30": 46.53,
-      "avg1Vs7": -19.7,
-      "trendQuality": 85,
-      "momentumQuality": 10,
-      "remainingPotential": 57,
-      "timingScore": 87,
+      "nmPrice": 7.73,
+      "estimatedNmPrice": 7.64,
+      "estimatedExPrice": 7.47,
+      "nmTargetPrice": 6.88,
+      "exTargetPrice": 6.57,
+      "trendVs30": -12.16,
+      "avg7Vs30": -5.68,
+      "avg1Vs7": 2.29,
+      "trendQuality": 0,
+      "momentumQuality": 35,
+      "remainingPotential": 95,
+      "timingScore": 100,
       "riskMultiplier": 1,
       "buyProbability": 62,
       "convictionScore": 62,
       "decision": "👀 Surveillance",
       "reasons": [
-        "Momentum positif",
+        "Position 90 jours équilibrée",
         "Hausse récente mais pas trop mature",
+        "Timing favorable : position 90 jours équilibrée",
         "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable",
         "Prix NM significatif"
+      ],
+      "warnings": [],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Position 90 jours équilibrée"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : position 90 jours équilibrée"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        }
+      ],
+      "historical": {
+        "historyPoints": 28,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 7.73,
+        "historyAgeDays": 13,
+        "uptrendDays": 5,
+        "positiveDaysRatio30": 88.9,
+        "slope30PerDay": -0.194,
+        "acceleration": 4.607,
+        "volatility30": 1.32,
+        "high30d": 7.93,
+        "low30d": 7.37,
+        "position30dPct": 64.3,
+        "high90d": 7.93,
+        "low90d": 7.37,
+        "position90dPct": 64.3
+      }
+    },
+    {
+      "id": 1425,
+      "nomCarte": "Clone",
+      "nomBase": "Clone",
+      "version": null,
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "08048b52-db75-4ecb-93b3-160941bc2477",
+      "imageUrl": "https://cards.scryfall.io/normal/front/0/8/08048b52-db75-4ecb-93b3-160941bc2477.jpg?1559593144",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5579,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Bleu",
+      "trendPrice": 0.95,
+      "lowPrice": 0.09,
+      "avgPrice": 0.92,
+      "avg1": 0.5,
+      "avg7": 1.08,
+      "avg30": 0.87,
+      "prixEtat": 0.87,
+      "estimatedPrice": 0.53,
+      "baseEstimatedPrice": 0.53,
+      "estimatedByCondition": {
+        "NM": 0.79,
+        "EX": 0.53,
+        "GD": 0.46,
+        "LP": 0.32,
+        "PL": 0.23,
+        "PO": 0.19
+      },
+      "buyTargetByCondition": {
+        "NM": 0.71,
+        "EX": 0.47
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.6887,
+        "GD": 0.5849,
+        "LP": 0.4281,
+        "PL": 0.318,
+        "PO": 0.2769
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 0.38,
+        "EX": 0.2,
+        "GD": 0.2,
+        "LP": 0.09,
+        "PL": 0.05,
+        "PO": 0.02
+      },
+      "observedMinByCondition": {
+        "NM": 0.38,
+        "EX": 0.2,
+        "GD": 0.2,
+        "LP": 0.09,
+        "PL": 0.05,
+        "PO": 0.02
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.2105,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 0.95,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 0.95,
+      "estimatedNmPrice": 0.79,
+      "estimatedExPrice": 0.53,
+      "nmTargetPrice": 0.71,
+      "exTargetPrice": 0.47,
+      "trendVs30": 9.2,
+      "avg7Vs30": 24.14,
+      "avg1Vs7": -53.7,
+      "trendQuality": 66,
+      "momentumQuality": 10,
+      "remainingPotential": 88,
+      "timingScore": 100,
+      "riskMultiplier": 0.88,
+      "buyProbability": 61,
+      "convictionScore": 61,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif",
+        "Position 90 jours équilibrée",
+        "Timing favorable : position 90 jours équilibrée",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable"
       ],
       "warnings": [
         "Momentum négatif",
-        "Très proche du plus haut 90 jours",
-        "Timing moins bon : proche du plus haut 90 jours"
+        "Carte peu chère"
       ],
       "explanation": [
         {
@@ -2349,11 +2760,11 @@
         },
         {
           "type": "positive",
-          "text": "Hausse récente mais pas trop mature"
+          "text": "Position 90 jours équilibrée"
         },
         {
           "type": "positive",
-          "text": "Timing favorable : hausse récente mais pas trop mature"
+          "text": "Timing favorable : position 90 jours équilibrée"
         },
         {
           "type": "positive",
@@ -2361,166 +2772,11 @@
         },
         {
           "type": "positive",
-          "text": "Prix NM significatif"
+          "text": "Accélération historique favorable"
         },
         {
           "type": "warning",
           "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Très proche du plus haut 90 jours"
-        },
-        {
-          "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
-        }
-      ],
-      "historical": {
-        "historyPoints": 24,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 7.63,
-        "historyAgeDays": 11,
-        "uptrendDays": 7,
-        "positiveDaysRatio30": 91.3,
-        "slope30PerDay": 2.993,
-        "acceleration": -2.482,
-        "volatility30": 4.47,
-        "high30d": 7.63,
-        "low30d": 5.63,
-        "position30dPct": 100,
-        "high90d": 7.63,
-        "low90d": 5.63,
-        "position90dPct": 100
-      }
-    },
-    {
-      "id": 1327,
-      "nomCarte": "Kaysa",
-      "nomBase": "Kaysa",
-      "version": null,
-      "edition": "Alliances",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "cd4b6daf-cf37-43c6-9446-3aa0de222ac4",
-      "imageUrl": "https://cards.scryfall.io/normal/front/c/d/cd4b6daf-cf37-43c6-9446-3aa0de222ac4.jpg?1562770177",
-      "priceUsd": 5.13,
-      "priceEur": 2.73,
-      "cardmarketId": 7932,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Classeur",
-      "trendPrice": 3.06,
-      "lowPrice": 1,
-      "avgPrice": 2.97,
-      "avg1": 3.55,
-      "avg7": 3.04,
-      "avg30": 2.92,
-      "prixEtat": 3.06,
-      "estimatedPrice": 2.81,
-      "baseEstimatedPrice": 2.81,
-      "estimatedByCondition": {
-        "NM": 2.81,
-        "EX": 2.54,
-        "GD": 2.37,
-        "LP": 1.71,
-        "PL": 1.98,
-        "PO": 1.41
-      },
-      "buyTargetByCondition": {
-        "NM": 2.53,
-        "EX": 2.24
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.8709,
-        "GD": 0.8097,
-        "LP": 0.6237,
-        "PL": 0.6549,
-        "PO": 0.4606
-      },
-      "gradeModelConfidence": 53,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 1.99,
-        "EX": 1.9,
-        "GD": 1.75,
-        "LP": 1,
-        "PL": 1.49,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": 1.99,
-        "EX": 1.9,
-        "GD": 1.75,
-        "LP": 1,
-        "PL": 1.49,
-        "PO": null
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 5,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 53,
-      "pricingRatio": 0.6503,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 3.06,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM",
-      "nmPrice": 3.06,
-      "estimatedNmPrice": 2.81,
-      "estimatedExPrice": 2.54,
-      "nmTargetPrice": 2.53,
-      "exTargetPrice": 2.24,
-      "trendVs30": 4.79,
-      "avg7Vs30": 4.11,
-      "avg1Vs7": 16.78,
-      "trendQuality": 34,
-      "momentumQuality": 77,
-      "remainingPotential": 65,
-      "timingScore": 97,
-      "riskMultiplier": 0.88,
-      "buyProbability": 60,
-      "convictionScore": 60,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Hausse récente mais pas trop mature",
-        "Timing favorable : hausse récente mais pas trop mature",
-        "Timing renforcé par une volatilité faible"
-      ],
-      "warnings": [
-        "Très proche du plus haut 90 jours",
-        "Timing moins bon : proche du plus haut 90 jours",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "warning",
-          "text": "Très proche du plus haut 90 jours"
-        },
-        {
-          "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
         },
         {
           "type": "warning",
@@ -2528,22 +2784,22 @@
         }
       ],
       "historical": {
-        "historyPoints": 12,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 3.06,
-        "historyAgeDays": 11,
-        "uptrendDays": 8,
-        "positiveDaysRatio30": 90.9,
-        "slope30PerDay": 0.844,
-        "acceleration": -1.249,
-        "volatility30": 2.6,
-        "high30d": 3.06,
-        "low30d": 2.73,
-        "position30dPct": 100,
-        "high90d": 3.06,
-        "low90d": 2.73,
-        "position90dPct": 100
+        "historyPoints": 10,
+        "firstDate": "2026-06-29",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 0.95,
+        "historyAgeDays": 9,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 66.7,
+        "slope30PerDay": -0.556,
+        "acceleration": 5.808,
+        "volatility30": 2.99,
+        "high30d": 1,
+        "low30d": 0.9,
+        "position30dPct": 50,
+        "high90d": 1,
+        "low90d": 0.9,
+        "position90dPct": 50
       }
     },
     {
@@ -2632,7 +2888,7 @@
       "trendQuality": 93,
       "momentumQuality": 35,
       "remainingPotential": 54,
-      "timingScore": 100,
+      "timingScore": 99,
       "riskMultiplier": 0.85,
       "buyProbability": 60,
       "convictionScore": 60,
@@ -2689,12 +2945,12 @@
         }
       ],
       "historical": {
-        "historyPoints": 36,
+        "historyPoints": 40,
         "firstDate": "2026-06-29",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 101.58,
-        "historyAgeDays": 8,
-        "uptrendDays": 35,
+        "historyAgeDays": 9,
+        "uptrendDays": 39,
         "positiveDaysRatio30": 100,
         "slope30PerDay": 0,
         "acceleration": 0,
@@ -2705,6 +2961,147 @@
         "high90d": 101.58,
         "low90d": 101.58,
         "position90dPct": 100
+      }
+    },
+    {
+      "id": 1328,
+      "nomCarte": "Lim-Dûl's Vault",
+      "nomBase": "Lim-Dûl's Vault",
+      "version": null,
+      "edition": "Alliances",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "f9b0164c-2d4e-48ab-addd-322d9b504739",
+      "imageUrl": "https://cards.scryfall.io/normal/front/f/9/f9b0164c-2d4e-48ab-addd-322d9b504739.jpg?1562770860",
+      "priceUsd": 4.86,
+      "priceEur": 3.88,
+      "cardmarketId": 8044,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Classeur",
+      "trendPrice": 3.53,
+      "lowPrice": 1.4,
+      "avgPrice": 3.3,
+      "avg1": 3.63,
+      "avg7": 2.87,
+      "avg30": 3.26,
+      "prixEtat": 3.25,
+      "estimatedPrice": 2.75,
+      "baseEstimatedPrice": 2.75,
+      "estimatedByCondition": {
+        "NM": 3.14,
+        "EX": 2.75,
+        "GD": 2.45,
+        "LP": 2.59,
+        "PL": 2.2,
+        "PO": 2.04
+      },
+      "buyTargetByCondition": {
+        "NM": 2.83,
+        "EX": 2.42
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.8545,
+        "GD": 0.7709,
+        "LP": 0.7579,
+        "PL": 0.6553,
+        "PO": 0.5806
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 2,
+        "EX": 1.8,
+        "GD": 1.5,
+        "LP": 1.9,
+        "PL": 1.5,
+        "PO": 1.5
+      },
+      "observedMinByCondition": {
+        "NM": 2,
+        "EX": 1.8,
+        "GD": 1.5,
+        "LP": 1.9,
+        "PL": 1.5,
+        "PO": 1.5
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.5099,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 3.53,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 3.53,
+      "estimatedNmPrice": 3.14,
+      "estimatedExPrice": 2.75,
+      "nmTargetPrice": 2.83,
+      "exTargetPrice": 2.42,
+      "trendVs30": 8.28,
+      "avg7Vs30": -11.96,
+      "avg1Vs7": 26.48,
+      "trendQuality": 59,
+      "momentumQuality": 15,
+      "remainingPotential": 84,
+      "timingScore": 100,
+      "riskMultiplier": 0.88,
+      "buyProbability": 59,
+      "convictionScore": 59,
+      "decision": "Ignorer",
+      "reasons": [
+        "Hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable"
+      ],
+      "warnings": [
+        "Encore proche du bas 90 jours",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
+        },
+        {
+          "type": "warning",
+          "text": "Encore proche du bas 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 13,
+        "firstDate": "2026-06-26",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 3.53,
+        "historyAgeDays": 12,
+        "uptrendDays": 3,
+        "positiveDaysRatio30": 66.7,
+        "slope30PerDay": 0.268,
+        "acceleration": 4.261,
+        "volatility30": 3.52,
+        "high30d": 3.92,
+        "low30d": 3.41,
+        "position30dPct": 23.5,
+        "high90d": 3.92,
+        "low90d": 3.41,
+        "position90dPct": 23.5
       }
     },
     {
@@ -2793,7 +3190,7 @@
       "trendQuality": 73,
       "momentumQuality": 10,
       "remainingPotential": 83,
-      "timingScore": 88,
+      "timingScore": 90,
       "riskMultiplier": 0.88,
       "buyProbability": 59,
       "convictionScore": 59,
@@ -2835,16 +3232,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 13,
+        "historyPoints": 14,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 3.24,
-        "historyAgeDays": 12,
-        "uptrendDays": 1,
-        "positiveDaysRatio30": 75,
-        "slope30PerDay": -0.152,
-        "acceleration": -0.874,
-        "volatility30": 4,
+        "historyAgeDays": 13,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 76.9,
+        "slope30PerDay": -0.14,
+        "acceleration": -4.967,
+        "volatility30": 3.84,
         "high30d": 3.32,
         "low30d": 3,
         "position30dPct": 75,
@@ -2854,97 +3251,98 @@
       }
     },
     {
-      "id": 1328,
-      "nomCarte": "Lim-Dûl's Vault",
-      "nomBase": "Lim-Dûl's Vault",
+      "id": 1245,
+      "nomCarte": "Verduran Enchantress",
+      "nomBase": "Verduran Enchantress",
       "version": null,
-      "edition": "Alliances",
+      "edition": "Foreign White Bordered",
       "langue": "French",
-      "etat": "EX",
-      "scryfallId": "f9b0164c-2d4e-48ab-addd-322d9b504739",
-      "imageUrl": "https://cards.scryfall.io/normal/front/f/9/f9b0164c-2d4e-48ab-addd-322d9b504739.jpg?1562770860",
-      "priceUsd": 4.86,
-      "priceEur": 3.88,
-      "cardmarketId": 8044,
+      "etat": "NM",
+      "scryfallId": "bd253315-72b8-4327-a535-4c316e34a4e1",
+      "imageUrl": "https://cards.scryfall.io/normal/front/b/d/bd253315-72b8-4327-a535-4c316e34a4e1.jpg?1559595255",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5658,
       "createdAt": "2026-06-29 13:00:16",
       "categorie": "Classeur",
-      "trendPrice": 3.53,
-      "lowPrice": 1.4,
-      "avgPrice": 3.43,
-      "avg1": 3.67,
-      "avg7": 2.86,
-      "avg30": 3.24,
-      "prixEtat": 3.25,
-      "estimatedPrice": 2.75,
-      "baseEstimatedPrice": 2.75,
+      "trendPrice": 2.55,
+      "lowPrice": 1,
+      "avgPrice": 2.58,
+      "avg1": 2.98,
+      "avg7": 2.62,
+      "avg30": 2.49,
+      "prixEtat": 2.55,
+      "estimatedPrice": 2.63,
+      "baseEstimatedPrice": 2.63,
       "estimatedByCondition": {
-        "NM": 3.14,
-        "EX": 2.75,
-        "GD": 2.45,
-        "LP": 2.59,
-        "PL": 2.2,
-        "PO": 2.04
+        "NM": 2.63,
+        "EX": 1.74,
+        "GD": 1.2,
+        "LP": 1.02,
+        "PL": 0.84,
+        "PO": 0.86
       },
       "buyTargetByCondition": {
-        "NM": 2.83,
-        "EX": 2.42
+        "NM": 2.37,
+        "EX": 1.53
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.8545,
-        "GD": 0.7709,
-        "LP": 0.7579,
-        "PL": 0.6553,
-        "PO": 0.5806
+        "EX": 0.6976,
+        "GD": 0.517,
+        "LP": 0.435,
+        "PL": 0.3438,
+        "PO": 0.3369
       },
-      "gradeModelConfidence": 58,
+      "gradeModelConfidence": 53,
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
-        "NM": 2,
-        "EX": 1.8,
-        "GD": 1.5,
-        "LP": 1.9,
-        "PL": 1.5,
-        "PO": 1.5
+        "NM": 2.5,
+        "EX": 1.39,
+        "GD": 0.75,
+        "LP": 0.65,
+        "PL": 0.59,
+        "PO": null
       },
       "observedMinByCondition": {
-        "NM": 2,
-        "EX": 1.8,
-        "GD": 1.5,
-        "LP": 1.9,
-        "PL": 1.5,
-        "PO": 1.5
+        "NM": 2.5,
+        "EX": 1.39,
+        "GD": 0.75,
+        "LP": 0.65,
+        "PL": 0.59,
+        "PO": null
       },
       "observationDaysCount": 1,
-      "observationRowsCount": 6,
+      "observationRowsCount": 5,
       "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.5099,
+      "pricingConfidence": 53,
+      "pricingRatio": 0.9804,
       "pricingObservationCount": 1,
-      "marketAnchorPrice": 3.53,
+      "marketAnchorPrice": 2.55,
       "referenceMarketAnchorPrice": null,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 3.53,
-      "estimatedNmPrice": 3.14,
-      "estimatedExPrice": 2.75,
-      "nmTargetPrice": 2.83,
-      "exTargetPrice": 2.42,
-      "trendVs30": 8.95,
-      "avg7Vs30": -11.73,
-      "avg1Vs7": 28.32,
-      "trendQuality": 64,
-      "momentumQuality": 12,
-      "remainingPotential": 74,
-      "timingScore": 100,
+      "ownedStates": "NM",
+      "nmPrice": 2.55,
+      "estimatedNmPrice": 2.63,
+      "estimatedExPrice": 1.74,
+      "nmTargetPrice": 2.37,
+      "exTargetPrice": 1.53,
+      "trendVs30": 2.41,
+      "avg7Vs30": 5.22,
+      "avg1Vs7": 13.74,
+      "trendQuality": 17,
+      "momentumQuality": 80,
+      "remainingPotential": 71,
+      "timingScore": 99,
       "riskMultiplier": 0.88,
-      "buyProbability": 57,
-      "convictionScore": 57,
+      "buyProbability": 59,
+      "convictionScore": 59,
       "decision": "Ignorer",
       "reasons": [
+        "Momentum propre",
         "Timing renforcé par une volatilité faible",
         "Accélération historique favorable"
       ],
@@ -2953,6 +3351,10 @@
         "Carte peu chère"
       ],
       "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
         {
           "type": "positive",
           "text": "Timing renforcé par une volatilité faible"
@@ -2971,22 +3373,470 @@
         }
       ],
       "historical": {
-        "historyPoints": 12,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 3.53,
-        "historyAgeDays": 11,
-        "uptrendDays": 2,
-        "positiveDaysRatio30": 63.6,
-        "slope30PerDay": 0.292,
-        "acceleration": 4.943,
-        "volatility30": 3.67,
-        "high30d": 3.92,
-        "low30d": 3.41,
+        "historyPoints": 14,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 2.55,
+        "historyAgeDays": 13,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": 53.8,
+        "slope30PerDay": 0.03,
+        "acceleration": 4.661,
+        "volatility30": 4.14,
+        "high30d": 2.81,
+        "low30d": 2.47,
         "position30dPct": 23.5,
-        "high90d": 3.92,
-        "low90d": 3.41,
+        "high90d": 2.81,
+        "low90d": 2.47,
         "position90dPct": 23.5
+      }
+    },
+    {
+      "id": 1309,
+      "nomCarte": "Red Elemental Blast",
+      "nomBase": "Red Elemental Blast",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "cb17ac84-48ae-4ac4-9906-985a64681db0",
+      "imageUrl": "https://cards.scryfall.io/normal/front/c/b/cb17ac84-48ae-4ac4-9906-985a64681db0.jpg?1559599140",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 6071,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Rouge",
+      "trendPrice": 5.67,
+      "lowPrice": 3,
+      "avgPrice": 5.31,
+      "avg1": 5.34,
+      "avg7": 5.63,
+      "avg30": 5.29,
+      "prixEtat": 5.67,
+      "estimatedPrice": 5.28,
+      "baseEstimatedPrice": 5.28,
+      "estimatedByCondition": {
+        "NM": 5.28,
+        "EX": 4.34,
+        "GD": 3.97,
+        "LP": 3.18,
+        "PL": 4.11,
+        "PO": 4.01
+      },
+      "buyTargetByCondition": {
+        "NM": 4.75,
+        "EX": 3.82
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7378,
+        "GD": 0.6625,
+        "LP": 0.5179,
+        "PL": 0.5936,
+        "PO": 0.5213
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 3.9,
+        "EX": 4,
+        "GD": 3.65,
+        "LP": 3,
+        "PL": 4.5,
+        "PO": 4.8
+      },
+      "observedMinByCondition": {
+        "NM": 3.9,
+        "EX": 4,
+        "GD": 3.65,
+        "LP": 3,
+        "PL": 4.5,
+        "PO": 4.8
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.6878,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 5.67,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM, EX",
+      "nmPrice": 5.67,
+      "estimatedNmPrice": 5.28,
+      "estimatedExPrice": 4.34,
+      "nmTargetPrice": 4.75,
+      "exTargetPrice": 3.82,
+      "trendVs30": 7.18,
+      "avg7Vs30": 6.43,
+      "avg1Vs7": -5.15,
+      "trendQuality": 51,
+      "momentumQuality": 24,
+      "remainingPotential": 59,
+      "timingScore": 93,
+      "riskMultiplier": 1,
+      "buyProbability": 59,
+      "convictionScore": 59,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif",
+        "Hausse récente mais pas trop mature",
+        "Timing favorable : hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Très proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 28,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 5.67,
+        "historyAgeDays": 13,
+        "uptrendDays": 13,
+        "positiveDaysRatio30": 88.9,
+        "slope30PerDay": 0.663,
+        "acceleration": -1.431,
+        "volatility30": 0.94,
+        "high30d": 5.67,
+        "low30d": 5.22,
+        "position30dPct": 100,
+        "high90d": 5.67,
+        "low90d": 5.22,
+        "position90dPct": 100
+      }
+    },
+    {
+      "id": 1283,
+      "nomCarte": "Verduran Enchantress",
+      "nomBase": "Verduran Enchantress",
+      "version": null,
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "354de08d-41a8-4d6c-85d6-2413393ac181",
+      "imageUrl": "https://cards.scryfall.io/normal/front/3/5/354de08d-41a8-4d6c-85d6-2413393ac181.jpg?1559597110",
+      "priceUsd": 2.28,
+      "priceEur": 2.68,
+      "cardmarketId": 5658,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Classeur",
+      "trendPrice": 2.55,
+      "lowPrice": 1,
+      "avgPrice": 2.58,
+      "avg1": 2.98,
+      "avg7": 2.62,
+      "avg30": 2.49,
+      "prixEtat": 2.35,
+      "estimatedPrice": 2.07,
+      "baseEstimatedPrice": 2.07,
+      "estimatedByCondition": {
+        "NM": 2.73,
+        "EX": 2.07,
+        "GD": 1.63,
+        "LP": 1.51,
+        "PL": 1.25,
+        "PO": 1.03
+      },
+      "buyTargetByCondition": {
+        "NM": 2.46,
+        "EX": 1.82
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.761,
+        "GD": 0.6087,
+        "LP": 0.5336,
+        "PL": 0.4279,
+        "PO": 0.3504
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 2.8,
+        "EX": 2,
+        "GD": 1.49,
+        "LP": 1.49,
+        "PL": 1.25,
+        "PO": 1
+      },
+      "observedMinByCondition": {
+        "NM": 2.8,
+        "EX": 2,
+        "GD": 1.49,
+        "LP": 1.49,
+        "PL": 1.25,
+        "PO": 1
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.7843,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 2.55,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 2.55,
+      "estimatedNmPrice": 2.73,
+      "estimatedExPrice": 2.07,
+      "nmTargetPrice": 2.46,
+      "exTargetPrice": 1.82,
+      "trendVs30": 2.41,
+      "avg7Vs30": 5.22,
+      "avg1Vs7": 13.74,
+      "trendQuality": 17,
+      "momentumQuality": 80,
+      "remainingPotential": 71,
+      "timingScore": 99,
+      "riskMultiplier": 0.88,
+      "buyProbability": 59,
+      "convictionScore": 59,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable"
+      ],
+      "warnings": [
+        "Encore proche du bas 90 jours",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
+        },
+        {
+          "type": "warning",
+          "text": "Encore proche du bas 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 14,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 2.55,
+        "historyAgeDays": 13,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": 53.8,
+        "slope30PerDay": 0.03,
+        "acceleration": 4.661,
+        "volatility30": 4.14,
+        "high30d": 2.81,
+        "low30d": 2.47,
+        "position30dPct": 23.5,
+        "high90d": 2.81,
+        "low90d": 2.47,
+        "position90dPct": 23.5
+      }
+    },
+    {
+      "id": 1173,
+      "nomCarte": "Desert",
+      "nomBase": "Desert",
+      "version": null,
+      "edition": "Arabian Nights",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "201155ea-f474-4e13-acda-cb071a6ca977",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/0/201155ea-f474-4e13-acda-cb071a6ca977.jpg?1562900934",
+      "priceUsd": 16.63,
+      "priceEur": 11.11,
+      "cardmarketId": 6865,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Mono Noir",
+      "trendPrice": 14.13,
+      "lowPrice": 4,
+      "avgPrice": 10.21,
+      "avg1": 14.98,
+      "avg7": 15.21,
+      "avg30": 10.35,
+      "prixEtat": 13,
+      "estimatedPrice": 10.32,
+      "baseEstimatedPrice": 10.32,
+      "estimatedByCondition": {
+        "NM": 14.93,
+        "EX": 10.32,
+        "GD": 7.7,
+        "LP": 6.05,
+        "PL": 5.37,
+        "PO": 4.84
+      },
+      "buyTargetByCondition": {
+        "NM": 13.44,
+        "EX": 9.08
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7231,
+        "GD": 0.5622,
+        "LP": 0.4595,
+        "PL": 0.386,
+        "PO": 0.3427
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 14.99,
+        "EX": 8.94,
+        "GD": 5.85,
+        "LP": 4,
+        "PL": 3.99,
+        "PO": 3.59
+      },
+      "observedMinByCondition": {
+        "NM": 14.99,
+        "EX": 8.94,
+        "GD": 5.85,
+        "LP": 4,
+        "PL": 3.99,
+        "PO": 3.59
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.6327,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 14.13,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 3,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX, NM",
+      "nmPrice": 14.13,
+      "estimatedNmPrice": 14.93,
+      "estimatedExPrice": 10.32,
+      "nmTargetPrice": 13.44,
+      "exTargetPrice": 9.08,
+      "trendVs30": 36.52,
+      "avg7Vs30": 46.96,
+      "avg1Vs7": -1.51,
+      "trendQuality": 45,
+      "momentumQuality": 35,
+      "remainingPotential": 57,
+      "timingScore": 85,
+      "riskMultiplier": 1,
+      "buyProbability": 58,
+      "convictionScore": 58,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif",
+        "Hausse récente mais pas trop mature",
+        "Timing favorable : hausse récente mais pas trop mature",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Très proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 42,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 14.13,
+        "historyAgeDays": 13,
+        "uptrendDays": 11,
+        "positiveDaysRatio30": 85.4,
+        "slope30PerDay": 1.85,
+        "acceleration": 0,
+        "volatility30": 6.16,
+        "high30d": 14.13,
+        "low30d": 10.18,
+        "position30dPct": 100,
+        "high90d": 14.13,
+        "low90d": 10.18,
+        "position90dPct": 100
       }
     },
     {
@@ -3075,14 +3925,15 @@
       "trendQuality": 0,
       "momentumQuality": 80,
       "remainingPotential": 80,
-      "timingScore": 92,
+      "timingScore": 95,
       "riskMultiplier": 0.88,
-      "buyProbability": 57,
-      "convictionScore": 57,
+      "buyProbability": 58,
+      "convictionScore": 58,
       "decision": "Ignorer",
       "reasons": [
         "Momentum propre",
         "Hausse récente mais pas trop mature",
+        "Timing favorable : hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible"
       ],
       "warnings": [
@@ -3099,6 +3950,10 @@
         },
         {
           "type": "positive",
+          "text": "Timing favorable : hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
           "text": "Timing renforcé par une volatilité faible"
         },
         {
@@ -3107,16 +3962,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 26,
+        "historyPoints": 28,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 4.4,
-        "historyAgeDays": 12,
-        "uptrendDays": 3,
-        "positiveDaysRatio30": 80,
-        "slope30PerDay": 0.038,
-        "acceleration": 11.541,
-        "volatility30": 2.96,
+        "historyAgeDays": 13,
+        "uptrendDays": 5,
+        "positiveDaysRatio30": 81.5,
+        "slope30PerDay": 0.035,
+        "acceleration": -5.263,
+        "volatility30": 2.85,
         "high30d": 5,
         "low30d": 4.18,
         "position30dPct": 26.8,
@@ -3211,7 +4066,7 @@
       "trendQuality": 55,
       "momentumQuality": 0,
       "remainingPotential": 94,
-      "timingScore": 91,
+      "timingScore": 94,
       "riskMultiplier": 0.88,
       "buyProbability": 57,
       "convictionScore": 57,
@@ -3253,22 +4108,319 @@
         }
       ],
       "historical": {
-        "historyPoints": 26,
+        "historyPoints": 28,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 1.54,
-        "historyAgeDays": 12,
-        "uptrendDays": 5,
-        "positiveDaysRatio30": 88,
-        "slope30PerDay": 0.833,
+        "historyAgeDays": 13,
+        "uptrendDays": 7,
+        "positiveDaysRatio30": 88.9,
+        "slope30PerDay": 0.769,
         "acceleration": 0,
-        "volatility30": 8.92,
+        "volatility30": 8.59,
         "high30d": 1.7,
         "low30d": 1.2,
         "position30dPct": 68,
         "high90d": 1.7,
         "low90d": 1.2,
         "position90dPct": 68
+      }
+    },
+    {
+      "id": 1180,
+      "nomCarte": "Hurr Jackal",
+      "nomBase": "Hurr Jackal",
+      "version": null,
+      "edition": "Arabian Nights",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "f4aadda8-8577-480d-8186-532d2b173c15",
+      "imageUrl": "https://cards.scryfall.io/normal/front/f/4/f4aadda8-8577-480d-8186-532d2b173c15.jpg?1562940974",
+      "priceUsd": 4.1,
+      "priceEur": 3.6,
+      "cardmarketId": 6827,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Classeur",
+      "trendPrice": 2.98,
+      "lowPrice": 1.49,
+      "avgPrice": 3.78,
+      "avg1": 4.06,
+      "avg7": 3.89,
+      "avg30": 3.74,
+      "prixEtat": 2.74,
+      "estimatedPrice": 2.75,
+      "baseEstimatedPrice": 2.75,
+      "estimatedByCondition": {
+        "NM": 3.63,
+        "EX": 2.75,
+        "GD": 1.93,
+        "LP": 1.81,
+        "PL": 1.42,
+        "PO": 1.64
+      },
+      "buyTargetByCondition": {
+        "NM": 3.27,
+        "EX": 2.42
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7589,
+        "GD": 0.5753,
+        "LP": 0.509,
+        "PL": 0.4031,
+        "PO": 0.3997
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 4.61,
+        "EX": 3.3,
+        "GD": 2,
+        "LP": 1.99,
+        "PL": 1.49,
+        "PO": 1.98
+      },
+      "observedMinByCondition": {
+        "NM": 4.61,
+        "EX": 3.3,
+        "GD": 2,
+        "LP": 1.99,
+        "PL": 1.49,
+        "PO": 1.98
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 1.1074,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 2.98,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 2.98,
+      "estimatedNmPrice": 3.63,
+      "estimatedExPrice": 2.75,
+      "nmTargetPrice": 3.27,
+      "exTargetPrice": 2.42,
+      "trendVs30": -20.32,
+      "avg7Vs30": 4.01,
+      "avg1Vs7": 4.37,
+      "trendQuality": 0,
+      "momentumQuality": 80,
+      "remainingPotential": 75,
+      "timingScore": 91,
+      "riskMultiplier": 0.88,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable"
+      ],
+      "warnings": [
+        "Encore proche du bas 90 jours",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
+        },
+        {
+          "type": "warning",
+          "text": "Encore proche du bas 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 14,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 2.98,
+        "historyAgeDays": 13,
+        "uptrendDays": 3,
+        "positiveDaysRatio30": 76.9,
+        "slope30PerDay": -1.446,
+        "acceleration": 2.848,
+        "volatility30": 3.46,
+        "high30d": 3.67,
+        "low30d": 2.98,
+        "position30dPct": 0,
+        "high90d": 3.67,
+        "low90d": 2.98,
+        "position90dPct": 0
+      }
+    },
+    {
+      "id": 1234,
+      "nomCarte": "Savannah Lions",
+      "nomBase": "Savannah Lions",
+      "version": null,
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "de8e464b-6575-4684-9a8e-49531f8661b3",
+      "imageUrl": "https://cards.scryfall.io/normal/front/d/e/de8e464b-6575-4684-9a8e-49531f8661b3.jpg?1559594549",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5751,
+      "createdAt": "2026-06-29 13:00:16",
+      "categorie": "Classeur",
+      "trendPrice": 7.14,
+      "lowPrice": 2.99,
+      "avgPrice": 7.41,
+      "avg1": 8.99,
+      "avg7": 7.66,
+      "avg30": 7.42,
+      "prixEtat": 6.57,
+      "estimatedPrice": 4.36,
+      "baseEstimatedPrice": 4.36,
+      "estimatedByCondition": {
+        "NM": 7.32,
+        "EX": 4.36,
+        "GD": 3.76,
+        "LP": 3.25,
+        "PL": 2.82,
+        "PO": 2.24
+      },
+      "buyTargetByCondition": {
+        "NM": 6.59,
+        "EX": 3.84
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.6608,
+        "GD": 0.5483,
+        "LP": 0.4648,
+        "PL": 0.3773,
+        "PO": 0.3075
+      },
+      "gradeModelConfidence": 58,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 6.9,
+        "EX": 2.99,
+        "GD": 2.79,
+        "LP": 2.48,
+        "PL": 2.4,
+        "PO": 1.74
+      },
+      "observedMinByCondition": {
+        "NM": 6.9,
+        "EX": 2.99,
+        "GD": 2.79,
+        "LP": 2.48,
+        "PL": 2.4,
+        "PO": 1.74
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 58,
+      "pricingRatio": 0.4188,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 7.14,
+      "estimatedNmPrice": 7.32,
+      "estimatedExPrice": 4.36,
+      "nmTargetPrice": 6.59,
+      "exTargetPrice": 3.84,
+      "trendVs30": -3.77,
+      "avg7Vs30": 3.23,
+      "avg1Vs7": 17.36,
+      "trendQuality": 0,
+      "momentumQuality": 76,
+      "remainingPotential": 53,
+      "timingScore": 89,
+      "riskMultiplier": 1,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Hausse récente mais pas trop mature",
+        "Timing renforcé par une volatilité faible",
+        "Accélération historique favorable",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Très proche du plus haut 90 jours",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Hausse récente mais pas trop mature"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Accélération historique favorable"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Très proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 14,
+        "firstDate": "2026-06-25",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 7.14,
+        "historyAgeDays": 13,
+        "uptrendDays": 4,
+        "positiveDaysRatio30": 84.6,
+        "slope30PerDay": 1.431,
+        "acceleration": 3.821,
+        "volatility30": 4.26,
+        "high30d": 7.14,
+        "low30d": 5.73,
+        "position30dPct": 100,
+        "high90d": 7.14,
+        "low90d": 5.73,
+        "position90dPct": 100
       }
     },
     {
@@ -3357,7 +4509,7 @@
       "trendQuality": 0,
       "momentumQuality": 35,
       "remainingPotential": 75,
-      "timingScore": 99,
+      "timingScore": 100,
       "riskMultiplier": 1,
       "buyProbability": 56,
       "convictionScore": 56,
@@ -3394,173 +4546,22 @@
         }
       ],
       "historical": {
-        "historyPoints": 12,
+        "historyPoints": 13,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 15.29,
-        "historyAgeDays": 11,
-        "uptrendDays": 9,
-        "positiveDaysRatio30": 90.9,
-        "slope30PerDay": -0.175,
-        "acceleration": 0,
-        "volatility30": 0.76,
+        "historyAgeDays": 12,
+        "uptrendDays": 10,
+        "positiveDaysRatio30": 91.7,
+        "slope30PerDay": -0.16,
+        "acceleration": -0.296,
+        "volatility30": 0.72,
         "high30d": 15.59,
         "low30d": 15.2,
         "position30dPct": 23.1,
         "high90d": 15.59,
         "low90d": 15.2,
         "position90dPct": 23.1
-      }
-    },
-    {
-      "id": 1342,
-      "nomCarte": "Preacher",
-      "nomBase": "Preacher",
-      "version": null,
-      "edition": "The Dark",
-      "langue": "English",
-      "etat": "EX",
-      "scryfallId": "1e03d335-d259-4ab4-814f-9333cfd3afc9",
-      "imageUrl": "https://cards.scryfall.io/normal/front/1/e/1e03d335-d259-4ab4-814f-9333cfd3afc9.jpg?1562902110",
-      "priceUsd": 28.79,
-      "priceEur": 32.35,
-      "cardmarketId": 7370,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Blanc",
-      "trendPrice": 34.22,
-      "lowPrice": 19.95,
-      "avgPrice": 30.16,
-      "avg1": 36.99,
-      "avg7": 30.62,
-      "avg30": 32.9,
-      "prixEtat": 31.48,
-      "estimatedPrice": 31.19,
-      "baseEstimatedPrice": 31.19,
-      "estimatedByCondition": {
-        "NM": 35.27,
-        "EX": 31.19,
-        "GD": 27.4,
-        "LP": 25.94,
-        "PL": 24.46,
-        "PO": 20.24
-      },
-      "buyTargetByCondition": {
-        "NM": 31.74,
-        "EX": 27.45
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.8589,
-        "GD": 0.7337,
-        "LP": 0.6762,
-        "PL": 0.6223,
-        "PO": 0.5075
-      },
-      "gradeModelConfidence": 58,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 33.68,
-        "EX": 30,
-        "GD": 26.85,
-        "LP": 25.99,
-        "PL": 24.5,
-        "PO": 19.95
-      },
-      "observedMinByCondition": {
-        "NM": 33.68,
-        "EX": 30,
-        "GD": 26.85,
-        "LP": 25.99,
-        "PL": 24.5,
-        "PO": 19.95
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.8767,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 34.22,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 34.22,
-      "estimatedNmPrice": 35.27,
-      "estimatedExPrice": 31.19,
-      "nmTargetPrice": 31.74,
-      "exTargetPrice": 27.45,
-      "trendVs30": 4.01,
-      "avg7Vs30": -6.93,
-      "avg1Vs7": 20.8,
-      "trendQuality": 29,
-      "momentumQuality": 25,
-      "remainingPotential": 59,
-      "timingScore": 100,
-      "riskMultiplier": 1,
-      "buyProbability": 56,
-      "convictionScore": 56,
-      "decision": "Ignorer",
-      "reasons": [
-        "Hausse récente mais pas trop mature",
-        "Timing favorable : hausse récente mais pas trop mature",
-        "Timing renforcé par une volatilité faible",
-        "Accélération historique favorable",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Très proche du plus haut 90 jours",
-        "Timing moins bon : proche du plus haut 90 jours"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : hausse récente mais pas trop mature"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Accélération historique favorable"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Très proche du plus haut 90 jours"
-        },
-        {
-          "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
-        }
-      ],
-      "historical": {
-        "historyPoints": 12,
-        "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 34.22,
-        "historyAgeDays": 11,
-        "uptrendDays": 11,
-        "positiveDaysRatio30": 100,
-        "slope30PerDay": 0.526,
-        "acceleration": 1.151,
-        "volatility30": 1.12,
-        "high30d": 34.22,
-        "low30d": 32.35,
-        "position30dPct": 100,
-        "high90d": 34.22,
-        "low90d": 32.35,
-        "position90dPct": 100
       }
     },
     {
@@ -3657,8 +4658,7 @@
       "reasons": [
         "Hausse récente mais pas trop mature",
         "Timing favorable : hausse récente mais pas trop mature",
-        "Timing renforcé par une volatilité faible",
-        "Accélération historique favorable"
+        "Timing renforcé par une volatilité faible"
       ],
       "warnings": [
         "Momentum négatif",
@@ -3679,10 +4679,6 @@
           "text": "Timing renforcé par une volatilité faible"
         },
         {
-          "type": "positive",
-          "text": "Accélération historique favorable"
-        },
-        {
           "type": "warning",
           "text": "Momentum négatif"
         },
@@ -3696,16 +4692,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 13,
+        "historyPoints": 14,
         "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 4.27,
-        "historyAgeDays": 12,
-        "uptrendDays": 5,
-        "positiveDaysRatio30": 83.3,
-        "slope30PerDay": 0.139,
-        "acceleration": 0.117,
-        "volatility30": 2.65,
+        "historyAgeDays": 13,
+        "uptrendDays": 6,
+        "positiveDaysRatio30": 84.6,
+        "slope30PerDay": 0.128,
+        "acceleration": 0,
+        "volatility30": 2.55,
         "high30d": 4.52,
         "low30d": 4.2,
         "position30dPct": 21.9,
@@ -3715,112 +4711,107 @@
       }
     },
     {
-      "id": 1234,
-      "nomCarte": "Savannah Lions",
-      "nomBase": "Savannah Lions",
+      "id": 1416,
+      "nomCarte": "Lord of Atlantis",
+      "nomBase": "Lord of Atlantis",
       "version": null,
       "edition": "Foreign White Bordered",
       "langue": "French",
       "etat": "EX",
-      "scryfallId": "de8e464b-6575-4684-9a8e-49531f8661b3",
-      "imageUrl": "https://cards.scryfall.io/normal/front/d/e/de8e464b-6575-4684-9a8e-49531f8661b3.jpg?1559594549",
+      "scryfallId": "3e6809d3-94fd-4e64-98b7-4cb518aee242",
+      "imageUrl": "https://cards.scryfall.io/normal/front/3/e/3e6809d3-94fd-4e64-98b7-4cb518aee242.jpg?1559594165",
       "priceUsd": null,
       "priceEur": null,
-      "cardmarketId": 5751,
+      "cardmarketId": 5592,
       "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Classeur",
-      "trendPrice": 7.14,
-      "lowPrice": 2.99,
-      "avgPrice": 7.41,
-      "avg1": 8.99,
-      "avg7": 7.66,
-      "avg30": 7.42,
-      "prixEtat": 6.57,
-      "estimatedPrice": 4.36,
-      "baseEstimatedPrice": 4.36,
+      "categorie": "Mono Bleu",
+      "trendPrice": 7.19,
+      "lowPrice": 4,
+      "avgPrice": 7.36,
+      "avg1": 6.89,
+      "avg7": 6.54,
+      "avg30": 6.91,
+      "prixEtat": 6.61,
+      "estimatedPrice": 6.28,
+      "baseEstimatedPrice": 6.28,
       "estimatedByCondition": {
-        "NM": 7.32,
-        "EX": 4.36,
-        "GD": 3.76,
-        "LP": 3.25,
-        "PL": 2.82,
-        "PO": 2.24
+        "NM": 7.55,
+        "EX": 6.28,
+        "GD": 4.7,
+        "LP": 4.68,
+        "PL": 3.74,
+        "PO": 2.42
       },
       "buyTargetByCondition": {
-        "NM": 6.59,
-        "EX": 3.84
+        "NM": 6.8,
+        "EX": 5.53
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6608,
-        "GD": 0.5483,
-        "LP": 0.4648,
-        "PL": 0.3773,
-        "PO": 0.3075
+        "EX": 0.7908,
+        "GD": 0.607,
+        "LP": 0.557,
+        "PL": 0.433,
+        "PO": 0.3369
       },
-      "gradeModelConfidence": 58,
+      "gradeModelConfidence": 53,
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
-        "NM": 6.9,
-        "EX": 2.99,
-        "GD": 2.79,
-        "LP": 2.48,
-        "PL": 2.4,
-        "PO": 1.74
+        "NM": 7.5,
+        "EX": 6.5,
+        "GD": 4.5,
+        "LP": 5,
+        "PL": 4,
+        "PO": null
       },
       "observedMinByCondition": {
-        "NM": 6.9,
-        "EX": 2.99,
-        "GD": 2.79,
-        "LP": 2.48,
-        "PL": 2.4,
-        "PO": 1.74
+        "NM": 7.5,
+        "EX": 6.5,
+        "GD": 4.5,
+        "LP": 5,
+        "PL": 4,
+        "PO": null
       },
       "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.4188,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 7.14,
+      "observationRowsCount": 5,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 53,
+      "pricingRatio": 0.8889,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 7.19,
       "referenceMarketAnchorPrice": null,
-      "quantityOwned": 1,
+      "quantityOwned": 4,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 7.14,
-      "estimatedNmPrice": 7.32,
-      "estimatedExPrice": 4.36,
-      "nmTargetPrice": 6.59,
-      "exTargetPrice": 3.84,
-      "trendVs30": -3.77,
-      "avg7Vs30": 3.23,
-      "avg1Vs7": 17.36,
-      "trendQuality": 0,
-      "momentumQuality": 76,
-      "remainingPotential": 53,
-      "timingScore": 87,
-      "riskMultiplier": 1,
+      "ownedStates": "EX, GD",
+      "nmPrice": 7.19,
+      "estimatedNmPrice": 7.55,
+      "estimatedExPrice": 6.28,
+      "nmTargetPrice": 6.8,
+      "exTargetPrice": 5.53,
+      "trendVs30": 4.05,
+      "avg7Vs30": -5.35,
+      "avg1Vs7": 5.35,
+      "trendQuality": 29,
+      "momentumQuality": 35,
+      "remainingPotential": 85,
+      "timingScore": 100,
+      "riskMultiplier": 0.85,
       "buyProbability": 55,
       "convictionScore": 55,
       "decision": "Ignorer",
       "reasons": [
-        "Momentum propre",
         "Hausse récente mais pas trop mature",
         "Timing renforcé par une volatilité faible",
         "Accélération historique favorable",
         "Prix NM significatif"
       ],
       "warnings": [
-        "Très proche du plus haut 90 jours",
-        "Timing moins bon : proche du plus haut 90 jours"
+        "Encore proche du bas 90 jours",
+        "Déjà possédé en 4 exemplaires ou plus"
       ],
       "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
         {
           "type": "positive",
           "text": "Hausse récente mais pas trop mature"
@@ -3839,307 +4830,30 @@
         },
         {
           "type": "warning",
-          "text": "Très proche du plus haut 90 jours"
+          "text": "Encore proche du bas 90 jours"
         },
         {
           "type": "warning",
-          "text": "Timing moins bon : proche du plus haut 90 jours"
+          "text": "Déjà possédé en 4 exemplaires ou plus"
         }
       ],
       "historical": {
-        "historyPoints": 13,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 7.14,
-        "historyAgeDays": 12,
+        "historyPoints": 40,
+        "firstDate": "2026-06-29",
+        "latestDate": "2026-07-08",
+        "latestTrendPrice": 7.19,
+        "historyAgeDays": 9,
         "uptrendDays": 3,
-        "positiveDaysRatio30": 83.3,
-        "slope30PerDay": 1.55,
-        "acceleration": 2.057,
-        "volatility30": 4.42,
-        "high30d": 7.14,
-        "low30d": 5.73,
-        "position30dPct": 100,
-        "high90d": 7.14,
-        "low90d": 5.73,
-        "position90dPct": 100
-      }
-    },
-    {
-      "id": 1299,
-      "nomCarte": "Wheel of Fortune",
-      "nomBase": "Wheel of Fortune",
-      "version": null,
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "a9d85099-7970-4902-9351-09cbc04c36bc",
-      "imageUrl": "https://cards.scryfall.io/normal/front/a/9/a9d85099-7970-4902-9351-09cbc04c36bc.jpg?1565354468",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 5712,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Mono Rouge",
-      "trendPrice": 247.57,
-      "lowPrice": 179.99,
-      "avgPrice": 238.75,
-      "avg1": 159.9,
-      "avg7": 232.11,
-      "avg30": 236.73,
-      "prixEtat": 272.33,
-      "estimatedPrice": 253.6,
-      "baseEstimatedPrice": 253.6,
-      "estimatedByCondition": {
-        "NM": 253.6,
-        "EX": 205.72,
-        "GD": 184.84,
-        "LP": 186.24,
-        "PL": 103.24,
-        "PO": 164.69
-      },
-      "buyTargetByCondition": {
-        "NM": 228.24,
-        "EX": 181.03
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.7806,
-        "GD": 0.6654,
-        "LP": 0.6205,
-        "PL": 0.417,
-        "PO": 0.4829
-      },
-      "gradeModelConfidence": 53,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 238.99,
-        "EX": 198.99,
-        "GD": 189.95,
-        "LP": 209.9,
-        "PL": null,
-        "PO": 200
-      },
-      "observedMinByCondition": {
-        "NM": 238.99,
-        "EX": 198.99,
-        "GD": 189.95,
-        "LP": 209.9,
-        "PL": null,
-        "PO": 200
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 5,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 53,
-      "pricingRatio": 0.9653,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 247.57,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM",
-      "nmPrice": 247.57,
-      "estimatedNmPrice": 253.6,
-      "estimatedExPrice": 205.72,
-      "nmTargetPrice": 228.24,
-      "exTargetPrice": 181.03,
-      "trendVs30": 4.58,
-      "avg7Vs30": -1.95,
-      "avg1Vs7": -31.11,
-      "trendQuality": 33,
-      "momentumQuality": 0,
-      "remainingPotential": 76,
-      "timingScore": 93,
-      "riskMultiplier": 1,
-      "buyProbability": 55,
-      "convictionScore": 55,
-      "decision": "Ignorer",
-      "reasons": [
-        "Position 90 jours équilibrée",
-        "Timing favorable : position 90 jours équilibrée",
-        "Timing renforcé par une volatilité faible",
-        "Accélération historique favorable",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Momentum négatif"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Position 90 jours équilibrée"
-        },
-        {
-          "type": "positive",
-          "text": "Timing favorable : position 90 jours équilibrée"
-        },
-        {
-          "type": "positive",
-          "text": "Timing renforcé par une volatilité faible"
-        },
-        {
-          "type": "positive",
-          "text": "Accélération historique favorable"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        }
-      ],
-      "historical": {
-        "historyPoints": 13,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 247.57,
-        "historyAgeDays": 12,
-        "uptrendDays": 2,
-        "positiveDaysRatio30": 75,
-        "slope30PerDay": 0.445,
-        "acceleration": 0.685,
-        "volatility30": 2.78,
-        "high30d": 270.2,
-        "low30d": 235.02,
-        "position30dPct": 35.7,
-        "high90d": 270.2,
-        "low90d": 235.02,
-        "position90dPct": 35.7
-      }
-    },
-    {
-      "id": 1260,
-      "nomCarte": "Walking Dead",
-      "nomBase": "Walking Dead",
-      "version": null,
-      "edition": "Legends",
-      "langue": "English",
-      "etat": "EX",
-      "scryfallId": "d7533a72-77d1-40cd-b3a1-7597d566c428",
-      "imageUrl": "https://cards.scryfall.io/normal/front/d/7/d7533a72-77d1-40cd-b3a1-7597d566c428.jpg?1562861349",
-      "priceUsd": 1.04,
-      "priceEur": 1.91,
-      "cardmarketId": 7010,
-      "createdAt": "2026-06-29 13:00:16",
-      "categorie": "Classeur",
-      "trendPrice": 1.84,
-      "lowPrice": 0.74,
-      "avgPrice": 2.38,
-      "avg1": 0.96,
-      "avg7": 2.24,
-      "avg30": 1.68,
-      "prixEtat": 1.69,
-      "estimatedPrice": 1.38,
-      "baseEstimatedPrice": 1.38,
-      "estimatedByCondition": {
-        "NM": 1.72,
-        "EX": 1.38,
-        "GD": 1.21,
-        "LP": 1.22,
-        "PL": 0.97,
-        "PO": 1.08
-      },
-      "buyTargetByCondition": {
-        "NM": 1.55,
-        "EX": 1.21
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.7965,
-        "GD": 0.6833,
-        "LP": 0.6546,
-        "PL": 0.5319,
-        "PO": 0.5349
-      },
-      "gradeModelConfidence": 58,
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": 1.3,
-        "EX": 1,
-        "GD": 0.9,
-        "LP": 1,
-        "PL": 0.74,
-        "PO": 0.97
-      },
-      "observedMinByCondition": {
-        "NM": 1.3,
-        "EX": 1,
-        "GD": 0.9,
-        "LP": 1,
-        "PL": 0.74,
-        "PO": 0.97
-      },
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "pricingModel": "standard_observed_condition_ratio",
-      "pricingConfidence": 58,
-      "pricingRatio": 0.5435,
-      "pricingObservationCount": 1,
-      "marketAnchorPrice": 1.84,
-      "referenceMarketAnchorPrice": null,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 1.84,
-      "estimatedNmPrice": 1.72,
-      "estimatedExPrice": 1.38,
-      "nmTargetPrice": 1.55,
-      "exTargetPrice": 1.21,
-      "trendVs30": 9.52,
-      "avg7Vs30": 33.33,
-      "avg1Vs7": -57.14,
-      "trendQuality": 68,
-      "momentumQuality": 10,
-      "remainingPotential": 74,
-      "timingScore": 83,
-      "riskMultiplier": 0.88,
-      "buyProbability": 55,
-      "convictionScore": 55,
-      "decision": "Ignorer",
-      "reasons": [
-        "Momentum positif"
-      ],
-      "warnings": [
-        "Momentum négatif",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": {
-        "historyPoints": 13,
-        "firstDate": "2026-06-25",
-        "latestDate": "2026-07-07",
-        "latestTrendPrice": 1.84,
-        "historyAgeDays": 12,
-        "uptrendDays": 0,
-        "positiveDaysRatio30": 91.7,
-        "slope30PerDay": 2.098,
-        "acceleration": -2.821,
-        "volatility30": 8.53,
-        "high30d": 1.95,
-        "low30d": 1.47,
-        "position30dPct": 77.1,
-        "high90d": 1.95,
-        "low90d": 1.47,
-        "position90dPct": 77.1
+        "positiveDaysRatio30": 92.3,
+        "slope30PerDay": 0.031,
+        "acceleration": 0.691,
+        "volatility30": 0.8,
+        "high30d": 7.37,
+        "low30d": 7.14,
+        "position30dPct": 21.7,
+        "high90d": 7.37,
+        "low90d": 7.14,
+        "position90dPct": 21.7
       }
     },
     {
@@ -4228,7 +4942,7 @@
       "trendQuality": 79,
       "momentumQuality": 10,
       "remainingPotential": 63,
-      "timingScore": 88,
+      "timingScore": 90,
       "riskMultiplier": 0.88,
       "buyProbability": 55,
       "convictionScore": 55,
@@ -4280,16 +4994,16 @@
         }
       ],
       "historical": {
-        "historyPoints": 12,
+        "historyPoints": 13,
         "firstDate": "2026-06-26",
-        "latestDate": "2026-07-07",
+        "latestDate": "2026-07-08",
         "latestTrendPrice": 4.63,
-        "historyAgeDays": 11,
-        "uptrendDays": 5,
-        "positiveDaysRatio30": 81.8,
-        "slope30PerDay": 0.201,
+        "historyAgeDays": 12,
+        "uptrendDays": 6,
+        "positiveDaysRatio30": 83.3,
+        "slope30PerDay": 0.184,
         "acceleration": -0.656,
-        "volatility30": 0.75,
+        "volatility30": 0.72,
         "high30d": 4.63,
         "low30d": 4.49,
         "position30dPct": 100,
@@ -4297,90 +5011,6 @@
         "low90d": 4.49,
         "position90dPct": 100
       }
-    },
-    {
-      "id": "1783365225627-a84809475b78",
-      "nomCarte": "Plateau",
-      "edition": "Revised",
-      "langue": "English",
-      "observable": true,
-      "priceMode": "automatic",
-      "createdAt": "2026-07-06T19:13:45.627Z",
-      "updatedAt": "2026-07-06T19:13:45.627Z",
-      "cardmarketId": 5824,
-      "scryfallId": "c6ae9cff-8646-4069-8761-df734e067beb",
-      "scryfallUri": "https://scryfall.com/card/3ed/284/plateau?utm_source=api",
-      "imageUrl": "https://cards.scryfall.io/normal/front/c/6/c6ae9cff-8646-4069-8761-df734e067beb.jpg?1782722395",
-      "resolvedName": "Plateau",
-      "resolvedSet": "3ed",
-      "resolvedLang": "en",
-      "resolveStatus": "resolved",
-      "resolvedAt": "2026-07-07T17:08:07.165Z",
-      "trendPrice": 247.41,
-      "lowPrice": 179.95,
-      "avgPrice": 244.34,
-      "avg1": 283.99,
-      "avg7": 251.76,
-      "avg30": 245.6,
-      "priceUpdatedAt": "2026-07-07T17:08:07.835Z",
-      "etat": "NM",
-      "categorie": "Watchlist",
-      "quantityOwned": 0,
-      "owned": false,
-      "ownedLabel": "Non",
-      "ownedStates": "-",
-      "estimatedPrice": 0,
-      "pricingConfidence": 0,
-      "referenceCardFound": false,
-      "referenceSource": null,
-      "ownedStatesSet": {},
-      "nmPrice": 247.41,
-      "estimatedNmPrice": 247.41,
-      "estimatedExPrice": 210.3,
-      "nmTargetPrice": 222.67,
-      "exTargetPrice": 185.06,
-      "gradeModelConfidence": null,
-      "gradeModelSource": null,
-      "observationDaysCount": 0,
-      "lastObservedMinByCondition": null,
-      "trendVs30": 0.74,
-      "avg7Vs30": 2.51,
-      "avg1Vs7": 12.8,
-      "trendQuality": 5,
-      "momentumQuality": 80,
-      "remainingPotential": 62,
-      "timingScore": 62,
-      "riskMultiplier": 1,
-      "buyProbability": 55,
-      "convictionScore": 55,
-      "decision": "Ignorer",
-      "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        }
-      ],
-      "historical": null
     }
   ]
 }
