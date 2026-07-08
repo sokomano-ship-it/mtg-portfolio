@@ -612,9 +612,24 @@ function renderInvestmentAnalysis() {
     updateInvestmentHeaderState();
 }
 
+function openInvestmentDrawer() {
+    const drawer = document.getElementById("investment-drawer");
+    if (drawer) {
+        drawer.classList.add("visible");
+    }
+}
+
+function closeInvestmentDrawer() {
+    const drawer = document.getElementById("investment-drawer");
+    if (drawer) {
+        drawer.classList.remove("visible");
+    }
+}
+
 function showInvestmentDetails(cardId) {
     selectedInvestmentCardId = cardId;
     renderInvestmentAnalysis();
+    openInvestmentDrawer();
 
     const card = allInvestmentAnalysis.find(row =>
         Number(row.id) === Number(cardId)
@@ -664,6 +679,8 @@ function showInvestmentDetails(cardId) {
 `;
 renderInvestmentChart(cardId);
 }
+
+
 
 async function renderInvestmentChart(cardId) {
     const ctx = document.getElementById("investmentChart");

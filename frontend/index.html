@@ -138,45 +138,33 @@
 
     </section>
 
-    <div class="investment-detail-grid">
+ <aside id="investment-drawer" class="investment-drawer">
 
-    <section class="card">
+    <button class="investment-drawer-close" onclick="closeInvestmentDrawer()">
+        ×
+    </button>
 
-        <h2>Détails</h2>
+    <h2>Détails de l'investissement</h2>
 
-        <div id="investment-details">
-
-            Sélectionnez une carte.
-
-        </div>
-
-    </section>
-
-    <section class="card">
-
-        <h2>Évolution</h2>
-
-        <div class="detail-chart">
-
-            <canvas id="investmentChart"></canvas>
-
-        </div>
-
-    </section>
-
-</div>
-
-<section class="card">
-
-    <h2>Prévisions du modèle</h2>
-
-    <div id="investment-forecast">
-
-        Les projections 5 / 10 / 20 ans apparaîtront ici.
-
+    <div id="investment-details">
+        Sélectionnez une carte.
     </div>
 
-</section>
+    <section class="drawer-section">
+        <h3>Évolution</h3>
+        <div class="detail-chart">
+            <canvas id="investmentChart"></canvas>
+        </div>
+    </section>
+
+    <section class="drawer-section">
+        <h3>Analyse du modèle</h3>
+        <div id="investment-forecast">
+            Les indicateurs qualité du modèle apparaîtront ici.
+        </div>
+    </section>
+
+</aside>
 
 </section>
 
