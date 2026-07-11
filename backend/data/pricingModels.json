@@ -1990,36 +1990,70 @@
     }
   },
   "vaevictis asmadi|legends italian|italian": {
-    "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 27.46,
+    "modelType": "edition_ratio",
+    "referenceFound": true,
+    "referenceMarketAnchorPrice": 27.46,
+    "expectedReference": {
+      "nomCarte": "Vaevictis Asmadi",
+      "edition": "Legends",
+      "langue": "English",
+      "version": null
+    },
+    "priceReferenceCard": {
+      "id": "vaevictis-legends-en-reference",
+      "nomCarte": "Vaevictis Asmadi",
+      "edition": "Legends",
+      "langue": "English",
+      "observable": true,
+      "priceMode": "automatic",
+      "createdAt": "2026-07-11T00:00:00.000Z",
+      "updatedAt": "2026-07-11T00:00:00.000Z",
+      "cardmarketId": 7280,
+      "scryfallId": "22ea73ec-1325-4437-a23f-dcda1767c713",
+      "scryfallUri": "https://scryfall.com/card/leg/269/vaevictis-asmadi?utm_source=api",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/2/22ea73ec-1325-4437-a23f-dcda1767c713.jpg?1782722262",
+      "resolvedName": "Vaevictis Asmadi",
+      "resolvedSet": "leg",
+      "resolvedLang": "en",
+      "resolveStatus": "resolved",
+      "resolvedAt": "2026-07-11T17:53:28.429Z",
+      "trendPrice": 27.46,
+      "lowPrice": 15.03,
+      "avgPrice": 27.72,
+      "avg1": 38.99,
+      "avg7": 28.65,
+      "avg30": 29.21,
+      "priceUpdatedAt": "2026-07-11T18:10:52.063Z"
+    },
+    "referenceSource": "tracked_market_card",
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.0903,
+        "ratioToReferenceMarketAnchor": 0.0903,
         "observedPrice": 2.48,
         "observationCount": 1
       },
       "PL": {
-        "ratioToMarketAnchor": 0.0728,
+        "ratioToReferenceMarketAnchor": 0.0728,
         "observedPrice": 2,
         "observationCount": 1
       },
       "LP": {
-        "ratioToMarketAnchor": 0.1005,
+        "ratioToReferenceMarketAnchor": 0.1005,
         "observedPrice": 2.76,
         "observationCount": 1
       },
       "GD": {
-        "ratioToMarketAnchor": 0.1074,
+        "ratioToReferenceMarketAnchor": 0.1074,
         "observedPrice": 2.95,
         "observationCount": 1
       },
       "EX": {
-        "ratioToMarketAnchor": 0.1089,
+        "ratioToReferenceMarketAnchor": 0.1089,
         "observedPrice": 2.99,
         "observationCount": 1
       },
       "NM": {
-        "ratioToMarketAnchor": 0.1817,
+        "ratioToReferenceMarketAnchor": 0.1817,
         "observedPrice": 4.99,
         "observationCount": 1
       }
@@ -4608,7 +4642,7 @@
       "avg1": 4.06,
       "avg7": 5.08,
       "avg30": 4.93,
-      "priceUpdatedAt": "2026-07-11T17:09:38.270Z"
+      "priceUpdatedAt": "2026-07-11T18:10:52.063Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {

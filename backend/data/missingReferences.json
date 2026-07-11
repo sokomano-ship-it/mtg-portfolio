@@ -1,11 +1,14 @@
 [
   {
-    "nomCarte": "Force of Will",
-    "edition": "Alliances",
+    "nomCarte": "Island (V.1)",
+    "edition": "Foreign Black Bordered",
     "langue": "French",
-    "model": "standard",
+    "model": "edition_ratio",
     "expectedReference": {
-      "nomCarte": "Force of Will"
+      "nomCarte": "Island",
+      "edition": "Revised",
+      "langue": "English",
+      "version": null
     }
   },
   {
@@ -16,7 +19,8 @@
     "expectedReference": {
       "nomCarte": "Lord of Atlantis",
       "edition": "Revised",
-      "langue": "English"
+      "langue": "English",
+      "version": null
     }
   },
   {
@@ -27,7 +31,20 @@
     "expectedReference": {
       "nomCarte": "Serendib Efreet",
       "edition": "Revised",
-      "langue": "English"
+      "langue": "English",
+      "version": null
+    }
+  },
+  {
+    "nomCarte": "Vaevictis Asmadi",
+    "edition": "Legends Italian",
+    "langue": "Italian",
+    "model": "edition_ratio",
+    "expectedReference": {
+      "nomCarte": "Vaevictis Asmadi",
+      "edition": "Legends",
+      "langue": "English",
+      "version": null
     }
   }
 ]
