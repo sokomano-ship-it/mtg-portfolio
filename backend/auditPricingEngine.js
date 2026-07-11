@@ -138,27 +138,50 @@ function auditMissingTrend(simulation) {
 
 }
 function auditReferenceCards(simulation) {
+    printHeader("Reference mappings");
 
-    printHeader("Reference cards");
+    const unique = new Map();
 
     simulation
         .filter(card =>
-            card.referenceMarketAnchorPrice ||
-            card.referenceEdition ||
-            card.referenceLanguage
+            card.usesExternalReference === true ||
+            card.marketReferenceType === "no_market_reference"
         )
         .forEach(card => {
+            const key = [
+                card.nomCarte,
+                card.edition,
+                card.langue,
+                card.etat,
+                card.marketReferenceType,
+                card.referenceName,
+                card.referenceEdition,
+                card.referenceLanguage
+            ].join("|");
 
-            console.log(
-                `${card.nomCarte}
- -> ${card.referenceEdition || "-"}
- ${card.referenceLanguage || "-"}
- (${card.referenceMarketAnchorPrice || "-"})`
-            );
-
+            if (!unique.has(key)) {
+                unique.set(key, card);
+            }
         });
 
+    unique.forEach(card => {
+        console.log(
+            `${card.nomCarte} | ${card.edition} | ${card.langue} | ${card.etat}`
+        );
+
+        if (card.marketReferenceType === "no_market_reference") {
+            console.log(" -> observations Admin uniquement");
+        } else {
+            console.log(
+                ` -> ${card.referenceName || card.nomCarte} | ` +
+                `${card.referenceEdition || "-"} | ` +
+                `${card.referenceLanguage || "-"}`
+            );
+        }
+    });
 }
+
+
 function main() {
 
     console.clear();

@@ -5,6 +5,12 @@ const db = require("../database");
 const MODELS_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingSimulation.json");
 const { estimateCardByGrade } = require("./gradeEstimator");
+const REFERENCE_CATALOG_PATH = path.join(
+  __dirname,
+  "..",
+  "data",
+  "referenceCatalog.json"
+);
 
 const FALLBACK_CONDITION_RATIOS = {
   NM: 1.00,
@@ -14,6 +20,18 @@ const FALLBACK_CONDITION_RATIOS = {
   PL: 0.45,
   PO: 0.30
 };
+
+function readReferenceCatalog() {
+  if (!fs.existsSync(REFERENCE_CATALOG_PATH)) return new Map();
+
+  const rows = JSON.parse(
+    fs.readFileSync(REFERENCE_CATALOG_PATH, "utf8")
+  );
+
+  return new Map(
+    rows.map(row => [Number(row.cardId), row])
+  );
+}
 
 function normalize(value) {
   return String(value || "")
@@ -142,44 +160,45 @@ function estimateCard(card, model, globalConditionModel = null) {
   };
 }
 
-  if (
-    model.modelType === "fwb_revised" ||
-    model.modelType === "legends_italian"
-  ) {
+  if (model.modelType === "edition_ratio") {
     const referenceAnchor = Number(model.referenceMarketAnchorPrice || 0);
 
     if (conditionModel?.ratioToReferenceMarketAnchor && referenceAnchor) {
-      const ratio = conditionModel.ratioToReferenceMarketAnchor;
+        const ratio = conditionModel.ratioToReferenceMarketAnchor;
 
-      return {
-        estimatedPrice: Number((referenceAnchor * ratio).toFixed(2)),
-        pricingModel: model.modelType,
-        marketAnchorPrice: anchor,
-        referenceMarketAnchorPrice: referenceAnchor,
-        ratioUsed: ratio,
-        confidence: Math.min(50 + conditionModel.observationCount * 10, 95),
-        observationCount: conditionModel.observationCount,
-        referenceCardFound: model.referenceCardFound
-      };
+        return {
+            estimatedPrice: Number((referenceAnchor * ratio).toFixed(2)),
+            pricingModel: "edition_observed_condition_ratio",
+            marketAnchorPrice: anchor,
+            referenceMarketAnchorPrice: referenceAnchor,
+            ratioUsed: ratio,
+            confidence: Math.min(
+                50 + conditionModel.observationCount * 10,
+                95
+            ),
+            observationCount: conditionModel.observationCount,
+            referenceCardFound: model.referenceFound
+        };
     }
 
     const fallbackRatio =
-  globalConditionModel?.byCondition?.[condition]?.ratioToMarketAnchor ??
-  FALLBACK_CONDITION_RATIOS[condition] ??
-  1;
+        globalConditionModel?.byCondition?.[condition]?.ratioToMarketAnchor ??
+        FALLBACK_CONDITION_RATIOS[condition] ??
+        1;
+
     const fallbackBase = referenceAnchor || anchor;
 
     return {
-      estimatedPrice: Number((fallbackBase * fallbackRatio).toFixed(2)),
-      pricingModel: `${model.modelType}_fallback`,
-      marketAnchorPrice: anchor,
-      referenceMarketAnchorPrice: referenceAnchor || null,
-      ratioUsed: fallbackRatio,
-      confidence: referenceAnchor ? 30 : 15,
-      observationCount: 0,
-      referenceCardFound: model.referenceCardFound
+        estimatedPrice: Number((fallbackBase * fallbackRatio).toFixed(2)),
+        pricingModel: "edition_fallback_condition_ratio",
+        marketAnchorPrice: anchor,
+        referenceMarketAnchorPrice: referenceAnchor || null,
+        ratioUsed: fallbackRatio,
+        confidence: referenceAnchor ? 30 : 15,
+        observationCount: 0,
+        referenceCardFound: model.referenceFound
     };
-  }
+}
 
   if (conditionModel?.ratioToMarketAnchor && anchor) {
     const ratio = conditionModel.ratioToMarketAnchor;
@@ -221,9 +240,12 @@ function getEstimatedConditionPrice(card, estimated, gradeEstimate) {
 async function main() {
   const cards = await getCards();
   const models = readModels();
+  const referenceCatalog = readReferenceCatalog();
 
   const results = cards.map(card => {
     const model = models[cardKey(card)];
+    const marketReference =
+  referenceCatalog.get(Number(card.id)) || null;
     const estimated = estimateCard(
     card,
     model,
@@ -252,6 +274,38 @@ return {
     langue: card.langue,
 
     etat: card.etat,
+
+    version: card.version || null,
+
+marketReferenceType:
+  marketReference?.marketReferenceType ||
+  "same_printing_market",
+
+marketReferenceRole:
+  marketReference?.marketReferenceRole ||
+  "level_and_evolution",
+
+usesExternalReference:
+  Boolean(marketReference?.usesExternalReference),
+
+referenceName:
+  marketReference?.referenceName ||
+  card.nomCarte,
+
+referenceEdition:
+  marketReference?.referenceEdition ||
+  card.edition,
+
+referenceLanguage:
+  marketReference?.referenceLanguage ||
+  card.langue,
+
+referenceVersion:
+  marketReference?.referenceVersion ||
+  null,
+
+referenceCardFound:
+  Boolean(marketReference?.referenceFound),
 
     ...estimated,
 

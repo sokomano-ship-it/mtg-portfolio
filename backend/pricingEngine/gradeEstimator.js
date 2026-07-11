@@ -5,6 +5,13 @@ const CONDITIONS = ["NM", "EX", "GD", "LP", "PL", "PO"];
 
 const marketObservationsPath = path.join(__dirname, "..", "data", "marketObservations.json");
 
+const pricingModelsPath = path.join(
+    __dirname,
+    "..",
+    "data",
+    "pricingModels.json"
+);
+
 const DEFAULT_GLOBAL_RATIOS = {
     NM: 1.00,
     EX: 0.85,
@@ -28,6 +35,15 @@ function readJson(filePath, fallback) {
         return fallback;
     }
 }
+let pricingModelsCache = null;
+
+function readPricingModels() {
+    if (!pricingModelsCache) {
+        pricingModelsCache = readJson(pricingModelsPath, {});
+    }
+
+    return pricingModelsCache;
+}
 
 function normalize(value) {
     return String(value || "")
@@ -37,6 +53,14 @@ function normalize(value) {
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/[’']/g, "")
         .replace(/\s+/g, " ");
+}
+
+function cardKey(card) {
+    return [
+        normalize(card.nomCarte || card.nomBase),
+        normalize(card.edition),
+        normalize(card.langue)
+    ].join("|");
 }
 
 function sameCard(a, b) {
@@ -244,6 +268,68 @@ function estimateMeanPriceFromMin(condition, observedMin) {
     return number(observedMin) * (upliftByCondition[condition] || 1.20);
 }
 
+function getLearnedConditionRatios(card) {
+    const models = readPricingModels();
+    const model = models[cardKey(card)];
+
+    if (!model || model.modelType !== "standard_market_anchor") {
+        return null;
+    }
+
+    const nmRatio = number(
+        model.byCondition?.NM?.ratioToMarketAnchor
+    );
+
+    if (!nmRatio) {
+        return null;
+    }
+
+    const learnedRatios = {
+        NM: 1
+    };
+
+    CONDITIONS.forEach(condition => {
+        if (condition === "NM") return;
+
+        const conditionRatio = number(
+            model.byCondition?.[condition]?.ratioToMarketAnchor
+        );
+
+        learnedRatios[condition] =
+            conditionRatio > 0
+                ? Math.min(
+                    1,
+                    Math.max(0.15, conditionRatio / nmRatio)
+                )
+                : null;
+    });
+
+    return learnedRatios;
+}
+
+function enforceMonotonicRatios(ratios) {
+    const ordered = {
+        NM: 1
+    };
+
+    let previousRatio = 1;
+
+    CONDITIONS
+        .filter(condition => condition !== "NM")
+        .forEach(condition => {
+            const currentRatio = number(ratios[condition]);
+
+            const safeRatio = currentRatio > 0
+                ? Math.min(previousRatio, currentRatio)
+                : previousRatio;
+
+            ordered[condition] = Math.max(0.15, safeRatio);
+            previousRatio = ordered[condition];
+        });
+
+    return ordered;
+}
+
 function estimateCardByGrade(card, options = {}) {
     const allObservations = options.observations || readJson(marketObservationsPath, []);
     const anchorPrice = number(
@@ -265,9 +351,22 @@ function estimateCardByGrade(card, options = {}) {
 
     const lastObservedMinByCondition = latestObservedByCondition(rows);
 
-    const cardRatios = estimateRatiosFromCardObservations(observedMinByCondition);
-    const editionRatios = estimateEditionRatios(card, allObservations);
-    const weight = getObservationWeight(dayCount);
+    const learnedRatios = getLearnedConditionRatios(card);
+
+const observedCardRatios =
+    estimateRatiosFromCardObservations(observedMinByCondition);
+
+const cardRatios = {};
+
+CONDITIONS.forEach(condition => {
+    cardRatios[condition] =
+        learnedRatios?.[condition] ??
+        observedCardRatios?.[condition] ??
+        null;
+});
+
+const editionRatios = estimateEditionRatios(card, allObservations);
+const weight = getObservationWeight(dayCount);
 
     let inferredAnchor = anchorPrice;
 
@@ -275,13 +374,28 @@ function estimateCardByGrade(card, options = {}) {
         inferredAnchor = estimateAnchorFromObservations(observedMinByCondition);
     }
 
-    const estimatedByCondition = {};
-    const ratioByCondition = {};
+    const rawRatios = {
+    NM: 1
+};
 
-    CONDITIONS.forEach(condition => {
-        const ratio = condition === "NM"
-            ? 1
-            : blendRatio(condition, cardRatios[condition], editionRatios[condition], weight);
+CONDITIONS.forEach(condition => {
+    if (condition === "NM") return;
+
+    rawRatios[condition] = blendRatio(
+        condition,
+        cardRatios[condition],
+        editionRatios[condition],
+        weight
+    );
+});
+
+const monotonicRatios = enforceMonotonicRatios(rawRatios);
+
+const estimatedByCondition = {};
+const ratioByCondition = {};
+
+CONDITIONS.forEach(condition => {
+    const ratio = monotonicRatios[condition];
 
         ratioByCondition[condition] = round(ratio, 4);
 
@@ -323,9 +437,19 @@ function estimateCardByGrade(card, options = {}) {
 
     const sourceParts = [];
 
-    if (anchorPrice > 0) sourceParts.push("anchor");
-    if (dayCount > 0) sourceParts.push(`${dayCount} observation day(s)`);
+    if (anchorPrice > 0) {
+    sourceParts.push("anchor");
+}
+
+if (dayCount > 0) {
+    sourceParts.push(`${dayCount} observation day(s)`);
+}
+
+if (learnedRatios) {
+    sourceParts.push("trained card ratios");
+} else {
     sourceParts.push("global/edition ratios");
+}
 
     return {
         anchorPrice: inferredAnchor ? round(inferredAnchor) : null,

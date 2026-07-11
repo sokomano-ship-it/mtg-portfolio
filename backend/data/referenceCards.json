@@ -3,25 +3,33 @@
     "nomCarte": "Jihad",
     "displayEdition": "Arabian Nights",
     "displayLanguage": "English",
-    "pricingModel": "manual_only"
+    "pricingModel": "manual_only",
+    "marketReferenceType": "no_market_reference",
+    "marketReferenceRole": "observations_only"
   },
   {
     "nomCarte": "Crusade",
     "displayEdition": "Revised",
     "displayLanguage": "English",
-    "pricingModel": "manual_only"
+    "pricingModel": "manual_only",
+    "marketReferenceType": "no_market_reference",
+    "marketReferenceRole": "observations_only"
   },
   {
     "nomCarte": "Crusade",
     "displayEdition": "Foreign White Bordered",
     "displayLanguage": "French",
-    "pricingModel": "manual_only"
+    "pricingModel": "manual_only",
+    "marketReferenceType": "no_market_reference",
+    "marketReferenceRole": "observations_only"
   },
   {
     "nomCarte": "Crusade",
     "displayEdition": "Fourth Edition",
     "displayLanguage": "French",
-    "pricingModel": "manual_only"
+    "pricingModel": "manual_only",
+    "marketReferenceType": "no_market_reference",
+    "marketReferenceRole": "observations_only"
   },
 
   {
@@ -31,7 +39,9 @@
     "referenceName": "Serendib Efreet",
     "referenceEdition": "Revised",
     "referenceLanguage": "English",
-    "pricingModel": "edition_ratio"
+    "pricingModel": "edition_ratio",
+    "marketReferenceType": "same_card_different_printing_proxy",
+    "marketReferenceRole": "evolution_only"
   },
   {
     "nomCarte": "Lord of Atlantis",
@@ -40,13 +50,31 @@
     "referenceName": "Lord of Atlantis",
     "referenceEdition": "Revised",
     "referenceLanguage": "English",
-    "pricingModel": "edition_ratio"
+    "pricingModel": "edition_ratio",
+    "marketReferenceType": "same_card_different_printing_proxy",
+    "marketReferenceRole": "evolution_only"
   },
+
+  {
+    "nomCarte": "Island",
+    "displayEdition": "Foreign Black Bordered",
+    "displayLanguage": "French",
+    "displayVersion": "V.1",
+    "referenceName": "Island",
+    "referenceEdition": "Revised",
+    "referenceLanguage": "English",
+    "pricingModel": "edition_ratio",
+    "marketReferenceType": "same_card_different_printing_proxy",
+    "marketReferenceRole": "evolution_only"
+  },
+
   {
     "nomCarte": "Force of Will",
     "displayEdition": "Alliances",
     "displayLanguage": "French",
     "pricingModel": "standard",
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
     "imageUrl": "https://cards.scryfall.io/display/front/9/a/9a879b60-4381-447d-8a5a-8e0b6a1d49ca.webp?1782721534",
     "scryfallUri": "https://scryfall.com/card/all/28/force-of-will"
   }

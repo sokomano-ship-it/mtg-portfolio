@@ -27,25 +27,51 @@ function getCardsFromSplitFile(raw) {
 function cardName(card) {
   return card.nomCarte || card.nomBase || card.name || "";
 }
+function baseCardName(card) {
+  return card.nomBase || card.nomCarte || card.name || "";
+}
+function cardVersion(card) {
+  return card.version || card.variant || null;
+}
 
 function same(value1, value2) {
   return normalize(value1) === normalize(value2);
 }
 
 function findReferenceRule(card, referenceCards) {
-  return referenceCards.find(rule =>
-    same(rule.nomCarte, cardName(card)) &&
-    same(rule.displayEdition, card.edition) &&
-    same(rule.displayLanguage, card.langue)
-  ) || null;
+  return referenceCards.find(rule => {
+    const sameIdentity =
+      same(rule.nomCarte, baseCardName(card)) &&
+      same(rule.displayEdition, card.edition) &&
+      same(rule.displayLanguage, card.langue);
+
+    if (!sameIdentity) return false;
+
+    if (!rule.displayVersion) return true;
+
+    return same(rule.displayVersion, cardVersion(card));
+  }) || null;
 }
 
-function findPortfolioCard(portfolio, name, edition, language) {
-  return portfolio.find(card =>
-    same(cardName(card), name) &&
-    same(card.edition, edition) &&
-    same(card.langue, language)
-  ) || null;
+function findPortfolioCard(
+  portfolio,
+  name,
+  edition,
+  language,
+  version = null
+) {
+  return portfolio.find(card => {
+    const sameIdentity =
+      same(baseCardName(card), name) &&
+      same(card.edition, edition) &&
+      same(card.langue, language);
+
+    if (!sameIdentity) return false;
+
+    if (!version) return true;
+
+    return same(cardVersion(card), version);
+  }) || null;
 }
 
 function slim(card) {
@@ -55,6 +81,7 @@ function slim(card) {
     nomCarte: cardName(card),
     edition: card.edition || null,
     langue: card.langue || null,
+    version: cardVersion(card),
     scryfallId: card.scryfallId || card.idScryfall || card.id || null,
     scryfallUri: card.scryfallUri || card.scryfall_uri || null,
     image: card.image || card.imageUrl || card.image_uris?.normal || null,
@@ -109,44 +136,97 @@ function main() {
     let expectedReference = null;
 
     if (rule) {
-      model = rule.pricingModel || "standard";
+  model = rule.pricingModel || "standard";
 
-      if (model === "manual_only") {
-        reference = null;
-      } else {
-        expectedReference = {
-          nomCarte: rule.referenceName || rule.nomCarte,
-          edition: rule.referenceEdition,
-          langue: rule.referenceLanguage
-        };
+  const hasExternalReference =
+    Boolean(rule.referenceName) &&
+    Boolean(rule.referenceEdition) &&
+    Boolean(rule.referenceLanguage);
 
-        reference = findPortfolioCard(
-          portfolio,
-          expectedReference.nomCarte,
-          expectedReference.edition,
-          expectedReference.langue
-        );
-      }
-    }
+  if (model === "manual_only") {
+    reference = null;
+  } else if (hasExternalReference) {
+    expectedReference = {
+      nomCarte: rule.referenceName || rule.nomCarte,
+      edition: rule.referenceEdition,
+      langue: rule.referenceLanguage,
+      version: rule.referenceVersion || null
+    };
+
+    reference = findPortfolioCard(
+      portfolio,
+      expectedReference.nomCarte,
+      expectedReference.edition,
+      expectedReference.langue,
+      expectedReference.version
+    );
+  } else {
+    // Carte standard : sa propre impression fournit la référence marché.
+    reference = card;
+  }
+}
 
     const displaySlim = slim(card);
 
     return {
-      cardId: card.id || null,
-      nomCarte: cardName(card),
-      edition: card.edition,
-      langue: card.langue,
-      etat: card.etat,
-      model,
-      displayCard: {
-        ...displaySlim,
-        image: rule?.imageUrl || displaySlim?.image || null,
-        scryfallUri: rule?.scryfallUri || displaySlim?.scryfallUri || null
-      },
-      priceReferenceCard: slim(reference),
-      referenceFound: Boolean(reference),
-      expectedReference
-    };
+  cardId: card.id || null,
+  nomCarte: cardName(card),
+  edition: card.edition,
+  langue: card.langue,
+  etat: card.etat,
+  model,
+
+  marketReferenceType:
+  rule?.marketReferenceType ||
+  (model === "manual_only"
+    ? "no_market_reference"
+    : "same_printing_market"),
+
+marketReferenceRole:
+  rule?.marketReferenceRole ||
+  (model === "manual_only"
+    ? "observations_only"
+    : "level_and_evolution"),
+
+usesExternalReference:
+  Boolean(expectedReference),
+
+referenceName:
+  expectedReference?.nomCarte ||
+  cardName(card),
+
+referenceEdition:
+  expectedReference?.edition ||
+  card.edition ||
+  null,
+
+referenceLanguage:
+  expectedReference?.langue ||
+  card.langue ||
+  null,
+
+referenceVersion:
+  expectedReference?.version ||
+  cardVersion(card) ||
+  null,
+
+referenceCardFound:
+  Boolean(reference),
+
+  displayCard: {
+    ...displaySlim,
+    image: rule?.imageUrl || displaySlim?.image || null,
+    scryfallUri: rule?.scryfallUri || displaySlim?.scryfallUri || null
+  },
+
+  priceReferenceCard: slim(reference),
+
+referenceFound: Boolean(reference),
+
+usesExternalReference: Boolean(expectedReference),
+
+expectedReference
+};
   });
 
   const missing = buildMissingReferences(catalog);
