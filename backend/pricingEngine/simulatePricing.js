@@ -93,26 +93,54 @@ function estimateCard(card, model, globalConditionModel = null) {
   const conditionModel = model.byCondition?.[condition];
 
   if (model.modelType === "manual_only") {
-    if (conditionModel?.observedPrice) {
-      return {
-        estimatedPrice: conditionModel.observedPrice,
-        pricingModel: "manual_observed",
-        marketAnchorPrice: null,
-        ratioUsed: null,
-        confidence: Math.min(50 + conditionModel.observationCount * 10, 95),
-        observationCount: conditionModel.observationCount
-      };
-    }
-
+  if (conditionModel?.observedPrice) {
     return {
-      estimatedPrice: 0,
-      pricingModel: "manual_missing_observation",
+      estimatedPrice: conditionModel.observedPrice,
+      pricingModel: "manual_observed",
+      estimationSource: "direct_condition_observation",
       marketAnchorPrice: null,
       ratioUsed: null,
-      confidence: 0,
-      observationCount: 0
+      confidence: Math.min(
+        50 + conditionModel.observationCount * 10,
+        95
+      ),
+      observationCount: conditionModel.observationCount
     };
   }
+
+  const observedConditions = Object.values(model.byCondition || {})
+    .filter(row => Number(row?.observedPrice || 0) > 0);
+
+  const totalObservationCount = observedConditions.reduce(
+    (sum, row) => sum + Number(row.observationCount || 0),
+    0
+  );
+
+  if (observedConditions.length > 0) {
+    return {
+      estimatedPrice: 0,
+      pricingModel: "manual_observed",
+      estimationSource: "inferred_from_other_conditions",
+      marketAnchorPrice: null,
+      ratioUsed: null,
+      confidence: Math.min(
+        35 + totalObservationCount * 5,
+        80
+      ),
+      observationCount: totalObservationCount
+    };
+  }
+
+  return {
+    estimatedPrice: 0,
+    pricingModel: "manual_missing_observation",
+    estimationSource: "no_observation",
+    marketAnchorPrice: null,
+    ratioUsed: null,
+    confidence: 0,
+    observationCount: 0
+  };
+}
 
   if (
     model.modelType === "fwb_revised" ||
