@@ -4,6 +4,12 @@ const db = require("../database");
 
 const OBS_PATH = path.join(__dirname, "..", "data", "marketObservations.json");
 const REFERENCE_CATALOG_PATH = path.join(__dirname, "..", "data", "referenceCatalog.json");
+const TRACKED_MARKET_CARDS_PATH = path.join(
+  __dirname,
+  "..",
+  "data",
+  "trackedMarketCards.json"
+);
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 
 const CONDITIONS = ["PO", "PL", "LP", "GD", "EX", "NM"];
@@ -111,6 +117,19 @@ function referenceAnchorPrice(referenceCard) {
     0
   );
 }
+function findTrackedReferenceCard(trackedCards, expectedReference) {
+  if (!expectedReference) return null;
+
+  return trackedCards.find(card =>
+    normalize(card.nomCarte) === normalize(expectedReference.nomCarte) &&
+    normalize(card.edition) === normalize(expectedReference.edition) &&
+    normalize(card.langue) === normalize(expectedReference.langue) &&
+    (
+      !expectedReference.version ||
+      normalize(card.version) === normalize(expectedReference.version)
+    )
+  ) || null;
+}
 
 function observationsForCard(card, observations) {
   return observations.filter(obs => cardKey(obs) === cardKey(card));
@@ -174,8 +193,25 @@ function trainStandardModel(card, observations, anchor) {
   };
 }
 
-function trainEditionRatioModel(card, observations, catalogEntry) {
-  const referenceAnchor = referenceAnchorPrice(catalogEntry.priceReferenceCard);
+function trainEditionRatioModel(
+  card,
+  observations,
+  catalogEntry,
+  trackedCards
+) {
+  const trackedReferenceCard = findTrackedReferenceCard(
+    trackedCards,
+    catalogEntry.expectedReference
+  );
+
+  const effectiveReferenceCard =
+    catalogEntry.priceReferenceCard ||
+    trackedReferenceCard ||
+    null;
+
+  const referenceAnchor =
+    referenceAnchorPrice(effectiveReferenceCard);
+
   const cardObs = observationsForCard(card, observations);
   const byCondition = {};
 
@@ -200,10 +236,15 @@ function trainEditionRatioModel(card, observations, catalogEntry) {
 
   return {
     modelType: "edition_ratio",
-    referenceFound: catalogEntry.referenceFound,
-    referenceMarketAnchorPrice: referenceAnchor,
-    expectedReference: catalogEntry.expectedReference || null,
-    priceReferenceCard: catalogEntry.priceReferenceCard || null,
+    referenceFound: Boolean(effectiveReferenceCard && referenceAnchor > 0),
+referenceMarketAnchorPrice: referenceAnchor,
+expectedReference: catalogEntry.expectedReference || null,
+priceReferenceCard: effectiveReferenceCard,
+referenceSource: catalogEntry.priceReferenceCard
+  ? "portfolio"
+  : trackedReferenceCard
+    ? "tracked_market_card"
+    : null,
     byCondition
   };
 }
@@ -249,6 +290,7 @@ async function main() {
   const cards = await getCards();
   const observations = readJson(OBS_PATH, []);
   const referenceCatalog = readJson(REFERENCE_CATALOG_PATH, []);
+  const trackedCards = readJson(TRACKED_MARKET_CARDS_PATH, []);
 
   const catalogByCardId = new Map(
     referenceCatalog.map(entry => [String(entry.cardId), entry])
@@ -267,7 +309,12 @@ async function main() {
     }
 
     if (catalogEntry?.model === "edition_ratio") {
-      models[key] = trainEditionRatioModel(card, observations, catalogEntry);
+      models[key] = trainEditionRatioModel(
+  card,
+  observations,
+  catalogEntry,
+  trackedCards
+);
       return;
     }
 

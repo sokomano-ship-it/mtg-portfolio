@@ -272,12 +272,22 @@ function getLearnedConditionRatios(card) {
     const models = readPricingModels();
     const model = models[cardKey(card)];
 
-    if (!model || model.modelType !== "standard_market_anchor") {
+    if (!model) {
+        return null;
+    }
+
+    let ratioField = null;
+
+    if (model.modelType === "standard_market_anchor") {
+        ratioField = "ratioToMarketAnchor";
+    } else if (model.modelType === "edition_ratio") {
+        ratioField = "ratioToReferenceMarketAnchor";
+    } else {
         return null;
     }
 
     const nmRatio = number(
-        model.byCondition?.NM?.ratioToMarketAnchor
+        model.byCondition?.NM?.[ratioField]
     );
 
     if (!nmRatio) {
@@ -292,7 +302,7 @@ function getLearnedConditionRatios(card) {
         if (condition === "NM") return;
 
         const conditionRatio = number(
-            model.byCondition?.[condition]?.ratioToMarketAnchor
+            model.byCondition?.[condition]?.[ratioField]
         );
 
         learnedRatios[condition] =

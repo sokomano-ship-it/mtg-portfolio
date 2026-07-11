@@ -1,8 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
+const {
+  buildIndexes,
+  findPriceForCard,
+  getProductId
+} = require("./pricingEngine/cardmarketLookup");
 
 const TRACKED_PATH = path.join(__dirname, "data", "trackedMarketCards.json");
+const PRICE_GUIDE_URL =
+  "https://downloads.s3.cardmarket.com/productCatalog/priceGuide/price_guide_1.json";
 
 function readJson(file, fallback) {
   if (!fs.existsSync(file)) return fallback;
@@ -96,6 +103,15 @@ async function searchScryfall(card) {
 
 async function main() {
   const trackedCards = readJson(TRACKED_PATH, []);
+  const response = await axios.get(PRICE_GUIDE_URL, {
+  timeout: 60000,
+  responseType: "json"
+});
+
+const priceGuides = response.data.priceGuides || [];
+const indexes = buildIndexes(priceGuides);
+
+console.log(`${priceGuides.length} produits Cardmarket chargés.`);
 
   let resolved = 0;
   let alreadyResolved = 0;
@@ -119,33 +135,48 @@ async function main() {
 
     const scryfallCard = await searchScryfall(card);
 
-    if (!scryfallCard) {
-      missing += 1;
-      enriched.push({
-        ...card,
-        resolveStatus: "not_found",
-        resolvedAt: new Date().toISOString()
-      });
-      continue;
-    }
+const lookupPrice = findPriceForCard(card, indexes);
 
-    enriched.push({
-      ...card,
-      cardmarketId: scryfallCard.cardmarket_id || card.cardmarketId || null,
-      scryfallId: scryfallCard.id || card.scryfallId || null,
-      scryfallUri: scryfallCard.scryfall_uri || card.scryfallUri || null,
-      imageUrl:
-        scryfallCard.image_uris?.normal ||
-        scryfallCard.image_uris?.large ||
-        scryfallCard.card_faces?.[0]?.image_uris?.normal ||
-        card.imageUrl ||
-        null,
-      resolvedName: scryfallCard.name || null,
-      resolvedSet: scryfallCard.set || null,
-      resolvedLang: scryfallCard.lang || null,
-      resolveStatus: scryfallCard.cardmarket_id ? "resolved" : "resolved_without_cardmarket",
-      resolvedAt: new Date().toISOString()
-    });
+const resolvedCardmarketId =
+  scryfallCard?.cardmarket_id ||
+  getProductId(lookupPrice) ||
+  card.cardmarketId ||
+  null;
+
+if (!scryfallCard) {
+  missing += 1;
+
+  enriched.push({
+    ...card,
+    cardmarketId: resolvedCardmarketId,
+    resolveStatus: resolvedCardmarketId
+      ? "resolved_cardmarket_only"
+      : "not_found",
+    resolvedAt: new Date().toISOString()
+  });
+
+  continue;
+}
+
+enriched.push({
+  ...card,
+  cardmarketId: resolvedCardmarketId,
+  scryfallId: scryfallCard.id || card.scryfallId || null,
+  scryfallUri: scryfallCard.scryfall_uri || card.scryfallUri || null,
+  imageUrl:
+    scryfallCard.image_uris?.normal ||
+    scryfallCard.image_uris?.large ||
+    scryfallCard.card_faces?.[0]?.image_uris?.normal ||
+    card.imageUrl ||
+    null,
+  resolvedName: scryfallCard.name || null,
+  resolvedSet: scryfallCard.set || null,
+  resolvedLang: scryfallCard.lang || null,
+  resolveStatus: resolvedCardmarketId
+    ? "resolved"
+    : "resolved_without_cardmarket",
+  resolvedAt: new Date().toISOString()
+});
 
     resolved += 1;
 

@@ -252,9 +252,14 @@ async function main() {
     models.__globalConditionModel
 );
 
+const gradeAnchorPrice =
+  model?.modelType === "edition_ratio"
+    ? estimated.estimatedPrice
+    : estimated.marketAnchorPrice;
+
 const gradeEstimate = estimateCardByGrade(card, {
-    anchorPrice: estimated.marketAnchorPrice,
-    estimatedPrice: estimated.estimatedPrice
+  anchorPrice: gradeAnchorPrice,
+  estimatedPrice: estimated.estimatedPrice
 });
 
 const estimatedConditionPrice = getEstimatedConditionPrice(
