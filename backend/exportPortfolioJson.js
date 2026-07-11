@@ -352,7 +352,30 @@ function addPricingSimulation(card, pricingMap) {
         pricingRatio: simulation?.ratioUsed ?? null,
         pricingObservationCount: simulation?.observationCount ?? 0,
         marketAnchorPrice: simulation?.marketAnchorPrice ?? null,
-        referenceMarketAnchorPrice: simulation?.referenceMarketAnchorPrice ?? null
+        referenceMarketAnchorPrice: simulation?.referenceMarketAnchorPrice ?? null,
+        marketReferenceType:
+    simulation?.marketReferenceType ?? null,
+
+marketReferenceRole:
+    simulation?.marketReferenceRole ?? null,
+
+usesExternalReference:
+    simulation?.usesExternalReference ?? false,
+
+referenceName:
+    simulation?.referenceName ?? null,
+
+referenceEdition:
+    simulation?.referenceEdition ?? null,
+
+referenceLanguage:
+    simulation?.referenceLanguage ?? null,
+
+referenceVersion:
+    simulation?.referenceVersion ?? null,
+
+referenceCardFound:
+    simulation?.referenceCardFound ?? false
     };
 }
 
