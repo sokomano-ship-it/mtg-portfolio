@@ -352,10 +352,29 @@ function addPricingSimulation(card, pricingMap) {
         gradeModelConfidence: simulation?.gradeModelConfidence ?? null,
         gradeModelSource: simulation?.gradeModelSource || null,
 
-        lastObservedMinByCondition: simulation?.lastObservedMinByCondition || null,
-        observedMinByCondition: simulation?.observedMinByCondition || null,
-        observationDaysCount: simulation?.observationDaysCount || 0,
-        observationRowsCount: simulation?.observationRowsCount || 0,
+        lastObservedMinByCondition:
+    simulation?.lastObservedMinByCondition || null,
+
+observedMinByCondition:
+    simulation?.observedMinByCondition || null,
+
+reliableObservedByCondition:
+    simulation?.reliableObservedByCondition || null,
+
+observationReliabilityByCondition:
+    simulation?.observationReliabilityByCondition || null,
+
+averageObservationReliability:
+    simulation?.averageObservationReliability ?? null,
+
+bayesianWeights:
+    simulation?.bayesianWeights || null,
+
+observationDaysCount:
+    simulation?.observationDaysCount || 0,
+
+observationRowsCount:
+    simulation?.observationRowsCount || 0,
 
         pricingModel: simulation?.pricingModel ?? null,
         pricingConfidence:

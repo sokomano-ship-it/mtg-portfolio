@@ -326,6 +326,9 @@ baseEstimatedPrice: estimated.estimatedPrice,
     ratioByCondition:
         gradeEstimate.ratioByCondition,
 
+    bayesianWeights:
+    gradeEstimate.bayesianWeights,
+
     observationDaysCount:
         gradeEstimate.observationDaysCount,
 

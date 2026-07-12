@@ -625,6 +625,12 @@ if (learnedRatios) {
         estimatedByCondition,
         buyTargetByCondition,
         ratioByCondition,
+        bayesianWeights: {
+    card: round(weights.card, 4),
+    edition: round(weights.edition, 4),
+    language: round(weights.language, 4),
+    global: round(weights.global, 4)
+},
         lastObservedMinByCondition,
         observedMinByCondition,
         reliableObservedByCondition:
