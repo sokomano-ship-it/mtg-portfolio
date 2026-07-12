@@ -338,6 +338,15 @@ baseEstimatedPrice: estimated.estimatedPrice,
     observedMinByCondition:
         gradeEstimate.observedMinByCondition,
 
+    reliableObservedByCondition:
+    gradeEstimate.reliableObservedByCondition,
+
+observationReliabilityByCondition:
+    gradeEstimate.observationReliabilityByCondition,
+
+averageObservationReliability:
+    gradeEstimate.averageObservationReliability,
+
     gradeModelConfidence:
         gradeEstimate.confidence,
 

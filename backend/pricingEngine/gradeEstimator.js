@@ -1,6 +1,12 @@
 const fs = require("fs");
 const path = require("path");
-
+const {
+    DEFAULT_GLOBAL_RATIOS,
+    buildHierarchicalRatios,
+    calculateBayesianConfidence,
+    calculateObservationReliability,
+    weightedMedian
+} = require("./bayesianEngine");
 const CONDITIONS = ["NM", "EX", "GD", "LP", "PL", "PO"];
 
 const marketObservationsPath = path.join(__dirname, "..", "data", "marketObservations.json");
@@ -12,14 +18,7 @@ const pricingModelsPath = path.join(
     "pricingModels.json"
 );
 
-const DEFAULT_GLOBAL_RATIOS = {
-    NM: 1.00,
-    EX: 0.85,
-    GD: 0.72,
-    LP: 0.62,
-    PL: 0.48,
-    PO: 0.35
-};
+
 
 const DEFAULT_BUY_DISCOUNTS = {
     NM: 0.90,
@@ -105,21 +104,7 @@ function percentile(values, pct) {
     return clean[index];
 }
 
-function getObservationWeight(dayCount) {
-    if (dayCount <= 0) {
-        return { card: 0.00, edition: 0.40, global: 0.60 };
-    }
 
-    if (dayCount <= 2) {
-        return { card: 0.30, edition: 0.35, global: 0.35 };
-    }
-
-    if (dayCount <= 5) {
-        return { card: 0.55, edition: 0.25, global: 0.20 };
-    }
-
-    return { card: 0.75, edition: 0.15, global: 0.10 };
-}
 
 function conditionMapFromObservations(rows) {
     const byCondition = {};
@@ -132,6 +117,115 @@ function conditionMapFromObservations(rows) {
     });
 
     return byCondition;
+}
+
+function buildReliableObservedPrices(rows, anchorPrice) {
+    const reliableByCondition = {};
+    const reliabilityByCondition = {};
+
+    const rawObservedByCondition = {};
+
+    CONDITIONS.forEach(condition => {
+        const values = rows
+            .filter(row =>
+                String(row.condition || "").toUpperCase() === condition
+            )
+            .map(row => number(row.observedMinPrice))
+            .filter(value => value > 0);
+
+        rawObservedByCondition[condition] =
+            percentile(values, 25) || null;
+    });
+
+    /*
+     * Le NM observé définit prioritairement le niveau de la carte.
+     * L'ancre marché n'est utilisée que lorsqu'aucun NM n'est disponible.
+     */
+    const observedNm = number(rawObservedByCondition.NM);
+
+    const referenceNm =
+        observedNm ||
+        number(anchorPrice) ||
+        estimateAnchorFromObservations(rawObservedByCondition);
+
+    CONDITIONS.forEach(condition => {
+        const conditionRows = rows
+            .filter(row =>
+                String(row.condition || "").toUpperCase() === condition
+            )
+            .map(row => number(row.observedMinPrice))
+            .filter(value => value > 0);
+
+        if (!conditionRows.length) {
+            reliableByCondition[condition] = null;
+            reliabilityByCondition[condition] = null;
+            return;
+        }
+
+        const expectedPrice =
+            condition === "NM"
+                ? referenceNm
+                : referenceNm *
+                  number(DEFAULT_GLOBAL_RATIOS[condition]);
+
+        const entries = conditionRows.map(observedPrice => {
+            const reliability =
+                calculateObservationReliability({
+                    observedPrice,
+                    expectedPrice,
+                    sampleSize: conditionRows.length
+                });
+
+            return {
+                value: observedPrice,
+                weight: reliability
+            };
+        });
+
+        /*
+         * Le modèle attendu sert d'a priori.
+         * Une observation atypique reste enregistrée mais ne domine pas.
+         */
+        entries.push({
+            value: expectedPrice,
+            weight: 1
+        });
+
+        reliableByCondition[condition] =
+            round(weightedMedian(entries));
+
+        reliabilityByCondition[condition] =
+            round(
+                entries
+                    .slice(0, -1)
+                    .reduce(
+                        (sum, entry) => sum + entry.weight,
+                        0
+                    ) / conditionRows.length,
+                2
+            );
+    });
+
+    return {
+        reliableByCondition,
+        reliabilityByCondition
+    };
+}
+
+function averageReliability(reliabilityByCondition) {
+    const values = Object.values(reliabilityByCondition || {})
+        .map(number)
+        .filter(value => value > 0);
+
+    if (!values.length) {
+        return 0;
+    }
+
+    return round(
+        values.reduce((sum, value) => sum + value, 0) /
+        values.length,
+        2
+    );
 }
 
 function latestObservedByCondition(rows) {
@@ -195,15 +289,41 @@ function estimateRatiosFromCardObservations(observedMinByCondition) {
 
     return ratios;
 }
-
 function estimateEditionRatios(card, allObservations) {
     const editionRows = allObservations.filter(row =>
         normalize(row.edition) === normalize(card.edition)
     );
 
+    return estimateGroupRatios(editionRows);
+}
+function estimateLanguageRatios(card, allObservations) {
+    const editionLanguageRows = allObservations.filter(row =>
+        normalize(row.edition) === normalize(card.edition) &&
+        normalize(row.langue) === normalize(card.langue)
+    );
+
+    return estimateGroupRatios(editionLanguageRows);
+}
+
+function countGroupObservationRows(card, allObservations) {
+    return {
+        edition: allObservations.filter(row =>
+            normalize(row.edition) === normalize(card.edition)
+        ).length,
+
+        language: allObservations.filter(row =>
+            normalize(row.edition) === normalize(card.edition) &&
+            normalize(row.langue) === normalize(card.langue)
+        ).length,
+
+        global: allObservations.length
+    };
+}
+
+function estimateGroupRatios(rows) {
     const grouped = new Map();
 
-    editionRows.forEach(row => {
+    rows.forEach(row => {
         const key = [
             normalize(row.nomCarte),
             normalize(row.edition),
@@ -211,48 +331,47 @@ function estimateEditionRatios(card, allObservations) {
             getObservationDate(row)
         ].join("|");
 
-        if (!grouped.has(key)) grouped.set(key, []);
+        if (!grouped.has(key)) {
+            grouped.set(key, []);
+        }
+
         grouped.get(key).push(row);
     });
 
     const ratiosByCondition = {};
+
     CONDITIONS.forEach(condition => {
         ratiosByCondition[condition] = [];
     });
 
-    [...grouped.values()].forEach(rows => {
-        const map = latestObservedByCondition(rows);
-        const ratios = estimateRatiosFromCardObservations(map);
+    [...grouped.values()].forEach(groupRows => {
+        const observedMap = latestObservedByCondition(groupRows);
+        const ratios = estimateRatiosFromCardObservations(observedMap);
 
         CONDITIONS.forEach(condition => {
             if (condition === "NM") return;
-            if (number(ratios[condition]) > 0) {
-                ratiosByCondition[condition].push(ratios[condition]);
+
+            const ratio = number(ratios[condition]);
+
+            if (ratio > 0) {
+                ratiosByCondition[condition].push(ratio);
             }
         });
     });
 
-    const result = { NM: 1 };
+    const result = {
+        NM: 1
+    };
 
     CONDITIONS.forEach(condition => {
         if (condition === "NM") return;
-        result[condition] = median(ratiosByCondition[condition]) || DEFAULT_GLOBAL_RATIOS[condition];
+
+        result[condition] =
+            median(ratiosByCondition[condition]) ||
+            DEFAULT_GLOBAL_RATIOS[condition];
     });
 
     return result;
-}
-
-function blendRatio(condition, cardRatio, editionRatio, weight) {
-    const globalRatio = DEFAULT_GLOBAL_RATIOS[condition];
-
-    const safeCardRatio = number(cardRatio) || globalRatio;
-    const safeEditionRatio = number(editionRatio) || globalRatio;
-
-    return (
-        weight.card * safeCardRatio +
-        weight.edition * safeEditionRatio +
-        weight.global * globalRatio
-    );
 }
 
 function estimateMeanPriceFromMin(condition, observedMin) {
@@ -317,28 +436,7 @@ function getLearnedConditionRatios(card) {
     return learnedRatios;
 }
 
-function enforceMonotonicRatios(ratios) {
-    const ordered = {
-        NM: 1
-    };
 
-    let previousRatio = 1;
-
-    CONDITIONS
-        .filter(condition => condition !== "NM")
-        .forEach(condition => {
-            const currentRatio = number(ratios[condition]);
-
-            const safeRatio = currentRatio > 0
-                ? Math.min(previousRatio, currentRatio)
-                : previousRatio;
-
-            ordered[condition] = Math.max(0.15, safeRatio);
-            previousRatio = ordered[condition];
-        });
-
-    return ordered;
-}
 
 function estimateCardByGrade(card, options = {}) {
     const allObservations = options.observations || readJson(marketObservationsPath, []);
@@ -354,29 +452,73 @@ function estimateCardByGrade(card, options = {}) {
     const dayCount = observationDaysCount(rows);
     const byCondition = conditionMapFromObservations(rows);
 
-    const observedMinByCondition = {};
-    CONDITIONS.forEach(condition => {
-        observedMinByCondition[condition] = percentile(byCondition[condition], 25) || null;
-    });
+    /*
+ * Minima réels conservés pour l'historique et l'affichage.
+ */
+const observedMinByCondition = {};
 
-    const lastObservedMinByCondition = latestObservedByCondition(rows);
+CONDITIONS.forEach(condition => {
+    observedMinByCondition[condition] =
+        percentile(byCondition[condition], 25) ||
+        null;
+});
 
-    const learnedRatios = getLearnedConditionRatios(card);
+const lastObservedMinByCondition =
+    latestObservedByCondition(rows);
 
-const observedCardRatios =
-    estimateRatiosFromCardObservations(observedMinByCondition);
+/*
+ * Version fiabilisée utilisée uniquement par le modèle.
+ */
+const {
+    reliableByCondition,
+    reliabilityByCondition
+} = buildReliableObservedPrices(
+    rows,
+    anchorPrice
+);
+
+const learnedRatios =
+    getLearnedConditionRatios(card);
+
+const reliableCardRatios =
+    estimateRatiosFromCardObservations(
+        reliableByCondition
+    );
 
 const cardRatios = {};
 
 CONDITIONS.forEach(condition => {
-    cardRatios[condition] =
-        learnedRatios?.[condition] ??
-        observedCardRatios?.[condition] ??
-        null;
+    const reliability =
+        number(
+            reliabilityByCondition?.[condition]
+        );
+
+    /*
+     * Une observation peu fiable ne doit pas laisser le ratio appris
+     * à partir des données brutes dominer le modèle.
+     */
+    if (
+        reliableCardRatios?.[condition] &&
+        reliability < 0.50
+    ) {
+        cardRatios[condition] =
+            reliableCardRatios[condition];
+    } else {
+        cardRatios[condition] =
+            learnedRatios?.[condition] ??
+            reliableCardRatios?.[condition] ??
+            null;
+    }
 });
 
-const editionRatios = estimateEditionRatios(card, allObservations);
-const weight = getObservationWeight(dayCount);
+const editionRatios =
+    estimateEditionRatios(card, allObservations);
+
+const languageRatios =
+    estimateLanguageRatios(card, allObservations);
+
+const groupObservationCounts =
+    countGroupObservationRows(card, allObservations);
 
     let inferredAnchor = anchorPrice;
 
@@ -384,22 +526,26 @@ const weight = getObservationWeight(dayCount);
         inferredAnchor = estimateAnchorFromObservations(observedMinByCondition);
     }
 
-    const rawRatios = {
-    NM: 1
-};
+    const {
+    ratios: monotonicRatios,
+    weights
+} = buildHierarchicalRatios({
+    cardRatios,
+    editionRatios,
+    languageRatios,
+    evidence: {
+        cardObservationDays: dayCount,
+        cardObservationRows: rows.length,
+        editionObservationRows:
+    groupObservationCounts.edition,
 
-CONDITIONS.forEach(condition => {
-    if (condition === "NM") return;
+languageObservationRows:
+    groupObservationCounts.language,
 
-    rawRatios[condition] = blendRatio(
-        condition,
-        cardRatios[condition],
-        editionRatios[condition],
-        weight
-    );
+globalObservationRows:
+    groupObservationCounts.global
+    }
 });
-
-const monotonicRatios = enforceMonotonicRatios(rawRatios);
 
 const estimatedByCondition = {};
 const ratioByCondition = {};
@@ -413,9 +559,16 @@ CONDITIONS.forEach(condition => {
             ? inferredAnchor * ratio
             : 0;
 
-        const observedFloorEstimate = observedMinByCondition[condition]
-            ? estimateMeanPriceFromMin(condition, observedMinByCondition[condition])
-            : 0;
+        const reliableObservedPrice =
+    reliableByCondition[condition];
+
+const observedFloorEstimate =
+    reliableObservedPrice
+        ? estimateMeanPriceFromMin(
+            condition,
+            reliableObservedPrice
+        )
+        : 0;
 
         const blendedEstimate = ratioEstimate && observedFloorEstimate
             ? (ratioEstimate * 0.70 + observedFloorEstimate * 0.30)
@@ -435,15 +588,21 @@ CONDITIONS.forEach(condition => {
             : null
     };
 
-    const confidence = Math.min(
-        95,
-        Math.max(
-            20,
-            (inferredAnchor ? 35 : 0) +
-            Math.min(dayCount * 8, 40) +
-            (rows.length >= 6 ? 15 : rows.length * 2)
-        )
-    );
+    const confidence = calculateBayesianConfidence({
+    hasAnchor: inferredAnchor > 0,
+    cardObservationDays: dayCount,
+    cardObservationRows: rows.length,
+    editionObservationRows:
+    groupObservationCounts.edition,
+
+languageObservationRows:
+    groupObservationCounts.language,
+
+globalObservationRows:
+    groupObservationCounts.global,
+    usesExternalReference: Boolean(card.usesExternalReference),
+    referenceFound: card.referenceFound !== false
+});
 
     const sourceParts = [];
 
@@ -468,6 +627,16 @@ if (learnedRatios) {
         ratioByCondition,
         lastObservedMinByCondition,
         observedMinByCondition,
+        reliableObservedByCondition:
+    reliableByCondition,
+
+observationReliabilityByCondition:
+    reliabilityByCondition,
+
+averageObservationReliability:
+    averageReliability(
+        reliabilityByCondition
+    ),
         observationDaysCount: dayCount,
         observationRowsCount: rows.length,
         confidence: round(confidence, 0),
