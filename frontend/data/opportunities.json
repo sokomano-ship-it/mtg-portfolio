@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T15:05:25.398Z",
+  "generatedAt": "2026-07-12T15:14:28.130Z",
   "opportunities": [
     {
       "id": 1331,
@@ -64,6 +64,29 @@
         "LP": 13,
         "PL": 13.58,
         "PO": 12.74
+      },
+      "reliableObservedByCondition": {
+        "NM": 24.9,
+        "EX": 21.17,
+        "GD": 17.93,
+        "LP": 15.44,
+        "PL": 11.95,
+        "PO": 8.71
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.8,
+        "LP": 0.8,
+        "PL": 1,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.77,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4793,
+        "language": 0.0691,
+        "global": 0.023
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -215,6 +238,29 @@
         "LP": 1.41,
         "PL": 0.75,
         "PO": 0.7
+      },
+      "reliableObservedByCondition": {
+        "NM": 6.94,
+        "EX": 5.9,
+        "GD": 5,
+        "LP": 4.3,
+        "PL": 3.33,
+        "PO": 2.43
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.25,
+        "GD": 0.25,
+        "LP": 0.1,
+        "PL": 0.1,
+        "PO": 0.1
+      },
+      "averageObservationReliability": 0.3,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4939,
+        "language": 0.0615,
+        "global": 0.0161
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -377,6 +423,29 @@
         "PL": 4.5,
         "PO": 4.39
       },
+      "reliableObservedByCondition": {
+        "NM": 4.69,
+        "EX": 3.99,
+        "GD": 3.38,
+        "LP": 2.91,
+        "PL": 2.25,
+        "PO": 1.64
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 0.5,
+        "PL": 0.25,
+        "PO": 0.1
+      },
+      "averageObservationReliability": 0.61,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.3429,
+        "language": 0.1083,
+        "global": 0.1203
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -527,6 +596,29 @@
         "LP": 4,
         "PL": 3.99,
         "PO": 3.59
+      },
+      "reliableObservedByCondition": {
+        "NM": 14.99,
+        "EX": 12.74,
+        "GD": 10.79,
+        "LP": 9.29,
+        "PL": 7.2,
+        "PO": 5.25
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.25,
+        "LP": 0.25,
+        "PL": 0.25,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.46,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4793,
+        "language": 0.0691,
+        "global": 0.023
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -684,6 +776,29 @@
         "PL": 9.85,
         "PO": 9.99
       },
+      "reliableObservedByCondition": {
+        "NM": 25,
+        "EX": 19.99,
+        "GD": 17,
+        "LP": 15.5,
+        "PL": 12,
+        "PO": 8.75
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.8,
+        "PL": 0.8,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.93,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4939,
+        "language": 0.0615,
+        "global": 0.0161
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -839,6 +954,29 @@
         "LP": 0.69,
         "PL": 0.69,
         "PO": 0.68
+      },
+      "reliableObservedByCondition": {
+        "NM": 2.48,
+        "EX": 2.11,
+        "GD": 1.79,
+        "LP": 1.54,
+        "PL": 1.19,
+        "PO": 0.87
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.1,
+        "GD": 0.25,
+        "LP": 0.25,
+        "PL": 0.5,
+        "PO": 0.8
+      },
+      "averageObservationReliability": 0.48,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.33,
+        "language": 0.1088,
+        "global": 0.1327
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -996,6 +1134,29 @@
         "PL": 4.5,
         "PO": 4.8
       },
+      "reliableObservedByCondition": {
+        "NM": 3.9,
+        "EX": 3.32,
+        "GD": 2.81,
+        "LP": 2.42,
+        "PL": 1.87,
+        "PO": 1.37
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 0.8,
+        "LP": 0.8,
+        "PL": 0.25,
+        "PO": 0.1
+      },
+      "averageObservationReliability": 0.63,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.3265,
+        "language": 0.0991,
+        "global": 0.1458
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -1135,6 +1296,29 @@
         "LP": 3,
         "PL": 3,
         "PO": 2
+      },
+      "reliableObservedByCondition": {
+        "NM": 5.5,
+        "EX": 4.9,
+        "GD": 3.25,
+        "LP": 3,
+        "PL": 3,
+        "PO": 2
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 1,
+        "PL": 1,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.97,
+      "bayesianWeights": {
+        "card": 0.6,
+        "edition": 0.3457,
+        "language": 0.043,
+        "global": 0.0113
       },
       "observationDaysCount": 1,
       "observationRowsCount": 12,
@@ -1291,6 +1475,29 @@
         "LP": 9.4,
         "PL": 9,
         "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": 14.49,
+        "EX": 12,
+        "GD": 10,
+        "LP": 9.4,
+        "PL": 9,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 1,
+        "PL": 0.65,
+        "PO": null
+      },
+      "averageObservationReliability": 0.93,
+      "bayesianWeights": {
+        "card": 0.5556,
+        "edition": 0.2667,
+        "language": 0.0842,
+        "global": 0.0936
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
@@ -1458,6 +1665,29 @@
         "PL": 1.21,
         "PO": 0.5
       },
+      "reliableObservedByCondition": {
+        "NM": 2.75,
+        "EX": 2.34,
+        "GD": 1.98,
+        "LP": 1.71,
+        "PL": 1.21,
+        "PO": 0.96
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.25,
+        "GD": 0.5,
+        "LP": 0.5,
+        "PL": 1,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.58,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.3429,
+        "language": 0.1083,
+        "global": 0.1203
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -1619,6 +1849,29 @@
         "PL": 1.5,
         "PO": 1.75
       },
+      "reliableObservedByCondition": {
+        "NM": 4.5,
+        "EX": 3.83,
+        "GD": 3.24,
+        "LP": 2.79,
+        "PL": 2.16,
+        "PO": 1.58
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.25,
+        "GD": 0.5,
+        "LP": 0.5,
+        "PL": 0.5,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.63,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4962,
+        "language": 0.0597,
+        "global": 0.0155
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -1774,6 +2027,29 @@
         "PL": 1.79,
         "PO": 2
       },
+      "reliableObservedByCondition": {
+        "NM": 7,
+        "EX": 5.95,
+        "GD": 5.04,
+        "LP": 4.34,
+        "PL": 3.36,
+        "PO": 2.45
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.8,
+        "LP": 0.8,
+        "PL": 0.25,
+        "PO": 0.8
+      },
+      "averageObservationReliability": 0.69,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4939,
+        "language": 0.0615,
+        "global": 0.0161
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -1928,6 +2204,29 @@
         "LP": 4,
         "PL": 3,
         "PO": 5.5
+      },
+      "reliableObservedByCondition": {
+        "NM": 10,
+        "EX": 8.5,
+        "GD": 7.2,
+        "LP": 6.2,
+        "PL": 4.8,
+        "PO": 3.5
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.5,
+        "LP": 0.5,
+        "PL": 0.5,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.58,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4962,
+        "language": 0.0597,
+        "global": 0.0155
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -2089,6 +2388,29 @@
         "LP": 13,
         "PL": 12,
         "PO": 12
+      },
+      "reliableObservedByCondition": {
+        "NM": 22.27,
+        "EX": 17,
+        "GD": 16.03,
+        "LP": 13,
+        "PL": 10.69,
+        "PO": 7.79
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 1,
+        "PL": 1,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.88,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4586,
+        "language": 0.08,
+        "global": 0.0328
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -2261,6 +2583,29 @@
         "PL": 4.5,
         "PO": 4.99
       },
+      "reliableObservedByCondition": {
+        "NM": 8,
+        "EX": 6.8,
+        "GD": 5.76,
+        "LP": 4.96,
+        "PL": 3.84,
+        "PO": 2.8
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 1,
+        "PL": 0.8,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.84,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -2421,6 +2766,29 @@
         "LP": 4.5,
         "PL": 4,
         "PO": 3.5
+      },
+      "reliableObservedByCondition": {
+        "NM": 9.4,
+        "EX": 6.5,
+        "GD": 4.99,
+        "LP": 4.5,
+        "PL": 4,
+        "PO": 3.5
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 0.5,
+        "LP": 0.8,
+        "PL": 1,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.85,
+      "bayesianWeights": {
+        "card": 0.6,
+        "edition": 0.3211,
+        "language": 0.056,
+        "global": 0.0229
       },
       "observationDaysCount": 1,
       "observationRowsCount": 12,
@@ -2588,6 +2956,29 @@
         "PL": 0.3,
         "PO": 0.5
       },
+      "reliableObservedByCondition": {
+        "NM": 1.5,
+        "EX": 1.27,
+        "GD": 1.08,
+        "LP": 0.9,
+        "PL": 0.72,
+        "PO": 0.5
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 0.8,
+        "LP": 1,
+        "PL": 0.25,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.81,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4962,
+        "language": 0.0597,
+        "global": 0.0155
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -2754,6 +3145,29 @@
         "PL": 200,
         "PO": 175
       },
+      "reliableObservedByCondition": {
+        "NM": 295,
+        "EX": 250.75,
+        "GD": 210,
+        "LP": 182.9,
+        "PL": 141.6,
+        "PO": 103.25
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 1,
+        "PL": 0.5,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.83,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4939,
+        "language": 0.0615,
+        "global": 0.0161
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -2910,6 +3324,29 @@
         "PL": 0.38,
         "PO": 0.2
       },
+      "reliableObservedByCondition": {
+        "NM": 2.91,
+        "EX": 2.47,
+        "GD": 2.1,
+        "LP": 1.8,
+        "PL": 1.4,
+        "PO": 1.02
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.1,
+        "GD": 0.25,
+        "LP": 0.1,
+        "PL": 0.1,
+        "PO": 0.1
+      },
+      "averageObservationReliability": 0.28,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4939,
+        "language": 0.0615,
+        "global": 0.0161
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -3061,6 +3498,29 @@
         "PL": 0.45,
         "PO": 0.75
       },
+      "reliableObservedByCondition": {
+        "NM": 0.95,
+        "EX": 0.81,
+        "GD": 0.68,
+        "LP": 0.59,
+        "PL": 0.45,
+        "PO": 0.33
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.25,
+        "LP": 0.5,
+        "PL": 1,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.58,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -3211,6 +3671,29 @@
         "LP": 109.95,
         "PL": 90,
         "PO": 89.99
+      },
+      "reliableObservedByCondition": {
+        "NM": 165,
+        "EX": 125,
+        "GD": 114.95,
+        "LP": 102.3,
+        "PL": 79.2,
+        "PO": 57.75
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 1,
+        "PL": 1,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.92,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4793,
+        "language": 0.0099,
+        "global": 0.0823
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -3372,6 +3855,29 @@
         "LP": 3.5,
         "PL": 3,
         "PO": 3.99
+      },
+      "reliableObservedByCondition": {
+        "NM": 3.99,
+        "EX": 3.39,
+        "GD": 2.87,
+        "LP": 2.47,
+        "PL": 1.92,
+        "PO": 1.4
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 0.5,
+        "LP": 0.5,
+        "PL": 0.5,
+        "PO": 0.1
+      },
+      "averageObservationReliability": 0.57,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4962,
+        "language": 0.0597,
+        "global": 0.0155
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -3539,6 +4045,29 @@
         "PL": 0.09,
         "PO": 0.15
       },
+      "reliableObservedByCondition": {
+        "NM": 1.34,
+        "EX": 1.14,
+        "GD": 0.96,
+        "LP": 0.83,
+        "PL": 0.64,
+        "PO": 0.47
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.63,
+        "GD": 0.25,
+        "LP": 0.25,
+        "PL": 0.1,
+        "PO": 0.18
+      },
+      "averageObservationReliability": 0.4,
+      "bayesianWeights": {
+        "card": 0.6,
+        "edition": 0.3474,
+        "language": 0.0418,
+        "global": 0.0109
+      },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
       "pricingModel": "standard_observed_condition_ratio",
@@ -3695,6 +4224,29 @@
         "PL": 46.9,
         "PO": 44.5
       },
+      "reliableObservedByCondition": {
+        "NM": 79,
+        "EX": 67.15,
+        "GD": 56.88,
+        "LP": 48.98,
+        "PL": 37.92,
+        "PO": 27.65
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 1,
+        "LP": 1,
+        "PL": 0.8,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.85,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -3840,6 +4392,29 @@
         "LP": 55.55,
         "PL": 49.99,
         "PO": 49.98
+      },
+      "reliableObservedByCondition": {
+        "NM": 82.13,
+        "EX": 62.5,
+        "GD": 59.13,
+        "LP": 50.92,
+        "PL": 39.42,
+        "PO": 28.75
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 1,
+        "PL": 0.8,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.88,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -3997,6 +4572,29 @@
         "PL": 0.96,
         "PO": 0.89
       },
+      "reliableObservedByCondition": {
+        "NM": 3.9,
+        "EX": 3.3,
+        "GD": 2.81,
+        "LP": 2.42,
+        "PL": 1.87,
+        "PO": 1.37
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.5,
+        "LP": 0.5,
+        "PL": 0.25,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.63,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -4147,6 +4745,29 @@
         "LP": 2.38,
         "PL": 1.89,
         "PO": 1.5
+      },
+      "reliableObservedByCondition": {
+        "NM": 2.9,
+        "EX": 2.47,
+        "GD": 2.09,
+        "LP": 1.8,
+        "PL": 1.39,
+        "PO": 1.01
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 0.8,
+        "PL": 0.5,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.77,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.33,
+        "language": 0.1088,
+        "global": 0.1327
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -4303,6 +4924,29 @@
         "LP": 0.7,
         "PL": 0.24,
         "PO": 0.25
+      },
+      "reliableObservedByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.7,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.25,
+        "GD": 0.5,
+        "LP": 1,
+        "PL": 0.25,
+        "PO": 0.3
+      },
+      "averageObservationReliability": 0.55,
+      "bayesianWeights": {
+        "card": 0.6,
+        "edition": 0.3474,
+        "language": 0.0418,
+        "global": 0.0109
       },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
@@ -4470,6 +5114,29 @@
         "PL": 39.8,
         "PO": 41.5
       },
+      "reliableObservedByCondition": {
+        "NM": 48,
+        "EX": 40.8,
+        "GD": 34.56,
+        "LP": 29.76,
+        "PL": 23.04,
+        "PO": 16.8
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 0.8,
+        "LP": 0.5,
+        "PL": 0.5,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.64,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.3429,
+        "language": 0.1083,
+        "global": 0.1203
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -4631,6 +5298,29 @@
         "PL": 70,
         "PO": 40
       },
+      "reliableObservedByCondition": {
+        "NM": 90,
+        "EX": 69.95,
+        "GD": 79.9,
+        "LP": 59.99,
+        "PL": 43.2,
+        "PO": 40
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 1,
+        "PL": 0.5,
+        "PO": 0.53
+      },
+      "averageObservationReliability": 0.81,
+      "bayesianWeights": {
+        "card": 0.6,
+        "edition": 0.24,
+        "language": 0.0758,
+        "global": 0.0842
+      },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
       "pricingModel": "standard_observed_condition_ratio",
@@ -4782,6 +5472,29 @@
         "PL": 3.45,
         "PO": 2.95
       },
+      "reliableObservedByCondition": {
+        "NM": 4.75,
+        "EX": 4.04,
+        "GD": 3.25,
+        "LP": 2.95,
+        "PL": 2.28,
+        "PO": 1.66
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.8,
+        "GD": 1,
+        "LP": 1,
+        "PL": 0.5,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.76,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4793,
+        "language": 0.0691,
+        "global": 0.023
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -4922,6 +5635,29 @@
         "LP": 0.36,
         "PL": 0.35,
         "PO": 0.49
+      },
+      "reliableObservedByCondition": {
+        "NM": 0.98,
+        "EX": 0.83,
+        "GD": 0.71,
+        "LP": 0.61,
+        "PL": 0.47,
+        "PO": 0.34
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.1,
+        "GD": 0.25,
+        "LP": 0.5,
+        "PL": 0.8,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.53,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -5079,6 +5815,29 @@
         "PL": 2.8,
         "PO": 2.45
       },
+      "reliableObservedByCondition": {
+        "NM": 6,
+        "EX": 5.1,
+        "GD": 4.32,
+        "LP": 3.72,
+        "PL": 2.8,
+        "PO": 2.1
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.8,
+        "PL": 1,
+        "PO": 0.8
+      },
+      "averageObservationReliability": 0.93,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.33,
+        "language": 0.1088,
+        "global": 0.1327
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -5235,6 +5994,29 @@
         "PL": 0.4,
         "PO": 0.35
       },
+      "reliableObservedByCondition": {
+        "NM": 0.5,
+        "EX": 0.43,
+        "GD": 0.36,
+        "LP": 0.31,
+        "PL": 0.24,
+        "PO": 0.18
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.8,
+        "PL": 0.5,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.76,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -5386,6 +6168,29 @@
         "PL": 1.95,
         "PO": 1.9
       },
+      "reliableObservedByCondition": {
+        "NM": 4.99,
+        "EX": 4.24,
+        "GD": 3.59,
+        "LP": 3.09,
+        "PL": 2.4,
+        "PO": 1.75
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.25,
+        "LP": 0.5,
+        "PL": 0.8,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.68,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4793,
+        "language": 0.0691,
+        "global": 0.023
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -5531,6 +6336,29 @@
         "LP": 1.98,
         "PL": 1.2,
         "PO": 1.5
+      },
+      "reliableObservedByCondition": {
+        "NM": 5,
+        "EX": 4.25,
+        "GD": 3.6,
+        "LP": 3.1,
+        "PL": 2.4,
+        "PO": 1.75
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.25,
+        "LP": 0.5,
+        "PL": 0.25,
+        "PO": 0.8
+      },
+      "averageObservationReliability": 0.55,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.3429,
+        "language": 0.1083,
+        "global": 0.1203
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -5698,6 +6526,29 @@
         "PL": 1.54,
         "PO": 1.49
       },
+      "reliableObservedByCondition": {
+        "NM": 3.5,
+        "EX": 2.98,
+        "GD": 2.52,
+        "LP": 2.17,
+        "PL": 1.54,
+        "PO": 1.22
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 0.5,
+        "GD": 0.8,
+        "LP": 0.5,
+        "PL": 1,
+        "PO": 0.8
+      },
+      "averageObservationReliability": 0.77,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -5843,6 +6694,29 @@
         "LP": 1.85,
         "PL": 1.75,
         "PO": 1.11
+      },
+      "reliableObservedByCondition": {
+        "NM": 3.51,
+        "EX": 2.98,
+        "GD": 2.4,
+        "LP": 2.18,
+        "PL": 1.68,
+        "PO": 1.11
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.8,
+        "PL": 1,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.97,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -5990,6 +6864,29 @@
         "PL": 1.5,
         "PO": 1.28
       },
+      "reliableObservedByCondition": {
+        "NM": 3.99,
+        "EX": 3.25,
+        "GD": 2.87,
+        "LP": 2.47,
+        "PL": 1.92,
+        "PO": 1.28
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.5,
+        "LP": 0.8,
+        "PL": 0.8,
+        "PO": 1
+      },
+      "averageObservationReliability": 0.85,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4942,
+        "language": 0.0613,
+        "global": 0.016
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
       "pricingModel": "standard_observed_condition_ratio",
@@ -6135,6 +7032,29 @@
         "LP": 1.99,
         "PL": 1.69,
         "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": 2.5,
+        "EX": 2.1,
+        "GD": 2,
+        "LP": 1.99,
+        "PL": 1.2,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.8,
+        "PL": 0.5,
+        "PO": null
+      },
+      "averageObservationReliability": 0.86,
+      "bayesianWeights": {
+        "card": 0.5556,
+        "edition": 0.2667,
+        "language": 0.0842,
+        "global": 0.0936
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
@@ -6286,6 +7206,29 @@
         "LP": 3.5,
         "PL": 2.75,
         "PO": 2.75
+      },
+      "reliableObservedByCondition": {
+        "NM": 4.1,
+        "EX": 3.48,
+        "GD": 2.95,
+        "LP": 2.54,
+        "PL": 1.97,
+        "PO": 1.43
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 0.5,
+        "PL": 0.5,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.68,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4586,
+        "language": 0.08,
+        "global": 0.0328
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -6443,6 +7386,29 @@
         "PL": 1.49,
         "PO": null
       },
+      "reliableObservedByCondition": {
+        "NM": 1.99,
+        "EX": 1.69,
+        "GD": 1.43,
+        "LP": 1.23,
+        "PL": 0.96,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 0.8,
+        "LP": 0.8,
+        "PL": 0.5,
+        "PO": null
+      },
+      "averageObservationReliability": 0.82,
+      "bayesianWeights": {
+        "card": 0.3846,
+        "edition": 0.3692,
+        "language": 0.1166,
+        "global": 0.1296
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
       "pricingModel": "standard_observed_condition_ratio",
@@ -6599,6 +7565,29 @@
         "PL": null,
         "PO": 200
       },
+      "reliableObservedByCondition": {
+        "NM": 238.99,
+        "EX": 198.99,
+        "GD": 172.07,
+        "LP": 148.17,
+        "PL": null,
+        "PO": 83.65
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.5,
+        "PL": null,
+        "PO": 0.25
+      },
+      "averageObservationReliability": 0.75,
+      "bayesianWeights": {
+        "card": 0.3846,
+        "edition": 0.5344,
+        "language": 0.0642,
+        "global": 0.0167
+      },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
       "pricingModel": "standard_observed_condition_ratio",
@@ -6700,7 +7689,7 @@
       "avg1": 473.99,
       "avg7": 543.25,
       "avg30": 509.88,
-      "priceUpdatedAt": "2026-07-12T15:05:17.258Z",
+      "priceUpdatedAt": "2026-07-11T18:10:52.063Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
