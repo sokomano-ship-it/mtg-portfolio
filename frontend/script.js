@@ -467,14 +467,25 @@ async function loadPortfolioHistory() {
     const ctx = document.getElementById("portfolioChart");
     if (!ctx) return;
 
+    const filteredHistory = Array.isArray(history)
+        ? history.filter(row =>
+            row.date &&
+            String(row.date).slice(0, 10) >= MODEL_START_DATE
+        )
+        : [];
+
+    if (!filteredHistory.length) {
+        return;
+    }
+
     new Chart(ctx, {
         type: "line",
         data: {
-            labels: history.map(row => row.date),
+            labels: filteredHistory.map(row => row.date),
             datasets: [
                 {
                     label: "Valeur estimée portefeuille (€)",
-                    data: history.map(row => row.totalValue),
+                    data: filteredHistory.map(row => row.totalValue),
                     tension: 0.3
                 }
             ]
