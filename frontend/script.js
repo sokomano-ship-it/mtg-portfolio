@@ -1563,33 +1563,133 @@ function formatDiscount(value) {
     return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
 }
 
+function getOpportunitySortValue(card, sortKey) {
+    const marketNM = Number(
+        card.nmPrice ??
+        card.trendPriceNM ??
+        card.trendPrice ??
+        0
+    );
+
+    const marketEX = Number(
+        card.exPrice ??
+        card.trendPriceEX ??
+        card.prixEtat ??
+        0
+    );
+
+    const targetNM = Number(
+        card.nmTargetPrice ??
+        card.buyTargetByCondition?.NM ??
+        0
+    );
+
+    const targetEX = Number(
+        card.exTargetPrice ??
+        card.buyTargetByCondition?.EX ??
+        0
+    );
+
+    switch (sortKey) {
+        case "nomCarte":
+            return card.nomCarte || "";
+
+        case "edition":
+            return card.edition || "";
+
+        case "langue":
+            return card.langue || "";
+
+        case "ownedLabel":
+            return card.owned ? 1 : 0;
+
+        case "nmPrice":
+            return marketNM;
+
+        case "nmTargetPrice":
+            return targetNM;
+
+        case "discountNM":
+            return calculateDiscountPercent(
+                marketNM,
+                targetNM
+            );
+
+        case "exPrice":
+            return marketEX;
+
+        case "exTargetPrice":
+            return targetEX;
+
+        case "discountEX":
+            return calculateDiscountPercent(
+                marketEX,
+                targetEX
+            );
+
+        case "gradeModelConfidence":
+            return Number(
+                card.gradeModelConfidence ??
+                card.pricingConfidence ??
+                card.confidence ??
+                0
+            );
+
+        case "buyProbability":
+            return Number(card.buyProbability || 0);
+
+        default:
+            return card[sortKey] ?? null;
+    }
+}
+
 function renderOpportunities() {
     const tbody = document.getElementById("opportunities-body");
     if (!tbody) return;
 
     const sorted = [...allOpportunities].sort((a, b) => {
-        return compareValues(
-            a[currentOpportunitySort],
-            b[currentOpportunitySort],
-            currentOpportunityDirection
-        );
-    });
+    return compareValues(
+        getOpportunitySortValue(a, currentOpportunitySort),
+        getOpportunitySortValue(b, currentOpportunitySort),
+        currentOpportunityDirection
+    );
+});
 
     tbody.innerHTML = "";
 
     sorted.forEach(card => {
 
-        const marketNM =
-    Number(card.trendPriceNM ?? card.trendPrice);
+    const marketNM = Number(
+    card.nmPrice ??
+    card.trendPriceNM ??
+    card.trendPrice ??
+    0
+);
 
-const marketEX =
-    Number(card.trendPriceEX ?? card.prixEtat);
+const marketEX = Number(
+    card.exPrice ??
+    card.trendPriceEX ??
+    card.prixEtat ??
+    0
+);
 
-const targetNM =
-    Number(card.buyTargetByCondition?.NM);
+const targetNM = Number(
+    card.nmTargetPrice ??
+    card.buyTargetByCondition?.NM ??
+    0
+);
 
-const targetEX =
-    Number(card.buyTargetByCondition?.EX);
+const targetEX = Number(
+    card.exTargetPrice ??
+    card.buyTargetByCondition?.EX ??
+    0
+);
+
+const confidence =
+    card.gradeModelConfidence ??
+    card.pricingConfidence ??
+    card.confidence ??
+    null;
 
 const discountNM =
     calculateDiscountPercent(
@@ -1644,7 +1744,12 @@ const discountEX =
 
 <td>${formatDiscount(discountEX)}</td>
 
-<td>${card.gradeModelConfidence}%</td>
+<td>
+    ${confidence !== null
+        ? `${Number(confidence).toFixed(0)} %`
+        : "-"
+    }
+</td>
 
        
 
