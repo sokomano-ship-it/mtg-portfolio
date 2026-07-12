@@ -717,147 +717,372 @@ function updateInvestmentDrawerHeader(card) {
     }
 }
 
-function showInvestmentDetails(cardId) {
+async function showInvestmentDetails(cardId) {
     selectedInvestmentCardId = cardId;
     renderInvestmentAnalysis();
     openInvestmentDrawer();
 
-    const card = allInvestmentAnalysis.find(row =>
+    const investmentCard = allInvestmentAnalysis.find(row =>
         Number(row.id) === Number(cardId)
     );
-    updateInvestmentDrawerHeader(card);
-renderInvestmentModelAnalysis(card);
+
+    if (!investmentCard) {
+        console.error("Carte investissement introuvable :", cardId);
+        return;
+    }
+
+    updateInvestmentDrawerHeader(investmentCard);
 
     const container = document.getElementById("investment-details");
-    if (!container || !card) return;
 
-    container.innerHTML = `
-    <h3>${escapeHtml(card.nomCarte || "-")}</h3>
+    if (container) {
+        container.innerHTML = `
+            <h3>${escapeHtml(investmentCard.nomCarte || "-")}</h3>
 
-    <p class="muted">
-        ${escapeHtml(card.edition || "-")} ·
-        ${escapeHtml(card.langue || "-")} ·
-        ${escapeHtml(card.etat || "-")} ·
-        Qté ${Number(card.quantity || 1)}
-    </p>
+            <p class="muted">
+                ${escapeHtml(investmentCard.edition || "-")} ·
+                ${escapeHtml(investmentCard.langue || "-")} ·
+                ${escapeHtml(investmentCard.etat || "-")} ·
+                Qté ${Number(investmentCard.quantity || 1)}
+            </p>
 
-    <div class="detail-performances">
-        <span><strong>Prix modèle</strong><br>${formatEuro(card.currentEstimatedPrice)}</span>
-        <span><strong>Valeur lot</strong><br>${formatEuro(card.lotValue)}</span>
-        <span><strong>Confiance</strong><br>${
-            card.confidence !== null && card.confidence !== undefined
-                ? `${Number(card.confidence).toFixed(0)} %`
-                : "-"
-        }</span>
-        <span><strong>Jours observés</strong><br>${card.observationDaysCount ?? "-"}</span>
-    </div>
+            <div class="detail-performances">
+                <span>
+                    <strong>Prix modèle</strong><br>
+                    ${formatEuro(investmentCard.currentEstimatedPrice)}
+                </span>
 
-    <hr>
+                <span>
+                    <strong>Valeur lot</strong><br>
+                    ${formatEuro(investmentCard.lotValue)}
+                </span>
 
-    <p>
-        <strong>Performance :</strong><br>
-        7j : <span class="${performanceClass(card.perf7d)}">${formatOptionalPercent(card.perf7d)}</span><br>
-        30j : <span class="${performanceClass(card.perf30d)}">${formatOptionalPercent(card.perf30d)}</span><br>
-        60j : <span class="${performanceClass(card.perf60d)}">${formatOptionalPercent(card.perf60d)}</span><br>
-        180j : <span class="${performanceClass(card.perf180d)}">${formatOptionalPercent(card.perf180d)}</span><br>
-        365j : <span class="${performanceClass(card.perf365d)}">${formatOptionalPercent(card.perf365d)}</span>
-    </p>
+                <span>
+                    <strong>Confiance</strong><br>
+                    ${
+                        investmentCard.confidence !== null &&
+                        investmentCard.confidence !== undefined
+                            ? `${Number(investmentCard.confidence).toFixed(0)} %`
+                            : "-"
+                    }
+                </span>
 
-    <hr>
+                <span>
+                    <strong>Jours observés</strong><br>
+                    ${investmentCard.observationDaysCount ?? "-"}
+                </span>
+            </div>
 
-    <p>
-        <strong>Modèle :</strong> ${escapeHtml(card.pricingModel || "-")}<br>
-        <strong>Source :</strong> ${escapeHtml(card.gradeModelSource || "-")}
-    </p>
-`;
-renderInvestmentChart(cardId);
+            <hr>
+
+            <p>
+                <strong>Performance :</strong><br>
+                7j :
+                <span class="${performanceClass(investmentCard.perf7d)}">
+                    ${formatOptionalPercent(investmentCard.perf7d)}
+                </span><br>
+
+                30j :
+                <span class="${performanceClass(investmentCard.perf30d)}">
+                    ${formatOptionalPercent(investmentCard.perf30d)}
+                </span><br>
+
+                60j :
+                <span class="${performanceClass(investmentCard.perf60d)}">
+                    ${formatOptionalPercent(investmentCard.perf60d)}
+                </span><br>
+
+                180j :
+                <span class="${performanceClass(investmentCard.perf180d)}">
+                    ${formatOptionalPercent(investmentCard.perf180d)}
+                </span><br>
+
+                365j :
+                <span class="${performanceClass(investmentCard.perf365d)}">
+                    ${formatOptionalPercent(investmentCard.perf365d)}
+                </span>
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>Modèle :</strong>
+                ${escapeHtml(investmentCard.pricingModel || "-")}<br>
+
+                <strong>Source :</strong>
+                ${escapeHtml(investmentCard.gradeModelSource || "-")}
+            </p>
+        `;
+    }
+
+    try {
+        const detail = await window.apiAdapter.getCardDetail(cardId);
+        const modelCard = detail?.card || {};
+
+        renderInvestmentModelCards(modelCard);
+        renderInvestmentChart(cardId);
+    } catch (error) {
+        console.error("Erreur chargement détail modèle :", error);
+    }
 }
 
-function renderInvestmentModelAnalysis(card) {
-    const container = document.getElementById("investment-model-analysis");
-    if (!container || !card) return;
+function renderInvestmentModelCards(card) {
+    if (!card) return;
 
-    const confidence = Number(card.confidence || 0);
-    const observationDays = Number(card.observationDaysCount || 0);
+    const condition =
+        String(card.etat || "NM").toUpperCase();
 
-    const collectionCard = allCards.find(row =>
-        Number(row.id) === Number(card.id)
-    ) || {};
+    const priceContainer =
+        document.getElementById("investment-model-price");
 
-    const trendPrice = Number(collectionCard.trendPrice || 0);
-    const avg30 = Number(collectionCard.avg30 || 0);
-    const modelPrice = Number(card.currentEstimatedPrice || 0);
+    const referenceContainer =
+        document.getElementById("investment-model-reference");
 
-    let confidenceLabel = "Faible";
-    if (confidence >= 80) confidenceLabel = "Très bonne";
-    else if (confidence >= 60) confidenceLabel = "Bonne";
-    else if (confidence >= 40) confidenceLabel = "Moyenne";
+    const weightsContainer =
+        document.getElementById("investment-model-weights");
 
-    let coverageLabel = "Très limitée";
-    if (observationDays >= 30) coverageLabel = "Solide";
-    else if (observationDays >= 7) coverageLabel = "Correcte";
-    else if (observationDays >= 2) coverageLabel = "Initiale";
+    const observationsContainer =
+        document.getElementById("investment-model-observations");
 
-    container.innerHTML = `
-        <div class="model-quality-block">
-            <h3>Pourquoi cette estimation ?</h3>
+    const ratiosContainer =
+        document.getElementById("investment-model-ratios");
 
-            <p>
-                Le prix estimé est de <strong>${formatEuro(modelPrice)}</strong> car :
-            </p>
+    const estimatedPrice =
+        getEstimatedConditionPrice(card);
 
-            <ul>
-                ${
-                    trendPrice
-                        ? `<li>le Trend Cardmarket actuel est de <strong>${formatEuro(trendPrice)}</strong> ;</li>`
-                        : `<li>le Trend Cardmarket n'est pas disponible pour cette carte ;</li>`
-                }
+    const rawObservedPrice =
+        card.observedMinByCondition?.[condition] ??
+        null;
 
-                ${
-                    avg30
-                        ? `<li>la moyenne 30 jours est de <strong>${formatEuro(avg30)}</strong> ;</li>`
-                        : `<li>la moyenne 30 jours n'est pas disponible ;</li>`
-                }
+    const reliableObservedPrice =
+        card.reliableObservedByCondition?.[condition] ??
+        rawObservedPrice ??
+        null;
 
-                <li>
-                    <strong>${observationDays}</strong> jour(s) d'observations réelles alimentent le modèle ;
-                </li>
+    const reliability =
+        card.observationReliabilityByCondition?.[condition] ??
+        null;
 
-                <li>
-                    le modèle applique les ratios observés ou estimés pour l'état
-                    <strong>${escapeHtml(card.etat || "-")}</strong> ;
-                </li>
+    if (priceContainer) {
+        priceContainer.innerHTML = `
+            <div class="drawer-grid">
+                <div>Prix estimé</div>
+                <div>${formatOptionalEuro(estimatedPrice)}</div>
 
-                <li>
-                    la confiance actuelle est de <strong>${confidence.toFixed(0)} %</strong>.
-                </li>
-            </ul>
+                <div>Trend Cardmarket</div>
+                <div>${formatOptionalEuro(card.trendPrice)}</div>
+
+                <div>Moyenne 30 jours</div>
+                <div>${formatOptionalEuro(card.avg30)}</div>
+
+                <div>Prix observé brut</div>
+                <div>${formatOptionalEuro(rawObservedPrice)}</div>
+
+                <div>Prix observé fiabilisé</div>
+                <div>${formatOptionalEuro(reliableObservedPrice)}</div>
+
+                <div>Fiabilité de l’état</div>
+                <div>${formatReliability(reliability)}</div>
+
+                <div>Confiance globale</div>
+                <div>
+                    ${
+                        card.gradeModelConfidence !== null &&
+                        card.gradeModelConfidence !== undefined
+                            ? `${Number(card.gradeModelConfidence).toFixed(0)} %`
+                            : "-"
+                    }
+                </div>
+            </div>
+        `;
+    }
+
+    if (referenceContainer) {
+        const referenceType =
+            card.usesExternalReference
+                ? "Proxy externe"
+                : "Même impression";
+
+        const referenceRole =
+            card.marketReferenceRole === "evolution_only"
+                ? "Évolution uniquement"
+                : card.marketReferenceRole === "level_and_evolution"
+                    ? "Niveau et évolution"
+                    : card.marketReferenceRole || "-";
+
+        referenceContainer.innerHTML = `
+            <div class="drawer-grid">
+                <div>Type</div>
+                <div>${escapeHtml(referenceType)}</div>
+
+                <div>Carte</div>
+                <div>${escapeHtml(card.referenceName || card.nomCarte || "-")}</div>
+
+                <div>Édition</div>
+                <div>${escapeHtml(card.referenceEdition || card.edition || "-")}</div>
+
+                <div>Langue</div>
+                <div>${escapeHtml(card.referenceLanguage || card.langue || "-")}</div>
+
+                <div>Rôle</div>
+                <div>${escapeHtml(referenceRole)}</div>
+
+                <div>Référence trouvée</div>
+                <div>${card.referenceCardFound ? "Oui" : "Non"}</div>
+            </div>
+        `;
+    }
+
+    if (weightsContainer) {
+        weightsContainer.innerHTML =
+            renderBayesianWeights(card.bayesianWeights);
+    }
+
+    if (observationsContainer) {
+        observationsContainer.innerHTML =
+            renderObservationTable(card);
+    }
+
+    if (ratiosContainer) {
+        ratiosContainer.innerHTML =
+            renderRatioTable(card.ratioByCondition);
+    }
+}
+
+function formatOptionalEuro(value) {
+    if (
+        value === null ||
+        value === undefined ||
+        Number.isNaN(Number(value))
+    ) {
+        return "-";
+    }
+
+    return formatEuro(value);
+}
+
+function formatReliability(value) {
+    if (
+        value === null ||
+        value === undefined ||
+        Number.isNaN(Number(value))
+    ) {
+        return "-";
+    }
+
+    return `${Math.round(Number(value) * 100)} %`;
+}
+
+function renderBayesianWeights(weights) {
+    if (!weights || typeof weights !== "object") {
+        return `<p class="muted">Pondérations indisponibles.</p>`;
+    }
+
+    const rows = [
+        ["Carte", weights.card],
+        ["Édition", weights.edition],
+        ["Langue", weights.language],
+        ["Global", weights.global]
+    ];
+
+    return rows.map(([label, value]) => {
+        const percent = Math.round(Number(value || 0) * 100);
+
+        return `
+            <div class="drawer-weight-row">
+                <div class="drawer-weight-header">
+                    <span>${label}</span>
+                    <strong>${percent} %</strong>
+                </div>
+
+                <div class="drawer-progress">
+                    <div
+                        class="drawer-progress-bar"
+                        style="width:${Math.max(0, Math.min(percent, 100))}%"
+                    ></div>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function renderObservationTable(card) {
+    const conditions = ["NM", "EX", "GD", "LP", "PL", "PO"];
+
+    const raw =
+        card.observedMinByCondition || {};
+
+    const reliable =
+        card.reliableObservedByCondition || {};
+
+    const reliability =
+        card.observationReliabilityByCondition || {};
+
+    const rows = conditions.map(condition => `
+        <tr>
+            <td><strong>${condition}</strong></td>
+            <td>${formatOptionalEuro(raw[condition])}</td>
+            <td>${formatOptionalEuro(reliable[condition])}</td>
+            <td>${formatReliability(reliability[condition])}</td>
+        </tr>
+    `).join("");
+
+    return `
+        <div class="drawer-observation-summary">
+            <span>
+                ${Number(card.observationDaysCount || 0)}
+                jour(s)
+            </span>
+
+            <span>
+                ${Number(card.observationRowsCount || 0)}
+                observation(s)
+            </span>
+
+            <span>
+                Fiabilité moyenne :
+                ${formatReliability(card.averageObservationReliability)}
+            </span>
         </div>
 
-        <div class="model-quality-block">
-            <h3>Confiance</h3>
-            <p><strong>${confidence.toFixed(0)} %</strong> — ${confidenceLabel}</p>
+        <div class="drawer-table-wrapper">
+            <table class="drawer-table">
+                <thead>
+                    <tr>
+                        <th>État</th>
+                        <th>Brut</th>
+                        <th>Fiabilisé</th>
+                        <th>Fiabilité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows}
+                </tbody>
+            </table>
         </div>
+    `;
+}
 
-        <div class="model-quality-block">
-            <h3>Couverture des observations</h3>
-            <p><strong>${observationDays}</strong> jour(s) observé(s)</p>
-            <p>Niveau : ${coverageLabel}</p>
-        </div>
+function renderRatioTable(ratios) {
+    if (!ratios || typeof ratios !== "object") {
+        return `<p class="muted">Ratios indisponibles.</p>`;
+    }
 
-        <div class="model-quality-block">
-            <h3>Source</h3>
-            <p>${escapeHtml(card.gradeModelSource || "-")}</p>
-            <p class="muted">${escapeHtml(card.pricingModel || "-")}</p>
-        </div>
+    const conditions = ["NM", "EX", "GD", "LP", "PL", "PO"];
 
-        <div class="model-quality-block">
-            <h3>Lecture</h3>
-            <p>
-                Le modèle dispose actuellement d'une confiance ${confidenceLabel.toLowerCase()}.
-                La couverture des observations est ${coverageLabel.toLowerCase()}.
-                Cette estimation pourra devenir plus robuste avec davantage de relevés quotidiens.
-            </p>
+    return `
+        <div class="drawer-grid">
+            ${conditions.map(condition => `
+                <div>${condition}</div>
+                <div>
+                    ${
+                        ratios[condition] !== null &&
+                        ratios[condition] !== undefined
+                            ? `${(Number(ratios[condition]) * 100).toFixed(1)} %`
+                            : "-"
+                    }
+                </div>
+            `).join("")}
         </div>
     `;
 }

@@ -1360,3 +1360,46 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     height:100%;
     background:#4da3ff;
 }
+
+.drawer-weight-row {
+    margin-bottom: 14px;
+}
+
+.drawer-weight-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 5px;
+    color: #c8d0df;
+}
+
+.drawer-observation-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.drawer-observation-summary span {
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: rgba(127, 183, 255, 0.1);
+    color: #cfe4ff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.drawer-table-wrapper {
+    overflow-x: auto;
+}
+
+.drawer-table {
+    min-width: 100%;
+    font-size: 12px;
+}
+
+.drawer-table th,
+.drawer-table td {
+    padding: 7px 8px;
+    white-space: nowrap;
+}
