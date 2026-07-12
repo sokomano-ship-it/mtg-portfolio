@@ -1646,11 +1646,7 @@ const discountEX =
 
 <td>${card.gradeModelConfidence}%</td>
 
-        <td>
-            <span class="${getMomentumClass(card)}">
-                ${getMomentumLabel(card)}
-            </span>
-        </td>
+       
 
         <td>
             <span class="${getBuyingActionClass(card)}" title="${escapeHtml(card.explanation || "")}">
