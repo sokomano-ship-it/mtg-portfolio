@@ -1578,6 +1578,30 @@ function renderOpportunities() {
     tbody.innerHTML = "";
 
     sorted.forEach(card => {
+
+        const marketNM =
+    Number(card.trendPriceNM ?? card.trendPrice);
+
+const marketEX =
+    Number(card.trendPriceEX ?? card.prixEtat);
+
+const targetNM =
+    Number(card.buyTargetByCondition?.NM);
+
+const targetEX =
+    Number(card.buyTargetByCondition?.EX);
+
+const discountNM =
+    calculateDiscountPercent(
+        marketNM,
+        targetNM
+    );
+
+const discountEX =
+    calculateDiscountPercent(
+        marketEX,
+        targetEX
+    );
         const reasons = Array.isArray(card.reasons)
             ? card.reasons.map(reason => "✅ " + escapeHtml(reason)).join("<br>")
             : "";
@@ -1608,9 +1632,19 @@ function renderOpportunities() {
             </span>
         </td>
 
-        <td class="price">${formatEuro(card.nmPrice || card.trendPrice)}</td>
-        <td class="price"><strong>${formatEuro(card.nmTargetPrice)}</strong></td>
-        <td class="price"><strong>${formatEuro(card.exTargetPrice)}</strong></td>
+        <td>${formatOptionalEuro(marketNM)}</td>
+
+<td>${formatOptionalEuro(targetNM)}</td>
+
+<td>${formatDiscount(discountNM)}</td>
+
+<td>${formatOptionalEuro(marketEX)}</td>
+
+<td>${formatOptionalEuro(targetEX)}</td>
+
+<td>${formatDiscount(discountEX)}</td>
+
+<td>${card.gradeModelConfidence}%</td>
 
         <td>
             <span class="${getMomentumClass(card)}">
@@ -2036,6 +2070,39 @@ function formatPercent(value) {
 function formatOptionalPercent(value) {
     if (value === null || value === undefined) return "-";
     return formatPercent(value);
+}
+function calculateDiscountPercent(marketPrice, targetPrice) {
+
+    const market = Number(marketPrice);
+    const target = Number(targetPrice);
+
+    if (
+        !Number.isFinite(market) ||
+        !Number.isFinite(target) ||
+        target <= 0
+    ) {
+        return null;
+    }
+
+    return ((target - market) / target) * 100;
+}
+
+function formatDiscount(value) {
+
+    if (value === null || value === undefined) {
+        return "-";
+    }
+
+    const css =
+        value >= 15 ? "positive" :
+        value >= 5 ? "neutral" :
+        "negative";
+
+    return `
+        <span class="${css}">
+            ${value.toFixed(1)} %
+        </span>
+    `;
 }
 
 function normalizeText(value) {
