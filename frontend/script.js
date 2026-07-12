@@ -888,8 +888,11 @@ async function renderInvestmentChart(cardId) {
             });
         });
 
-        const chartRows = [...historyByDate.values()]
-            .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+        const MODEL_START_DATE = "2026-07-12";
+
+const chartRows = [...historyByDate.values()]
+    .filter(row => row.date >= MODEL_START_DATE)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
 
         if (!chartRows.length) {
             investmentChart = null;
@@ -1405,6 +1408,7 @@ console.table(chartHistoryWithCondition);
 window.debugChartHistory = chartHistoryWithCondition;
 
 renderCardDetailChart(chartHistoryWithCondition);
+
         
     } catch (error) {
         console.error(error);
@@ -1488,6 +1492,20 @@ function renderCardDetailChart(history) {
     }
 
     if (!Array.isArray(history) || history.length === 0) {
+        cardDetailChart = null;
+        return;
+    }
+
+    history = history
+        .filter(row =>
+            row.date &&
+            String(row.date).slice(0, 10) >= MODEL_START_DATE
+        )
+        .sort((a, b) =>
+            String(a.date).localeCompare(String(b.date))
+        );
+
+    if (history.length === 0) {
         cardDetailChart = null;
         return;
     }

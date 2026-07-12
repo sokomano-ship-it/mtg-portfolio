@@ -3,6 +3,7 @@ const path = require("path");
 
 const inputFile = path.join(__dirname, "..", "frontend", "data", "price-history-snapshots.json");
 const outputFile = path.join(__dirname, "..", "frontend", "data", "price-history-analysis.json");
+const MODEL_START_DATE = "2026-07-12";
 
 function number(value) {
     return Number(value) || 0;
@@ -186,9 +187,16 @@ function classifyTrend(change30d, uptrendDays, volatility) {
 }
 
 function analyzeCard(rows) {
-    const sorted = [...rows].sort((a, b) => {
-        return new Date(a.date) - new Date(b.date);
-    });
+    const sorted = [...rows]
+    .filter(row =>
+        row.date &&
+        String(row.date).slice(0, 10) >= MODEL_START_DATE
+    )
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+if (!sorted.length) {
+    return null;
+}
 
     const latest = sorted[sorted.length - 1];
     const latestDate = latest.date;
@@ -264,10 +272,11 @@ function main() {
     });
 
     const analysis = [...grouped.values()]
-        .map(analyzeCard)
-        .sort((a, b) => {
-            return number(b.change30d) - number(a.change30d);
-        });
+    .map(analyzeCard)
+    .filter(Boolean)
+    .sort((a, b) => {
+        return number(b.change30d) - number(a.change30d);
+    });
 
     saveJson(outputFile, analysis);
 

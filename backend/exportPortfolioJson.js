@@ -5,6 +5,7 @@ const { calculateEtatPrice } = require("./conditionPricing");
 const { buildNmOpportunities } = require("./opportunityScoring");
 
 const outputDir = path.join(__dirname, "..", "frontend", "data");
+const MODEL_START_DATE = "2026-07-12";
 
 const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
@@ -191,10 +192,22 @@ function getEstimatedPriceFromSnapshot(row, etat) {
 function getPreviousSnapshot(historyRows, days) {
     if (!historyRows.length) return null;
 
-    const targetDate = new Date();
+    const filtered = historyRows.filter(
+        row =>
+            row.date &&
+            String(row.date).slice(0, 10) >= MODEL_START_DATE
+    );
+
+    if (!filtered.length) {
+        return null;
+    }
+
+    const latest = filtered[filtered.length - 1];
+
+    const targetDate = new Date(latest.date);
     targetDate.setDate(targetDate.getDate() - days);
 
-    return [...historyRows]
+    return [...filtered]
         .reverse()
         .find(row => new Date(row.date) <= targetDate) || null;
 }
@@ -604,7 +617,8 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
             JOIN (
                 SELECT cardId, MAX(id) AS maxId
                 FROM card_price_history
-                WHERE date <= date('now', '-7 days')
+                WHERE date >= '2026-07-12'
+  AND date <= date('now', '-7 days')
                 GROUP BY cardId
             ) x ON x.maxId = h.id
         ),
@@ -615,7 +629,8 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
             JOIN (
                 SELECT cardId, MAX(id) AS maxId
                 FROM card_price_history
-                WHERE date <= date('now', '-30 days')
+                WHERE date >= '2026-07-12'
+  AND date <= date('now', '-30 days')
                 GROUP BY cardId
             ) x ON x.maxId = h.id
         ),
@@ -626,7 +641,8 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
             JOIN (
                 SELECT cardId, MAX(id) AS maxId
                 FROM card_price_history
-                WHERE date <= date('now', '-90 days')
+                WHERE date >= '2026-07-12'
+  AND date <= date('now', '-90 days')
                 GROUP BY cardId
             ) x ON x.maxId = h.id
         ),
@@ -637,7 +653,8 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
             JOIN (
                 SELECT cardId, MAX(id) AS maxId
                 FROM card_price_history
-                WHERE date <= date('now', '-180 days')
+                WHERE date >= '2026-07-12'
+  AND date <= date('now', '-180 days')
                 GROUP BY cardId
             ) x ON x.maxId = h.id
         ),
@@ -648,7 +665,8 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
             JOIN (
                 SELECT cardId, MAX(id) AS maxId
                 FROM card_price_history
-                WHERE date <= date('now', '-365 days')
+                WHERE date >= '2026-07-12'
+  AND date <= date('now', '-365 days')
                 GROUP BY cardId
             ) x ON x.maxId = h.id
         )
@@ -725,7 +743,11 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
     const condition = String(card.etat || "").toUpperCase();
 
     return estimatedPriceHistory
-        .filter(row => Number(row.cardId) === Number(card.id))
+    .filter(row =>
+        Number(row.cardId) === Number(card.id) &&
+        row.date &&
+        String(row.date).slice(0, 10) >= MODEL_START_DATE
+    )
         .sort((a, b) => String(a.date).localeCompare(String(b.date)))
         .map(row => {
             let estimatedByCondition =
@@ -772,25 +794,41 @@ const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
             ORDER BY date
         `, [card.id]);
 
-        const current = history[history.length - 1];
-
         function perf(days) {
-            if (!history.length || !current) return null;
+    const filteredHistory = history
+        .filter(row =>
+            row.date &&
+            String(row.date).slice(0, 10) >= MODEL_START_DATE
+        )
+        .sort((a, b) =>
+            String(a.date).localeCompare(String(b.date))
+        );
 
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() - days);
+    if (!filteredHistory.length) {
+        return null;
+    }
 
-            const previous = [...history]
-                .reverse()
-                .find(row => new Date(row.date) <= targetDate);
+    const latestRow =
+        filteredHistory[filteredHistory.length - 1];
 
-            if (!previous) return null;
+    const targetDate = new Date(latestRow.date);
+    targetDate.setDate(targetDate.getDate() - days);
 
-            return calculatePerformance(
-                Number(current.trendPrice),
-                Number(previous.trendPrice)
-            );
-        }
+    const previousRow = [...filteredHistory]
+        .reverse()
+        .find(row =>
+            new Date(row.date) <= targetDate
+        );
+
+    if (!previousRow) {
+        return null;
+    }
+
+    return calculatePerformance(
+        Number(latestRow.trendPrice),
+        Number(previousRow.trendPrice)
+    );
+}
 
         const estimatedHistory = buildEstimatedHistoryForCard(card, estimatedPriceHistory);
 
