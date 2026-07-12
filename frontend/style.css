@@ -1218,7 +1218,7 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     position: fixed;
     top: 0;
     right: 0;
-    width: min(460px, 92vw);
+    width: min(620px, 95vw);
     height: 100vh;
     padding: 1.5rem;
     background: #151923;
@@ -1316,4 +1316,47 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     padding: 0.85rem;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.05);
+}
+
+.drawer-card{
+    background:#1b2230;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:18px;
+}
+
+.drawer-card h3{
+    margin:0 0 12px;
+    font-size:15px;
+    color:#7fb7ff;
+}
+
+.drawer-grid{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px 18px;
+    align-items:center;
+}
+
+.drawer-grid div:nth-child(odd){
+    color:#bfc7d8;
+}
+
+.drawer-grid div:nth-child(even){
+    font-weight:700;
+    text-align:right;
+}
+
+.drawer-progress{
+    height:8px;
+    border-radius:8px;
+    background:#293142;
+    overflow:hidden;
+    margin-top:4px;
+}
+
+.drawer-progress-bar{
+    height:100%;
+    background:#4da3ff;
 }
