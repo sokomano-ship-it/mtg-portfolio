@@ -17,6 +17,7 @@ let currentOpportunityDirection = "desc";
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
 let investmentChart = null;
+const MODEL_START_DATE = "2026-07-12";
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     setupInvestmentDrawerTabs();
