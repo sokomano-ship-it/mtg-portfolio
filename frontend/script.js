@@ -1104,20 +1104,32 @@ async function renderInvestmentChart(cardId) {
         }
 
         const card = detail.card || {};
-        const history = detail.history || [];
-        const estimatedHistory = detail.estimatedHistory || [];
+        const history = Array.isArray(detail.history)
+            ? detail.history
+            : [];
+
+        const estimatedHistory = Array.isArray(detail.estimatedHistory)
+            ? detail.estimatedHistory
+            : [];
+
+        const condition =
+            String(card.etat || "NM").toUpperCase();
 
         const historyByDate = new Map();
 
         history.forEach(row => {
             if (!row.date) return;
-            historyByDate.set(row.date, { ...row });
+
+            historyByDate.set(row.date, {
+                ...row
+            });
         });
 
         estimatedHistory.forEach(row => {
             if (!row.date) return;
 
-            const existing = historyByDate.get(row.date) || {};
+            const existing =
+                historyByDate.get(row.date) || {};
 
             historyByDate.set(row.date, {
                 ...existing,
@@ -1125,11 +1137,14 @@ async function renderInvestmentChart(cardId) {
             });
         });
 
-        const MODEL_START_DATE = "2026-07-12";
-
-const chartRows = [...historyByDate.values()]
-    .filter(row => row.date >= MODEL_START_DATE)
-    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+        const chartRows = [...historyByDate.values()]
+            .filter(row =>
+                row.date &&
+                String(row.date).slice(0, 10) >= MODEL_START_DATE
+            )
+            .sort((a, b) =>
+                String(a.date).localeCompare(String(b.date))
+            );
 
         if (!chartRows.length) {
             investmentChart = null;
@@ -1137,60 +1152,156 @@ const chartRows = [...historyByDate.values()]
         }
 
         const getTrendPrice = row =>
-    row.trendPrice ?? null;
+            row.trendPrice ??
+            null;
 
-const getAvg30Price = row =>
-    row.avg30 ?? null;
+        const getAvg30Price = row =>
+            row.avg30 ??
+            null;
 
-const getEstimatedPrice = row =>
-    row.estimatedConditionPrice ??
-    row.estimatedPrice ??
-    null;
+        const getEstimatedPrice = row =>
+            row.estimatedConditionPrice ??
+            row.estimatedPrice ??
+            row.estimatedByCondition?.[condition] ??
+            null;
+
+        const currentBuyTarget =
+            card.buyTargetByCondition?.[condition] ??
+            card.buyTargetByCondition?.NM ??
+            null;
+
+        const currentReliableObservation =
+            card.reliableObservedByCondition?.[condition] ??
+            card.observedMinByCondition?.[condition] ??
+            null;
+
+        const datasets = [
+            {
+                label: "Prix modèle (€)",
+                data: chartRows.map(row =>
+                    getEstimatedPrice(row)
+                ),
+                tension: 0.3,
+                spanGaps: true
+            },
+            {
+                label: "Trend Cardmarket (€)",
+                data: chartRows.map(row =>
+                    getTrendPrice(row)
+                ),
+                tension: 0.3,
+                spanGaps: true
+            },
+            {
+                label: "Moyenne 30 jours (€)",
+                data: chartRows.map(row =>
+                    getAvg30Price(row)
+                ),
+                tension: 0.3,
+                spanGaps: true
+            }
+        ];
+
+        if (
+            currentBuyTarget !== null &&
+            currentBuyTarget !== undefined
+        ) {
+            datasets.push({
+                label: `Achat cible ${condition} (€)`,
+                data: chartRows.map(() =>
+                    Number(currentBuyTarget)
+                ),
+                tension: 0,
+                pointRadius: 0,
+                borderDash: [8, 6],
+                spanGaps: true
+            });
+        }
+
+        if (
+            currentReliableObservation !== null &&
+            currentReliableObservation !== undefined
+        ) {
+            datasets.push({
+                label: `Observation fiabilisée ${condition} (€)`,
+                data: chartRows.map(() =>
+                    Number(currentReliableObservation)
+                ),
+                tension: 0,
+                pointRadius: 0,
+                borderDash: [3, 5],
+                spanGaps: true
+            });
+        }
 
         investmentChart = new Chart(ctx, {
             type: "line",
+
             data: {
                 labels: chartRows.map(row => row.date),
-                datasets: [
-    {
-        label: "Prix modèle (€)",
-        data: chartRows.map(row => getEstimatedPrice(row)),
-        tension: 0.3
-    },
-    {
-        label: "Trend Cardmarket (€)",
-        data: chartRows.map(row => getTrendPrice(row)),
-        tension: 0.3
-    },
-    {
-        label: "Moyenne 30 jours (€)",
-        data: chartRows.map(row => getAvg30Price(row)),
-        tension: 0.3
-    }
-]
+                datasets
             },
+
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+
                 plugins: {
                     legend: {
                         labels: {
-                            color: "#f5f5f5"
+                            color: "#f5f5f5",
+                            usePointStyle: true,
+                            boxWidth: 10
+                        }
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label(context) {
+                                const value = context.parsed.y;
+
+                                if (
+                                    value === null ||
+                                    value === undefined
+                                ) {
+                                    return `${context.dataset.label}: -`;
+                                }
+
+                                return `${context.dataset.label}: ${formatEuro(value)}`;
+                            }
                         }
                     }
                 },
+
                 scales: {
                     x: {
                         ticks: {
-                            color: "#f5f5f5"
+                            color: "#f5f5f5",
+                            maxRotation: 45,
+                            minRotation: 0
                         },
+
                         grid: {
                             color: "rgba(255,255,255,0.1)"
                         }
                     },
+
                     y: {
+                        beginAtZero: false,
+
                         ticks: {
-                            color: "#f5f5f5"
+                            color: "#f5f5f5",
+
+                            callback(value) {
+                                return formatEuro(value);
+                            }
                         },
+
                         grid: {
                             color: "rgba(255,255,255,0.1)"
                         }
@@ -1200,7 +1311,7 @@ const getEstimatedPrice = row =>
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Erreur graphique investissement :", error);
         investmentChart = null;
     }
 }
