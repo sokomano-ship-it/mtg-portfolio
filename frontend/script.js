@@ -10,7 +10,7 @@ let currentInvestmentDirection = "desc";
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
 
-let currentOpportunitySort = "buyProbability";
+let currentOpportunitySort = "opportunityScore";
 
 let currentOpportunityDirection = "desc";
 
@@ -1429,48 +1429,7 @@ function setupOpportunitySorting() {
     });
 }
 
-function compactDecision(decision, score) {
-    const value = Number(score || 0);
-    const text = String(decision || "");
 
-    if (value >= 85 || text.includes("Conviction")) return "🟢 Acheter";
-    if (value >= 70 || text.includes("sélectif")) return "🟡 Surveiller";
-    if (value >= 55) return "🔵 Possible";
-
-    return "⚪ Attendre";
-}
-
-function getDecisionClass(decision, score) {
-    const value = Number(score || 0);
-    const text = String(decision || "");
-
-    if (value >= 85 || text.includes("Conviction")) return "decision-buy";
-    if (value >= 70 || text.includes("sélectif")) return "decision-watch";
-    if (value >= 55) return "decision-possible";
-
-    return "decision-neutral";
-}
-
-function getBuyingAction(card) {
-    const discount = Number(card.discountPct || 0);
-    const score = Number(card.buyProbability || 0);
-
-    if (discount <= -15 && score >= 75) return "⭐ Exceptionnel";
-    if (discount <= -10 && score >= 65) return "🟢 Acheter";
-    if (discount <= -5 && score >= 55) return "🟡 Observer";
-
-    return "⚪ Attendre";
-}
-
-function getBuyingActionClass(card) {
-    const action = getBuyingAction(card);
-
-    if (action.includes("Exceptionnel")) return "decision-buy";
-    if (action.includes("Acheter")) return "decision-buy";
-    if (action.includes("Observer")) return "decision-watch";
-
-    return "decision-neutral";
-}
 
 function getMomentumLabel(card) {
     const momentum = Number(card.momentumQuality || 0);
@@ -1495,28 +1454,6 @@ function getMomentumClass(card) {
     return "momentum-neutral";
 }
 
-function getBuyingAction(card) {
-    const score = Number(card.buyProbability || 0);
-    const timing = Number(card.timingScore || 0);
-    const momentum = Number(card.momentumQuality || 0);
-
-    if (score >= 85 && timing >= 80) return "🟢 Acheter";
-    if (score >= 75 && momentum >= 70) return "🟢 Acheter";
-    if (score >= 65 && momentum >= 55) return "🟡 Surveiller";
-    if (score >= 55) return "🔵 Possible";
-
-    return "⚪ Attendre";
-}
-
-function getBuyingActionClass(card) {
-    const action = getBuyingAction(card);
-
-    if (action.includes("Acheter")) return "decision-buy";
-    if (action.includes("Surveiller")) return "decision-watch";
-    if (action.includes("Possible")) return "decision-possible";
-
-    return "decision-neutral";
-}
 
 function formatOpportunityExplanation(value) {
     if (!value) return "-";
@@ -1558,10 +1495,7 @@ function formatOpportunityExplanation(value) {
     return escapeHtml(String(value));
 }
 
-function formatDiscount(value) {
-    const number = Number(value || 0);
-    return `${number >= 0 ? "+" : ""}${number.toFixed(1)} %`;
-}
+
 
 function getOpportunitySortValue(card, sortKey) {
     const marketNM = Number(
@@ -1634,6 +1568,9 @@ function getOpportunitySortValue(card, sortKey) {
                 card.confidence ??
                 0
             );
+        
+        case "opportunityScore":
+    return calculateOpportunityScore(card);
 
         case "buyProbability":
             return Number(card.buyProbability || 0);
@@ -1641,6 +1578,210 @@ function getOpportunitySortValue(card, sortKey) {
         default:
             return card[sortKey] ?? null;
     }
+}
+
+function clamp(value, min = 0, max = 100) {
+    return Math.max(min, Math.min(max, Number(value) || 0));
+}
+
+function optionalPositiveNumber(...values) {
+    for (const value of values) {
+        if (
+            value !== null &&
+            value !== undefined &&
+            value !== "" &&
+            Number.isFinite(Number(value)) &&
+            Number(value) > 0
+        ) {
+            return Number(value);
+        }
+    }
+
+    return null;
+}
+
+function getOpportunityMetrics(card) {
+    const marketNM = optionalPositiveNumber(
+        card.nmPrice,
+        card.trendPriceNM,
+        card.trendPrice
+    );
+
+    const marketEX = optionalPositiveNumber(
+        card.exPrice,
+        card.observedExPrice,
+        card.reliableObservedByCondition?.EX
+    );
+
+    const targetNM = optionalPositiveNumber(
+        card.nmTargetPrice,
+        card.buyTargetByCondition?.NM
+    );
+
+    const targetEX = optionalPositiveNumber(
+        card.exTargetPrice,
+        card.buyTargetByCondition?.EX
+    );
+
+    const discountNM = calculateDiscountPercent(
+        marketNM,
+        targetNM
+    );
+
+    const discountEX = calculateDiscountPercent(
+        marketEX,
+        targetEX
+    );
+
+    const confidence = optionalPositiveNumber(
+        card.gradeModelConfidence,
+        card.pricingConfidence,
+        card.confidence
+    ) ?? 0;
+
+    const observationReliability = Number(
+        card.averageObservationReliability ??
+        card.observationReliability ??
+        0
+    );
+
+    const reliabilityPercent =
+        observationReliability <= 1
+            ? observationReliability * 100
+            : observationReliability;
+
+    const momentum = Number(card.momentumQuality ?? 0);
+
+    return {
+        marketNM,
+        marketEX,
+        targetNM,
+        targetEX,
+        discountNM,
+        discountEX,
+        confidence,
+        reliabilityPercent,
+        momentum
+    };
+}
+function discountToScore(discount) {
+    if (discount === null || discount === undefined) {
+        return 0;
+    }
+
+    /*
+     * 0 % sous la cible = 40 points
+     * 10 % sous la cible = 70 points
+     * 20 % sous la cible = 100 points
+     * Au-dessus de la cible, le score diminue.
+     */
+    return clamp(40 + Number(discount) * 3);
+}
+
+function calculateOpportunityScore(card) {
+    const metrics = getOpportunityMetrics(card);
+
+    const factors = [];
+
+    if (metrics.discountNM !== null) {
+        factors.push({
+            value: discountToScore(metrics.discountNM),
+            weight: 0.30
+        });
+    }
+
+    if (metrics.discountEX !== null) {
+        factors.push({
+            value: discountToScore(metrics.discountEX),
+            weight: 0.25
+        });
+    }
+
+    if (metrics.confidence > 0) {
+        factors.push({
+            value: clamp(metrics.confidence),
+            weight: 0.20
+        });
+    }
+
+    if (metrics.reliabilityPercent > 0) {
+        factors.push({
+            value: clamp(metrics.reliabilityPercent),
+            weight: 0.15
+        });
+    }
+
+    if (metrics.momentum > 0) {
+        factors.push({
+            value: clamp(metrics.momentum),
+            weight: 0.10
+        });
+    }
+
+    const totalWeight = factors.reduce(
+        (sum, factor) => sum + factor.weight,
+        0
+    );
+
+    if (!totalWeight) {
+        return 0;
+    }
+
+    const weightedScore = factors.reduce(
+        (sum, factor) =>
+            sum + factor.value * factor.weight,
+        0
+    );
+
+    return Math.round(
+        clamp(weightedScore / totalWeight)
+    );
+}
+
+function getBuyingAction(card) {
+    const score = calculateOpportunityScore(card);
+    const metrics = getOpportunityMetrics(card);
+
+    const bestDiscount = Math.max(
+        metrics.discountNM ?? -Infinity,
+        metrics.discountEX ?? -Infinity
+    );
+
+    /*
+     * Une bonne note statistique ne suffit pas :
+     * il faut également que NM ou EX soit réellement sous la cible.
+     */
+    if (score >= 80 && bestDiscount >= 15) {
+        return "⭐ Forte opportunité";
+    }
+
+    if (score >= 68 && bestDiscount >= 8) {
+        return "🟢 Acheter";
+    }
+
+    if (score >= 55 && bestDiscount > 0) {
+        return "🟡 Surveiller";
+    }
+
+    return "⚪ Attendre";
+}
+
+function getBuyingActionClass(card) {
+    const action = getBuyingAction(card);
+
+    if (action.includes("Forte opportunité")) {
+        return "decision-buy";
+    }
+
+    if (action.includes("Acheter")) {
+        return "decision-buy";
+    }
+
+    if (action.includes("Surveiller")) {
+        return "decision-watch";
+    }
+
+    return "decision-neutral";
 }
 
 function renderOpportunities() {
@@ -1659,49 +1800,22 @@ function renderOpportunities() {
 
     sorted.forEach(card => {
 
-    const marketNM = Number(
-    card.nmPrice ??
-    card.trendPriceNM ??
-    card.trendPrice ??
-    0
-);
+    const metrics = getOpportunityMetrics(card);
 
-const marketEX = Number(
-    card.exPrice ??
-    card.trendPriceEX ??
-    card.prixEtat ??
-    0
-);
+const {
+    marketNM,
+    marketEX,
+    targetNM,
+    targetEX,
+    discountNM,
+    discountEX
+} = metrics;
 
-const targetNM = Number(
-    card.nmTargetPrice ??
-    card.buyTargetByCondition?.NM ??
-    0
-);
+const confidence = metrics.confidence;
+const opportunityScore =
+    calculateOpportunityScore(card);
 
-const targetEX = Number(
-    card.exTargetPrice ??
-    card.buyTargetByCondition?.EX ??
-    0
-);
 
-const confidence =
-    card.gradeModelConfidence ??
-    card.pricingConfidence ??
-    card.confidence ??
-    null;
-
-const discountNM =
-    calculateDiscountPercent(
-        marketNM,
-        targetNM
-    );
-
-const discountEX =
-    calculateDiscountPercent(
-        marketEX,
-        targetEX
-    );
         const reasons = Array.isArray(card.reasons)
             ? card.reasons.map(reason => "✅ " + escapeHtml(reason)).join("<br>")
             : "";
@@ -1753,11 +1867,18 @@ const discountEX =
 
        
 
-        <td>
-            <span class="${getBuyingActionClass(card)}" title="${escapeHtml(card.explanation || "")}">
-                ${getBuyingAction(card)}
-            </span>
-        </td>
+       <td>
+    <span
+        class="${getBuyingActionClass(card)}"
+        title="Score d'opportunité : ${opportunityScore} / 100"
+    >
+        ${getBuyingAction(card)}
+    </span>
+
+    <div class="opportunity-subline">
+        Score ${opportunityScore} / 100
+    </div>
+</td>
     </tr>
 `;
     });
@@ -2189,19 +2310,20 @@ function calculateDiscountPercent(marketPrice, targetPrice) {
 }
 
 function formatDiscount(value) {
-
     if (value === null || value === undefined) {
-        return "-";
+        return `<span class="muted">-</span>`;
     }
 
-    const css =
-        value >= 15 ? "positive" :
-        value >= 5 ? "neutral" :
-        "negative";
+    const cssClass =
+        value >= 10
+            ? "score-positive"
+            : value > 0
+                ? "signal-watch"
+                : "score-negative";
 
     return `
-        <span class="${css}">
-            ${value.toFixed(1)} %
+        <span class="${cssClass}">
+            ${value >= 0 ? "+" : ""}${Number(value).toFixed(1)} %
         </span>
     `;
 }
