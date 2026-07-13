@@ -11,6 +11,13 @@ const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.js
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
 const estimatedPriceHistoryFile = path.join(__dirname, "..", "frontend", "data", "estimated-price-history.json");
 const trackedMarketCardsFile = path.join(__dirname, "data", "trackedMarketCards.json");
+const marketObservationsFile = path.join(
+    __dirname,
+    "data",
+    "marketObservations.json"
+);
+
+
 const splitOutputFiles = {
     cards: path.join(outputDir, "cards.json"),
     watchlist: path.join(outputDir, "watchlist.json"),
@@ -64,6 +71,17 @@ function readTrackedMarketCards() {
     if (!fs.existsSync(trackedMarketCardsFile)) return [];
     return JSON.parse(fs.readFileSync(trackedMarketCardsFile, "utf8"));
 }
+function readMarketObservations() {
+    if (!fs.existsSync(marketObservationsFile)) {
+        return [];
+    }
+
+    const data = JSON.parse(
+        fs.readFileSync(marketObservationsFile, "utf8")
+    );
+
+    return Array.isArray(data) ? data : [];
+}
 
 function normalizeKey(value) {
     return String(value || "")
@@ -80,6 +98,74 @@ function watchlistKey(card) {
         normalizeKey(card.version),
         normalizeKey(card.langue)
     ].join("|");
+}
+function observationCardKey(card) {
+    return [
+        normalizeKey(card.nomCarte),
+        normalizeKey(card.edition),
+        normalizeKey(card.langue)
+    ].join("|");
+}
+
+function buildObservedPricesByCard(observations) {
+    const grouped = new Map();
+
+    observations.forEach(observation => {
+        const key = observationCardKey(observation);
+
+        const condition = String(
+            observation.condition ||
+            observation.etat ||
+            ""
+        ).toUpperCase();
+
+        const price = Number(
+            observation.observedMinPrice || 0
+        );
+
+        const date = String(
+            observation.observationDate ||
+            observation.date ||
+            observation.createdAt ||
+            ""
+        ).slice(0, 10);
+
+        if (
+            !key ||
+            !condition ||
+            !Number.isFinite(price) ||
+            price <= 0
+        ) {
+            return;
+        }
+
+        if (!grouped.has(key)) {
+            grouped.set(key, {});
+        }
+
+        const conditionMap = grouped.get(key);
+        const current = conditionMap[condition];
+
+        /*
+         * On retient la saisie la plus récente pour représenter
+         * le prix de marché actuel de cet état.
+         */
+        if (
+            !current ||
+            date > current.date ||
+            (
+                date === current.date &&
+                price < current.price
+            )
+        ) {
+            conditionMap[condition] = {
+                price,
+                date
+            };
+        }
+    });
+
+    return grouped;
 }
 
 function buildWatchlistCards(collectionCards, trackedCards) {
@@ -751,11 +837,69 @@ const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
     estimatedPriceHistory
 );
 
-    const trackedMarketCards = readTrackedMarketCards();
-const watchlistCards = buildWatchlistCards(cards, trackedMarketCards);
+    const trackedMarketCards =
+    readTrackedMarketCards();
 
-    const opportunities = buildNmOpportunities(watchlistCards);
+const marketObservations =
+    readMarketObservations();
 
+const observedPricesByCard =
+    buildObservedPricesByCard(marketObservations);
+
+const watchlistCards =
+    buildWatchlistCards(cards, trackedMarketCards);
+
+const opportunities = buildNmOpportunities(watchlistCards)
+    .map(opportunity => {
+        const key = observationCardKey(opportunity);
+
+        const observedConditions =
+            observedPricesByCard.get(key) || {};
+
+        const sourceCard = watchlistCards.find(card =>
+            observationCardKey(card) === key
+        );
+
+        const observedMinByCondition = {};
+
+        ["NM", "EX", "GD", "LP", "PL", "PO"]
+            .forEach(condition => {
+                observedMinByCondition[condition] =
+                    observedConditions[condition]?.price ??
+                    sourceCard?.observedMinByCondition?.[condition] ??
+                    null;
+            });
+
+        const observedExPrice =
+            observedMinByCondition.EX ??
+            null;
+
+        const reliableExPrice =
+            sourceCard?.reliableObservedByCondition?.EX ??
+            observedExPrice ??
+            null;
+
+        return {
+            ...opportunity,
+
+            exPrice: reliableExPrice,
+            observedExPrice,
+
+            observedMinByCondition,
+
+            reliableObservedByCondition:
+                sourceCard?.reliableObservedByCondition ||
+                observedMinByCondition,
+
+            observationReliabilityByCondition:
+                sourceCard?.observationReliabilityByCondition ||
+                null,
+
+            averageObservationReliability:
+                sourceCard?.averageObservationReliability ??
+                null
+        };
+    });
     const cardDetails = {};
 
     function buildEstimatedHistoryForCard(card, estimatedPriceHistory) {
