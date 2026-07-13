@@ -19401,7 +19401,7 @@
     "confidence": 15,
     "observationCount": 0,
     "pricingModel": "edition_fallback_condition_ratio",
-    "pricingRatio": 0.9148
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-01",
@@ -133625,15 +133625,15 @@
     "etat": "EX",
     "estimatedPrice": 5.76,
     "estimatedByCondition": {
-      "NM": 7.32,
+      "NM": 7.31,
       "EX": 5.76,
-      "GD": 4.8,
+      "GD": 4.79,
       "LP": 4.08,
       "PL": 3.23,
       "PO": 2.21
     },
     "buyTargetByCondition": {
-      "NM": 6.59,
+      "NM": 6.58,
       "EX": 5.07
     },
     "ratioByCondition": {
@@ -133669,7 +133669,7 @@
     "confidence": 15,
     "observationCount": 0,
     "pricingModel": "edition_fallback_condition_ratio",
-    "pricingRatio": 0.9148
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-01",
@@ -134164,15 +134164,15 @@
     "etat": "EX",
     "estimatedPrice": 5.76,
     "estimatedByCondition": {
-      "NM": 7.32,
+      "NM": 7.31,
       "EX": 5.76,
-      "GD": 4.8,
+      "GD": 4.79,
       "LP": 4.08,
       "PL": 3.23,
       "PO": 2.21
     },
     "buyTargetByCondition": {
-      "NM": 6.59,
+      "NM": 6.58,
       "EX": 5.07
     },
     "ratioByCondition": {
@@ -134208,7 +134208,7 @@
     "confidence": 15,
     "observationCount": 0,
     "pricingModel": "edition_fallback_condition_ratio",
-    "pricingRatio": 0.9148
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-01",
@@ -146020,18 +146020,18 @@
     "edition": "Foreign White Bordered",
     "langue": "French",
     "etat": "GD",
-    "estimatedPrice": 4.18,
+    "estimatedPrice": 4.19,
     "estimatedByCondition": {
-      "NM": 6.26,
-      "EX": 4.99,
-      "GD": 4.18,
-      "LP": 3.57,
-      "PL": 2.83,
-      "PO": 1.72
+      "NM": 6.28,
+      "EX": 5,
+      "GD": 4.19,
+      "LP": 3.58,
+      "PL": 2.84,
+      "PO": 1.73
     },
     "buyTargetByCondition": {
-      "NM": 5.63,
-      "EX": 4.39
+      "NM": 5.65,
+      "EX": 4.4
     },
     "ratioByCondition": {
       "NM": 1,
@@ -146066,7 +146066,7 @@
     "confidence": 15,
     "observationCount": 0,
     "pricingModel": "edition_fallback_condition_ratio",
-    "pricingRatio": 0.7129
+    "pricingRatio": 0.7163
   },
   {
     "date": "2026-07-01",
@@ -149795,15 +149795,15 @@
     "etat": "EX",
     "estimatedPrice": 5.76,
     "estimatedByCondition": {
-      "NM": 7.32,
+      "NM": 7.31,
       "EX": 5.76,
-      "GD": 4.8,
+      "GD": 4.79,
       "LP": 4.08,
       "PL": 3.23,
       "PO": 2.21
     },
     "buyTargetByCondition": {
-      "NM": 6.59,
+      "NM": 6.58,
       "EX": 5.07
     },
     "ratioByCondition": {
@@ -149839,7 +149839,7 @@
     "confidence": 15,
     "observationCount": 0,
     "pricingModel": "edition_fallback_condition_ratio",
-    "pricingRatio": 0.9148
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166562,6 +166562,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1496,
+    "nomCarte": "Swords to Plowshares",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 2.91,
+    "estimatedByCondition": {
+      "NM": 5.64,
+      "EX": 2.91,
+      "GD": 2.59,
+      "LP": 1.73,
+      "PL": 1.73,
+      "PO": 1.6
+    },
+    "buyTargetByCondition": {
+      "NM": 5.08,
+      "EX": 2.56
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 5.64,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1497,
     "nomCarte": "Hypnotic Specter",
@@ -166571,6 +166626,61 @@
     "estimatedPrice": 2.4,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1497,
+    "nomCarte": "Island Sanctuary",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 0.9,
+    "estimatedByCondition": {
+      "NM": 1.74,
+      "EX": 0.9,
+      "GD": 0.8,
+      "LP": 0.53,
+      "PL": 0.53,
+      "PO": 0.49
+    },
+    "buyTargetByCondition": {
+      "NM": 1.57,
+      "EX": 0.79
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 1.74,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166584,6 +166694,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1498,
+    "nomCarte": "Wrath of God",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "GD",
+    "estimatedPrice": 2.41,
+    "estimatedByCondition": {
+      "NM": 5.24,
+      "EX": 2.7,
+      "GD": 2.41,
+      "LP": 1.61,
+      "PL": 1.61,
+      "PO": 1.48
+    },
+    "buyTargetByCondition": {
+      "NM": 4.72,
+      "EX": 2.38
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 5.24,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1499,
     "nomCarte": "Hypnotic Specter",
@@ -166593,6 +166758,61 @@
     "estimatedPrice": 2,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1499,
+    "nomCarte": "Savannah Lions",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 3.21,
+    "estimatedByCondition": {
+      "NM": 6.22,
+      "EX": 3.21,
+      "GD": 2.86,
+      "LP": 1.91,
+      "PL": 1.91,
+      "PO": 1.76
+    },
+    "buyTargetByCondition": {
+      "NM": 5.6,
+      "EX": 2.82
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 6.22,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166606,6 +166826,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1500,
+    "nomCarte": "Counterspell",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "GD",
+    "estimatedPrice": 1.09,
+    "estimatedByCondition": {
+      "NM": 2.04,
+      "EX": 1.21,
+      "GD": 1.09,
+      "LP": 0.79,
+      "PL": 0.79,
+      "PO": 0.64
+    },
+    "buyTargetByCondition": {
+      "NM": 1.84,
+      "EX": 1.06
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5946,
+      "GD": 0.5322,
+      "LP": 0.3863,
+      "PL": 0.3863,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 2.04,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1501,
     "nomCarte": "Hypnotic Specter",
@@ -166615,6 +166890,61 @@
     "estimatedPrice": 2.4,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1501,
+    "nomCarte": "Animate Dead",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "GD",
+    "estimatedPrice": 3.59,
+    "estimatedByCondition": {
+      "NM": 6.74,
+      "EX": 4.01,
+      "GD": 3.59,
+      "LP": 2.6,
+      "PL": 2.6,
+      "PO": 2.11
+    },
+    "buyTargetByCondition": {
+      "NM": 6.07,
+      "EX": 3.53
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5946,
+      "GD": 0.5322,
+      "LP": 0.3863,
+      "PL": 0.3863,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 6.74,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
   },
   {
     "date": "2026-07-03",
@@ -166628,6 +166958,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1502,
+    "nomCarte": "Hypnotic Specter",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 2.45,
+    "estimatedByCondition": {
+      "NM": 4.75,
+      "EX": 2.45,
+      "GD": 2.18,
+      "LP": 1.46,
+      "PL": 1.46,
+      "PO": 1.35
+    },
+    "buyTargetByCondition": {
+      "NM": 4.28,
+      "EX": 2.16
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 4.75,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1503,
     "nomCarte": "Lightning Bolt",
@@ -166637,6 +167022,61 @@
     "estimatedPrice": 1,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1503,
+    "nomCarte": "Will-o'-the-Wisp",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 0.59,
+    "estimatedByCondition": {
+      "NM": 1.15,
+      "EX": 0.59,
+      "GD": 0.53,
+      "LP": 0.35,
+      "PL": 0.35,
+      "PO": 0.33
+    },
+    "buyTargetByCondition": {
+      "NM": 1.03,
+      "EX": 0.52
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 1.15,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166650,6 +167090,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1504,
+    "nomCarte": "Bad Moon",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "NM",
+    "estimatedPrice": 2.87,
+    "estimatedByCondition": {
+      "NM": 2.87,
+      "EX": 1.71,
+      "GD": 1.53,
+      "LP": 1.11,
+      "PL": 1.11,
+      "PO": 0.9
+    },
+    "buyTargetByCondition": {
+      "NM": 2.58,
+      "EX": 1.5
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5946,
+      "GD": 0.5322,
+      "LP": 0.3863,
+      "PL": 0.3863,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 2.87,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 1.3543
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1505,
     "nomCarte": "Lord of the Pit",
@@ -166659,6 +167154,61 @@
     "estimatedPrice": 0.8,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1505,
+    "nomCarte": "Lightning Bolt",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 0.97,
+    "estimatedByCondition": {
+      "NM": 1.89,
+      "EX": 0.97,
+      "GD": 0.87,
+      "LP": 0.58,
+      "PL": 0.58,
+      "PO": 0.54
+    },
+    "buyTargetByCondition": {
+      "NM": 1.7,
+      "EX": 0.85
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 1.89,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166672,6 +167222,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1506,
+    "nomCarte": "Red Elemental Blast",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 4.09,
+    "estimatedByCondition": {
+      "NM": 5.34,
+      "EX": 4.09,
+      "GD": 3.71,
+      "LP": 2.94,
+      "PL": 2.42,
+      "PO": 1.81
+    },
+    "buyTargetByCondition": {
+      "NM": 4.81,
+      "EX": 3.6
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7231,
+      "GD": 0.6639,
+      "LP": 0.5053,
+      "PL": 0.4203,
+      "PO": 0.3124
+    },
+    "marketAnchorPrice": 5.76,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 3.9,
+      "EX": 4,
+      "GD": 3.65,
+      "LP": 3,
+      "PL": 4.5,
+      "PO": 4.8
+    },
+    "observedMinByCondition": {
+      "NM": 3.9,
+      "EX": 4,
+      "GD": 3.65,
+      "LP": 3,
+      "PL": 4.5,
+      "PO": 4.8
+    },
+    "gradeModelConfidence": 60,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.6944
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1507,
     "nomCarte": "Meekstone",
@@ -166681,6 +167286,61 @@
     "estimatedPrice": 4.49,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1507,
+    "nomCarte": "Shivan Dragon",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "GD",
+    "estimatedPrice": 1.93,
+    "estimatedByCondition": {
+      "NM": 4.2,
+      "EX": 2.16,
+      "GD": 1.93,
+      "LP": 1.29,
+      "PL": 1.29,
+      "PO": 1.19
+    },
+    "buyTargetByCondition": {
+      "NM": 3.78,
+      "EX": 1.9
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 4.2,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
   },
   {
     "date": "2026-07-03",
@@ -166694,6 +167354,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1508,
+    "nomCarte": "Birds of Paradise",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "LP",
+    "estimatedPrice": 3.7,
+    "estimatedByCondition": {
+      "NM": 12.02,
+      "EX": 6.2,
+      "GD": 5.53,
+      "LP": 3.7,
+      "PL": 3.7,
+      "PO": 3.41
+    },
+    "buyTargetByCondition": {
+      "NM": 10.82,
+      "EX": 5.46
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 12.02,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.6526
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1509,
     "nomCarte": "Nevinyrral's Disk",
@@ -166703,6 +167418,61 @@
     "estimatedPrice": 8.99,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1509,
+    "nomCarte": "Force of Nature",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 0.44,
+    "estimatedByCondition": {
+      "NM": 0.85,
+      "EX": 0.44,
+      "GD": 0.39,
+      "LP": 0.26,
+      "PL": 0.26,
+      "PO": 0.24
+    },
+    "buyTargetByCondition": {
+      "NM": 0.77,
+      "EX": 0.39
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 0.85,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166716,6 +167486,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1510,
+    "nomCarte": "Howling Mine",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "GD",
+    "estimatedPrice": 1.39,
+    "estimatedByCondition": {
+      "NM": 2.61,
+      "EX": 1.55,
+      "GD": 1.39,
+      "LP": 1.01,
+      "PL": 1.01,
+      "PO": 0.82
+    },
+    "buyTargetByCondition": {
+      "NM": 2.35,
+      "EX": 1.36
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5946,
+      "GD": 0.5322,
+      "LP": 0.3863,
+      "PL": 0.3863,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 2.61,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1511,
     "nomCarte": "Red Elemental Blast",
@@ -166725,6 +167550,61 @@
     "estimatedPrice": 4,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1511,
+    "nomCarte": "Mishra's Factory",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 3.87,
+    "estimatedByCondition": {
+      "NM": 7.5,
+      "EX": 3.87,
+      "GD": 3.45,
+      "LP": 2.31,
+      "PL": 2.31,
+      "PO": 2.12
+    },
+    "buyTargetByCondition": {
+      "NM": 6.75,
+      "EX": 3.41
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 7.5,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166738,6 +167618,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1512,
+    "nomCarte": "Strip Mine",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 4.38,
+    "estimatedByCondition": {
+      "NM": 8.5,
+      "EX": 4.38,
+      "GD": 3.91,
+      "LP": 2.61,
+      "PL": 2.61,
+      "PO": 2.41
+    },
+    "buyTargetByCondition": {
+      "NM": 7.65,
+      "EX": 3.85
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 8.5,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1513,
     "nomCarte": "Serra Angel",
@@ -166747,6 +167682,61 @@
     "estimatedPrice": 0.88,
     "confidence": 71,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1513,
+    "nomCarte": "Hell's Caretaker",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 1.28,
+    "estimatedByCondition": {
+      "NM": 1.44,
+      "EX": 1.28,
+      "GD": 1.12,
+      "LP": 1.01,
+      "PL": 0.85,
+      "PO": 0.7
+    },
+    "buyTargetByCondition": {
+      "NM": 1.3,
+      "EX": 1.13
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 1.44,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166760,6 +167750,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1514,
+    "nomCarte": "Blood Moon",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "NM",
+    "estimatedPrice": 7.57,
+    "estimatedByCondition": {
+      "NM": 7.57,
+      "EX": 6.99,
+      "GD": 6.31,
+      "LP": 5.85,
+      "PL": 4.14,
+      "PO": 3.22
+    },
+    "buyTargetByCondition": {
+      "NM": 6.81,
+      "EX": 6.15
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.9354,
+      "GD": 0.8533,
+      "LP": 0.8055,
+      "PL": 0.5421,
+      "PO": 0.4261
+    },
+    "marketAnchorPrice": 7.63,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "observedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "gradeModelConfidence": 59,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.8702
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1515,
     "nomCarte": "Sol Ring",
@@ -166769,6 +167814,61 @@
     "estimatedPrice": 16,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1515,
+    "nomCarte": "Concordant Crossroads",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 13.6,
+    "estimatedByCondition": {
+      "NM": 15.32,
+      "EX": 13.6,
+      "GD": 11.94,
+      "LP": 10.76,
+      "PL": 9.01,
+      "PO": 7.41
+    },
+    "buyTargetByCondition": {
+      "NM": 13.79,
+      "EX": 11.97
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 15.32,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166782,6 +167882,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1516,
+    "nomCarte": "Nicol Bolas",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 1.3,
+    "estimatedByCondition": {
+      "NM": 1.46,
+      "EX": 1.3,
+      "GD": 1.14,
+      "LP": 1.03,
+      "PL": 0.86,
+      "PO": 0.71
+    },
+    "buyTargetByCondition": {
+      "NM": 1.31,
+      "EX": 1.14
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 1.46,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1517,
     "nomCarte": "Sol Ring",
@@ -166791,6 +167946,61 @@
     "estimatedPrice": 9,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1517,
+    "nomCarte": "Arena of the Ancients",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "NM",
+    "estimatedPrice": 3.51,
+    "estimatedByCondition": {
+      "NM": 3.51,
+      "EX": 3.12,
+      "GD": 2.74,
+      "LP": 2.47,
+      "PL": 2.07,
+      "PO": 1.7
+    },
+    "buyTargetByCondition": {
+      "NM": 3.16,
+      "EX": 2.75
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 3.51,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 1.3543
   },
   {
     "date": "2026-07-03",
@@ -166804,6 +168014,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1518,
+    "nomCarte": "Ashnod's Altar",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "NM",
+    "estimatedPrice": 10.39,
+    "estimatedByCondition": {
+      "NM": 10.39,
+      "EX": 9.23,
+      "GD": 8.1,
+      "LP": 7.3,
+      "PL": 6.11,
+      "PO": 5.02
+    },
+    "buyTargetByCondition": {
+      "NM": 9.35,
+      "EX": 8.12
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 10.39,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 1.3543
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1519,
     "nomCarte": "The Rack",
@@ -166813,6 +168078,61 @@
     "estimatedPrice": 2.96,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1519,
+    "nomCarte": "City of Brass",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 20.75,
+    "estimatedByCondition": {
+      "NM": 23.37,
+      "EX": 20.75,
+      "GD": 18.21,
+      "LP": 16.42,
+      "PL": 13.75,
+      "PO": 11.3
+    },
+    "buyTargetByCondition": {
+      "NM": 21.03,
+      "EX": 18.26
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 23.37,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166826,6 +168146,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1520,
+    "nomCarte": "Ball Lightning",
+    "edition": "Renaissance",
+    "langue": "French",
+    "etat": "PL",
+    "estimatedPrice": 4.16,
+    "estimatedByCondition": {
+      "NM": 9.03,
+      "EX": 7.96,
+      "GD": 6.49,
+      "LP": 6.21,
+      "PL": 4.16,
+      "PO": 3.76
+    },
+    "buyTargetByCondition": {
+      "NM": 8.13,
+      "EX": 7
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8758,
+      "GD": 0.6867,
+      "LP": 0.6867,
+      "PL": 0.4145,
+      "PO": 0.4145
+    },
+    "marketAnchorPrice": 8.67,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 8.8,
+      "EX": 7.9,
+      "GD": 5,
+      "LP": 6,
+      "PL": 3,
+      "PO": 3.99
+    },
+    "observedMinByCondition": {
+      "NM": 8.8,
+      "EX": 7.9,
+      "GD": 5,
+      "LP": 6,
+      "PL": 3,
+      "PO": 3.99
+    },
+    "gradeModelConfidence": 60,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.346
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1521,
     "nomCarte": "The Rack",
@@ -166835,6 +168210,61 @@
     "estimatedPrice": 2.96,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1521,
+    "nomCarte": "Sylvan Library",
+    "edition": "Renaissance",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 30.7,
+    "estimatedByCondition": {
+      "NM": 36.22,
+      "EX": 30.7,
+      "GD": 28.37,
+      "LP": 25.7,
+      "PL": 19.98,
+      "PO": 14.6
+    },
+    "buyTargetByCondition": {
+      "NM": 32.6,
+      "EX": 27.02
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8424,
+      "GD": 0.7827,
+      "LP": 0.7176,
+      "PL": 0.5493,
+      "PO": 0.4121
+    },
+    "marketAnchorPrice": 35.42,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 34,
+      "EX": 27.72,
+      "GD": 27,
+      "LP": 24.95,
+      "PL": 23,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": 34,
+      "EX": 27.72,
+      "GD": 27,
+      "LP": 24.95,
+      "PL": 23,
+      "PO": null
+    },
+    "gradeModelConfidence": 60,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 5,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.7826
   },
   {
     "date": "2026-07-03",
@@ -166848,6 +168278,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1522,
+    "nomCarte": "Fellwar Stone",
+    "edition": "Renaissance",
+    "langue": "French",
+    "etat": "NM",
+    "estimatedPrice": 1.89,
+    "estimatedByCondition": {
+      "NM": 1.89,
+      "EX": 1.62,
+      "GD": 1.47,
+      "LP": 1.34,
+      "PL": 0.89,
+      "PO": 0.78
+    },
+    "buyTargetByCondition": {
+      "NM": 1.7,
+      "EX": 1.43
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8593,
+      "GD": 0.7755,
+      "LP": 0.7074,
+      "PL": 0.4698,
+      "PO": 0.4121
+    },
+    "marketAnchorPrice": 1.89,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 1.3543
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1523,
     "nomCarte": "Verduran Enchantress",
@@ -166857,6 +168342,61 @@
     "estimatedPrice": 2.5,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1523,
+    "nomCarte": "Mishra's Factory",
+    "edition": "Renaissance",
+    "langue": "French",
+    "etat": "NM",
+    "estimatedPrice": 10.8,
+    "estimatedByCondition": {
+      "NM": 10.8,
+      "EX": 8.57,
+      "GD": 8.8,
+      "LP": 8.31,
+      "PL": 4.92,
+      "PO": 3.31
+    },
+    "buyTargetByCondition": {
+      "NM": 9.72,
+      "EX": 7.54
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7941,
+      "GD": 0.7856,
+      "LP": 0.7308,
+      "PL": 0.4381,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 9.68,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 11.99,
+      "EX": 9,
+      "GD": 9.5,
+      "LP": 8.95,
+      "PL": 5,
+      "PO": 2.94
+    },
+    "observedMinByCondition": {
+      "NM": 11.99,
+      "EX": 9,
+      "GD": 9.5,
+      "LP": 8.95,
+      "PL": 5,
+      "PO": 2.94
+    },
+    "gradeModelConfidence": 70,
+    "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
+    "observationDaysCount": 2,
+    "observationRowsCount": 12,
+    "confidence": 71,
+    "observationCount": 2,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 1.4452
   },
   {
     "date": "2026-07-03",
@@ -166870,6 +168410,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1524,
+    "nomCarte": "Ashnod's Altar",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "NM",
+    "estimatedPrice": 10.39,
+    "estimatedByCondition": {
+      "NM": 10.39,
+      "EX": 9.23,
+      "GD": 8.1,
+      "LP": 7.3,
+      "PL": 6.11,
+      "PO": 5.02
+    },
+    "buyTargetByCondition": {
+      "NM": 9.35,
+      "EX": 8.12
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 10.39,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 1.3543
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1525,
     "nomCarte": "Royal Assassin",
@@ -166879,6 +168474,61 @@
     "estimatedPrice": 7.9,
     "confidence": 71,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1525,
+    "nomCarte": "Ashnod's Altar",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 9.23,
+    "estimatedByCondition": {
+      "NM": 10.39,
+      "EX": 9.23,
+      "GD": 8.1,
+      "LP": 7.3,
+      "PL": 6.11,
+      "PO": 5.02
+    },
+    "buyTargetByCondition": {
+      "NM": 9.35,
+      "EX": 8.12
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 10.39,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166892,6 +168542,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1526,
+    "nomCarte": "Ashnod's Altar",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 9.23,
+    "estimatedByCondition": {
+      "NM": 10.39,
+      "EX": 9.23,
+      "GD": 8.1,
+      "LP": 7.3,
+      "PL": 6.11,
+      "PO": 5.02
+    },
+    "buyTargetByCondition": {
+      "NM": 9.35,
+      "EX": 8.12
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 10.39,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1527,
     "nomCarte": "Avoid Fate",
@@ -166901,6 +168606,61 @@
     "estimatedPrice": 6,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1527,
+    "nomCarte": "Arena of the Ancients",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 3.12,
+    "estimatedByCondition": {
+      "NM": 3.51,
+      "EX": 3.12,
+      "GD": 2.74,
+      "LP": 2.47,
+      "PL": 2.07,
+      "PO": 1.7
+    },
+    "buyTargetByCondition": {
+      "NM": 3.16,
+      "EX": 2.75
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.888,
+      "GD": 0.7793,
+      "LP": 0.7026,
+      "PL": 0.5884,
+      "PO": 0.4836
+    },
+    "marketAnchorPrice": 3.51,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 41,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
   },
   {
     "date": "2026-07-03",
@@ -166914,6 +168674,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1528,
+    "nomCarte": "Mishra's Factory",
+    "edition": "Renaissance",
+    "langue": "French",
+    "etat": "LP",
+    "estimatedPrice": 8.31,
+    "estimatedByCondition": {
+      "NM": 10.8,
+      "EX": 8.57,
+      "GD": 8.8,
+      "LP": 8.31,
+      "PL": 4.92,
+      "PO": 3.31
+    },
+    "buyTargetByCondition": {
+      "NM": 9.72,
+      "EX": 7.54
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7941,
+      "GD": 0.7856,
+      "LP": 0.7308,
+      "PL": 0.4381,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 9.68,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 11.99,
+      "EX": 9,
+      "GD": 9.5,
+      "LP": 8.95,
+      "PL": 5,
+      "PO": 2.94
+    },
+    "observedMinByCondition": {
+      "NM": 11.99,
+      "EX": 9,
+      "GD": 9.5,
+      "LP": 8.95,
+      "PL": 5,
+      "PO": 2.94
+    },
+    "gradeModelConfidence": 70,
+    "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
+    "observationDaysCount": 2,
+    "observationRowsCount": 12,
+    "confidence": 71,
+    "observationCount": 2,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.9246
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1529,
     "nomCarte": "Relic Bind",
@@ -166923,6 +168738,61 @@
     "estimatedPrice": 1.43,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1529,
+    "nomCarte": "Island Sanctuary",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "NM",
+    "estimatedPrice": 1.74,
+    "estimatedByCondition": {
+      "NM": 1.74,
+      "EX": 0.9,
+      "GD": 0.8,
+      "LP": 0.53,
+      "PL": 0.53,
+      "PO": 0.49
+    },
+    "buyTargetByCondition": {
+      "NM": 1.57,
+      "EX": 0.79
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 1.74,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 1.3543
   },
   {
     "date": "2026-07-03",
@@ -166936,6 +168806,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1530,
+    "nomCarte": "Blood Moon",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "NM",
+    "estimatedPrice": 7.57,
+    "estimatedByCondition": {
+      "NM": 7.57,
+      "EX": 6.99,
+      "GD": 6.31,
+      "LP": 5.85,
+      "PL": 4.14,
+      "PO": 3.22
+    },
+    "buyTargetByCondition": {
+      "NM": 6.81,
+      "EX": 6.15
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.9354,
+      "GD": 0.8533,
+      "LP": 0.8055,
+      "PL": 0.5421,
+      "PO": 0.4261
+    },
+    "marketAnchorPrice": 7.63,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "observedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "gradeModelConfidence": 59,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.8702
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1531,
     "nomCarte": "Seeker",
@@ -166945,6 +168870,61 @@
     "estimatedPrice": 1.17,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1531,
+    "nomCarte": "Blood Moon",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 6.99,
+    "estimatedByCondition": {
+      "NM": 7.57,
+      "EX": 6.99,
+      "GD": 6.31,
+      "LP": 5.85,
+      "PL": 4.14,
+      "PO": 3.22
+    },
+    "buyTargetByCondition": {
+      "NM": 6.81,
+      "EX": 6.15
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.9354,
+      "GD": 0.8533,
+      "LP": 0.8055,
+      "PL": 0.5421,
+      "PO": 0.4261
+    },
+    "marketAnchorPrice": 7.63,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "observedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "gradeModelConfidence": 59,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.8689
   },
   {
     "date": "2026-07-03",
@@ -166958,6 +168938,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1532,
+    "nomCarte": "Blood Moon",
+    "edition": "Chronicles",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 6.99,
+    "estimatedByCondition": {
+      "NM": 7.57,
+      "EX": 6.99,
+      "GD": 6.31,
+      "LP": 5.85,
+      "PL": 4.14,
+      "PO": 3.22
+    },
+    "buyTargetByCondition": {
+      "NM": 6.81,
+      "EX": 6.15
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.9354,
+      "GD": 0.8533,
+      "LP": 0.8055,
+      "PL": 0.5421,
+      "PO": 0.4261
+    },
+    "marketAnchorPrice": 7.63,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "observedMinByCondition": {
+      "NM": 6.64,
+      "EX": 6.63,
+      "GD": 6.32,
+      "LP": 6.26,
+      "PL": 6,
+      "PO": 5.79
+    },
+    "gradeModelConfidence": 59,
+    "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "confidence": 63,
+    "observationCount": 1,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.8689
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1533,
     "nomCarte": "Underworld Dreams",
@@ -166967,6 +169002,61 @@
     "estimatedPrice": 88.66,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1533,
+    "nomCarte": "Animate Dead",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "GD",
+    "estimatedPrice": 3.59,
+    "estimatedByCondition": {
+      "NM": 6.74,
+      "EX": 4.01,
+      "GD": 3.59,
+      "LP": 2.6,
+      "PL": 2.6,
+      "PO": 2.11
+    },
+    "buyTargetByCondition": {
+      "NM": 6.07,
+      "EX": 3.53
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5946,
+      "GD": 0.5322,
+      "LP": 0.3863,
+      "PL": 0.3863,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 6.74,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
   },
   {
     "date": "2026-07-03",
@@ -166980,6 +169070,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1534,
+    "nomCarte": "Wrath of God",
+    "edition": "Fourth Edition",
+    "langue": "Italian",
+    "etat": "EX",
+    "estimatedPrice": 3.11,
+    "estimatedByCondition": {
+      "NM": 5.24,
+      "EX": 3.11,
+      "GD": 2.73,
+      "LP": 1.99,
+      "PL": 1.99,
+      "PO": 1.63
+    },
+    "buyTargetByCondition": {
+      "NM": 4.72,
+      "EX": 2.74
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5933,
+      "GD": 0.5204,
+      "LP": 0.3802,
+      "PL": 0.3802,
+      "PO": 0.3113
+    },
+    "marketAnchorPrice": 5.24,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1535,
     "nomCarte": "Underworld Dreams",
@@ -166989,6 +169134,61 @@
     "estimatedPrice": 88.66,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1535,
+    "nomCarte": "Wrath of God",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "PL",
+    "estimatedPrice": 1.61,
+    "estimatedByCondition": {
+      "NM": 5.24,
+      "EX": 2.7,
+      "GD": 2.41,
+      "LP": 1.61,
+      "PL": 1.61,
+      "PO": 1.48
+    },
+    "buyTargetByCondition": {
+      "NM": 4.72,
+      "EX": 2.38
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 5.24,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.568
   },
   {
     "date": "2026-07-03",
@@ -167002,6 +169202,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1536,
+    "nomCarte": "Wrath of God",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "EX",
+    "estimatedPrice": 3.12,
+    "estimatedByCondition": {
+      "NM": 5.24,
+      "EX": 3.12,
+      "GD": 2.79,
+      "LP": 2.02,
+      "PL": 2.02,
+      "PO": 1.64
+    },
+    "buyTargetByCondition": {
+      "NM": 4.72,
+      "EX": 2.75
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5946,
+      "GD": 0.5322,
+      "LP": 0.3863,
+      "PL": 0.3863,
+      "PO": 0.3125
+    },
+    "marketAnchorPrice": 5.24,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 44,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9136
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1537,
     "nomCarte": "Urborg",
@@ -167013,6 +169268,61 @@
     "pricingModel": "standard_observed_condition_ratio"
   },
   {
+    "date": "2026-07-13",
+    "cardId": 1537,
+    "nomCarte": "Force of Nature",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "GD",
+    "estimatedPrice": 0.39,
+    "estimatedByCondition": {
+      "NM": 0.85,
+      "EX": 0.44,
+      "GD": 0.39,
+      "LP": 0.26,
+      "PL": 0.26,
+      "PO": 0.24
+    },
+    "buyTargetByCondition": {
+      "NM": 0.77,
+      "EX": 0.39
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 0.85,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.7163
+  },
+  {
     "date": "2026-07-03",
     "cardId": 1538,
     "nomCarte": "Walking Dead",
@@ -167022,6 +169332,61 @@
     "estimatedPrice": 1,
     "confidence": 63,
     "pricingModel": "standard_observed_condition_ratio"
+  },
+  {
+    "date": "2026-07-13",
+    "cardId": 1538,
+    "nomCarte": "Strip Mine",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "LP",
+    "estimatedPrice": 2.61,
+    "estimatedByCondition": {
+      "NM": 8.5,
+      "EX": 4.38,
+      "GD": 3.91,
+      "LP": 2.61,
+      "PL": 2.61,
+      "PO": 2.41
+    },
+    "buyTargetByCondition": {
+      "NM": 7.65,
+      "EX": 3.85
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.5154,
+      "GD": 0.4598,
+      "LP": 0.3074,
+      "PL": 0.3074,
+      "PO": 0.2833
+    },
+    "marketAnchorPrice": 8.5,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.6526
   },
   {
     "date": "2026-07-03",
