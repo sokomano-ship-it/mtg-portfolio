@@ -1681,19 +1681,26 @@ function discountToScore(discount) {
 function calculateOpportunityScore(card) {
     const metrics = getOpportunityMetrics(card);
 
+    const availableDiscounts = [
+        metrics.discountNM,
+        metrics.discountEX
+    ].filter(value =>
+        value !== null &&
+        value !== undefined &&
+        Number.isFinite(Number(value))
+    );
+
+    const bestDiscount =
+        availableDiscounts.length > 0
+            ? Math.max(...availableDiscounts)
+            : null;
+
     const factors = [];
 
-    if (metrics.discountNM !== null) {
+    if (bestDiscount !== null) {
         factors.push({
-            value: discountToScore(metrics.discountNM),
-            weight: 0.30
-        });
-    }
-
-    if (metrics.discountEX !== null) {
-        factors.push({
-            value: discountToScore(metrics.discountEX),
-            weight: 0.25
+            value: discountToScore(bestDiscount),
+            weight: 0.55
         });
     }
 
@@ -1738,29 +1745,75 @@ function calculateOpportunityScore(card) {
     );
 }
 
-function getBuyingAction(card) {
-    const score = calculateOpportunityScore(card);
+function getBestOpportunityCondition(card) {
     const metrics = getOpportunityMetrics(card);
 
-    const bestDiscount = Math.max(
-        metrics.discountNM ?? -Infinity,
-        metrics.discountEX ?? -Infinity
-    );
+    const discountNM =
+        metrics.discountNM !== null &&
+        metrics.discountNM !== undefined
+            ? Number(metrics.discountNM)
+            : null;
 
-    /*
-     * Une bonne note statistique ne suffit pas :
-     * il faut également que NM ou EX soit réellement sous la cible.
-     */
-    if (score >= 80 && bestDiscount >= 15) {
-        return "⭐ Forte opportunité";
+    const discountEX =
+        metrics.discountEX !== null &&
+        metrics.discountEX !== undefined
+            ? Number(metrics.discountEX)
+            : null;
+
+    if (discountNM === null && discountEX === null) {
+        return null;
     }
 
-    if (score >= 68 && bestDiscount >= 8) {
-        return "🟢 Acheter";
+    if (discountEX === null) {
+        return {
+            condition: "NM",
+            discount: discountNM
+        };
     }
 
-    if (score >= 55 && bestDiscount > 0) {
-        return "🟡 Surveiller";
+    if (discountNM === null) {
+        return {
+            condition: "EX",
+            discount: discountEX
+        };
+    }
+
+    return discountNM >= discountEX
+        ? {
+            condition: "NM",
+            discount: discountNM
+        }
+        : {
+            condition: "EX",
+            discount: discountEX
+        };
+}
+
+function getBuyingAction(card) {
+    const score = calculateOpportunityScore(card);
+    const bestOpportunity =
+        getBestOpportunityCondition(card);
+
+    if (!bestOpportunity) {
+        return "⚪ Attendre";
+    }
+
+    const condition =
+        bestOpportunity.condition;
+
+    const discount =
+        bestOpportunity.discount;
+
+    if (score >= 80 && discount >= 15) {
+        return `⭐ Forte opportunité ${condition}`;
+    }
+
+    if (score >= 68 && discount >= 8) {
+        return `🟢 Acheter en ${condition}`;
+    }
+
+    if (score >= 55 && discount > 0) {
+        return `🟡 Surveiller en ${condition}`;
     }
 
     return "⚪ Attendre";
@@ -1814,6 +1867,9 @@ const {
 const confidence = metrics.confidence;
 const opportunityScore =
     calculateOpportunityScore(card);
+
+    const bestOpportunity =
+    getBestOpportunityCondition(card);
 
 
         const reasons = Array.isArray(card.reasons)
@@ -1876,8 +1932,15 @@ const opportunityScore =
     </span>
 
     <div class="opportunity-subline">
-        Score ${opportunityScore} / 100
-    </div>
+    Score ${opportunityScore} / 100
+    ${
+        bestOpportunity
+            ? ` · Meilleure marge ${bestOpportunity.condition} :
+               ${bestOpportunity.discount >= 0 ? "+" : ""}
+               ${bestOpportunity.discount.toFixed(1)} %`
+            : ""
+    }
+</div>
 </td>
     </tr>
 `;
