@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T13:41:44.636Z",
+  "generatedAt": "2026-07-15T14:01:51.165Z",
   "opportunities": [
     {
       "id": 1331,
@@ -2143,6 +2143,187 @@
       "observedExPrice": 4
     },
     {
+      "id": 1629,
+      "nomCarte": "Constant Mists",
+      "nomBase": "Constant Mists",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "69ffe198-2696-43ea-b63b-9329f751d9ad",
+      "imageUrl": "https://cards.scryfall.io/normal/front/6/9/69ffe198-2696-43ea-b63b-9329f751d9ad.jpg?1783906665",
+      "priceUsd": 27.02,
+      "priceEur": 25.48,
+      "cardmarketId": 829813,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 25.48,
+      "lowPrice": 22.46,
+      "avgPrice": 24.82,
+      "avg1": 24,
+      "avg7": 24.7,
+      "avg30": 22.82,
+      "prixEtat": 25.48,
+      "estimatedPrice": 25.48,
+      "baseEstimatedPrice": 25.48,
+      "estimatedByCondition": {
+        "NM": 25.48,
+        "EX": 21.66,
+        "GD": 18.35,
+        "LP": 15.8,
+        "PL": 12.23,
+        "PO": 8.92
+      },
+      "buyTargetByCondition": {
+        "NM": 22.93,
+        "EX": 19.06
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.36,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 25.48,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Constant Mists",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false,
+      "quantityOwned": 3,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM, EX",
+      "nmPrice": 25.48,
+      "estimatedNmPrice": 25.48,
+      "estimatedExPrice": 21.66,
+      "nmTargetPrice": 22.93,
+      "exTargetPrice": 19.06,
+      "trendVs30": 11.66,
+      "avg7Vs30": 8.24,
+      "avg1Vs7": -2.83,
+      "trendQuality": 83,
+      "momentumQuality": 31,
+      "remainingPotential": 83,
+      "timingScore": 97,
+      "riskMultiplier": 1,
+      "buyProbability": 75,
+      "convictionScore": 75,
+      "decision": "🟡 Achat intéressant",
+      "reasons": [
+        "Momentum positif",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 25.48,
+        "historyAgeDays": 0,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 25.48,
+        "low30d": 25.48,
+        "position30dPct": 100,
+        "high90d": 25.48,
+        "low90d": 25.48,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1173,
       "nomCarte": "Desert",
       "nomBase": "Desert",
@@ -2704,6 +2885,172 @@
       },
       "exPrice": 12,
       "observedExPrice": 12
+    },
+    {
+      "id": 1634,
+      "nomCarte": "Mox Diamond",
+      "nomBase": "Mox Diamond",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "28028830-83ed-45e2-b495-3b9ad9d3e988",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/8/28028830-83ed-45e2-b495-3b9ad9d3e988.jpg?1783946538",
+      "priceUsd": 1118.84,
+      "priceEur": 855.56,
+      "cardmarketId": 9217,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 855.56,
+      "lowPrice": 638.9,
+      "avgPrice": 821.64,
+      "avg1": 1000,
+      "avg7": 904.72,
+      "avg30": 806.04,
+      "prixEtat": 787.12,
+      "estimatedPrice": 727.23,
+      "baseEstimatedPrice": 727.23,
+      "estimatedByCondition": {
+        "NM": 855.56,
+        "EX": 727.23,
+        "GD": 616,
+        "LP": 530.45,
+        "PL": 410.67,
+        "PO": 299.45
+      },
+      "buyTargetByCondition": {
+        "NM": 770,
+        "EX": 639.96
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9165,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 855.56,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mox Diamond",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 855.56,
+      "estimatedNmPrice": 855.56,
+      "estimatedExPrice": 727.23,
+      "nmTargetPrice": 770,
+      "exTargetPrice": 639.96,
+      "trendVs30": 6.14,
+      "avg7Vs30": 12.24,
+      "avg1Vs7": 10.53,
+      "trendQuality": 44,
+      "momentumQuality": 80,
+      "remainingPotential": 77,
+      "timingScore": 83,
+      "riskMultiplier": 1,
+      "buyProbability": 72,
+      "convictionScore": 72,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 855.56,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
     },
     {
       "id": 1298,
@@ -3826,6 +4173,166 @@
       "observedExPrice": 1
     },
     {
+      "id": 1668,
+      "nomCarte": "Shivan Gorge",
+      "nomBase": "Shivan Gorge",
+      "version": null,
+      "edition": "Urza's Saga",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "d3162830-4d06-4c69-8544-876d2fa8ea10",
+      "imageUrl": "https://cards.scryfall.io/normal/front/d/3/d3162830-4d06-4c69-8544-876d2fa8ea10.jpg?1783921377",
+      "priceUsd": 0.78,
+      "priceEur": 1.04,
+      "cardmarketId": 672133,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.04,
+      "lowPrice": 0.14,
+      "avgPrice": 0.87,
+      "avg1": 0.92,
+      "avg7": 0.9,
+      "avg30": 0.93,
+      "prixEtat": 1.04,
+      "estimatedPrice": 1.04,
+      "baseEstimatedPrice": 1.04,
+      "estimatedByCondition": {
+        "NM": 1.04,
+        "EX": 0.88,
+        "GD": 0.75,
+        "LP": 0.64,
+        "PL": 0.5,
+        "PO": 0.36
+      },
+      "buyTargetByCondition": {
+        "NM": 0.94,
+        "EX": 0.77
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.36,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.04,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Shivan Gorge",
+      "referenceEdition": "Urza's Saga",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 1.04,
+      "estimatedNmPrice": 1.04,
+      "estimatedExPrice": 0.88,
+      "nmTargetPrice": 0.94,
+      "exTargetPrice": 0.77,
+      "trendVs30": 11.83,
+      "avg7Vs30": -3.23,
+      "avg1Vs7": 2.22,
+      "trendQuality": 84,
+      "momentumQuality": 35,
+      "remainingPotential": 92,
+      "timingScore": 95,
+      "riskMultiplier": 0.88,
+      "buyProbability": 69,
+      "convictionScore": 69,
+      "decision": "👀 Surveillance",
+      "reasons": [],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 1.04,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1437,
       "nomCarte": "Serendib Djinn",
       "nomBase": "Serendib Djinn",
@@ -4010,6 +4517,172 @@
       },
       "exPrice": 125,
       "observedExPrice": 125
+    },
+    {
+      "id": 1669,
+      "nomCarte": "Tolarian Academy",
+      "nomBase": "Tolarian Academy",
+      "version": null,
+      "edition": "Urza's Saga",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "ad7ac9a5-340f-4509-826c-7b9416d47887",
+      "imageUrl": "https://cards.scryfall.io/normal/front/a/d/ad7ac9a5-340f-4509-826c-7b9416d47887.jpg?1783946296",
+      "priceUsd": 177.5,
+      "priceEur": 110.3,
+      "cardmarketId": 10537,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 110.3,
+      "lowPrice": 64,
+      "avgPrice": 102.85,
+      "avg1": 139.95,
+      "avg7": 111.98,
+      "avg30": 103.14,
+      "prixEtat": 110.3,
+      "estimatedPrice": 110.3,
+      "baseEstimatedPrice": 110.3,
+      "estimatedByCondition": {
+        "NM": 110.3,
+        "EX": 93.76,
+        "GD": 79.42,
+        "LP": 68.39,
+        "PL": 52.94,
+        "PO": 38.6
+      },
+      "buyTargetByCondition": {
+        "NM": 99.27,
+        "EX": 82.51
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.36,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 110.3,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Tolarian Academy",
+      "referenceEdition": "Urza's Saga",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 110.3,
+      "estimatedNmPrice": 110.3,
+      "estimatedExPrice": 93.76,
+      "nmTargetPrice": 99.27,
+      "exTargetPrice": 82.51,
+      "trendVs30": 6.94,
+      "avg7Vs30": 8.57,
+      "avg1Vs7": 24.98,
+      "trendQuality": 50,
+      "momentumQuality": 63,
+      "remainingPotential": 69,
+      "timingScore": 74,
+      "riskMultiplier": 1,
+      "buyProbability": 66,
+      "convictionScore": 66,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 110.3,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
     },
     {
       "id": 1309,
@@ -8867,6 +9540,182 @@
       "observedExPrice": 1.4
     },
     {
+      "id": 1626,
+      "nomCarte": "Bottomless Pit",
+      "nomBase": "Bottomless Pit",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "a7fd9517-a063-4c42-8e1c-c298b314b798",
+      "imageUrl": "https://cards.scryfall.io/normal/front/a/7/a7fd9517-a063-4c42-8e1c-c298b314b798.jpg?1783915171",
+      "priceUsd": 19.65,
+      "priceEur": 16.59,
+      "cardmarketId": 720263,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 16.59,
+      "lowPrice": 16.99,
+      "avgPrice": 18,
+      "avg1": 18,
+      "avg7": 16.87,
+      "avg30": 16.68,
+      "prixEtat": 16.59,
+      "estimatedPrice": 16.59,
+      "baseEstimatedPrice": 16.59,
+      "estimatedByCondition": {
+        "NM": 16.59,
+        "EX": 14.1,
+        "GD": 11.94,
+        "LP": 10.29,
+        "PL": 7.96,
+        "PO": 5.81
+      },
+      "buyTargetByCondition": {
+        "NM": 14.93,
+        "EX": 12.41
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.36,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 16.59,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Bottomless Pit",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false,
+      "quantityOwned": 3,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 16.59,
+      "estimatedNmPrice": 16.59,
+      "estimatedExPrice": 14.1,
+      "nmTargetPrice": 14.93,
+      "exTargetPrice": 12.41,
+      "trendVs30": -0.54,
+      "avg7Vs30": 1.14,
+      "avg1Vs7": 6.7,
+      "trendQuality": 0,
+      "momentumQuality": 80,
+      "remainingPotential": 62,
+      "timingScore": 81,
+      "riskMultiplier": 1,
+      "buyProbability": 58,
+      "convictionScore": 58,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 16.59,
+        "historyAgeDays": 0,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 16.59,
+        "low30d": 16.59,
+        "position30dPct": 100,
+        "high90d": 16.59,
+        "low90d": 16.59,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1592,
       "nomCarte": "Sadistic Glee",
       "nomBase": "Sadistic Glee",
@@ -11532,6 +12381,167 @@
       "observedExPrice": 0.5
     },
     {
+      "id": 1643,
+      "nomCarte": "Oath of Druids",
+      "nomBase": "Oath of Druids",
+      "version": null,
+      "edition": "Exodus",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "9dad6b50-c415-4c55-8eac-bbc9d656c2fc",
+      "imageUrl": "https://cards.scryfall.io/normal/front/9/d/9dad6b50-c415-4c55-8eac-bbc9d656c2fc.jpg?1783937057",
+      "priceUsd": 10.05,
+      "priceEur": 12.39,
+      "cardmarketId": 293481,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 12.39,
+      "lowPrice": 7.98,
+      "avgPrice": 11.68,
+      "avg1": 11.98,
+      "avg7": 11.68,
+      "avg30": 11.99,
+      "prixEtat": 11.4,
+      "estimatedPrice": 10.53,
+      "baseEstimatedPrice": 10.53,
+      "estimatedByCondition": {
+        "NM": 12.39,
+        "EX": 10.53,
+        "GD": 8.92,
+        "LP": 7.68,
+        "PL": 5.95,
+        "PO": 4.34
+      },
+      "buyTargetByCondition": {
+        "NM": 11.15,
+        "EX": 9.27
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9165,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 12.39,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Oath of Druids",
+      "referenceEdition": "Exodus",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 12.39,
+      "estimatedNmPrice": 12.39,
+      "estimatedExPrice": 10.53,
+      "nmTargetPrice": 11.15,
+      "exTargetPrice": 9.27,
+      "trendVs30": 3.34,
+      "avg7Vs30": -2.59,
+      "avg1Vs7": 2.57,
+      "trendQuality": 24,
+      "momentumQuality": 35,
+      "remainingPotential": 70,
+      "timingScore": 77,
+      "riskMultiplier": 1,
+      "buyProbability": 55,
+      "convictionScore": 55,
+      "decision": "Ignorer",
+      "reasons": [
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 12.39,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1304,
       "nomCarte": "Ankh of Mishra",
       "nomBase": "Ankh of Mishra",
@@ -11736,7 +12746,7 @@
       "avg1": 473.99,
       "avg7": 543.25,
       "avg30": 509.88,
-      "priceUpdatedAt": "2026-07-15T13:41:32.964Z",
+      "priceUpdatedAt": "2026-07-15T14:01:38.478Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
