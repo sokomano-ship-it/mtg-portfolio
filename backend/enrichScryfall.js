@@ -8,6 +8,9 @@ const EDITION_TO_SCRYFALL_SET = {
     "Legends Italian": "leg",
     "The Dark": "drk",
 
+    "Fallen Empire": "fem",
+    "Fallen Empires": "fem",
+
     "Unlimited": "2ed",
     "Unlimited Edition": "2ed",
 
@@ -17,9 +20,38 @@ const EDITION_TO_SCRYFALL_SET = {
     "Fourth Edition": "4ed",
     "4th Edition": "4ed",
 
+    "Fifth Edition": "5ed",
+    "5th Edition": "5ed",
+
+    "Sixth Edition": "6ed",
+    "6th Edition": "6ed",
+    "Classic Sixth Edition": "6ed",
+
     "Chronicles": "chr",
-    "Fallen Empires": "fem",
     "Renaissance": "ren",
+
+    "Ice Age": "ice",
+    "Homelands": "hml",
+    "Alliances": "all",
+
+    "Mirage": "mir",
+    "Visions": "vis",
+    "Weatherlight": "wth",
+
+    "Tempest": "tmp",
+    "Stronghold": "sth",
+    "Exodus": "exo",
+
+    "Urza's Saga": "usg",
+    "Urzas Saga": "usg",
+
+    "Urza's Legacy": "ulg",
+    "Urzas Legacy": "ulg",
+
+    "Urza's Destiny": "uds",
+    "Urzas Destiny": "uds",
+
+    "Unglued": "ugl",
 
     "Foreign White Bordered": "3ed",
     "Foreign White Border": "3ed",

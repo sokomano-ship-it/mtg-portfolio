@@ -543,6 +543,7 @@ async function main() {
                 FROM cardmarket_prices
                 WHERE cardId = c.id
             )
+        WHERE c.isActive IS NULL OR c.isActive = 1
         ORDER BY c.edition, c.nomCarte
     `);
 
