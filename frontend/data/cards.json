@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T18:57:55.796Z",
+  "generatedAt": "2026-07-15T19:13:53.272Z",
   "cards": [
     {
       "id": 1326,
@@ -2820,7 +2820,7 @@
       "etat": "EX",
       "scryfallId": "e46d0c10-ec09-48ba-9e93-1392dca8111a",
       "imageUrl": "https://cards.scryfall.io/normal/front/e/4/e46d0c10-ec09-48ba-9e93-1392dca8111a.jpg?1562937684",
-      "priceUsd": 6.44,
+      "priceUsd": 6.25,
       "priceEur": 3.2,
       "cardmarketId": 6826,
       "createdAt": "2026-06-29 13:00:16",
@@ -9788,7 +9788,7 @@
       "etat": "NM",
       "scryfallId": "eb9273ea-9a41-42e3-8c9c-0d50b127a818",
       "imageUrl": "https://cards.scryfall.io/normal/front/e/b/eb9273ea-9a41-42e3-8c9c-0d50b127a818.jpg?1587910900",
-      "priceUsd": 0.65,
+      "priceUsd": 0.64,
       "priceEur": 0.71,
       "cardmarketId": 7412,
       "createdAt": "2026-06-29 13:00:16",
@@ -31201,6 +31201,110 @@
       "referenceLanguage": "French",
       "referenceVersion": null,
       "referenceCardFound": true
+    },
+    {
+      "id": 1680,
+      "nomCarte": "Armageddon",
+      "nomBase": "Armageddon",
+      "version": null,
+      "edition": "Portal Second Age",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "700e65f8-2f39-4b7e-beb4-9800492da951",
+      "imageUrl": "https://cards.scryfall.io/normal/front/7/0/700e65f8-2f39-4b7e-beb4-9800492da951.jpg?1783048794",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9952,
+      "createdAt": "2026-07-15 18:59:27",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 33.12,
+      "lowPrice": 12,
+      "avgPrice": 26.45,
+      "avg1": 44.69,
+      "avg7": 32.09,
+      "avg30": 27.85,
+      "prixEtat": 30.47,
+      "estimatedPrice": 28.15,
+      "baseEstimatedPrice": 28.15,
+      "estimatedByCondition": {
+        "NM": 33.12,
+        "EX": 28.15,
+        "GD": 23.85,
+        "LP": 20.53,
+        "PL": 15.9,
+        "PO": 11.59
+      },
+      "buyTargetByCondition": {
+        "NM": 29.81,
+        "EX": 24.77
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9032,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 33.12,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Armageddon",
+      "referenceEdition": "Portal Second Age",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
     },
     {
       "id": 1311,
