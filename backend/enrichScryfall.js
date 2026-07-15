@@ -125,6 +125,21 @@ function isHymnToTourach(card) {
     return cleanCardName(card.nomBase || card.nomCarte).toLowerCase() === "hymn to tourach";
 }
 
+function isUngluedGoblinToken(card) {
+    const cardName = cleanCardName(
+        card.nomBase || card.nomCarte
+    ).toLowerCase();
+
+    const edition = normalize(
+        card.edition
+    ).toLowerCase();
+
+    return (
+        cardName === "goblin" &&
+        edition === "unglued"
+    );
+}
+
 function getHymnCollectorNumber(card) {
     return HYMN_COLLECTOR_BY_VERSION[normalize(card.version)] || null;
 }
@@ -199,38 +214,64 @@ async function getExactScryfallBySetAndCollector(setCode, collectorNumber, langC
 }
 
 async function searchScryfall(card, options = {}) {
-    const cardName = cleanCardName(card.nomBase || card.nomCarte);
-    const setCode = options.forceSetCode || getSetCode(card.edition);
-    const langCode = options.forceLangCode || getLangCode(card.langue);
+    const cardName = cleanCardName(
+        card.nomBase || card.nomCarte
+    );
+
+    const setCode =
+    options.forceSetCode ||
+    (
+        isUngluedGoblinToken(card)
+            ? "tugl"
+            : getSetCode(card.edition)
+    );
+
+    const langCode =
+        options.forceLangCode ||
+        getLangCode(card.langue);
+
+    console.log(
+        `🔎 ${cardName} | ${card.edition} | set:${setCode || "-"} | lang:${langCode || "-"}`
+    );
 
     if (
         isHymnToTourach(card) &&
         setCode === "fem" &&
         getHymnCollectorNumber(card)
     ) {
-        const exactHymn = await getExactScryfallBySetAndCollector(
-            "fem",
-            getHymnCollectorNumber(card),
-            langCode || "en",
-            cardName
-        );
+        const exactHymn =
+            await getExactScryfallBySetAndCollector(
+                "fem",
+                getHymnCollectorNumber(card),
+                langCode || "en",
+                cardName
+            );
 
-        if (exactHymn && !exactHymn.rateLimitOrError) {
+        if (
+            exactHymn &&
+            !exactHymn.rateLimitOrError
+        ) {
             return exactHymn;
         }
     }
 
-    const queries = [];
-
-    if (setCode && langCode) {
-        queries.push(`!"${cardName}" set:${setCode} lang:${langCode}`);
-    }
-
-    if (setCode) {
-        queries.push(`!"${cardName}" set:${setCode}`);
-    }
-
-    queries.push(`!"${cardName}"`);
+    /*
+     * Lorsqu'une édition est connue, on ne lance jamais
+     * de recherche sans ce set.
+     */
+    const queries = setCode
+        ? [
+            langCode
+                ? `!"${cardName}" set:${setCode} lang:${langCode}`
+                : null,
+            `!"${cardName}" set:${setCode}`
+        ].filter(Boolean)
+        : [
+            langCode
+                ? `!"${cardName}" lang:${langCode}`
+                : null,
+            `!"${cardName}"`
+        ].filter(Boolean);
 
     for (const query of queries) {
         const url =
@@ -239,26 +280,59 @@ async function searchScryfall(card, options = {}) {
             "&unique=prints&order=set";
 
         try {
-            const response = await callScryfall(url, cardName);
-            const results = response.data?.data || [];
+            const response =
+                await callScryfall(url, cardName);
 
-            let exact = results;
+            const results =
+                response.data?.data || [];
 
-            if (setCode) {
-                exact = exact.filter(result => result.set === setCode);
-            }
-
-            if (langCode) {
-                const langExact = exact.filter(result => result.lang === langCode);
-
-                if (langExact.length > 0) {
-                    exact = langExact;
+            const exactResults = results.filter(result => {
+                if (
+                    setCode &&
+                    result.set !== setCode
+                ) {
+                    return false;
                 }
+
+                return true;
+            });
+
+            if (!exactResults.length) {
+                continue;
             }
 
-            if (exact.length > 0) {
-                return exact[0];
+            /*
+             * On préfère la langue demandée.
+             * Si cette langue n'existe pas dans cette édition,
+             * on conserve l'impression anglaise du bon set.
+             */
+            const match =
+                exactResults.find(result =>
+                    result.lang === langCode
+                ) ||
+                exactResults.find(result =>
+                    result.lang === "en"
+                ) ||
+                exactResults[0];
+
+            /*
+             * Sécurité absolue :
+             * une impression d'un autre set est refusée.
+             */
+            if (
+                setCode &&
+                match.set !== setCode
+            ) {
+                console.log(
+                    `❌ Mauvais set refusé pour ${cardName} : ` +
+                    `${match.set} au lieu de ${setCode}`
+                );
+
+                continue;
             }
+
+            return match;
+
         } catch (error) {
             if (error.response?.status === 404) {
                 continue;
