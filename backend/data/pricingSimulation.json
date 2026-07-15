@@ -41309,24 +41309,24 @@
     "referenceLanguage": "English",
     "referenceVersion": null,
     "referenceCardFound": false,
-    "estimatedPrice": 0,
+    "estimatedPrice": 3.4,
     "pricingModel": "standard_fallback_condition_ratio",
-    "marketAnchorPrice": 0,
+    "marketAnchorPrice": 3.4,
     "ratioUsed": 1.3598,
-    "confidence": 0,
+    "confidence": 35,
     "observationCount": 0,
-    "baseEstimatedPrice": 0,
+    "baseEstimatedPrice": 4.62,
     "estimatedByCondition": {
-      "NM": null,
-      "EX": null,
-      "GD": null,
-      "LP": null,
-      "PL": null,
-      "PO": null
+      "NM": 3.4,
+      "EX": 2.89,
+      "GD": 2.45,
+      "LP": 2.11,
+      "PL": 1.63,
+      "PO": 1.19
     },
     "buyTargetByCondition": {
-      "NM": null,
-      "EX": null
+      "NM": 3.06,
+      "EX": 2.54
     },
     "ratioByCondition": {
       "NM": 1,
@@ -41377,8 +41377,8 @@
       "PO": null
     },
     "averageObservationReliability": 0,
-    "gradeModelConfidence": 15,
-    "gradeModelSource": "global/edition ratios"
+    "gradeModelConfidence": 40,
+    "gradeModelSource": "anchor + global/edition ratios"
   },
   {
     "id": 1650,

@@ -128,11 +128,17 @@ function isHymnToTourach(card) {
 function isUngluedGoblinToken(card) {
     const cardName = cleanCardName(
         card.nomBase || card.nomCarte
-    ).toLowerCase();
+    )
+        .toLowerCase()
+        .replace(/\btoken\b/g, "")
+        .replace(/\bred\b/g, "")
+        .replace(/\b1\/1\b/g, "")
+        .replace(/[()]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 
-    const edition = normalize(
-        card.edition
-    ).toLowerCase();
+    const edition = normalize(card.edition)
+        .toLowerCase();
 
     return (
         cardName === "goblin" &&
@@ -219,12 +225,12 @@ async function searchScryfall(card, options = {}) {
     );
 
     const setCode =
-    options.forceSetCode ||
-    (
-        isUngluedGoblinToken(card)
-            ? "tugl"
-            : getSetCode(card.edition)
-    );
+        options.forceSetCode ||
+        (
+            isUngluedGoblinToken(card)
+                ? "tugl"
+                : getSetCode(card.edition)
+        );
 
     const langCode =
         options.forceLangCode ||
@@ -233,6 +239,26 @@ async function searchScryfall(card, options = {}) {
     console.log(
         `🔎 ${cardName} | ${card.edition} | set:${setCode || "-"} | lang:${langCode || "-"}`
     );
+
+    if (isUngluedGoblinToken(card)) {
+        const url =
+            "https://api.scryfall.com/cards/tugl/92";
+
+        try {
+            const response = await callScryfall(
+                url,
+                "Goblin Token Unglued"
+            );
+
+            if (response?.data) {
+                return response.data;
+            }
+        } catch (error) {
+            console.log(
+                `⚠️ Goblin token Unglued non trouvé : ${error.message}`
+            );
+        }
+    }
 
     if (
         isHymnToTourach(card) &&
