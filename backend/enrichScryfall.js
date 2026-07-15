@@ -52,6 +52,7 @@ const EDITION_TO_SCRYFALL_SET = {
     "Urzas Destiny": "uds",
 
     "Unglued": "ugl",
+    "Portal Second Age" : "p02",
 
     "Foreign White Bordered": "3ed",
     "Foreign White Border": "3ed",
