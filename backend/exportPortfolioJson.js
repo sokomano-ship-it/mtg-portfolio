@@ -341,6 +341,8 @@ function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
                 etat: card.etat,
                 version: card.version || null,
                 quantity: card.quantity || 1,
+                scryfallId: card.scryfallId || null,
+scryfallUri: card.scryfallUri || null,
 
                 currentEstimatedPrice: Number(currentEstimatedPrice.toFixed(2)),
                 lotValue: Number((currentEstimatedPrice * (card.quantity || 1)).toFixed(2)),

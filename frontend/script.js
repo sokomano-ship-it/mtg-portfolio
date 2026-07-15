@@ -593,13 +593,28 @@ function renderInvestmentAnalysis() {
     tbody.innerHTML = "";
 
     sortedRows.forEach(card => {
+        const scryfallUrl =
+            card.scryfallUri ||
+            (
+                card.scryfallId
+                    ? `https://scryfall.com/card/${card.scryfallId}`
+                    : null
+            );
+
         tbody.innerHTML += `
             <tr
-    onclick="showInvestmentDetails(${card.id})"
-    class="${Number(selectedInvestmentCardId) === Number(card.id) ? "selected-row" : ""}"
-    style="cursor:pointer;"
->
-                <td><strong>${escapeHtml(card.nomCarte || "-")}</strong></td>
+                onclick="showInvestmentDetails(${card.id})"
+                class="${
+                    Number(selectedInvestmentCardId) === Number(card.id)
+                        ? "selected-row"
+                        : ""
+                }"
+                style="cursor:pointer;"
+            >
+                <td>
+                    <strong>${escapeHtml(card.nomCarte || "-")}</strong>
+                </td>
+
                 <td>${escapeHtml(card.edition || "-")}</td>
                 <td>${escapeHtml(card.langue || "-")}</td>
                 <td>${escapeHtml(card.etat || "-")}</td>
@@ -638,6 +653,23 @@ function renderInvestmentAnalysis() {
                         card.confidence !== null &&
                         card.confidence !== undefined
                             ? `${Number(card.confidence).toFixed(0)} %`
+                            : "-"
+                    }
+                </td>
+
+                <td class="links">
+                    ${
+                        scryfallUrl
+                            ? `
+                                <a
+                                    href="${escapeHtml(scryfallUrl)}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onclick="event.stopPropagation()"
+                                >
+                                    Scryfall
+                                </a>
+                            `
                             : "-"
                     }
                 </td>
@@ -1871,6 +1903,14 @@ const opportunityScore =
     const bestOpportunity =
     getBestOpportunityCondition(card);
 
+    const scryfallUrl =
+    card.scryfallUri ||
+    (
+        card.scryfallId
+            ? `https://scryfall.com/card/${card.scryfallId}`
+            : null
+    );
+
 
         const reasons = Array.isArray(card.reasons)
             ? card.reasons.map(reason => "✅ " + escapeHtml(reason)).join("<br>")
@@ -1941,6 +1981,23 @@ const opportunityScore =
             : ""
     }
 </div>
+</td>
+
+<td class="links">
+    ${
+        scryfallUrl
+            ? `
+                <a
+                    href="${escapeHtml(scryfallUrl)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onclick="event.stopPropagation()"
+                >
+                    Scryfall
+                </a>
+            `
+            : "-"
+    }
 </td>
     </tr>
 `;
