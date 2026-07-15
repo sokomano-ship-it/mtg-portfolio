@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T17:16:36.108Z",
+  "generatedAt": "2026-07-15T17:17:35.425Z",
   "opportunities": [
     {
       "id": 1331,
@@ -181,6 +181,182 @@
       },
       "exPrice": 21.17,
       "observedExPrice": 15
+    },
+    {
+      "id": 1575,
+      "nomCarte": "Aura of Silence",
+      "nomBase": "Aura of Silence",
+      "version": null,
+      "edition": "Weatherlight",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "91212b98-6874-4b9c-8c61-2ea0204f9968",
+      "imageUrl": "https://cards.scryfall.io/normal/front/9/1/91212b98-6874-4b9c-8c61-2ea0204f9968.jpg?1783052649",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8691,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 7.24,
+      "lowPrice": 1.99,
+      "avgPrice": 5.89,
+      "avg1": 6.64,
+      "avg7": 6.62,
+      "avg30": 6.14,
+      "prixEtat": 7.24,
+      "estimatedPrice": 7.24,
+      "baseEstimatedPrice": 7.24,
+      "estimatedByCondition": {
+        "NM": 7.24,
+        "EX": 6.15,
+        "GD": 5.21,
+        "LP": 4.49,
+        "PL": 3.48,
+        "PO": 2.53
+      },
+      "buyTargetByCondition": {
+        "NM": 6.52,
+        "EX": 5.41
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 7.24,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Aura of Silence",
+      "referenceEdition": "Weatherlight",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM, EX",
+      "nmPrice": 7.24,
+      "estimatedNmPrice": 7.24,
+      "estimatedExPrice": 6.15,
+      "nmTargetPrice": 6.52,
+      "exTargetPrice": 5.41,
+      "trendVs30": 17.92,
+      "avg7Vs30": 7.82,
+      "avg1Vs7": 0.3,
+      "trendQuality": 90,
+      "momentumQuality": 75,
+      "remainingPotential": 85,
+      "timingScore": 98,
+      "riskMultiplier": 1,
+      "buyProbability": 86,
+      "convictionScore": 86,
+      "decision": "🟢 Achat fort",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 2,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 7.24,
+        "historyAgeDays": 0,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 7.24,
+        "low30d": 7.24,
+        "position30dPct": 100,
+        "high90d": 7.24,
+        "low90d": 7.24,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
     },
     {
       "id": 1330,
@@ -459,7 +635,7 @@
       "referenceEdition": "Fourth Edition",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -698,160 +874,6 @@
       },
       "exPrice": 6.8,
       "observedExPrice": 7
-    },
-    {
-      "id": 1575,
-      "nomCarte": "Aura of Silence",
-      "nomBase": "Aura of Silence",
-      "version": null,
-      "edition": "Weatherlight",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "91212b98-6874-4b9c-8c61-2ea0204f9968",
-      "imageUrl": "https://cards.scryfall.io/normal/front/9/1/91212b98-6874-4b9c-8c61-2ea0204f9968.jpg?1783052649",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 8691,
-      "createdAt": "2026-07-15 11:01:29",
-      "categorie": "Classeur4",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 7.24,
-      "lowPrice": 1.99,
-      "avgPrice": 5.89,
-      "avg1": 6.64,
-      "avg7": 6.62,
-      "avg30": 6.14,
-      "prixEtat": 7.24,
-      "estimatedPrice": 7.24,
-      "baseEstimatedPrice": 7.24,
-      "estimatedByCondition": {
-        "NM": 7.24,
-        "EX": 6.15,
-        "GD": 5.21,
-        "LP": 4.49,
-        "PL": 3.48,
-        "PO": 2.53
-      },
-      "buyTargetByCondition": {
-        "NM": 6.52,
-        "EX": 5.41
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 1.3598,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 7.24,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Aura of Silence",
-      "referenceEdition": "Weatherlight",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 2,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM, EX",
-      "nmPrice": 7.24,
-      "estimatedNmPrice": 7.24,
-      "estimatedExPrice": 6.15,
-      "nmTargetPrice": 6.52,
-      "exTargetPrice": 5.41,
-      "trendVs30": 17.92,
-      "avg7Vs30": 7.82,
-      "avg1Vs7": 0.3,
-      "trendQuality": 90,
-      "momentumQuality": 75,
-      "remainingPotential": 83,
-      "timingScore": 79,
-      "riskMultiplier": 1,
-      "buyProbability": 82,
-      "convictionScore": 82,
-      "decision": "🟡 Achat intéressant",
-      "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
     },
     {
       "id": 1172,
@@ -1141,7 +1163,7 @@
       "referenceEdition": "Alliances",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -2508,6 +2530,172 @@
       "observedExPrice": 4.9
     },
     {
+      "id": 1630,
+      "nomCarte": "Hermit Druid",
+      "nomBase": "Hermit Druid",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "cd322977-59e8-46aa-9573-829639c1619b",
+      "imageUrl": "https://cards.scryfall.io/normal/front/c/d/cd322977-59e8-46aa-9573-829639c1619b.jpg?1783049680",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9143,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 15.37,
+      "lowPrice": 7.5,
+      "avgPrice": 14.07,
+      "avg1": 18.97,
+      "avg7": 14.86,
+      "avg30": 13.88,
+      "prixEtat": 14.14,
+      "estimatedPrice": 13.06,
+      "baseEstimatedPrice": 13.06,
+      "estimatedByCondition": {
+        "NM": 15.37,
+        "EX": 13.06,
+        "GD": 11.07,
+        "LP": 9.53,
+        "PL": 7.38,
+        "PO": 5.38
+      },
+      "buyTargetByCondition": {
+        "NM": 13.83,
+        "EX": 11.49
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 15.37,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Hermit Druid",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 15.37,
+      "estimatedNmPrice": 15.37,
+      "estimatedExPrice": 13.06,
+      "nmTargetPrice": 13.83,
+      "exTargetPrice": 11.49,
+      "trendVs30": 10.73,
+      "avg7Vs30": 7.06,
+      "avg1Vs7": 27.66,
+      "trendQuality": 77,
+      "momentumQuality": 58,
+      "remainingPotential": 76,
+      "timingScore": 79,
+      "riskMultiplier": 1,
+      "buyProbability": 74,
+      "convictionScore": 74,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 15.37,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1336,
       "nomCarte": "Dust to Dust",
       "nomBase": "Dust to Dust",
@@ -2694,6 +2882,348 @@
       "observedExPrice": 12
     },
     {
+      "id": 1656,
+      "nomCarte": "Duress",
+      "nomBase": "Duress",
+      "version": null,
+      "edition": "Urza's Saga",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "626b8434-7357-4807-bd1d-342ad7745029",
+      "imageUrl": "https://cards.scryfall.io/normal/front/6/2/626b8434-7357-4807-bd1d-342ad7745029.jpg?1783047526",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 10339,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 3.21,
+      "lowPrice": 0.3,
+      "avgPrice": 2.98,
+      "avg1": 3.2,
+      "avg7": 2.93,
+      "avg30": 2.91,
+      "prixEtat": 3.21,
+      "estimatedPrice": 3.21,
+      "baseEstimatedPrice": 3.21,
+      "estimatedByCondition": {
+        "NM": 3.21,
+        "EX": 2.73,
+        "GD": 2.31,
+        "LP": 1.99,
+        "PL": 1.54,
+        "PO": 1.12
+      },
+      "buyTargetByCondition": {
+        "NM": 2.89,
+        "EX": 2.4
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 3.21,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Duress",
+      "referenceEdition": "Urza's Saga",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 3.21,
+      "estimatedNmPrice": 3.21,
+      "estimatedExPrice": 2.73,
+      "nmTargetPrice": 2.89,
+      "exTargetPrice": 2.4,
+      "trendVs30": 10.31,
+      "avg7Vs30": 0.69,
+      "avg1Vs7": 9.22,
+      "trendQuality": 74,
+      "momentumQuality": 80,
+      "remainingPotential": 88,
+      "timingScore": 91,
+      "riskMultiplier": 0.88,
+      "buyProbability": 73,
+      "convictionScore": 73,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 3.21,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1629,
+      "nomCarte": "Constant Mists",
+      "nomBase": "Constant Mists",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "392f6462-57a5-4202-9f06-ee2836306eaf",
+      "imageUrl": "https://cards.scryfall.io/normal/front/3/9/392f6462-57a5-4202-9f06-ee2836306eaf.jpg?1783049699",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9139,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 14.87,
+      "lowPrice": 8.45,
+      "avgPrice": 14.3,
+      "avg1": 16.5,
+      "avg7": 14.55,
+      "avg30": 14.14,
+      "prixEtat": 14.87,
+      "estimatedPrice": 14.87,
+      "baseEstimatedPrice": 14.87,
+      "estimatedByCondition": {
+        "NM": 14.87,
+        "EX": 12.64,
+        "GD": 10.71,
+        "LP": 9.22,
+        "PL": 7.14,
+        "PO": 5.2
+      },
+      "buyTargetByCondition": {
+        "NM": 13.38,
+        "EX": 11.12
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 14.87,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Constant Mists",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 3,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM, EX",
+      "nmPrice": 14.87,
+      "estimatedNmPrice": 14.87,
+      "estimatedExPrice": 12.64,
+      "nmTargetPrice": 13.38,
+      "exTargetPrice": 11.12,
+      "trendVs30": 5.16,
+      "avg7Vs30": 2.9,
+      "avg1Vs7": 13.4,
+      "trendQuality": 37,
+      "momentumQuality": 80,
+      "remainingPotential": 75,
+      "timingScore": 92,
+      "riskMultiplier": 1,
+      "buyProbability": 72,
+      "convictionScore": 72,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 14.87,
+        "historyAgeDays": 0,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 14.87,
+        "low30d": 14.87,
+        "position30dPct": 100,
+        "high90d": 14.87,
+        "low90d": 14.87,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1634,
       "nomCarte": "Mox Diamond",
       "nomBase": "Mox Diamond",
@@ -2795,7 +3325,7 @@
       "referenceEdition": "Stronghold",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -3231,314 +3761,6 @@
       "observedExPrice": 19.99
     },
     {
-      "id": 1630,
-      "nomCarte": "Hermit Druid",
-      "nomBase": "Hermit Druid",
-      "version": null,
-      "edition": "Stronghold",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "cd322977-59e8-46aa-9573-829639c1619b",
-      "imageUrl": "https://cards.scryfall.io/normal/front/c/d/cd322977-59e8-46aa-9573-829639c1619b.jpg?1783049680",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 9143,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 15.37,
-      "lowPrice": 7.5,
-      "avgPrice": 14.07,
-      "avg1": 18.97,
-      "avg7": 14.86,
-      "avg30": 13.88,
-      "prixEtat": 14.14,
-      "estimatedPrice": 13.06,
-      "baseEstimatedPrice": 13.06,
-      "estimatedByCondition": {
-        "NM": 15.37,
-        "EX": 13.06,
-        "GD": 11.07,
-        "LP": 9.53,
-        "PL": 7.38,
-        "PO": 5.38
-      },
-      "buyTargetByCondition": {
-        "NM": 13.83,
-        "EX": 11.49
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 0.9162,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 15.37,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Hermit Druid",
-      "referenceEdition": "Stronghold",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 15.37,
-      "estimatedNmPrice": 15.37,
-      "estimatedExPrice": 13.06,
-      "nmTargetPrice": 13.83,
-      "exTargetPrice": 11.49,
-      "trendVs30": 10.73,
-      "avg7Vs30": 7.06,
-      "avg1Vs7": 27.66,
-      "trendQuality": 77,
-      "momentumQuality": 58,
-      "remainingPotential": 74,
-      "timingScore": 69,
-      "riskMultiplier": 1,
-      "buyProbability": 71,
-      "convictionScore": 71,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
-      "id": 1656,
-      "nomCarte": "Duress",
-      "nomBase": "Duress",
-      "version": null,
-      "edition": "Urza's Saga",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "626b8434-7357-4807-bd1d-342ad7745029",
-      "imageUrl": "https://cards.scryfall.io/normal/front/6/2/626b8434-7357-4807-bd1d-342ad7745029.jpg?1783047526",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 10339,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 3.21,
-      "lowPrice": 0.3,
-      "avgPrice": 2.98,
-      "avg1": 3.2,
-      "avg7": 2.93,
-      "avg30": 2.91,
-      "prixEtat": 3.21,
-      "estimatedPrice": 3.21,
-      "baseEstimatedPrice": 3.21,
-      "estimatedByCondition": {
-        "NM": 3.21,
-        "EX": 2.73,
-        "GD": 2.31,
-        "LP": 1.99,
-        "PL": 1.54,
-        "PO": 1.12
-      },
-      "buyTargetByCondition": {
-        "NM": 2.89,
-        "EX": 2.4
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 1.3598,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 3.21,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Duress",
-      "referenceEdition": "Urza's Saga",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM",
-      "nmPrice": 3.21,
-      "estimatedNmPrice": 3.21,
-      "estimatedExPrice": 2.73,
-      "nmTargetPrice": 2.89,
-      "exTargetPrice": 2.4,
-      "trendVs30": 10.31,
-      "avg7Vs30": 0.69,
-      "avg1Vs7": 9.22,
-      "trendQuality": 74,
-      "momentumQuality": 80,
-      "remainingPotential": 86,
-      "timingScore": 81,
-      "riskMultiplier": 0.88,
-      "buyProbability": 71,
-      "convictionScore": 71,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
       "id": 1341,
       "nomCarte": "Swords to Plowshares",
       "nomBase": "Swords to Plowshares",
@@ -3723,6 +3945,358 @@
       },
       "exPrice": 3.83,
       "observedExPrice": 1.99
+    },
+    {
+      "id": 1540,
+      "nomCarte": "Enlightened Tutor",
+      "nomBase": "Enlightened Tutor",
+      "version": null,
+      "edition": "Mirage",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "55910297-921f-4c95-9ba5-92ca42d7d2e0",
+      "imageUrl": "https://cards.scryfall.io/normal/front/5/5/55910297-921f-4c95-9ba5-92ca42d7d2e0.jpg?1783057983",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8269,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 26.29,
+      "lowPrice": 21,
+      "avgPrice": 25.11,
+      "avg1": 27.45,
+      "avg7": 25.22,
+      "avg30": 25.09,
+      "prixEtat": 24.19,
+      "estimatedPrice": 22.35,
+      "baseEstimatedPrice": 22.35,
+      "estimatedByCondition": {
+        "NM": 26.29,
+        "EX": 22.35,
+        "GD": 18.93,
+        "LP": 16.3,
+        "PL": 12.62,
+        "PO": 9.2
+      },
+      "buyTargetByCondition": {
+        "NM": 23.66,
+        "EX": 19.67
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 26.29,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Enlightened Tutor",
+      "referenceEdition": "Mirage",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 26.29,
+      "estimatedNmPrice": 26.29,
+      "estimatedExPrice": 22.35,
+      "nmTargetPrice": 23.66,
+      "exTargetPrice": 19.67,
+      "trendVs30": 4.78,
+      "avg7Vs30": 0.52,
+      "avg1Vs7": 8.84,
+      "trendQuality": 34,
+      "momentumQuality": 80,
+      "remainingPotential": 74,
+      "timingScore": 89,
+      "riskMultiplier": 1,
+      "buyProbability": 70,
+      "convictionScore": 70,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 2,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 26.29,
+        "historyAgeDays": 0,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 26.29,
+        "low30d": 26.29,
+        "position30dPct": 100,
+        "high90d": 26.29,
+        "low90d": 26.29,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1541,
+      "nomCarte": "Mystical Tutor",
+      "nomBase": "Mystical Tutor",
+      "version": null,
+      "edition": "Mirage",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "21c64781-463d-4e2b-ab67-875b1629a922",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/1/21c64781-463d-4e2b-ab67-875b1629a922.jpg?1783057743",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8131,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 10.41,
+      "lowPrice": 6,
+      "avgPrice": 9.87,
+      "avg1": 10.99,
+      "avg7": 10,
+      "avg30": 9.94,
+      "prixEtat": 9.58,
+      "estimatedPrice": 8.85,
+      "baseEstimatedPrice": 8.85,
+      "estimatedByCondition": {
+        "NM": 10.41,
+        "EX": 8.85,
+        "GD": 7.5,
+        "LP": 6.45,
+        "PL": 5,
+        "PO": 3.64
+      },
+      "buyTargetByCondition": {
+        "NM": 9.37,
+        "EX": 7.79
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 10.41,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mystical Tutor",
+      "referenceEdition": "Mirage",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 10.41,
+      "estimatedNmPrice": 10.41,
+      "estimatedExPrice": 8.85,
+      "nmTargetPrice": 9.37,
+      "exTargetPrice": 7.79,
+      "trendVs30": 4.73,
+      "avg7Vs30": 0.6,
+      "avg1Vs7": 9.9,
+      "trendQuality": 34,
+      "momentumQuality": 80,
+      "remainingPotential": 74,
+      "timingScore": 89,
+      "riskMultiplier": 1,
+      "buyProbability": 70,
+      "convictionScore": 70,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        }
+      ],
+      "historical": {
+        "historyPoints": 2,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 10.41,
+        "historyAgeDays": 0,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 10.41,
+        "low30d": 10.41,
+        "position30dPct": 100,
+        "high90d": 10.41,
+        "low90d": 10.41,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
     },
     {
       "id": 1344,
@@ -4288,160 +4862,6 @@
       "observedExPrice": 1
     },
     {
-      "id": 1629,
-      "nomCarte": "Constant Mists",
-      "nomBase": "Constant Mists",
-      "version": null,
-      "edition": "Stronghold",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "392f6462-57a5-4202-9f06-ee2836306eaf",
-      "imageUrl": "https://cards.scryfall.io/normal/front/3/9/392f6462-57a5-4202-9f06-ee2836306eaf.jpg?1783049699",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 9139,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 14.87,
-      "lowPrice": 8.45,
-      "avgPrice": 14.3,
-      "avg1": 16.5,
-      "avg7": 14.55,
-      "avg30": 14.14,
-      "prixEtat": 14.87,
-      "estimatedPrice": 14.87,
-      "baseEstimatedPrice": 14.87,
-      "estimatedByCondition": {
-        "NM": 14.87,
-        "EX": 12.64,
-        "GD": 10.71,
-        "LP": 9.22,
-        "PL": 7.14,
-        "PO": 5.2
-      },
-      "buyTargetByCondition": {
-        "NM": 13.38,
-        "EX": 11.12
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 1.3598,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 14.87,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Constant Mists",
-      "referenceEdition": "Stronghold",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 3,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM, EX",
-      "nmPrice": 14.87,
-      "estimatedNmPrice": 14.87,
-      "estimatedExPrice": 12.64,
-      "nmTargetPrice": 13.38,
-      "exTargetPrice": 11.12,
-      "trendVs30": 5.16,
-      "avg7Vs30": 2.9,
-      "avg1Vs7": 13.4,
-      "trendQuality": 37,
-      "momentumQuality": 80,
-      "remainingPotential": 73,
-      "timingScore": 71,
-      "riskMultiplier": 1,
-      "buyProbability": 67,
-      "convictionScore": 67,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
       "id": 1437,
       "nomCarte": "Serendib Djinn",
       "nomBase": "Serendib Djinn",
@@ -4628,42 +5048,42 @@
       "observedExPrice": 125
     },
     {
-      "id": 1540,
-      "nomCarte": "Enlightened Tutor",
-      "nomBase": "Enlightened Tutor",
+      "id": 1633,
+      "nomCarte": "Heartstone",
+      "nomBase": "Heartstone",
       "version": null,
-      "edition": "Mirage",
+      "edition": "Stronghold",
       "langue": "French",
       "etat": "EX",
-      "scryfallId": "55910297-921f-4c95-9ba5-92ca42d7d2e0",
-      "imageUrl": "https://cards.scryfall.io/normal/front/5/5/55910297-921f-4c95-9ba5-92ca42d7d2e0.jpg?1783057983",
+      "scryfallId": "218173e6-6a09-45a4-b46b-de259d5a7aa1",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/1/218173e6-6a09-45a4-b46b-de259d5a7aa1.jpg?1783049563",
       "priceUsd": null,
       "priceEur": null,
-      "cardmarketId": 8269,
-      "createdAt": "2026-07-15 11:01:29",
-      "categorie": "Classeur4",
+      "cardmarketId": 9213,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
       "isActive": 1,
       "removedAt": null,
-      "trendPrice": 26.29,
-      "lowPrice": 21,
-      "avgPrice": 25.11,
-      "avg1": 27.45,
-      "avg7": 25.22,
-      "avg30": 25.09,
-      "prixEtat": 24.19,
-      "estimatedPrice": 22.35,
-      "baseEstimatedPrice": 22.35,
+      "trendPrice": 1.36,
+      "lowPrice": 0.25,
+      "avgPrice": 1.32,
+      "avg1": 1.59,
+      "avg7": 1.41,
+      "avg30": 1.27,
+      "prixEtat": 1.25,
+      "estimatedPrice": 1.16,
+      "baseEstimatedPrice": 1.16,
       "estimatedByCondition": {
-        "NM": 26.29,
-        "EX": 22.35,
-        "GD": 18.93,
-        "LP": 16.3,
-        "PL": 12.62,
-        "PO": 9.2
+        "NM": 1.36,
+        "EX": 1.16,
+        "GD": 0.98,
+        "LP": 0.84,
+        "PL": 0.65,
+        "PO": 0.48
       },
       "buyTargetByCondition": {
-        "NM": 23.66,
-        "EX": 19.67
+        "NM": 1.22,
+        "EX": 1.02
       },
       "ratioByCondition": {
         "NM": 1,
@@ -4720,44 +5140,43 @@
       "pricingConfidence": 40,
       "pricingRatio": 0.9162,
       "pricingObservationCount": 0,
-      "marketAnchorPrice": 26.29,
+      "marketAnchorPrice": 1.36,
       "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_printing_market",
       "marketReferenceRole": "level_and_evolution",
       "usesExternalReference": false,
-      "referenceName": "Enlightened Tutor",
-      "referenceEdition": "Mirage",
+      "referenceName": "Heartstone",
+      "referenceEdition": "Stronghold",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 2,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
       "ownedStates": "EX",
-      "nmPrice": 26.29,
-      "estimatedNmPrice": 26.29,
-      "estimatedExPrice": 22.35,
-      "nmTargetPrice": 23.66,
-      "exTargetPrice": 19.67,
-      "trendVs30": 4.78,
-      "avg7Vs30": 0.52,
-      "avg1Vs7": 8.84,
-      "trendQuality": 34,
+      "nmPrice": 1.36,
+      "estimatedNmPrice": 1.36,
+      "estimatedExPrice": 1.16,
+      "nmTargetPrice": 1.22,
+      "exTargetPrice": 1.02,
+      "trendVs30": 7.09,
+      "avg7Vs30": 11.02,
+      "avg1Vs7": 12.77,
+      "trendQuality": 51,
       "momentumQuality": 80,
-      "remainingPotential": 72,
-      "timingScore": 70,
-      "riskMultiplier": 1,
+      "remainingPotential": 80,
+      "timingScore": 85,
+      "riskMultiplier": 0.88,
       "buyProbability": 66,
       "convictionScore": 66,
       "decision": "👀 Surveillance",
       "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
+        "Momentum propre"
       ],
       "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
+        "Historique encore court",
+        "Carte peu chère"
       ],
       "explanation": [
         {
@@ -4765,173 +5184,32 @@
           "text": "Momentum propre"
         },
         {
-          "type": "positive",
-          "text": "Prix NM significatif"
+          "type": "warning",
+          "text": "Historique encore court"
         },
         {
           "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
+          "text": "Carte peu chère"
         }
       ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
-      "id": 1541,
-      "nomCarte": "Mystical Tutor",
-      "nomBase": "Mystical Tutor",
-      "version": null,
-      "edition": "Mirage",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "21c64781-463d-4e2b-ab67-875b1629a922",
-      "imageUrl": "https://cards.scryfall.io/normal/front/2/1/21c64781-463d-4e2b-ab67-875b1629a922.jpg?1783057743",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 8131,
-      "createdAt": "2026-07-15 11:01:29",
-      "categorie": "Classeur4",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 10.41,
-      "lowPrice": 6,
-      "avgPrice": 9.87,
-      "avg1": 10.99,
-      "avg7": 10,
-      "avg30": 9.94,
-      "prixEtat": 9.58,
-      "estimatedPrice": 8.85,
-      "baseEstimatedPrice": 8.85,
-      "estimatedByCondition": {
-        "NM": 10.41,
-        "EX": 8.85,
-        "GD": 7.5,
-        "LP": 6.45,
-        "PL": 5,
-        "PO": 3.64
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 1.36,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
       },
-      "buyTargetByCondition": {
-        "NM": 9.37,
-        "EX": 7.79
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 0.9162,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 10.41,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Mystical Tutor",
-      "referenceEdition": "Mirage",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 2,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 10.41,
-      "estimatedNmPrice": 10.41,
-      "estimatedExPrice": 8.85,
-      "nmTargetPrice": 9.37,
-      "exTargetPrice": 7.79,
-      "trendVs30": 4.73,
-      "avg7Vs30": 0.6,
-      "avg1Vs7": 9.9,
-      "trendQuality": 34,
-      "momentumQuality": 80,
-      "remainingPotential": 72,
-      "timingScore": 70,
-      "riskMultiplier": 1,
-      "buyProbability": 66,
-      "convictionScore": 66,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        }
-      ],
-      "historical": null,
       "exPrice": null,
       "observedExPrice": null
     },
@@ -5037,7 +5315,7 @@
       "referenceEdition": "Urza's Saga",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -5384,7 +5662,7 @@
       "referenceEdition": "Renaissance",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -5459,6 +5737,177 @@
         "high90d": 1.89,
         "low90d": 1.89,
         "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1632,
+      "nomCarte": "Horn of Greed",
+      "nomBase": "Horn of Greed",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "fa7fee4d-5098-4a27-b7b4-116b50e5c1f7",
+      "imageUrl": "https://cards.scryfall.io/normal/front/f/a/fa7fee4d-5098-4a27-b7b4-116b50e5c1f7.jpg?1783049558",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9214,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 14.82,
+      "lowPrice": 8,
+      "avgPrice": 14.21,
+      "avg1": 13.95,
+      "avg7": 14.82,
+      "avg30": 13.39,
+      "prixEtat": 14.82,
+      "estimatedPrice": 14.82,
+      "baseEstimatedPrice": 14.82,
+      "estimatedByCondition": {
+        "NM": 14.82,
+        "EX": 12.6,
+        "GD": 10.67,
+        "LP": 9.19,
+        "PL": 7.11,
+        "PO": 5.19
+      },
+      "buyTargetByCondition": {
+        "NM": 13.34,
+        "EX": 11.09
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 14.82,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Horn of Greed",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 14.82,
+      "estimatedNmPrice": 14.82,
+      "estimatedExPrice": 12.6,
+      "nmTargetPrice": 13.34,
+      "exTargetPrice": 11.09,
+      "trendVs30": 10.68,
+      "avg7Vs30": 10.68,
+      "avg1Vs7": -5.87,
+      "trendQuality": 76,
+      "momentumQuality": 22,
+      "remainingPotential": 73,
+      "timingScore": 77,
+      "riskMultiplier": 1,
+      "buyProbability": 65,
+      "convictionScore": 65,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum positif",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 14.82,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
       },
       "exPrice": null,
       "observedExPrice": null
@@ -5922,7 +6371,7 @@
       "referenceEdition": "Fourth Edition",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -5992,6 +6441,172 @@
         "high90d": 5.64,
         "low90d": 5.48,
         "position90dPct": 0
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1596,
+      "nomCarte": "Horned Sliver",
+      "nomBase": "Horned Sliver",
+      "version": null,
+      "edition": "Tempest",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "e3d71b21-cd02-43f5-81dd-ffbb48e30f36",
+      "imageUrl": "https://cards.scryfall.io/normal/front/e/3/e3d71b21-cd02-43f5-81dd-ffbb48e30f36.jpg?1783050742",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8863,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 3.62,
+      "lowPrice": 1.55,
+      "avgPrice": 3.27,
+      "avg1": 3.99,
+      "avg7": 3.73,
+      "avg30": 3.4,
+      "prixEtat": 3.33,
+      "estimatedPrice": 3.08,
+      "baseEstimatedPrice": 3.08,
+      "estimatedByCondition": {
+        "NM": 3.62,
+        "EX": 3.08,
+        "GD": 2.61,
+        "LP": 2.24,
+        "PL": 1.74,
+        "PO": 1.27
+      },
+      "buyTargetByCondition": {
+        "NM": 3.26,
+        "EX": 2.71
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 3.62,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Horned Sliver",
+      "referenceEdition": "Tempest",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 3.62,
+      "estimatedNmPrice": 3.62,
+      "estimatedExPrice": 3.08,
+      "nmTargetPrice": 3.26,
+      "exTargetPrice": 2.71,
+      "trendVs30": 6.47,
+      "avg7Vs30": 9.71,
+      "avg1Vs7": 6.97,
+      "trendQuality": 46,
+      "momentumQuality": 80,
+      "remainingPotential": 78,
+      "timingScore": 83,
+      "riskMultiplier": 0.88,
+      "buyProbability": 64,
+      "convictionScore": 64,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 3.62,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
       },
       "exPrice": null,
       "observedExPrice": null
@@ -6741,160 +7356,6 @@
       "observedExPrice": 2
     },
     {
-      "id": 1633,
-      "nomCarte": "Heartstone",
-      "nomBase": "Heartstone",
-      "version": null,
-      "edition": "Stronghold",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "218173e6-6a09-45a4-b46b-de259d5a7aa1",
-      "imageUrl": "https://cards.scryfall.io/normal/front/2/1/218173e6-6a09-45a4-b46b-de259d5a7aa1.jpg?1783049563",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 9213,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 1.36,
-      "lowPrice": 0.25,
-      "avgPrice": 1.32,
-      "avg1": 1.59,
-      "avg7": 1.41,
-      "avg30": 1.27,
-      "prixEtat": 1.25,
-      "estimatedPrice": 1.16,
-      "baseEstimatedPrice": 1.16,
-      "estimatedByCondition": {
-        "NM": 1.36,
-        "EX": 1.16,
-        "GD": 0.98,
-        "LP": 0.84,
-        "PL": 0.65,
-        "PO": 0.48
-      },
-      "buyTargetByCondition": {
-        "NM": 1.22,
-        "EX": 1.02
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 0.9162,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 1.36,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Heartstone",
-      "referenceEdition": "Stronghold",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 1.36,
-      "estimatedNmPrice": 1.36,
-      "estimatedExPrice": 1.16,
-      "nmTargetPrice": 1.22,
-      "exTargetPrice": 1.02,
-      "trendVs30": 7.09,
-      "avg7Vs30": 11.02,
-      "avg1Vs7": 12.77,
-      "trendQuality": 51,
-      "momentumQuality": 80,
-      "remainingPotential": 78,
-      "timingScore": 75,
-      "riskMultiplier": 0.88,
-      "buyProbability": 63,
-      "convictionScore": 63,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
       "id": 1561,
       "nomCarte": "Anvil of Bogardan",
       "nomBase": "Anvil of Bogardan",
@@ -6996,7 +7457,7 @@
       "referenceEdition": "Visions",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -7106,8 +7567,8 @@
       "ratioByCondition": {
         "NM": 1,
         "EX": 0.7059,
-        "GD": 0.6459,
-        "LP": 0.5815,
+        "GD": 0.6461,
+        "LP": 0.5817,
         "PL": 0.4344,
         "PO": 0.4344
       },
@@ -7156,10 +7617,10 @@
       "observationRowsCount": 6,
       "pricingModel": "edition_observed_condition_ratio",
       "pricingConfidence": 59,
-      "pricingRatio": 0.1089,
+      "pricingRatio": 0.1071,
       "pricingObservationCount": 1,
       "marketAnchorPrice": 27.92,
-      "referenceMarketAnchorPrice": 27.46,
+      "referenceMarketAnchorPrice": 27.92,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -7244,319 +7705,6 @@
       },
       "exPrice": 4.24,
       "observedExPrice": 2.99
-    },
-    {
-      "id": 1632,
-      "nomCarte": "Horn of Greed",
-      "nomBase": "Horn of Greed",
-      "version": null,
-      "edition": "Stronghold",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "fa7fee4d-5098-4a27-b7b4-116b50e5c1f7",
-      "imageUrl": "https://cards.scryfall.io/normal/front/f/a/fa7fee4d-5098-4a27-b7b4-116b50e5c1f7.jpg?1783049558",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 9214,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 14.82,
-      "lowPrice": 8,
-      "avgPrice": 14.21,
-      "avg1": 13.95,
-      "avg7": 14.82,
-      "avg30": 13.39,
-      "prixEtat": 14.82,
-      "estimatedPrice": 14.82,
-      "baseEstimatedPrice": 14.82,
-      "estimatedByCondition": {
-        "NM": 14.82,
-        "EX": 12.6,
-        "GD": 10.67,
-        "LP": 9.19,
-        "PL": 7.11,
-        "PO": 5.19
-      },
-      "buyTargetByCondition": {
-        "NM": 13.34,
-        "EX": 11.09
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 1.3598,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 14.82,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Horn of Greed",
-      "referenceEdition": "Stronghold",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM",
-      "nmPrice": 14.82,
-      "estimatedNmPrice": 14.82,
-      "estimatedExPrice": 12.6,
-      "nmTargetPrice": 13.34,
-      "exTargetPrice": 11.09,
-      "trendVs30": 10.68,
-      "avg7Vs30": 10.68,
-      "avg1Vs7": -5.87,
-      "trendQuality": 76,
-      "momentumQuality": 22,
-      "remainingPotential": 71,
-      "timingScore": 67,
-      "riskMultiplier": 1,
-      "buyProbability": 62,
-      "convictionScore": 62,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum positif",
-        "Prix NM significatif"
-      ],
-      "warnings": [
-        "Momentum négatif",
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "positive",
-          "text": "Prix NM significatif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
-      "id": 1596,
-      "nomCarte": "Horned Sliver",
-      "nomBase": "Horned Sliver",
-      "version": null,
-      "edition": "Tempest",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "e3d71b21-cd02-43f5-81dd-ffbb48e30f36",
-      "imageUrl": "https://cards.scryfall.io/normal/front/e/3/e3d71b21-cd02-43f5-81dd-ffbb48e30f36.jpg?1783050742",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 8863,
-      "createdAt": "2026-07-15 11:01:29",
-      "categorie": "Classeur4",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 3.62,
-      "lowPrice": 1.55,
-      "avgPrice": 3.27,
-      "avg1": 3.99,
-      "avg7": 3.73,
-      "avg30": 3.4,
-      "prixEtat": 3.33,
-      "estimatedPrice": 3.08,
-      "baseEstimatedPrice": 3.08,
-      "estimatedByCondition": {
-        "NM": 3.62,
-        "EX": 3.08,
-        "GD": 2.61,
-        "LP": 2.24,
-        "PL": 1.74,
-        "PO": 1.27
-      },
-      "buyTargetByCondition": {
-        "NM": 3.26,
-        "EX": 2.71
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 0.9162,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 3.62,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Horned Sliver",
-      "referenceEdition": "Tempest",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 3.62,
-      "estimatedNmPrice": 3.62,
-      "estimatedExPrice": 3.08,
-      "nmTargetPrice": 3.26,
-      "exTargetPrice": 2.71,
-      "trendVs30": 6.47,
-      "avg7Vs30": 9.71,
-      "avg1Vs7": 6.97,
-      "trendQuality": 46,
-      "momentumQuality": 80,
-      "remainingPotential": 76,
-      "timingScore": 73,
-      "riskMultiplier": 0.88,
-      "buyProbability": 62,
-      "convictionScore": 62,
-      "decision": "👀 Surveillance",
-      "reasons": [
-        "Momentum propre"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
     },
     {
       "id": 1286,
@@ -8293,6 +8441,172 @@
       "observedExPrice": 4
     },
     {
+      "id": 1628,
+      "nomCarte": "Burgeoning",
+      "nomBase": "Burgeoning",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "5389044d-9faf-4088-9051-495e65fb2bd3",
+      "imageUrl": "https://cards.scryfall.io/normal/front/5/3/5389044d-9faf-4088-9051-495e65fb2bd3.jpg?1783049708",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9137,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 22.77,
+      "lowPrice": 16.45,
+      "avgPrice": 22.68,
+      "avg1": 23.07,
+      "avg7": 22.71,
+      "avg30": 22.31,
+      "prixEtat": 22.77,
+      "estimatedPrice": 22.77,
+      "baseEstimatedPrice": 22.77,
+      "estimatedByCondition": {
+        "NM": 22.77,
+        "EX": 19.35,
+        "GD": 16.39,
+        "LP": 14.12,
+        "PL": 10.93,
+        "PO": 7.97
+      },
+      "buyTargetByCondition": {
+        "NM": 20.49,
+        "EX": 17.03
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 22.77,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Burgeoning",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 22.77,
+      "estimatedNmPrice": 22.77,
+      "estimatedExPrice": 19.35,
+      "nmTargetPrice": 20.49,
+      "exTargetPrice": 17.03,
+      "trendVs30": 2.06,
+      "avg7Vs30": 1.79,
+      "avg1Vs7": 1.59,
+      "trendQuality": 15,
+      "momentumQuality": 79,
+      "remainingPotential": 67,
+      "timingScore": 74,
+      "riskMultiplier": 1,
+      "buyProbability": 61,
+      "convictionScore": 61,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre",
+        "Prix NM significatif"
+      ],
+      "warnings": [
+        "Historique encore court"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Prix NM significatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 22.77,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1406,
       "nomCarte": "Psionic Blast",
       "nomBase": "Psionic Blast",
@@ -9017,6 +9331,172 @@
       "observedExPrice": 17
     },
     {
+      "id": 1588,
+      "nomCarte": "Counterspell",
+      "nomBase": "Counterspell",
+      "version": null,
+      "edition": "Tempest",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "fbe63040-b69b-4494-81cb-7f099c0ca23c",
+      "imageUrl": "https://cards.scryfall.io/normal/front/f/b/fbe63040-b69b-4494-81cb-7f099c0ca23c.jpg?1783051613",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8792,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.72,
+      "lowPrice": 0.25,
+      "avgPrice": 1.57,
+      "avg1": 1.74,
+      "avg7": 1.72,
+      "avg30": 1.64,
+      "prixEtat": 1.72,
+      "estimatedPrice": 1.72,
+      "baseEstimatedPrice": 1.72,
+      "estimatedByCondition": {
+        "NM": 1.72,
+        "EX": 1.46,
+        "GD": 1.24,
+        "LP": 1.07,
+        "PL": 0.83,
+        "PO": 0.6
+      },
+      "buyTargetByCondition": {
+        "NM": 1.55,
+        "EX": 1.28
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.72,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Counterspell",
+      "referenceEdition": "Tempest",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 1.72,
+      "estimatedNmPrice": 1.72,
+      "estimatedExPrice": 1.46,
+      "nmTargetPrice": 1.55,
+      "exTargetPrice": 1.28,
+      "trendVs30": 4.88,
+      "avg7Vs30": 4.88,
+      "avg1Vs7": 1.16,
+      "trendQuality": 35,
+      "momentumQuality": 78,
+      "remainingPotential": 74,
+      "timingScore": 80,
+      "riskMultiplier": 0.88,
+      "buyProbability": 60,
+      "convictionScore": 60,
+      "decision": "👀 Surveillance",
+      "reasons": [
+        "Momentum propre"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 1.72,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1452,
       "nomCarte": "Creature Bond",
       "nomBase": "Creature Bond",
@@ -9371,6 +9851,182 @@
       },
       "exPrice": 30,
       "observedExPrice": 30
+    },
+    {
+      "id": 1627,
+      "nomCarte": "Mogg Infestation",
+      "nomBase": "Mogg Infestation",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "b6e98148-af0f-4e41-bb8b-b561b6515886",
+      "imageUrl": "https://cards.scryfall.io/normal/front/b/6/b6e98148-af0f-4e41-bb8b-b561b6515886.jpg?1783049750",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9178,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 3.54,
+      "lowPrice": 1.44,
+      "avgPrice": 3.55,
+      "avg1": 3.94,
+      "avg7": 3.71,
+      "avg30": 3.42,
+      "prixEtat": 3.26,
+      "estimatedPrice": 3.01,
+      "baseEstimatedPrice": 3.01,
+      "estimatedByCondition": {
+        "NM": 3.54,
+        "EX": 3.01,
+        "GD": 2.55,
+        "LP": 2.19,
+        "PL": 1.7,
+        "PO": 1.24
+      },
+      "buyTargetByCondition": {
+        "NM": 3.19,
+        "EX": 2.65
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 3.54,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mogg Infestation",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 2,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 3.54,
+      "estimatedNmPrice": 3.54,
+      "estimatedExPrice": 3.01,
+      "nmTargetPrice": 3.19,
+      "exTargetPrice": 2.65,
+      "trendVs30": 3.51,
+      "avg7Vs30": 8.48,
+      "avg1Vs7": 6.2,
+      "trendQuality": 25,
+      "momentumQuality": 80,
+      "remainingPotential": 71,
+      "timingScore": 87,
+      "riskMultiplier": 0.88,
+      "buyProbability": 59,
+      "convictionScore": 59,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum propre",
+        "Timing renforcé par une volatilité faible"
+      ],
+      "warnings": [
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Timing moins bon : proche du plus haut 90 jours"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 2,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 3.54,
+        "historyAgeDays": 0,
+        "uptrendDays": 1,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 3.54,
+        "low30d": 3.54,
+        "position30dPct": 100,
+        "high90d": 3.54,
+        "low90d": 3.54,
+        "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
     },
     {
       "id": 1200,
@@ -9735,42 +10391,42 @@
       "observedExPrice": 1.4
     },
     {
-      "id": 1628,
-      "nomCarte": "Burgeoning",
-      "nomBase": "Burgeoning",
+      "id": 1606,
+      "nomCarte": "Ancient Tomb",
+      "nomBase": "Ancient Tomb",
       "version": null,
-      "edition": "Stronghold",
+      "edition": "Tempest",
       "langue": "French",
       "etat": "NM",
-      "scryfallId": "5389044d-9faf-4088-9051-495e65fb2bd3",
-      "imageUrl": "https://cards.scryfall.io/normal/front/5/3/5389044d-9faf-4088-9051-495e65fb2bd3.jpg?1783049708",
+      "scryfallId": "28916227-215f-409a-868b-3feb653838a6",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/8/28916227-215f-409a-868b-3feb653838a6.jpg?1783050354",
       "priceUsd": null,
       "priceEur": null,
-      "cardmarketId": 9137,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
+      "cardmarketId": 9040,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
       "isActive": 1,
       "removedAt": null,
-      "trendPrice": 22.77,
-      "lowPrice": 16.45,
-      "avgPrice": 22.68,
-      "avg1": 23.07,
-      "avg7": 22.71,
-      "avg30": 22.31,
-      "prixEtat": 22.77,
-      "estimatedPrice": 22.77,
-      "baseEstimatedPrice": 22.77,
+      "trendPrice": 98.79,
+      "lowPrice": 70,
+      "avgPrice": 94.72,
+      "avg1": 125.24,
+      "avg7": 101.21,
+      "avg30": 96.15,
+      "prixEtat": 98.79,
+      "estimatedPrice": 98.79,
+      "baseEstimatedPrice": 98.79,
       "estimatedByCondition": {
-        "NM": 22.77,
-        "EX": 19.35,
-        "GD": 16.39,
-        "LP": 14.12,
-        "PL": 10.93,
-        "PO": 7.97
+        "NM": 98.79,
+        "EX": 83.97,
+        "GD": 71.13,
+        "LP": 61.25,
+        "PL": 47.42,
+        "PO": 34.58
       },
       "buyTargetByCondition": {
-        "NM": 20.49,
-        "EX": 17.03
+        "NM": 88.91,
+        "EX": 73.89
       },
       "ratioByCondition": {
         "NM": 1,
@@ -9827,49 +10483,54 @@
       "pricingConfidence": 40,
       "pricingRatio": 1.3598,
       "pricingObservationCount": 0,
-      "marketAnchorPrice": 22.77,
+      "marketAnchorPrice": 98.79,
       "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_printing_market",
       "marketReferenceRole": "level_and_evolution",
       "usesExternalReference": false,
-      "referenceName": "Burgeoning",
-      "referenceEdition": "Stronghold",
+      "referenceName": "Ancient Tomb",
+      "referenceEdition": "Tempest",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
+      "referenceCardFound": true,
+      "quantityOwned": 2,
       "owned": true,
       "ownedLabel": "Oui",
       "ownedStatesSet": {},
       "ownedStates": "NM",
-      "nmPrice": 22.77,
-      "estimatedNmPrice": 22.77,
-      "estimatedExPrice": 19.35,
-      "nmTargetPrice": 20.49,
-      "exTargetPrice": 17.03,
-      "trendVs30": 2.06,
-      "avg7Vs30": 1.79,
-      "avg1Vs7": 1.59,
-      "trendQuality": 15,
-      "momentumQuality": 79,
-      "remainingPotential": 65,
-      "timingScore": 64,
+      "nmPrice": 98.79,
+      "estimatedNmPrice": 98.79,
+      "estimatedExPrice": 83.97,
+      "nmTargetPrice": 88.91,
+      "exTargetPrice": 73.89,
+      "trendVs30": 2.75,
+      "avg7Vs30": 5.26,
+      "avg1Vs7": 23.74,
+      "trendQuality": 20,
+      "momentumQuality": 65,
+      "remainingPotential": 60,
+      "timingScore": 77,
       "riskMultiplier": 1,
       "buyProbability": 58,
       "convictionScore": 58,
       "decision": "Ignorer",
       "reasons": [
         "Momentum propre",
+        "Timing renforcé par une volatilité faible",
         "Prix NM significatif"
       ],
       "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique"
+        "Historique encore court",
+        "Timing moins bon : proche du plus haut 90 jours"
       ],
       "explanation": [
         {
           "type": "positive",
           "text": "Momentum propre"
+        },
+        {
+          "type": "positive",
+          "text": "Timing renforcé par une volatilité faible"
         },
         {
           "type": "positive",
@@ -9877,168 +10538,31 @@
         },
         {
           "type": "warning",
-          "text": "Pas encore assez d'historique interne"
+          "text": "Historique encore court"
         },
         {
           "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
+          "text": "Timing moins bon : proche du plus haut 90 jours"
         }
       ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
-      "id": 1588,
-      "nomCarte": "Counterspell",
-      "nomBase": "Counterspell",
-      "version": null,
-      "edition": "Tempest",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "fbe63040-b69b-4494-81cb-7f099c0ca23c",
-      "imageUrl": "https://cards.scryfall.io/normal/front/f/b/fbe63040-b69b-4494-81cb-7f099c0ca23c.jpg?1783051613",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 8792,
-      "createdAt": "2026-07-15 11:01:29",
-      "categorie": "Classeur4",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 1.72,
-      "lowPrice": 0.25,
-      "avgPrice": 1.57,
-      "avg1": 1.74,
-      "avg7": 1.72,
-      "avg30": 1.64,
-      "prixEtat": 1.72,
-      "estimatedPrice": 1.72,
-      "baseEstimatedPrice": 1.72,
-      "estimatedByCondition": {
-        "NM": 1.72,
-        "EX": 1.46,
-        "GD": 1.24,
-        "LP": 1.07,
-        "PL": 0.83,
-        "PO": 0.6
+      "historical": {
+        "historyPoints": 3,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 98.79,
+        "historyAgeDays": 0,
+        "uptrendDays": 2,
+        "positiveDaysRatio30": 100,
+        "slope30PerDay": 0,
+        "acceleration": null,
+        "volatility30": 0,
+        "high30d": 98.79,
+        "low30d": 98.79,
+        "position30dPct": 100,
+        "high90d": 98.79,
+        "low90d": 98.79,
+        "position90dPct": 100
       },
-      "buyTargetByCondition": {
-        "NM": 1.55,
-        "EX": 1.28
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 1.3598,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 1.72,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Counterspell",
-      "referenceEdition": "Tempest",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM",
-      "nmPrice": 1.72,
-      "estimatedNmPrice": 1.72,
-      "estimatedExPrice": 1.46,
-      "nmTargetPrice": 1.55,
-      "exTargetPrice": 1.28,
-      "trendVs30": 4.88,
-      "avg7Vs30": 4.88,
-      "avg1Vs7": 1.16,
-      "trendQuality": 35,
-      "momentumQuality": 78,
-      "remainingPotential": 72,
-      "timingScore": 70,
-      "riskMultiplier": 0.88,
-      "buyProbability": 58,
-      "convictionScore": 58,
-      "decision": "Ignorer",
-      "reasons": [
-        "Momentum propre"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": null,
       "exPrice": null,
       "observedExPrice": null
     },
@@ -10144,7 +10668,7 @@
       "referenceEdition": "Visions",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -10506,7 +11030,7 @@
       "referenceEdition": "Chronicles",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 4,
       "owned": true,
       "ownedLabel": "Oui",
@@ -10591,6 +11115,177 @@
         "high90d": 10.62,
         "low90d": 10.39,
         "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1631,
+      "nomCarte": "Primal Rage",
+      "nomBase": "Primal Rage",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "7c7517de-6a06-41c8-8bd1-b59f7c3f2ad4",
+      "imageUrl": "https://cards.scryfall.io/normal/front/7/c/7c7517de-6a06-41c8-8bd1-b59f7c3f2ad4.jpg?1783049662",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9147,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 2.41,
+      "lowPrice": 0.3,
+      "avgPrice": 2.15,
+      "avg1": 2,
+      "avg7": 2.32,
+      "avg30": 2.09,
+      "prixEtat": 2.41,
+      "estimatedPrice": 2.41,
+      "baseEstimatedPrice": 2.41,
+      "estimatedByCondition": {
+        "NM": 2.41,
+        "EX": 2.05,
+        "GD": 1.74,
+        "LP": 1.49,
+        "PL": 1.16,
+        "PO": 0.84
+      },
+      "buyTargetByCondition": {
+        "NM": 2.17,
+        "EX": 1.8
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 2.41,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Primal Rage",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 2.41,
+      "estimatedNmPrice": 2.41,
+      "estimatedExPrice": 2.05,
+      "nmTargetPrice": 2.17,
+      "exTargetPrice": 1.8,
+      "trendVs30": 15.31,
+      "avg7Vs30": 11,
+      "avg1Vs7": -13.79,
+      "trendQuality": 97,
+      "momentumQuality": 10,
+      "remainingPotential": 69,
+      "timingScore": 72,
+      "riskMultiplier": 0.88,
+      "buyProbability": 57,
+      "convictionScore": 57,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 2.41,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
       },
       "exPrice": null,
       "observedExPrice": null
@@ -11225,7 +11920,7 @@
       "referenceEdition": "Weatherlight",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 3,
       "owned": true,
       "ownedLabel": "Oui",
@@ -11295,6 +11990,177 @@
         "high90d": 2.19,
         "low90d": 2.19,
         "position90dPct": 100
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1644,
+      "nomCarte": "Mirri, Cat Warrior",
+      "nomBase": "Mirri, Cat Warrior",
+      "version": null,
+      "edition": "Exodus",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "ffff1c55-ffcc-46ab-8187-55d0de1cc912",
+      "imageUrl": "https://cards.scryfall.io/normal/front/f/f/ffff1c55-ffcc-46ab-8187-55d0de1cc912.jpg?1783048980",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9342,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 2.94,
+      "lowPrice": 0.95,
+      "avgPrice": 2.51,
+      "avg1": 2.15,
+      "avg7": 2.67,
+      "avg30": 2.51,
+      "prixEtat": 2.7,
+      "estimatedPrice": 2.5,
+      "baseEstimatedPrice": 2.5,
+      "estimatedByCondition": {
+        "NM": 2.94,
+        "EX": 2.5,
+        "GD": 2.12,
+        "LP": 1.82,
+        "PL": 1.41,
+        "PO": 1.03
+      },
+      "buyTargetByCondition": {
+        "NM": 2.65,
+        "EX": 2.2
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 2.94,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mirri, Cat Warrior",
+      "referenceEdition": "Exodus",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 2.94,
+      "estimatedNmPrice": 2.94,
+      "estimatedExPrice": 2.5,
+      "nmTargetPrice": 2.65,
+      "exTargetPrice": 2.2,
+      "trendVs30": 17.13,
+      "avg7Vs30": 6.37,
+      "avg1Vs7": -19.48,
+      "trendQuality": 92,
+      "momentumQuality": 10,
+      "remainingPotential": 67,
+      "timingScore": 71,
+      "riskMultiplier": 0.88,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 2.94,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
       },
       "exPrice": null,
       "observedExPrice": null
@@ -11657,6 +12523,348 @@
       "observedExPrice": 3.59
     },
     {
+      "id": 1622,
+      "nomCarte": "Evacuation",
+      "nomBase": "Evacuation",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "a127446b-91f1-4845-b33f-d9ce6f42ddb8",
+      "imageUrl": "https://cards.scryfall.io/normal/front/a/1/a127446b-91f1-4845-b33f-d9ce6f42ddb8.jpg?1783050043",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9115,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.54,
+      "lowPrice": 0.29,
+      "avgPrice": 1.48,
+      "avg1": 0.2,
+      "avg7": 1.35,
+      "avg30": 1.32,
+      "prixEtat": 1.54,
+      "estimatedPrice": 1.54,
+      "baseEstimatedPrice": 1.54,
+      "estimatedByCondition": {
+        "NM": 1.54,
+        "EX": 1.31,
+        "GD": 1.11,
+        "LP": 0.95,
+        "PL": 0.74,
+        "PO": 0.54
+      },
+      "buyTargetByCondition": {
+        "NM": 1.39,
+        "EX": 1.15
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.54,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Evacuation",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 1.54,
+      "estimatedNmPrice": 1.54,
+      "estimatedExPrice": 1.31,
+      "nmTargetPrice": 1.39,
+      "exTargetPrice": 1.15,
+      "trendVs30": 16.67,
+      "avg7Vs30": 2.27,
+      "avg1Vs7": -85.19,
+      "trendQuality": 93,
+      "momentumQuality": 10,
+      "remainingPotential": 68,
+      "timingScore": 71,
+      "riskMultiplier": 0.88,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 1.54,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1623,
+      "nomCarte": "Reins of Power",
+      "nomBase": "Reins of Power",
+      "version": null,
+      "edition": "Stronghold",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "332da637-64bc-4eed-a643-c1d55614489a",
+      "imageUrl": "https://cards.scryfall.io/normal/front/3/3/332da637-64bc-4eed-a643-c1d55614489a.jpg?1783049989",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 9126,
+      "createdAt": "2026-07-15 13:51:11",
+      "categorie": "Classeur5",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 2.03,
+      "lowPrice": 0.39,
+      "avgPrice": 1.64,
+      "avg1": 1.65,
+      "avg7": 2.09,
+      "avg30": 1.73,
+      "prixEtat": 1.87,
+      "estimatedPrice": 1.73,
+      "baseEstimatedPrice": 1.73,
+      "estimatedByCondition": {
+        "NM": 2.03,
+        "EX": 1.73,
+        "GD": 1.46,
+        "LP": 1.26,
+        "PL": 0.97,
+        "PO": 0.71
+      },
+      "buyTargetByCondition": {
+        "NM": 1.83,
+        "EX": 1.52
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 0.9162,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 2.03,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Reins of Power",
+      "referenceEdition": "Stronghold",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "EX",
+      "nmPrice": 2.03,
+      "estimatedNmPrice": 2.03,
+      "estimatedExPrice": 1.73,
+      "nmTargetPrice": 1.83,
+      "exTargetPrice": 1.52,
+      "trendVs30": 17.34,
+      "avg7Vs30": 20.81,
+      "avg1Vs7": -21.05,
+      "trendQuality": 92,
+      "momentumQuality": 10,
+      "remainingPotential": 67,
+      "timingScore": 71,
+      "riskMultiplier": 0.88,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 2.03,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
       "id": 1594,
       "nomCarte": "Aluren",
       "nomBase": "Aluren",
@@ -11758,7 +12966,7 @@
       "referenceEdition": "Tempest",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -11929,7 +13137,7 @@
       "referenceEdition": "Tempest",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false,
+      "referenceCardFound": true,
       "quantityOwned": 1,
       "owned": true,
       "ownedLabel": "Oui",
@@ -11982,6 +13190,177 @@
         "firstDate": "2026-07-15",
         "latestDate": "2026-07-15",
         "latestTrendPrice": 1.49,
+        "historyAgeDays": 0,
+        "uptrendDays": 0,
+        "positiveDaysRatio30": null,
+        "slope30PerDay": null,
+        "acceleration": null,
+        "volatility30": null,
+        "high30d": null,
+        "low30d": null,
+        "position30dPct": null,
+        "high90d": null,
+        "low90d": null,
+        "position90dPct": null
+      },
+      "exPrice": null,
+      "observedExPrice": null
+    },
+    {
+      "id": 1589,
+      "nomCarte": "Dark Ritual",
+      "nomBase": "Dark Ritual",
+      "version": null,
+      "edition": "Tempest",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "b45348f5-2dcc-4a9c-b0cf-91ab8d3bf20e",
+      "imageUrl": "https://cards.scryfall.io/normal/front/b/4/b45348f5-2dcc-4a9c-b0cf-91ab8d3bf20e.jpg?1783051311",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8747,
+      "createdAt": "2026-07-15 11:01:29",
+      "categorie": "Classeur4",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.95,
+      "lowPrice": 0.49,
+      "avgPrice": 1.68,
+      "avg1": 1.5,
+      "avg7": 1.91,
+      "avg30": 1.74,
+      "prixEtat": 1.95,
+      "estimatedPrice": 1.95,
+      "baseEstimatedPrice": 1.95,
+      "estimatedByCondition": {
+        "NM": 1.95,
+        "EX": 1.66,
+        "GD": 1.4,
+        "LP": 1.21,
+        "PL": 0.94,
+        "PO": 0.68
+      },
+      "buyTargetByCondition": {
+        "NM": 1.76,
+        "EX": 1.46
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.85,
+        "GD": 0.72,
+        "LP": 0.62,
+        "PL": 0.48,
+        "PO": 0.35
+      },
+      "gradeModelConfidence": 40,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0,
+        "language": 0,
+        "global": 1
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 40,
+      "pricingRatio": 1.3598,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.95,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Dark Ritual",
+      "referenceEdition": "Tempest",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": true,
+      "quantityOwned": 1,
+      "owned": true,
+      "ownedLabel": "Oui",
+      "ownedStatesSet": {},
+      "ownedStates": "NM",
+      "nmPrice": 1.95,
+      "estimatedNmPrice": 1.95,
+      "estimatedExPrice": 1.66,
+      "nmTargetPrice": 1.76,
+      "exTargetPrice": 1.46,
+      "trendVs30": 12.07,
+      "avg7Vs30": 9.77,
+      "avg1Vs7": -21.47,
+      "trendQuality": 86,
+      "momentumQuality": 10,
+      "remainingPotential": 72,
+      "timingScore": 75,
+      "riskMultiplier": 0.88,
+      "buyProbability": 56,
+      "convictionScore": 56,
+      "decision": "Ignorer",
+      "reasons": [
+        "Momentum positif"
+      ],
+      "warnings": [
+        "Momentum négatif",
+        "Historique encore court",
+        "Carte peu chère"
+      ],
+      "explanation": [
+        {
+          "type": "positive",
+          "text": "Momentum positif"
+        },
+        {
+          "type": "warning",
+          "text": "Momentum négatif"
+        },
+        {
+          "type": "warning",
+          "text": "Historique encore court"
+        },
+        {
+          "type": "warning",
+          "text": "Carte peu chère"
+        }
+      ],
+      "historical": {
+        "historyPoints": 1,
+        "firstDate": "2026-07-15",
+        "latestDate": "2026-07-15",
+        "latestTrendPrice": 1.95,
         "historyAgeDays": 0,
         "uptrendDays": 0,
         "positiveDaysRatio30": null,
@@ -12557,319 +13936,6 @@
       "observedExPrice": 6.95
     },
     {
-      "id": 1627,
-      "nomCarte": "Mogg Infestation",
-      "nomBase": "Mogg Infestation",
-      "version": null,
-      "edition": "Stronghold",
-      "langue": "French",
-      "etat": "EX",
-      "scryfallId": "b6e98148-af0f-4e41-bb8b-b561b6515886",
-      "imageUrl": "https://cards.scryfall.io/normal/front/b/6/b6e98148-af0f-4e41-bb8b-b561b6515886.jpg?1783049750",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 9178,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 3.54,
-      "lowPrice": 1.44,
-      "avgPrice": 3.55,
-      "avg1": 3.94,
-      "avg7": 3.71,
-      "avg30": 3.42,
-      "prixEtat": 3.26,
-      "estimatedPrice": 3.01,
-      "baseEstimatedPrice": 3.01,
-      "estimatedByCondition": {
-        "NM": 3.54,
-        "EX": 3.01,
-        "GD": 2.55,
-        "LP": 2.19,
-        "PL": 1.7,
-        "PO": 1.24
-      },
-      "buyTargetByCondition": {
-        "NM": 3.19,
-        "EX": 2.65
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 0.9162,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 3.54,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Mogg Infestation",
-      "referenceEdition": "Stronghold",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 2,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "EX",
-      "nmPrice": 3.54,
-      "estimatedNmPrice": 3.54,
-      "estimatedExPrice": 3.01,
-      "nmTargetPrice": 3.19,
-      "exTargetPrice": 2.65,
-      "trendVs30": 3.51,
-      "avg7Vs30": 8.48,
-      "avg1Vs7": 6.2,
-      "trendQuality": 25,
-      "momentumQuality": 80,
-      "remainingPotential": 69,
-      "timingScore": 67,
-      "riskMultiplier": 0.88,
-      "buyProbability": 55,
-      "convictionScore": 55,
-      "decision": "Ignorer",
-      "reasons": [
-        "Momentum propre"
-      ],
-      "warnings": [
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum propre"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
-      "id": 1631,
-      "nomCarte": "Primal Rage",
-      "nomBase": "Primal Rage",
-      "version": null,
-      "edition": "Stronghold",
-      "langue": "French",
-      "etat": "NM",
-      "scryfallId": "7c7517de-6a06-41c8-8bd1-b59f7c3f2ad4",
-      "imageUrl": "https://cards.scryfall.io/normal/front/7/c/7c7517de-6a06-41c8-8bd1-b59f7c3f2ad4.jpg?1783049662",
-      "priceUsd": null,
-      "priceEur": null,
-      "cardmarketId": 9147,
-      "createdAt": "2026-07-15 13:51:11",
-      "categorie": "Classeur5",
-      "isActive": 1,
-      "removedAt": null,
-      "trendPrice": 2.41,
-      "lowPrice": 0.3,
-      "avgPrice": 2.15,
-      "avg1": 2,
-      "avg7": 2.32,
-      "avg30": 2.09,
-      "prixEtat": 2.41,
-      "estimatedPrice": 2.41,
-      "baseEstimatedPrice": 2.41,
-      "estimatedByCondition": {
-        "NM": 2.41,
-        "EX": 2.05,
-        "GD": 1.74,
-        "LP": 1.49,
-        "PL": 1.16,
-        "PO": 0.84
-      },
-      "buyTargetByCondition": {
-        "NM": 2.17,
-        "EX": 1.8
-      },
-      "ratioByCondition": {
-        "NM": 1,
-        "EX": 0.85,
-        "GD": 0.72,
-        "LP": 0.62,
-        "PL": 0.48,
-        "PO": 0.35
-      },
-      "gradeModelConfidence": 40,
-      "gradeModelSource": "anchor + global/edition ratios",
-      "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
-      },
-      "averageObservationReliability": 0,
-      "bayesianWeights": {
-        "card": 0,
-        "edition": 0,
-        "language": 0,
-        "global": 1
-      },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 40,
-      "pricingRatio": 1.3598,
-      "pricingObservationCount": 0,
-      "marketAnchorPrice": 2.41,
-      "referenceMarketAnchorPrice": null,
-      "marketReferenceType": "same_printing_market",
-      "marketReferenceRole": "level_and_evolution",
-      "usesExternalReference": false,
-      "referenceName": "Primal Rage",
-      "referenceEdition": "Stronghold",
-      "referenceLanguage": "French",
-      "referenceVersion": null,
-      "referenceCardFound": false,
-      "quantityOwned": 1,
-      "owned": true,
-      "ownedLabel": "Oui",
-      "ownedStatesSet": {},
-      "ownedStates": "NM",
-      "nmPrice": 2.41,
-      "estimatedNmPrice": 2.41,
-      "estimatedExPrice": 2.05,
-      "nmTargetPrice": 2.17,
-      "exTargetPrice": 1.8,
-      "trendVs30": 15.31,
-      "avg7Vs30": 11,
-      "avg1Vs7": -13.79,
-      "trendQuality": 97,
-      "momentumQuality": 10,
-      "remainingPotential": 67,
-      "timingScore": 62,
-      "riskMultiplier": 0.88,
-      "buyProbability": 55,
-      "convictionScore": 55,
-      "decision": "Ignorer",
-      "reasons": [
-        "Momentum positif"
-      ],
-      "warnings": [
-        "Momentum négatif",
-        "Pas encore assez d'historique interne",
-        "Timing estimé avec peu d'historique",
-        "Carte peu chère"
-      ],
-      "explanation": [
-        {
-          "type": "positive",
-          "text": "Momentum positif"
-        },
-        {
-          "type": "warning",
-          "text": "Momentum négatif"
-        },
-        {
-          "type": "warning",
-          "text": "Pas encore assez d'historique interne"
-        },
-        {
-          "type": "warning",
-          "text": "Timing estimé avec peu d'historique"
-        },
-        {
-          "type": "warning",
-          "text": "Carte peu chère"
-        }
-      ],
-      "historical": null,
-      "exPrice": null,
-      "observedExPrice": null
-    },
-    {
       "id": "1782914860317-a2762e4c1e44",
       "nomCarte": "Bayou",
       "edition": "Foreign Black Bordered",
@@ -12893,7 +13959,7 @@
       "avg1": 473.99,
       "avg7": 543.25,
       "avg30": 509.88,
-      "priceUpdatedAt": "2026-07-11T18:10:52.063Z",
+      "priceUpdatedAt": "2026-07-15T17:17:23.154Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
