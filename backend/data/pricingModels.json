@@ -7675,32 +7675,77 @@
     "marketAnchorPrice": 9.94,
     "byCondition": {}
   },
+  "serra angel|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.85,
+    "byCondition": {}
+  },
+  "savannah|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 236.73,
+    "byCondition": {}
+  },
+  "serra angel|foreign white border|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 5.67,
+    "byCondition": {}
+  },
+  "savannah|foreign white border|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 236.73,
+    "byCondition": {}
+  },
+  "spirit link|renaissance|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.27,
+    "byCondition": {}
+  },
+  "elvish archers|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 9.61,
+    "byCondition": {}
+  },
+  "balance|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 3.88,
+    "byCondition": {}
+  },
+  "regrowth|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.37,
+    "byCondition": {}
+  },
+  "tsunami|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.02,
+    "byCondition": {}
+  },
   "__globalConditionModel": {
     "modelType": "global_condition_market_anchor",
     "byCondition": {
       "PO": {
-        "ratioToMarketAnchor": 0.5153,
-        "observationCount": 380
+        "ratioToMarketAnchor": 0.5148,
+        "observationCount": 399
       },
       "PL": {
-        "ratioToMarketAnchor": 0.5678,
-        "observationCount": 422
+        "ratioToMarketAnchor": 0.5679,
+        "observationCount": 446
       },
       "LP": {
-        "ratioToMarketAnchor": 0.6481,
-        "observationCount": 426
+        "ratioToMarketAnchor": 0.6496,
+        "observationCount": 450
       },
       "GD": {
-        "ratioToMarketAnchor": 0.706,
-        "observationCount": 426
+        "ratioToMarketAnchor": 0.7084,
+        "observationCount": 450
       },
       "EX": {
-        "ratioToMarketAnchor": 0.9004,
-        "observationCount": 426
+        "ratioToMarketAnchor": 0.897,
+        "observationCount": 450
       },
       "NM": {
-        "ratioToMarketAnchor": 1.328,
-        "observationCount": 419
+        "ratioToMarketAnchor": 1.3226,
+        "observationCount": 443
       }
     }
   }

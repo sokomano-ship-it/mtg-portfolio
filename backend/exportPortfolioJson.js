@@ -298,6 +298,41 @@ function getPreviousSnapshot(historyRows, days) {
         .find(row => new Date(row.date) <= targetDate) || null;
 }
 
+function getEstimatedConditionPrice(card) {
+    const condition = String(card.etat || "").toUpperCase();
+
+    let estimatedByCondition = card.estimatedByCondition;
+
+    if (typeof estimatedByCondition === "string") {
+        try {
+            estimatedByCondition =
+                JSON.parse(estimatedByCondition);
+        } catch {
+            estimatedByCondition = null;
+        }
+    }
+
+    if (
+        estimatedByCondition &&
+        typeof estimatedByCondition === "object"
+    ) {
+        return (
+            estimatedByCondition[condition] ??
+            estimatedByCondition.NM ??
+            card.estimatedPrice ??
+            card.prixEtat ??
+            0
+        );
+    }
+
+    return (
+        estimatedByCondition ??
+        card.estimatedPrice ??
+        card.prixEtat ??
+        0
+    );
+}
+
 function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
     return groupByCardEditionEtat(cards)
         .map(card => {
@@ -585,39 +620,7 @@ async function main() {
         ORDER BY date
     `);
 
-    function getEstimatedConditionPrice(card) {
-    const condition = String(card.etat || "").toUpperCase();
-
-    let estimatedByCondition = card.estimatedByCondition;
-
-    if (typeof estimatedByCondition === "string") {
-        try {
-            estimatedByCondition = JSON.parse(estimatedByCondition);
-        } catch {
-            estimatedByCondition = null;
-        }
-    }
-
-    if (
-        estimatedByCondition &&
-        typeof estimatedByCondition === "object"
-    ) {
-        return (
-            estimatedByCondition[condition] ??
-            estimatedByCondition.NM ??
-            card.estimatedPrice ??
-            card.prixEtat ??
-            0
-        );
-    }
-
-    return (
-        estimatedByCondition ??
-        card.estimatedPrice ??
-        card.prixEtat ??
-        0
-    );
-}
+    
 
 const estimatedTotalValue = cards.reduce(
     (sum, card) => sum + Number(getEstimatedConditionPrice(card) || 0),
