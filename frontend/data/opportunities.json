@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T13:56:17.294Z",
+  "generatedAt": "2026-07-19T13:57:19.286Z",
   "opportunities": [
     {
       "id": 1630,
@@ -800,7 +800,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 0.6925,
+      "pricingRatio": 0.6921,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 9.35,
       "referenceMarketAnchorPrice": null,
@@ -1274,23 +1274,23 @@
       "baseEstimatedPrice": 1.88,
       "estimatedByCondition": {
         "NM": 1.88,
-        "EX": 1.38,
+        "EX": 1.41,
         "GD": 1.25,
         "LP": 1.21,
-        "PL": 0.9,
-        "PO": 0.72
+        "PL": 0.95,
+        "PO": 0.73
       },
       "buyTargetByCondition": {
         "NM": 1.69,
-        "EX": 1.21
+        "EX": 1.24
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6735,
-        "GD": 0.6246,
-        "LP": 0.6246,
-        "PL": 0.4514,
-        "PO": 0.3746
+        "EX": 0.6996,
+        "GD": 0.626,
+        "LP": 0.626,
+        "PL": 0.4823,
+        "PO": 0.3875
       },
       "gradeModelConfidence": 60,
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
@@ -1329,9 +1329,9 @@
       "averageObservationReliability": 0.82,
       "bayesianWeights": {
         "card": 0.4286,
-        "edition": 0.4416,
-        "language": 0.0871,
-        "global": 0.0427
+        "edition": 0.4472,
+        "language": 0.0849,
+        "global": 0.0393
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -1356,9 +1356,9 @@
       "ownedStates": "NM",
       "nmPrice": 1.97,
       "estimatedNmPrice": 1.88,
-      "estimatedExPrice": 1.38,
+      "estimatedExPrice": 1.41,
       "nmTargetPrice": 1.69,
-      "exTargetPrice": 1.21,
+      "exTargetPrice": 1.24,
       "trendVs30": 11.93,
       "avg7Vs30": 3.98,
       "avg1Vs7": 10.93,
@@ -1694,7 +1694,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 0.6362,
+      "pricingRatio": 0.6365,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 7.76,
       "referenceMarketAnchorPrice": null,
@@ -1865,7 +1865,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.9,
       "referenceMarketAnchorPrice": null,
@@ -3117,7 +3117,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 43,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 3.64,
       "referenceMarketAnchorPrice": null,
@@ -3846,7 +3846,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.62,
       "referenceMarketAnchorPrice": null,
@@ -4522,23 +4522,23 @@
       "baseEstimatedPrice": 1.29,
       "estimatedByCondition": {
         "NM": 1.29,
-        "EX": 0.94,
+        "EX": 0.96,
         "GD": 0.84,
         "LP": 0.82,
-        "PL": 0.61,
-        "PO": 0.51
+        "PL": 0.64,
+        "PO": 0.52
       },
       "buyTargetByCondition": {
         "NM": 1.16,
-        "EX": 0.83
+        "EX": 0.84
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6745,
-        "GD": 0.6134,
-        "LP": 0.6134,
-        "PL": 0.4505,
-        "PO": 0.3861
+        "EX": 0.7005,
+        "GD": 0.6148,
+        "LP": 0.6148,
+        "PL": 0.4813,
+        "PO": 0.3989
       },
       "gradeModelConfidence": 60,
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
@@ -4577,9 +4577,9 @@
       "averageObservationReliability": 0.6,
       "bayesianWeights": {
         "card": 0.4286,
-        "edition": 0.4416,
-        "language": 0.0871,
-        "global": 0.0427
+        "edition": 0.4472,
+        "language": 0.0849,
+        "global": 0.0393
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -4604,9 +4604,9 @@
       "ownedStates": "NM",
       "nmPrice": 1.41,
       "estimatedNmPrice": 1.29,
-      "estimatedExPrice": 0.94,
+      "estimatedExPrice": 0.96,
       "nmTargetPrice": 1.16,
-      "exTargetPrice": 0.83,
+      "exTargetPrice": 0.84,
       "trendVs30": 10.16,
       "avg7Vs30": -3.91,
       "avg1Vs7": 7.32,
@@ -5806,7 +5806,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 0.8829,
+      "pricingRatio": 0.8813,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.95,
       "referenceMarketAnchorPrice": null,
@@ -6467,23 +6467,23 @@
       "baseEstimatedPrice": 79.39,
       "estimatedByCondition": {
         "NM": 79.39,
-        "EX": 66.65,
-        "GD": 62.92,
-        "LP": 59.98,
-        "PL": 41.74,
-        "PO": 31.32
+        "EX": 68.14,
+        "GD": 63,
+        "LP": 60.68,
+        "PL": 43.5,
+        "PO": 32.05
       },
       "buyTargetByCondition": {
         "NM": 71.45,
-        "EX": 58.65
+        "EX": 59.96
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.8174,
-        "GD": 0.7958,
-        "LP": 0.7806,
-        "PL": 0.5133,
-        "PO": 0.3837
+        "EX": 0.8434,
+        "GD": 0.7972,
+        "LP": 0.7929,
+        "PL": 0.5442,
+        "PO": 0.3966
       },
       "gradeModelConfidence": 60,
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
@@ -6522,9 +6522,9 @@
       "averageObservationReliability": 0.6,
       "bayesianWeights": {
         "card": 0.4286,
-        "edition": 0.4416,
-        "language": 0.0871,
-        "global": 0.0427
+        "edition": 0.4472,
+        "language": 0.0849,
+        "global": 0.0393
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -6549,9 +6549,9 @@
       "ownedStates": "NM",
       "nmPrice": 81.26,
       "estimatedNmPrice": 79.39,
-      "estimatedExPrice": 66.65,
+      "estimatedExPrice": 68.14,
       "nmTargetPrice": 71.45,
-      "exTargetPrice": 58.65,
+      "exTargetPrice": 59.96,
       "trendVs30": 4.66,
       "avg7Vs30": 1.37,
       "avg1Vs7": 27.05,
@@ -6706,7 +6706,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 44,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 64.16,
       "referenceMarketAnchorPrice": null,
@@ -6810,7 +6810,7 @@
       "avg1": 460,
       "avg7": 549.66,
       "avg30": 512.73,
-      "priceUpdatedAt": "2026-07-19T13:55:56.426Z",
+      "priceUpdatedAt": "2026-07-19T13:56:56.726Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
@@ -7715,7 +7715,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 0.6925,
+      "pricingRatio": 0.6921,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 3.1,
       "referenceMarketAnchorPrice": null,
@@ -8268,7 +8268,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 0.6362,
+      "pricingRatio": 0.6365,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 12.61,
       "referenceMarketAnchorPrice": null,
@@ -8449,7 +8449,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 0.6925,
+      "pricingRatio": 0.6921,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.87,
       "referenceMarketAnchorPrice": null,
@@ -8558,27 +8558,27 @@
       "avg7": 1.59,
       "avg30": 1.31,
       "prixEtat": 1.51,
-      "estimatedPrice": 1.13,
-      "baseEstimatedPrice": 1.13,
+      "estimatedPrice": 1.16,
+      "baseEstimatedPrice": 1.16,
       "estimatedByCondition": {
         "NM": 1.38,
-        "EX": 1.13,
+        "EX": 1.16,
         "GD": 0.97,
         "LP": 0.95,
-        "PL": 0.72,
-        "PO": 0.67
+        "PL": 0.76,
+        "PO": 0.71
       },
       "buyTargetByCondition": {
         "NM": 1.24,
-        "EX": 0.99
+        "EX": 1.02
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.8033,
-        "GD": 0.688,
-        "LP": 0.688,
-        "PL": 0.5152,
-        "PO": 0.409
+        "EX": 0.8314,
+        "GD": 0.6895,
+        "LP": 0.6895,
+        "PL": 0.5484,
+        "PO": 0.4315
       },
       "gradeModelConfidence": 60,
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
@@ -8617,9 +8617,9 @@
       "averageObservationReliability": 0.74,
       "bayesianWeights": {
         "card": 0.3846,
-        "edition": 0.4755,
-        "language": 0.0939,
-        "global": 0.046
+        "edition": 0.4816,
+        "language": 0.0914,
+        "global": 0.0423
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
@@ -8644,9 +8644,9 @@
       "ownedStates": "EX",
       "nmPrice": 1.64,
       "estimatedNmPrice": 1.38,
-      "estimatedExPrice": 1.13,
+      "estimatedExPrice": 1.16,
       "nmTargetPrice": 1.24,
-      "exTargetPrice": 0.99,
+      "exTargetPrice": 1.02,
       "trendVs30": 25.19,
       "avg7Vs30": 21.37,
       "avg1Vs7": 30.19,
@@ -8738,23 +8738,23 @@
       "baseEstimatedPrice": 1.05,
       "estimatedByCondition": {
         "NM": 1.05,
-        "EX": 0.71,
+        "EX": 0.76,
         "GD": 0.7,
         "LP": 0.7,
-        "PL": 0.57,
-        "PO": 0.43
+        "PL": 0.62,
+        "PO": 0.45
       },
       "buyTargetByCondition": {
         "NM": 0.95,
-        "EX": 0.62
+        "EX": 0.67
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6804,
-        "GD": 0.6651,
-        "LP": 0.6651,
-        "PL": 0.5383,
-        "PO": 0.409
+        "EX": 0.726,
+        "GD": 0.6675,
+        "LP": 0.6675,
+        "PL": 0.5923,
+        "PO": 0.4315
       },
       "gradeModelConfidence": 45,
       "gradeModelSource": "anchor + global/edition ratios",
@@ -8793,15 +8793,15 @@
       "averageObservationReliability": 0,
       "bayesianWeights": {
         "card": 0,
-        "edition": 0.7727,
-        "language": 0.1525,
-        "global": 0.0748
+        "edition": 0.7826,
+        "language": 0.1486,
+        "global": 0.0688
       },
       "observationDaysCount": 0,
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.05,
       "referenceMarketAnchorPrice": null,
@@ -8820,9 +8820,9 @@
       "ownedStates": "NM",
       "nmPrice": 1.05,
       "estimatedNmPrice": 1.05,
-      "estimatedExPrice": 0.71,
+      "estimatedExPrice": 0.76,
       "nmTargetPrice": 0.95,
-      "exTargetPrice": 0.62,
+      "exTargetPrice": 0.67,
       "trendVs30": 3.96,
       "avg7Vs30": 5.94,
       "avg1Vs7": 4.67,
@@ -9282,7 +9282,7 @@
       "avg1": 34.98,
       "avg7": 32.42,
       "avg30": 29.01,
-      "priceUpdatedAt": "2026-07-19T13:55:56.426Z",
+      "priceUpdatedAt": "2026-07-19T13:56:56.726Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
@@ -9939,75 +9939,75 @@
       "avg7": 15.26,
       "avg30": 16.66,
       "prixEtat": 15.61,
-      "estimatedPrice": 15.61,
-      "baseEstimatedPrice": 15.61,
+      "estimatedPrice": 15.63,
+      "baseEstimatedPrice": 15.63,
       "estimatedByCondition": {
-        "NM": 15.61,
-        "EX": 10.62,
-        "GD": 10.38,
-        "LP": 10.38,
-        "PL": 8.4,
-        "PO": 6.38
+        "NM": 15.63,
+        "EX": 12.73,
+        "GD": 11.54,
+        "LP": 11.1,
+        "PL": 9.66,
+        "PO": 6.32
       },
       "buyTargetByCondition": {
-        "NM": 14.05,
-        "EX": 9.35
+        "NM": 14.07,
+        "EX": 11.2
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6804,
-        "GD": 0.6651,
-        "LP": 0.6651,
-        "PL": 0.5383,
-        "PO": 0.409
+        "EX": 0.7791,
+        "GD": 0.7182,
+        "LP": 0.7182,
+        "PL": 0.6446,
+        "PO": 0.3966
       },
-      "gradeModelConfidence": 45,
-      "gradeModelSource": "anchor + global/edition ratios",
+      "gradeModelConfidence": 60,
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
       "lastObservedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
+        "NM": 14,
+        "EX": 11.9,
+        "GD": 11,
+        "LP": 12,
+        "PL": 10,
+        "PO": 10.88
       },
       "observedMinByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
+        "NM": 14,
+        "EX": 11.9,
+        "GD": 11,
+        "LP": 12,
+        "PL": 10,
+        "PO": 10.88
       },
       "reliableObservedByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
+        "NM": 14,
+        "EX": 11.9,
+        "GD": 10.08,
+        "LP": 8.68,
+        "PL": 6.72,
+        "PO": 4.9
       },
       "observationReliabilityByCondition": {
-        "NM": null,
-        "EX": null,
-        "GD": null,
-        "LP": null,
-        "PL": null,
-        "PO": null
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.5,
+        "PL": 0.5,
+        "PO": 0.25
       },
-      "averageObservationReliability": 0,
+      "averageObservationReliability": 0.71,
       "bayesianWeights": {
-        "card": 0,
-        "edition": 0.7727,
-        "language": 0.1525,
-        "global": 0.0748
+        "card": 0.4286,
+        "edition": 0.4472,
+        "language": 0.0849,
+        "global": 0.0393
       },
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
-      "pricingObservationCount": 0,
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 60,
+      "pricingRatio": 0.8969,
+      "pricingObservationCount": 1,
       "marketAnchorPrice": 15.61,
       "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_printing_market",
@@ -10024,10 +10024,10 @@
       "ownedStatesSet": {},
       "ownedStates": "NM",
       "nmPrice": 15.61,
-      "estimatedNmPrice": 15.61,
-      "estimatedExPrice": 10.62,
-      "nmTargetPrice": 14.05,
-      "exTargetPrice": 9.35,
+      "estimatedNmPrice": 15.63,
+      "estimatedExPrice": 12.73,
+      "nmTargetPrice": 14.07,
+      "exTargetPrice": 11.2,
       "trendVs30": -6.3,
       "avg7Vs30": -8.4,
       "avg1Vs7": 17.23,
@@ -10092,8 +10092,8 @@
         "low90d": 15.04,
         "position90dPct": 72.2
       },
-      "exPrice": null,
-      "observedExPrice": null
+      "exPrice": 11.9,
+      "observedExPrice": 11.9
     },
     {
       "id": 1286,
@@ -11659,7 +11659,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 29.13,
       "referenceMarketAnchorPrice": null,
@@ -12182,7 +12182,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 7.54,
       "referenceMarketAnchorPrice": null,
@@ -12472,29 +12472,29 @@
       "avg7": 2.7,
       "avg30": 2.6,
       "prixEtat": 2.82,
-      "estimatedPrice": 2.05,
-      "baseEstimatedPrice": 2.05,
+      "estimatedPrice": 2.21,
+      "baseEstimatedPrice": 2.21,
       "estimatedByCondition": {
         "NM": 3.06,
-        "EX": 2.05,
-        "GD": 1.69,
-        "LP": 1.52,
-        "PL": 1.32,
-        "PO": 0.74
+        "EX": 2.21,
+        "GD": 1.76,
+        "LP": 1.7,
+        "PL": 1.28,
+        "PO": 1.06
       },
       "buyTargetByCondition": {
         "NM": 2.75,
-        "EX": 1.8
+        "EX": 1.94
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6713,
-        "GD": 0.5536,
-        "LP": 0.4962,
-        "PL": 0.4303,
-        "PO": 0.2433
+        "EX": 0.7208,
+        "GD": 0.5747,
+        "LP": 0.5572,
+        "PL": 0.4176,
+        "PO": 0.347
       },
-      "gradeModelConfidence": 44,
+      "gradeModelConfidence": 45,
       "gradeModelSource": "anchor + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": null,
@@ -12531,15 +12531,15 @@
       "averageObservationReliability": 0,
       "bayesianWeights": {
         "card": 0,
-        "edition": 0.4643,
-        "language": 0.1833,
-        "global": 0.3524
+        "edition": 0.5161,
+        "language": 0.1888,
+        "global": 0.295
       },
       "observationDaysCount": 0,
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
-      "pricingConfidence": 44,
-      "pricingRatio": 0.8829,
+      "pricingConfidence": 45,
+      "pricingRatio": 0.8813,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 3.06,
       "referenceMarketAnchorPrice": null,
@@ -12558,9 +12558,9 @@
       "ownedStates": "EX",
       "nmPrice": 3.06,
       "estimatedNmPrice": 3.06,
-      "estimatedExPrice": 2.05,
+      "estimatedExPrice": 2.21,
       "nmTargetPrice": 2.75,
-      "exTargetPrice": 1.8,
+      "exTargetPrice": 1.94,
       "trendVs30": 17.69,
       "avg7Vs30": 3.85,
       "avg1Vs7": -26.3,
@@ -12715,7 +12715,7 @@
       "observationRowsCount": 0,
       "pricingModel": "standard_fallback_condition_ratio",
       "pricingConfidence": 45,
-      "pricingRatio": 1.3124,
+      "pricingRatio": 1.3091,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 4.86,
       "referenceMarketAnchorPrice": null,
@@ -13743,23 +13743,23 @@
       "baseEstimatedPrice": 24.31,
       "estimatedByCondition": {
         "NM": 24.31,
-        "EX": 19.12,
-        "GD": 16.38,
-        "LP": 15.27,
-        "PL": 13.65,
-        "PO": 9.93
+        "EX": 18.91,
+        "GD": 15.86,
+        "LP": 14.91,
+        "PL": 13.39,
+        "PO": 9.97
       },
       "buyTargetByCondition": {
         "NM": 21.88,
-        "EX": 16.83
+        "EX": 16.64
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7327,
-        "GD": 0.65,
-        "LP": 0.5967,
-        "PL": 0.5635,
-        "PO": 0.402
+        "EX": 0.7195,
+        "GD": 0.6185,
+        "LP": 0.5746,
+        "PL": 0.5476,
+        "PO": 0.4042
       },
       "gradeModelConfidence": 60,
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
@@ -13798,9 +13798,9 @@
       "averageObservationReliability": 0.93,
       "bayesianWeights": {
         "card": 0.4286,
-        "edition": 0.248,
-        "language": 0.1019,
-        "global": 0.2215
+        "edition": 0.2759,
+        "language": 0.1061,
+        "global": 0.1895
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
@@ -13825,9 +13825,9 @@
       "ownedStates": "NM",
       "nmPrice": 23.21,
       "estimatedNmPrice": 24.31,
-      "estimatedExPrice": 19.12,
+      "estimatedExPrice": 18.91,
       "nmTargetPrice": 21.88,
-      "exTargetPrice": 16.83,
+      "exTargetPrice": 16.64,
       "trendVs30": 3.11,
       "avg7Vs30": -1.78,
       "avg1Vs7": 1.72,
@@ -13905,7 +13905,7 @@
       "avg1": 380,
       "avg7": 290.79,
       "avg30": 279.03,
-      "priceUpdatedAt": "2026-07-19T13:55:56.426Z",
+      "priceUpdatedAt": "2026-07-19T13:56:56.726Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
@@ -14009,7 +14009,7 @@
       "avg1": 268.32,
       "avg7": 248.85,
       "avg30": 246.08,
-      "priceUpdatedAt": "2026-07-19T13:55:56.426Z",
+      "priceUpdatedAt": "2026-07-19T13:56:56.726Z",
       "etat": "NM",
       "categorie": "Watchlist",
       "quantityOwned": 0,
