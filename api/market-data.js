@@ -38,41 +38,50 @@ function githubUrl(filePath) {
 }
 
 async function getJsonFile(filePath) {
-  const response = await fetch(`${githubUrl(filePath)}?ref=${BRANCH}`, {
+  const metadataResponse = await fetch(`${githubUrl(filePath)}?ref=${BRANCH}`, {
     headers: githubHeaders()
   });
 
-  if (response.status === 404) return { json: [], sha: null };
-
-  if (!response.ok) {
-    throw new Error(`GitHub GET ${filePath} failed: ${response.status} ${await response.text()}`);
+  if (metadataResponse.status === 404) {
+    return { json: [], sha: null };
   }
 
-  const data = await response.json();
+  if (!metadataResponse.ok) {
+    throw new Error(
+      `GitHub GET ${filePath} failed: ` +
+      `${metadataResponse.status} ${await metadataResponse.text()}`
+    );
+  }
 
-  console.log("FILE:", filePath);
-  console.log("GitHub keys:", Object.keys(data));
-  console.log("encoding:", data.encoding);
-  console.log("content length:", data.content?.length);
+  const metadata = await metadataResponse.json();
 
-  const content = Buffer.from(data.content || "", "base64").toString("utf8");
+  const rawResponse = await fetch(`${githubUrl(filePath)}?ref=${BRANCH}`, {
+    headers: {
+      ...githubHeaders(),
+      Accept: "application/vnd.github.raw+json"
+    }
+  });
 
-  console.log("decoded length:", content.length);
-  console.log("first 100 chars:", content.slice(0, 100));
+  if (!rawResponse.ok) {
+    throw new Error(
+      `GitHub RAW GET ${filePath} failed: ` +
+      `${rawResponse.status} ${await rawResponse.text()}`
+    );
+  }
+
+  const content = await rawResponse.text();
+
+  if (!content.trim()) {
+    throw new Error(`Le fichier ${filePath} est vide`);
+  }
 
   try {
     return {
       json: JSON.parse(content),
-      sha: data.sha
+      sha: metadata.sha
     };
-  } catch (e) {
-    throw new Error(
-      `Erreur dans ${filePath}\n` +
-      `encoding=${data.encoding}\n` +
-      `contentLength=${data.content?.length}\n` +
-      `decodedLength=${content.length}\n` +
-      `first100=${content.slice(0,100)}`
-    );
+  } catch (error) {
+    throw new Error(`JSON invalide dans ${filePath}: ${error.message}`);
   }
 }
 
