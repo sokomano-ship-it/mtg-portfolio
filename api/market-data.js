@@ -1,110 +1,28 @@
-const OWNER = process.env.GITHUB_OWNER;
-const REPO = process.env.GITHUB_REPO;
-const TOKEN = process.env.GITHUB_TOKEN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-const BRANCH = process.env.GITHUB_BRANCH || "main";
 
-const FILES = {
-  observations: "backend/data/marketObservations.json",
-  trackedCards: "backend/data/trackedMarketCards.json"
-};
+const {
+  loadMarketObservations,
+  saveMarketObservations,
+  loadTrackedMarketCards,
+  saveTrackedMarketCards
+} = require("../backend/dataStore");
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Admin-Password, x-admin-password, Authorization");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, X-Admin-Password, x-admin-password, Authorization"
+  );
   res.setHeader("Access-Control-Max-Age", "86400");
 }
 
 function checkEnv() {
-  return OWNER && REPO && TOKEN && ADMIN_PASSWORD;
+  return Boolean(ADMIN_PASSWORD);
 }
 
 function checkAuth(req) {
   return req.headers["x-admin-password"] === ADMIN_PASSWORD;
-}
-
-function githubHeaders() {
-  return {
-    Authorization: `Bearer ${TOKEN}`,
-    Accept: "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-    "Content-Type": "application/json"
-  };
-}
-
-function githubUrl(filePath) {
-  return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(filePath).replace(/%2F/g, "/")}`;
-}
-
-async function getJsonFile(filePath) {
-  const metadataResponse = await fetch(`${githubUrl(filePath)}?ref=${BRANCH}`, {
-    headers: githubHeaders()
-  });
-
-  if (metadataResponse.status === 404) {
-    return { json: [], sha: null };
-  }
-
-  if (!metadataResponse.ok) {
-    throw new Error(
-      `GitHub GET ${filePath} failed: ` +
-      `${metadataResponse.status} ${await metadataResponse.text()}`
-    );
-  }
-
-  const metadata = await metadataResponse.json();
-
-  const rawResponse = await fetch(`${githubUrl(filePath)}?ref=${BRANCH}`, {
-    headers: {
-      ...githubHeaders(),
-      Accept: "application/vnd.github.raw+json"
-    }
-  });
-
-  if (!rawResponse.ok) {
-    throw new Error(
-      `GitHub RAW GET ${filePath} failed: ` +
-      `${rawResponse.status} ${await rawResponse.text()}`
-    );
-  }
-
-  const content = await rawResponse.text();
-
-  if (!content.trim()) {
-    throw new Error(`Le fichier ${filePath} est vide`);
-  }
-
-  try {
-    return {
-      json: JSON.parse(content),
-      sha: metadata.sha
-    };
-  } catch (error) {
-    throw new Error(`JSON invalide dans ${filePath}: ${error.message}`);
-  }
-}
-
-async function putJsonFile(filePath, json, sha, message) {
-  const body = {
-    message,
-    branch: BRANCH,
-    content: Buffer.from(JSON.stringify(json, null, 2)).toString("base64")
-  };
-
-  if (sha) body.sha = sha;
-
-  const response = await fetch(githubUrl(filePath), {
-    method: "PUT",
-    headers: githubHeaders(),
-    body: JSON.stringify(body)
-  });
-
-  if (!response.ok) {
-    throw new Error(`GitHub PUT ${filePath} failed: ${response.status} ${await response.text()}`);
-  }
-
-  return response.json();
 }
 
 function normalizeCardKey(card) {
@@ -189,15 +107,19 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-      const observations = await getJsonFile(FILES.observations);
-      const trackedCards = await getJsonFile(FILES.trackedCards);
+  const observationsFile = await loadMarketObservations();
+  const trackedCardsFile = await loadTrackedMarketCards();
 
-      return res.status(200).json({
-        ok: true,
-        observations: observations.json,
-        trackedCards: trackedCards.json
-      });
-    }
+  return res.status(200).json({
+    ok: true,
+    observations: Array.isArray(observationsFile.json)
+      ? observationsFile.json
+      : [],
+    trackedCards: Array.isArray(trackedCardsFile.json)
+      ? trackedCardsFile.json
+      : []
+  });
+}
 
     if (req.method === "POST") {
       const body = req.body || {};
@@ -209,8 +131,8 @@ module.exports = async function handler(req, res) {
     langue: body.langue
   };
 
-  const trackedFile = await getJsonFile(FILES.trackedCards);
-  const observationsFile = await getJsonFile(FILES.observations);
+  const trackedFile = await loadTrackedMarketCards();
+const observationsFile = await loadMarketObservations();
 
   const trackedCards = Array.isArray(trackedFile.json) ? trackedFile.json : [];
   const observations = Array.isArray(observationsFile.json) ? observationsFile.json : [];
@@ -218,40 +140,37 @@ module.exports = async function handler(req, res) {
   const filteredTracked = trackedCards.filter(card => normalizeCardKey(card) !== normalizeCardKey(target));
   const filteredObservations = observations.filter(obs => normalizeCardKey(obs) !== normalizeCardKey(target));
 
-  await putJsonFile(
-    FILES.trackedCards,
-    filteredTracked,
-    trackedFile.sha,
-    "Delete tracked card everywhere"
-  );
+  await saveTrackedMarketCards(
+  filteredTracked,
+  trackedFile.sha,
+  "Delete tracked card everywhere"
+);
 
-  await putJsonFile(
-    FILES.observations,
-    filteredObservations,
-    observationsFile.sha,
-    "Delete card observations everywhere"
-  );
+  await saveMarketObservations(
+  filteredObservations,
+  observationsFile.sha,
+  "Delete card observations everywhere"
+);
 
   return res.status(200).json({ ok: true });
 }
 
       if (body.type === "addObservation") {
-        const file = await getJsonFile(FILES.observations);
+        const file = await loadMarketObservations();
         const observations = Array.isArray(file.json) ? file.json : [];
 
         observations.push(cleanObservation(body));
 
-        await putJsonFile(
-          FILES.observations,
-          observations,
-          file.sha,
-          "Add market observation"
-        );
+        await saveMarketObservations(
+  observations,
+  file.sha,
+  "Add market observation"
+);
 
         return res.status(200).json({ ok: true });
       }
       if (body.type === "addConditionObservations") {
-  const file = await getJsonFile(FILES.observations);
+  const file = await loadMarketObservations();
   const observations = Array.isArray(file.json) ? file.json : [];
 
   const entries = Array.isArray(body.entries) ? body.entries : [];
@@ -264,28 +183,26 @@ module.exports = async function handler(req, res) {
     }));
   });
 
-  await putJsonFile(
-    FILES.observations,
-    observations,
-    file.sha,
-    "Add condition market observations"
-  );
+  await saveMarketObservations(
+  observations,
+  file.sha,
+  "Add condition market observations"
+);
 
   return res.status(200).json({ ok: true });
 }
 
       if (body.type === "deleteObservation") {
-        const file = await getJsonFile(FILES.observations);
+        const file = await loadMarketObservations();
         const observations = Array.isArray(file.json) ? file.json : [];
 
         const filtered = observations.filter(obs => obs.id !== body.id);
 
-        await putJsonFile(
-          FILES.observations,
-          filtered,
-          file.sha,
-          "Delete market observation"
-        );
+        await saveMarketObservations(
+  filtered,
+  file.sha,
+  "Delete market observation"
+);
 
         return res.status(200).json({ ok: true });
       }
@@ -293,23 +210,22 @@ module.exports = async function handler(req, res) {
       if (body.type === "deleteObservations") {
         const ids = Array.isArray(body.ids) ? body.ids : [];
 
-        const file = await getJsonFile(FILES.observations);
+        const file = await loadMarketObservations();
         const observations = Array.isArray(file.json) ? file.json : [];
 
         const filtered = observations.filter(obs => !ids.includes(obs.id));
 
-        await putJsonFile(
-          FILES.observations,
-          filtered,
-          file.sha,
-          "Delete market observations"
-        );
+        await saveMarketObservations(
+  filtered,
+  file.sha,
+  "Delete market observations"
+);
 
         return res.status(200).json({ ok: true });
       }
 
       if (body.type === "saveTrackedCard") {
-        const file = await getJsonFile(FILES.trackedCards);
+        const file = await loadTrackedMarketCards();
         const trackedCards = Array.isArray(file.json) ? file.json : [];
         const incoming = cleanTrackedCard(body);
         const incomingKey = normalizeCardKey(incoming);
@@ -317,28 +233,26 @@ module.exports = async function handler(req, res) {
         const filtered = trackedCards.filter(card => normalizeCardKey(card) !== incomingKey);
         filtered.push(incoming);
 
-        await putJsonFile(
-          FILES.trackedCards,
-          filtered,
-          file.sha,
-          "Update tracked market card"
-        );
+        await saveTrackedMarketCards(
+  filtered,
+  file.sha,
+  "Update tracked market card"
+);
 
         return res.status(200).json({ ok: true });
       }
 
       if (body.type === "deleteTrackedCard") {
-        const file = await getJsonFile(FILES.trackedCards);
+        const file = await loadTrackedMarketCards();
         const trackedCards = Array.isArray(file.json) ? file.json : [];
 
         const filtered = trackedCards.filter(card => card.id !== body.id);
 
-        await putJsonFile(
-          FILES.trackedCards,
-          filtered,
-          file.sha,
-          "Delete tracked market card"
-        );
+        await saveTrackedMarketCards(
+  filtered,
+  file.sha,
+  "Delete tracked market card"
+);
 
         return res.status(200).json({ ok: true });
       }
