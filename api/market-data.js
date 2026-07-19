@@ -49,12 +49,31 @@ async function getJsonFile(filePath) {
   }
 
   const data = await response.json();
-  const content = Buffer.from(data.content, "base64").toString("utf8");
 
-  return {
-    json: JSON.parse(content),
-    sha: data.sha
-  };
+  console.log("FILE:", filePath);
+  console.log("GitHub keys:", Object.keys(data));
+  console.log("encoding:", data.encoding);
+  console.log("content length:", data.content?.length);
+
+  const content = Buffer.from(data.content || "", "base64").toString("utf8");
+
+  console.log("decoded length:", content.length);
+  console.log("first 100 chars:", content.slice(0, 100));
+
+  try {
+    return {
+      json: JSON.parse(content),
+      sha: data.sha
+    };
+  } catch (e) {
+    throw new Error(
+      `Erreur dans ${filePath}\n` +
+      `encoding=${data.encoding}\n` +
+      `contentLength=${data.content?.length}\n` +
+      `decodedLength=${content.length}\n` +
+      `first100=${content.slice(0,100)}`
+    );
+  }
 }
 
 async function putJsonFile(filePath, json, sha, message) {
