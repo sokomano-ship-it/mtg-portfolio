@@ -181,6 +181,10 @@ function getExpansionName(price) {
 }
 
 function getProductId(price) {
+  if (!price || typeof price !== "object") {
+    return 0;
+  }
+
   return Number(
     price.idProduct ||
     price.productId ||
@@ -327,7 +331,39 @@ function findCandidatesByName(card, indexes) {
   });
 }
 
+function acceptedExpansionIds(card) {
+  const edition = normalize(card.edition);
+
+  const expansionIds = {
+    revised: [6],
+    revisededition: [6],
+
+    foreignblackbordered: [57],
+    foreignblackborder: [57],
+    fbb: [57],
+
+    foreignwhitebordered: [73],
+    foreignwhiteborder: [73],
+    fwb: [73]
+  };
+
+  return expansionIds[edition] || [];
+}
+
+
 function findEditionMatch(card, candidates) {
+  const acceptedIds = acceptedExpansionIds(card);
+
+  if (acceptedIds.length > 0) {
+    const expansionMatch = candidates.find(price =>
+      acceptedIds.includes(Number(price.idExpansion))
+    );
+
+    if (expansionMatch) {
+      return expansionMatch;
+    }
+  }
+
   const acceptedEditions = editionAliases(card.edition)
     .map(normalize);
 
@@ -410,6 +446,7 @@ module.exports = {
   normalize,
   cleanCardName,
   editionAliases,
+  acceptedExpansionIds,
   getPriceName,
   getExpansionName,
   getProductId,

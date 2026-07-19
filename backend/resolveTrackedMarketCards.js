@@ -11,6 +11,9 @@ const TRACKED_PATH = path.join(__dirname, "data", "trackedMarketCards.json");
 const PRICE_GUIDE_URL =
   "https://downloads.s3.cardmarket.com/productCatalog/priceGuide/price_guide_1.json";
 
+const PRODUCT_CATALOG_URL =
+  "https://downloads.s3.cardmarket.com/productCatalog/productList/products_singles_1.json";
+
 function readJson(file, fallback) {
   if (!fs.existsSync(file)) return fallback;
   return JSON.parse(fs.readFileSync(file, "utf8"));
@@ -101,17 +104,117 @@ async function searchScryfall(card) {
   return null;
 }
 
+function mergeProductsAndPrices(products, priceGuides) {
+  const pricesByProductId = new Map();
+
+  for (const price of priceGuides) {
+    const idProduct = Number(price?.idProduct || 0);
+
+    if (idProduct) {
+      pricesByProductId.set(idProduct, price);
+    }
+  }
+
+  
+
+  return products
+    .map(product => {
+      const idProduct = Number(
+        product?.idProduct ||
+        product?.productId ||
+        product?.id ||
+        0
+      );
+
+      if (!idProduct) {
+        return null;
+      }
+
+      return {
+        ...product,
+        idProduct,
+        priceGuide: pricesByProductId.get(idProduct) || null
+      };
+    })
+    .filter(Boolean);
+}
+
 async function main() {
   const trackedCards = readJson(TRACKED_PATH, []);
-  const response = await axios.get(PRICE_GUIDE_URL, {
-  timeout: 60000,
-  responseType: "json"
-});
 
-const priceGuides = response.data.priceGuides || [];
-const indexes = buildIndexes(priceGuides);
+  console.log("Téléchargement du catalogue Cardmarket...");
 
-console.log(`${priceGuides.length} produits Cardmarket chargés.`);
+  const [catalogResponse, priceResponse] = await Promise.all([
+    axios.get(PRODUCT_CATALOG_URL, {
+      timeout: 120000,
+      responseType: "json"
+    }),
+
+    axios.get(PRICE_GUIDE_URL, {
+      timeout: 120000,
+      responseType: "json"
+    })
+  ]);
+
+  const products =
+  catalogResponse.data?.products ||
+  catalogResponse.data?.productList ||
+  catalogResponse.data?.productsSingles ||
+  [];
+
+const priceGuides =
+  priceResponse.data?.priceGuides ||
+  [];
+
+// Diagnostic temporaire
+console.log(
+  "Tous les produits Bayou :",
+  products
+    .filter(product =>
+      normalize(product.name) === normalize("Bayou")
+    )
+    .map(product => {
+      const price = priceGuides.find(
+        row =>
+          Number(row.idProduct) ===
+          Number(product.idProduct)
+      );
+
+      return {
+        idProduct: product.idProduct,
+        idExpansion: product.idExpansion,
+        name: product.name,
+        trend: price?.trend ?? null,
+        low: price?.low ?? null,
+        avg30: price?.avg30 ?? null
+      };
+    })
+);
+
+const mergedProducts = mergeProductsAndPrices(
+  products,
+  priceGuides
+);
+
+
+
+
+
+
+
+  const indexes = buildIndexes(mergedProducts);
+
+  console.log(
+    `${products.length} produits dans le catalogue Cardmarket.`
+  );
+
+  console.log(
+    `${priceGuides.length} prix Cardmarket chargés.`
+  );
+
+  console.log(
+    `${mergedProducts.length} produits fusionnés.`
+  );
 
   let resolved = 0;
   let alreadyResolved = 0;
@@ -133,13 +236,38 @@ console.log(`${priceGuides.length} produits Cardmarket chargés.`);
       continue;
     }
 
-    const scryfallCard = await searchScryfall(card);
+console.log(
+  `Résolution : ${card.nomCarte} | ${card.edition} | ${card.langue}`
+);
 
-const lookupPrice = findPriceForCard(card, indexes);
+const scryfallCard = await searchScryfall(card);
+
+const lookupCard = {
+  ...card,
+  nomBase:
+    card.nomBase ||
+    scryfallCard?.name ||
+    card.nomCarte
+};
+
+const lookupPrice = findPriceForCard(
+  lookupCard,
+  indexes
+);
+
+
+
+if (!lookupPrice) {
+  console.warn(
+    `Aucun prix Cardmarket trouvé : ` +
+    `${card.nomCarte} | ${card.edition} | ${card.langue} | ` +
+    `Scryfall Cardmarket ID=${scryfallCard?.cardmarket_id || "absent"}`
+  );
+}
 
 const resolvedCardmarketId =
   scryfallCard?.cardmarket_id ||
-  getProductId(lookupPrice) ||
+  (lookupPrice ? getProductId(lookupPrice) : 0) ||
   card.cardmarketId ||
   null;
 
