@@ -34,16 +34,16 @@ jobs:
       - name: Sync collection and build portfolio
         run: npm run sync:collection
 
-      - name: Commit updated portfolio data
+      - name: Commit and push generated files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add database/portfolio.db
-          git add frontend/data
-
+          git add .
           git diff --cached --quiet || git commit -m "Sync collection from Excel"
-          git push
+
+          git pull --rebase origin main
+          git push origin main
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
