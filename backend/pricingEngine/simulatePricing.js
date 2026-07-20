@@ -21,6 +21,8 @@ const FALLBACK_CONDITION_RATIOS = {
   PO: 0.30
 };
 
+const CONDITIONS = ["NM", "EX", "GD", "LP", "PL", "PO"];
+
 function readReferenceCatalog() {
   if (!fs.existsSync(REFERENCE_CATALOG_PATH)) return new Map();
 
@@ -112,19 +114,90 @@ function estimateCard(card, model, globalConditionModel = null) {
 
   if (model.modelType === "manual_only") {
   if (conditionModel?.observedPrice) {
-    return {
-      estimatedPrice: conditionModel.observedPrice,
-      pricingModel: "manual_observed",
-      estimationSource: "direct_condition_observation",
-      marketAnchorPrice: null,
-      ratioUsed: null,
-      confidence: Math.min(
-        50 + conditionModel.observationCount * 10,
-        95
+  const baseObservedPrice =
+    Number(conditionModel.observedPrice || 0);
+
+  const syntheticMarketFactor =
+    Number(model.syntheticAnchor?.factor || 1);
+
+  const safeSyntheticMarketFactor =
+    syntheticMarketFactor >= 0.85 &&
+    syntheticMarketFactor <= 1.15
+      ? syntheticMarketFactor
+      : 1;
+
+  const estimatedPrice =
+    baseObservedPrice * safeSyntheticMarketFactor;
+
+  const comparableCount =
+    Number(
+      model.syntheticAnchor?.comparableCount || 0
+    );
+
+  const baseConfidence = Math.min(
+    50 +
+      Number(conditionModel.observationCount || 0) * 10,
+    90
+  );
+
+  const comparableBonus =
+    comparableCount >= 100
+      ? 5
+      : comparableCount >= 30
+        ? 3
+        : 0;
+
+  return {
+    estimatedPrice: Number(
+      estimatedPrice.toFixed(2)
+    ),
+
+    baseObservedPrice,
+
+    rawObservedPrice:
+      Number(
+        conditionModel.rawObservedPrice ||
+        conditionModel.observedPrice ||
+        0
       ),
-      observationCount: conditionModel.observationCount
-    };
-  }
+
+    pricingModel:
+      "manual_synthetic_evolution",
+
+    estimationSource:
+      "direct_condition_observation_plus_synthetic_market_anchor",
+
+    marketAnchorPrice: null,
+
+    syntheticMarketFactor:
+      safeSyntheticMarketFactor,
+
+    syntheticMarketRawFactor:
+      Number(
+        model.syntheticAnchor?.rawFactor || 1
+      ),
+
+    syntheticComparableCount:
+      comparableCount,
+
+    syntheticAnchorSource:
+      model.syntheticAnchor?.source ||
+      "neutral_fallback",
+
+    ratioUsed:
+      safeSyntheticMarketFactor,
+
+    confidence: Math.min(
+      baseConfidence + comparableBonus,
+      95
+    ),
+
+    observationCount:
+      Number(
+        conditionModel.observationCount || 0
+      )
+  };
+}
 
   const observedConditions = Object.values(model.byCondition || {})
     .filter(row => Number(row?.observedPrice || 0) > 0);
@@ -237,6 +310,105 @@ function getEstimatedConditionPrice(card, estimated, gradeEstimate) {
     0
   );
 }
+
+function estimateManualConditions(model, estimated) {
+  const syntheticFactor = Number(
+    estimated.syntheticMarketFactor ||
+    model?.syntheticAnchor?.factor ||
+    1
+  );
+
+  const safeFactor =
+    syntheticFactor >= 0.85 && syntheticFactor <= 1.15
+      ? syntheticFactor
+      : 1;
+
+  const estimatedByCondition = {};
+
+  CONDITIONS.forEach(condition => {
+    const observedPrice = Number(
+      model?.byCondition?.[condition]?.observedPrice || 0
+    );
+
+    estimatedByCondition[condition] =
+      observedPrice > 0
+        ? Number((observedPrice * safeFactor).toFixed(2))
+        : null;
+  });
+
+  return {
+    estimatedByCondition,
+
+    buyTargetByCondition: {
+      NM: estimatedByCondition.NM
+        ? Number((estimatedByCondition.NM * 0.90).toFixed(2))
+        : null,
+
+      EX: estimatedByCondition.EX
+        ? Number((estimatedByCondition.EX * 0.88).toFixed(2))
+        : null
+    },
+
+    ratioByCondition: null,
+    bayesianWeights: null,
+
+    observationDaysCount: null,
+
+    observationRowsCount: CONDITIONS.reduce(
+      (total, condition) =>
+        total +
+        Number(
+          model?.byCondition?.[condition]?.observationCount || 0
+        ),
+      0
+    ),
+
+    lastObservedMinByCondition: Object.fromEntries(
+      CONDITIONS.map(condition => [
+        condition,
+        Number(
+          model?.byCondition?.[condition]?.rawObservedPrice ||
+          model?.byCondition?.[condition]?.observedPrice ||
+          0
+        ) || null
+      ])
+    ),
+
+    observedMinByCondition: Object.fromEntries(
+      CONDITIONS.map(condition => [
+        condition,
+        Number(
+          model?.byCondition?.[condition]?.observedPrice || 0
+        ) || null
+      ])
+    ),
+
+    reliableObservedByCondition: Object.fromEntries(
+      CONDITIONS.map(condition => [
+        condition,
+        Number(
+          model?.byCondition?.[condition]?.observedPrice || 0
+        ) || null
+      ])
+    ),
+
+    observationReliabilityByCondition: Object.fromEntries(
+      CONDITIONS.map(condition => [
+        condition,
+        model?.byCondition?.[condition]?.observedPrice ? 1 : 0
+      ])
+    ),
+
+    averageObservationReliability: 1,
+
+    confidence: estimated.confidence,
+
+    source:
+      "manual observations by condition + synthetic market evolution"
+  };
+}
+
+
 async function main() {
   const cards = await getCards();
   const models = readModels();
@@ -252,21 +424,42 @@ async function main() {
     models.__globalConditionModel
 );
 
-const gradeAnchorPrice =
-  model?.modelType === "edition_ratio"
-    ? estimated.estimatedPrice
-    : estimated.marketAnchorPrice;
+const isManualOnly =
+  model?.modelType === "manual_only";
 
-const gradeEstimate = estimateCardByGrade(card, {
-  anchorPrice: gradeAnchorPrice,
-  estimatedPrice: estimated.estimatedPrice
-});
+let gradeEstimate;
 
-const estimatedConditionPrice = getEstimatedConditionPrice(
-    card,
-    estimated,
-    gradeEstimate
-);
+if (isManualOnly) {
+  gradeEstimate = estimateManualConditions(
+    model,
+    estimated
+  );
+} else {
+  const gradeAnchorPrice =
+    model?.modelType === "edition_ratio"
+      ? estimated.estimatedPrice
+      : estimated.marketAnchorPrice;
+
+  gradeEstimate = estimateCardByGrade(card, {
+    anchorPrice: gradeAnchorPrice,
+    estimatedPrice: estimated.estimatedPrice
+  });
+}
+
+const estimatedConditionPrice =
+  isManualOnly
+    ? Number(
+        gradeEstimate.estimatedByCondition?.[
+          String(card.etat || "NM").toUpperCase()
+        ] ||
+        estimated.estimatedPrice ||
+        0
+      )
+    : getEstimatedConditionPrice(
+        card,
+        estimated,
+        gradeEstimate
+      );
 
 return {
 
