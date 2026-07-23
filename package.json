@@ -5,35 +5,31 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-
     "update:cardmarket": "node backend/updateCardmarketFromPriceGuide.js",
     "update:portfolio": "node backend/updatePortfolioValue.js",
     "update:daily": "npm run update:cardmarket && npm run update:portfolio",
-
     "manual:prices": "node backend/applyManualPrices.js",
     "snapshot:prices": "node backend/savePriceHistorySnapshot.js",
     "analyze:history": "node backend/analyzePriceHistory.js",
-
     "reference:catalog": "node backend/referenceCatalog/buildScryfallReferenceCatalog.js",
     "train:pricing": "node backend/pricingEngine/modelTrainer.js",
     "simulate:pricing": "node backend/pricingEngine/simulatePricing.js",
-
     "export:json": "node backend/exportPortfolioJson.js",
-
     "build:pages": "npm run update:daily && npm run resolve:tracked && npm run update:tracked && npm run snapshot:prices && npm run analyze:history && npm run reference:catalog && npm run train:pricing && npm run simulate:pricing && npm run snapshot:estimated && npm run export:json",
-
     "sync:collection": "node backend/importExcel.js && node backend/enrichScryfall.js && npm run build:pages",
     "send:alerts": "node backend/sendAlerts.js",
     "manual:prices:server": "node backend/manualPricesServer.js",
     "snapshot:estimated": "node backend/saveEstimatedPriceSnapshot.js",
     "resolve:tracked": "node backend/resolveTrackedMarketCards.js",
-"update:tracked": "node backend/updateTrackedMarketCardsPrices.js"
+    "update:tracked": "node backend/updateTrackedMarketCardsPrices.js"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.4",
     "@octokit/rest": "^22.0.1",
     "axios": "^1.7.0",
     "cheerio": "^1.2.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
     "express": "^4.19.2",
     "node-cron": "^4.5.0",
     "nodemailer": "^9.0.1",
