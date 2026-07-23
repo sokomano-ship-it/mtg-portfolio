@@ -57,6 +57,33 @@ function readEstimatedPriceHistory() {
     return JSON.parse(fs.readFileSync(estimatedPriceHistoryFile, "utf8"));
 }
 
+function readExistingPortfolioHistory() {
+    const file = splitOutputFiles.portfolioHistory;
+
+    if (!fs.existsSync(file)) {
+        return [];
+    }
+
+    try {
+        const data = JSON.parse(
+            fs.readFileSync(file, "utf8")
+        );
+
+        return Array.isArray(data)
+            ? data
+            : Array.isArray(data.portfolioHistory)
+                ? data.portfolioHistory
+                : [];
+    } catch (error) {
+        console.warn(
+            "Impossible de lire portfolio-history.json :",
+            error.message
+        );
+
+        return [];
+    }
+}
+
 function readReferenceCatalog() {
     if (!fs.existsSync(referenceCatalogFile)) return new Map();
 
@@ -612,13 +639,7 @@ async function main() {
         }))
         .sort((a, b) => b.totalValue - a.totalValue);
 
-    const portfolioHistory = await all(`
-        SELECT
-            date,
-            ROUND(totalValue, 2) AS totalValue
-        FROM portfolio_history
-        ORDER BY date
-    `);
+    
 
     
 
@@ -666,16 +687,20 @@ function buildPortfolioHistoryFromEstimatedSnapshots(estimatedPriceHistory) {
         .sort((a, b) => String(a.date).localeCompare(String(b.date)));
 }
 
-const portfolioHistoryFromSnapshots =
-    buildPortfolioHistoryFromEstimatedSnapshots(estimatedPriceHistory);
+const existingPortfolioHistory =
+    readExistingPortfolioHistory();
 
 const portfolioHistoryEstimated = [
-    ...portfolioHistoryFromSnapshots.filter(row => row.date !== todayDate),
+    ...existingPortfolioHistory.filter(
+        row => row.date && row.date !== todayDate
+    ),
     {
         date: todayDate,
         totalValue: Number(estimatedTotalValue.toFixed(2))
     }
-];
+].sort((a, b) =>
+    String(a.date).localeCompare(String(b.date))
+);
 
     const valuedCardsCount = cards.filter(card => Number(card.estimatedPrice || 0) > 0).length;
     const missingEstimatedCardsCount = cards.length - valuedCardsCount;
