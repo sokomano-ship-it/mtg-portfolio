@@ -12,9 +12,9 @@ async function fetchJson(path) {
 
 window.apiAdapter = {
     async getCards() {
-        const data = await fetchJson("data/cards.json");
-        return data.cards || [];
-    },
+    const data = await fetchJson("/api/cards");
+    return data.cards || [];
+},
 
     async getWatchlist() {
         const data = await fetchJson("data/watchlist.json");
