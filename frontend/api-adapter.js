@@ -1,3 +1,5 @@
+
+
 async function fetchJson(path) {
     const response = await fetch(path, { cache: "no-store" });
 
@@ -35,9 +37,9 @@ window.apiAdapter = {
     },
 
     async getPortfolioSummary() {
-        const data = await fetchJson("data/portfolio-summary.json");
-        return data.portfolioSummary || {};
-    },
+    const data = await fetchJson("/api/portfolio-summary");
+    return data.portfolioSummary || {};
+},
 
     async getPortfolioHistory() {
         const data = await fetchJson("data/portfolio-history.json");
