@@ -17,9 +17,9 @@ window.apiAdapter = {
 },
 
     async getWatchlist() {
-        const data = await fetchJson("data/watchlist.json");
-        return data.watchlistCards || [];
-    },
+    const data = await fetchJson("/api/watchlist");
+    return data.watchlistCards || [];
+},
 
     async getOpportunities() {
     const data = await fetchJson("/api/opportunities");
