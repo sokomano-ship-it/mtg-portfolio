@@ -17,6 +17,11 @@ let currentOpportunityDirection = "desc";
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
 let investmentChart = null;
+let cardsLoaded = false;
+let opportunitiesLoaded = false;
+let investmentLoaded = false;
+let moversLoaded = false;
+
 const MODEL_START_DATE = "2026-07-12";
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
@@ -28,6 +33,25 @@ function setupTabs() {
     document.querySelectorAll(".tab-button").forEach(button => {
         button.addEventListener("click", () => {
             const target = button.dataset.tab;
+            if (target === "tab-collection" && !cardsLoaded) {
+    cardsLoaded = true;
+    loadCards();
+}
+
+if (target === "tab-opportunities" && !opportunitiesLoaded) {
+    opportunitiesLoaded = true;
+    loadOpportunities();
+}
+
+if (target === "tab-investment-analysis" && !investmentLoaded) {
+    investmentLoaded = true;
+    loadInvestmentAnalysis();
+}
+
+if (target === "tab-top-movers" && !moversLoaded) {
+    moversLoaded = true;
+    loadTopMovers();
+}
 
             document.querySelectorAll(".tab-button").forEach(b => {
                 b.classList.remove("active");
@@ -67,14 +91,13 @@ function setupInvestmentDrawerTabs() {
 }
 
 async function loadDashboard() {
-    await loadCards();
-    await loadPortfolioSummary();
-    await loadPortfolioHistory();
-    await loadCategorySummary();
-    
-    
-    await loadInvestmentAnalysis();
-    await loadOpportunities();
+
+    await Promise.all([
+        loadPortfolioSummary(),
+        loadPortfolioHistory(),
+        loadCategorySummary()
+    ]);
+
 }
 
 async function loadCards() {
