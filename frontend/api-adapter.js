@@ -42,9 +42,9 @@ window.apiAdapter = {
 },
 
     async getPortfolioHistory() {
-        const data = await fetchJson("data/portfolio-history.json");
-        return data.portfolioHistory || [];
-    },
+    const data = await fetchJson("/api/portfolio-history");
+    return data.portfolioHistory || [];
+}
 
     async getCategorySummary() {
         const data = await fetchJson("data/category-summary.json");
