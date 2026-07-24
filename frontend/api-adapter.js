@@ -52,9 +52,9 @@ window.apiAdapter = {
 },
 
     async getTopMovers() {
-        const data = await fetchJson("data/top-movers.json");
-        return data.topMovers || [];
-    },
+    const data = await fetchJson("/api/top-movers");
+    return data.topMovers || [];
+},
 
     async getInvestmentAnalysis() {
     const data = await fetchJson("/api/investment-analysis");
