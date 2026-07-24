@@ -27,9 +27,9 @@ window.apiAdapter = {
     },
 
     async getCardDetails() {
-        const data = await fetchJson("data/card-details.json");
-        return data.cardDetails || {};
-    },
+    const data = await fetchJson("/api/card-details");
+    return data.cardDetails || {};
+},
 
     async getCardDetail(cardId) {
         const details = await this.getCardDetails();
