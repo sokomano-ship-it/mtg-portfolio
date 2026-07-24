@@ -47,9 +47,9 @@ window.apiAdapter = {
 }
 
     async getCategorySummary() {
-        const data = await fetchJson("data/category-summary.json");
-        return data.categorySummary || [];
-    },
+    const data = await fetchJson("/api/category-summary");
+    return data.categorySummary || [];
+},
 
     async getTopMovers() {
         const data = await fetchJson("data/top-movers.json");
