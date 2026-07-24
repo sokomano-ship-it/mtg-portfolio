@@ -168,6 +168,105 @@ function getCards() {
   });
 }
 
+function getHistoricalMarketPrices() {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `
+      SELECT
+        cardId,
+        date,
+        trendPrice,
+        avgPrice,
+        lowPrice
+      FROM card_price_history
+      WHERE date IS NOT NULL
+      ORDER BY cardId, date, id
+      `,
+      [],
+      (err, rows) => err ? reject(err) : resolve(rows)
+    );
+  });
+}
+
+function normalizeDate(dateValue) {
+  if (!dateValue) return null;
+
+  const normalized = String(dateValue).slice(0, 10);
+
+  return /^\d{4}-\d{2}-\d{2}$/.test(normalized)
+    ? normalized
+    : null;
+}
+
+function historicalMarketAnchorPrice(row) {
+  if (!row) return 0;
+
+  return (
+    Number(row.trendPrice || 0) ||
+    Number(row.avgPrice || 0) ||
+    Number(row.lowPrice || 0) ||
+    0
+  );
+}
+
+function buildHistoricalAnchorsByCard(rows) {
+  const anchorsByCard = new Map();
+
+  rows.forEach(row => {
+    const cardId = Number(row.cardId);
+    const date = normalizeDate(row.date);
+    const anchor = historicalMarketAnchorPrice(row);
+
+    if (!cardId || !date || anchor <= 0) {
+      return;
+    }
+
+    if (!anchorsByCard.has(cardId)) {
+      anchorsByCard.set(cardId, []);
+    }
+
+    anchorsByCard.get(cardId).push({
+      date,
+      anchor
+    });
+  });
+
+  anchorsByCard.forEach(anchors => {
+    anchors.sort((a, b) =>
+      String(a.date).localeCompare(String(b.date))
+    );
+  });
+
+  return anchorsByCard;
+}
+
+/**
+ * Retourne la dernière ancre connue au plus tard à la date demandée.
+ *
+ * Une valeur postérieure à l'observation n'est jamais utilisée.
+ */
+function findHistoricalAnchor(
+  historicalAnchorsByCard,
+  cardId,
+  observationDate
+) {
+  const normalizedDate = normalizeDate(observationDate);
+  const anchors =
+    historicalAnchorsByCard.get(Number(cardId)) || [];
+
+  if (!normalizedDate || !anchors.length) {
+    return 0;
+  }
+
+  for (let index = anchors.length - 1; index >= 0; index -= 1) {
+    if (anchors[index].date <= normalizedDate) {
+      return Number(anchors[index].anchor || 0);
+    }
+  }
+
+  return 0;
+}
+
 function marketAnchorPrice(card) {
   return (
     Number(card.trendPrice || 0) ||
@@ -374,42 +473,131 @@ function trainManualModel(
 }
 
 
-
-function trainStandardModel(card, observations, anchor) {
+function trainStandardModel(
+  card,
+  observations,
+  currentAnchor,
+  historicalAnchorsByCard,
+  previousModel = null
+) {
   const cardObs = observationsForCard(card, observations);
   const byCondition = {};
 
   CONDITIONS.forEach(condition => {
     const rows = cardObs
-      .filter(o => normalize(o.condition) === normalize(condition))
-      .map(o => ({
-        value: o.observedMinPrice,
-        date: o.observationDate || o.date || o.createdAt
+      .filter(
+        observation =>
+          normalize(observation.condition) === normalize(condition)
+      )
+      .map(observation => {
+        const date =
+          observation.observationDate ||
+          observation.date ||
+          observation.createdAt ||
+          null;
+
+        const observedPrice =
+          Number(observation.observedMinPrice || 0);
+
+        const historicalAnchor = findHistoricalAnchor(
+          historicalAnchorsByCard,
+          card.id,
+          date
+        );
+
+        return {
+          observedPrice,
+          date,
+          historicalAnchor
+        };
+      })
+      .filter(row => row.observedPrice > 0);
+
+    /*
+     * Prix observé moyen affiché dans le modèle.
+     * Il reste calculé indépendamment du ratio.
+     */
+    const observedAverage = weightedAverage(
+      rows.map(row => ({
+        value: row.observedPrice,
+        date: row.date
+      }))
+    );
+
+    /*
+     * Chaque observation est divisée par l'ancre qui existait
+     * au moment de cette observation.
+     */
+    const historicalRatios = rows
+      .filter(row => row.historicalAnchor > 0)
+      .map(row => ({
+        value:
+          row.observedPrice /
+          row.historicalAnchor,
+
+        date: row.date
       }));
 
-    const avg = weightedAverage(rows);
+    const historicalRatioAverage =
+      weightedAverage(historicalRatios);
 
-    if (avg && anchor) {
+    /*
+     * Lorsque l'historique n'existe pas encore pour une ancienne
+     * observation, on conserve le ratio généré lors du précédent
+     * entraînement au lieu de le recalculer avec le Trend actuel.
+     */
+    const previousRatio = Number(
+      previousModel?.byCondition?.[condition]
+        ?.ratioToMarketAnchor || 0
+    );
+
+    const ratioToMarketAnchor =
+      historicalRatioAverage ||
+      previousRatio ||
+      0;
+
+    if (ratioToMarketAnchor > 0) {
       byCondition[condition] = {
-        ratioToMarketAnchor: Number((avg / anchor).toFixed(4)),
-        observedPrice: Number(avg.toFixed(2)),
-        observationCount: rows.length
+        ratioToMarketAnchor: Number(
+          ratioToMarketAnchor.toFixed(4)
+        ),
+
+        observedPrice: observedAverage
+          ? Number(observedAverage.toFixed(2))
+          : previousModel?.byCondition?.[condition]
+              ?.observedPrice ??
+            null,
+
+        observationCount: rows.length,
+
+        historicalRatioCount:
+          historicalRatios.length,
+
+        ratioSource:
+          historicalRatios.length > 0
+            ? "historical_market_anchor"
+            : previousRatio > 0
+              ? "previous_model_ratio"
+              : null
       };
     }
   });
 
   return {
     modelType: "standard_market_anchor",
-    marketAnchorPrice: anchor,
+    marketAnchorPrice: currentAnchor,
     byCondition
   };
 }
+
 
 function trainEditionRatioModel(
   card,
   observations,
   catalogEntry,
-  trackedCards
+  trackedCards,
+  historicalAnchorsByCard,
+  previousModel = null
 ) {
   const trackedReferenceCard = findTrackedReferenceCard(
     trackedCards,
@@ -421,73 +609,230 @@ function trainEditionRatioModel(
     trackedReferenceCard ||
     null;
 
-  const referenceAnchor =
+  const currentReferenceAnchor =
     referenceAnchorPrice(effectiveReferenceCard);
+
+  const referenceCardId =
+    Number(effectiveReferenceCard?.id || 0);
 
   const cardObs = observationsForCard(card, observations);
   const byCondition = {};
 
   CONDITIONS.forEach(condition => {
     const rows = cardObs
-      .filter(o => normalize(o.condition) === normalize(condition))
-      .map(o => ({
-        value: o.observedMinPrice,
-        date: o.observationDate || o.date || o.createdAt
+      .filter(
+        observation =>
+          normalize(observation.condition) === normalize(condition)
+      )
+      .map(observation => {
+        const date =
+          observation.observationDate ||
+          observation.date ||
+          observation.createdAt ||
+          null;
+
+        const observedPrice =
+          Number(observation.observedMinPrice || 0);
+
+        /*
+         * L'historique de la carte de référence ne peut être
+         * recherché que lorsque cette référence possède un id
+         * correspondant à une carte de la base.
+         */
+        const historicalReferenceAnchor =
+          referenceCardId > 0
+            ? findHistoricalAnchor(
+                historicalAnchorsByCard,
+                referenceCardId,
+                date
+              )
+            : 0;
+
+        return {
+          observedPrice,
+          date,
+          historicalReferenceAnchor
+        };
+      })
+      .filter(row => row.observedPrice > 0);
+
+    const observedAverage = weightedAverage(
+      rows.map(row => ({
+        value: row.observedPrice,
+        date: row.date
+      }))
+    );
+
+    const historicalRatios = rows
+      .filter(
+        row =>
+          row.historicalReferenceAnchor > 0
+      )
+      .map(row => ({
+        value:
+          row.observedPrice /
+          row.historicalReferenceAnchor,
+
+        date: row.date
       }));
 
-    const avg = weightedAverage(rows);
+    const historicalRatioAverage =
+      weightedAverage(historicalRatios);
 
-    if (avg && referenceAnchor) {
+    const previousRatio = Number(
+      previousModel?.byCondition?.[condition]
+        ?.ratioToReferenceMarketAnchor || 0
+    );
+
+    const ratioToReferenceMarketAnchor =
+      historicalRatioAverage ||
+      previousRatio ||
+      0;
+
+    if (ratioToReferenceMarketAnchor > 0) {
       byCondition[condition] = {
-        ratioToReferenceMarketAnchor: Number((avg / referenceAnchor).toFixed(4)),
-        observedPrice: Number(avg.toFixed(2)),
-        observationCount: rows.length
+        ratioToReferenceMarketAnchor: Number(
+          ratioToReferenceMarketAnchor.toFixed(4)
+        ),
+
+        observedPrice: observedAverage
+          ? Number(observedAverage.toFixed(2))
+          : previousModel?.byCondition?.[condition]
+              ?.observedPrice ??
+            null,
+
+        observationCount: rows.length,
+
+        historicalRatioCount:
+          historicalRatios.length,
+
+        ratioSource:
+          historicalRatios.length > 0
+            ? "historical_reference_anchor"
+            : previousRatio > 0
+              ? "previous_model_ratio"
+              : null
       };
     }
   });
 
   return {
     modelType: "edition_ratio",
-    referenceFound: Boolean(effectiveReferenceCard && referenceAnchor > 0),
-referenceMarketAnchorPrice: referenceAnchor,
-expectedReference: catalogEntry.expectedReference || null,
-priceReferenceCard: effectiveReferenceCard,
-referenceSource: catalogEntry.priceReferenceCard
-  ? "portfolio"
-  : trackedReferenceCard
-    ? "tracked_market_card"
-    : null,
+
+    referenceFound: Boolean(
+      effectiveReferenceCard &&
+      currentReferenceAnchor > 0
+    ),
+
+    referenceMarketAnchorPrice:
+      currentReferenceAnchor,
+
+    expectedReference:
+      catalogEntry.expectedReference || null,
+
+    priceReferenceCard:
+      effectiveReferenceCard,
+
+    referenceSource:
+      catalogEntry.priceReferenceCard
+        ? "portfolio"
+        : trackedReferenceCard
+          ? "tracked_market_card"
+          : null,
+
     byCondition
   };
 }
 
-function trainGlobalConditionModel(cards, observations) {
+function trainGlobalConditionModel(
+  cards,
+  observations,
+  historicalAnchorsByCard,
+  previousGlobalModel = null
+) {
   const byCondition = {};
 
   CONDITIONS.forEach(condition => {
     const ratios = [];
 
     cards.forEach(card => {
-      const anchor = marketAnchorPrice(card);
-      if (!anchor) return;
+      const cardObservations =
+        observationsForCard(card, observations)
+          .filter(
+            observation =>
+              normalize(observation.condition) ===
+              normalize(condition)
+          );
 
-      const obs = observationsForCard(card, observations)
-        .filter(o => normalize(o.condition) === normalize(condition))
-        .map(o => ({
-          value: Number(o.observedMinPrice || 0) / anchor,
-          date: o.observationDate || o.date || o.createdAt
-        }))
-        .filter(x => x.value > 0);
+      cardObservations.forEach(observation => {
+        const date =
+          observation.observationDate ||
+          observation.date ||
+          observation.createdAt ||
+          null;
 
-      ratios.push(...obs);
+        const observedPrice =
+          Number(observation.observedMinPrice || 0);
+
+        const historicalAnchor =
+          findHistoricalAnchor(
+            historicalAnchorsByCard,
+            card.id,
+            date
+          );
+
+        if (
+          observedPrice <= 0 ||
+          historicalAnchor <= 0
+        ) {
+          return;
+        }
+
+        ratios.push({
+          value:
+            observedPrice /
+            historicalAnchor,
+
+          date
+        });
+      });
     });
 
-    const avg = weightedAverage(ratios);
+    const historicalAverage =
+      weightedAverage(ratios);
 
-    if (avg) {
+    const previousRatio = Number(
+      previousGlobalModel?.byCondition?.[condition]
+        ?.ratioToMarketAnchor || 0
+    );
+
+    const ratioToMarketAnchor =
+      historicalAverage ||
+      previousRatio ||
+      0;
+
+    if (ratioToMarketAnchor > 0) {
       byCondition[condition] = {
-        ratioToMarketAnchor: Number(avg.toFixed(4)),
-        observationCount: ratios.length
+        ratioToMarketAnchor: Number(
+          ratioToMarketAnchor.toFixed(4)
+        ),
+
+        observationCount:
+          ratios.length ||
+          Number(
+            previousGlobalModel?.byCondition?.[condition]
+              ?.observationCount || 0
+          ),
+
+        historicalRatioCount:
+          ratios.length,
+
+        ratioSource:
+          ratios.length > 0
+            ? "historical_market_anchor"
+            : previousRatio > 0
+              ? "previous_model_ratio"
+              : null
       };
     }
   });
@@ -500,11 +845,34 @@ function trainGlobalConditionModel(cards, observations) {
 
 async function main() {
   const cards = await getCards();
-  const observations = readJson(OBS_PATH, []);
-  const referenceCatalog = readJson(REFERENCE_CATALOG_PATH, []);
-  const trackedCards = readJson(TRACKED_MARKET_CARDS_PATH, []);
+
+  const historicalMarketPrices =
+    await getHistoricalMarketPrices();
+
+  const historicalAnchorsByCard =
+    buildHistoricalAnchorsByCard(
+      historicalMarketPrices
+    );
+
+  /*
+   * Lecture du modèle généré la veille avant de l'écraser.
+   * Il sert de secours lorsqu'aucune ancre historique
+   * n'est disponible pour une ancienne observation.
+   */
+  const previousModels =
+    readJson(OUTPUT_PATH, {});
+
+  const observations =
+    readJson(OBS_PATH, []);
+
+  const referenceCatalog =
+    readJson(REFERENCE_CATALOG_PATH, []);
+
+  const trackedCards =
+    readJson(TRACKED_MARKET_CARDS_PATH, []);
+
   const syntheticMarketAnchor =
-  buildSyntheticMarketAnchor(cards);
+    buildSyntheticMarketAnchor(cards);
 
 console.log(
   "Ancre synthétique :",
@@ -519,32 +887,93 @@ console.log(
   const models = {};
 
   cards.forEach(card => {
-    const key = cardKey(card);
-    const anchor = marketAnchorPrice(card);
-    const catalogEntry = catalogByCardId.get(String(card.id));
+  const key = cardKey(card);
+  const anchor = marketAnchorPrice(card);
+  const catalogEntry =
+    catalogByCardId.get(String(card.id));
 
-    if (catalogEntry?.model === "manual_only") {
-      models[key] = trainManualModel(
-  card,
-  observations,
-  syntheticMarketAnchor
+  const previousModel =
+    previousModels[key] || null;
+
+  if (catalogEntry?.model === "manual_only") {
+    models[key] = trainManualModel(
+      card,
+      observations,
+      syntheticMarketAnchor
+    );
+
+    return;
+  }
+
+  if (catalogEntry?.model === "edition_ratio") {
+    models[key] = trainEditionRatioModel(
+      card,
+      observations,
+      catalogEntry,
+      trackedCards,
+      historicalAnchorsByCard,
+      previousModel
+    );
+
+    return;
+  }
+
+  models[key] = trainStandardModel(
+    card,
+    observations,
+    anchor,
+    historicalAnchorsByCard,
+    previousModel
+  );
+});
+
+models.__globalConditionModel =
+  trainGlobalConditionModel(
+    cards,
+    observations,
+    historicalAnchorsByCard,
+    previousModels.__globalConditionModel || null
+  );
+
+  const historicalRatiosCount = Object.values(models)
+  .filter(model => model && model.byCondition)
+  .reduce(
+    (total, model) =>
+      total +
+      Object.values(model.byCondition)
+        .reduce(
+          (subtotal, conditionModel) =>
+            subtotal +
+            Number(
+              conditionModel?.historicalRatioCount || 0
+            ),
+          0
+        ),
+    0
+  );
+
+const previousRatiosCount = Object.values(models)
+  .filter(model => model && model.byCondition)
+  .reduce(
+    (total, model) =>
+      total +
+      Object.values(model.byCondition)
+        .filter(
+          conditionModel =>
+            conditionModel?.ratioSource ===
+            "previous_model_ratio"
+        )
+        .length,
+    0
+  );
+
+console.log(
+  `Ratios construits avec historique : ${historicalRatiosCount}`
 );
-      return;
-    }
 
-    if (catalogEntry?.model === "edition_ratio") {
-      models[key] = trainEditionRatioModel(
-  card,
-  observations,
-  catalogEntry,
-  trackedCards
+console.log(
+  `Ratios conservés depuis le modèle précédent : ${previousRatiosCount}`
 );
-      return;
-    }
-
-    models[key] = trainStandardModel(card, observations, anchor);
-  });
-models.__globalConditionModel = trainGlobalConditionModel(cards, observations);
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(models, null, 2));
 
   console.log(`Modèles générés : ${OUTPUT_PATH}`);
