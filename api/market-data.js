@@ -2,10 +2,15 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 const {
   loadMarketObservations,
-  saveMarketObservations,
   loadTrackedMarketCards,
-  saveTrackedMarketCards
-} = require("../backend/dataStore");
+  addMarketObservation,
+  deleteMarketObservation,
+  deleteMarketObservations,
+  deleteCardObservations,
+  saveTrackedCard: saveTrackedCardToTurso,
+  deleteTrackedCard: deleteTrackedCardFromTurso,
+  deleteTrackedCardByIdentity
+} = require("../backend/tursoMarketDataStore");
 
 function cors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -18,20 +23,17 @@ function cors(res) {
 }
 
 function checkEnv() {
-  return Boolean(ADMIN_PASSWORD);
+  return Boolean(
+    ADMIN_PASSWORD &&
+    process.env.TURSO_DATABASE_URL &&
+    process.env.TURSO_AUTH_TOKEN
+  );
 }
 
 function checkAuth(req) {
   return req.headers["x-admin-password"] === ADMIN_PASSWORD;
 }
 
-function normalizeCardKey(card) {
-  return [
-    String(card.nomCarte || "").trim().toLowerCase(),
-    String(card.edition || "").trim().toLowerCase(),
-    String(card.langue || "").trim().toLowerCase()
-  ].join("|");
-}
 
 function safeRatio(numerator, denominator) {
   const num = Number(numerator || 0);
@@ -107,18 +109,14 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === "GET") {
-  const observationsFile = await loadMarketObservations();
-  const trackedCardsFile = await loadTrackedMarketCards();
+  const observations = await loadMarketObservations();
+const trackedCards = await loadTrackedMarketCards();
 
-  return res.status(200).json({
-    ok: true,
-    observations: Array.isArray(observationsFile.json)
-      ? observationsFile.json
-      : [],
-    trackedCards: Array.isArray(trackedCardsFile.json)
-      ? trackedCardsFile.json
-      : []
-  });
+return res.status(200).json({
+  ok: true,
+  observations,
+  trackedCards
+});
 }
 
     if (req.method === "POST") {
@@ -126,136 +124,85 @@ module.exports = async function handler(req, res) {
 
       if (body.type === "deleteCardEverywhere") {
   const target = {
-    nomCarte: body.nomCarte,
-    edition: body.edition,
-    langue: body.langue
+    nomCarte: String(body.nomCarte || "").trim(),
+    edition: String(body.edition || "").trim(),
+    langue: String(body.langue || "").trim()
   };
 
-  const trackedFile = await loadTrackedMarketCards();
-const observationsFile = await loadMarketObservations();
-
-  const trackedCards = Array.isArray(trackedFile.json) ? trackedFile.json : [];
-  const observations = Array.isArray(observationsFile.json) ? observationsFile.json : [];
-
-  const filteredTracked = trackedCards.filter(card => normalizeCardKey(card) !== normalizeCardKey(target));
-  const filteredObservations = observations.filter(obs => normalizeCardKey(obs) !== normalizeCardKey(target));
-
-  await saveTrackedMarketCards(
-  filteredTracked,
-  trackedFile.sha,
-  "Delete tracked card everywhere"
-);
-
-  await saveMarketObservations(
-  filteredObservations,
-  observationsFile.sha,
-  "Delete card observations everywhere"
-);
+  await deleteTrackedCardByIdentity(target);
+  await deleteCardObservations(target);
 
   return res.status(200).json({ ok: true });
 }
 
       if (body.type === "addObservation") {
-        const file = await loadMarketObservations();
-        const observations = Array.isArray(file.json) ? file.json : [];
+  const observation = cleanObservation(body);
 
-        observations.push(cleanObservation(body));
+  await addMarketObservation(observation);
 
-        await saveMarketObservations(
-  observations,
-  file.sha,
-  "Add market observation"
-);
-
-        return res.status(200).json({ ok: true });
-      }
+  return res.status(200).json({
+    ok: true,
+    observation
+  });
+}
       if (body.type === "addConditionObservations") {
-  const file = await loadMarketObservations();
-  const observations = Array.isArray(file.json) ? file.json : [];
+  const entries = Array.isArray(body.entries)
+    ? body.entries
+    : [];
 
-  const entries = Array.isArray(body.entries) ? body.entries : [];
-
-  entries.forEach(entry => {
-    observations.push(cleanObservation({
+  const observations = entries.map(entry =>
+    cleanObservation({
       ...body,
       condition: entry.condition,
       observedMinPrice: entry.observedMinPrice
-    }));
-  });
+    })
+  );
 
-  await saveMarketObservations(
-  observations,
-  file.sha,
-  "Add condition market observations"
-);
+  for (const observation of observations) {
+    await addMarketObservation(observation);
+  }
+
+  return res.status(200).json({
+    ok: true,
+    count: observations.length
+  });
+}
+
+      if (body.type === "deleteObservation") {
+  await deleteMarketObservation(body.id);
 
   return res.status(200).json({ ok: true });
 }
 
-      if (body.type === "deleteObservation") {
-        const file = await loadMarketObservations();
-        const observations = Array.isArray(file.json) ? file.json : [];
-
-        const filtered = observations.filter(obs => obs.id !== body.id);
-
-        await saveMarketObservations(
-  filtered,
-  file.sha,
-  "Delete market observation"
-);
-
-        return res.status(200).json({ ok: true });
-      }
-
       if (body.type === "deleteObservations") {
-        const ids = Array.isArray(body.ids) ? body.ids : [];
+  const ids = Array.isArray(body.ids)
+    ? body.ids
+    : [];
 
-        const file = await loadMarketObservations();
-        const observations = Array.isArray(file.json) ? file.json : [];
+  await deleteMarketObservations(ids);
 
-        const filtered = observations.filter(obs => !ids.includes(obs.id));
-
-        await saveMarketObservations(
-  filtered,
-  file.sha,
-  "Delete market observations"
-);
-
-        return res.status(200).json({ ok: true });
-      }
+  return res.status(200).json({
+    ok: true,
+    count: ids.length
+  });
+}
 
       if (body.type === "saveTrackedCard") {
-        const file = await loadTrackedMarketCards();
-        const trackedCards = Array.isArray(file.json) ? file.json : [];
-        const incoming = cleanTrackedCard(body);
-        const incomingKey = normalizeCardKey(incoming);
+  const trackedCard = cleanTrackedCard(body);
 
-        const filtered = trackedCards.filter(card => normalizeCardKey(card) !== incomingKey);
-        filtered.push(incoming);
+  await saveTrackedCardToTurso(trackedCard);
 
-        await saveTrackedMarketCards(
-  filtered,
-  file.sha,
-  "Update tracked market card"
-);
-
-        return res.status(200).json({ ok: true });
-      }
+  return res.status(200).json({
+    ok: true,
+    trackedCard
+  });
+}
 
       if (body.type === "deleteTrackedCard") {
-        const file = await loadTrackedMarketCards();
-        const trackedCards = Array.isArray(file.json) ? file.json : [];
+  await deleteTrackedCardFromTurso(body.id);
 
-        const filtered = trackedCards.filter(card => card.id !== body.id);
-
-        await saveTrackedMarketCards(
-  filtered,
-  file.sha,
-  "Delete tracked market card"
-);
-
-        return res.status(200).json({ ok: true });
-      }
+  return res.status(200).json({ ok: true });
+}
 
       return res.status(400).json({ ok: false, error: "Unknown action type" });
     }
