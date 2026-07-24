@@ -1,7 +1,14 @@
 
 
+const API_BASE_URL =
+    window.location.hostname === "sokomano-ship-it.github.io"
+        ? "https://mtg-portfolio-lac.vercel.app"
+        : "";
+
 async function fetchJson(path) {
-    const response = await fetch(path, { cache: "no-store" });
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        cache: "no-store"
+    });
 
     if (!response.ok) {
         throw new Error(`Erreur chargement ${path}`);
