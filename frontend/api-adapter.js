@@ -22,9 +22,9 @@ window.apiAdapter = {
     },
 
     async getOpportunities() {
-        const data = await fetchJson("data/opportunities.json");
-        return data.opportunities || [];
-    },
+    const data = await fetchJson("/api/opportunities");
+    return data.opportunities || [];
+},
 
     async getCardDetails() {
     const data = await fetchJson("/api/card-details");
