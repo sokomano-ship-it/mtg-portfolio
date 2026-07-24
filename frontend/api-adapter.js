@@ -44,7 +44,7 @@ window.apiAdapter = {
     async getPortfolioHistory() {
     const data = await fetchJson("/api/portfolio-history");
     return data.portfolioHistory || [];
-}
+},
 
     async getCategorySummary() {
     const data = await fetchJson("/api/category-summary");
@@ -56,7 +56,7 @@ window.apiAdapter = {
     return data.topMovers || [];
 },
 
-    async getInvestmentAnalysis() {
+async getInvestmentAnalysis() {
     const data = await fetchJson("/api/investment-analysis");
     return data.investmentAnalysis || [];
 }
