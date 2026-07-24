@@ -465,14 +465,56 @@ function renderCards(cards) {
 async function loadPortfolioHistory() {
     const history = await window.apiAdapter.getPortfolioHistory();
     const ctx = document.getElementById("portfolioChart");
+
     if (!ctx) return;
 
     const filteredHistory = Array.isArray(history)
-        ? history.filter(row =>
-            row.date &&
-            String(row.date).slice(0, 10) >= MODEL_START_DATE
-        )
+        ? history
+            .filter(row =>
+                row.date &&
+                String(row.date).slice(0, 10) >= MODEL_START_DATE
+            )
+            .map(row => ({
+                ...row,
+                date: String(row.date).slice(0, 10),
+                totalValue: Number(row.totalValue || 0)
+            }))
+            .sort((a, b) => String(a.date).localeCompare(String(b.date)))
         : [];
+
+    /*
+     * La valeur actuelle doit venir des mêmes cartes que
+     * la valeur affichée en haut du tableau de bord.
+     */
+    const currentTotal = Number(
+        calculateCardsValue(allCards).toFixed(2)
+    );
+
+    const today = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Europe/Paris",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).format(new Date());
+
+    const todayRow = filteredHistory.find(row => row.date === today);
+
+    if (todayRow) {
+        /*
+         * Remplace la valeur historique éventuellement générée
+         * avant la dernière simulation.
+         */
+        todayRow.totalValue = currentTotal;
+    } else {
+        /*
+         * Ajoute le point du jour si portfolio-history.json
+         * n'a pas encore été actualisé.
+         */
+        filteredHistory.push({
+            date: today,
+            totalValue: currentTotal
+        });
+    }
 
     if (!filteredHistory.length) {
         return;
@@ -480,8 +522,10 @@ async function loadPortfolioHistory() {
 
     new Chart(ctx, {
         type: "line",
+
         data: {
             labels: filteredHistory.map(row => row.date),
+
             datasets: [
                 {
                     label: "Valeur estimée portefeuille (€)",
@@ -490,21 +534,49 @@ async function loadPortfolioHistory() {
                 }
             ]
         },
+
         options: {
             responsive: true,
+
             plugins: {
                 legend: {
-                    labels: { color: "#f5f5f5" }
+                    labels: {
+                        color: "#f5f5f5"
+                    }
+                },
+
+                tooltip: {
+                    callbacks: {
+                        label(context) {
+                            return formatEuro(context.parsed.y);
+                        }
+                    }
                 }
             },
+
             scales: {
                 x: {
-                    ticks: { color: "#f5f5f5" },
-                    grid: { color: "rgba(255,255,255,0.1)" }
+                    ticks: {
+                        color: "#f5f5f5"
+                    },
+
+                    grid: {
+                        color: "rgba(255,255,255,0.1)"
+                    }
                 },
+
                 y: {
-                    ticks: { color: "#f5f5f5" },
-                    grid: { color: "rgba(255,255,255,0.1)" }
+                    ticks: {
+                        color: "#f5f5f5",
+
+                        callback(value) {
+                            return formatEuro(value);
+                        }
+                    },
+
+                    grid: {
+                        color: "rgba(255,255,255,0.1)"
+                    }
                 }
             }
         }
