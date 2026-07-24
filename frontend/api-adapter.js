@@ -57,7 +57,7 @@ window.apiAdapter = {
     },
 
     async getInvestmentAnalysis() {
-        const data = await fetchJson("data/investment-analysis.json");
-        return data.investmentAnalysis || [];
-    }
+    const data = await fetchJson("/api/investment-analysis");
+    return data.investmentAnalysis || [];
+}
 };
