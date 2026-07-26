@@ -99,12 +99,31 @@ function setupInvestmentDrawerTabs() {
 }
 
 async function loadDashboard() {
-    await loadCards();
+    /*
+     * Toutes les requêtes démarrent immédiatement.
+     * L'historique reste en attente pendant le chargement des cartes,
+     * car le graphique utilise allCards pour calculer la valeur du jour.
+     */
+    const cardsPromise = loadCards();
+
+    const portfolioSummaryPromise =
+        loadPortfolioSummary();
+
+    const portfolioHistoryPromise =
+        window.apiAdapter.getPortfolioHistory();
+
+    const categorySummaryPromise =
+        loadCategorySummary();
+
+    /*
+     * Il faut que allCards soit rempli avant de construire le graphique.
+     */
+    await cardsPromise;
 
     await Promise.all([
-        loadPortfolioSummary(),
-        loadPortfolioHistory(),
-        loadCategorySummary()
+        portfolioSummaryPromise,
+        categorySummaryPromise,
+        loadPortfolioHistory(portfolioHistoryPromise)
     ]);
 }
 
@@ -493,8 +512,10 @@ function renderCards(cards) {
     });
 }
 
-async function loadPortfolioHistory() {
-    const history = await window.apiAdapter.getPortfolioHistory();
+async function loadPortfolioHistory(historyPromise = null) {
+    const history = historyPromise
+        ? await historyPromise
+        : await window.apiAdapter.getPortfolioHistory();
     const ctx = document.getElementById("portfolioChart");
 
     if (!ctx) return;
@@ -567,9 +588,10 @@ async function loadPortfolioHistory() {
         },
 
         options: {
-            responsive: true,
+    responsive: true,
+    animation: false,
 
-            plugins: {
+    plugins: {
                 legend: {
                     labels: {
                         color: "#f5f5f5"
