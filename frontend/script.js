@@ -20,6 +20,8 @@ let investmentChart = null;
 let opportunitiesLoaded = false;
 let investmentLoaded = false;
 let moversLoaded = false;
+let collectionLoaded = false;
+
 const MODEL_START_DATE = "2026-07-12";
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
@@ -46,6 +48,14 @@ function setupTabs() {
 
             if (targetTab) {
                 targetTab.classList.add("active");
+            }
+
+            if (
+                target === "tab-collection" &&
+                !collectionLoaded
+            ) {
+                collectionLoaded = true;
+                filterCards();
             }
 
             if (
@@ -143,13 +153,7 @@ async function loadCards() {
 setupCollectionFilters();
 setupCollectionSorting();
 
-/*
- * Le tableau complet est construit au prochain cycle d'affichage.
- * Cela permet au graphique principal d'apparaître immédiatement.
- */
-requestAnimationFrame(() => {
-    filterCards();
-});
+
     } catch (error) {
         console.error(error);
         status.textContent = "Erreur : " + error.message;
