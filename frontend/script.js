@@ -140,9 +140,16 @@ async function loadCards() {
         totalValue.textContent = formatEuro(calculateCardsValue(allCards));
 
         populateCategories(allCards);
-        setupCollectionFilters();
-        setupCollectionSorting();
-        filterCards();
+setupCollectionFilters();
+setupCollectionSorting();
+
+/*
+ * Le tableau complet est construit au prochain cycle d'affichage.
+ * Cela permet au graphique principal d'apparaître immédiatement.
+ */
+requestAnimationFrame(() => {
+    filterCards();
+});
     } catch (error) {
         console.error(error);
         status.textContent = "Erreur : " + error.message;
@@ -450,25 +457,37 @@ function renderCards(cards) {
     const tbody = document.getElementById("cards-body");
     if (!tbody) return;
 
-    tbody.innerHTML = "";
-
-    cards.forEach(card => {
+    const rowsHtml = cards.map(card => {
         const scryfallUrl = card.scryfallId
             ? `https://scryfall.com/card/${card.scryfallId}`
             : null;
 
-        tbody.innerHTML += `
+        const estimatedPrice =
+            getEstimatedConditionPrice(card);
+
+        return `
             <tr>
                 <td>
                     ${
                         card.imageUrl
-                            ? `<img src="${card.imageUrl}" alt="${escapeHtml(card.nomCarte)}" class="card-image">`
+                            ? `
+                                <img
+                                    src="${escapeHtml(card.imageUrl)}"
+                                    alt="${escapeHtml(card.nomCarte)}"
+                                    class="card-image"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+                            `
                             : `<span class="muted">Aucune image</span>`
                     }
                 </td>
 
                 <td>
-                    <button class="card-link-button" onclick="openCardDetail(${card.id})">
+                    <button
+                        class="card-link-button"
+                        onclick="openCardDetail(${card.id})"
+                    >
                         ${escapeHtml(card.nomCarte)}
                     </button>
                 </td>
@@ -479,11 +498,14 @@ function renderCards(cards) {
                 <td>${escapeHtml(card.categorie || "Non classé")}</td>
 
                 <td class="price">
-                    <strong>${
-    getEstimatedConditionPrice(card)
-        ? formatEuro(getEstimatedConditionPrice(card))
-        : "-"
-}</strong>
+                    <strong>
+                        ${
+                            estimatedPrice !== null &&
+                            estimatedPrice !== undefined
+                                ? formatEuro(estimatedPrice)
+                                : "-"
+                        }
+                    </strong>
                 </td>
 
                 <td>
@@ -495,21 +517,54 @@ function renderCards(cards) {
                     }
                 </td>
 
-                <td>${card.trendPrice ? formatEuro(card.trendPrice) : "-"}</td>
-                <td>${card.avg30 ? formatEuro(card.avg30) : "-"}</td>
-                <td>${card.avg7 ? formatEuro(card.avg7) : "-"}</td>
-                <td>${card.avg1 ? formatEuro(card.avg1) : "-"}</td>
+                <td>
+                    ${card.trendPrice
+                        ? formatEuro(card.trendPrice)
+                        : "-"
+                    }
+                </td>
+
+                <td>
+                    ${card.avg30
+                        ? formatEuro(card.avg30)
+                        : "-"
+                    }
+                </td>
+
+                <td>
+                    ${card.avg7
+                        ? formatEuro(card.avg7)
+                        : "-"
+                    }
+                </td>
+
+                <td>
+                    ${card.avg1
+                        ? formatEuro(card.avg1)
+                        : "-"
+                    }
+                </td>
 
                 <td class="links">
                     ${
                         scryfallUrl
-                            ? `<a href="${scryfallUrl}" target="_blank">Scryfall</a>`
+                            ? `
+                                <a
+                                    href="${escapeHtml(scryfallUrl)}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Scryfall
+                                </a>
+                            `
                             : ""
                     }
                 </td>
             </tr>
         `;
-    });
+    }).join("");
+
+    tbody.innerHTML = rowsHtml;
 }
 
 async function loadPortfolioHistory(historyPromise = null) {
