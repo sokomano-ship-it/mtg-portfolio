@@ -1403,3 +1403,32 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     padding: 7px 8px;
     white-space: nowrap;
 }
+
+
+.chart-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.chart-selector label {
+    font-weight: 600;
+}
+
+.chart-selector select {
+    min-width: 220px;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+@media (max-width: 600px) {
+    .chart-selector {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .chart-selector select {
+        width: 100%;
+    }
+}

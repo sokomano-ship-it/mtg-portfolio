@@ -17,6 +17,7 @@ let currentOpportunityDirection = "desc";
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
 let investmentChart = null;
+let portfolioChart = null;
 let opportunitiesLoaded = false;
 let investmentLoaded = false;
 let moversLoaded = false;
@@ -577,6 +578,10 @@ async function loadPortfolioHistory(historyPromise = null) {
         : await window.apiAdapter.getPortfolioHistory();
 
     const ctx = document.getElementById("portfolioChart");
+    const selector = document.getElementById(
+        "portfolio-chart-selector"
+    );
+
     if (!ctx) return;
 
     const filteredHistory = Array.isArray(history)
@@ -589,11 +594,20 @@ async function loadPortfolioHistory(historyPromise = null) {
                 ...row,
                 date: String(row.date).slice(0, 10),
                 totalValue: Number(row.totalValue || 0),
-                categoryValues: row.categoryValues || {}
+                categoryValues:
+                    row.categoryValues &&
+                    typeof row.categoryValues === "object"
+                        ? row.categoryValues
+                        : {}
             }))
-            .sort((a, b) => a.date.localeCompare(b.date))
+            .sort((a, b) =>
+                String(a.date).localeCompare(String(b.date))
+            )
         : [];
 
+    /*
+     * Valeur actuelle totale.
+     */
     const currentTotal = Number(
         calculateCardsValue(allCards).toFixed(2)
     );
@@ -605,170 +619,241 @@ async function loadPortfolioHistory(historyPromise = null) {
         day: "2-digit"
     }).format(new Date());
 
-    let todayRow = filteredHistory.find(r => r.date === today);
-
-    if (!todayRow) {
-        todayRow = {
-            date: today,
-            totalValue: currentTotal,
-            categoryValues: {}
-        };
-        filteredHistory.push(todayRow);
-    }
-
-    todayRow.totalValue = currentTotal;
-
-    //
-    // Recalcule les catégories uniquement pour aujourd'hui
-    //
-    const categoryTotals = {};
+    /*
+     * Calcul des catégories pour aujourd'hui uniquement.
+     */
+    const currentCategoryValues = {};
 
     allCards.forEach(card => {
-        const category = card.categorie || "Non classé";
-        const value = Number(getEstimatedConditionPrice(card)) || 0;
+        const category =
+            card.categorie || "Non classé";
 
-        categoryTotals[category] =
-            (categoryTotals[category] || 0) + value;
+        const value =
+            Number(getEstimatedConditionPrice(card)) || 0;
+
+        currentCategoryValues[category] =
+            (currentCategoryValues[category] || 0) + value;
     });
 
-    todayRow.categoryValues = categoryTotals;
+    Object.keys(currentCategoryValues).forEach(category => {
+        currentCategoryValues[category] = Number(
+            currentCategoryValues[category].toFixed(2)
+        );
+    });
 
-    filteredHistory.sort((a, b) => a.date.localeCompare(b.date));
+    /*
+     * Met à jour uniquement la ligne affichée pour aujourd'hui.
+     * Cela ne modifie pas le fichier JSON.
+     */
+    const todayRow = filteredHistory.find(
+        row => row.date === today
+    );
+
+    if (todayRow) {
+        todayRow.totalValue = currentTotal;
+        todayRow.categoryValues = currentCategoryValues;
+    } else {
+        filteredHistory.push({
+            date: today,
+            totalValue: currentTotal,
+            categoryValues: currentCategoryValues
+        });
+    }
+
+    filteredHistory.sort((a, b) =>
+        String(a.date).localeCompare(String(b.date))
+    );
 
     if (!filteredHistory.length) {
         return;
     }
 
-    //
-    // Détection automatique des catégories
-    //
+    /*
+     * Détection automatique de toutes les catégories disponibles.
+     */
     const categories = [
         ...new Set(
             filteredHistory.flatMap(row =>
                 Object.keys(row.categoryValues || {})
             )
         )
-    ].sort();
+    ].sort((a, b) =>
+        a.localeCompare(b, "fr", {
+            sensitivity: "base"
+        })
+    );
 
-    //
-    // Premier dataset = portefeuille
-    //
-    const datasets = [{
-        label: "Portefeuille",
-        data: filteredHistory.map(r => r.totalValue),
-        tension: 0.3
-    }];
+    /*
+     * Remplit le sélecteur sans perdre le choix actuel.
+     */
+    if (selector) {
+        const previousValue =
+            selector.value || "portfolio";
 
-    //
-    // Puis une courbe par catégorie
-    //
-    categories.forEach(category => {
+        selector.innerHTML = `
+            <option value="portfolio">
+                Portefeuille total
+            </option>
+        `;
 
-        datasets.push({
+        categories.forEach(category => {
+            const option = document.createElement("option");
 
-            label: category,
+            option.value = `category:${category}`;
+            option.textContent = category;
 
-            data: filteredHistory.map(row => {
-
-                if (!row.categoryValues)
-                    return null;
-
-                return row.categoryValues[category] ?? null;
-
-            }),
-
-            tension: 0.3,
-            spanGaps: true
-
+            selector.appendChild(option);
         });
 
-    });
+        const availableValues = [
+            ...selector.options
+        ].map(option => option.value);
 
-    new Chart(ctx, {
+        selector.value = availableValues.includes(previousValue)
+            ? previousValue
+            : "portfolio";
+    }
 
-        type: "line",
+    function renderSelectedPortfolioChart() {
+        const selectedValue =
+            selector?.value || "portfolio";
 
-        data: {
+        let label;
+        let data;
 
-            labels: filteredHistory.map(r => r.date),
+        if (selectedValue === "portfolio") {
+            label = "Valeur estimée du portefeuille (€)";
 
-            datasets
+            data = filteredHistory.map(row =>
+                row.totalValue
+            );
+        } else {
+            const category = selectedValue.replace(
+                "category:",
+                ""
+            );
 
-        },
+            label = `${category} (€)`;
 
-        options: {
+            data = filteredHistory.map(row => {
+                const value =
+                    row.categoryValues?.[category];
 
-            responsive: true,
-
-            animation: false,
-
-            interaction: {
-                mode: "index",
-                intersect: false
-            },
-
-            plugins: {
-
-                legend: {
-
-                    labels: {
-                        color: "#f5f5f5"
-                    }
-
-                },
-
-                tooltip: {
-
-                    callbacks: {
-
-                        label(context) {
-                            return `${context.dataset.label} : ${formatEuro(context.parsed.y)}`;
-                        }
-
-                    }
-
+                if (
+                    value === null ||
+                    value === undefined ||
+                    Number.isNaN(Number(value))
+                ) {
+                    return null;
                 }
 
-            },
-
-            scales: {
-
-                x: {
-
-                    ticks: {
-                        color: "#f5f5f5"
-                    },
-
-                    grid: {
-                        color: "rgba(255,255,255,0.1)"
-                    }
-
-                },
-
-                y: {
-
-                    ticks: {
-
-                        color: "#f5f5f5",
-
-                        callback(value) {
-                            return formatEuro(value);
-                        }
-
-                    },
-
-                    grid: {
-                        color: "rgba(255,255,255,0.1)"
-                    }
-
-                }
-
-            }
-
+                return Number(value);
+            });
         }
 
-    });
+        /*
+         * Évite d'empiler plusieurs instances Chart.js
+         * sur le même canvas.
+         */
+        if (portfolioChart) {
+            portfolioChart.destroy();
+        }
 
+        portfolioChart = new Chart(ctx, {
+            type: "line",
+
+            data: {
+                labels: filteredHistory.map(row =>
+                    row.date
+                ),
+
+                datasets: [
+                    {
+                        label,
+                        data,
+                        tension: 0.3,
+                        spanGaps: false,
+                        fill: false
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                animation: false,
+
+                interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "#f5f5f5"
+                        }
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label(context) {
+                                const value =
+                                    context.parsed.y;
+
+                                if (
+                                    value === null ||
+                                    value === undefined
+                                ) {
+                                    return `${context.dataset.label} : -`;
+                                }
+
+                                return `${context.dataset.label} : ${formatEuro(value)}`;
+                            }
+                        }
+                    }
+                },
+
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#f5f5f5"
+                        },
+
+                        grid: {
+                            color: "rgba(255,255,255,0.1)"
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: false,
+
+                        ticks: {
+                            color: "#f5f5f5",
+
+                            callback(value) {
+                                return formatEuro(value);
+                            }
+                        },
+
+                        grid: {
+                            color: "rgba(255,255,255,0.1)"
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    /*
+     * Le onchange est remplacé à chaque chargement,
+     * ce qui évite les écouteurs dupliqués.
+     */
+    if (selector) {
+        selector.onchange =
+            renderSelectedPortfolioChart;
+    }
+
+    renderSelectedPortfolioChart();
 }
 
 async function loadInvestmentAnalysis() {
