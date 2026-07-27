@@ -741,19 +741,6 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
 const existingPortfolioHistory =
     readExistingPortfolioHistory();
 
-/*
- * Reconstruit les valeurs historiques par catégorie depuis
- * estimated-price-history.json.
- */
-const reconstructedPortfolioHistory =
-    buildPortfolioHistoryFromEstimatedSnapshots(
-        estimatedPriceHistory,
-        cards
-    );
-
-/*
- * Calcule la répartition exacte du portefeuille aujourd’hui.
- */
 const todayCategoryValues = {};
 
 cards.forEach(card => {
@@ -777,38 +764,16 @@ const roundedTodayCategoryValues =
             ])
     );
 
-/*
- * Les anciennes lignes sont conservées.
- * Les lignes reconstruites les remplacent lorsqu’une même date existe.
- */
-const portfolioHistoryByDate = new Map();
-
-existingPortfolioHistory.forEach(row => {
-    if (!row.date) return;
-
-    const date = String(row.date).slice(0, 10);
-
-    portfolioHistoryByDate.set(date, {
-        ...row,
-        date
-    });
-});
-
-reconstructedPortfolioHistory.forEach(row => {
-    portfolioHistoryByDate.set(row.date, row);
-});
-
-/*
- * La valeur du jour vient toujours directement des cartes actuelles.
- */
-portfolioHistoryByDate.set(todayDate, {
-    date: todayDate,
-    totalValue: Number(estimatedTotalValue.toFixed(2)),
-    categoryValues: roundedTodayCategoryValues
-});
-
 const portfolioHistoryEstimated = [
-    ...portfolioHistoryByDate.values()
+    ...existingPortfolioHistory.filter(row =>
+        row.date &&
+        String(row.date).slice(0, 10) !== todayDate
+    ),
+    {
+        date: todayDate,
+        totalValue: Number(estimatedTotalValue.toFixed(2)),
+        categoryValues: roundedTodayCategoryValues
+    }
 ].sort((a, b) =>
     String(a.date).localeCompare(String(b.date))
 );
