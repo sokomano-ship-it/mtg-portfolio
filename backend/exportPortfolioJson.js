@@ -741,6 +741,75 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
 const existingPortfolioHistory =
     readExistingPortfolioHistory();
 
+/*
+ * Reconstruit les valeurs historiques par catégorie à partir
+ * des estimations quotidiennes enregistrées pour chaque carte.
+ */
+const reconstructedPortfolioHistory =
+    buildPortfolioHistoryFromEstimatedSnapshots(
+        estimatedPriceHistory,
+        cards
+    );
+
+/*
+ * Indexe l’ancien historique par date.
+ *
+ * Les anciens totalValue sont conservés afin qu’aucune valeur
+ * historique déjà enregistrée ne soit modifiée.
+ */
+const portfolioHistoryByDate = new Map();
+
+existingPortfolioHistory.forEach(row => {
+    if (!row?.date) return;
+
+    const date =
+        String(row.date).slice(0, 10);
+
+    portfolioHistoryByDate.set(date, {
+        ...row,
+        date,
+        totalValue: Number(row.totalValue || 0),
+
+        categoryValues:
+            row.categoryValues &&
+            typeof row.categoryValues === "object"
+                ? row.categoryValues
+                : {}
+    });
+});
+
+/*
+ * Ajoute les valeurs historiques des catégories/decks.
+ *
+ * Important :
+ * - le total historique existant reste prioritaire ;
+ * - seules les categoryValues sont reconstruites ;
+ * - une date absente de l’ancien historique peut être ajoutée.
+ */
+reconstructedPortfolioHistory.forEach(row => {
+    const existingRow =
+        portfolioHistoryByDate.get(row.date);
+
+    portfolioHistoryByDate.set(row.date, {
+        date: row.date,
+
+        totalValue:
+            existingRow
+                ? Number(existingRow.totalValue || 0)
+                : Number(row.totalValue || 0),
+
+        categoryValues:
+            row.categoryValues &&
+            typeof row.categoryValues === "object"
+                ? row.categoryValues
+                : {}
+    });
+});
+
+/*
+ * Calcule les valeurs actuelles par catégorie.
+ * La journée courante reste calculée directement depuis cards.
+ */
 const todayCategoryValues = {};
 
 cards.forEach(card => {
@@ -749,6 +818,13 @@ cards.forEach(card => {
 
     const value =
         Number(getEstimatedConditionPrice(card) || 0);
+
+    if (
+        !Number.isFinite(value) ||
+        value <= 0
+    ) {
+        return;
+    }
 
     todayCategoryValues[category] =
         Number(todayCategoryValues[category] || 0) +
@@ -764,19 +840,31 @@ const roundedTodayCategoryValues =
             ])
     );
 
+/*
+ * La ligne du jour est remplacée par les valeurs actuelles.
+ * Les journées précédentes ne sont pas recalculées.
+ */
+portfolioHistoryByDate.set(todayDate, {
+    date: todayDate,
+    totalValue:
+        Number(estimatedTotalValue.toFixed(2)),
+    categoryValues:
+        roundedTodayCategoryValues
+});
+
 const portfolioHistoryEstimated = [
-    ...existingPortfolioHistory.filter(row =>
+    ...portfolioHistoryByDate.values()
+]
+    .filter(row =>
         row.date &&
-        String(row.date).slice(0, 10) !== todayDate
-    ),
-    {
-        date: todayDate,
-        totalValue: Number(estimatedTotalValue.toFixed(2)),
-        categoryValues: roundedTodayCategoryValues
-    }
-].sort((a, b) =>
-    String(a.date).localeCompare(String(b.date))
-);
+        String(row.date).slice(0, 10) >=
+            MODEL_START_DATE
+    )
+    .sort((a, b) =>
+        String(a.date).localeCompare(
+            String(b.date)
+        )
+    );
 
     const valuedCardsCount = cards.filter(card => Number(card.estimatedPrice || 0) > 0).length;
     const missingEstimatedCardsCount = cards.length - valuedCardsCount;

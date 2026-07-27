@@ -18,6 +18,14 @@ let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
 let investmentChart = null;
 let portfolioChart = null;
+
+let portfolioChartPeriod = "daily";
+let portfolioChartResizeTimer = null;
+let currentPortfolioChartRenderer = null;
+
+const PORTFOLIO_CHART_MAX_POINTS = 500;
+const PORTFOLIO_CHART_MIN_POINTS = 60;
+const PORTFOLIO_CHART_PIXELS_PER_POINT = 4;
 let opportunitiesLoaded = false;
 let investmentLoaded = false;
 let moversLoaded = false;
@@ -570,6 +578,259 @@ function renderCards(cards) {
     tbody.innerHTML = rowsHtml;
 }
 
+function getResponsiveChartPointLimit(canvas) {
+    const chartWidth =
+        canvas?.parentElement?.clientWidth ||
+        canvas?.clientWidth ||
+        window.innerWidth ||
+        800;
+
+    return Math.min(
+        PORTFOLIO_CHART_MAX_POINTS,
+        Math.max(
+            PORTFOLIO_CHART_MIN_POINTS,
+            Math.floor(
+                chartWidth /
+                PORTFOLIO_CHART_PIXELS_PER_POINT
+            )
+        )
+    );
+}
+
+function getIsoWeekKey(dateString) {
+    const date = new Date(
+        `${String(dateString).slice(0, 10)}T12:00:00Z`
+    );
+
+    if (Number.isNaN(date.getTime())) {
+        return String(dateString);
+    }
+
+    const target = new Date(date);
+
+    const dayNumber =
+        (target.getUTCDay() + 6) % 7;
+
+    target.setUTCDate(
+        target.getUTCDate() -
+        dayNumber +
+        3
+    );
+
+    const firstThursday = new Date(
+        Date.UTC(
+            target.getUTCFullYear(),
+            0,
+            4
+        )
+    );
+
+    const firstDayNumber =
+        (firstThursday.getUTCDay() + 6) % 7;
+
+    firstThursday.setUTCDate(
+        firstThursday.getUTCDate() -
+        firstDayNumber +
+        3
+    );
+
+    const weekNumber =
+        1 +
+        Math.round(
+            (
+                target.getTime() -
+                firstThursday.getTime()
+            ) /
+            (
+                7 *
+                24 *
+                60 *
+                60 *
+                1000
+            )
+        );
+
+    return [
+        target.getUTCFullYear(),
+        `W${String(weekNumber).padStart(2, "0")}`
+    ].join("-");
+}
+
+function getHistoryPeriodKey(dateString, period) {
+    const normalizedDate =
+        String(dateString).slice(0, 10);
+
+    if (period === "weekly") {
+        return getIsoWeekKey(normalizedDate);
+    }
+
+    if (period === "monthly") {
+        return normalizedDate.slice(0, 7);
+    }
+
+    return normalizedDate;
+}
+
+function aggregateHistoryByPeriod(rows, period) {
+    if (period === "daily") {
+        return [...rows];
+    }
+
+    const latestRowByPeriod = new Map();
+
+    rows.forEach(row => {
+        if (!row?.date) return;
+
+        const periodKey =
+            getHistoryPeriodKey(
+                row.date,
+                period
+            );
+
+        /*
+         * Les lignes sont classées par date.
+         * La dernière valeur de chaque période
+         * remplace donc les précédentes.
+         */
+        latestRowByPeriod.set(
+            periodKey,
+            row
+        );
+    });
+
+    return [
+        ...latestRowByPeriod.values()
+    ];
+}
+
+function prepareResponsiveChartRows(
+    rows,
+    period,
+    canvas
+) {
+    const aggregatedRows =
+        aggregateHistoryByPeriod(
+            rows,
+            period
+        );
+
+    const maximumPoints =
+        getResponsiveChartPointLimit(
+            canvas
+        );
+
+    return aggregatedRows.slice(
+        -maximumPoints
+    );
+}
+
+function formatPortfolioChartDate(
+    dateString,
+    period
+) {
+    const date = new Date(
+        `${String(dateString).slice(0, 10)}T12:00:00`
+    );
+
+    if (Number.isNaN(date.getTime())) {
+        return String(dateString);
+    }
+
+    if (period === "monthly") {
+        return new Intl.DateTimeFormat(
+            "fr-FR",
+            {
+                month: "short",
+                year: "numeric"
+            }
+        ).format(date);
+    }
+
+    if (period === "weekly") {
+        return new Intl.DateTimeFormat(
+            "fr-FR",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "2-digit"
+            }
+        ).format(date);
+    }
+
+    return new Intl.DateTimeFormat(
+        "fr-FR",
+        {
+            day: "2-digit",
+            month: "short"
+        }
+    ).format(date);
+}
+
+function setupPortfolioChartPeriodButtons(
+    renderChart
+) {
+    document
+        .querySelectorAll(
+            "[data-portfolio-period]"
+        )
+        .forEach(button => {
+            button.onclick = () => {
+                portfolioChartPeriod =
+                    button.dataset
+                        .portfolioPeriod ||
+                    "daily";
+
+                document
+                    .querySelectorAll(
+                        "[data-portfolio-period]"
+                    )
+                    .forEach(periodButton => {
+                        periodButton.classList.toggle(
+                            "active",
+                            periodButton === button
+                        );
+                    });
+
+                renderChart();
+            };
+        });
+}
+
+function setupPortfolioChartResize(
+    renderChart
+) {
+    currentPortfolioChartRenderer =
+        renderChart;
+
+    if (
+        window
+            .__portfolioChartResizeBound
+    ) {
+        return;
+    }
+
+    window.__portfolioChartResizeBound =
+        true;
+
+    window.addEventListener(
+        "resize",
+        () => {
+            clearTimeout(
+                portfolioChartResizeTimer
+            );
+
+            portfolioChartResizeTimer =
+                setTimeout(() => {
+                    if (
+                        currentPortfolioChartRenderer
+                    ) {
+                        currentPortfolioChartRenderer();
+                    }
+                }, 200);
+        }
+    );
+}
+
 async function loadPortfolioHistory(historyPromise = null) {
     const history = historyPromise
         ? await historyPromise
@@ -743,10 +1004,10 @@ async function loadPortfolioHistory(historyPromise = null) {
         );
 
     let label;
-    let data;
-    let currentCards;
-    let currentValue;
-    let displayName;
+let currentCards;
+let currentValue;
+let displayName;
+let getSelectedRowValue;
 
     /*
      * Portefeuille complet.
@@ -755,9 +1016,8 @@ async function loadPortfolioHistory(historyPromise = null) {
         displayName = "Portefeuille total";
         label = "Valeur estimée du portefeuille (€)";
 
-        data = filteredHistory.map(row =>
-            Number(row.totalValue)
-        );
+        getSelectedRowValue = row =>
+    Number(row.totalValue);
 
         currentCards = allCards.length;
         currentValue = currentTotal;
@@ -783,20 +1043,20 @@ async function loadPortfolioHistory(historyPromise = null) {
         displayName = category;
         label = `${category} (€)`;
 
-        data = filteredHistory.map(row => {
-            const value =
-                row.categoryValues?.[category];
+        getSelectedRowValue = row => {
+    const value =
+        row.categoryValues?.[category];
 
-            if (
-                value === null ||
-                value === undefined ||
-                Number.isNaN(Number(value))
-            ) {
-                return null;
-            }
+    if (
+        value === null ||
+        value === undefined ||
+        Number.isNaN(Number(value))
+    ) {
+        return null;
+    }
 
-            return Number(value);
-        });
+    return Number(value);
+};
 
         const selectedCards = allCards.filter(card =>
             (card.categorie || "Non classé") === category
@@ -941,6 +1201,24 @@ async function loadPortfolioHistory(historyPromise = null) {
         }
     }
 
+
+    /*
+ * Agrégation quotidienne, hebdomadaire
+ * ou mensuelle, puis limitation du nombre
+ * de points selon la largeur du graphique.
+ */
+const visibleHistory =
+    prepareResponsiveChartRows(
+        filteredHistory,
+        portfolioChartPeriod,
+        ctx
+    );
+
+const data =
+    visibleHistory.map(
+        getSelectedRowValue
+    );
+
     /*
      * Destruction de l'ancien graphique.
      */
@@ -955,18 +1233,28 @@ async function loadPortfolioHistory(historyPromise = null) {
         type: "line",
 
         data: {
-            labels: filteredHistory.map(row =>
-                row.date
-            ),
+            labels: visibleHistory.map(row =>
+    formatPortfolioChartDate(
+        row.date,
+        portfolioChartPeriod
+    )
+),
 
             datasets: [
                 {
-                    label,
-                    data,
-                    tension: 0.3,
-                    spanGaps: false,
-                    fill: false
-                }
+    label,
+    data,
+    tension: 0.3,
+    spanGaps: false,
+    fill: false,
+
+    pointRadius:
+        visibleHistory.length > 120
+            ? 0
+            : 2,
+
+    pointHoverRadius: 5
+}
             ]
         },
 
@@ -1008,8 +1296,12 @@ async function loadPortfolioHistory(historyPromise = null) {
             scales: {
                 x: {
                     ticks: {
-                        color: "#f5f5f5"
-                    },
+    color: "#f5f5f5",
+    autoSkip: true,
+    maxTicksLimit: 12,
+    maxRotation: 0,
+    minRotation: 0
+},
 
                     grid: {
                         color:
@@ -1037,13 +1329,30 @@ async function loadPortfolioHistory(historyPromise = null) {
         }
     });
 }
- // Branche le sélecteur
-    if (selector) {
-        selector.onchange = renderSelectedPortfolioChart;
-    }
+ // Branche le sélecteur portefeuille/deck.
+if (selector) {
+    selector.onchange =
+        renderSelectedPortfolioChart;
+}
 
-    // Premier affichage
-    renderSelectedPortfolioChart();
+/*
+ * Branche les boutons Jours / Semaines / Mois.
+ * Ils seront ajoutés dans index.html à l’étape suivante.
+ */
+setupPortfolioChartPeriodButtons(
+    renderSelectedPortfolioChart
+);
+
+/*
+ * Recalcule le nombre maximal de points
+ * lorsque la largeur de la fenêtre change.
+ */
+setupPortfolioChartResize(
+    renderSelectedPortfolioChart
+);
+
+// Premier affichage.
+renderSelectedPortfolioChart();
 }
 
 async function loadInvestmentAnalysis() {
