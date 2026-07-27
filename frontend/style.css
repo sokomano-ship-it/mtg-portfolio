@@ -1432,3 +1432,59 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         width: 100%;
     }
 }
+
+.portfolio-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.portfolio-summary-card {
+    background: #171b26;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    padding: 18px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 90px;
+}
+
+.portfolio-summary-card span {
+    font-size: 13px;
+    color: #9fa7b7;
+    margin-bottom: 8px;
+}
+
+.portfolio-summary-card strong {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+}
+
+@media (max-width:1200px){
+
+    .portfolio-summary-cards{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media (max-width:800px){
+
+    .portfolio-summary-cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media (max-width:600px){
+
+    .portfolio-summary-cards{
+        grid-template-columns:1fr;
+    }
+
+}
