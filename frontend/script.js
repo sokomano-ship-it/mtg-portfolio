@@ -575,8 +575,8 @@ async function loadPortfolioHistory(historyPromise = null) {
     const history = historyPromise
         ? await historyPromise
         : await window.apiAdapter.getPortfolioHistory();
-    const ctx = document.getElementById("portfolioChart");
 
+    const ctx = document.getElementById("portfolioChart");
     if (!ctx) return;
 
     const filteredHistory = Array.isArray(history)
@@ -588,15 +588,12 @@ async function loadPortfolioHistory(historyPromise = null) {
             .map(row => ({
                 ...row,
                 date: String(row.date).slice(0, 10),
-                totalValue: Number(row.totalValue || 0)
+                totalValue: Number(row.totalValue || 0),
+                categoryValues: row.categoryValues || {}
             }))
-            .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+            .sort((a, b) => a.date.localeCompare(b.date))
         : [];
 
-    /*
-     * La valeur actuelle doit venir des mêmes cartes que
-     * la valeur affichée en haut du tableau de bord.
-     */
     const currentTotal = Number(
         calculateCardsValue(allCards).toFixed(2)
     );
@@ -608,66 +605,136 @@ async function loadPortfolioHistory(historyPromise = null) {
         day: "2-digit"
     }).format(new Date());
 
-    const todayRow = filteredHistory.find(row => row.date === today);
+    let todayRow = filteredHistory.find(r => r.date === today);
 
-    if (todayRow) {
-        /*
-         * Remplace la valeur historique éventuellement générée
-         * avant la dernière simulation.
-         */
-        todayRow.totalValue = currentTotal;
-    } else {
-        /*
-         * Ajoute le point du jour si portfolio-history.json
-         * n'a pas encore été actualisé.
-         */
-        filteredHistory.push({
+    if (!todayRow) {
+        todayRow = {
             date: today,
-            totalValue: currentTotal
-        });
+            totalValue: currentTotal,
+            categoryValues: {}
+        };
+        filteredHistory.push(todayRow);
     }
+
+    todayRow.totalValue = currentTotal;
+
+    //
+    // Recalcule les catégories uniquement pour aujourd'hui
+    //
+    const categoryTotals = {};
+
+    allCards.forEach(card => {
+        const category = card.categorie || "Non classé";
+        const value = Number(getEstimatedConditionPrice(card)) || 0;
+
+        categoryTotals[category] =
+            (categoryTotals[category] || 0) + value;
+    });
+
+    todayRow.categoryValues = categoryTotals;
+
+    filteredHistory.sort((a, b) => a.date.localeCompare(b.date));
 
     if (!filteredHistory.length) {
         return;
     }
 
+    //
+    // Détection automatique des catégories
+    //
+    const categories = [
+        ...new Set(
+            filteredHistory.flatMap(row =>
+                Object.keys(row.categoryValues || {})
+            )
+        )
+    ].sort();
+
+    //
+    // Premier dataset = portefeuille
+    //
+    const datasets = [{
+        label: "Portefeuille",
+        data: filteredHistory.map(r => r.totalValue),
+        tension: 0.3
+    }];
+
+    //
+    // Puis une courbe par catégorie
+    //
+    categories.forEach(category => {
+
+        datasets.push({
+
+            label: category,
+
+            data: filteredHistory.map(row => {
+
+                if (!row.categoryValues)
+                    return null;
+
+                return row.categoryValues[category] ?? null;
+
+            }),
+
+            tension: 0.3,
+            spanGaps: true
+
+        });
+
+    });
+
     new Chart(ctx, {
+
         type: "line",
 
         data: {
-            labels: filteredHistory.map(row => row.date),
 
-            datasets: [
-                {
-                    label: "Valeur estimée portefeuille (€)",
-                    data: filteredHistory.map(row => row.totalValue),
-                    tension: 0.3
-                }
-            ]
+            labels: filteredHistory.map(r => r.date),
+
+            datasets
+
         },
 
         options: {
-    responsive: true,
-    animation: false,
 
-    plugins: {
+            responsive: true,
+
+            animation: false,
+
+            interaction: {
+                mode: "index",
+                intersect: false
+            },
+
+            plugins: {
+
                 legend: {
+
                     labels: {
                         color: "#f5f5f5"
                     }
+
                 },
 
                 tooltip: {
+
                     callbacks: {
+
                         label(context) {
-                            return formatEuro(context.parsed.y);
+                            return `${context.dataset.label} : ${formatEuro(context.parsed.y)}`;
                         }
+
                     }
+
                 }
+
             },
 
             scales: {
+
                 x: {
+
                     ticks: {
                         color: "#f5f5f5"
                     },
@@ -675,24 +742,33 @@ async function loadPortfolioHistory(historyPromise = null) {
                     grid: {
                         color: "rgba(255,255,255,0.1)"
                     }
+
                 },
 
                 y: {
+
                     ticks: {
+
                         color: "#f5f5f5",
 
                         callback(value) {
                             return formatEuro(value);
                         }
+
                     },
 
                     grid: {
                         color: "rgba(255,255,255,0.1)"
                     }
+
                 }
+
             }
+
         }
+
     });
+
 }
 
 async function loadInvestmentAnalysis() {
