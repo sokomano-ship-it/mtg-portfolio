@@ -117,8 +117,7 @@ async function loadDashboard() {
      */
     const cardsPromise = loadCards();
 
-    const portfolioSummaryPromise =
-        loadPortfolioSummary();
+    
 
     const portfolioHistoryPromise =
         window.apiAdapter.getPortfolioHistory();
@@ -132,10 +131,9 @@ async function loadDashboard() {
     await cardsPromise;
 
     await Promise.all([
-        portfolioSummaryPromise,
-        categorySummaryPromise,
-        loadPortfolioHistory(portfolioHistoryPromise)
-    ]);
+    categorySummaryPromise,
+    loadPortfolioHistory(portfolioHistoryPromise)
+]);
 }
 
 async function loadCards() {
@@ -715,145 +713,329 @@ async function loadPortfolioHistory(historyPromise = null) {
     }
 
     function renderSelectedPortfolioChart() {
-        const selectedValue =
-            selector?.value || "portfolio";
+    const selectedValue =
+        selector?.value || "portfolio";
 
-        let label;
-        let data;
+    const totalCardsElement =
+        document.getElementById("total-cards");
+
+    const totalValueElement =
+        document.getElementById("total-value");
+
+    const changeElement =
+        document.getElementById("portfolio-change");
+
+    const changePctElement =
+        document.getElementById("portfolio-change-pct");
+
+    const totalCardsLabel =
+        document.getElementById("total-cards-label");
+
+    const totalValueLabel =
+        document.getElementById("total-value-label");
+
+    const changeLabel =
+        document.getElementById("portfolio-change-label");
+
+    const changePctLabel =
+        document.getElementById(
+            "portfolio-change-pct-label"
+        );
+
+    let label;
+    let data;
+    let currentCards;
+    let currentValue;
+    let displayName;
+
+    /*
+     * Portefeuille complet.
+     */
+    if (selectedValue === "portfolio") {
+        displayName = "Portefeuille total";
+        label = "Valeur estimée du portefeuille (€)";
+
+        data = filteredHistory.map(row =>
+            Number(row.totalValue)
+        );
+
+        currentCards = allCards.length;
+        currentValue = currentTotal;
+
+        if (totalCardsLabel) {
+            totalCardsLabel.textContent =
+                "Cartes totales";
+        }
+
+        if (totalValueLabel) {
+            totalValueLabel.textContent =
+                "Valeur estimée portefeuille";
+        }
+    } else {
+        /*
+         * Catégorie sélectionnée.
+         */
+        const category = selectedValue.replace(
+            "category:",
+            ""
+        );
+
+        displayName = category;
+        label = `${category} (€)`;
+
+        data = filteredHistory.map(row => {
+            const value =
+                row.categoryValues?.[category];
+
+            if (
+                value === null ||
+                value === undefined ||
+                Number.isNaN(Number(value))
+            ) {
+                return null;
+            }
+
+            return Number(value);
+        });
+
+        const selectedCards = allCards.filter(card =>
+            (card.categorie || "Non classé") === category
+        );
+
+        currentCards = selectedCards.length;
+
+        currentValue = Number(
+            calculateCardsValue(selectedCards).toFixed(2)
+        );
+
+        if (totalCardsLabel) {
+            totalCardsLabel.textContent =
+                `Cartes — ${category}`;
+        }
+
+        if (totalValueLabel) {
+            totalValueLabel.textContent =
+                `Valeur estimée — ${category}`;
+        }
+    }
+
+    /*
+     * Recherche de la dernière valeur connue avant aujourd'hui.
+     *
+     * On ne prend pas nécessairement la ligne juste avant :
+     * certaines anciennes lignes peuvent ne pas encore contenir
+     * categoryValues.
+     */
+    let previousValue = null;
+
+    for (
+        let index = filteredHistory.length - 1;
+        index >= 0;
+        index -= 1
+    ) {
+        const row = filteredHistory[index];
+
+        if (row.date >= today) {
+            continue;
+        }
+
+        let candidateValue;
 
         if (selectedValue === "portfolio") {
-            label = "Valeur estimée du portefeuille (€)";
-
-            data = filteredHistory.map(row =>
-                row.totalValue
-            );
+            candidateValue = row.totalValue;
         } else {
             const category = selectedValue.replace(
                 "category:",
                 ""
             );
 
-            label = `${category} (€)`;
-
-            data = filteredHistory.map(row => {
-                const value =
-                    row.categoryValues?.[category];
-
-                if (
-                    value === null ||
-                    value === undefined ||
-                    Number.isNaN(Number(value))
-                ) {
-                    return null;
-                }
-
-                return Number(value);
-            });
+            candidateValue =
+                row.categoryValues?.[category];
         }
 
-        /*
-         * Évite d'empiler plusieurs instances Chart.js
-         * sur le même canvas.
-         */
-        if (portfolioChart) {
-            portfolioChart.destroy();
+        if (
+            candidateValue !== null &&
+            candidateValue !== undefined &&
+            !Number.isNaN(Number(candidateValue))
+        ) {
+            previousValue = Number(candidateValue);
+            break;
         }
-
-        portfolioChart = new Chart(ctx, {
-            type: "line",
-
-            data: {
-                labels: filteredHistory.map(row =>
-                    row.date
-                ),
-
-                datasets: [
-                    {
-                        label,
-                        data,
-                        tension: 0.3,
-                        spanGaps: false,
-                        fill: false
-                    }
-                ]
-            },
-
-            options: {
-                responsive: true,
-                animation: false,
-
-                interaction: {
-                    mode: "index",
-                    intersect: false
-                },
-
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: "#f5f5f5"
-                        }
-                    },
-
-                    tooltip: {
-                        callbacks: {
-                            label(context) {
-                                const value =
-                                    context.parsed.y;
-
-                                if (
-                                    value === null ||
-                                    value === undefined
-                                ) {
-                                    return `${context.dataset.label} : -`;
-                                }
-
-                                return `${context.dataset.label} : ${formatEuro(value)}`;
-                            }
-                        }
-                    }
-                },
-
-                scales: {
-                    x: {
-                        ticks: {
-                            color: "#f5f5f5"
-                        },
-
-                        grid: {
-                            color: "rgba(255,255,255,0.1)"
-                        }
-                    },
-
-                    y: {
-                        beginAtZero: false,
-
-                        ticks: {
-                            color: "#f5f5f5",
-
-                            callback(value) {
-                                return formatEuro(value);
-                            }
-                        },
-
-                        grid: {
-                            color: "rgba(255,255,255,0.1)"
-                        }
-                    }
-                }
-            }
-        });
     }
 
     /*
-     * Le onchange est remplacé à chaque chargement,
-     * ce qui évite les écouteurs dupliqués.
+     * Calcul de la variation.
      */
-    if (selector) {
-        selector.onchange =
-            renderSelectedPortfolioChart;
+    const change =
+        previousValue === null
+            ? null
+            : Number(
+                (currentValue - previousValue).toFixed(2)
+            );
+
+    const changePct =
+        previousValue === null ||
+        previousValue === 0
+            ? null
+            : Number(
+                (
+                    (change / previousValue) *
+                    100
+                ).toFixed(2)
+            );
+
+    /*
+     * Mise à jour des quatre cartes.
+     */
+    if (totalCardsElement) {
+        totalCardsElement.textContent =
+            currentCards.toLocaleString("fr-FR");
     }
 
-    renderSelectedPortfolioChart();
+    if (totalValueElement) {
+        totalValueElement.textContent =
+            formatEuro(currentValue);
+    }
+
+    if (changeLabel) {
+        changeLabel.textContent =
+            selectedValue === "portfolio"
+                ? "Variation depuis hier"
+                : `Variation — ${displayName}`;
+    }
+
+    if (changePctLabel) {
+        changePctLabel.textContent =
+            selectedValue === "portfolio"
+                ? "Variation %"
+                : `Variation % — ${displayName}`;
+    }
+
+    if (changeElement) {
+        if (change === null) {
+            changeElement.textContent = "-";
+            changeElement.className = "";
+        } else {
+            changeElement.textContent =
+                formatSignedEuro(change);
+
+            changeElement.className =
+                change >= 0
+                    ? "score-positive"
+                    : "score-negative";
+        }
+    }
+
+    if (changePctElement) {
+        if (changePct === null) {
+            changePctElement.textContent = "-";
+            changePctElement.className = "";
+        } else {
+            changePctElement.textContent =
+                formatPercent(changePct);
+
+            changePctElement.className =
+                changePct >= 0
+                    ? "score-positive"
+                    : "score-negative";
+        }
+    }
+
+    /*
+     * Destruction de l'ancien graphique.
+     */
+    if (portfolioChart) {
+        portfolioChart.destroy();
+    }
+
+    /*
+     * Création du graphique correspondant à la sélection.
+     */
+    portfolioChart = new Chart(ctx, {
+        type: "line",
+
+        data: {
+            labels: filteredHistory.map(row =>
+                row.date
+            ),
+
+            datasets: [
+                {
+                    label,
+                    data,
+                    tension: 0.3,
+                    spanGaps: false,
+                    fill: false
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            animation: false,
+
+            interaction: {
+                mode: "index",
+                intersect: false
+            },
+
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "#f5f5f5"
+                    }
+                },
+
+                tooltip: {
+                    callbacks: {
+                        label(context) {
+                            const value =
+                                context.parsed.y;
+
+                            if (
+                                value === null ||
+                                value === undefined
+                            ) {
+                                return `${context.dataset.label} : -`;
+                            }
+
+                            return `${context.dataset.label} : ${formatEuro(value)}`;
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#f5f5f5"
+                    },
+
+                    grid: {
+                        color:
+                            "rgba(255,255,255,0.1)"
+                    }
+                },
+
+                y: {
+                    beginAtZero: false,
+
+                    ticks: {
+                        color: "#f5f5f5",
+
+                        callback(value) {
+                            return formatEuro(value);
+                        }
+                    },
+
+                    grid: {
+                        color:
+                            "rgba(255,255,255,0.1)"
+                    }
+                }
+            }
+        }
+    });
 }
 
 async function loadInvestmentAnalysis() {
