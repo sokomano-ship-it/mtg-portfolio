@@ -1037,6 +1037,14 @@ async function loadPortfolioHistory(historyPromise = null) {
         }
     });
 }
+ // Branche le sélecteur
+    if (selector) {
+        selector.onchange = renderSelectedPortfolioChart;
+    }
+
+    // Premier affichage
+    renderSelectedPortfolioChart();
+}
 
 async function loadInvestmentAnalysis() {
     const status = document.getElementById("investment-status");
