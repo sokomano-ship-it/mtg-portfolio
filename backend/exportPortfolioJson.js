@@ -649,37 +649,131 @@ const estimatedTotalValue = cards.reduce(
 );
     const todayDate = new Date().toISOString().slice(0, 10);
 
+function roundValueMap(values) {
+    return Object.fromEntries(
+        Object.entries(values || {}).map(([key, value]) => [
+            key,
+            Number(Number(value || 0).toFixed(2))
+        ])
+    );
+}
+
+function roundNestedValueMap(values) {
+    return Object.fromEntries(
+        Object.entries(values || {}).map(
+            ([outerKey, innerValues]) => [
+                outerKey,
+                roundValueMap(innerValues)
+            ]
+        )
+    );
+}
+
+function createEmptyPortfolioHistorySummary() {
+    return {
+        totalValue: 0,
+        categoryValues: {},
+        editionValues: {},
+        categoryEditionValues: {}
+    };
+}
+
+function addCardValueToPortfolioHistory(
+    summary,
+    card,
+    value
+) {
+    const category =
+        String(card.categorie || "Non classé").trim();
+
+    const edition =
+        String(card.edition || "Édition inconnue").trim();
+
+    summary.totalValue += value;
+
+    summary.categoryValues[category] =
+        Number(summary.categoryValues[category] || 0) +
+        value;
+
+    summary.editionValues[edition] =
+        Number(summary.editionValues[edition] || 0) +
+        value;
+
+    if (!summary.categoryEditionValues[category]) {
+        summary.categoryEditionValues[category] = {};
+    }
+
+    summary.categoryEditionValues[category][edition] =
+        Number(
+            summary.categoryEditionValues[category][edition] ||
+            0
+        ) + value;
+}
+
+function finalizePortfolioHistorySummary(
+    date,
+    summary
+) {
+    return {
+        date,
+
+        totalValue: Number(
+            Number(summary.totalValue || 0).toFixed(2)
+        ),
+
+        categoryValues: roundValueMap(
+            summary.categoryValues
+        ),
+
+        editionValues: roundValueMap(
+            summary.editionValues
+        ),
+
+        categoryEditionValues: roundNestedValueMap(
+            summary.categoryEditionValues
+        )
+    };
+}
+
 function buildPortfolioHistoryFromEstimatedSnapshots(
     estimatedPriceHistory,
     cards
 ) {
-    /*
-     * Relie chaque identifiant de carte à sa catégorie actuelle.
-     * Exemple : Mono Red, Mono Green, White Weenie, etc.
-     */
-    const categoryByCardId = new Map(
+    const cardById = new Map(
         cards.map(card => [
             Number(card.id),
-            card.categorie || "Non classé"
+            card
         ])
     );
 
     /*
      * Une seule simulation par carte et par date.
-     * Si plusieurs simulations existent le même jour,
-     * la dernière ligne du fichier est conservée.
+     * En cas de doublon, la dernière ligne gagne.
      */
     const latestByDateAndCard = new Map();
 
     estimatedPriceHistory.forEach((row, index) => {
-        if (!row.date || !row.cardId) return;
+        if (
+            !row.date ||
+            row.cardId === null ||
+            row.cardId === undefined
+        ) {
+            return;
+        }
 
-        const date = String(row.date).slice(0, 10);
-        const key = `${date}|${row.cardId}`;
+        const date =
+            String(row.date).slice(0, 10);
+
+        const cardId =
+            Number(row.cardId);
+
+        const key =
+            `${date}|${cardId}`;
 
         latestByDateAndCard.set(key, {
             ...row,
             date,
+            cardId,
             _index: index
         });
     });
@@ -687,104 +781,109 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
     const byDate = new Map();
 
     [...latestByDateAndCard.values()].forEach(row => {
-        const value = Number(
-            row.estimatedConditionPrice ??
-            row.estimatedPrice ??
-            0
-        );
+        const card =
+            cardById.get(Number(row.cardId));
 
-        if (!Number.isFinite(value) || value <= 0) {
+        if (!card) {
             return;
         }
 
-        const category =
-            categoryByCardId.get(Number(row.cardId)) ||
-            "Non classé";
+        const value = Number(
+            getEstimatedPriceFromSnapshot(
+                row,
+                card.etat
+            ) || 0
+        );
 
-        if (!byDate.has(row.date)) {
-            byDate.set(row.date, {
-                totalValue: 0,
-                categoryValues: {}
-            });
+        if (
+            !Number.isFinite(value) ||
+            value <= 0
+        ) {
+            return;
         }
 
-        const dateSummary = byDate.get(row.date);
+        if (!byDate.has(row.date)) {
+            byDate.set(
+                row.date,
+                createEmptyPortfolioHistorySummary()
+            );
+        }
 
-        dateSummary.totalValue += value;
-
-        dateSummary.categoryValues[category] =
-            Number(dateSummary.categoryValues[category] || 0) +
-            value;
+        addCardValueToPortfolioHistory(
+            byDate.get(row.date),
+            card,
+            value
+        );
     });
 
     return [...byDate.entries()]
-        .map(([date, summary]) => ({
-            date,
-
-            totalValue: Number(
-                summary.totalValue.toFixed(2)
-            ),
-
-            categoryValues: Object.fromEntries(
-                Object.entries(summary.categoryValues)
-                    .map(([category, value]) => [
-                        category,
-                        Number(Number(value).toFixed(2))
-                    ])
+        .map(([date, summary]) =>
+            finalizePortfolioHistorySummary(
+                date,
+                summary
             )
-        }))
+        )
         .sort((a, b) =>
-            String(a.date).localeCompare(String(b.date))
+            String(a.date).localeCompare(
+                String(b.date)
+            )
         );
 }
 
 const existingPortfolioHistory =
     readExistingPortfolioHistory();
 
-/*
- * Reconstruit les valeurs historiques par catégorie à partir
- * des estimations quotidiennes enregistrées pour chaque carte.
- */
 const reconstructedPortfolioHistory =
     buildPortfolioHistoryFromEstimatedSnapshots(
         estimatedPriceHistory,
         cards
     );
 
-/*
- * Indexe l’ancien historique par date.
- *
- * Les anciens totalValue sont conservés afin qu’aucune valeur
- * historique déjà enregistrée ne soit modifiée.
- */
 const portfolioHistoryByDate = new Map();
 
+/*
+ * Charge l’historique existant.
+ * Le total déjà enregistré reste prioritaire.
+ */
 existingPortfolioHistory.forEach(row => {
-    if (!row?.date) return;
+    if (!row?.date) {
+        return;
+    }
 
     const date =
         String(row.date).slice(0, 10);
 
     portfolioHistoryByDate.set(date, {
         ...row,
+
         date,
-        totalValue: Number(row.totalValue || 0),
+
+        totalValue:
+            Number(row.totalValue || 0),
 
         categoryValues:
             row.categoryValues &&
             typeof row.categoryValues === "object"
                 ? row.categoryValues
+                : {},
+
+        editionValues:
+            row.editionValues &&
+            typeof row.editionValues === "object"
+                ? row.editionValues
+                : {},
+
+        categoryEditionValues:
+            row.categoryEditionValues &&
+            typeof row.categoryEditionValues === "object"
+                ? row.categoryEditionValues
                 : {}
     });
 });
 
 /*
- * Ajoute les valeurs historiques des catégories/decks.
- *
- * Important :
- * - le total historique existant reste prioritaire ;
- * - seules les categoryValues sont reconstruites ;
- * - une date absente de l’ancien historique peut être ajoutée.
+ * Ajoute les répartitions reconstruites.
+ * Le total historique existant n’est pas remplacé.
  */
 reconstructedPortfolioHistory.forEach(row => {
     const existingRow =
@@ -799,23 +898,24 @@ reconstructedPortfolioHistory.forEach(row => {
                 : Number(row.totalValue || 0),
 
         categoryValues:
-            row.categoryValues &&
-            typeof row.categoryValues === "object"
-                ? row.categoryValues
-                : {}
+            row.categoryValues || {},
+
+        editionValues:
+            row.editionValues || {},
+
+        categoryEditionValues:
+            row.categoryEditionValues || {}
     });
 });
 
 /*
- * Calcule les valeurs actuelles par catégorie.
- * La journée courante reste calculée directement depuis cards.
+ * Calcule la ligne actuelle directement
+ * depuis les cartes de la collection.
  */
-const todayCategoryValues = {};
+const todaySummary =
+    createEmptyPortfolioHistorySummary();
 
 cards.forEach(card => {
-    const category =
-        card.categorie || "Non classé";
-
     const value =
         Number(getEstimatedConditionPrice(card) || 0);
 
@@ -826,31 +926,26 @@ cards.forEach(card => {
         return;
     }
 
-    todayCategoryValues[category] =
-        Number(todayCategoryValues[category] || 0) +
-        value;
+    addCardValueToPortfolioHistory(
+        todaySummary,
+        card,
+        value
+    );
 });
 
-const roundedTodayCategoryValues =
-    Object.fromEntries(
-        Object.entries(todayCategoryValues)
-            .map(([category, value]) => [
-                category,
-                Number(Number(value).toFixed(2))
-            ])
+const currentPortfolioHistoryRow =
+    finalizePortfolioHistorySummary(
+        todayDate,
+        todaySummary
     );
 
-/*
- * La ligne du jour est remplacée par les valeurs actuelles.
- * Les journées précédentes ne sont pas recalculées.
- */
-portfolioHistoryByDate.set(todayDate, {
-    date: todayDate,
-    totalValue:
-        Number(estimatedTotalValue.toFixed(2)),
-    categoryValues:
-        roundedTodayCategoryValues
-});
+currentPortfolioHistoryRow.totalValue =
+    Number(estimatedTotalValue.toFixed(2));
+
+portfolioHistoryByDate.set(
+    todayDate,
+    currentPortfolioHistoryRow
+);
 
 const portfolioHistoryEstimated = [
     ...portfolioHistoryByDate.values()

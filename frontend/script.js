@@ -1172,15 +1172,32 @@ async function loadPortfolioHistory(historyPromise = null) {
                 String(row.date).slice(0, 10) >= MODEL_START_DATE
             )
             .map(row => ({
-                ...row,
-                date: String(row.date).slice(0, 10),
-                totalValue: Number(row.totalValue || 0),
-                categoryValues:
-                    row.categoryValues &&
-                    typeof row.categoryValues === "object"
-                        ? row.categoryValues
-                        : {}
-            }))
+    ...row,
+
+    date:
+        String(row.date).slice(0, 10),
+
+    totalValue:
+        Number(row.totalValue || 0),
+
+    categoryValues:
+        row.categoryValues &&
+        typeof row.categoryValues === "object"
+            ? row.categoryValues
+            : {},
+
+    editionValues:
+        row.editionValues &&
+        typeof row.editionValues === "object"
+            ? row.editionValues
+            : {},
+
+    categoryEditionValues:
+        row.categoryEditionValues &&
+        typeof row.categoryEditionValues === "object"
+            ? row.categoryEditionValues
+            : {}
+}))
             .sort((a, b) =>
                 String(a.date).localeCompare(String(b.date))
             )
@@ -1198,21 +1215,57 @@ async function loadPortfolioHistory(historyPromise = null) {
     );
 
     const currentCategoryValues = {};
+const currentEditionValues = {};
+const currentCategoryEditionValues = {};
 
-    allCards.forEach(card => {
-        const category = card.categorie || "Non classé";
+allCards.forEach(card => {
+    const category =
+        String(card.categorie || "Non classé").trim();
 
-        const value =
-            Number(getEstimatedConditionPrice(card)) || 0;
+    const edition =
+        String(card.edition || "Édition inconnue").trim();
 
-        currentCategoryValues[category] =
-            (currentCategoryValues[category] || 0) + value;
-    });
+    const value =
+        Number(getEstimatedConditionPrice(card)) || 0;
 
-    Object.keys(currentCategoryValues).forEach(category => {
-        currentCategoryValues[category] = Number(
-            currentCategoryValues[category].toFixed(2)
-        );
+    currentCategoryValues[category] =
+        (currentCategoryValues[category] || 0) +
+        value;
+
+    currentEditionValues[edition] =
+        (currentEditionValues[edition] || 0) +
+        value;
+
+    if (!currentCategoryEditionValues[category]) {
+        currentCategoryEditionValues[category] = {};
+    }
+
+    currentCategoryEditionValues[category][edition] =
+        (
+            currentCategoryEditionValues[category][edition] ||
+            0
+        ) + value;
+});
+
+Object.keys(currentCategoryValues).forEach(category => {
+    currentCategoryValues[category] = Number(
+        currentCategoryValues[category].toFixed(2)
+    );
+});
+
+Object.keys(currentEditionValues).forEach(edition => {
+    currentEditionValues[edition] = Number(
+        currentEditionValues[edition].toFixed(2)
+    );
+});
+
+Object.values(currentCategoryEditionValues)
+    .forEach(editionValues => {
+        Object.keys(editionValues).forEach(edition => {
+            editionValues[edition] = Number(
+                editionValues[edition].toFixed(2)
+            );
+        });
     });
 
     const todayRow = filteredHistory.find(
@@ -1220,15 +1273,34 @@ async function loadPortfolioHistory(historyPromise = null) {
     );
 
     if (todayRow) {
-        todayRow.totalValue = currentTotal;
-        todayRow.categoryValues = currentCategoryValues;
-    } else {
-        filteredHistory.push({
-            date: today,
-            totalValue: currentTotal,
-            categoryValues: currentCategoryValues
-        });
-    }
+    todayRow.totalValue =
+        currentTotal;
+
+    todayRow.categoryValues =
+        currentCategoryValues;
+
+    todayRow.editionValues =
+        currentEditionValues;
+
+    todayRow.categoryEditionValues =
+        currentCategoryEditionValues;
+} else {
+    filteredHistory.push({
+        date: today,
+
+        totalValue:
+            currentTotal,
+
+        categoryValues:
+            currentCategoryValues,
+
+        editionValues:
+            currentEditionValues,
+
+        categoryEditionValues:
+            currentCategoryEditionValues
+    });
+}
 
     filteredHistory.sort((a, b) =>
         String(a.date).localeCompare(String(b.date))
@@ -1308,10 +1380,8 @@ async function loadPortfolioHistory(historyPromise = null) {
             !selectedPortfolioEdition &&
             !selectedPortfolioCardKey;
 
-        const categoryHistoryAvailable =
-            Boolean(selectedPortfolioCategory) &&
-            !selectedPortfolioEdition &&
-            !selectedPortfolioCardKey;
+        const historicalBreakdownAvailable =
+    !selectedPortfolioCardKey;
 
         const displayName =
             getPortfolioSelectionLabel(selectedCards);
@@ -1386,41 +1456,94 @@ async function loadPortfolioHistory(historyPromise = null) {
         }
 
         const getSelectedRowValue = row => {
-            if (noFilters) {
-                return Number(row.totalValue);
-            }
+    /*
+     * Portefeuille complet.
+     */
+    if (noFilters) {
+        return Number(row.totalValue);
+    }
 
-            if (categoryHistoryAvailable) {
-                const value =
-                    row.categoryValues?.[
-                        selectedPortfolioCategory
-                    ];
+    /*
+     * Carte individuelle :
+     * pas encore présente dans portfolio-history.json.
+     */
+    if (selectedPortfolioCardKey) {
+        return row.date === today
+            ? currentValue
+            : null;
+    }
 
-                if (
-                    value === null ||
-                    value === undefined ||
-                    Number.isNaN(Number(value))
-                ) {
-                    return null;
-                }
+    /*
+     * Catégorie + édition.
+     */
+    if (
+        selectedPortfolioCategory &&
+        selectedPortfolioEdition
+    ) {
+        const value =
+            row.categoryEditionValues?.[
+                selectedPortfolioCategory
+            ]?.[
+                selectedPortfolioEdition
+            ];
 
-                return Number(value);
-            }
+        if (
+            value === null ||
+            value === undefined ||
+            Number.isNaN(Number(value))
+        ) {
+            return null;
+        }
 
-            /*
-             * portfolio-history.json ne contient pas encore
-             * d'historique par édition ou par carte.
-             *
-             * Dans ce cas, seul le point actuel est affiché.
-             */
-            return row.date === today
-                ? currentValue
-                : null;
-        };
+        return Number(value);
+    }
+
+    /*
+     * Édition seule.
+     */
+    if (selectedPortfolioEdition) {
+        const value =
+            row.editionValues?.[
+                selectedPortfolioEdition
+            ];
+
+        if (
+            value === null ||
+            value === undefined ||
+            Number.isNaN(Number(value))
+        ) {
+            return null;
+        }
+
+        return Number(value);
+    }
+
+    /*
+     * Catégorie seule.
+     */
+    if (selectedPortfolioCategory) {
+        const value =
+            row.categoryValues?.[
+                selectedPortfolioCategory
+            ];
+
+        if (
+            value === null ||
+            value === undefined ||
+            Number.isNaN(Number(value))
+        ) {
+            return null;
+        }
+
+        return Number(value);
+    }
+
+    return null;
+};
 
         let previousValue = null;
 
-        if (noFilters || categoryHistoryAvailable) {
+        if (noFilters || historicalBreakdownAvailable) {
             for (
                 let index = filteredHistory.length - 1;
                 index >= 0;
@@ -1508,10 +1631,10 @@ async function loadPortfolioHistory(historyPromise = null) {
         );
 
         const chartLabel = noFilters
-            ? "Valeur estimée du portefeuille (€)"
-            : categoryHistoryAvailable
-                ? `${displayName} (€)`
-                : `${displayName} — valeur actuelle (€)`;
+    ? "Valeur estimée du portefeuille (€)"
+    : selectedPortfolioCardKey
+        ? `${displayName} — valeur actuelle (€)`
+        : `${displayName} (€)`;
 
         if (portfolioChart) {
             portfolioChart.destroy();
