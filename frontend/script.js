@@ -191,29 +191,75 @@ function handlePortfolioMainFilterChange() {
 
     rebuildPortfolioCardSuggestions();
 
-    console.log(
-        "Portfolio filters",
-        selectedPortfolioCategory,
-        selectedPortfolioEdition
-    );
+    if (currentPortfolioChartRenderer) {
+        currentPortfolioChartRenderer();
+    }
 }
 
 function setupPortfolioChartFilterEvents() {
+    const categorySelect = document.getElementById(
+        "portfolio-category-filter"
+    );
 
-    document
-        .getElementById("portfolio-category-filter")
-        ?.addEventListener(
-            "change",
-            handlePortfolioMainFilterChange
-        );
+    const editionSelect = document.getElementById(
+        "portfolio-edition-filter"
+    );
 
-    document
-        .getElementById("portfolio-edition-filter")
-        ?.addEventListener(
-            "change",
-            handlePortfolioMainFilterChange
-        );
+    const cardSearch = document.getElementById(
+        "portfolio-card-search"
+    );
 
+    const clearButton = document.getElementById(
+        "portfolio-clear-card"
+    );
+
+    if (categorySelect) {
+        categorySelect.onchange =
+            handlePortfolioMainFilterChange;
+    }
+
+    if (editionSelect) {
+        editionSelect.onchange =
+            handlePortfolioMainFilterChange;
+    }
+
+    if (cardSearch) {
+        cardSearch.oninput = () => {
+            const selectedSuggestion =
+                portfolioCardSuggestionMap.get(
+                    cardSearch.value.trim()
+                );
+
+            selectedPortfolioCardKey =
+                selectedSuggestion?.key || "";
+
+            if (clearButton) {
+                clearButton.hidden =
+                    !cardSearch.value.trim();
+            }
+
+            if (currentPortfolioChartRenderer) {
+                currentPortfolioChartRenderer();
+            }
+        };
+    }
+
+    if (clearButton) {
+        clearButton.onclick = () => {
+            selectedPortfolioCardKey = "";
+
+            if (cardSearch) {
+                cardSearch.value = "";
+                cardSearch.focus();
+            }
+
+            clearButton.hidden = true;
+
+            if (currentPortfolioChartRenderer) {
+                currentPortfolioChartRenderer();
+            }
+        };
+    }
 }
 
 function getCardsMatchingPortfolioFilters() {
@@ -1116,9 +1162,6 @@ async function loadPortfolioHistory(historyPromise = null) {
         : await window.apiAdapter.getPortfolioHistory();
 
     const ctx = document.getElementById("portfolioChart");
-    const selector = document.getElementById(
-        "portfolio-chart-selector"
-    );
 
     if (!ctx) return;
 
@@ -1143,13 +1186,6 @@ async function loadPortfolioHistory(historyPromise = null) {
             )
         : [];
 
-    /*
-     * Valeur actuelle totale.
-     */
-    const currentTotal = Number(
-        calculateCardsValue(allCards).toFixed(2)
-    );
-
     const today = new Intl.DateTimeFormat("en-CA", {
         timeZone: "Europe/Paris",
         year: "numeric",
@@ -1157,14 +1193,14 @@ async function loadPortfolioHistory(historyPromise = null) {
         day: "2-digit"
     }).format(new Date());
 
-    /*
-     * Calcul des catégories pour aujourd'hui uniquement.
-     */
+    const currentTotal = Number(
+        calculateCardsValue(allCards).toFixed(2)
+    );
+
     const currentCategoryValues = {};
 
     allCards.forEach(card => {
-        const category =
-            card.categorie || "Non classé";
+        const category = card.categorie || "Non classé";
 
         const value =
             Number(getEstimatedConditionPrice(card)) || 0;
@@ -1179,10 +1215,6 @@ async function loadPortfolioHistory(historyPromise = null) {
         );
     });
 
-    /*
-     * Met à jour uniquement la ligne affichée pour aujourd'hui.
-     * Cela ne modifie pas le fichier JSON.
-     */
     const todayRow = filteredHistory.find(
         row => row.date === today
     );
@@ -1202,437 +1234,403 @@ async function loadPortfolioHistory(historyPromise = null) {
         String(a.date).localeCompare(String(b.date))
     );
 
-    if (!filteredHistory.length) {
-        return;
-    }
+    if (!filteredHistory.length) return;
 
-    /*
-     * Détection automatique de toutes les catégories disponibles.
-     */
-    const categories = [
-        ...new Set(
-            filteredHistory.flatMap(row =>
-                Object.keys(row.categoryValues || {})
-            )
-        )
-    ].sort((a, b) =>
-        a.localeCompare(b, "fr", {
-            sensitivity: "base"
-        })
-    );
+    function getSelectedPortfolioCards() {
+        return allCards.filter(card => {
+            const category =
+                String(card.categorie || "").trim();
 
-    /*
-     * Remplit le sélecteur sans perdre le choix actuel.
-     */
-    if (selector) {
-        const previousValue =
-            selector.value || "portfolio";
+            const edition =
+                String(card.edition || "").trim();
 
-        selector.innerHTML = `
-            <option value="portfolio">
-                Portefeuille total
-            </option>
-        `;
+            const categoryMatches =
+                !selectedPortfolioCategory ||
+                category === selectedPortfolioCategory;
 
-        categories.forEach(category => {
-            const option = document.createElement("option");
+            const editionMatches =
+                !selectedPortfolioEdition ||
+                edition === selectedPortfolioEdition;
 
-            option.value = `category:${category}`;
-            option.textContent = category;
+            const cardMatches =
+                !selectedPortfolioCardKey ||
+                getPortfolioCardKey(card) ===
+                    selectedPortfolioCardKey;
 
-            selector.appendChild(option);
-        });
-
-        const availableValues = [
-            ...selector.options
-        ].map(option => option.value);
-
-        selector.value = availableValues.includes(previousValue)
-            ? previousValue
-            : "portfolio";
-    }
-
-    function renderSelectedPortfolioChart() {
-    const selectedValue =
-        selector?.value || "portfolio";
-
-    const totalCardsElement =
-        document.getElementById("total-cards");
-
-    const totalValueElement =
-        document.getElementById("total-value");
-
-    const changeElement =
-        document.getElementById("portfolio-change");
-
-    const changePctElement =
-        document.getElementById("portfolio-change-pct");
-
-    const totalCardsLabel =
-        document.getElementById("total-cards-label");
-
-    const totalValueLabel =
-        document.getElementById("total-value-label");
-
-    const changeLabel =
-        document.getElementById("portfolio-change-label");
-
-    const changePctLabel =
-        document.getElementById(
-            "portfolio-change-pct-label"
-        );
-
-    let label;
-let currentCards;
-let currentValue;
-let displayName;
-let getSelectedRowValue;
-
-    /*
-     * Portefeuille complet.
-     */
-    if (selectedValue === "portfolio") {
-        displayName = "Portefeuille total";
-        label = "Valeur estimée du portefeuille (€)";
-
-        getSelectedRowValue = row =>
-    Number(row.totalValue);
-
-        currentCards = allCards.length;
-        currentValue = currentTotal;
-
-        if (totalCardsLabel) {
-            totalCardsLabel.textContent =
-                "Cartes totales";
-        }
-
-        if (totalValueLabel) {
-            totalValueLabel.textContent =
-                "Valeur estimée portefeuille";
-        }
-    } else {
-        /*
-         * Catégorie sélectionnée.
-         */
-        const category = selectedValue.replace(
-            "category:",
-            ""
-        );
-
-        displayName = category;
-        label = `${category} (€)`;
-
-        getSelectedRowValue = row => {
-    const value =
-        row.categoryValues?.[category];
-
-    if (
-        value === null ||
-        value === undefined ||
-        Number.isNaN(Number(value))
-    ) {
-        return null;
-    }
-
-    return Number(value);
-};
-
-        const selectedCards = allCards.filter(card =>
-            (card.categorie || "Non classé") === category
-        );
-
-        currentCards = selectedCards.length;
-
-        currentValue = Number(
-            calculateCardsValue(selectedCards).toFixed(2)
-        );
-
-        if (totalCardsLabel) {
-            totalCardsLabel.textContent =
-                `Cartes — ${category}`;
-        }
-
-        if (totalValueLabel) {
-            totalValueLabel.textContent =
-                `Valeur estimée — ${category}`;
-        }
-    }
-
-    /*
-     * Recherche de la dernière valeur connue avant aujourd'hui.
-     *
-     * On ne prend pas nécessairement la ligne juste avant :
-     * certaines anciennes lignes peuvent ne pas encore contenir
-     * categoryValues.
-     */
-    let previousValue = null;
-
-    for (
-        let index = filteredHistory.length - 1;
-        index >= 0;
-        index -= 1
-    ) {
-        const row = filteredHistory[index];
-
-        if (row.date >= today) {
-            continue;
-        }
-
-        let candidateValue;
-
-        if (selectedValue === "portfolio") {
-            candidateValue = row.totalValue;
-        } else {
-            const category = selectedValue.replace(
-                "category:",
-                ""
+            return (
+                categoryMatches &&
+                editionMatches &&
+                cardMatches
             );
+        });
+    }
 
-            candidateValue =
-                row.categoryValues?.[category];
+    function getPortfolioSelectionLabel(selectedCards) {
+        if (selectedPortfolioCardKey) {
+            const card = selectedCards[0];
+
+            if (card) {
+                return [
+                    card.nomCarte,
+                    card.edition,
+                    card.langue,
+                    card.etat
+                ]
+                    .filter(Boolean)
+                    .join(" — ");
+            }
         }
 
         if (
-            candidateValue !== null &&
-            candidateValue !== undefined &&
-            !Number.isNaN(Number(candidateValue))
+            selectedPortfolioCategory &&
+            selectedPortfolioEdition
         ) {
-            previousValue = Number(candidateValue);
-            break;
+            return `${selectedPortfolioCategory} — ${selectedPortfolioEdition}`;
         }
+
+        if (selectedPortfolioEdition) {
+            return selectedPortfolioEdition;
+        }
+
+        if (selectedPortfolioCategory) {
+            return selectedPortfolioCategory;
+        }
+
+        return "Portefeuille total";
     }
 
-    /*
-     * Calcul de la variation.
-     */
-    const change =
-        previousValue === null
-            ? null
+    function renderSelectedPortfolioChart() {
+        const selectedCards =
+            getSelectedPortfolioCards();
+
+        const noFilters =
+            !selectedPortfolioCategory &&
+            !selectedPortfolioEdition &&
+            !selectedPortfolioCardKey;
+
+        const categoryHistoryAvailable =
+            Boolean(selectedPortfolioCategory) &&
+            !selectedPortfolioEdition &&
+            !selectedPortfolioCardKey;
+
+        const displayName =
+            getPortfolioSelectionLabel(selectedCards);
+
+        const currentCards = noFilters
+            ? allCards.length
+            : selectedCards.length;
+
+        const currentValue = noFilters
+            ? currentTotal
             : Number(
-                (currentValue - previousValue).toFixed(2)
+                calculateCardsValue(selectedCards).toFixed(2)
             );
 
-    const changePct =
-        previousValue === null ||
-        previousValue === 0
-            ? null
-            : Number(
-                (
-                    (change / previousValue) *
-                    100
-                ).toFixed(2)
+        const totalCardsElement =
+            document.getElementById("total-cards");
+
+        const totalValueElement =
+            document.getElementById("total-value");
+
+        const changeElement =
+            document.getElementById("portfolio-change");
+
+        const changePctElement =
+            document.getElementById("portfolio-change-pct");
+
+        const totalCardsLabel =
+            document.getElementById("total-cards-label");
+
+        const totalValueLabel =
+            document.getElementById("total-value-label");
+
+        const changeLabel =
+            document.getElementById("portfolio-change-label");
+
+        const changePctLabel =
+            document.getElementById(
+                "portfolio-change-pct-label"
             );
+        if (totalCardsElement) {
+            totalCardsElement.textContent =
+                currentCards.toLocaleString("fr-FR");
+        }
 
-    /*
-     * Mise à jour des quatre cartes.
-     */
-    if (totalCardsElement) {
-        totalCardsElement.textContent =
-            currentCards.toLocaleString("fr-FR");
-    }
+        if (totalValueElement) {
+            totalValueElement.textContent =
+                formatEuro(currentValue);
+        }
 
-    if (totalValueElement) {
-        totalValueElement.textContent =
-            formatEuro(currentValue);
-    }
+        if (totalCardsLabel) {
+            totalCardsLabel.textContent = noFilters
+                ? "Cartes totales"
+                : `Cartes — ${displayName}`;
+        }
 
-    if (changeLabel) {
-        changeLabel.textContent =
-            selectedValue === "portfolio"
+        if (totalValueLabel) {
+            totalValueLabel.textContent = noFilters
+                ? "Valeur estimée portefeuille"
+                : `Valeur estimée — ${displayName}`;
+        }
+
+        if (changeLabel) {
+            changeLabel.textContent = noFilters
                 ? "Variation depuis hier"
                 : `Variation — ${displayName}`;
-    }
+        }
 
-    if (changePctLabel) {
-        changePctLabel.textContent =
-            selectedValue === "portfolio"
+        if (changePctLabel) {
+            changePctLabel.textContent = noFilters
                 ? "Variation %"
                 : `Variation % — ${displayName}`;
-    }
-
-    if (changeElement) {
-        if (change === null) {
-            changeElement.textContent = "-";
-            changeElement.className = "";
-        } else {
-            changeElement.textContent =
-                formatSignedEuro(change);
-
-            changeElement.className =
-                change >= 0
-                    ? "score-positive"
-                    : "score-negative";
         }
-    }
 
-    if (changePctElement) {
-        if (changePct === null) {
-            changePctElement.textContent = "-";
-            changePctElement.className = "";
-        } else {
-            changePctElement.textContent =
-                formatPercent(changePct);
+        const getSelectedRowValue = row => {
+            if (noFilters) {
+                return Number(row.totalValue);
+            }
 
-            changePctElement.className =
-                changePct >= 0
-                    ? "score-positive"
-                    : "score-negative";
-        }
-    }
+            if (categoryHistoryAvailable) {
+                const value =
+                    row.categoryValues?.[
+                        selectedPortfolioCategory
+                    ];
 
-
-    /*
- * Agrégation quotidienne, hebdomadaire
- * ou mensuelle, puis limitation du nombre
- * de points selon la largeur du graphique.
- */
-const visibleHistory =
-    prepareResponsiveChartRows(
-        filteredHistory,
-        portfolioChartPeriod,
-        ctx
-    );
-
-const data =
-    visibleHistory.map(
-        getSelectedRowValue
-    );
-
-    /*
-     * Destruction de l'ancien graphique.
-     */
-    if (portfolioChart) {
-        portfolioChart.destroy();
-    }
-
-    /*
-     * Création du graphique correspondant à la sélection.
-     */
-    portfolioChart = new Chart(ctx, {
-        type: "line",
-
-        data: {
-            labels: visibleHistory.map(row =>
-    formatPortfolioChartDate(
-        row.date,
-        portfolioChartPeriod
-    )
-),
-
-            datasets: [
-                {
-    label,
-    data,
-    tension: 0.3,
-    spanGaps: false,
-    fill: false,
-
-    pointRadius:
-        visibleHistory.length > 120
-            ? 0
-            : 2,
-
-    pointHoverRadius: 5
-}
-            ]
-        },
-
-        options: {
-            responsive: true,
-            animation: false,
-
-            interaction: {
-                mode: "index",
-                intersect: false
-            },
-
-            plugins: {
-                legend: {
-                    labels: {
-                        color: "#f5f5f5"
-                    }
-                },
-
-                tooltip: {
-                    callbacks: {
-                        label(context) {
-                            const value =
-                                context.parsed.y;
-
-                            if (
-                                value === null ||
-                                value === undefined
-                            ) {
-                                return `${context.dataset.label} : -`;
-                            }
-
-                            return `${context.dataset.label} : ${formatEuro(value)}`;
-                        }
-                    }
+                if (
+                    value === null ||
+                    value === undefined ||
+                    Number.isNaN(Number(value))
+                ) {
+                    return null;
                 }
-            },
 
-            scales: {
-                x: {
-                    ticks: {
-    color: "#f5f5f5",
-    autoSkip: true,
-    maxTicksLimit: 12,
-    maxRotation: 0,
-    minRotation: 0
-},
+                return Number(value);
+            }
 
-                    grid: {
-                        color:
-                            "rgba(255,255,255,0.1)"
-                    }
-                },
+            /*
+             * portfolio-history.json ne contient pas encore
+             * d'historique par édition ou par carte.
+             *
+             * Dans ce cas, seul le point actuel est affiché.
+             */
+            return row.date === today
+                ? currentValue
+                : null;
+        };
 
-                y: {
-                    beginAtZero: false,
+        let previousValue = null;
 
-                    ticks: {
-                        color: "#f5f5f5",
+        if (noFilters || categoryHistoryAvailable) {
+            for (
+                let index = filteredHistory.length - 1;
+                index >= 0;
+                index -= 1
+            ) {
+                const row = filteredHistory[index];
 
-                        callback(value) {
-                            return formatEuro(value);
-                        }
-                    },
+                if (row.date >= today) {
+                    continue;
+                }
 
-                    grid: {
-                        color:
-                            "rgba(255,255,255,0.1)"
-                    }
+                const candidateValue =
+                    getSelectedRowValue(row);
+
+                if (
+                    candidateValue !== null &&
+                    candidateValue !== undefined &&
+                    !Number.isNaN(Number(candidateValue))
+                ) {
+                    previousValue =
+                        Number(candidateValue);
+
+                    break;
                 }
             }
         }
-    });
-}
- // Branche le sélecteur portefeuille/deck.
-if (selector) {
-    selector.onchange =
+
+        const change =
+            previousValue === null
+                ? null
+                : Number(
+                    (currentValue - previousValue).toFixed(2)
+                );
+
+        const changePct =
+            previousValue === null ||
+            previousValue === 0
+                ? null
+                : Number(
+                    (
+                        (change / previousValue) *
+                        100
+                    ).toFixed(2)
+                );
+
+        if (changeElement) {
+            if (change === null) {
+                changeElement.textContent = "-";
+                changeElement.className = "";
+            } else {
+                changeElement.textContent =
+                    formatSignedEuro(change);
+
+                changeElement.className =
+                    change >= 0
+                        ? "score-positive"
+                        : "score-negative";
+            }
+        }
+
+        if (changePctElement) {
+            if (changePct === null) {
+                changePctElement.textContent = "-";
+                changePctElement.className = "";
+            } else {
+                changePctElement.textContent =
+                    formatPercent(changePct);
+
+                changePctElement.className =
+                    changePct >= 0
+                        ? "score-positive"
+                        : "score-negative";
+            }
+        }
+
+        const visibleHistory =
+            prepareResponsiveChartRows(
+                filteredHistory,
+                portfolioChartPeriod,
+                ctx
+            );
+
+        const data = visibleHistory.map(
+            getSelectedRowValue
+        );
+
+        const chartLabel = noFilters
+            ? "Valeur estimée du portefeuille (€)"
+            : categoryHistoryAvailable
+                ? `${displayName} (€)`
+                : `${displayName} — valeur actuelle (€)`;
+
+        if (portfolioChart) {
+            portfolioChart.destroy();
+        }
+        portfolioChart = new Chart(ctx, {
+            type: "line",
+
+            data: {
+                labels: visibleHistory.map(row =>
+                    formatPortfolioChartDate(
+                        row.date,
+                        portfolioChartPeriod
+                    )
+                ),
+
+                datasets: [
+                    {
+                        label: chartLabel,
+                        data,
+                        tension: 0.3,
+                        spanGaps: false,
+                        fill: false,
+
+                        pointRadius:
+                            visibleHistory.length > 120
+                                ? 0
+                                : 2,
+
+                        pointHoverRadius: 5
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                animation: false,
+
+                interaction: {
+                    mode: "index",
+                    intersect: false
+                },
+
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "#f5f5f5"
+                        }
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label(context) {
+                                const value =
+                                    context.parsed.y;
+
+                                if (
+                                    value === null ||
+                                    value === undefined
+                                ) {
+                                    return `${context.dataset.label} : -`;
+                                }
+
+                                return `${context.dataset.label} : ${formatEuro(value)}`;
+                            }
+                        }
+                    }
+                },
+
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#f5f5f5",
+                            autoSkip: true,
+                            maxTicksLimit: 12,
+                            maxRotation: 0,
+                            minRotation: 0
+                        },
+
+                        grid: {
+                            color:
+                                "rgba(255,255,255,0.1)"
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: false,
+
+                        ticks: {
+                            color: "#f5f5f5",
+
+                            callback(value) {
+                                return formatEuro(value);
+                            }
+                        },
+
+                        grid: {
+                            color:
+                                "rgba(255,255,255,0.1)"
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    currentPortfolioChartRenderer =
         renderSelectedPortfolioChart;
+
+    setupPortfolioChartPeriodButtons(
+        renderSelectedPortfolioChart
+    );
+
+    setupPortfolioChartResize(
+        renderSelectedPortfolioChart
+    );
+
+    renderSelectedPortfolioChart();
 }
 
-/*
- * Branche les boutons Jours / Semaines / Mois.
- * Ils seront ajoutés dans index.html à l’étape suivante.
- */
-setupPortfolioChartPeriodButtons(
-    renderSelectedPortfolioChart
-);
-
-/*
- * Recalcule le nombre maximal de points
- * lorsque la largeur de la fenêtre change.
- */
-setupPortfolioChartResize(
-    renderSelectedPortfolioChart
-);
-
-// Premier affichage.
-renderSelectedPortfolioChart();
-}
 
 async function loadInvestmentAnalysis() {
     const status = document.getElementById("investment-status");
