@@ -22,6 +22,11 @@ let portfolioChart = null;
 let portfolioChartPeriod = "daily";
 let portfolioChartResizeTimer = null;
 let currentPortfolioChartRenderer = null;
+let selectedPortfolioCategory = "";
+let selectedPortfolioEdition = "";
+let selectedPortfolioCardKey = "";
+
+let portfolioCardSuggestionMap = new Map();
 
 const PORTFOLIO_CHART_MAX_POINTS = 500;
 const PORTFOLIO_CHART_MIN_POINTS = 60;
@@ -37,6 +42,120 @@ document.addEventListener("DOMContentLoaded", () => {
     setupInvestmentDrawerTabs();
     loadDashboard();
 });
+
+function getPortfolioCategories() {
+
+    return [...new Set(
+
+        allCards
+            .map(card => String(card.categorie || "").trim())
+            .filter(Boolean)
+
+    )].sort((a,b)=>
+
+        a.localeCompare(
+            b,
+            "fr",
+            { sensitivity:"base" }
+        )
+
+    );
+
+}
+
+function getPortfolioEditions() {
+
+    return [...new Set(
+
+        allCards
+            .map(card => String(card.edition || "").trim())
+            .filter(Boolean)
+
+    )].sort((a,b)=>
+
+        a.localeCompare(
+            b,
+            "fr",
+            { sensitivity:"base" }
+        )
+
+    );
+
+}
+
+function buildPortfolioChartFilters() {
+    const categorySelect = document.getElementById(
+        "portfolio-category-filter"
+    );
+
+    const editionSelect = document.getElementById(
+        "portfolio-edition-filter"
+    );
+
+    if (!categorySelect || !editionSelect) {
+        return;
+    }
+
+    const previousCategory =
+        categorySelect.value || selectedPortfolioCategory;
+
+    const previousEdition =
+        editionSelect.value || selectedPortfolioEdition;
+
+    categorySelect.innerHTML = `
+        <option value="">
+            Toutes les catégories
+        </option>
+    `;
+
+    getPortfolioCategories().forEach(category => {
+        const option = document.createElement("option");
+
+        option.value = category;
+        option.textContent = category;
+
+        categorySelect.appendChild(option);
+    });
+
+    editionSelect.innerHTML = `
+        <option value="">
+            Toutes les éditions
+        </option>
+    `;
+
+    getPortfolioEditions().forEach(edition => {
+        const option = document.createElement("option");
+
+        option.value = edition;
+        option.textContent = edition;
+
+        editionSelect.appendChild(option);
+    });
+
+    const availableCategories = [
+        ...categorySelect.options
+    ].map(option => option.value);
+
+    const availableEditions = [
+        ...editionSelect.options
+    ].map(option => option.value);
+
+    selectedPortfolioCategory =
+        availableCategories.includes(previousCategory)
+            ? previousCategory
+            : "";
+
+    selectedPortfolioEdition =
+        availableEditions.includes(previousEdition)
+            ? previousEdition
+            : "";
+
+    categorySelect.value =
+        selectedPortfolioCategory;
+
+    editionSelect.value =
+        selectedPortfolioEdition;
+}
 
 function setupTabs() {
     document.querySelectorAll(".tab-button").forEach(button => {
@@ -157,6 +276,7 @@ async function loadCards() {
         totalValue.textContent = formatEuro(calculateCardsValue(allCards));
 
         populateCategories(allCards);
+        buildPortfolioChartFilters();
 setupCollectionFilters();
 setupCollectionSorting();
 

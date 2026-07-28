@@ -1561,3 +1561,39 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     }
 
 }
+
+.portfolio-chart-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr auto;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 16px;
+}
+
+.portfolio-chart-filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.portfolio-chart-filters select,
+.portfolio-chart-filters input {
+    width: 100%;
+}
+
+#portfolio-chart-selection {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+@media (max-width:900px) {
+    .portfolio-chart-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width:600px) {
+    .portfolio-chart-filters {
+        grid-template-columns: 1fr;
+    }
+}
