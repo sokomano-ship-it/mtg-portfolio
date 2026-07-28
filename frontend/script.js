@@ -161,7 +161,6 @@ function buildPortfolioChartFilters() {
 
 
 function handlePortfolioMainFilterChange() {
-
     selectedPortfolioCategory =
         document.getElementById(
             "portfolio-category-filter"
@@ -172,12 +171,31 @@ function handlePortfolioMainFilterChange() {
             "portfolio-edition-filter"
         )?.value || "";
 
+    selectedPortfolioCardKey = "";
+
+    const cardSearch = document.getElementById(
+        "portfolio-card-search"
+    );
+
+    const clearButton = document.getElementById(
+        "portfolio-clear-card"
+    );
+
+    if (cardSearch) {
+        cardSearch.value = "";
+    }
+
+    if (clearButton) {
+        clearButton.hidden = true;
+    }
+
+    rebuildPortfolioCardSuggestions();
+
     console.log(
         "Portfolio filters",
         selectedPortfolioCategory,
         selectedPortfolioEdition
     );
-
 }
 
 function setupPortfolioChartFilterEvents() {
@@ -196,6 +214,102 @@ function setupPortfolioChartFilterEvents() {
             handlePortfolioMainFilterChange
         );
 
+}
+
+function getCardsMatchingPortfolioFilters() {
+    return allCards.filter(card => {
+        const category =
+            String(card.categorie || "").trim();
+
+        const edition =
+            String(card.edition || "").trim();
+
+        const categoryMatches =
+            !selectedPortfolioCategory ||
+            category === selectedPortfolioCategory;
+
+        const editionMatches =
+            !selectedPortfolioEdition ||
+            edition === selectedPortfolioEdition;
+
+        return categoryMatches && editionMatches;
+    });
+}
+
+function getPortfolioCardKey(card) {
+    return [
+        card.nomCarte || "",
+        card.edition || "",
+        card.langue || "",
+        card.etat || ""
+    ].join("||");
+}
+
+function rebuildPortfolioCardSuggestions() {
+    const datalist = document.getElementById(
+        "portfolio-card-suggestions"
+    );
+
+    if (!datalist) {
+        return;
+    }
+
+    portfolioCardSuggestionMap.clear();
+    datalist.innerHTML = "";
+
+    const uniqueCards = new Map();
+
+    getCardsMatchingPortfolioFilters().forEach(card => {
+        const key = getPortfolioCardKey(card);
+
+        if (!uniqueCards.has(key)) {
+            uniqueCards.set(key, card);
+        }
+    });
+
+    const cards = [...uniqueCards.values()].sort((a, b) => {
+        const nameComparison = String(
+            a.nomCarte || ""
+        ).localeCompare(
+            String(b.nomCarte || ""),
+            "fr",
+            { sensitivity: "base" }
+        );
+
+        if (nameComparison !== 0) {
+            return nameComparison;
+        }
+
+        return String(a.edition || "").localeCompare(
+            String(b.edition || ""),
+            "fr",
+            { sensitivity: "base" }
+        );
+    });
+
+    cards.forEach(card => {
+        const key = getPortfolioCardKey(card);
+
+        const label = [
+            card.nomCarte,
+            card.edition,
+            card.langue,
+            card.etat
+        ]
+            .filter(Boolean)
+            .join(" — ");
+
+        const option = document.createElement("option");
+
+        option.value = label;
+
+        datalist.appendChild(option);
+
+        portfolioCardSuggestionMap.set(label, {
+            key,
+            card
+        });
+    });
 }
 
 function setupTabs() {
@@ -320,6 +434,7 @@ async function loadCards() {
 
 buildPortfolioChartFilters();
 setupPortfolioChartFilterEvents();
+rebuildPortfolioCardSuggestions();
 
 setupCollectionFilters();
 setupCollectionSorting();
