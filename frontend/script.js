@@ -83,6 +83,8 @@ function getPortfolioEditions() {
 
 }
 
+
+
 function buildPortfolioChartFilters() {
     const categorySelect = document.getElementById(
         "portfolio-category-filter"
@@ -155,6 +157,45 @@ function buildPortfolioChartFilters() {
 
     editionSelect.value =
         selectedPortfolioEdition;
+}
+
+
+function handlePortfolioMainFilterChange() {
+
+    selectedPortfolioCategory =
+        document.getElementById(
+            "portfolio-category-filter"
+        )?.value || "";
+
+    selectedPortfolioEdition =
+        document.getElementById(
+            "portfolio-edition-filter"
+        )?.value || "";
+
+    console.log(
+        "Portfolio filters",
+        selectedPortfolioCategory,
+        selectedPortfolioEdition
+    );
+
+}
+
+function setupPortfolioChartFilterEvents() {
+
+    document
+        .getElementById("portfolio-category-filter")
+        ?.addEventListener(
+            "change",
+            handlePortfolioMainFilterChange
+        );
+
+    document
+        .getElementById("portfolio-edition-filter")
+        ?.addEventListener(
+            "change",
+            handlePortfolioMainFilterChange
+        );
+
 }
 
 function setupTabs() {
@@ -276,7 +317,10 @@ async function loadCards() {
         totalValue.textContent = formatEuro(calculateCardsValue(allCards));
 
         populateCategories(allCards);
-        buildPortfolioChartFilters();
+
+buildPortfolioChartFilters();
+setupPortfolioChartFilterEvents();
+
 setupCollectionFilters();
 setupCollectionSorting();
 
