@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: mtg-portfolio-data-writer
   cancel-in-progress: false
 
 jobs:
@@ -31,19 +31,45 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Sync collection and build portfolio
-        run: npm run sync:collection
-
-      - name: Commit and push generated files
+      - name: Sync collection and push generated files
+        shell: bash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add .
-          git diff --cached --quiet || git commit -m "Sync collection from Excel"
+          for attempt in 1 2 3
+          do
+            echo "Sync attempt ${attempt}/3"
 
-          git pull --rebase origin main
-          git push origin main
+            git fetch origin main
+            git reset --hard origin/main
+
+            npm run sync:collection
+
+            git add -A
+
+            if git diff --cached --quiet
+            then
+              echo "No generated changes to commit."
+              break
+            fi
+
+            git commit -m "Sync collection from Excel"
+
+            if git push origin main
+            then
+              echo "Collection synchronized successfully."
+              break
+            fi
+
+            if [ "$attempt" -eq 3 ]
+            then
+              echo "Unable to push after 3 attempts."
+              exit 1
+            fi
+
+            echo "Main changed during generation. Restarting from latest main."
+          done
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
