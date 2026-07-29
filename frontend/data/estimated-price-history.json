@@ -95024,10 +95024,10 @@
     "edition": "Foreign White Bordered",
     "langue": "French",
     "etat": "EX",
-    "estimatedPrice": 2.73,
+    "estimatedPrice": 2.67,
     "estimatedByCondition": {
       "NM": 3.86,
-      "EX": 2.73,
+      "EX": 2.67,
       "GD": 2.54,
       "LP": 2.22,
       "PL": 1.72,
@@ -95035,11 +95035,11 @@
     },
     "buyTargetByCondition": {
       "NM": 3.47,
-      "EX": 2.4
+      "EX": 2.35
     },
     "ratioByCondition": {
       "NM": 1,
-      "EX": 0.6822,
+      "EX": 0.6634,
       "GD": 0.6414,
       "LP": 0.561,
       "PL": 0.4305,
@@ -95070,7 +95070,7 @@
     "confidence": 71,
     "observationCount": 2,
     "pricingModel": "standard_observed_condition_ratio",
-    "pricingRatio": 0.4285
+    "pricingRatio": 0.411
   },
   {
     "date": "2026-07-01",
@@ -694661,5 +694661,225 @@
     "observationCount": 1,
     "pricingModel": "standard_observed_condition_ratio",
     "pricingRatio": 0.8074
+  },
+  {
+    "date": "2026-07-29",
+    "cardId": 1789,
+    "nomCarte": "Serra Angel",
+    "edition": "Foreign White Bordered",
+    "langue": "French",
+    "etat": "NM",
+    "estimatedPrice": 3.86,
+    "estimatedByCondition": {
+      "NM": 3.86,
+      "EX": 2.67,
+      "GD": 2.54,
+      "LP": 2.22,
+      "PL": 1.72,
+      "PO": 1.44
+    },
+    "buyTargetByCondition": {
+      "NM": 3.47,
+      "EX": 2.35
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.6634,
+      "GD": 0.6414,
+      "LP": 0.561,
+      "PL": 0.4305,
+      "PO": 0.3679
+    },
+    "marketAnchorPrice": 4.87,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 1.34,
+      "EX": 1.25,
+      "GD": 0.47,
+      "LP": 0.35,
+      "PL": 0.09,
+      "PO": 0.15
+    },
+    "observedMinByCondition": {
+      "NM": 1.34,
+      "EX": 0.5,
+      "GD": 0.47,
+      "LP": 0.35,
+      "PL": 0.09,
+      "PO": 0.15
+    },
+    "gradeModelConfidence": 70,
+    "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+    "observationDaysCount": 2,
+    "observationRowsCount": 12,
+    "confidence": 71,
+    "observationCount": 2,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.6446
+  },
+  {
+    "date": "2026-07-29",
+    "cardId": 1790,
+    "nomCarte": "Savannah",
+    "edition": "Foreign White Bordered",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 167.44,
+    "estimatedByCondition": {
+      "NM": 238.46,
+      "EX": 167.44,
+      "GD": 126.11,
+      "LP": 112.9,
+      "PL": 85.8,
+      "PO": 85.8
+    },
+    "buyTargetByCondition": {
+      "NM": 214.61,
+      "EX": 147.35
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7022,
+      "GD": 0.5288,
+      "LP": 0.4735,
+      "PL": 0.3598,
+      "PO": 0.3598
+    },
+    "marketAnchorPrice": 238.46,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9485
+  },
+  {
+    "date": "2026-07-29",
+    "cardId": 1791,
+    "nomCarte": "Savannah",
+    "edition": "Foreign White Bordered",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 167.44,
+    "estimatedByCondition": {
+      "NM": 238.46,
+      "EX": 167.44,
+      "GD": 126.11,
+      "LP": 112.9,
+      "PL": 85.8,
+      "PO": 85.8
+    },
+    "buyTargetByCondition": {
+      "NM": 214.61,
+      "EX": 147.35
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7022,
+      "GD": 0.5288,
+      "LP": 0.4735,
+      "PL": 0.3598,
+      "PO": 0.3598
+    },
+    "marketAnchorPrice": 238.46,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios",
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "confidence": 35,
+    "observationCount": 0,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "pricingRatio": 0.9485
+  },
+  {
+    "date": "2026-07-29",
+    "cardId": 1792,
+    "nomCarte": "Serra Angel",
+    "edition": "Foreign White Bordered",
+    "langue": "French",
+    "etat": "EX",
+    "estimatedPrice": 2.67,
+    "estimatedByCondition": {
+      "NM": 3.86,
+      "EX": 2.67,
+      "GD": 2.54,
+      "LP": 2.22,
+      "PL": 1.72,
+      "PO": 1.44
+    },
+    "buyTargetByCondition": {
+      "NM": 3.47,
+      "EX": 2.35
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.6634,
+      "GD": 0.6414,
+      "LP": 0.561,
+      "PL": 0.4305,
+      "PO": 0.3679
+    },
+    "marketAnchorPrice": 4.87,
+    "referenceMarketAnchorPrice": null,
+    "lastObservedMinByCondition": {
+      "NM": 1.34,
+      "EX": 1.25,
+      "GD": 0.47,
+      "LP": 0.35,
+      "PL": 0.09,
+      "PO": 0.15
+    },
+    "observedMinByCondition": {
+      "NM": 1.34,
+      "EX": 0.5,
+      "GD": 0.47,
+      "LP": 0.35,
+      "PL": 0.09,
+      "PO": 0.15
+    },
+    "gradeModelConfidence": 70,
+    "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+    "observationDaysCount": 2,
+    "observationRowsCount": 12,
+    "confidence": 71,
+    "observationCount": 2,
+    "pricingModel": "standard_observed_condition_ratio",
+    "pricingRatio": 0.411
   }
 ]
