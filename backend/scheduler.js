@@ -44,7 +44,34 @@ async function runDailyUpdate() {
 
         await runNodeScript("updateCardmarketFromPriceGuide.js");
 await runNodeScript("updatePortfolioValue.js");
-await runNodeScript("pricingEngine/simulatePricing.js");
+
+await runNodeScript("resolveTrackedMarketCards.js");
+await runNodeScript("updateTrackedMarketCardsPrices.js");
+
+await runNodeScript("savePriceHistorySnapshot.js");
+await runNodeScript("analyzePriceHistory.js");
+
+await runNodeScript(
+    path.join(
+        "referenceCatalog",
+        "buildScryfallReferenceCatalog.js"
+    )
+);
+
+await runNodeScript(
+    path.join(
+        "pricingEngine",
+        "modelTrainer.js"
+    )
+);
+
+await runNodeScript(
+    path.join(
+        "pricingEngine",
+        "simulatePricing.js"
+    )
+);
+
 await runNodeScript("saveEstimatedPriceSnapshot.js");
 await runNodeScript("exportPortfolioJson.js");
 
