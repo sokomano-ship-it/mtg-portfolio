@@ -1472,7 +1472,13 @@ if (weightElement) {
     weightElement.textContent =
         portfolioWeight === null
             ? "-"
-            : formatPercent(portfolioWeight);
+            : `${portfolioWeight.toLocaleString(
+                "fr-FR",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2
+                }
+            )} %`;
 
     weightElement.className = "";
 }
