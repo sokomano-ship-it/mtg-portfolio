@@ -1415,6 +1415,24 @@ Object.values(currentCategoryEditionValues)
         const displayName =
             getPortfolioSelectionLabel(selectedCards);
 
+        const chartSelectionElement =
+    document.getElementById(
+        "portfolio-chart-selection"
+    );
+
+if (chartSelectionElement) {
+    chartSelectionElement.textContent = noFilters
+        ? "📊 Portefeuille total"
+        : selectedPortfolioCardKey
+            ? `🃏 Carte : ${displayName}`
+            : selectedPortfolioCategory &&
+              selectedPortfolioEdition
+                ? `📊 Catégorie : ${selectedPortfolioCategory} · Édition : ${selectedPortfolioEdition}`
+                : selectedPortfolioEdition
+                    ? `📚 Édition : ${selectedPortfolioEdition}`
+                    : `📁 Catégorie : ${selectedPortfolioCategory}`;
+}
+
         const currentCards = noFilters
             ? allCards.length
             : selectedCards.length;
@@ -1424,6 +1442,40 @@ Object.values(currentCategoryEditionValues)
             : Number(
                 calculateCardsValue(selectedCards).toFixed(2)
             );
+
+        const weightElement =
+    document.getElementById(
+        "portfolio-category-weight"
+    );
+
+const change30dElement =
+    document.getElementById(
+        "portfolio-category-change-30d"
+    );
+
+const contributionElement =
+    document.getElementById(
+        "portfolio-category-contribution"
+    );
+
+const portfolioWeight =
+    currentTotal > 0
+        ? Number(
+            (
+                (currentValue / currentTotal) *
+                100
+            ).toFixed(2)
+        )
+        : null;
+
+if (weightElement) {
+    weightElement.textContent =
+        portfolioWeight === null
+            ? "-"
+            : formatPercent(portfolioWeight);
+
+    weightElement.className = "";
+}
 
                 const selectedCardIds = new Set(
             selectedCards
@@ -1628,6 +1680,163 @@ if (selectedPortfolioCardKey) {
 
     return null;
 };
+
+const currentDate = new Date(
+    `${today}T12:00:00`
+);
+
+const target30dDate = new Date(currentDate);
+
+target30dDate.setDate(
+    target30dDate.getDate() - 30
+);
+
+const target30d = new Intl.DateTimeFormat(
+    "en-CA",
+    {
+        timeZone: "Europe/Paris",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }
+).format(target30dDate);
+
+let selectedValue30dAgo = null;
+let portfolioValue30dAgo = null;
+
+/*
+ * On utilise le dernier point disponible à la date
+ * cible ou avant celle-ci.
+ */
+for (
+    let index = filteredHistory.length - 1;
+    index >= 0;
+    index -= 1
+) {
+    const row = filteredHistory[index];
+
+    if (row.date > target30d) {
+        continue;
+    }
+
+    const selectedCandidate =
+        getSelectedRowValue(row);
+
+    const portfolioCandidate =
+        Number(row.totalValue);
+
+    if (
+        selectedValue30dAgo === null &&
+        selectedCandidate !== null &&
+        selectedCandidate !== undefined &&
+        Number.isFinite(Number(selectedCandidate))
+    ) {
+        selectedValue30dAgo =
+            Number(selectedCandidate);
+    }
+
+    if (
+        portfolioValue30dAgo === null &&
+        Number.isFinite(portfolioCandidate)
+    ) {
+        portfolioValue30dAgo =
+            portfolioCandidate;
+    }
+
+    if (
+        selectedValue30dAgo !== null &&
+        portfolioValue30dAgo !== null
+    ) {
+        break;
+    }
+}
+
+const has30dHistory =
+    selectedValue30dAgo !== null &&
+    portfolioValue30dAgo !== null &&
+    selectedValue30dAgo > 0 &&
+    portfolioValue30dAgo > 0;
+
+const selectedChange30d =
+    has30dHistory
+        ? Number(
+            (
+                (
+                    currentValue -
+                    selectedValue30dAgo
+                ) /
+                selectedValue30dAgo *
+                100
+            ).toFixed(2)
+        )
+        : null;
+
+/*
+ * Contribution à la performance totale :
+ *
+ * variation en euros de la sélection
+ * divisée par la valeur totale du portefeuille
+ * il y a 30 jours.
+ *
+ * Le résultat est exprimé en points de
+ * pourcentage de performance du portefeuille.
+ */
+const contribution30d =
+    has30dHistory
+        ? Number(
+            (
+                (
+                    currentValue -
+                    selectedValue30dAgo
+                ) /
+                portfolioValue30dAgo *
+                100
+            ).toFixed(2)
+        )
+        : null;
+
+
+const setKpiValue = (
+    element,
+    value,
+    unavailableText = "Historique insuffisant"
+) => {
+    if (!element) {
+        return;
+    }
+
+    if (
+        value === null ||
+        value === undefined ||
+        !Number.isFinite(Number(value))
+    ) {
+        element.textContent =
+            unavailableText;
+
+        element.className =
+            "portfolio-kpi-unavailable";
+
+        return;
+    }
+
+    element.textContent =
+        formatPercent(value);
+
+    element.className =
+        Number(value) >= 0
+            ? "score-positive"
+            : "score-negative";
+};
+
+setKpiValue(
+    change30dElement,
+    selectedChange30d
+);
+
+setKpiValue(
+    contributionElement,
+    contribution30d
+);
 
         let previousValue = null;
 
