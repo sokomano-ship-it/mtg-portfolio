@@ -1604,3 +1604,16 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     font-weight: 600;
     line-height: 1.25;
 }
+
+.portfolio-data-freshness {
+    margin: -4px 0 14px;
+    color: #8e96a8;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+    .portfolio-data-freshness {
+        font-size: 12px;
+    }
+}

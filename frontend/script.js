@@ -1049,6 +1049,29 @@ function prepareResponsiveChartRows(
     );
 }
 
+function formatPortfolioFreshnessDate(dateString) {
+    if (!dateString) {
+        return "-";
+    }
+
+    const date = new Date(
+        `${String(dateString).slice(0, 10)}T12:00:00`
+    );
+
+    if (Number.isNaN(date.getTime())) {
+        return String(dateString);
+    }
+
+    return new Intl.DateTimeFormat(
+        "fr-FR",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    ).format(date);
+}
+
 function formatPortfolioChartDate(
     dateString,
     period
@@ -1337,6 +1360,34 @@ Object.values(currentCategoryEditionValues)
     );
 
     if (!filteredHistory.length) return;
+
+    const freshnessElement =
+    document.getElementById(
+        "portfolio-data-freshness"
+    );
+
+if (freshnessElement) {
+    const firstHistoryDate =
+        filteredHistory[0]?.date || null;
+
+    const lastHistoryDate =
+        filteredHistory[
+            filteredHistory.length - 1
+        ]?.date || null;
+
+    freshnessElement.textContent = [
+        `Dernière valorisation : ${
+            formatPortfolioFreshnessDate(
+                lastHistoryDate
+            )
+        }`,
+        `Historique disponible depuis : ${
+            formatPortfolioFreshnessDate(
+                firstHistoryDate
+            )
+        }`
+    ].join(" · ");
+}
 
     function getSelectedPortfolioCards() {
         return allCards.filter(card => {
