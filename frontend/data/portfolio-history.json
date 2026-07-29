@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T21:37:10.021Z",
+  "generatedAt": "2026-07-29T08:01:12.662Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -2199,63 +2199,51 @@
       "date": "2026-07-28",
       "totalValue": 9864.85,
       "categoryValues": {
-        "Classeur 3": 321.58,
-        "GG Mono Green": 1011.85,
         "Classeur 1": 1266.84,
-        "RR Mono Red": 505.54,
-        "WW Mono White": 777.8,
         "BB Mono Black": 628.59,
+        "RR Mono Red": 505.54,
+        "Classeur 3": 321.58,
+        "WW Mono White": 777.8,
+        "GG Mono Green": 1011.85,
         "UU Mono Blue": 613.7,
         "Classeur 2": 247.46,
-        "WG White Green": 1201.39,
+        "Classeur 4": 941.33,
         "Classeur 5": 2348.77,
-        "Classeur 4": 941.33
+        "WG White Green": 1201.39
       },
       "editionValues": {
-        "Alliances": 144.04,
         "Antiquities": 418.92,
         "Arabian Nights": 980.65,
-        "Chronicles": 180.35,
-        "Exodus": 88.05,
         "Fallen Empires": 10.17,
-        "Fifth Edition": 28.8,
         "Foreign Black Bordered": 273.1,
-        "Foreign White Border": 431.36,
         "Foreign White Bordered": 788.23,
         "Fourth Edition": 126.91,
-        "Homelands": 28.22,
-        "Ice Age": 149.32,
         "Legends": 783.85,
         "Legends Italian": 2.98,
-        "Mirage": 126.19,
-        "Portal Second Age": 27.76,
         "Renaissance": 323.62,
         "Revised": 913.85,
-        "Sixth Edition": 5.34,
-        "Stronghold": 870.54,
-        "Tempest": 480.7,
         "The Dark": 71.56,
-        "Unglued": 25.36,
         "Unlimited": 947.62,
-        "Urza's Destiny": 54.44,
-        "Urza's Legacy": 81.84,
-        "Urza's Saga": 1195.44,
+        "Chronicles": 180.35,
+        "Alliances": 144.04,
+        "Mirage": 126.19,
         "Visions": 176.88,
-        "Weatherlight": 128.76
+        "Fifth Edition": 28.8,
+        "Weatherlight": 128.76,
+        "Tempest": 480.7,
+        "Stronghold": 870.54,
+        "Exodus": 88.05,
+        "Unglued": 25.36,
+        "Urza's Saga": 1195.44,
+        "Sixth Edition": 5.34,
+        "Portal Second Age": 27.76,
+        "Ice Age": 149.32,
+        "Homelands": 28.22,
+        "Foreign White Border": 431.36,
+        "Urza's Destiny": 54.44,
+        "Urza's Legacy": 81.84
       },
       "categoryEditionValues": {
-        "Classeur 3": {
-          "Alliances": 144.04,
-          "Homelands": 28.22,
-          "Ice Age": 149.32
-        },
-        "GG Mono Green": {
-          "Antiquities": 247.77,
-          "Foreign Black Bordered": 60.16,
-          "Legends": 64.66,
-          "Renaissance": 65.62,
-          "Unlimited": 573.64
-        },
         "Classeur 1": {
           "Antiquities": 168.32,
           "Arabian Nights": 450.71,
@@ -2266,28 +2254,6 @@
           "Revised": 279.19,
           "The Dark": 8.93,
           "Unlimited": 62.64
-        },
-        "RR Mono Red": {
-          "Antiquities": 2.83,
-          "Chronicles": 14.62,
-          "Foreign Black Bordered": 51.3,
-          "Foreign White Bordered": 291.84,
-          "Fourth Edition": 9.92,
-          "Legends": 45.23,
-          "Renaissance": 38.66,
-          "Revised": 50.18,
-          "Unlimited": 0.96
-        },
-        "WW Mono White": {
-          "Arabian Nights": 322.27,
-          "Fallen Empires": 5.23,
-          "Foreign Black Bordered": 2.36,
-          "Foreign White Bordered": 34.64,
-          "Fourth Edition": 2.91,
-          "Legends": 247.8,
-          "Renaissance": 30.1,
-          "Revised": 69.86,
-          "The Dark": 62.63
         },
         "BB Mono Black": {
           "Arabian Nights": 30.99,
@@ -2300,46 +2266,228 @@
           "Revised": 54.33,
           "Unlimited": 66.36
         },
+        "RR Mono Red": {
+          "Foreign White Bordered": 291.84,
+          "Foreign Black Bordered": 51.3,
+          "Renaissance": 38.66,
+          "Revised": 50.18,
+          "Legends": 45.23,
+          "Unlimited": 0.96,
+          "Antiquities": 2.83,
+          "Chronicles": 14.62,
+          "Fourth Edition": 9.92
+        },
+        "Classeur 3": {
+          "Alliances": 144.04,
+          "Ice Age": 149.32,
+          "Homelands": 28.22
+        },
+        "WW Mono White": {
+          "Arabian Nights": 322.27,
+          "Foreign Black Bordered": 2.36,
+          "Legends": 247.8,
+          "Revised": 69.86,
+          "The Dark": 62.63,
+          "Fallen Empires": 5.23,
+          "Foreign White Bordered": 34.64,
+          "Renaissance": 30.1,
+          "Fourth Edition": 2.91
+        },
+        "GG Mono Green": {
+          "Antiquities": 247.77,
+          "Legends": 64.66,
+          "Renaissance": 65.62,
+          "Unlimited": 573.64,
+          "Foreign Black Bordered": 60.16
+        },
         "UU Mono Blue": {
-          "Arabian Nights": 176.68,
-          "Fallen Empires": 2.3,
+          "Unlimited": 244.02,
           "Foreign White Bordered": 149.6,
-          "Legends": 18.32,
+          "Arabian Nights": 176.68,
           "Renaissance": 14.45,
-          "Revised": 8.33,
+          "Legends": 18.32,
+          "Fallen Empires": 2.3,
+          "Revised": 8.33
+        },
+        "Classeur 2": {
+          "Fourth Edition": 84.53,
+          "Chronicles": 108.2,
+          "Renaissance": 54.73
+        },
+        "Classeur 4": {
+          "Mirage": 126.19,
+          "Visions": 176.88,
+          "Fifth Edition": 28.8,
+          "Weatherlight": 128.76,
+          "Tempest": 480.7
+        },
+        "Classeur 5": {
+          "Stronghold": 870.54,
+          "Exodus": 88.05,
+          "Unglued": 25.36,
+          "Urza's Saga": 1195.44,
+          "Sixth Edition": 5.34,
+          "Portal Second Age": 27.76,
+          "Urza's Destiny": 54.44,
+          "Urza's Legacy": 81.84
+        },
+        "WG White Green": {
+          "Fourth Edition": 22.1,
+          "Chronicles": 57.53,
+          "Revised": 451.96,
+          "Foreign White Border": 431.36,
+          "Renaissance": 105.61,
+          "Foreign White Bordered": 66.67,
+          "Legends": 39.89,
+          "Foreign Black Bordered": 26.27
+        }
+      }
+    },
+    {
+      "date": "2026-07-29",
+      "totalValue": 9874.97,
+      "categoryValues": {
+        "Classeur 3": 323.65,
+        "GG Mono Green": 1017.98,
+        "Classeur 1": 1271.36,
+        "RR Mono Red": 505.43,
+        "WW Mono White": 775.61,
+        "BB Mono Black": 630.16,
+        "UU Mono Blue": 611.46,
+        "Classeur 2": 247.84,
+        "WG White Green": 1204.73,
+        "Classeur 5": 2341.57,
+        "Classeur 4": 945.18
+      },
+      "editionValues": {
+        "Alliances": 142.71,
+        "Antiquities": 428.28,
+        "Arabian Nights": 977.48,
+        "Chronicles": 180.58,
+        "Exodus": 88.35,
+        "Fallen Empires": 10.08,
+        "Fifth Edition": 27.59,
+        "Foreign Black Bordered": 272.41,
+        "Foreign White Border": 432.76,
+        "Foreign White Bordered": 780.81,
+        "Fourth Edition": 124.74,
+        "Homelands": 28.87,
+        "Ice Age": 152.07,
+        "Legends": 788.36,
+        "Legends Italian": 2.98,
+        "Mirage": 125.89,
+        "Portal Second Age": 28.03,
+        "Renaissance": 330.01,
+        "Revised": 916.44,
+        "Sixth Edition": 5.49,
+        "Stronghold": 861.55,
+        "Tempest": 482.35,
+        "The Dark": 71.04,
+        "Unglued": 26.01,
+        "Unlimited": 948.6,
+        "Urza's Destiny": 53.71,
+        "Urza's Legacy": 82.15,
+        "Urza's Saga": 1196.28,
+        "Visions": 178.36,
+        "Weatherlight": 130.99
+      },
+      "categoryEditionValues": {
+        "Classeur 3": {
+          "Alliances": 142.71,
+          "Homelands": 28.87,
+          "Ice Age": 152.07
+        },
+        "GG Mono Green": {
+          "Antiquities": 253.02,
+          "Foreign Black Bordered": 59.99,
+          "Legends": 64.66,
+          "Renaissance": 66.67,
+          "Unlimited": 573.64
+        },
+        "Classeur 1": {
+          "Antiquities": 172.43,
+          "Arabian Nights": 448.86,
+          "Foreign Black Bordered": 66.64,
+          "Foreign White Bordered": 175.31,
+          "Legends": 48.22,
+          "Legends Italian": 2.98,
+          "Revised": 284.02,
+          "The Dark": 8.76,
+          "Unlimited": 64.14
+        },
+        "RR Mono Red": {
+          "Antiquities": 2.83,
+          "Chronicles": 14.94,
+          "Foreign Black Bordered": 51.22,
+          "Foreign White Bordered": 291.41,
+          "Fourth Edition": 9.84,
+          "Legends": 44.87,
+          "Renaissance": 40.3,
+          "Revised": 49.06,
+          "Unlimited": 0.96
+        },
+        "WW Mono White": {
+          "Arabian Nights": 321.31,
+          "Fallen Empires": 5.1,
+          "Foreign Black Bordered": 2.32,
+          "Foreign White Bordered": 34.47,
+          "Fourth Edition": 2.94,
+          "Legends": 247.87,
+          "Renaissance": 30.6,
+          "Revised": 68.72,
+          "The Dark": 62.28
+        },
+        "BB Mono Black": {
+          "Arabian Nights": 30.99,
+          "Fallen Empires": 2.66,
+          "Foreign Black Bordered": 65.11,
+          "Foreign White Bordered": 66.17,
+          "Fourth Edition": 7.2,
+          "Legends": 324.36,
+          "Renaissance": 14.95,
+          "Revised": 52.88,
+          "Unlimited": 65.84
+        },
+        "UU Mono Blue": {
+          "Arabian Nights": 176.32,
+          "Fallen Empires": 2.32,
+          "Foreign White Bordered": 147.46,
+          "Legends": 18.42,
+          "Renaissance": 14.95,
+          "Revised": 7.97,
           "Unlimited": 244.02
         },
         "Classeur 2": {
-          "Chronicles": 108.2,
-          "Fourth Edition": 84.53,
-          "Renaissance": 54.73
+          "Chronicles": 108.63,
+          "Fourth Edition": 83.28,
+          "Renaissance": 55.93
         },
         "WG White Green": {
-          "Chronicles": 57.53,
-          "Foreign Black Bordered": 26.27,
-          "Foreign White Border": 431.36,
-          "Foreign White Bordered": 66.67,
-          "Fourth Edition": 22.1,
-          "Legends": 39.89,
-          "Renaissance": 105.61,
-          "Revised": 451.96
+          "Chronicles": 57.01,
+          "Foreign Black Bordered": 27.13,
+          "Foreign White Border": 432.76,
+          "Foreign White Bordered": 65.99,
+          "Fourth Edition": 21.48,
+          "Legends": 39.96,
+          "Renaissance": 106.61,
+          "Revised": 453.79
         },
         "Classeur 5": {
-          "Exodus": 88.05,
-          "Portal Second Age": 27.76,
-          "Sixth Edition": 5.34,
-          "Stronghold": 870.54,
-          "Unglued": 25.36,
-          "Urza's Destiny": 54.44,
-          "Urza's Legacy": 81.84,
-          "Urza's Saga": 1195.44
+          "Exodus": 88.35,
+          "Portal Second Age": 28.03,
+          "Sixth Edition": 5.49,
+          "Stronghold": 861.55,
+          "Unglued": 26.01,
+          "Urza's Destiny": 53.71,
+          "Urza's Legacy": 82.15,
+          "Urza's Saga": 1196.28
         },
         "Classeur 4": {
-          "Fifth Edition": 28.8,
-          "Mirage": 126.19,
-          "Tempest": 480.7,
-          "Visions": 176.88,
-          "Weatherlight": 128.76
+          "Fifth Edition": 27.59,
+          "Mirage": 125.89,
+          "Tempest": 482.35,
+          "Visions": 178.36,
+          "Weatherlight": 130.99
         }
       }
     }
