@@ -1161,6 +1161,36 @@ async function loadPortfolioHistory(historyPromise = null) {
         ? await historyPromise
         : await window.apiAdapter.getPortfolioHistory();
 
+        let estimatedPriceHistory = [];
+
+    try {
+        const response = await fetch(
+            "./data/estimated-price-history.json",
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+        }
+
+        const loadedHistory =
+            await response.json();
+
+        estimatedPriceHistory =
+            Array.isArray(loadedHistory)
+                ? loadedHistory
+                : [];
+    } catch (error) {
+        console.error(
+            "Erreur chargement historique estimé :",
+            error
+        );
+    }
+
     const ctx = document.getElementById("portfolioChart");
 
     if (!ctx) return;
@@ -1380,8 +1410,7 @@ Object.values(currentCategoryEditionValues)
             !selectedPortfolioEdition &&
             !selectedPortfolioCardKey;
 
-        const historicalBreakdownAvailable =
-    !selectedPortfolioCardKey;
+        const historicalBreakdownAvailable = true;
 
         const displayName =
             getPortfolioSelectionLabel(selectedCards);
@@ -1395,6 +1424,53 @@ Object.values(currentCategoryEditionValues)
             : Number(
                 calculateCardsValue(selectedCards).toFixed(2)
             );
+
+                const selectedCardIds = new Set(
+            selectedCards
+                .map(card => card.id)
+                .filter(id =>
+                    id !== null &&
+                    id !== undefined
+                )
+                .map(id => String(id))
+        );
+
+        const selectedCardHistoryByDate =
+            new Map();
+
+        if (selectedPortfolioCardKey) {
+            estimatedPriceHistory
+                .filter(row =>
+                    selectedCardIds.has(
+                        String(row.cardId)
+                    )
+                )
+                .filter(row =>
+                    row.date &&
+                    String(row.date).slice(0, 10) >=
+                        MODEL_START_DATE
+                )
+                .forEach(row => {
+                    const date =
+                        String(row.date).slice(0, 10);
+
+                    const value =
+                        Number(row.estimatedPrice);
+
+                    if (!Number.isFinite(value)) {
+                        return;
+                    }
+
+                    const existingValue =
+                        selectedCardHistoryByDate
+                            .get(date) || 0;
+
+                    selectedCardHistoryByDate.set(
+                        date,
+                        existingValue + value
+                    );
+                });
+        }
 
         const totalCardsElement =
             document.getElementById("total-cards");
@@ -1464,14 +1540,26 @@ Object.values(currentCategoryEditionValues)
     }
 
     /*
-     * Carte individuelle :
-     * pas encore présente dans portfolio-history.json.
-     */
-    if (selectedPortfolioCardKey) {
-        return row.date === today
-            ? currentValue
-            : null;
+ * Carte individuelle :
+ * historique issu de estimated-price-history.json.
+ */
+if (selectedPortfolioCardKey) {
+    const date =
+        String(row.date).slice(0, 10);
+
+    const historicalValue =
+        selectedCardHistoryByDate.get(date);
+
+    if (
+        historicalValue === null ||
+        historicalValue === undefined ||
+        Number.isNaN(Number(historicalValue))
+    ) {
+        return null;
     }
+
+    return Number(historicalValue);
+}
 
     /*
      * Catégorie + édition.
