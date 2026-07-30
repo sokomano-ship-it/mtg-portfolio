@@ -27,7 +27,8 @@ const splitOutputFiles = {
     portfolioHistory: path.join(outputDir, "portfolio-history.json"),
     categorySummary: path.join(outputDir, "category-summary.json"),
     topMovers: path.join(outputDir, "top-movers.json"),
-    investmentAnalysis: path.join(outputDir, "investment-analysis.json")
+    investmentAnalysis: path.join(outputDir, "investment-analysis.json"),
+portfolioInventory: path.join(outputDir, "portfolio-inventory.json")
 };
 
 function writeJson(file, data) {
@@ -81,6 +82,31 @@ function readExistingPortfolioHistory() {
         );
 
         return [];
+    }
+}
+
+function readExistingPortfolioInventory() {
+    const file = splitOutputFiles.portfolioInventory;
+
+    if (!fs.existsSync(file)) {
+        return null;
+    }
+
+    try {
+        const data = JSON.parse(
+            fs.readFileSync(file, "utf8")
+        );
+
+        return Array.isArray(data?.cards)
+            ? data
+            : null;
+    } catch (error) {
+        console.warn(
+            "Impossible de lire portfolio-inventory.json :",
+            error.message
+        );
+
+        return null;
     }
 }
 
@@ -678,6 +704,43 @@ function createEmptyPortfolioHistorySummary() {
     };
 }
 
+function buildPortfolioInventoryEntry(row, currentCard = null) {
+    return {
+        id: String(
+            row.cardId ??
+            row.id ??
+            ""
+        ),
+
+        nomCarte:
+            row.nomCarte ??
+            currentCard?.nomCarte ??
+            "Carte inconnue",
+
+        edition:
+            row.edition ??
+            currentCard?.edition ??
+            "Édition inconnue",
+
+        langue:
+            row.langue ??
+            currentCard?.langue ??
+            null,
+
+        etat:
+            row.etat ??
+            currentCard?.etat ??
+            null,
+
+        categorie:
+            currentCard?.categorie ??
+            row.categorie ??
+            null
+    };
+}
+
+
+
 function addCardValueToPortfolioHistory(
     summary,
     card,
@@ -730,8 +793,8 @@ function finalizePortfolioHistorySummary(
         ),
 
         categoryEditionValues: roundNestedValueMap(
-            summary.categoryEditionValues
-        )
+    summary.categoryEditionValues
+)
     };
 }
 
@@ -781,12 +844,32 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
     const byDate = new Map();
 
     [...latestByDateAndCard.values()].forEach(row => {
-        const card =
-            cardById.get(Number(row.cardId));
+        if (!byDate.has(row.date)) {
+        byDate.set(
+            row.date,
+            createEmptyPortfolioHistorySummary()
+        );
+    }
 
-        if (!card) {
-            return;
-        }
+    const summary =
+        byDate.get(row.date);
+
+    const card =
+        cardById.get(Number(row.cardId));
+
+    
+
+    /*
+     * Pour les ventilations historiques, une carte
+     * supprimée ne peut plus toujours être rattachée
+     * à son ancien classeur.
+     *
+     * Le total historique déjà enregistré reste
+     * néanmoins conservé plus bas.
+     */
+    if (!card) {
+        return;
+    }
 
         const value = Number(
             getEstimatedPriceFromSnapshot(
@@ -802,18 +885,13 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
             return;
         }
 
-        if (!byDate.has(row.date)) {
-            byDate.set(
-                row.date,
-                createEmptyPortfolioHistorySummary()
-            );
-        }
+        
 
         addCardValueToPortfolioHistory(
-            byDate.get(row.date),
-            card,
-            value
-        );
+    summary,
+    card,
+    value
+);
     });
 
     return [...byDate.entries()]
@@ -877,7 +955,18 @@ existingPortfolioHistory.forEach(row => {
             row.categoryEditionValues &&
             typeof row.categoryEditionValues === "object"
                 ? row.categoryEditionValues
-                : {}
+                : {},
+
+        
+
+collectionChanges:
+    row.collectionChanges &&
+    typeof row.collectionChanges === "object"
+        ? row.collectionChanges
+        : null,
+
+historyStart:
+    Boolean(row.historyStart)
     });
 });
 
@@ -890,12 +979,14 @@ reconstructedPortfolioHistory.forEach(row => {
         portfolioHistoryByDate.get(row.date);
 
     portfolioHistoryByDate.set(row.date, {
-        date: row.date,
+    ...(existingRow || {}),
 
-        totalValue:
-            existingRow
-                ? Number(existingRow.totalValue || 0)
-                : Number(row.totalValue || 0),
+    date: row.date,
+
+    totalValue:
+        existingRow
+            ? Number(existingRow.totalValue || 0)
+            : Number(row.totalValue || 0),
 
         categoryValues:
             row.categoryValues || {},
@@ -904,7 +995,7 @@ reconstructedPortfolioHistory.forEach(row => {
             row.editionValues || {},
 
         categoryEditionValues:
-            row.categoryEditionValues || {}
+    row.categoryEditionValues || {}
     });
 });
 
@@ -916,6 +1007,8 @@ const todaySummary =
     createEmptyPortfolioHistorySummary();
 
 cards.forEach(card => {
+    
+
     const value =
         Number(getEstimatedConditionPrice(card) || 0);
 
@@ -947,7 +1040,7 @@ portfolioHistoryByDate.set(
     currentPortfolioHistoryRow
 );
 
-const portfolioHistoryEstimated = [
+let portfolioHistoryEstimated = [
     ...portfolioHistoryByDate.values()
 ]
     .filter(row =>
@@ -959,6 +1052,95 @@ const portfolioHistoryEstimated = [
         String(a.date).localeCompare(
             String(b.date)
         )
+    );
+
+    function comparePortfolioInventories(
+    previousInventory,
+    currentInventory
+) {
+    const previousById = new Map(
+        (previousInventory || []).map(card => [
+            String(card.id),
+            card
+        ])
+    );
+
+    const currentById = new Map(
+        (currentInventory || []).map(card => [
+            String(card.id),
+            card
+        ])
+    );
+
+    const added = [...currentById.entries()]
+        .filter(([id]) => !previousById.has(id))
+        .map(([, card]) => card);
+
+    const removed = [...previousById.entries()]
+        .filter(([id]) => !currentById.has(id))
+        .map(([, card]) => card);
+
+    return {
+        added,
+        removed
+    };
+}
+
+const currentPortfolioInventory = cards
+    .map(card =>
+        buildPortfolioInventoryEntry(
+            card,
+            card
+        )
+    )
+    .filter(card => card.id)
+    .sort((a, b) =>
+        String(a.nomCarte || "").localeCompare(
+            String(b.nomCarte || ""),
+            "fr",
+            {
+                sensitivity: "base"
+            }
+        )
+    );
+
+const previousPortfolioInventory =
+    readExistingPortfolioInventory();
+
+const currentCollectionChanges =
+    previousPortfolioInventory
+        ? comparePortfolioInventories(
+            previousPortfolioInventory.cards,
+            currentPortfolioInventory
+        )
+        : null;
+
+const hasCurrentCollectionChanges = Boolean(
+    currentCollectionChanges &&
+    (
+        currentCollectionChanges.added.length > 0 ||
+        currentCollectionChanges.removed.length > 0
+    )
+);
+
+portfolioHistoryEstimated =
+    portfolioHistoryEstimated.map(
+        (row, index) => ({
+            ...row,
+
+            historyStart: index === 0,
+
+            collectionChanges:
+                row.date === todayDate
+                    ? (
+                        hasCurrentCollectionChanges
+                            ? currentCollectionChanges
+                            : null
+                    )
+                    : (
+                        row.collectionChanges || null
+                    )
+        })
     );
 
     const valuedCardsCount = cards.filter(card => Number(card.estimatedPrice || 0) > 0).length;
@@ -1337,9 +1519,14 @@ writeJson(splitOutputFiles.portfolioSummary, {
     portfolioSummary
 });
 
-writeJson(splitOutputFiles.portfolioHistory, {
+writeJson(splitOutputFiles.portfolioInventory, {
     generatedAt,
-    portfolioHistory: portfolioHistoryEstimated
+
+    initializedAt:
+        previousPortfolioInventory?.initializedAt ||
+        todayDate,
+
+    cards: currentPortfolioInventory
 });
 
 writeJson(splitOutputFiles.categorySummary, {
