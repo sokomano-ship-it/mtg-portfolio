@@ -1072,17 +1072,52 @@ let portfolioHistoryEstimated = [
         ])
     );
 
-    const added = [...currentById.entries()]
-        .filter(([id]) => !previousById.has(id))
-        .map(([, card]) => card);
+    const added = [];
+    const removed = [];
+    const moved = [];
 
-    const removed = [...previousById.entries()]
-        .filter(([id]) => !currentById.has(id))
-        .map(([, card]) => card);
+    /*
+     * Cartes nouvelles ou déplacées.
+     */
+    currentById.forEach((currentCard, id) => {
+        const previousCard = previousById.get(id);
+
+        if (!previousCard) {
+            added.push(currentCard);
+            return;
+        }
+
+        const previousCategory = String(
+            previousCard.categorie || "Non classé"
+        ).trim();
+
+        const currentCategory = String(
+            currentCard.categorie || "Non classé"
+        ).trim();
+
+        if (previousCategory !== currentCategory) {
+            moved.push({
+                ...currentCard,
+
+                fromCategory: previousCategory,
+                toCategory: currentCategory
+            });
+        }
+    });
+
+    /*
+     * Cartes supprimées de la collection.
+     */
+    previousById.forEach((previousCard, id) => {
+        if (!currentById.has(id)) {
+            removed.push(previousCard);
+        }
+    });
 
     return {
         added,
-        removed
+        removed,
+        moved
     };
 }
 
@@ -1119,7 +1154,8 @@ const hasCurrentCollectionChanges = Boolean(
     currentCollectionChanges &&
     (
         currentCollectionChanges.added.length > 0 ||
-        currentCollectionChanges.removed.length > 0
+        currentCollectionChanges.removed.length > 0 ||
+        currentCollectionChanges.moved.length > 0
     )
 );
 

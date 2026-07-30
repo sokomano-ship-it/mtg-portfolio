@@ -1979,6 +1979,134 @@ setKpiValue(
             }
         }
 
+        function changeCardMatchesCurrentSelection(card) {
+    if (!card) {
+        return false;
+    }
+
+    const cardEdition =
+        String(card.edition || "").trim();
+
+    const editionMatches =
+        !selectedPortfolioEdition ||
+        cardEdition === selectedPortfolioEdition;
+
+    const cardMatches =
+        !selectedPortfolioCardKey ||
+        getPortfolioCardKey(card) ===
+            selectedPortfolioCardKey;
+
+    return editionMatches && cardMatches;
+}
+
+function getVisibleCollectionChanges(row) {
+    const changes =
+        row?.collectionChanges || {};
+
+    const added =
+        Array.isArray(changes.added)
+            ? changes.added.filter(card => {
+                if (
+                    !changeCardMatchesCurrentSelection(card)
+                ) {
+                    return false;
+                }
+
+                if (!selectedPortfolioCategory) {
+                    return true;
+                }
+
+                return String(
+                    card.categorie || "Non classé"
+                ).trim() === selectedPortfolioCategory;
+            })
+            : [];
+
+    const removed =
+        Array.isArray(changes.removed)
+            ? changes.removed.filter(card => {
+                if (
+                    !changeCardMatchesCurrentSelection(card)
+                ) {
+                    return false;
+                }
+
+                if (!selectedPortfolioCategory) {
+                    return true;
+                }
+
+                return String(
+                    card.categorie || "Non classé"
+                ).trim() === selectedPortfolioCategory;
+            })
+            : [];
+
+    const moved =
+        Array.isArray(changes.moved)
+            ? changes.moved.filter(card => {
+                if (
+                    !changeCardMatchesCurrentSelection(card)
+                ) {
+                    return false;
+                }
+
+                /*
+                 * Dans le portefeuille total ou sur une carte
+                 * individuelle, tous les déplacements pertinents
+                 * peuvent être affichés.
+                 */
+                if (
+                    !selectedPortfolioCategory
+                ) {
+                    return (
+                        noFilters ||
+                        Boolean(selectedPortfolioCardKey)
+                    );
+                }
+
+                const fromCategory =
+                    String(
+                        card.fromCategory ||
+                        "Non classé"
+                    ).trim();
+
+                const toCategory =
+                    String(
+                        card.toCategory ||
+                        "Non classé"
+                    ).trim();
+
+                /*
+                 * Le déplacement apparaît dans l'ancien
+                 * et dans le nouveau classeur.
+                 */
+                return (
+                    fromCategory ===
+                        selectedPortfolioCategory ||
+                    toCategory ===
+                        selectedPortfolioCategory
+                );
+            })
+            : [];
+
+    return {
+        added,
+        removed,
+        moved
+    };
+}
+
+function rowHasVisibleCollectionChanges(row) {
+    const changes =
+        getVisibleCollectionChanges(row);
+
+    return (
+        changes.added.length > 0 ||
+        changes.removed.length > 0 ||
+        changes.moved.length > 0
+    );
+}
+
         const visibleHistory =
             prepareResponsiveChartRows(
                 filteredHistory,
@@ -2021,68 +2149,33 @@ setKpiValue(
         fill: false,
 
         pointRadius(context) {
-            const row =
-                visibleHistory[context.dataIndex];
+    const row =
+        visibleHistory[context.dataIndex];
 
-            const changes =
-                row?.collectionChanges;
+    if (rowHasVisibleCollectionChanges(row)) {
+        return 5;
+    }
 
-            const addedCount =
-                Array.isArray(changes?.added)
-                    ? changes.added.length
-                    : 0;
-
-            const removedCount =
-                Array.isArray(changes?.removed)
-                    ? changes.removed.length
-                    : 0;
-
-            if (
-                noFilters &&
-                (addedCount > 0 || removedCount > 0)
-            ) {
-                return 5;
-            }
-
-            return visibleHistory.length > 120
-                ? 0
-                : 2;
-        },
+    return visibleHistory.length > 120
+        ? 0
+        : 2;
+},
 
         pointHoverRadius: 6,
 
         segment: {
             borderDash(context) {
-                if (!noFilters) {
-                    return undefined;
-                }
+    const destinationRow =
+        visibleHistory[
+            context.p1DataIndex
+        ];
 
-                const destinationRow =
-                    visibleHistory[
-                        context.p1DataIndex
-                    ];
-
-                const changes =
-                    destinationRow
-                        ?.collectionChanges;
-
-                const addedCount =
-                    Array.isArray(changes?.added)
-                        ? changes.added.length
-                        : 0;
-
-                const removedCount =
-                    Array.isArray(changes?.removed)
-                        ? changes.removed.length
-                        : 0;
-
-                return (
-                    addedCount > 0 ||
-                    removedCount > 0
-                )
-                    ? [6, 5]
-                    : undefined;
-            }
+    return rowHasVisibleCollectionChanges(
+        destinationRow
+    )
+        ? [6, 5]
+        : undefined;
+}
         }
     }
 ]
@@ -2118,83 +2211,103 @@ tooltip: {
                 `${context.dataset.label} : ${formatEuro(value)}`
             ];
 
-            if (!noFilters) {
-                return lines;
-            }
-
             const row =
-                visibleHistory[context.dataIndex];
+    visibleHistory[context.dataIndex];
 
-            const changes =
-                row?.collectionChanges;
+const changes =
+    getVisibleCollectionChanges(row);
 
-            const added =
-                Array.isArray(changes?.added)
-                    ? changes.added
-                    : [];
+const added = changes.added;
+const removed = changes.removed;
+const moved = changes.moved;
 
-            const removed =
-                Array.isArray(changes?.removed)
-                    ? changes.removed
-                    : [];
+if (added.length) {
+    lines.push(
+        `${added.length} carte${
+            added.length > 1 ? "s" : ""
+        } ajoutée${
+            added.length > 1 ? "s" : ""
+        }`
+    );
 
-            if (added.length) {
-                lines.push(
-                    `${added.length} carte${
-                        added.length > 1 ? "s" : ""
-                    } ajoutée${
-                        added.length > 1 ? "s" : ""
-                    }`
-                );
+    added.slice(0, 5).forEach(card => {
+        lines.push(
+            `+ ${[
+                card.nomCarte,
+                card.edition,
+                card.langue,
+                card.etat
+            ]
+                .filter(Boolean)
+                .join(" — ")}`
+        );
+    });
 
-                added.slice(0, 5).forEach(card => {
-                    lines.push(
-                        `+ ${[
-                            card.nomCarte,
-                            card.edition,
-                            card.langue,
-                            card.etat
-                        ]
-                            .filter(Boolean)
-                            .join(" — ")}`
-                    );
-                });
+    if (added.length > 5) {
+        lines.push(
+            `+ ${added.length - 5} autre(s)`
+        );
+    }
+}
 
-                if (added.length > 5) {
-                    lines.push(
-                        `+ ${added.length - 5} autre(s)`
-                    );
-                }
-            }
+if (removed.length) {
+    lines.push(
+        `${removed.length} carte${
+            removed.length > 1 ? "s" : ""
+        } retirée${
+            removed.length > 1 ? "s" : ""
+        }`
+    );
 
-            if (removed.length) {
-                lines.push(
-                    `${removed.length} carte${
-                        removed.length > 1 ? "s" : ""
-                    } retirée${
-                        removed.length > 1 ? "s" : ""
-                    }`
-                );
+    removed.slice(0, 5).forEach(card => {
+        lines.push(
+            `− ${[
+                card.nomCarte,
+                card.edition,
+                card.langue,
+                card.etat
+            ]
+                .filter(Boolean)
+                .join(" — ")}`
+        );
+    });
 
-                removed.slice(0, 5).forEach(card => {
-                    lines.push(
-                        `− ${[
-                            card.nomCarte,
-                            card.edition,
-                            card.langue,
-                            card.etat
-                        ]
-                            .filter(Boolean)
-                            .join(" — ")}`
-                    );
-                });
+    if (removed.length > 5) {
+        lines.push(
+            `− ${removed.length - 5} autre(s)`
+        );
+    }
+}
 
-                if (removed.length > 5) {
-                    lines.push(
-                        `− ${removed.length - 5} autre(s)`
-                    );
-                }
-            }
+if (moved.length) {
+    lines.push(
+        `${moved.length} carte${
+            moved.length > 1 ? "s" : ""
+        } déplacée${
+            moved.length > 1 ? "s" : ""
+        }`
+    );
+
+    moved.slice(0, 5).forEach(card => {
+        lines.push(
+            `↪ ${card.nomCarte} : ${
+                card.fromCategory ||
+                "Non classé"
+            } → ${
+                card.toCategory ||
+                "Non classé"
+            }`
+        );
+    });
+
+    if (moved.length > 5) {
+        lines.push(
+            `↪ ${moved.length - 5} autre(s)`
+        );
+    }
+}
+
+
 
             return lines;
         }
