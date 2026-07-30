@@ -34,9 +34,11 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
+        if: github.event_name != 'push'
         run: npm install
 
       - name: Build portfolio
+        if: github.event_name != 'push'
         run: npm run build:pages
         env:
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
@@ -53,6 +55,7 @@ jobs:
           ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
 
       - name: Commit generated files
+        if: github.event_name != 'push'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -76,6 +79,7 @@ jobs:
           git diff --cached --quiet || git commit -m "Daily portfolio update"
 
       - name: Push
+        if: github.event_name != 'push'
         run: git push || echo "Nothing to push"
 
       - name: Configure Pages
