@@ -1233,6 +1233,12 @@ async function loadPortfolioHistory(historyPromise = null) {
     totalValue:
         Number(row.totalValue || 0),
 
+        collectionChanges:
+        row.collectionChanges &&
+        typeof row.collectionChanges === "object"
+            ? row.collectionChanges
+            : null,
+
     categoryValues:
         row.categoryValues &&
         typeof row.categoryValues === "object"
@@ -1980,6 +1986,32 @@ setKpiValue(
                 ctx
             );
 
+        const collectionChangePoints = visibleHistory.map(row => {
+    if (!noFilters) {
+        return null;
+    }
+
+    const changes = row.collectionChanges;
+
+    if (!changes) {
+        return null;
+    }
+
+    const added = Array.isArray(changes.added)
+        ? changes.added
+        : [];
+
+    const removed = Array.isArray(changes.removed)
+        ? changes.removed
+        : [];
+
+    if (!added.length && !removed.length) {
+        return null;
+    }
+
+    return getSelectedRowValue(row);
+});
+
         const data = visibleHistory.map(
             getSelectedRowValue
         );
@@ -2005,21 +2037,30 @@ setKpiValue(
                 ),
 
                 datasets: [
-                    {
-                        label: chartLabel,
-                        data,
-                        tension: 0.3,
-                        spanGaps: false,
-                        fill: false,
+    {
+        label: chartLabel,
+        data,
+        tension: 0.3,
+        spanGaps: false,
+        fill: false,
 
-                        pointRadius:
-                            visibleHistory.length > 120
-                                ? 0
-                                : 2,
+        pointRadius:
+            visibleHistory.length > 120
+                ? 0
+                : 2,
 
-                        pointHoverRadius: 5
-                    }
-                ]
+        pointHoverRadius: 5
+    },
+    {
+        label: "Changement de collection",
+        data: collectionChangePoints,
+        showLine: false,
+        pointStyle: "triangle",
+        pointRadius: 7,
+        pointHoverRadius: 9,
+        spanGaps: false
+    }
+]
             },
 
             options: {
@@ -2041,18 +2082,96 @@ setKpiValue(
                     tooltip: {
                         callbacks: {
                             label(context) {
-                                const value =
-                                    context.parsed.y;
+    const value = context.parsed.y;
 
-                                if (
-                                    value === null ||
-                                    value === undefined
-                                ) {
-                                    return `${context.dataset.label} : -`;
-                                }
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return `${context.dataset.label} : -`;
+    }
 
-                                return `${context.dataset.label} : ${formatEuro(value)}`;
-                            }
+    if (
+        context.dataset.label ===
+        "Changement de collection"
+    ) {
+        const row =
+            visibleHistory[context.dataIndex];
+
+        const changes =
+            row?.collectionChanges || {};
+
+        const added =
+            Array.isArray(changes.added)
+                ? changes.added
+                : [];
+
+        const removed =
+            Array.isArray(changes.removed)
+                ? changes.removed
+                : [];
+
+        const lines = [];
+
+        if (added.length) {
+            lines.push(
+                `${added.length} ajout${
+                    added.length > 1 ? "s" : ""
+                }`
+            );
+
+            added.slice(0, 5).forEach(card => {
+                lines.push(
+                    `+ ${[
+                        card.nomCarte,
+                        card.edition,
+                        card.langue,
+                        card.etat
+                    ]
+                        .filter(Boolean)
+                        .join(" — ")}`
+                );
+            });
+
+            if (added.length > 5) {
+                lines.push(
+                    `+ ${added.length - 5} autre(s)`
+                );
+            }
+        }
+
+        if (removed.length) {
+            lines.push(
+                `${removed.length} retrait${
+                    removed.length > 1 ? "s" : ""
+                }`
+            );
+
+            removed.slice(0, 5).forEach(card => {
+                lines.push(
+                    `− ${[
+                        card.nomCarte,
+                        card.edition,
+                        card.langue,
+                        card.etat
+                    ]
+                        .filter(Boolean)
+                        .join(" — ")}`
+                );
+            });
+
+            if (removed.length > 5) {
+                lines.push(
+                    `− ${removed.length - 5} autre(s)`
+                );
+            }
+        }
+
+        return lines;
+    }
+
+    return `${context.dataset.label} : ${formatEuro(value)}`;
+}
                         }
                     }
                 },
