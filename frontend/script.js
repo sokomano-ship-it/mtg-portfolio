@@ -1986,31 +1986,7 @@ setKpiValue(
                 ctx
             );
 
-        const collectionChangePoints = visibleHistory.map(row => {
-    if (!noFilters) {
-        return null;
-    }
-
-    const changes = row.collectionChanges;
-
-    if (!changes) {
-        return null;
-    }
-
-    const added = Array.isArray(changes.added)
-        ? changes.added
-        : [];
-
-    const removed = Array.isArray(changes.removed)
-        ? changes.removed
-        : [];
-
-    if (!added.length && !removed.length) {
-        return null;
-    }
-
-    return getSelectedRowValue(row);
-});
+        
 
         const data = visibleHistory.map(
             getSelectedRowValue
@@ -2044,21 +2020,70 @@ setKpiValue(
         spanGaps: false,
         fill: false,
 
-        pointRadius:
-            visibleHistory.length > 120
-                ? 0
-                : 2,
+        pointRadius(context) {
+            const row =
+                visibleHistory[context.dataIndex];
 
-        pointHoverRadius: 5
-    },
-    {
-        label: "Changement de collection",
-        data: collectionChangePoints,
-        showLine: false,
-        pointStyle: "triangle",
-        pointRadius: 7,
-        pointHoverRadius: 9,
-        spanGaps: false
+            const changes =
+                row?.collectionChanges;
+
+            const addedCount =
+                Array.isArray(changes?.added)
+                    ? changes.added.length
+                    : 0;
+
+            const removedCount =
+                Array.isArray(changes?.removed)
+                    ? changes.removed.length
+                    : 0;
+
+            if (
+                noFilters &&
+                (addedCount > 0 || removedCount > 0)
+            ) {
+                return 5;
+            }
+
+            return visibleHistory.length > 120
+                ? 0
+                : 2;
+        },
+
+        pointHoverRadius: 6,
+
+        segment: {
+            borderDash(context) {
+                if (!noFilters) {
+                    return undefined;
+                }
+
+                const destinationRow =
+                    visibleHistory[
+                        context.p1DataIndex
+                    ];
+
+                const changes =
+                    destinationRow
+                        ?.collectionChanges;
+
+                const addedCount =
+                    Array.isArray(changes?.added)
+                        ? changes.added.length
+                        : 0;
+
+                const removedCount =
+                    Array.isArray(changes?.removed)
+                        ? changes.removed.length
+                        : 0;
+
+                return (
+                    addedCount > 0 ||
+                    removedCount > 0
+                )
+                    ? [6, 5]
+                    : undefined;
+            }
+        }
     }
 ]
             },
@@ -2074,108 +2099,108 @@ setKpiValue(
 
                 plugins: {
                     legend: {
-                        labels: {
-                            color: "#f5f5f5"
-                        }
-                    },
+    display: false
+},
 
-                    tooltip: {
-                        callbacks: {
-                            label(context) {
-    const value = context.parsed.y;
+tooltip: {
+    callbacks: {
+        label(context) {
+            const value = context.parsed.y;
 
-    if (
-        value === null ||
-        value === undefined
-    ) {
-        return `${context.dataset.label} : -`;
-    }
-
-    if (
-        context.dataset.label ===
-        "Changement de collection"
-    ) {
-        const row =
-            visibleHistory[context.dataIndex];
-
-        const changes =
-            row?.collectionChanges || {};
-
-        const added =
-            Array.isArray(changes.added)
-                ? changes.added
-                : [];
-
-        const removed =
-            Array.isArray(changes.removed)
-                ? changes.removed
-                : [];
-
-        const lines = [];
-
-        if (added.length) {
-            lines.push(
-                `${added.length} ajout${
-                    added.length > 1 ? "s" : ""
-                }`
-            );
-
-            added.slice(0, 5).forEach(card => {
-                lines.push(
-                    `+ ${[
-                        card.nomCarte,
-                        card.edition,
-                        card.langue,
-                        card.etat
-                    ]
-                        .filter(Boolean)
-                        .join(" — ")}`
-                );
-            });
-
-            if (added.length > 5) {
-                lines.push(
-                    `+ ${added.length - 5} autre(s)`
-                );
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return `${context.dataset.label} : -`;
             }
-        }
 
-        if (removed.length) {
-            lines.push(
-                `${removed.length} retrait${
-                    removed.length > 1 ? "s" : ""
-                }`
-            );
+            const lines = [
+                `${context.dataset.label} : ${formatEuro(value)}`
+            ];
 
-            removed.slice(0, 5).forEach(card => {
-                lines.push(
-                    `− ${[
-                        card.nomCarte,
-                        card.edition,
-                        card.langue,
-                        card.etat
-                    ]
-                        .filter(Boolean)
-                        .join(" — ")}`
-                );
-            });
-
-            if (removed.length > 5) {
-                lines.push(
-                    `− ${removed.length - 5} autre(s)`
-                );
+            if (!noFilters) {
+                return lines;
             }
+
+            const row =
+                visibleHistory[context.dataIndex];
+
+            const changes =
+                row?.collectionChanges;
+
+            const added =
+                Array.isArray(changes?.added)
+                    ? changes.added
+                    : [];
+
+            const removed =
+                Array.isArray(changes?.removed)
+                    ? changes.removed
+                    : [];
+
+            if (added.length) {
+                lines.push(
+                    `${added.length} carte${
+                        added.length > 1 ? "s" : ""
+                    } ajoutée${
+                        added.length > 1 ? "s" : ""
+                    }`
+                );
+
+                added.slice(0, 5).forEach(card => {
+                    lines.push(
+                        `+ ${[
+                            card.nomCarte,
+                            card.edition,
+                            card.langue,
+                            card.etat
+                        ]
+                            .filter(Boolean)
+                            .join(" — ")}`
+                    );
+                });
+
+                if (added.length > 5) {
+                    lines.push(
+                        `+ ${added.length - 5} autre(s)`
+                    );
+                }
+            }
+
+            if (removed.length) {
+                lines.push(
+                    `${removed.length} carte${
+                        removed.length > 1 ? "s" : ""
+                    } retirée${
+                        removed.length > 1 ? "s" : ""
+                    }`
+                );
+
+                removed.slice(0, 5).forEach(card => {
+                    lines.push(
+                        `− ${[
+                            card.nomCarte,
+                            card.edition,
+                            card.langue,
+                            card.etat
+                        ]
+                            .filter(Boolean)
+                            .join(" — ")}`
+                    );
+                });
+
+                if (removed.length > 5) {
+                    lines.push(
+                        `− ${removed.length - 5} autre(s)`
+                    );
+                }
+            }
+
+            return lines;
         }
-
-        return lines;
     }
-
-    return `${context.dataset.label} : ${formatEuro(value)}`;
 }
-                        }
-                    }
-                },
-
+},
                 scales: {
                     x: {
                         ticks: {
