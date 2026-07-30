@@ -920,8 +920,13 @@ const reconstructedPortfolioHistory =
 const portfolioHistoryByDate = new Map();
 
 /*
- * Charge l’historique existant.
- * Le total déjà enregistré reste prioritaire.
+ * Charge l'historique déjà enregistré.
+ *
+ * Règle fondamentale :
+ * une journée historique existante est immuable.
+ *
+ * Aucune valeur historique existante ne doit être
+ * recalculée à partir de la collection actuelle.
  */
 existingPortfolioHistory.forEach(row => {
     if (!row?.date) {
@@ -957,45 +962,64 @@ existingPortfolioHistory.forEach(row => {
                 ? row.categoryEditionValues
                 : {},
 
-        
+        collectionChanges:
+            row.collectionChanges &&
+            typeof row.collectionChanges === "object"
+                ? row.collectionChanges
+                : null,
 
-collectionChanges:
-    row.collectionChanges &&
-    typeof row.collectionChanges === "object"
-        ? row.collectionChanges
-        : null,
-
-historyStart:
-    Boolean(row.historyStart)
+        historyStart:
+            Boolean(row.historyStart)
     });
 });
 
 /*
- * Ajoute les répartitions reconstruites.
- * Le total historique existant n’est pas remplacé.
+ * Les données reconstruites servent uniquement à créer
+ * une date qui n'existe pas encore dans l'historique.
+ *
+ * Elles ne doivent jamais remplacer une journée déjà
+ * enregistrée, même partiellement.
  */
 reconstructedPortfolioHistory.forEach(row => {
-    const existingRow =
-        portfolioHistoryByDate.get(row.date);
+    if (!row?.date) {
+        return;
+    }
 
-    portfolioHistoryByDate.set(row.date, {
-    ...(existingRow || {}),
+    const date =
+        String(row.date).slice(0, 10);
 
-    date: row.date,
+    if (portfolioHistoryByDate.has(date)) {
+        return;
+    }
 
-    totalValue:
-        existingRow
-            ? Number(existingRow.totalValue || 0)
-            : Number(row.totalValue || 0),
+    portfolioHistoryByDate.set(date, {
+        ...row,
+
+        date,
+
+        totalValue:
+            Number(row.totalValue || 0),
 
         categoryValues:
-            row.categoryValues || {},
+            row.categoryValues &&
+            typeof row.categoryValues === "object"
+                ? row.categoryValues
+                : {},
 
         editionValues:
-            row.editionValues || {},
+            row.editionValues &&
+            typeof row.editionValues === "object"
+                ? row.editionValues
+                : {},
 
         categoryEditionValues:
-    row.categoryEditionValues || {}
+            row.categoryEditionValues &&
+            typeof row.categoryEditionValues === "object"
+                ? row.categoryEditionValues
+                : {},
+
+        collectionChanges: null,
+        historyStart: false
     });
 });
 
