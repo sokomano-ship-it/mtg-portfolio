@@ -1519,6 +1519,11 @@ writeJson(splitOutputFiles.portfolioSummary, {
     portfolioSummary
 });
 
+writeJson(splitOutputFiles.portfolioHistory, {
+    generatedAt,
+    portfolioHistory: portfolioHistoryEstimated
+});
+
 writeJson(splitOutputFiles.portfolioInventory, {
     generatedAt,
 
@@ -1528,6 +1533,7 @@ writeJson(splitOutputFiles.portfolioInventory, {
 
     cards: currentPortfolioInventory
 });
+
 
 writeJson(splitOutputFiles.categorySummary, {
     generatedAt,
