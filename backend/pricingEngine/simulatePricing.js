@@ -82,6 +82,7 @@ function getCards() {
           FROM cardmarket_prices
           WHERE cardId = c.id
         )
+      WHERE COALESCE(c.isActive, 1) = 1
       ORDER BY c.id
       `,
       [],
@@ -325,6 +326,29 @@ function estimateManualConditions(model, estimated) {
 
   const estimatedByCondition = {};
 
+  const impliedNmCandidates = [];
+
+CONDITIONS.forEach(condition => {
+  if (condition === "NM") return;
+
+  const observedPrice = Number(
+    model?.byCondition?.[condition]?.observedPrice || 0
+  );
+
+  const ratio = FALLBACK_CONDITION_RATIOS[condition];
+
+  if (observedPrice > 0 && ratio > 0) {
+    impliedNmCandidates.push(observedPrice / ratio);
+  }
+});
+
+const impliedNm =
+  impliedNmCandidates.length > 0
+    ? impliedNmCandidates.sort((a, b) => a - b)[
+        Math.floor(impliedNmCandidates.length / 2)
+      ]
+    : 0;
+
   CONDITIONS.forEach(condition => {
     const observedPrice = Number(
       model?.byCondition?.[condition]?.observedPrice || 0
@@ -334,7 +358,26 @@ function estimateManualConditions(model, estimated) {
       observedPrice > 0
         ? Number((observedPrice * safeFactor).toFixed(2))
         : null;
-  });
+  });CONDITIONS.forEach(condition => {
+  const observedPrice = Number(
+    model?.byCondition?.[condition]?.observedPrice || 0
+  );
+
+  if (observedPrice > 0) {
+    estimatedByCondition[condition] =
+      Number((observedPrice * safeFactor).toFixed(2));
+    return;
+  }
+
+  if (impliedNm > 0) {
+    const ratio = FALLBACK_CONDITION_RATIOS[condition] ?? 1;
+
+    estimatedByCondition[condition] =
+      Number((impliedNm * ratio * safeFactor).toFixed(2));
+  } else {
+    estimatedByCondition[condition] = null;
+  }
+});
 
   return {
     estimatedByCondition,
@@ -352,7 +395,12 @@ function estimateManualConditions(model, estimated) {
     ratioByCondition: null,
     bayesianWeights: null,
 
-    observationDaysCount: null,
+    observationDaysCount: new Set(
+      CONDITIONS.flatMap(condition => [
+        model?.byCondition?.[condition]?.firstObservationDate,
+        model?.byCondition?.[condition]?.lastObservationDate
+      ]).filter(Boolean)
+    ).size,
 
     observationRowsCount: CONDITIONS.reduce(
       (total, condition) =>
