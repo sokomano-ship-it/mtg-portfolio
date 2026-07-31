@@ -1622,12 +1622,24 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
    Investment summary KPI
    =========================== */
 
+.investment-summary-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 12px;
+}
+
+.investment-summary-heading h2 {
+    margin: 0;
+}
+
 .investment-summary-toolbar {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 10px;
-    margin-bottom: 12px;
+    margin: 0;
 }
 
 .investment-summary-toolbar label {
@@ -1807,6 +1819,10 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 }
 
 @media (max-width: 700px) {
+    .investment-summary-heading {
+    align-items: stretch;
+    flex-direction: column;
+}
     .investment-summary-toolbar {
         align-items: stretch;
         flex-direction: column;
