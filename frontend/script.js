@@ -2365,6 +2365,62 @@ if (moved.length) {
     renderSelectedPortfolioChart();
 }
 
+const INVESTMENT_PERIOD_FIELDS = [
+    "perf7d",
+    "perf30d",
+    "perf60d",
+    "perf180d",
+    "perf365d"
+];
+
+const INVESTMENT_PERIOD_MIN_COVERAGE = 0.20;
+
+function hasInvestmentPerformanceValue(value) {
+    return (
+        value !== null &&
+        value !== undefined &&
+        value !== "" &&
+        Number.isFinite(Number(value))
+    );
+}
+
+function getAvailableInvestmentPeriods(rows) {
+    const totalRows = rows.length;
+
+    if (!totalRows) {
+        return new Set();
+    }
+
+    return new Set(
+        INVESTMENT_PERIOD_FIELDS.filter(field => {
+            const availableRows = rows.filter(row =>
+                hasInvestmentPerformanceValue(row[field])
+            ).length;
+
+            return (
+                availableRows / totalRows >=
+                INVESTMENT_PERIOD_MIN_COVERAGE
+            );
+        })
+    );
+}
+
+function updateInvestmentPeriodColumns(rows) {
+    const availablePeriods =
+        getAvailableInvestmentPeriods(rows);
+
+    document
+        .querySelectorAll("[data-investment-period]")
+        .forEach(element => {
+            const period =
+                element.dataset.investmentPeriod;
+
+            element.hidden =
+                !availablePeriods.has(period);
+        });
+
+    return availablePeriods;
+}
 
 async function loadInvestmentAnalysis() {
     const status = document.getElementById("investment-status");
@@ -2375,6 +2431,10 @@ async function loadInvestmentAnalysis() {
 
         status.textContent =
             `${allInvestmentAnalysis.length} lignes analysées`;
+
+        updateInvestmentPeriodColumns(
+    allInvestmentAnalysis
+);
 
         document
             .querySelectorAll("#tab-investment-analysis .sortable")
@@ -2437,6 +2497,11 @@ function renderInvestmentAnalysis() {
     const tbody = document.getElementById("investment-analysis-body");
     if (!tbody) return;
 
+    const availablePeriods =
+    getAvailableInvestmentPeriods(
+        allInvestmentAnalysis
+    );
+
     const sortedRows = [...allInvestmentAnalysis].sort((a, b) => {
         return compareValues(
             a[currentInvestmentSort],
@@ -2483,25 +2548,35 @@ function renderInvestmentAnalysis() {
                     <strong>${formatEuro(card.lotValue)}</strong>
                 </td>
 
-                <td class="${performanceClass(card.perf7d)}">
-                    ${formatOptionalPercent(card.perf7d)}
-                </td>
+                ${availablePeriods.has("perf7d") ? `
+    <td class="${performanceClass(card.perf7d)}">
+        ${formatOptionalPercent(card.perf7d)}
+    </td>
+` : ""}
 
-                <td class="${performanceClass(card.perf30d)}">
-                    ${formatOptionalPercent(card.perf30d)}
-                </td>
+${availablePeriods.has("perf30d") ? `
+    <td class="${performanceClass(card.perf30d)}">
+        ${formatOptionalPercent(card.perf30d)}
+    </td>
+` : ""}
 
-                <td class="${performanceClass(card.perf60d)}">
-                    ${formatOptionalPercent(card.perf60d)}
-                </td>
+${availablePeriods.has("perf60d") ? `
+    <td class="${performanceClass(card.perf60d)}">
+        ${formatOptionalPercent(card.perf60d)}
+    </td>
+` : ""}
 
-                <td class="${performanceClass(card.perf180d)}">
-                    ${formatOptionalPercent(card.perf180d)}
-                </td>
+${availablePeriods.has("perf180d") ? `
+    <td class="${performanceClass(card.perf180d)}">
+        ${formatOptionalPercent(card.perf180d)}
+    </td>
+` : ""}
 
-                <td class="${performanceClass(card.perf365d)}">
-                    ${formatOptionalPercent(card.perf365d)}
-                </td>
+${availablePeriods.has("perf365d") ? `
+    <td class="${performanceClass(card.perf365d)}">
+        ${formatOptionalPercent(card.perf365d)}
+    </td>
+` : ""}
 
                 <td>
                     ${

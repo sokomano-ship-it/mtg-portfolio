@@ -193,15 +193,45 @@
                             Valeur lot
                         </th>
 
-                        <th class="sortable" data-sort="perf7d">7j</th>
+                        <th
+    class="sortable investment-period-column"
+    data-sort="perf7d"
+    data-investment-period="perf7d"
+>
+    7j
+</th>
 
-                        <th class="sortable" data-sort="perf30d">30j</th>
+<th
+    class="sortable investment-period-column"
+    data-sort="perf30d"
+    data-investment-period="perf30d"
+>
+    30j
+</th>
 
-                        <th class="sortable" data-sort="perf60d">60j</th>
+<th
+    class="sortable investment-period-column"
+    data-sort="perf60d"
+    data-investment-period="perf60d"
+>
+    60j
+</th>
 
-                        <th class="sortable" data-sort="perf180d">180j</th>
+<th
+    class="sortable investment-period-column"
+    data-sort="perf180d"
+    data-investment-period="perf180d"
+>
+    180j
+</th>
 
-                        <th class="sortable" data-sort="perf365d">365j</th>
+<th
+    class="sortable investment-period-column"
+    data-sort="perf365d"
+    data-investment-period="perf365d"
+>
+    365j
+</th>
 
                         <th class="sortable" data-sort="confidence">
                             Confiance
@@ -263,20 +293,20 @@
         >
     </th>
 
-    <th></th>
+    <th data-investment-period="perf7d"></th>
 
-    <th>
-        <input
-            class="collection-filter investment-filter"
-            data-filter="perf30d"
-            placeholder="Variation min."
-            inputmode="decimal"
-        >
-    </th>
+<th data-investment-period="perf30d">
+    <input
+        class="collection-filter investment-filter"
+        data-filter="perf30d"
+        placeholder="Variation min."
+        inputmode="decimal"
+    >
+</th>
 
-    <th></th>
-    <th></th>
-    <th></th>
+<th data-investment-period="perf60d"></th>
+<th data-investment-period="perf180d"></th>
+<th data-investment-period="perf365d"></th>
 
     <th>
         <input
