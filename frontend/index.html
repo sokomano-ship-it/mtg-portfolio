@@ -163,40 +163,78 @@
 
         <h2>📊 Analyse des investissements</h2>
 
+<div class="investment-summary-toolbar">
+    <label for="investment-summary-period">
+        Période du résumé
+    </label>
+
+    <select id="investment-summary-period">
+        <option value="7d">7 jours</option>
+        <option value="30d">30 jours</option>
+        <option value="60d">60 jours</option>
+        <option value="180d">180 jours</option>
+        <option value="365d">365 jours</option>
+    </select>
+</div>
+
 <div
     id="investment-summary"
     class="investment-summary-cards"
 >
     <div class="investment-summary-card">
         <span>Valeur analysée</span>
-        <strong id="investment-summary-value">-</strong>
+
+        <strong id="investment-summary-value">
+            -
+        </strong>
+
         <small id="investment-summary-value-detail">
             Lots actuellement affichés
         </small>
     </div>
 
     <div class="investment-summary-card">
-        <span>Performance 7 jours</span>
-        <strong id="investment-summary-performance">-</strong>
+        <span id="investment-summary-performance-label">
+            Performance 7 jours
+        </span>
+
+        <strong id="investment-summary-performance">
+            -
+        </strong>
+
         <small id="investment-summary-performance-detail">
             Historique insuffisant
         </small>
     </div>
 
-    <div class="investment-summary-card">
-        <span>Meilleure contribution 7j</span>
-        <strong id="investment-summary-best-value">-</strong>
-        <small id="investment-summary-best-card">
-            Historique insuffisant
-        </small>
+    <div class="investment-summary-card investment-ranking-card">
+        <span id="investment-summary-top-label">
+            Top 3 contributions — 7 jours
+        </span>
+
+        <div
+            id="investment-summary-top-list"
+            class="investment-ranking-list"
+        >
+            <div class="investment-ranking-empty">
+                Historique insuffisant
+            </div>
+        </div>
     </div>
 
-    <div class="investment-summary-card">
-        <span>Plus forte baisse 7j</span>
-        <strong id="investment-summary-worst-value">-</strong>
-        <small id="investment-summary-worst-card">
-            Historique insuffisant
-        </small>
+    <div class="investment-summary-card investment-ranking-card">
+        <span id="investment-summary-worst-label">
+            Pires 3 contributions — 7 jours
+        </span>
+
+        <div
+            id="investment-summary-worst-list"
+            class="investment-ranking-list"
+        >
+            <div class="investment-ranking-empty">
+                Historique insuffisant
+            </div>
+        </div>
     </div>
 </div>
 

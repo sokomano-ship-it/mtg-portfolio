@@ -1622,17 +1622,56 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
    Investment summary KPI
    =========================== */
 
+.investment-summary-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.investment-summary-toolbar label {
+    color: #9fa7b7;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.investment-summary-toolbar select {
+    min-width: 130px;
+    padding: 8px 10px;
+    color: #f5f5f5;
+    background: #202636;
+    border: 1px solid
+        rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    outline: none;
+}
+
+.investment-summary-toolbar select:focus {
+    border-color: #7fb7ff;
+    box-shadow:
+        0 0 0 2px
+        rgba(127, 183, 255, 0.18);
+}
+
+.investment-summary-toolbar option:disabled {
+    color: #6f7685;
+}
+
 .investment-summary-cards {
     display: grid;
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        minmax(180px, 0.8fr)
+        minmax(210px, 0.9fr)
+        minmax(300px, 1.35fr)
+        minmax(300px, 1.35fr);
     gap: 14px;
     margin-bottom: 16px;
 }
 
 .investment-summary-card {
     min-width: 0;
-    min-height: 112px;
+    min-height: 132px;
     padding: 16px 18px;
     background: #111520;
     border: 1px solid
@@ -1644,28 +1683,98 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     justify-content: center;
 }
 
-.investment-summary-card span {
+.investment-summary-card > span {
     margin-bottom: 9px;
     color: #9fa7b7;
     font-size: 13px;
     font-weight: 700;
 }
 
-.investment-summary-card strong {
+.investment-summary-card > strong {
     display: block;
     margin-bottom: 8px;
     font-size: 23px;
     line-height: 1.15;
 }
 
-.investment-summary-card small {
+.investment-summary-card > small {
     display: block;
     color: #8e96a8;
     font-size: 12px;
     line-height: 1.35;
+}
 
+.investment-ranking-card {
+    justify-content: flex-start;
+}
+
+.investment-ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.investment-ranking-row {
+    display: grid;
+    grid-template-columns:
+        22px minmax(0, 1fr) auto;
+    gap: 9px;
+    align-items: center;
+    padding-top: 7px;
+    border-top: 1px solid
+        rgba(255, 255, 255, 0.07);
+}
+
+.investment-ranking-row:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+.investment-ranking-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 22px;
+    height: 22px;
+
+    color: #dce5f5;
+    background: #202636;
+    border-radius: 50%;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.investment-ranking-card-info {
+    min-width: 0;
+}
+
+.investment-ranking-card-info strong {
+    display: block;
     overflow: hidden;
+    color: #f5f5f5;
+    font-size: 12px;
+    line-height: 1.25;
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.investment-ranking-card-info small {
+    display: block;
+    overflow: hidden;
+    margin-top: 2px;
+    color: #8e96a8;
+    font-size: 10px;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.investment-ranking-empty {
+    padding: 12px 0;
+    color: #8e96a8;
+    font-size: 12px;
 }
 
 #investment-status {
@@ -1673,14 +1782,23 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     margin-bottom: 12px;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1350px) {
     .investment-summary-cards {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 700px) {
+    .investment-summary-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .investment-summary-toolbar select {
+        width: 100%;
+    }
+
     .investment-summary-cards {
         grid-template-columns: 1fr;
     }

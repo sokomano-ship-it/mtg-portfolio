@@ -6,6 +6,7 @@ let selectedInvestmentCardId = null;
 
 let currentInvestmentSort = "changeLot7d";
 let currentInvestmentDirection = "desc";
+let currentInvestmentSummaryPeriod = "7d";
 
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
@@ -2498,8 +2499,102 @@ function updateInvestmentPeriodColumns(rows) {
             element.hidden =
                 !availablePeriods.has(period);
         });
+    
+    updateInvestmentSummaryPeriodOptions(
+    availablePeriods
+);
 
     return availablePeriods;
+}
+
+const INVESTMENT_SUMMARY_PERIOD_LABELS = {
+    "7d": "7 jours",
+    "30d": "30 jours",
+    "60d": "60 jours",
+    "180d": "180 jours",
+    "365d": "365 jours"
+};
+
+function getInvestmentSummaryPeriodLabel(period) {
+    return (
+        INVESTMENT_SUMMARY_PERIOD_LABELS[
+            period
+        ] || period
+    );
+}
+
+function setupInvestmentSummaryPeriodSelector() {
+    const select =
+        document.getElementById(
+            "investment-summary-period"
+        );
+
+    if (!select) {
+        return;
+    }
+
+    select.value =
+        currentInvestmentSummaryPeriod;
+
+    select.onchange = () => {
+        currentInvestmentSummaryPeriod =
+            select.value || "7d";
+
+        renderInvestmentAnalysis();
+    };
+}
+
+function updateInvestmentSummaryPeriodOptions(
+    availablePeriods
+) {
+    const select =
+        document.getElementById(
+            "investment-summary-period"
+        );
+
+    if (!select) {
+        return;
+    }
+
+    [...select.options].forEach(option => {
+        const performanceField =
+            `perf${option.value}`;
+
+        option.disabled =
+            !availablePeriods.has(
+                performanceField
+            );
+    });
+
+    const selectedOption =
+        [...select.options].find(
+            option =>
+                option.value ===
+                currentInvestmentSummaryPeriod
+        );
+
+    if (
+        selectedOption &&
+        !selectedOption.disabled
+    ) {
+        select.value =
+            currentInvestmentSummaryPeriod;
+
+        return;
+    }
+
+    const firstAvailableOption =
+        [...select.options].find(
+            option => !option.disabled
+        );
+
+    if (firstAvailableOption) {
+        currentInvestmentSummaryPeriod =
+            firstAvailableOption.value;
+
+        select.value =
+            currentInvestmentSummaryPeriod;
+    }
 }
 
 function setupInvestmentFilters() {
@@ -2615,6 +2710,7 @@ async function loadInvestmentAnalysis() {
 );
 
 setupInvestmentFilters();
+setupInvestmentSummaryPeriodSelector();
 
         document
             .querySelectorAll("#tab-investment-analysis .sortable")
@@ -2795,29 +2891,36 @@ function getInvestmentCardLabel(card) {
         .join(" · ");
 }
 
-function calculateInvestmentSummary(rows) {
+function calculateInvestmentSummary(
+    rows,
+    period
+) {
     const analyzedValue = rows.reduce(
         (total, card) =>
-            total + Number(card.lotValue || 0),
+            total +
+            Number(card.lotValue || 0),
         0
     );
 
-    const rowsWith7dHistory = rows
+    const rowsWithHistory = rows
         .map(card => ({
             card,
+
             change:
                 getInvestmentPeriodChange(
                     card,
-                    "7d"
+                    period
                 )
         }))
         .filter(row =>
             row.change !== null &&
-            Number.isFinite(row.change.lot)
+            Number.isFinite(
+                Number(row.change.lot)
+            )
         );
 
-    const current7dValue =
-        rowsWith7dHistory.reduce(
+    const currentPeriodValue =
+        rowsWithHistory.reduce(
             (total, row) => {
                 const currentPrice =
                     Number(
@@ -2834,11 +2937,15 @@ function calculateInvestmentSummary(rows) {
             0
         );
 
-    const previous7dValue =
-        rowsWith7dHistory.reduce(
+    const previousPeriodValue =
+        rowsWithHistory.reduce(
             (total, row) => {
                 const previousPrice =
-                    Number(row.card.price7d);
+                    Number(
+                        row.card[
+                            `price${period}`
+                        ]
+                    );
 
                 return (
                     total +
@@ -2849,55 +2956,58 @@ function calculateInvestmentSummary(rows) {
             0
         );
 
-    const change7d =
-        rowsWith7dHistory.length
-            ? current7dValue -
-                previous7dValue
+    const periodChange =
+        rowsWithHistory.length
+            ? currentPeriodValue -
+                previousPeriodValue
             : null;
 
-    const performance7d =
-        previous7dValue > 0
+    const periodPerformance =
+        previousPeriodValue > 0
             ? (
-                change7d /
-                previous7dValue
+                periodChange /
+                previousPeriodValue
             ) * 100
             : null;
 
-    const bestContribution =
-        rowsWith7dHistory.length
-            ? rowsWith7dHistory.reduce(
-                (best, row) =>
-                    !best ||
-                    row.change.lot >
-                        best.change.lot
-                        ? row
-                        : best,
-                null
-            )
-            : null;
+    const topContributions = [
+        ...rowsWithHistory
+    ]
+        .filter(row =>
+            row.change.lot > 0
+        )
+        .sort(
+            (a, b) =>
+                b.change.lot -
+                a.change.lot
+        )
+        .slice(0, 3);
 
-    const worstContribution =
-        rowsWith7dHistory.length
-            ? rowsWith7dHistory.reduce(
-                (worst, row) =>
-                    !worst ||
-                    row.change.lot <
-                        worst.change.lot
-                        ? row
-                        : worst,
-                null
-            )
-            : null;
+    const worstContributions = [
+        ...rowsWithHistory
+    ]
+        .filter(row =>
+            row.change.lot < 0
+        )
+        .sort(
+            (a, b) =>
+                a.change.lot -
+                b.change.lot
+        )
+        .slice(0, 3);
 
     return {
         analyzedValue,
         rowsCount: rows.length,
-        rowsWith7dHistoryCount:
-            rowsWith7dHistory.length,
-        change7d,
-        performance7d,
-        bestContribution,
-        worstContribution
+
+        rowsWithHistoryCount:
+            rowsWithHistory.length,
+
+        periodChange,
+        periodPerformance,
+
+        topContributions,
+        worstContributions
     };
 }
 
@@ -2914,9 +3024,96 @@ function setInvestmentSummaryValue(
     element.className = className;
 }
 
+function renderInvestmentRanking(
+    element,
+    rows,
+    type
+) {
+    if (!element) {
+        return;
+    }
+
+    if (!rows.length) {
+        element.innerHTML = `
+            <div class="investment-ranking-empty">
+                ${
+                    type === "positive"
+                        ? "Aucune contribution positive"
+                        : "Aucune baisse sur la sélection"
+                }
+            </div>
+        `;
+
+        return;
+    }
+
+    element.innerHTML = rows
+        .map((row, index) => {
+            const card = row.card;
+
+            const changeClass =
+                row.change.lot >= 0
+                    ? "score-positive"
+                    : "score-negative";
+
+            const detail = [
+                card.edition,
+                card.langue,
+                card.etat,
+                `Qté ${Math.max(
+                    1,
+                    Number(
+                        card.quantity || 1
+                    )
+                )}`
+            ]
+                .filter(Boolean)
+                .join(" · ");
+
+            return `
+                <div class="investment-ranking-row">
+                    <div class="investment-ranking-position">
+                        ${index + 1}
+                    </div>
+
+                    <div class="investment-ranking-card-info">
+                        <strong>
+                            ${escapeHtml(
+                                card.nomCarte ||
+                                "Carte inconnue"
+                            )}
+                        </strong>
+
+                        <small>
+                            ${escapeHtml(detail)}
+                        </small>
+                    </div>
+
+                    <div class="${changeClass}">
+                        ${formatSignedEuro(
+                            row.change.lot
+                        )}
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+}
+
 function updateInvestmentSummary(rows) {
+    const period =
+        currentInvestmentSummaryPeriod;
+
+    const periodLabel =
+        getInvestmentSummaryPeriodLabel(
+            period
+        );
+
     const summary =
-        calculateInvestmentSummary(rows);
+        calculateInvestmentSummary(
+            rows,
+            period
+        );
 
     const valueElement =
         document.getElementById(
@@ -2926,6 +3123,11 @@ function updateInvestmentSummary(rows) {
     const valueDetailElement =
         document.getElementById(
             "investment-summary-value-detail"
+        );
+
+    const performanceLabelElement =
+        document.getElementById(
+            "investment-summary-performance-label"
         );
 
     const performanceElement =
@@ -2938,24 +3140,24 @@ function updateInvestmentSummary(rows) {
             "investment-summary-performance-detail"
         );
 
-    const bestValueElement =
+    const topLabelElement =
         document.getElementById(
-            "investment-summary-best-value"
+            "investment-summary-top-label"
         );
 
-    const bestCardElement =
+    const topListElement =
         document.getElementById(
-            "investment-summary-best-card"
+            "investment-summary-top-list"
         );
 
-    const worstValueElement =
+    const worstLabelElement =
         document.getElementById(
-            "investment-summary-worst-value"
+            "investment-summary-worst-label"
         );
 
-    const worstCardElement =
+    const worstListElement =
         document.getElementById(
-            "investment-summary-worst-card"
+            "investment-summary-worst-list"
         );
 
     setInvestmentSummaryValue(
@@ -2976,9 +3178,24 @@ function updateInvestmentSummary(rows) {
             }`;
     }
 
+    if (performanceLabelElement) {
+        performanceLabelElement.textContent =
+            `Performance ${periodLabel}`;
+    }
+
+    if (topLabelElement) {
+        topLabelElement.textContent =
+            `Top 3 contributions — ${periodLabel}`;
+    }
+
+    if (worstLabelElement) {
+        worstLabelElement.textContent =
+            `Pires 3 contributions — ${periodLabel}`;
+    }
+
     if (
-        summary.change7d === null ||
-        summary.performance7d === null
+        summary.periodChange === null ||
+        summary.periodPerformance === null
     ) {
         setInvestmentSummaryValue(
             performanceElement,
@@ -2987,114 +3204,65 @@ function updateInvestmentSummary(rows) {
 
         if (performanceDetailElement) {
             performanceDetailElement.textContent =
-                "Historique 7j insuffisant";
+                `Historique ${periodLabel} insuffisant`;
         }
-    } else {
-        const performanceClass =
-            summary.change7d >= 0
-                ? "score-positive"
-                : "score-negative";
 
-        setInvestmentSummaryValue(
-            performanceElement,
-            formatSignedEuro(
-                summary.change7d
-            ),
-            performanceClass
-        );
-
-        if (performanceDetailElement) {
-            performanceDetailElement.textContent =
-                `${formatPercent(
-                    summary.performance7d
-                )} · ${
-                    summary
-                        .rowsWith7dHistoryCount
-                } lot${
-                    summary
-                        .rowsWith7dHistoryCount >
-                    1
-                        ? "s"
-                        : ""
-                } avec historique`;
+        if (topListElement) {
+            topListElement.innerHTML = `
+                <div class="investment-ranking-empty">
+                    Historique insuffisant
+                </div>
+            `;
         }
+
+        if (worstListElement) {
+            worstListElement.innerHTML = `
+                <div class="investment-ranking-empty">
+                    Historique insuffisant
+                </div>
+            `;
+        }
+
+        return;
     }
 
-    if (summary.bestContribution) {
-        setInvestmentSummaryValue(
-            bestValueElement,
-            formatSignedEuro(
-                summary
-                    .bestContribution
-                    .change
-                    .lot
-            ),
-            summary
-                .bestContribution
-                .change
-                .lot >= 0
-                ? "score-positive"
-                : "score-negative"
-        );
+    const performanceClass =
+        summary.periodChange >= 0
+            ? "score-positive"
+            : "score-negative";
 
-        if (bestCardElement) {
-            bestCardElement.textContent =
-                getInvestmentCardLabel(
-                    summary
-                        .bestContribution
-                        .card
-                );
-        }
-    } else {
-        setInvestmentSummaryValue(
-            bestValueElement,
-            "-"
-        );
+    setInvestmentSummaryValue(
+        performanceElement,
+        formatSignedEuro(
+            summary.periodChange
+        ),
+        performanceClass
+    );
 
-        if (bestCardElement) {
-            bestCardElement.textContent =
-                "Historique 7j insuffisant";
-        }
+    if (performanceDetailElement) {
+        performanceDetailElement.textContent =
+            `${formatPercent(
+                summary.periodPerformance
+            )} · ${
+                summary.rowsWithHistoryCount
+            } lot${
+                summary.rowsWithHistoryCount > 1
+                    ? "s"
+                    : ""
+            } avec historique`;
     }
 
-    if (
-        summary.worstContribution &&
-        summary.worstContribution
-            .change
-            .lot < 0
-    ) {
-        setInvestmentSummaryValue(
-            worstValueElement,
-            formatSignedEuro(
-                summary
-                    .worstContribution
-                    .change
-                    .lot
-            ),
-            "score-negative"
-        );
+    renderInvestmentRanking(
+        topListElement,
+        summary.topContributions,
+        "positive"
+    );
 
-        if (worstCardElement) {
-            worstCardElement.textContent =
-                getInvestmentCardLabel(
-                    summary
-                        .worstContribution
-                        .card
-                );
-        }
-    } else {
-        setInvestmentSummaryValue(
-            worstValueElement,
-            "-"
-        );
-
-        if (worstCardElement) {
-            worstCardElement.textContent =
-                summary.rowsWith7dHistoryCount
-                    ? "Aucune baisse sur la sélection"
-                    : "Historique 7j insuffisant";
-        }
-    }
+    renderInvestmentRanking(
+        worstListElement,
+        summary.worstContributions,
+        "negative"
+    );
 }
 
 function renderInvestmentAnalysis() {
