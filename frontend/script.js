@@ -2596,6 +2596,89 @@ async function loadTopMovers() {
     }
 }
 
+function getInvestmentPeriodChange(card, period) {
+    const currentPrice =
+        Number(card.currentEstimatedPrice);
+
+    const previousPrice =
+        Number(card[`price${period}`]);
+
+    if (
+        !Number.isFinite(currentPrice) ||
+        !Number.isFinite(previousPrice)
+    ) {
+        return null;
+    }
+
+    const quantity =
+        Math.max(
+            1,
+            Number(card.quantity || 1)
+        );
+
+    const perCard =
+        currentPrice - previousPrice;
+
+    return {
+        perCard,
+        lot: perCard * quantity,
+        quantity
+    };
+}
+
+function formatInvestmentPeriod(card, period) {
+    const performance =
+        card[`perf${period}`];
+
+    if (
+        performance === null ||
+        performance === undefined
+    ) {
+        return "-";
+    }
+
+    const change =
+        getInvestmentPeriodChange(
+            card,
+            period
+        );
+
+    if (!change) {
+        return formatOptionalPercent(
+            performance
+        );
+    }
+
+    const lotChange =
+        change.quantity > 1
+            ? `
+                <div class="muted">
+                    ${formatSignedEuro(change.lot)}
+                    sur le lot
+                </div>
+            `
+            : "";
+
+    return `
+        <div>
+            <strong>
+                ${formatOptionalPercent(performance)}
+            </strong>
+        </div>
+
+        <div class="muted">
+            ${formatSignedEuro(change.perCard)}
+            ${
+                change.quantity > 1
+                    ? "par carte"
+                    : ""
+            }
+        </div>
+
+        ${lotChange}
+    `;
+}
+
 function renderInvestmentAnalysis() {
     const tbody = document.getElementById("investment-analysis-body");
     if (!tbody) return;
@@ -2675,31 +2758,31 @@ if (status) {
 
                 ${availablePeriods.has("perf7d") ? `
     <td class="${performanceClass(card.perf7d)}">
-        ${formatOptionalPercent(card.perf7d)}
+        ${formatInvestmentPeriod(card, "7d")}
     </td>
 ` : ""}
 
 ${availablePeriods.has("perf30d") ? `
     <td class="${performanceClass(card.perf30d)}">
-        ${formatOptionalPercent(card.perf30d)}
+        ${formatInvestmentPeriod(card, "30d")}
     </td>
 ` : ""}
 
 ${availablePeriods.has("perf60d") ? `
     <td class="${performanceClass(card.perf60d)}">
-        ${formatOptionalPercent(card.perf60d)}
+        ${formatInvestmentPeriod(card, "60d")}
     </td>
 ` : ""}
 
 ${availablePeriods.has("perf180d") ? `
     <td class="${performanceClass(card.perf180d)}">
-        ${formatOptionalPercent(card.perf180d)}
+        ${formatInvestmentPeriod(card, "180d")}
     </td>
 ` : ""}
 
 ${availablePeriods.has("perf365d") ? `
     <td class="${performanceClass(card.perf365d)}">
-        ${formatOptionalPercent(card.perf365d)}
+        ${formatInvestmentPeriod(card, "365d")}
     </td>
 ` : ""}
 
