@@ -2468,19 +2468,27 @@ function matchesInvestmentFilter(
     filterValue
 ) {
     const numericKeys = [
-        "quantity",
-        "currentEstimatedPrice",
-        "lotValue",
-        "perf7d",
-        "perf30d",
-        "perf60d",
-        "perf180d",
-        "perf365d",
-        "confidence"
-    ];
+    "quantity",
+    "currentEstimatedPrice",
+    "lotValue",
+    "perf7d",
+    "perf30d",
+    "perf60d",
+    "perf180d",
+    "perf365d",
+    "changeLot7d",
+    "changeLot30d",
+    "changeLot60d",
+    "changeLot180d",
+    "changeLot365d",
+    "confidence"
+];
 
     if (numericKeys.includes(key)) {
-        const value = card[key];
+        const value =
+    String(key).startsWith("changeLot")
+        ? getInvestmentSortValue(card, key)
+        : card[key];
 
         /*
          * Une période sans historique ne doit pas
