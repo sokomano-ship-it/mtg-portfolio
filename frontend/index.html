@@ -163,9 +163,46 @@
 
         <h2>📊 Analyse des investissements</h2>
 
-        <div id="investment-status">
-            Chargement...
-        </div>
+<div
+    id="investment-summary"
+    class="investment-summary-cards"
+>
+    <div class="investment-summary-card">
+        <span>Valeur analysée</span>
+        <strong id="investment-summary-value">-</strong>
+        <small id="investment-summary-value-detail">
+            Lots actuellement affichés
+        </small>
+    </div>
+
+    <div class="investment-summary-card">
+        <span>Performance 7 jours</span>
+        <strong id="investment-summary-performance">-</strong>
+        <small id="investment-summary-performance-detail">
+            Historique insuffisant
+        </small>
+    </div>
+
+    <div class="investment-summary-card">
+        <span>Meilleure contribution 7j</span>
+        <strong id="investment-summary-best-value">-</strong>
+        <small id="investment-summary-best-card">
+            Historique insuffisant
+        </small>
+    </div>
+
+    <div class="investment-summary-card">
+        <span>Plus forte baisse 7j</span>
+        <strong id="investment-summary-worst-value">-</strong>
+        <small id="investment-summary-worst-card">
+            Historique insuffisant
+        </small>
+    </div>
+</div>
+
+<div id="investment-status">
+    Chargement...
+</div>
 
         <div class="table-wrapper">
 
