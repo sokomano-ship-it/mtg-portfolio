@@ -2777,11 +2777,13 @@ function getInvestmentPeriodChange(card, period) {
         Number(card[`price${period}`]);
 
     if (
-        !Number.isFinite(currentPrice) ||
-        !Number.isFinite(previousPrice)
-    ) {
-        return null;
-    }
+    !Number.isFinite(currentPrice) ||
+    !Number.isFinite(previousPrice) ||
+    currentPrice < 0 ||
+    previousPrice <= 0
+) {
+    return null;
+}
 
     const quantity =
         Math.max(
@@ -2971,44 +2973,74 @@ function calculateInvestmentSummary(
             : null;
 
     const topContributions = [
-        ...rowsWithHistory
-    ]
-        .filter(row =>
-            row.change.lot > 0
-        )
-        .sort(
-            (a, b) =>
-                b.change.lot -
-                a.change.lot
-        )
-        .slice(0, 3);
+    ...rowsWithHistory
+]
+    .filter(row =>
+        row.change.lot > 0
+    )
+    .sort(
+        (a, b) =>
+            b.change.lot -
+            a.change.lot
+    )
+    .slice(0, 5);
 
-    const worstContributions = [
-        ...rowsWithHistory
-    ]
-        .filter(row =>
-            row.change.lot < 0
-        )
-        .sort(
-            (a, b) =>
-                a.change.lot -
-                b.change.lot
-        )
-        .slice(0, 3);
+const worstContributions = [
+    ...rowsWithHistory
+]
+    .filter(row =>
+        row.change.lot < 0
+    )
+    .sort(
+        (a, b) =>
+            a.change.lot -
+            b.change.lot
+    )
+    .slice(0, 5);
+
+    const positiveCount =
+    rowsWithHistory.filter(
+        row => row.change.lot > 0
+    ).length;
+
+const negativeCount =
+    rowsWithHistory.filter(
+        row => row.change.lot < 0
+    ).length;
+
+const stableCount =
+    rowsWithHistory.filter(
+        row =>
+            Math.abs(row.change.lot) <
+            0.005
+    ).length;
+
+const coveragePct =
+    rows.length > 0
+        ? (
+            rowsWithHistory.length /
+            rows.length
+        ) * 100
+        : 0;
 
     return {
-        analyzedValue,
-        rowsCount: rows.length,
+    analyzedValue,
+    rowsCount: rows.length,
 
-        rowsWithHistoryCount:
-            rowsWithHistory.length,
+    rowsWithHistoryCount:
+        rowsWithHistory.length,
 
-        periodChange,
-        periodPerformance,
+    periodChange,
+    periodPerformance,
 
-        topContributions,
-        worstContributions
-    };
+    positiveCount,
+    negativeCount,
+    stableCount,
+    coveragePct,
+
+    topContributions,
+    worstContributions
+};
 }
 
 function setInvestmentSummaryValue(
@@ -3140,6 +3172,36 @@ function updateInvestmentSummary(rows) {
             "investment-summary-performance-detail"
         );
 
+    const directionLabelElement =
+    document.getElementById(
+        "investment-summary-direction-label"
+    );
+
+const directionElement =
+    document.getElementById(
+        "investment-summary-direction"
+    );
+
+const directionDetailElement =
+    document.getElementById(
+        "investment-summary-direction-detail"
+    );
+
+const coverageLabelElement =
+    document.getElementById(
+        "investment-summary-coverage-label"
+    );
+
+const coverageElement =
+    document.getElementById(
+        "investment-summary-coverage"
+    );
+
+const coverageDetailElement =
+    document.getElementById(
+        "investment-summary-coverage-detail"
+    );
+
     const topLabelElement =
         document.getElementById(
             "investment-summary-top-label"
@@ -3185,13 +3247,23 @@ function updateInvestmentSummary(rows) {
 
     if (topLabelElement) {
         topLabelElement.textContent =
-            `Top 3 contributions — ${periodLabel}`;
+            `Top 5 contributions — ${periodLabel}`;
     }
 
     if (worstLabelElement) {
         worstLabelElement.textContent =
-            `Pires 3 contributions — ${periodLabel}`;
+            `Pires 5 contributions — ${periodLabel}`;
     }
+
+    if (directionLabelElement) {
+    directionLabelElement.textContent =
+        `Lots en hausse / baisse — ${periodLabel}`;
+}
+
+if (coverageLabelElement) {
+    coverageLabelElement.textContent =
+        `Couverture historique — ${periodLabel}`;
+}
 
     if (
         summary.periodChange === null ||
@@ -3223,6 +3295,26 @@ function updateInvestmentSummary(rows) {
             `;
         }
 
+        setInvestmentSummaryValue(
+    directionElement,
+    "-"
+);
+
+if (directionDetailElement) {
+    directionDetailElement.textContent =
+        `Historique ${periodLabel} insuffisant`;
+}
+
+setInvestmentSummaryValue(
+    coverageElement,
+    `0 / ${summary.rowsCount}`
+);
+
+if (coverageDetailElement) {
+    coverageDetailElement.textContent =
+        "0,0 % des lots affichés";
+}
+
         return;
     }
 
@@ -3251,6 +3343,38 @@ function updateInvestmentSummary(rows) {
                     : ""
             } avec historique`;
     }
+
+    setInvestmentSummaryValue(
+    directionElement,
+    `${summary.positiveCount} / ${summary.negativeCount}`
+);
+
+if (directionDetailElement) {
+    directionDetailElement.textContent =
+        `${summary.positiveCount} en hausse · ` +
+        `${summary.negativeCount} en baisse · ` +
+        `${summary.stableCount} stable${
+            summary.stableCount > 1
+                ? "s"
+                : ""
+        }`;
+}
+
+setInvestmentSummaryValue(
+    coverageElement,
+    `${summary.rowsWithHistoryCount} / ${summary.rowsCount}`
+);
+
+if (coverageDetailElement) {
+    coverageDetailElement.textContent =
+        `${summary.coveragePct.toLocaleString(
+            "fr-FR",
+            {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1
+            }
+        )} % des lots affichés`;
+}
 
     renderInvestmentRanking(
         topListElement,

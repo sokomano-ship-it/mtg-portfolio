@@ -1661,17 +1661,14 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 .investment-summary-cards {
     display: grid;
     grid-template-columns:
-        minmax(180px, 0.8fr)
-        minmax(210px, 0.9fr)
-        minmax(300px, 1.35fr)
-        minmax(300px, 1.35fr);
+        repeat(4, minmax(0, 1fr));
     gap: 14px;
     margin-bottom: 16px;
 }
 
 .investment-summary-card {
     min-width: 0;
-    min-height: 132px;
+    min-height: 86px;
     padding: 16px 18px;
     background: #111520;
     border: 1px solid
@@ -1681,6 +1678,20 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.investment-summary-compact {
+    min-height: 86px;
+    padding: 12px 14px;
+}
+
+.investment-summary-compact > span {
+    margin-bottom: 6px;
+}
+
+.investment-summary-compact > strong {
+    margin-bottom: 5px;
+    font-size: 21px;
 }
 
 .investment-summary-card > span {
@@ -1705,13 +1716,15 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 }
 
 .investment-ranking-card {
+    grid-column: span 2;
+    min-height: 238px;
     justify-content: flex-start;
 }
 
 .investment-ranking-list {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 5px;
 }
 
 .investment-ranking-row {
@@ -1720,7 +1733,7 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         22px minmax(0, 1fr) auto;
     gap: 9px;
     align-items: center;
-    padding-top: 7px;
+    padding-top: 5px;
     border-top: 1px solid
         rgba(255, 255, 255, 0.07);
 }
@@ -1787,6 +1800,10 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
+
+    .investment-ranking-card {
+        grid-column: span 1;
+    }
 }
 
 @media (max-width: 700px) {
@@ -1794,6 +1811,10 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         align-items: stretch;
         flex-direction: column;
     }
+
+    .investment-ranking-card {
+    grid-column: span 1;
+}
 
     .investment-summary-toolbar select {
         width: 100%;
