@@ -4,7 +4,7 @@ let allOpportunities = [];
 let allInvestmentAnalysis = [];
 let selectedInvestmentCardId = null;
 
-let currentInvestmentSort = "perf30d";
+let currentInvestmentSort = "changeLot7d";
 let currentInvestmentDirection = "desc";
 
 let currentMoverSort = "perf30d";
@@ -2626,6 +2626,30 @@ function getInvestmentPeriodChange(card, period) {
     };
 }
 
+function getInvestmentSortValue(card, sortKey) {
+    const lotChangeMatch =
+        String(sortKey || "").match(
+            /^changeLot(7d|30d|60d|180d|365d)$/
+        );
+
+    if (lotChangeMatch) {
+        const period =
+            lotChangeMatch[1];
+
+        const change =
+            getInvestmentPeriodChange(
+                card,
+                period
+            );
+
+        return change
+            ? change.lot
+            : null;
+    }
+
+    return card[sortKey];
+}
+
 function formatInvestmentPeriod(card, period) {
     const performance =
         card[`perf${period}`];
@@ -2694,8 +2718,14 @@ function renderInvestmentAnalysis() {
 const sortedRows = [...filteredRows].sort(
     (a, b) => {
         return compareValues(
-            a[currentInvestmentSort],
-            b[currentInvestmentSort],
+            getInvestmentSortValue(
+                a,
+                currentInvestmentSort
+            ),
+            getInvestmentSortValue(
+                b,
+                currentInvestmentSort
+            ),
             currentInvestmentDirection
         );
     }
