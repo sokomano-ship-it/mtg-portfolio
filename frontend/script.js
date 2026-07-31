@@ -563,10 +563,21 @@ function populateCategories(cards) {
 }
 
 function setupCollectionFilters() {
-    document.querySelectorAll(".collection-filter").forEach(input => {
-        input.removeEventListener("input", filterCards);
-        input.addEventListener("input", filterCards);
-    });
+    document
+        .querySelectorAll(
+            ".collection-filter:not(.investment-filter)"
+        )
+        .forEach(input => {
+            input.removeEventListener(
+                "input",
+                filterCards
+            );
+
+            input.addEventListener(
+                "input",
+                filterCards
+            );
+        });
 }
 
 function setupCollectionSorting() {
@@ -2422,6 +2433,96 @@ function updateInvestmentPeriodColumns(rows) {
     return availablePeriods;
 }
 
+function setupInvestmentFilters() {
+    document
+        .querySelectorAll(".investment-filter")
+        .forEach(input => {
+            input.oninput =
+                renderInvestmentAnalysis;
+        });
+}
+
+function getInvestmentFilters() {
+    const filters = {};
+
+    document
+        .querySelectorAll(".investment-filter")
+        .forEach(input => {
+            const key =
+                input.dataset.filter;
+
+            const value =
+                input.value.trim();
+
+            if (key && value) {
+                filters[key] = value;
+            }
+        });
+
+    return filters;
+}
+
+function matchesInvestmentFilter(
+    card,
+    key,
+    filterValue
+) {
+    const numericKeys = [
+        "quantity",
+        "currentEstimatedPrice",
+        "lotValue",
+        "perf7d",
+        "perf30d",
+        "perf60d",
+        "perf180d",
+        "perf365d",
+        "confidence"
+    ];
+
+    if (numericKeys.includes(key)) {
+        const value = card[key];
+
+        /*
+         * Une période sans historique ne doit pas
+         * être considérée comme égale à zéro.
+         */
+        if (
+            value === null ||
+            value === undefined ||
+            value === ""
+        ) {
+            return false;
+        }
+
+        return matchesNumericFilter(
+            Number(value),
+            filterValue
+        );
+    }
+
+    return normalizeText(
+        String(card[key] || "")
+    ).includes(
+        normalizeText(filterValue)
+    );
+}
+
+function getFilteredInvestmentRows() {
+    const filters =
+        getInvestmentFilters();
+
+    return allInvestmentAnalysis.filter(card =>
+        Object.entries(filters).every(
+            ([key, value]) =>
+                matchesInvestmentFilter(
+                    card,
+                    key,
+                    value
+                )
+        )
+    );
+}
+
 async function loadInvestmentAnalysis() {
     const status = document.getElementById("investment-status");
     if (!status) return;
@@ -2435,6 +2536,8 @@ async function loadInvestmentAnalysis() {
         updateInvestmentPeriodColumns(
     allInvestmentAnalysis
 );
+
+setupInvestmentFilters();
 
         document
             .querySelectorAll("#tab-investment-analysis .sortable")
@@ -2502,13 +2605,35 @@ function renderInvestmentAnalysis() {
         allInvestmentAnalysis
     );
 
-    const sortedRows = [...allInvestmentAnalysis].sort((a, b) => {
+    const filteredRows =
+    getFilteredInvestmentRows();
+
+const sortedRows = [...filteredRows].sort(
+    (a, b) => {
         return compareValues(
             a[currentInvestmentSort],
             b[currentInvestmentSort],
             currentInvestmentDirection
         );
-    });
+    }
+);
+
+const status =
+    document.getElementById(
+        "investment-status"
+    );
+
+if (status) {
+    status.textContent =
+        filteredRows.length ===
+        allInvestmentAnalysis.length
+            ? `${allInvestmentAnalysis.length} lignes analysées`
+            : `${filteredRows.length} ligne${
+                filteredRows.length > 1 ? "s" : ""
+            } affichée${
+                filteredRows.length > 1 ? "s" : ""
+            } sur ${allInvestmentAnalysis.length}`;
+}
 
     tbody.innerHTML = "";
 

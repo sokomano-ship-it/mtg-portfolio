@@ -273,7 +273,14 @@
         >
     </th>
 
-    <th></th>
+    <th>
+    <input
+        class="collection-filter investment-filter"
+        data-filter="quantity"
+        placeholder="Qté min."
+        inputmode="numeric"
+    >
+</th>
 
     <th>
         <input
@@ -293,20 +300,50 @@
         >
     </th>
 
-    <th data-investment-period="perf7d"></th>
+    <th data-investment-period="perf7d">
+    <input
+        class="collection-filter investment-filter"
+        data-filter="perf7d"
+        placeholder="7j min."
+        inputmode="decimal"
+    >
+</th>
 
 <th data-investment-period="perf30d">
     <input
         class="collection-filter investment-filter"
         data-filter="perf30d"
-        placeholder="Variation min."
+        placeholder="30j min."
         inputmode="decimal"
     >
 </th>
 
-<th data-investment-period="perf60d"></th>
-<th data-investment-period="perf180d"></th>
-<th data-investment-period="perf365d"></th>
+<th data-investment-period="perf60d">
+    <input
+        class="collection-filter investment-filter"
+        data-filter="perf60d"
+        placeholder="60j min."
+        inputmode="decimal"
+    >
+</th>
+
+<th data-investment-period="perf180d">
+    <input
+        class="collection-filter investment-filter"
+        data-filter="perf180d"
+        placeholder="180j min."
+        inputmode="decimal"
+    >
+</th>
+
+<th data-investment-period="perf365d">
+    <input
+        class="collection-filter investment-filter"
+        data-filter="perf365d"
+        placeholder="365j min."
+        inputmode="decimal"
+    >
+</th>
 
     <th>
         <input
