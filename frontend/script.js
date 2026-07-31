@@ -733,30 +733,99 @@ function matchesNumericFilter(number, filter) {
         .replace("€", "")
         .trim();
 
-    if (!value) return true;
+    if (!value) {
+        return true;
+    }
 
-    const rangeMatch = value.match(/^(\d+(\.\d+)?)\s*-\s*(\d+(\.\d+)?)$/);
+    /*
+     * Intervalle positif ou négatif.
+     *
+     * Exemples acceptés :
+     * 5-10
+     * -10--5
+     * -5-5
+     */
+    const rangeMatch = value.match(
+        /^(-?\d+(?:\.\d+)?)\s*-\s*(-?\d+(?:\.\d+)?)$/
+    );
+
     if (rangeMatch) {
-        return number >= Number(rangeMatch[1]) && number <= Number(rangeMatch[3]);
+        const firstValue =
+            Number(rangeMatch[1]);
+
+        const secondValue =
+            Number(rangeMatch[2]);
+
+        const minimum =
+            Math.min(firstValue, secondValue);
+
+        const maximum =
+            Math.max(firstValue, secondValue);
+
+        return (
+            number >= minimum &&
+            number <= maximum
+        );
     }
 
-    const greaterOrEqualMatch = value.match(/^>=\s*(\d+(\.\d+)?)$/);
-    if (greaterOrEqualMatch) return number >= Number(greaterOrEqualMatch[1]);
+    const greaterOrEqualMatch = value.match(
+        /^>=\s*(-?\d+(?:\.\d+)?)$/
+    );
 
-    const lowerOrEqualMatch = value.match(/^<=\s*(\d+(\.\d+)?)$/);
-    if (lowerOrEqualMatch) return number <= Number(lowerOrEqualMatch[1]);
+    if (greaterOrEqualMatch) {
+        return (
+            number >=
+            Number(greaterOrEqualMatch[1])
+        );
+    }
 
-    const greaterMatch = value.match(/^>\s*(\d+(\.\d+)?)$/);
-    if (greaterMatch) return number > Number(greaterMatch[1]);
+    const lowerOrEqualMatch = value.match(
+        /^<=\s*(-?\d+(?:\.\d+)?)$/
+    );
 
-    const lowerMatch = value.match(/^<\s*(\d+(\.\d+)?)$/);
-    if (lowerMatch) return number < Number(lowerMatch[1]);
+    if (lowerOrEqualMatch) {
+        return (
+            number <=
+            Number(lowerOrEqualMatch[1])
+        );
+    }
 
-    const exactNumber = Number(value);
+    const greaterMatch = value.match(
+        /^>\s*(-?\d+(?:\.\d+)?)$/
+    );
+
+    if (greaterMatch) {
+        return (
+            number >
+            Number(greaterMatch[1])
+        );
+    }
+
+    const lowerMatch = value.match(
+        /^<\s*(-?\d+(?:\.\d+)?)$/
+    );
+
+    if (lowerMatch) {
+        return (
+            number <
+            Number(lowerMatch[1])
+        );
+    }
+
+    const exactNumber =
+        Number(value);
+
     if (!Number.isNaN(exactNumber)) {
-        return Math.abs(number - exactNumber) < 0.005;
+        return (
+            Math.abs(number - exactNumber) <
+            0.005
+        );
     }
 
+    /*
+     * Une syntaxe incorrecte ne doit pas
+     * masquer toutes les lignes.
+     */
     return true;
 }
 
