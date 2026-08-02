@@ -37,6 +37,18 @@ let investmentLoaded = false;
 let moversLoaded = false;
 let collectionLoaded = false;
 
+let opportunityFilters = {
+    card: "",
+    edition: "",
+    language: "",
+    owned: "",
+    condition: "",
+    confidence: "",
+    score: "",
+    price: "",
+    gain: ""
+};
+
 const MODEL_START_DATE = "2026-07-12";
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
@@ -4283,21 +4295,348 @@ function updateMoverHeaderState() {
         });
 }
 
+function fillOpportunityFilterSelect(
+    selectId,
+    values
+) {
+    const select =
+        document.getElementById(selectId);
+
+    if (!select) {
+        return;
+    }
+
+    /*
+     * Conserve uniquement l'option "Toutes"
+     * avant de reconstruire la liste.
+     */
+    select.innerHTML = `
+        <option value="">Toutes</option>
+    `;
+
+    values.forEach(value => {
+        const option =
+            document.createElement("option");
+
+        option.value = value;
+        option.textContent = value;
+
+        select.appendChild(option);
+    });
+}
+
+function buildOpportunityFilters() {
+    const editions = [
+        ...new Set(
+            allOpportunities
+                .map(card =>
+                    String(card.edition || "").trim()
+                )
+                .filter(Boolean)
+        )
+    ].sort((a, b) =>
+        a.localeCompare(
+            b,
+            "fr",
+            { sensitivity: "base" }
+        )
+    );
+
+    const languages = [
+        ...new Set(
+            allOpportunities
+                .map(card =>
+                    String(card.langue || "").trim()
+                )
+                .filter(Boolean)
+        )
+    ].sort((a, b) =>
+        a.localeCompare(
+            b,
+            "fr",
+            { sensitivity: "base" }
+        )
+    );
+
+    fillOpportunityFilterSelect(
+        "opp-filter-edition",
+        editions
+    );
+
+    fillOpportunityFilterSelect(
+        "opp-filter-language",
+        languages
+    );
+}
+
+function getOpportunityFilterValues() {
+    return {
+        card:
+            document.getElementById(
+                "opp-filter-card"
+            )?.value.trim() || "",
+
+        edition:
+            document.getElementById(
+                "opp-filter-edition"
+            )?.value || "",
+
+        language:
+            document.getElementById(
+                "opp-filter-language"
+            )?.value || "",
+
+        owned:
+            document.getElementById(
+                "opp-filter-owned"
+            )?.value || "",
+
+        condition:
+            document.getElementById(
+                "opp-filter-condition"
+            )?.value || "",
+
+        confidence:
+            document.getElementById(
+                "opp-filter-confidence"
+            )?.value.trim() || "",
+
+        score:
+            document.getElementById(
+                "opp-filter-score"
+            )?.value.trim() || "",
+
+        price:
+            document.getElementById(
+                "opp-filter-price"
+            )?.value.trim() || "",
+
+        gain:
+            document.getElementById(
+                "opp-filter-gain"
+            )?.value.trim() || ""
+    };
+}
+
+function getRecommendedOpportunityMetrics(card) {
+    const metrics =
+        getOpportunityMetrics(card);
+
+    const best =
+        getBestOpportunityCondition(card);
+
+    if (!best) {
+        return null;
+    }
+
+    const isNm =
+        best.condition === "NM";
+
+    const marketPrice =
+        isNm
+            ? metrics.marketNM
+            : metrics.marketEX;
+
+    const targetPrice =
+        isNm
+            ? metrics.targetNM
+            : metrics.targetEX;
+
+    if (
+        marketPrice === null ||
+        marketPrice === undefined ||
+        targetPrice === null ||
+        targetPrice === undefined
+    ) {
+        return null;
+    }
+
+    return {
+        condition: best.condition,
+        marketPrice:
+            Number(marketPrice),
+        targetPrice:
+            Number(targetPrice),
+        gain:
+            Number(targetPrice) -
+            Number(marketPrice),
+        margin:
+            Number(best.discount)
+    };
+}
+
+function matchesOpportunityFilters(card) {
+    const filters =
+        getOpportunityFilterValues();
+
+    if (
+        filters.card &&
+        !normalizeText(
+            card.nomCarte || ""
+        ).includes(
+            normalizeText(filters.card)
+        )
+    ) {
+        return false;
+    }
+
+    if (
+        filters.edition &&
+        String(card.edition || "") !==
+            filters.edition
+    ) {
+        return false;
+    }
+
+    if (
+        filters.language &&
+        String(card.langue || "") !==
+            filters.language
+    ) {
+        return false;
+    }
+
+    if (
+        filters.owned === "yes" &&
+        !card.owned
+    ) {
+        return false;
+    }
+
+    if (
+        filters.owned === "no" &&
+        card.owned
+    ) {
+        return false;
+    }
+
+    const recommended =
+        getRecommendedOpportunityMetrics(card);
+
+    if (
+        filters.condition &&
+        recommended?.condition !==
+            filters.condition
+    ) {
+        return false;
+    }
+
+    const confidence =
+        Number(
+            card.gradeModelConfidence ??
+            card.pricingConfidence ??
+            card.confidence ??
+            0
+        );
+
+    if (
+        filters.confidence &&
+        !matchesNumericFilter(
+            confidence,
+            filters.confidence
+        )
+    ) {
+        return false;
+    }
+
+    const score =
+        calculateOpportunityScore(card);
+
+    if (
+        filters.score &&
+        !matchesNumericFilter(
+            score,
+            filters.score
+        )
+    ) {
+        return false;
+    }
+
+    if (filters.price) {
+        if (
+            !recommended ||
+            !matchesNumericFilter(
+                recommended.marketPrice,
+                filters.price
+            )
+        ) {
+            return false;
+        }
+    }
+
+    if (filters.gain) {
+        if (
+            !recommended ||
+            !matchesNumericFilter(
+                recommended.gain,
+                filters.gain
+            )
+        ) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function setupOpportunityFilters() {
+    document
+        .querySelectorAll(
+            ".opportunity-filter"
+        )
+        .forEach(element => {
+            element.oninput =
+                renderOpportunities;
+
+            element.onchange =
+                renderOpportunities;
+        });
+
+    const resetButton =
+        document.getElementById(
+            "opp-filter-reset"
+        );
+
+    if (resetButton) {
+        resetButton.onclick = () => {
+            document
+                .querySelectorAll(
+                    ".opportunity-filter"
+                )
+                .forEach(element => {
+                    element.value = "";
+                });
+
+            renderOpportunities();
+        };
+    }
+}
+
 async function loadOpportunities() {
-    const status = document.getElementById("opportunities-status");
-    if (!status) return;
+    const status =
+        document.getElementById(
+            "opportunities-status"
+        );
+
+    if (!status) {
+        return;
+    }
 
     try {
-        allOpportunities = await window.apiAdapter.getOpportunities();
+        allOpportunities =
+            await window.apiAdapter
+                .getOpportunities();
 
-        status.textContent =
-            `${allOpportunities.length} lignes affichées`;
-
+        buildOpportunityFilters();
+        setupOpportunityFilters();
         setupOpportunitySorting();
+
         renderOpportunities();
     } catch (error) {
         console.error(error);
-        status.textContent = "Erreur : " + error.message;
+
+        status.textContent =
+            "Erreur : " + error.message;
     }
 }
 
@@ -4728,16 +5067,56 @@ function getBuyingActionClass(card) {
 }
 
 function renderOpportunities() {
-    const tbody = document.getElementById("opportunities-body");
-    if (!tbody) return;
+    const tbody =
+        document.getElementById(
+            "opportunities-body"
+        );
 
-    const sorted = [...allOpportunities].sort((a, b) => {
-    return compareValues(
-        getOpportunitySortValue(a, currentOpportunitySort),
-        getOpportunitySortValue(b, currentOpportunitySort),
-        currentOpportunityDirection
+    if (!tbody) {
+        return;
+    }
+
+    const filtered =
+        allOpportunities.filter(
+            matchesOpportunityFilters
+        );
+
+    const sorted = [...filtered].sort(
+        (a, b) => {
+            return compareValues(
+                getOpportunitySortValue(
+                    a,
+                    currentOpportunitySort
+                ),
+                getOpportunitySortValue(
+                    b,
+                    currentOpportunitySort
+                ),
+                currentOpportunityDirection
+            );
+        }
     );
-});
+
+    const status =
+        document.getElementById(
+            "opportunities-status"
+        );
+
+    if (status) {
+        status.textContent =
+            filtered.length ===
+            allOpportunities.length
+                ? `${allOpportunities.length} lignes affichées`
+                : `${filtered.length} ligne${
+                    filtered.length > 1
+                        ? "s"
+                        : ""
+                } affichée${
+                    filtered.length > 1
+                        ? "s"
+                        : ""
+                } sur ${allOpportunities.length}`;
+    }
 
     tbody.innerHTML = "";
 

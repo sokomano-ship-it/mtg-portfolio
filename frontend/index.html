@@ -561,6 +561,112 @@ placeholder="Gain lot >=5"
 
             <div id="opportunities-status">Chargement...</div>
 
+            <div class="opportunity-filter-toolbar">
+
+    <label>
+        Carte
+        <input
+            id="opp-filter-card"
+            class="opportunity-filter"
+            placeholder="Nom de la carte"
+            autocomplete="off"
+        >
+    </label>
+
+    <label>
+        Édition
+        <select
+            id="opp-filter-edition"
+            class="opportunity-filter"
+        >
+            <option value="">Toutes</option>
+        </select>
+    </label>
+
+    <label>
+        Langue
+        <select
+            id="opp-filter-language"
+            class="opportunity-filter"
+        >
+            <option value="">Toutes</option>
+        </select>
+    </label>
+
+    <label>
+        Possession
+        <select
+            id="opp-filter-owned"
+            class="opportunity-filter"
+        >
+            <option value="">Toutes</option>
+            <option value="yes">Possédée</option>
+            <option value="no">Non possédée</option>
+        </select>
+    </label>
+
+    <label>
+        État conseillé
+        <select
+            id="opp-filter-condition"
+            class="opportunity-filter"
+        >
+            <option value="">Tous</option>
+            <option value="NM">NM</option>
+            <option value="EX">EX</option>
+        </select>
+    </label>
+
+    <label>
+        Confiance
+        <input
+            id="opp-filter-confidence"
+            class="opportunity-filter"
+            placeholder=">=60"
+            inputmode="decimal"
+        >
+    </label>
+
+    <label>
+        Score
+        <input
+            id="opp-filter-score"
+            class="opportunity-filter"
+            placeholder=">=70"
+            inputmode="decimal"
+        >
+    </label>
+
+    <label>
+        Prix marché
+        <input
+            id="opp-filter-price"
+            class="opportunity-filter"
+            placeholder=">=5"
+            inputmode="decimal"
+        >
+    </label>
+
+    <label>
+        Gain potentiel
+        <input
+            id="opp-filter-gain"
+            class="opportunity-filter"
+            placeholder=">=1"
+            inputmode="decimal"
+        >
+    </label>
+
+    <button
+        id="opp-filter-reset"
+        type="button"
+        class="secondary-button opportunity-filter-reset"
+    >
+        Réinitialiser
+    </button>
+
+</div>
+
             <div class="table-wrapper">
                 <table>
                     <thead>
