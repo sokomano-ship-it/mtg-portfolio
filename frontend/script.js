@@ -14,6 +14,7 @@ let currentMoverDirection = "desc";
 let currentOpportunitySort = "opportunityScore";
 
 let currentOpportunityDirection = "desc";
+let currentOpportunityDisplayLevel = "strong";
 
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
@@ -4628,10 +4629,12 @@ async function loadOpportunities() {
                 .getOpportunities();
 
         buildOpportunityFilters();
-        setupOpportunityFilters();
-        setupOpportunitySorting();
+setupOpportunityFilters();
+setupOpportunitySorting();
+setupOpportunityLevelButtons();
+updateOpportunityLevelCounts();
 
-        renderOpportunities();
+renderOpportunities();
     } catch (error) {
         console.error(error);
 
@@ -5018,52 +5021,234 @@ function getBestOpportunityCondition(card) {
         };
 }
 
-function getBuyingAction(card) {
-    const score = calculateOpportunityScore(card);
+function getOpportunityLevel(card) {
+    const score =
+        calculateOpportunityScore(card);
+
     const bestOpportunity =
         getBestOpportunityCondition(card);
 
     if (!bestOpportunity) {
-        return "⚪ Attendre";
+        return "rejected";
     }
-
-    const condition =
-        bestOpportunity.condition;
 
     const discount =
-        bestOpportunity.discount;
+        Number(bestOpportunity.discount);
 
-    if (score >= 80 && discount >= 15) {
-        return `⭐ Forte opportunité ${condition}`;
+    if (!Number.isFinite(discount)) {
+        return "rejected";
     }
 
-    if (score >= 68 && discount >= 8) {
-        return `🟢 Acheter en ${condition}`;
+    /*
+     * Niveau le plus strict :
+     * excellente marge et score élevé.
+     */
+    if (
+        score >= 80 &&
+        discount >= 15
+    ) {
+        return "strong";
     }
 
-    if (score >= 55 && discount > 0) {
-        return `🟡 Surveiller en ${condition}`;
+    /*
+     * Candidate positive à surveiller.
+     *
+     * Cela regroupe les anciennes catégories :
+     * - Acheter
+     * - Surveiller
+     */
+    if (
+        score >= 55 &&
+        discount > 0
+    ) {
+        return "watch";
     }
 
-    return "⚪ Attendre";
+    return "rejected";
+}
+
+function getOpportunityLevelLabel(card) {
+    const level =
+        getOpportunityLevel(card);
+
+    if (level === "strong") {
+        return "⭐ Forte opportunité";
+    }
+
+    if (level === "watch") {
+        return "🟡 À surveiller";
+    }
+
+    return "⚪ Non retenue";
+}
+
+function getBuyingAction(card) {
+    const level =
+        getOpportunityLevel(card);
+
+    const bestOpportunity =
+        getBestOpportunityCondition(card);
+
+    const condition =
+        bestOpportunity?.condition || null;
+
+    if (level === "strong") {
+        return condition
+            ? `⭐ Forte opportunité ${condition}`
+            : "⭐ Forte opportunité";
+    }
+
+    if (level === "watch") {
+        return condition
+            ? `🟡 À surveiller en ${condition}`
+            : "🟡 À surveiller";
+    }
+
+    return "⚪ Non retenue";
 }
 
 function getBuyingActionClass(card) {
-    const action = getBuyingAction(card);
+    const level =
+        getOpportunityLevel(card);
 
-    if (action.includes("Forte opportunité")) {
+    if (level === "strong") {
         return "decision-buy";
     }
 
-    if (action.includes("Acheter")) {
-        return "decision-buy";
-    }
-
-    if (action.includes("Surveiller")) {
+    if (level === "watch") {
         return "decision-watch";
     }
 
     return "decision-neutral";
+}
+
+function matchesOpportunityDisplayLevel(card) {
+    const level =
+        getOpportunityLevel(card);
+
+    if (
+        currentOpportunityDisplayLevel ===
+        "all"
+    ) {
+        return true;
+    }
+
+    if (
+        currentOpportunityDisplayLevel ===
+        "watch"
+    ) {
+        return (
+            level === "strong" ||
+            level === "watch"
+        );
+    }
+
+    /*
+     * Valeur par défaut :
+     * uniquement les fortes opportunités.
+     */
+    return level === "strong";
+}
+
+function getOpportunityLevelCounts(rows) {
+    return rows.reduce(
+        (counts, card) => {
+            const level =
+                getOpportunityLevel(card);
+
+            counts.all += 1;
+
+            if (level === "strong") {
+                counts.strong += 1;
+            }
+
+            if (
+                level === "strong" ||
+                level === "watch"
+            ) {
+                counts.watch += 1;
+            }
+
+            return counts;
+        },
+        {
+            strong: 0,
+            watch: 0,
+            all: 0
+        }
+    );
+}
+
+function updateOpportunityLevelCounts() {
+    const counts =
+        getOpportunityLevelCounts(
+            allOpportunities
+        );
+
+    const strongElement =
+        document.getElementById(
+            "opportunity-count-strong"
+        );
+
+    const watchElement =
+        document.getElementById(
+            "opportunity-count-watch"
+        );
+
+    const allElement =
+        document.getElementById(
+            "opportunity-count-all"
+        );
+
+    if (strongElement) {
+        strongElement.textContent =
+            counts.strong;
+    }
+
+    if (watchElement) {
+        watchElement.textContent =
+            counts.watch;
+    }
+
+    if (allElement) {
+        allElement.textContent =
+            counts.all;
+    }
+}
+
+function updateOpportunityLevelButtonState() {
+    document
+        .querySelectorAll(
+            "[data-opportunity-level]"
+        )
+        .forEach(button => {
+            button.classList.toggle(
+                "active",
+                button.dataset
+                    .opportunityLevel ===
+                    currentOpportunityDisplayLevel
+            );
+        });
+}
+
+function setupOpportunityLevelButtons() {
+    document
+        .querySelectorAll(
+            "[data-opportunity-level]"
+        )
+        .forEach(button => {
+            button.onclick = () => {
+                currentOpportunityDisplayLevel =
+                    button.dataset
+                        .opportunityLevel ||
+                    "strong";
+
+                updateOpportunityLevelButtonState();
+                renderOpportunities();
+            };
+        });
+
+    updateOpportunityLevelButtonState();
 }
 
 function renderOpportunities() {
@@ -5076,10 +5261,15 @@ function renderOpportunities() {
         return;
     }
 
-    const filtered =
-        allOpportunities.filter(
-            matchesOpportunityFilters
-        );
+    const levelFiltered =
+    allOpportunities.filter(
+        matchesOpportunityDisplayLevel
+    );
+
+const filtered =
+    levelFiltered.filter(
+        matchesOpportunityFilters
+    );
 
     const sorted = [...filtered].sort(
         (a, b) => {
@@ -5103,20 +5293,38 @@ function renderOpportunities() {
         );
 
     if (status) {
-        status.textContent =
-            filtered.length ===
-            allOpportunities.length
-                ? `${allOpportunities.length} lignes affichées`
-                : `${filtered.length} ligne${
-                    filtered.length > 1
-                        ? "s"
-                        : ""
-                } affichée${
-                    filtered.length > 1
-                        ? "s"
-                        : ""
-                } sur ${allOpportunities.length}`;
-    }
+    const levelLabel =
+        currentOpportunityDisplayLevel ===
+        "strong"
+            ? "fortes opportunités"
+            : currentOpportunityDisplayLevel ===
+              "watch"
+                ? "fortes opportunités et candidates à surveiller"
+                : "candidates";
+
+    const hasUserFilters =
+        filtered.length !==
+        levelFiltered.length;
+
+    status.textContent =
+        hasUserFilters
+            ? `${filtered.length} ligne${
+    filtered.length === 1
+        ? ""
+        : "s"
+} affichée${
+    filtered.length === 1
+        ? ""
+        : "s"
+} sur ${
+                levelFiltered.length
+            } ${levelLabel}`
+            : `${filtered.length} ${levelLabel} affichée${
+    filtered.length === 1
+        ? ""
+        : "s"
+}`;
+}
 
     tbody.innerHTML = "";
 

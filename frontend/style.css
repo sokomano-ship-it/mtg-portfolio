@@ -1848,6 +1848,102 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 }
 
 /* ===========================
+   Opportunity levels
+   =========================== */
+
+.opportunity-level-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+
+    margin: 14px 0 0;
+}
+
+.opportunity-level-title {
+    color: #9fa7b7;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.opportunity-level-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.opportunity-level-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 34px;
+    padding: 7px 12px;
+
+    color: #c8d0df;
+    background: #171b26;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.12);
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.opportunity-level-button:hover {
+    color: #ffffff;
+    background: #202636;
+}
+
+.opportunity-level-button.active {
+    color: #0f1117;
+    background: #7fb7ff;
+    border-color: #7fb7ff;
+}
+
+.opportunity-level-count {
+    min-width: 22px;
+    padding: 2px 6px;
+
+    color: inherit;
+    background:
+        rgba(255, 255, 255, 0.16);
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    text-align: center;
+}
+
+.opportunity-level-button.active
+.opportunity-level-count {
+    background:
+        rgba(15, 17, 23, 0.16);
+}
+
+@media (max-width: 700px) {
+    .opportunity-level-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .opportunity-level-buttons {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .opportunity-level-button {
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+/* ===========================
    Opportunity filters
    =========================== */
 
