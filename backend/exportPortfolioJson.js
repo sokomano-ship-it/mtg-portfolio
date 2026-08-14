@@ -17,6 +17,14 @@ const marketObservationsFile = path.join(
     "marketObservations.json"
 );
 
+const TRACKED_PRICE_HISTORY_PATH = path.join(
+    __dirname,
+    "..",
+    "frontend",
+    "data",
+    "tracked-price-history.json"
+);
+
 
 const splitOutputFiles = {
     cards: path.join(outputDir, "cards.json"),
@@ -608,6 +616,126 @@ function groupByCardEditionEtat(rows) {
     });
 
     return [...grouped.values()];
+}
+
+function saveTrackedPriceHistory(watchlistCards) {
+    const history = fs.existsSync(TRACKED_PRICE_HISTORY_PATH)
+        ? JSON.parse(fs.readFileSync(TRACKED_PRICE_HISTORY_PATH, "utf8"))
+        : [];
+
+    const today = new Date().toISOString().slice(0, 10);
+
+    const existingKeys = new Set(
+        history.map(row =>
+            `${row.date}|${row.nomCarte}|${row.edition}|${row.langue}`
+        )
+    );
+
+    let trackedSavedCount = 0;
+
+    for (const card of watchlistCards) {
+
+    // L'historique tracked ne contient que les cartes
+    // suivies hors collection.
+    if (
+        card.owned === true ||
+        Number(card.quantityOwned || 0) > 0
+    ) {
+        continue;
+    }
+
+    const trendPrice = Number(card.trendPrice || 0);
+
+        const estimatedNmPrice =
+            Number(card.estimatedByCondition?.NM) ||
+            Number(card.estimatedPrice) ||
+            trendPrice;
+
+        const estimatedExPrice =
+            Number(card.estimatedByCondition?.EX) ||
+            estimatedNmPrice * 0.85;
+
+        if (!estimatedNmPrice) {
+            continue;
+        }
+
+        const row = {
+            date: today,
+
+            trackedId: card.id,
+            nomCarte: card.nomCarte,
+            edition: card.edition,
+            version: card.version || null,
+            langue: card.langue,
+
+            owned: false,
+
+            estimatedByCondition: {
+                NM: Number(estimatedNmPrice.toFixed(2)),
+                EX: Number(estimatedExPrice.toFixed(2))
+            },
+
+            trendPrice: trendPrice
+                ? Number(trendPrice.toFixed(2))
+                : null,
+
+            avg1: Number(card.avg1 || 0) || null,
+            avg7: Number(card.avg7 || 0) || null,
+            avg30: Number(card.avg30 || 0) || null,
+
+            gradeModelConfidence:
+                card.gradeModelConfidence ?? null,
+
+            gradeModelSource:
+                card.gradeModelSource || null
+        };
+
+        const key =
+            `${row.date}|${row.nomCarte}|${row.edition}|${row.langue}`;
+
+                if (!existingKeys.has(key)) {
+            history.push(row);
+            existingKeys.add(key);
+        } else {
+            const index = history.findIndex(existing =>
+                `${existing.date}|${existing.nomCarte}|${existing.edition}|${existing.langue}` === key
+            );
+
+            if (index >= 0) {
+                history[index] = row;
+            }
+        }
+
+        trackedSavedCount += 1;
+    }
+    history.sort((a, b) => {
+        const dateCompare =
+            String(a.date).localeCompare(String(b.date));
+
+        if (dateCompare !== 0) {
+            return dateCompare;
+        }
+
+        return `${a.nomCarte}|${a.edition}|${a.langue}`
+            .localeCompare(
+                `${b.nomCarte}|${b.edition}|${b.langue}`
+            );
+    });
+
+    fs.mkdirSync(
+        path.dirname(TRACKED_PRICE_HISTORY_PATH),
+        { recursive: true }
+    );
+
+    fs.writeFileSync(
+        TRACKED_PRICE_HISTORY_PATH,
+        JSON.stringify(history, null, 2),
+        "utf8"
+    );
+
+    console.log(
+        `Historique tracked : ${trackedSavedCount} carte(s) pour ${today}`
+    );
 }
 
 async function main() {
@@ -1380,6 +1508,8 @@ const observedPricesByCard =
 
 const watchlistCards =
     buildWatchlistCards(cards, trackedMarketCards);
+
+saveTrackedPriceHistory(watchlistCards);
 
 const opportunities = buildNmOpportunities(watchlistCards)
     .map(opportunity => {
