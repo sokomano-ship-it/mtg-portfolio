@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-14T17:28:50.109Z",
+  "generatedAt": "2026-08-14T18:25:30.288Z",
   "methodology": {
     "minimumHorizonDays": 14,
     "preferredHorizonDays": 30,
     "earlySignalPenalty": true
   },
   "summary": {
-    "total": 762,
+    "total": 764,
     "strongRise": 61,
     "probableRise": 103,
     "watch": 109
@@ -114047,6 +114047,182 @@
       }
     },
     {
+      "printingKey": "vaevictis asmadi|legends italian||italian",
+      "cardIds": [
+        1262
+      ],
+      "quantity": 1,
+      "nomCarte": "Vaevictis Asmadi",
+      "edition": "Legends Italian",
+      "langue": "Italian",
+      "version": null,
+      "condition": "EX",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-12",
+      "latestDate": "2026-08-14",
+      "historyPoints": 34,
+      "historyAgeDays": 33,
+      "stableSince": "2026-07-12",
+      "stableHistoryPoints": 34,
+      "stableHistoryAgeDays": 33,
+      "structuralBreakCount": 0,
+      "lastStructuralBreak": null,
+      "structuralBreaks": [],
+      "latestPrice": 2.99,
+      "latestConfidence": 59,
+      "pricingModel": "edition_observed_condition_ratio",
+      "modelFamily": "edition_reference",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "marketAnchorPrice": 30.28,
+      "referenceMarketAnchorPrice": 30.28,
+      "pricingRatio": 0.0995,
+      "radarEligible": true,
+      "convictionScore": 26,
+      "signalLevel": "Pas de signal",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 9.1,
+        "persistence": 2.4,
+        "acceleration": 0,
+        "quality": 47.1,
+        "noise": 95.8,
+        "confidence": 59
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 3.02,
+          "endPrice": 2.99,
+          "cumulativeChangePct": -0.99,
+          "logSlopePerDay": -0.00070155,
+          "slopePctPerDay": -0.0701,
+          "equivalent30dPct": -2.08,
+          "rSquared": 0.7375,
+          "residualNoisePct": 0.169,
+          "confidence": {
+            "latest": 59,
+            "average": 59,
+            "minimum": 59,
+            "maximum": 59,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 2,
+            "totalTransitions": 13,
+            "changedPct": 15.4,
+            "flatPct": 84.6
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 2.98,
+          "endPrice": 2.99,
+          "cumulativeChangePct": 0.34,
+          "logSlopePerDay": 0.00046001,
+          "slopePctPerDay": 0.046,
+          "equivalent30dPct": 1.39,
+          "rSquared": 0.245,
+          "residualNoisePct": 0.49,
+          "confidence": {
+            "latest": 59,
+            "average": 59,
+            "minimum": 59,
+            "maximum": 59,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 3,
+            "totalTransitions": 20,
+            "changedPct": 15,
+            "flatPct": 85
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-16",
+          "endDate": "2026-08-14",
+          "points": 30,
+          "spanDays": 29,
+          "startPrice": 2.98,
+          "endPrice": 2.99,
+          "cumulativeChangePct": 0.34,
+          "logSlopePerDay": 0.00045153,
+          "slopePctPerDay": 0.0452,
+          "equivalent30dPct": 1.36,
+          "rSquared": 0.471,
+          "residualNoisePct": 0.415,
+          "confidence": {
+            "latest": 59,
+            "average": 59,
+            "minimum": 59,
+            "maximum": 59,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 3,
+            "totalTransitions": 29,
+            "changedPct": 10.3,
+            "flatPct": 89.7
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
       "printingKey": "zirilan of the claw|mirage||french",
       "cardIds": [
         1545,
@@ -119180,6 +119356,182 @@
             "totalTransitions": 29,
             "changedPct": 75.9,
             "flatPct": 24.1
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "vaevictis asmadi|legends italian||italian",
+      "cardIds": [
+        1262
+      ],
+      "quantity": 1,
+      "nomCarte": "Vaevictis Asmadi",
+      "edition": "Legends Italian",
+      "langue": "Italian",
+      "version": null,
+      "condition": "NM",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-12",
+      "latestDate": "2026-08-14",
+      "historyPoints": 34,
+      "historyAgeDays": 33,
+      "stableSince": "2026-07-12",
+      "stableHistoryPoints": 34,
+      "stableHistoryAgeDays": 33,
+      "structuralBreakCount": 0,
+      "lastStructuralBreak": null,
+      "structuralBreaks": [],
+      "latestPrice": 3.78,
+      "latestConfidence": 59,
+      "pricingModel": "edition_observed_condition_ratio",
+      "modelFamily": "edition_reference",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "marketAnchorPrice": 30.28,
+      "referenceMarketAnchorPrice": 30.28,
+      "pricingRatio": 0.0995,
+      "radarEligible": true,
+      "convictionScore": 25,
+      "signalLevel": "Pas de signal",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 9.7,
+        "persistence": 2.5,
+        "acceleration": 0,
+        "quality": 40.8,
+        "noise": 94.9,
+        "confidence": 59
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 3.83,
+          "endPrice": 3.78,
+          "cumulativeChangePct": -1.31,
+          "logSlopePerDay": -0.00096931,
+          "slopePctPerDay": -0.0969,
+          "equivalent30dPct": -2.87,
+          "rSquared": 0.7857,
+          "residualNoisePct": 0.204,
+          "confidence": {
+            "latest": 59,
+            "average": 59,
+            "minimum": 59,
+            "maximum": 59,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 2,
+            "totalTransitions": 13,
+            "changedPct": 15.4,
+            "flatPct": 84.6
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 3.77,
+          "endPrice": 3.78,
+          "cumulativeChangePct": 0.27,
+          "logSlopePerDay": 0.00045617,
+          "slopePctPerDay": 0.0456,
+          "equivalent30dPct": 1.38,
+          "rSquared": 0.1766,
+          "residualNoisePct": 0.598,
+          "confidence": {
+            "latest": 59,
+            "average": 59,
+            "minimum": 59,
+            "maximum": 59,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 3,
+            "totalTransitions": 20,
+            "changedPct": 15,
+            "flatPct": 85
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-16",
+          "endDate": "2026-08-14",
+          "points": 30,
+          "spanDays": 29,
+          "startPrice": 3.77,
+          "endPrice": 3.78,
+          "cumulativeChangePct": 0.27,
+          "logSlopePerDay": 0.00048337,
+          "slopePctPerDay": 0.0483,
+          "equivalent30dPct": 1.46,
+          "rSquared": 0.4075,
+          "residualNoisePct": 0.506,
+          "confidence": {
+            "latest": 59,
+            "average": 59,
+            "minimum": 59,
+            "maximum": 59,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 3,
+            "totalTransitions": 29,
+            "changedPct": 10.3,
+            "flatPct": 89.7
           }
         },
         "45d": {

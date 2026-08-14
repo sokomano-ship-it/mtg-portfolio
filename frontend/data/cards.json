@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T17:28:49.221Z",
+  "generatedAt": "2026-08-14T18:25:29.399Z",
   "cards": [
     {
       "id": 1761,
@@ -36574,19 +36574,19 @@
       "avg7": 31.66,
       "avg30": 28.96,
       "prixEtat": 5.57,
-      "estimatedPrice": 15.55,
-      "baseEstimatedPrice": 15.55,
+      "estimatedPrice": 2.99,
+      "baseEstimatedPrice": 2.99,
       "estimatedByCondition": {
-        "NM": 21.58,
-        "EX": 15.55,
-        "GD": 14.17,
-        "LP": 12.61,
-        "PL": 9.58,
-        "PO": 9.36
+        "NM": 3.78,
+        "EX": 2.99,
+        "GD": 2.67,
+        "LP": 2.26,
+        "PL": 1.85,
+        "PO": 1.62
       },
       "buyTargetByCondition": {
-        "NM": 19.42,
-        "EX": 13.68
+        "NM": 3.4,
+        "EX": 2.63
       },
       "ratioByCondition": {
         "NM": 1,
@@ -36639,12 +36639,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_fallback_condition_ratio",
+      "pricingModel": "edition_observed_condition_ratio",
       "pricingConfidence": 59,
-      "pricingRatio": 0.9389,
-      "pricingObservationCount": 0,
+      "pricingRatio": 0.0995,
+      "pricingObservationCount": 1,
       "marketAnchorPrice": 30.28,
-      "referenceMarketAnchorPrice": null,
+      "referenceMarketAnchorPrice": 30.28,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -36652,7 +36652,7 @@
       "referenceEdition": "Legends",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1553,
