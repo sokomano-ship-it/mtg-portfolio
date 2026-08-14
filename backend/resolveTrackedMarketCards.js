@@ -33,14 +33,30 @@ function normalize(value) {
 
 function scryfallSetCode(edition) {
   const map = {
+    "arabian nights": "arn",
+    "antiquities": "atq",
+    "legends": "leg",
+    "the dark": "drk",
+    "fallen empires": "fem",
+    "ice age": "ice",
+    "alliances": "all",
+    "mirage": "mir",
+    "visions": "vis",
+    "weatherlight": "wth",
+    "tempest": "tmp",
+    "stronghold": "sth",
+    "exodus": "exo",
+    "urza's saga": "usg",
+    "urzas saga": "usg",
+    "urza's legacy": "ulg",
+    "urzas legacy": "ulg",
+    "urza's destiny": "uds",
+    "urzas destiny": "uds",
     "revised": "3ed",
     "revised edition": "3ed",
-    "alliances": "all",
+    "fourth edition": "4ed",
     "foreign black bordered": "fbb",
-    "foreign white bordered": "3ed",
-    "legends": "leg",
-    "arabian nights": "arn",
-    "antiquities": "atq"
+    "foreign white bordered": "3ed"
   };
 
   return map[normalize(edition)] || null;
@@ -57,6 +73,10 @@ function scryfallLang(langue) {
   return map[normalize(langue)] || null;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function searchScryfall(card) {
   const setCode = scryfallSetCode(card.edition);
   const langCode = scryfallLang(card.langue);
@@ -65,44 +85,81 @@ async function searchScryfall(card) {
 
   if (setCode) {
     queries.push(`!"${card.nomCarte}" set:${setCode}`);
-    queries.push(`${card.nomCarte} set:${setCode}`);
   }
 
   queries.push(`!"${card.nomCarte}"`);
-  queries.push(card.nomCarte);
 
   for (const q of queries) {
-    try {
-      const response = await axios.get("https://api.scryfall.com/cards/search", {
-        params: {
-          q,
-          unique: "prints",
-          include_multilingual: true
-        },
-        timeout: 20000
-      });
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        await sleep(200);
 
-      const results = response.data.data || [];
-      if (!results.length) continue;
+        const response = await axios.get(
+          "https://api.scryfall.com/cards/search",
+          {
+            params: {
+              q,
+              unique: "prints",
+              include_multilingual: true
+            },
+            headers: {
+              "User-Agent": "mtg-portfolio/1.0",
+              "Accept": "application/json"
+            },
+            timeout: 20000
+          }
+        );
 
-      let match = results[0];
+        const results = response.data.data || [];
 
-      if (setCode && langCode) {
-        match =
-          results.find(c => c.set === setCode && c.lang === langCode) ||
-          results.find(c => c.set === setCode) ||
-          results.find(c => c.lang === langCode) ||
-          results[0];
+        if (!results.length) {
+          break;
+        }
+
+        let match = results[0];
+
+        if (setCode && langCode) {
+          match =
+            results.find(
+              c => c.set === setCode && c.lang === langCode
+            ) ||
+            results.find(
+              c => c.set === setCode
+            ) ||
+            results.find(
+              c => c.lang === langCode
+            ) ||
+            results[0];
+        }
+
+        return match;
+
+      } catch (error) {
+        const status = Number(error?.response?.status || 0);
+
+        console.warn(
+          `Scryfall ${status || "network"} : ` +
+          `${card.nomCarte} | ${card.edition} | ` +
+          `${card.langue} | tentative ${attempt}/3`
+        );
+
+        if (
+          status === 429 ||
+          status >= 500 ||
+          status === 0
+        ) {
+          await sleep(1000 * attempt);
+          continue;
+        }
+
+        break;
       }
-
-      return match;
-    } catch {
-      // Try next query
     }
   }
 
   return null;
 }
+
 
 function mergeProductsAndPrices(products, priceGuides) {
   const pricesByProductId = new Map();
@@ -115,7 +172,7 @@ function mergeProductsAndPrices(products, priceGuides) {
     }
   }
 
-  
+
 
   return products
     .map(product => {
@@ -142,7 +199,7 @@ function mergeProductsAndPrices(products, priceGuides) {
 async function main() {
   const trackedCards = readJson(TRACKED_PATH, []);
 
-  console.log("Téléchargement du catalogue Cardmarket...");
+  console.log("TÃ©lÃ©chargement du catalogue Cardmarket...");
 
   const [catalogResponse, priceResponse] = await Promise.all([
     axios.get(PRODUCT_CATALOG_URL, {
@@ -209,11 +266,11 @@ const mergedProducts = mergeProductsAndPrices(
   );
 
   console.log(
-    `${priceGuides.length} prix Cardmarket chargés.`
+    `${priceGuides.length} prix Cardmarket chargÃ©s.`
   );
 
   console.log(
-    `${mergedProducts.length} produits fusionnés.`
+    `${mergedProducts.length} produits fusionnÃ©s.`
   );
 
   let resolved = 0;
@@ -237,13 +294,19 @@ const mergedProducts = mergeProductsAndPrices(
     }
 
 console.log(
-  `Résolution : ${card.nomCarte} | ${card.edition} | ${card.langue}`
+  `RÃ©solution : ${card.nomCarte} | ${card.edition} | ${card.langue}`
 );
 
 const scryfallCard = await searchScryfall(card);
 
 const lookupCard = {
   ...card,
+
+  cardmarketId:
+    scryfallCard?.cardmarket_id ||
+    card.cardmarketId ||
+    null,
+
   nomBase:
     card.nomBase ||
     scryfallCard?.name ||
@@ -259,7 +322,7 @@ const lookupPrice = findPriceForCard(
 
 if (!lookupPrice) {
   console.warn(
-    `Aucun prix Cardmarket trouvé : ` +
+    `Aucun prix Cardmarket trouvÃ© : ` +
     `${card.nomCarte} | ${card.edition} | ${card.langue} | ` +
     `Scryfall Cardmarket ID=${scryfallCard?.cardmarket_id || "absent"}`
   );
@@ -308,15 +371,15 @@ enriched.push({
 
     resolved += 1;
 
-    await new Promise(resolve => setTimeout(resolve, 80));
+
   }
 
   saveJson(TRACKED_PATH, enriched);
 
-  console.log(`Cartes suivies déjà résolues : ${alreadyResolved}`);
-  console.log(`Cartes suivies résolues : ${resolved}`);
-  console.log(`Cartes manuelles ignorées : ${skippedManual}`);
-  console.log(`Cartes non trouvées : ${missing}`);
+  console.log(`Cartes suivies dÃ©jÃ  rÃ©solues : ${alreadyResolved}`);
+  console.log(`Cartes suivies rÃ©solues : ${resolved}`);
+  console.log(`Cartes manuelles ignorÃ©es : ${skippedManual}`);
+  console.log(`Cartes non trouvÃ©es : ${missing}`);
 }
 
 main().catch(error => {
