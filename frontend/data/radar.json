@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-14T16:53:21.784Z",
+  "generatedAt": "2026-08-14T17:18:39.892Z",
   "methodology": {
     "minimumHorizonDays": 14,
     "preferredHorizonDays": 30,
     "earlySignalPenalty": true
   },
   "summary": {
-    "total": 766,
-    "strongRise": 63,
+    "total": 762,
+    "strongRise": 61,
     "probableRise": 103,
-    "watch": 107
+    "watch": 109
   },
   "rows": [
     {
@@ -5381,187 +5381,6 @@
       }
     },
     {
-      "printingKey": "blood moon|chronicles||english",
-      "cardIds": [
-        1307,
-        1308,
-        1514,
-        1530,
-        1531,
-        1532
-      ],
-      "quantity": 6,
-      "nomCarte": "Blood Moon",
-      "edition": "Chronicles",
-      "langue": "English",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-14",
-      "historyPoints": 34,
-      "historyAgeDays": 33,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 34,
-      "stableHistoryAgeDays": 33,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 8.11,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 9.14,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.8579,
-      "radarEligible": true,
-      "convictionScore": 80,
-      "signalLevel": "Hausse forte",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 84.4,
-        "persistence": 85.1,
-        "acceleration": 50.4,
-        "quality": 91.2,
-        "noise": 84,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 7.63,
-          "endPrice": 8.11,
-          "cumulativeChangePct": 6.29,
-          "logSlopePerDay": 0.00598828,
-          "slopePctPerDay": 0.6006,
-          "equivalent30dPct": 19.68,
-          "rSquared": 0.6762,
-          "residualNoisePct": 1.684,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 7.19,
-          "endPrice": 8.11,
-          "cumulativeChangePct": 12.8,
-          "logSlopePerDay": 0.00739261,
-          "slopePctPerDay": 0.742,
-          "equivalent30dPct": 24.83,
-          "rSquared": 0.899,
-          "residualNoisePct": 1.512,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 10,
-            "totalTransitions": 20,
-            "changedPct": 50,
-            "flatPct": 50
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-16",
-          "endDate": "2026-08-14",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 7.11,
-          "endPrice": 8.11,
-          "cumulativeChangePct": 14.06,
-          "logSlopePerDay": 0.00590373,
-          "slopePctPerDay": 0.5921,
-          "equivalent30dPct": 19.38,
-          "rSquared": 0.9119,
-          "residualNoisePct": 1.601,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 16,
-            "totalTransitions": 29,
-            "changedPct": 55.2,
-            "flatPct": 44.8
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
       "printingKey": "limited resources|exodus||french",
       "cardIds": [
         1635
@@ -5915,187 +5734,6 @@
             "totalTransitions": 29,
             "changedPct": 69,
             "flatPct": 31
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "blood moon|chronicles||english",
-      "cardIds": [
-        1307,
-        1308,
-        1514,
-        1530,
-        1531,
-        1532
-      ],
-      "quantity": 6,
-      "nomCarte": "Blood Moon",
-      "edition": "Chronicles",
-      "langue": "English",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-14",
-      "historyPoints": 34,
-      "historyAgeDays": 33,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 34,
-      "stableHistoryAgeDays": 33,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 8.63,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 9.14,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.8579,
-      "radarEligible": true,
-      "convictionScore": 79,
-      "signalLevel": "Hausse forte",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 83.3,
-        "persistence": 84.3,
-        "acceleration": 51.2,
-        "quality": 89.4,
-        "noise": 83.2,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 8.13,
-          "endPrice": 8.63,
-          "cumulativeChangePct": 6.15,
-          "logSlopePerDay": 0.00588161,
-          "slopePctPerDay": 0.5899,
-          "equivalent30dPct": 19.3,
-          "rSquared": 0.6696,
-          "residualNoisePct": 1.679,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 7.67,
-          "endPrice": 8.63,
-          "cumulativeChangePct": 12.52,
-          "logSlopePerDay": 0.00726592,
-          "slopePctPerDay": 0.7292,
-          "equivalent30dPct": 24.36,
-          "rSquared": 0.8969,
-          "residualNoisePct": 1.503,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 10,
-            "totalTransitions": 20,
-            "changedPct": 50,
-            "flatPct": 50
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-16",
-          "endDate": "2026-08-14",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 7.67,
-          "endPrice": 8.63,
-          "cumulativeChangePct": 12.52,
-          "logSlopePerDay": 0.00561369,
-          "slopePctPerDay": 0.5629,
-          "equivalent30dPct": 18.34,
-          "rSquared": 0.8943,
-          "residualNoisePct": 1.684,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 15,
-            "totalTransitions": 29,
-            "changedPct": 51.7,
-            "flatPct": 48.3
           }
         },
         "45d": {
@@ -15280,6 +14918,368 @@
             "totalTransitions": 29,
             "changedPct": 58.6,
             "flatPct": 41.4
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "blood moon|chronicles||english",
+      "cardIds": [
+        1307,
+        1308,
+        1514,
+        1530,
+        1531,
+        1532
+      ],
+      "quantity": 6,
+      "nomCarte": "Blood Moon",
+      "edition": "Chronicles",
+      "langue": "English",
+      "version": null,
+      "condition": "EX",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-12",
+      "latestDate": "2026-08-14",
+      "historyPoints": 34,
+      "historyAgeDays": 33,
+      "stableSince": "2026-07-12",
+      "stableHistoryPoints": 34,
+      "stableHistoryAgeDays": 33,
+      "structuralBreakCount": 0,
+      "lastStructuralBreak": null,
+      "structuralBreaks": [],
+      "latestPrice": 7.47,
+      "latestConfidence": 60,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "marketAnchorPrice": 8.18,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 0.8566,
+      "radarEligible": true,
+      "convictionScore": 72,
+      "signalLevel": "Hausse probable",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 82.5,
+        "persistence": 72.1,
+        "acceleration": 41.9,
+        "quality": 79.4,
+        "noise": 76,
+        "confidence": 60
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 7.63,
+          "endPrice": 7.47,
+          "cumulativeChangePct": -2.1,
+          "logSlopePerDay": 0.00363963,
+          "slopePctPerDay": 0.3646,
+          "equivalent30dPct": 11.54,
+          "rSquared": 0.1881,
+          "residualNoisePct": 3.095,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 7,
+            "totalTransitions": 13,
+            "changedPct": 53.8,
+            "flatPct": 46.2
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 7.19,
+          "endPrice": 7.47,
+          "cumulativeChangePct": 3.89,
+          "logSlopePerDay": 0.00632504,
+          "slopePctPerDay": 0.6345,
+          "equivalent30dPct": 20.89,
+          "rSquared": 0.6643,
+          "residualNoisePct": 2.76,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 11,
+            "totalTransitions": 20,
+            "changedPct": 55,
+            "flatPct": 45
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-16",
+          "endDate": "2026-08-14",
+          "points": 30,
+          "spanDays": 29,
+          "startPrice": 7.11,
+          "endPrice": 7.47,
+          "cumulativeChangePct": 5.06,
+          "logSlopePerDay": 0.00537339,
+          "slopePctPerDay": 0.5388,
+          "equivalent30dPct": 17.49,
+          "rSquared": 0.7937,
+          "residualNoisePct": 2.4,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 17,
+            "totalTransitions": 29,
+            "changedPct": 58.6,
+            "flatPct": 41.4
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "blood moon|chronicles||english",
+      "cardIds": [
+        1307,
+        1308,
+        1514,
+        1530,
+        1531,
+        1532
+      ],
+      "quantity": 6,
+      "nomCarte": "Blood Moon",
+      "edition": "Chronicles",
+      "langue": "English",
+      "version": null,
+      "condition": "NM",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-12",
+      "latestDate": "2026-08-14",
+      "historyPoints": 34,
+      "historyAgeDays": 33,
+      "stableSince": "2026-07-12",
+      "stableHistoryPoints": 34,
+      "stableHistoryAgeDays": 33,
+      "structuralBreakCount": 0,
+      "lastStructuralBreak": null,
+      "structuralBreaks": [],
+      "latestPrice": 7.96,
+      "latestConfidence": 60,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "marketAnchorPrice": 8.18,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 0.8566,
+      "radarEligible": true,
+      "convictionScore": 72,
+      "signalLevel": "Hausse probable",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 81.5,
+        "persistence": 71.3,
+        "acceleration": 42.5,
+        "quality": 77.3,
+        "noise": 75.8,
+        "confidence": 60
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 8.13,
+          "endPrice": 7.96,
+          "cumulativeChangePct": -2.09,
+          "logSlopePerDay": 0.0035726,
+          "slopePctPerDay": 0.3579,
+          "equivalent30dPct": 11.31,
+          "rSquared": 0.1854,
+          "residualNoisePct": 3.065,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 7,
+            "totalTransitions": 13,
+            "changedPct": 53.8,
+            "flatPct": 46.2
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 7.67,
+          "endPrice": 7.96,
+          "cumulativeChangePct": 3.78,
+          "logSlopePerDay": 0.00621637,
+          "slopePctPerDay": 0.6236,
+          "equivalent30dPct": 20.5,
+          "rSquared": 0.6615,
+          "residualNoisePct": 2.729,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 11,
+            "totalTransitions": 20,
+            "changedPct": 55,
+            "flatPct": 45
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-16",
+          "endDate": "2026-08-14",
+          "points": 30,
+          "spanDays": 29,
+          "startPrice": 7.67,
+          "endPrice": 7.96,
+          "cumulativeChangePct": 3.78,
+          "logSlopePerDay": 0.0050923,
+          "slopePctPerDay": 0.5105,
+          "equivalent30dPct": 16.51,
+          "rSquared": 0.7725,
+          "residualNoisePct": 2.42,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 16,
+            "totalTransitions": 29,
+            "changedPct": 55.2,
+            "flatPct": 44.8
           }
         },
         "45d": {
@@ -25678,420 +25678,6 @@
             "totalTransitions": 20,
             "changedPct": 70,
             "flatPct": 30
-          }
-        },
-        "30d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 18,
-          "requiredSpanDays": 23
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "kaysa|alliances||english",
-      "cardIds": [
-        1539,
-        1713
-      ],
-      "quantity": 2,
-      "nomCarte": "Kaysa",
-      "edition": "Alliances",
-      "langue": "English",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-15",
-      "latestDate": "2026-08-14",
-      "historyPoints": 31,
-      "historyAgeDays": 30,
-      "stableSince": "2026-07-24",
-      "stableHistoryPoints": 22,
-      "stableHistoryAgeDays": 21,
-      "structuralBreakCount": 2,
-      "lastStructuralBreak": {
-        "date": "2026-07-24",
-        "previousDate": "2026-07-23",
-        "reasons": [
-          "pricing_ratio_jump"
-        ],
-        "previousModelFamily": "observed_trained",
-        "currentModelFamily": "observed_trained",
-        "previousConfidence": 60,
-        "currentConfidence": 60,
-        "previousObservationDays": 1,
-        "currentObservationDays": 1,
-        "previousPricingRatio": 0.5452,
-        "currentPricingRatio": 1.5909,
-        "previousPrice": 2.56,
-        "currentPrice": 2.56
-      },
-      "structuralBreaks": [
-        {
-          "date": "2026-07-19",
-          "previousDate": "2026-07-18",
-          "reasons": [
-            "model_family_changed",
-            "observation_days_increased",
-            "confidence_jump"
-          ],
-          "previousModelFamily": "edition_reference",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 45,
-          "currentConfidence": 60,
-          "previousObservationDays": 0,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 0.5157,
-          "currentPricingRatio": 0.5591,
-          "previousPrice": 2.6,
-          "currentPrice": 2.52
-        },
-        {
-          "date": "2026-07-24",
-          "previousDate": "2026-07-23",
-          "reasons": [
-            "pricing_ratio_jump"
-          ],
-          "previousModelFamily": "observed_trained",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 60,
-          "currentConfidence": 60,
-          "previousObservationDays": 1,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 0.5452,
-          "currentPricingRatio": 1.5909,
-          "previousPrice": 2.56,
-          "currentPrice": 2.56
-        }
-      ],
-      "latestPrice": 2.69,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 3.43,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 1.5909,
-      "radarEligible": true,
-      "convictionScore": 65,
-      "signalLevel": "Hausse probable",
-      "signalHorizon": 21,
-      "maturityFactor": 0.9,
-      "radarComponents": {
-        "trend": 86.1,
-        "persistence": 82.1,
-        "acceleration": 44.5,
-        "quality": 58.5,
-        "noise": 66.9,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 2.56,
-          "endPrice": 2.69,
-          "cumulativeChangePct": 5.08,
-          "logSlopePerDay": 0.00499126,
-          "slopePctPerDay": 0.5004,
-          "equivalent30dPct": 16.15,
-          "rSquared": 0.2776,
-          "residualNoisePct": 3.299,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 2.53,
-          "endPrice": 2.69,
-          "cumulativeChangePct": 6.32,
-          "logSlopePerDay": 0.006392,
-          "slopePctPerDay": 0.6412,
-          "equivalent30dPct": 21.14,
-          "rSquared": 0.585,
-          "residualNoisePct": 3.314,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 9,
-            "totalTransitions": 20,
-            "changedPct": 45,
-            "flatPct": 55
-          }
-        },
-        "30d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 18,
-          "requiredSpanDays": 23
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 22,
-          "spanDays": 21,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "kaysa|alliances||english",
-      "cardIds": [
-        1539,
-        1713
-      ],
-      "quantity": 2,
-      "nomCarte": "Kaysa",
-      "edition": "Alliances",
-      "langue": "English",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-15",
-      "latestDate": "2026-08-14",
-      "historyPoints": 31,
-      "historyAgeDays": 30,
-      "stableSince": "2026-07-24",
-      "stableHistoryPoints": 22,
-      "stableHistoryAgeDays": 21,
-      "structuralBreakCount": 2,
-      "lastStructuralBreak": {
-        "date": "2026-07-24",
-        "previousDate": "2026-07-23",
-        "reasons": [
-          "pricing_ratio_jump"
-        ],
-        "previousModelFamily": "observed_trained",
-        "currentModelFamily": "observed_trained",
-        "previousConfidence": 60,
-        "currentConfidence": 60,
-        "previousObservationDays": 1,
-        "currentObservationDays": 1,
-        "previousPricingRatio": 0.5452,
-        "currentPricingRatio": 1.5909,
-        "previousPrice": 3.06,
-        "currentPrice": 3.06
-      },
-      "structuralBreaks": [
-        {
-          "date": "2026-07-19",
-          "previousDate": "2026-07-18",
-          "reasons": [
-            "model_family_changed",
-            "observation_days_increased",
-            "confidence_jump"
-          ],
-          "previousModelFamily": "edition_reference",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 45,
-          "currentConfidence": 60,
-          "previousObservationDays": 0,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 0.5157,
-          "currentPricingRatio": 0.5591,
-          "previousPrice": 3.13,
-          "currentPrice": 3.01
-        },
-        {
-          "date": "2026-07-24",
-          "previousDate": "2026-07-23",
-          "reasons": [
-            "pricing_ratio_jump"
-          ],
-          "previousModelFamily": "observed_trained",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 60,
-          "currentConfidence": 60,
-          "previousObservationDays": 1,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 0.5452,
-          "currentPricingRatio": 1.5909,
-          "previousPrice": 3.06,
-          "currentPrice": 3.06
-        }
-      ],
-      "latestPrice": 3.22,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 3.43,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 1.5909,
-      "radarEligible": true,
-      "convictionScore": 65,
-      "signalLevel": "Hausse probable",
-      "signalHorizon": 21,
-      "maturityFactor": 0.9,
-      "radarComponents": {
-        "trend": 86.6,
-        "persistence": 82.4,
-        "acceleration": 44.4,
-        "quality": 58.9,
-        "noise": 66.4,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 3.06,
-          "endPrice": 3.22,
-          "cumulativeChangePct": 5.23,
-          "logSlopePerDay": 0.00505163,
-          "slopePctPerDay": 0.5064,
-          "equivalent30dPct": 16.36,
-          "rSquared": 0.274,
-          "residualNoisePct": 3.371,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 7,
-            "totalTransitions": 13,
-            "changedPct": 53.8,
-            "flatPct": 46.2
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 3.02,
-          "endPrice": 3.22,
-          "cumulativeChangePct": 6.62,
-          "logSlopePerDay": 0.00652101,
-          "slopePctPerDay": 0.6542,
-          "equivalent30dPct": 21.61,
-          "rSquared": 0.5885,
-          "residualNoisePct": 3.357,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 10,
-            "totalTransitions": 20,
-            "changedPct": 50,
-            "flatPct": 50
           }
         },
         "30d": {
@@ -46086,6 +45672,420 @@
           "reason": "Historique insuffisant",
           "points": 34,
           "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "kaysa|alliances||english",
+      "cardIds": [
+        1539,
+        1713
+      ],
+      "quantity": 2,
+      "nomCarte": "Kaysa",
+      "edition": "Alliances",
+      "langue": "English",
+      "version": null,
+      "condition": "EX",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-15",
+      "latestDate": "2026-08-14",
+      "historyPoints": 31,
+      "historyAgeDays": 30,
+      "stableSince": "2026-07-24",
+      "stableHistoryPoints": 22,
+      "stableHistoryAgeDays": 21,
+      "structuralBreakCount": 2,
+      "lastStructuralBreak": {
+        "date": "2026-07-24",
+        "previousDate": "2026-07-23",
+        "reasons": [
+          "pricing_ratio_jump"
+        ],
+        "previousModelFamily": "observed_trained",
+        "currentModelFamily": "observed_trained",
+        "previousConfidence": 60,
+        "currentConfidence": 60,
+        "previousObservationDays": 1,
+        "currentObservationDays": 1,
+        "previousPricingRatio": 0.5452,
+        "currentPricingRatio": 1.5909,
+        "previousPrice": 2.56,
+        "currentPrice": 2.56
+      },
+      "structuralBreaks": [
+        {
+          "date": "2026-07-19",
+          "previousDate": "2026-07-18",
+          "reasons": [
+            "model_family_changed",
+            "observation_days_increased",
+            "confidence_jump"
+          ],
+          "previousModelFamily": "edition_reference",
+          "currentModelFamily": "observed_trained",
+          "previousConfidence": 45,
+          "currentConfidence": 60,
+          "previousObservationDays": 0,
+          "currentObservationDays": 1,
+          "previousPricingRatio": 0.5157,
+          "currentPricingRatio": 0.5591,
+          "previousPrice": 2.6,
+          "currentPrice": 2.52
+        },
+        {
+          "date": "2026-07-24",
+          "previousDate": "2026-07-23",
+          "reasons": [
+            "pricing_ratio_jump"
+          ],
+          "previousModelFamily": "observed_trained",
+          "currentModelFamily": "observed_trained",
+          "previousConfidence": 60,
+          "currentConfidence": 60,
+          "previousObservationDays": 1,
+          "currentObservationDays": 1,
+          "previousPricingRatio": 0.5452,
+          "currentPricingRatio": 1.5909,
+          "previousPrice": 2.56,
+          "currentPrice": 2.56
+        }
+      ],
+      "latestPrice": 2.41,
+      "latestConfidence": 60,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "marketAnchorPrice": 2.95,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 1.5909,
+      "radarEligible": true,
+      "convictionScore": 50,
+      "signalLevel": "À surveiller",
+      "signalHorizon": 21,
+      "maturityFactor": 0.9,
+      "radarComponents": {
+        "trend": 81.1,
+        "persistence": 47.4,
+        "acceleration": 34.3,
+        "quality": 31.3,
+        "noise": 54.5,
+        "confidence": 60
+      },
+      "availableHorizons": [
+        14,
+        21
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 2.56,
+          "endPrice": 2.41,
+          "cumulativeChangePct": -5.86,
+          "logSlopePerDay": 0.00185084,
+          "slopePctPerDay": 0.1853,
+          "equivalent30dPct": 5.71,
+          "rSquared": 0.0238,
+          "residualNoisePct": 4.9,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 7,
+            "totalTransitions": 13,
+            "changedPct": 53.8,
+            "flatPct": 46.2
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 2.53,
+          "endPrice": 2.41,
+          "cumulativeChangePct": -4.74,
+          "logSlopePerDay": 0.00496454,
+          "slopePctPerDay": 0.4977,
+          "equivalent30dPct": 16.06,
+          "rSquared": 0.3132,
+          "residualNoisePct": 4.553,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 10,
+            "totalTransitions": 20,
+            "changedPct": 50,
+            "flatPct": 50
+          }
+        },
+        "30d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 18,
+          "requiredSpanDays": 23
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "kaysa|alliances||english",
+      "cardIds": [
+        1539,
+        1713
+      ],
+      "quantity": 2,
+      "nomCarte": "Kaysa",
+      "edition": "Alliances",
+      "langue": "English",
+      "version": null,
+      "condition": "NM",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-15",
+      "latestDate": "2026-08-14",
+      "historyPoints": 31,
+      "historyAgeDays": 30,
+      "stableSince": "2026-07-24",
+      "stableHistoryPoints": 22,
+      "stableHistoryAgeDays": 21,
+      "structuralBreakCount": 2,
+      "lastStructuralBreak": {
+        "date": "2026-07-24",
+        "previousDate": "2026-07-23",
+        "reasons": [
+          "pricing_ratio_jump"
+        ],
+        "previousModelFamily": "observed_trained",
+        "currentModelFamily": "observed_trained",
+        "previousConfidence": 60,
+        "currentConfidence": 60,
+        "previousObservationDays": 1,
+        "currentObservationDays": 1,
+        "previousPricingRatio": 0.5452,
+        "currentPricingRatio": 1.5909,
+        "previousPrice": 3.06,
+        "currentPrice": 3.06
+      },
+      "structuralBreaks": [
+        {
+          "date": "2026-07-19",
+          "previousDate": "2026-07-18",
+          "reasons": [
+            "model_family_changed",
+            "observation_days_increased",
+            "confidence_jump"
+          ],
+          "previousModelFamily": "edition_reference",
+          "currentModelFamily": "observed_trained",
+          "previousConfidence": 45,
+          "currentConfidence": 60,
+          "previousObservationDays": 0,
+          "currentObservationDays": 1,
+          "previousPricingRatio": 0.5157,
+          "currentPricingRatio": 0.5591,
+          "previousPrice": 3.13,
+          "currentPrice": 3.01
+        },
+        {
+          "date": "2026-07-24",
+          "previousDate": "2026-07-23",
+          "reasons": [
+            "pricing_ratio_jump"
+          ],
+          "previousModelFamily": "observed_trained",
+          "currentModelFamily": "observed_trained",
+          "previousConfidence": 60,
+          "currentConfidence": 60,
+          "previousObservationDays": 1,
+          "currentObservationDays": 1,
+          "previousPricingRatio": 0.5452,
+          "currentPricingRatio": 1.5909,
+          "previousPrice": 3.06,
+          "currentPrice": 3.06
+        }
+      ],
+      "latestPrice": 2.88,
+      "latestConfidence": 60,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "marketAnchorPrice": 2.95,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 1.5909,
+      "radarEligible": true,
+      "convictionScore": 50,
+      "signalLevel": "À surveiller",
+      "signalHorizon": 21,
+      "maturityFactor": 0.9,
+      "radarComponents": {
+        "trend": 81.4,
+        "persistence": 47.7,
+        "acceleration": 34.2,
+        "quality": 31.7,
+        "noise": 53.9,
+        "confidence": 60
+      },
+      "availableHorizons": [
+        14,
+        21
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 3.06,
+          "endPrice": 2.88,
+          "cumulativeChangePct": -5.88,
+          "logSlopePerDay": 0.00186331,
+          "slopePctPerDay": 0.1865,
+          "equivalent30dPct": 5.75,
+          "rSquared": 0.0234,
+          "residualNoisePct": 4.977,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 7,
+            "totalTransitions": 13,
+            "changedPct": 53.8,
+            "flatPct": 46.2
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 3.02,
+          "endPrice": 2.88,
+          "cumulativeChangePct": -4.64,
+          "logSlopePerDay": 0.00507178,
+          "slopePctPerDay": 0.5085,
+          "equivalent30dPct": 16.43,
+          "rSquared": 0.3169,
+          "residualNoisePct": 4.612,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 10,
+            "totalTransitions": 20,
+            "changedPct": 50,
+            "flatPct": 50
+          }
+        },
+        "30d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 18,
+          "requiredSpanDays": 23
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 22,
+          "spanDays": 21,
           "requiredPoints": 108,
           "requiredSpanDays": 143
         }
@@ -68644,186 +68644,6 @@
       }
     },
     {
-      "printingKey": "sinkhole|unlimited||english",
-      "cardIds": [
-        1289,
-        1290,
-        1291,
-        1292,
-        1293
-      ],
-      "quantity": 5,
-      "nomCarte": "Sinkhole",
-      "edition": "Unlimited",
-      "langue": "English",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-14",
-      "historyPoints": 34,
-      "historyAgeDays": 33,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 34,
-      "stableHistoryAgeDays": 33,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 22.62,
-      "latestConfidence": 70,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
-      "observationDaysCount": 2,
-      "observationRowsCount": 12,
-      "marketAnchorPrice": 20.31,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 1.2566,
-      "radarEligible": true,
-      "convictionScore": 34,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 9.9,
-        "persistence": 6.7,
-        "acceleration": 75.6,
-        "quality": 33.2,
-        "noise": 93.9,
-        "confidence": 70
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 22.51,
-          "endPrice": 22.62,
-          "cumulativeChangePct": 0.49,
-          "logSlopePerDay": 0.00100129,
-          "slopePctPerDay": 0.1002,
-          "equivalent30dPct": 3.05,
-          "rSquared": 0.4784,
-          "residualNoisePct": 0.422,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 22.53,
-          "endPrice": 22.62,
-          "cumulativeChangePct": 0.4,
-          "logSlopePerDay": 0.00018355,
-          "slopePctPerDay": 0.0184,
-          "equivalent30dPct": 0.55,
-          "rSquared": 0.0446,
-          "residualNoisePct": 0.516,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 10,
-            "totalTransitions": 20,
-            "changedPct": 50,
-            "flatPct": 50
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-16",
-          "endDate": "2026-08-14",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 22.11,
-          "endPrice": 22.62,
-          "cumulativeChangePct": 2.31,
-          "logSlopePerDay": 0.00049448,
-          "slopePctPerDay": 0.0495,
-          "equivalent30dPct": 1.49,
-          "rSquared": 0.3316,
-          "residualNoisePct": 0.61,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 12,
-            "totalTransitions": 29,
-            "changedPct": 41.4,
-            "flatPct": 58.6
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
       "printingKey": "songs of the damned|ice age||english",
       "cardIds": [
         1686
@@ -73663,186 +73483,6 @@
             "totalTransitions": 29,
             "changedPct": 89.7,
             "flatPct": 10.3
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 34,
-          "spanDays": 33,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "sinkhole|unlimited||english",
-      "cardIds": [
-        1289,
-        1290,
-        1291,
-        1292,
-        1293
-      ],
-      "quantity": 5,
-      "nomCarte": "Sinkhole",
-      "edition": "Unlimited",
-      "langue": "English",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-14",
-      "historyPoints": 34,
-      "historyAgeDays": 33,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 34,
-      "stableHistoryAgeDays": 33,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 19.08,
-      "latestConfidence": 70,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
-      "observationDaysCount": 2,
-      "observationRowsCount": 12,
-      "marketAnchorPrice": 20.31,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 1.2566,
-      "radarEligible": true,
-      "convictionScore": 33,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 8.9,
-        "persistence": 6.4,
-        "acceleration": 83.9,
-        "quality": 28.4,
-        "noise": 93.9,
-        "confidence": 70
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 18.99,
-          "endPrice": 19.08,
-          "cumulativeChangePct": 0.47,
-          "logSlopePerDay": 0.00104125,
-          "slopePctPerDay": 0.1042,
-          "equivalent30dPct": 3.17,
-          "rSquared": 0.4761,
-          "residualNoisePct": 0.441,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 19.02,
-          "endPrice": 19.08,
-          "cumulativeChangePct": 0.32,
-          "logSlopePerDay": 0.00015952,
-          "slopePctPerDay": 0.016,
-          "equivalent30dPct": 0.48,
-          "rSquared": 0.0316,
-          "residualNoisePct": 0.536,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 10,
-            "totalTransitions": 20,
-            "changedPct": 50,
-            "flatPct": 50
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-16",
-          "endDate": "2026-08-14",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 18.68,
-          "endPrice": 19.08,
-          "cumulativeChangePct": 2.14,
-          "logSlopePerDay": 0.00044233,
-          "slopePctPerDay": 0.0442,
-          "equivalent30dPct": 1.34,
-          "rSquared": 0.2836,
-          "residualNoisePct": 0.61,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 12,
-            "totalTransitions": 29,
-            "changedPct": 41.4,
-            "flatPct": 58.6
           }
         },
         "45d": {
@@ -81681,6 +81321,366 @@
             "totalTransitions": 29,
             "changedPct": 13.8,
             "flatPct": 86.2
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "sinkhole|unlimited||english",
+      "cardIds": [
+        1289,
+        1290,
+        1291,
+        1292,
+        1293
+      ],
+      "quantity": 5,
+      "nomCarte": "Sinkhole",
+      "edition": "Unlimited",
+      "langue": "English",
+      "version": null,
+      "condition": "EX",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-12",
+      "latestDate": "2026-08-14",
+      "historyPoints": 34,
+      "historyAgeDays": 33,
+      "stableSince": "2026-07-12",
+      "stableHistoryPoints": 34,
+      "stableHistoryAgeDays": 33,
+      "structuralBreakCount": 0,
+      "lastStructuralBreak": null,
+      "structuralBreaks": [],
+      "latestPrice": 18.92,
+      "latestConfidence": 70,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "observationDaysCount": 2,
+      "observationRowsCount": 12,
+      "marketAnchorPrice": 20.02,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 1.2566,
+      "radarEligible": true,
+      "convictionScore": 31,
+      "signalLevel": "Pas de signal",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 7.8,
+        "persistence": 3.9,
+        "acceleration": 76.6,
+        "quality": 22.5,
+        "noise": 93.7,
+        "confidence": 70
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 18.99,
+          "endPrice": 18.92,
+          "cumulativeChangePct": -0.37,
+          "logSlopePerDay": 0.00080065,
+          "slopePctPerDay": 0.0801,
+          "equivalent30dPct": 2.43,
+          "rSquared": 0.2935,
+          "residualNoisePct": 0.502,
+          "confidence": {
+            "latest": 70,
+            "average": 70,
+            "minimum": 70,
+            "maximum": 70,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 7,
+            "totalTransitions": 13,
+            "changedPct": 53.8,
+            "flatPct": 46.2
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 19.02,
+          "endPrice": 18.92,
+          "cumulativeChangePct": -0.53,
+          "logSlopePerDay": 0.00005016,
+          "slopePctPerDay": 0.005,
+          "equivalent30dPct": 0.15,
+          "rSquared": 0.0032,
+          "residualNoisePct": 0.54,
+          "confidence": {
+            "latest": 70,
+            "average": 70,
+            "minimum": 70,
+            "maximum": 70,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 11,
+            "totalTransitions": 20,
+            "changedPct": 55,
+            "flatPct": 45
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-16",
+          "endDate": "2026-08-14",
+          "points": 30,
+          "spanDays": 29,
+          "startPrice": 18.68,
+          "endPrice": 18.92,
+          "cumulativeChangePct": 1.28,
+          "logSlopePerDay": 0.000388,
+          "slopePctPerDay": 0.0388,
+          "equivalent30dPct": 1.17,
+          "rSquared": 0.2246,
+          "residualNoisePct": 0.626,
+          "confidence": {
+            "latest": 70,
+            "average": 70,
+            "minimum": 70,
+            "maximum": 70,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 13,
+            "totalTransitions": 29,
+            "changedPct": 44.8,
+            "flatPct": 55.2
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 34,
+          "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "sinkhole|unlimited||english",
+      "cardIds": [
+        1289,
+        1290,
+        1291,
+        1292,
+        1293
+      ],
+      "quantity": 5,
+      "nomCarte": "Sinkhole",
+      "edition": "Unlimited",
+      "langue": "English",
+      "version": null,
+      "condition": "NM",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-12",
+      "latestDate": "2026-08-14",
+      "historyPoints": 34,
+      "historyAgeDays": 33,
+      "stableSince": "2026-07-12",
+      "stableHistoryPoints": 34,
+      "stableHistoryAgeDays": 33,
+      "structuralBreakCount": 0,
+      "lastStructuralBreak": null,
+      "structuralBreaks": [],
+      "latestPrice": 22.41,
+      "latestConfidence": 70,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "observationDaysCount": 2,
+      "observationRowsCount": 12,
+      "marketAnchorPrice": 20.02,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 1.2566,
+      "radarEligible": true,
+      "convictionScore": 31,
+      "signalLevel": "Pas de signal",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 8.7,
+        "persistence": 4.1,
+        "acceleration": 67.3,
+        "quality": 26.4,
+        "noise": 93.7,
+        "confidence": 70
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 22.51,
+          "endPrice": 22.41,
+          "cumulativeChangePct": -0.44,
+          "logSlopePerDay": 0.0007348,
+          "slopePctPerDay": 0.0735,
+          "equivalent30dPct": 2.23,
+          "rSquared": 0.2665,
+          "residualNoisePct": 0.493,
+          "confidence": {
+            "latest": 70,
+            "average": 70,
+            "minimum": 70,
+            "maximum": 70,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 7,
+            "totalTransitions": 13,
+            "changedPct": 53.8,
+            "flatPct": 46.2
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 22.53,
+          "endPrice": 22.41,
+          "cumulativeChangePct": -0.53,
+          "logSlopePerDay": 0.00006242,
+          "slopePctPerDay": 0.0062,
+          "equivalent30dPct": 0.19,
+          "rSquared": 0.0052,
+          "residualNoisePct": 0.524,
+          "confidence": {
+            "latest": 70,
+            "average": 70,
+            "minimum": 70,
+            "maximum": 70,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 11,
+            "totalTransitions": 20,
+            "changedPct": 55,
+            "flatPct": 45
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-16",
+          "endDate": "2026-08-14",
+          "points": 30,
+          "spanDays": 29,
+          "startPrice": 22.11,
+          "endPrice": 22.41,
+          "cumulativeChangePct": 1.36,
+          "logSlopePerDay": 0.0004343,
+          "slopePctPerDay": 0.0434,
+          "equivalent30dPct": 1.31,
+          "rSquared": 0.2638,
+          "residualNoisePct": 0.63,
+          "confidence": {
+            "latest": 70,
+            "average": 70,
+            "minimum": 70,
+            "maximum": 70,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 13,
+            "totalTransitions": 29,
+            "changedPct": 44.8,
+            "flatPct": 55.2
           }
         },
         "45d": {
@@ -123049,438 +123049,6 @@
       }
     },
     {
-      "printingKey": "ancient tomb|tempest||french",
-      "cardIds": [
-        1606,
-        1617,
-        1618
-      ],
-      "quantity": 3,
-      "nomCarte": "Ancient Tomb",
-      "edition": "Tempest",
-      "langue": "French",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-15",
-      "latestDate": "2026-08-14",
-      "historyPoints": 31,
-      "historyAgeDays": 30,
-      "stableSince": "2026-07-19",
-      "stableHistoryPoints": 27,
-      "stableHistoryAgeDays": 26,
-      "structuralBreakCount": 1,
-      "lastStructuralBreak": {
-        "date": "2026-07-19",
-        "previousDate": "2026-07-18",
-        "reasons": [
-          "model_family_changed",
-          "observation_days_increased",
-          "confidence_jump"
-        ],
-        "previousModelFamily": "edition_reference",
-        "currentModelFamily": "observed_trained",
-        "previousConfidence": 43,
-        "currentConfidence": 60,
-        "previousObservationDays": 0,
-        "currentObservationDays": 1,
-        "previousPricingRatio": 1.3368,
-        "currentPricingRatio": 1.0467,
-        "previousPrice": 75.12,
-        "currentPrice": 79.76
-      },
-      "structuralBreaks": [
-        {
-          "date": "2026-07-19",
-          "previousDate": "2026-07-18",
-          "reasons": [
-            "model_family_changed",
-            "observation_days_increased",
-            "confidence_jump"
-          ],
-          "previousModelFamily": "edition_reference",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 43,
-          "currentConfidence": 60,
-          "previousObservationDays": 0,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 1.3368,
-          "currentPricingRatio": 1.0467,
-          "previousPrice": 75.12,
-          "currentPrice": 79.76
-        }
-      ],
-      "latestPrice": 79.06,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 5,
-      "marketAnchorPrice": 94.2,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 1.0467,
-      "radarEligible": true,
-      "convictionScore": 23,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": 30.8,
-        "quality": 41.7,
-        "noise": 81.2,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 82.09,
-          "endPrice": 79.06,
-          "cumulativeChangePct": -3.69,
-          "logSlopePerDay": -0.00358021,
-          "slopePctPerDay": -0.3574,
-          "equivalent30dPct": -10.18,
-          "rSquared": 0.7294,
-          "residualNoisePct": 0.883,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 12,
-            "totalTransitions": 13,
-            "changedPct": 92.3,
-            "flatPct": 7.7
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 82.97,
-          "endPrice": 79.06,
-          "cumulativeChangePct": -4.71,
-          "logSlopePerDay": -0.0040519,
-          "slopePctPerDay": -0.4044,
-          "equivalent30dPct": -11.45,
-          "rSquared": 0.891,
-          "residualNoisePct": 0.862,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 17,
-            "totalTransitions": 20,
-            "changedPct": 85,
-            "flatPct": 15
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-19",
-          "endDate": "2026-08-14",
-          "points": 27,
-          "spanDays": 26,
-          "startPrice": 79.76,
-          "endPrice": 79.06,
-          "cumulativeChangePct": -0.88,
-          "logSlopePerDay": -0.00202216,
-          "slopePctPerDay": -0.202,
-          "equivalent30dPct": -5.89,
-          "rSquared": 0.4171,
-          "residualNoisePct": 1.88,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 22,
-            "totalTransitions": 26,
-            "changedPct": 84.6,
-            "flatPct": 15.4
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "ancient tomb|tempest||french",
-      "cardIds": [
-        1606,
-        1617,
-        1618
-      ],
-      "quantity": 3,
-      "nomCarte": "Ancient Tomb",
-      "edition": "Tempest",
-      "langue": "French",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-15",
-      "latestDate": "2026-08-14",
-      "historyPoints": 31,
-      "historyAgeDays": 30,
-      "stableSince": "2026-07-19",
-      "stableHistoryPoints": 27,
-      "stableHistoryAgeDays": 26,
-      "structuralBreakCount": 1,
-      "lastStructuralBreak": {
-        "date": "2026-07-19",
-        "previousDate": "2026-07-18",
-        "reasons": [
-          "model_family_changed",
-          "observation_days_increased",
-          "confidence_jump"
-        ],
-        "previousModelFamily": "edition_reference",
-        "currentModelFamily": "observed_trained",
-        "previousConfidence": 43,
-        "currentConfidence": 60,
-        "previousObservationDays": 0,
-        "currentObservationDays": 1,
-        "previousPricingRatio": 1.3368,
-        "currentPricingRatio": 1.0467,
-        "previousPrice": 100.32,
-        "currentPrice": 100.48
-      },
-      "structuralBreaks": [
-        {
-          "date": "2026-07-19",
-          "previousDate": "2026-07-18",
-          "reasons": [
-            "model_family_changed",
-            "observation_days_increased",
-            "confidence_jump"
-          ],
-          "previousModelFamily": "edition_reference",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 43,
-          "currentConfidence": 60,
-          "previousObservationDays": 0,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 1.3368,
-          "currentPricingRatio": 1.0467,
-          "previousPrice": 100.32,
-          "currentPrice": 100.48
-        }
-      ],
-      "latestPrice": 99.54,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 5,
-      "marketAnchorPrice": 94.2,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 1.0467,
-      "radarEligible": true,
-      "convictionScore": 23,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": 30.8,
-        "quality": 41.8,
-        "noise": 79.9,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-14",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 103.61,
-          "endPrice": 99.54,
-          "cumulativeChangePct": -3.93,
-          "logSlopePerDay": -0.00382257,
-          "slopePctPerDay": -0.3815,
-          "equivalent30dPct": -10.83,
-          "rSquared": 0.7289,
-          "residualNoisePct": 0.944,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 12,
-            "totalTransitions": 13,
-            "changedPct": 92.3,
-            "flatPct": 7.7
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-07-25",
-          "endDate": "2026-08-14",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 104.8,
-          "endPrice": 99.54,
-          "cumulativeChangePct": -5.02,
-          "logSlopePerDay": -0.00432369,
-          "slopePctPerDay": -0.4314,
-          "equivalent30dPct": -12.17,
-          "rSquared": 0.8908,
-          "residualNoisePct": 0.921,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 17,
-            "totalTransitions": 20,
-            "changedPct": 85,
-            "flatPct": 15
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-19",
-          "endDate": "2026-08-14",
-          "points": 27,
-          "spanDays": 26,
-          "startPrice": 100.48,
-          "endPrice": 99.54,
-          "cumulativeChangePct": -0.94,
-          "logSlopePerDay": -0.00215984,
-          "slopePctPerDay": -0.2158,
-          "equivalent30dPct": -6.27,
-          "rSquared": 0.4176,
-          "residualNoisePct": 2.007,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 22,
-            "totalTransitions": 26,
-            "changedPct": 84.6,
-            "flatPct": 15.4
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 27,
-          "spanDays": 26,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
       "printingKey": "city of brass|chronicles||english",
       "cardIds": [
         1519,
@@ -125575,6 +125143,438 @@
           "reason": "Historique insuffisant",
           "points": 34,
           "spanDays": 33,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "ancient tomb|tempest||french",
+      "cardIds": [
+        1606,
+        1617,
+        1618
+      ],
+      "quantity": 3,
+      "nomCarte": "Ancient Tomb",
+      "edition": "Tempest",
+      "langue": "French",
+      "version": null,
+      "condition": "EX",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-15",
+      "latestDate": "2026-08-14",
+      "historyPoints": 31,
+      "historyAgeDays": 30,
+      "stableSince": "2026-07-19",
+      "stableHistoryPoints": 27,
+      "stableHistoryAgeDays": 26,
+      "structuralBreakCount": 1,
+      "lastStructuralBreak": {
+        "date": "2026-07-19",
+        "previousDate": "2026-07-18",
+        "reasons": [
+          "model_family_changed",
+          "observation_days_increased",
+          "confidence_jump"
+        ],
+        "previousModelFamily": "edition_reference",
+        "currentModelFamily": "observed_trained",
+        "previousConfidence": 43,
+        "currentConfidence": 60,
+        "previousObservationDays": 0,
+        "currentObservationDays": 1,
+        "previousPricingRatio": 1.3368,
+        "currentPricingRatio": 1.0467,
+        "previousPrice": 75.12,
+        "currentPrice": 79.76
+      },
+      "structuralBreaks": [
+        {
+          "date": "2026-07-19",
+          "previousDate": "2026-07-18",
+          "reasons": [
+            "model_family_changed",
+            "observation_days_increased",
+            "confidence_jump"
+          ],
+          "previousModelFamily": "edition_reference",
+          "currentModelFamily": "observed_trained",
+          "previousConfidence": 43,
+          "currentConfidence": 60,
+          "previousObservationDays": 0,
+          "currentObservationDays": 1,
+          "previousPricingRatio": 1.3368,
+          "currentPricingRatio": 1.0467,
+          "previousPrice": 75.12,
+          "currentPrice": 79.76
+        }
+      ],
+      "latestPrice": 83.03,
+      "latestConfidence": 60,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 5,
+      "marketAnchorPrice": 101.83,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 1.0467,
+      "radarEligible": true,
+      "convictionScore": 22,
+      "signalLevel": "Pas de signal",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 0,
+        "persistence": 0,
+        "acceleration": 41.6,
+        "quality": 27.2,
+        "noise": 79,
+        "confidence": 60
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 82.09,
+          "endPrice": 83.03,
+          "cumulativeChangePct": 1.15,
+          "logSlopePerDay": -0.00218036,
+          "slopePctPerDay": -0.2178,
+          "equivalent30dPct": -6.33,
+          "rSquared": 0.1959,
+          "residualNoisePct": 1.797,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 12,
+            "totalTransitions": 13,
+            "changedPct": 92.3,
+            "flatPct": 7.7
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 82.97,
+          "endPrice": 83.03,
+          "cumulativeChangePct": 0.07,
+          "logSlopePerDay": -0.00341561,
+          "slopePctPerDay": -0.341,
+          "equivalent30dPct": -9.74,
+          "rSquared": 0.6293,
+          "residualNoisePct": 1.6,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 17,
+            "totalTransitions": 20,
+            "changedPct": 85,
+            "flatPct": 15
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-19",
+          "endDate": "2026-08-14",
+          "points": 27,
+          "spanDays": 26,
+          "startPrice": 79.76,
+          "endPrice": 83.03,
+          "cumulativeChangePct": 4.1,
+          "logSlopePerDay": -0.00163331,
+          "slopePctPerDay": -0.1632,
+          "equivalent30dPct": -4.78,
+          "rSquared": 0.2723,
+          "residualNoisePct": 2.101,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 22,
+            "totalTransitions": 26,
+            "changedPct": 84.6,
+            "flatPct": 15.4
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 108,
+          "requiredSpanDays": 143
+        }
+      }
+    },
+    {
+      "printingKey": "ancient tomb|tempest||french",
+      "cardIds": [
+        1606,
+        1617,
+        1618
+      ],
+      "quantity": 3,
+      "nomCarte": "Ancient Tomb",
+      "edition": "Tempest",
+      "langue": "French",
+      "version": null,
+      "condition": "NM",
+      "historySource": "collection",
+      "owned": true,
+      "firstDate": "2026-07-15",
+      "latestDate": "2026-08-14",
+      "historyPoints": 31,
+      "historyAgeDays": 30,
+      "stableSince": "2026-07-19",
+      "stableHistoryPoints": 27,
+      "stableHistoryAgeDays": 26,
+      "structuralBreakCount": 1,
+      "lastStructuralBreak": {
+        "date": "2026-07-19",
+        "previousDate": "2026-07-18",
+        "reasons": [
+          "model_family_changed",
+          "observation_days_increased",
+          "confidence_jump"
+        ],
+        "previousModelFamily": "edition_reference",
+        "currentModelFamily": "observed_trained",
+        "previousConfidence": 43,
+        "currentConfidence": 60,
+        "previousObservationDays": 0,
+        "currentObservationDays": 1,
+        "previousPricingRatio": 1.3368,
+        "currentPricingRatio": 1.0467,
+        "previousPrice": 100.32,
+        "currentPrice": 100.48
+      },
+      "structuralBreaks": [
+        {
+          "date": "2026-07-19",
+          "previousDate": "2026-07-18",
+          "reasons": [
+            "model_family_changed",
+            "observation_days_increased",
+            "confidence_jump"
+          ],
+          "previousModelFamily": "edition_reference",
+          "currentModelFamily": "observed_trained",
+          "previousConfidence": 43,
+          "currentConfidence": 60,
+          "previousObservationDays": 0,
+          "currentObservationDays": 1,
+          "previousPricingRatio": 1.3368,
+          "currentPricingRatio": 1.0467,
+          "previousPrice": 100.32,
+          "currentPrice": 100.48
+        }
+      ],
+      "latestPrice": 104.88,
+      "latestConfidence": 60,
+      "pricingModel": "standard_observed_condition_ratio",
+      "modelFamily": "observed_trained",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
+      "observationDaysCount": 1,
+      "observationRowsCount": 5,
+      "marketAnchorPrice": 101.83,
+      "referenceMarketAnchorPrice": null,
+      "pricingRatio": 1.0467,
+      "radarEligible": true,
+      "convictionScore": 22,
+      "signalLevel": "Pas de signal",
+      "signalHorizon": 30,
+      "maturityFactor": 1,
+      "radarComponents": {
+        "trend": 0,
+        "persistence": 0,
+        "acceleration": 41.6,
+        "quality": 27.3,
+        "noise": 77.6,
+        "confidence": 60
+      },
+      "availableHorizons": [
+        14,
+        21,
+        30
+      ],
+      "horizons": {
+        "14d": {
+          "available": true,
+          "horizonDays": 14,
+          "startDate": "2026-08-01",
+          "endDate": "2026-08-14",
+          "points": 14,
+          "spanDays": 13,
+          "startPrice": 103.61,
+          "endPrice": 104.88,
+          "cumulativeChangePct": 1.23,
+          "logSlopePerDay": -0.0023295,
+          "slopePctPerDay": -0.2327,
+          "equivalent30dPct": -6.75,
+          "rSquared": 0.1962,
+          "residualNoisePct": 1.919,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 12,
+            "totalTransitions": 13,
+            "changedPct": 92.3,
+            "flatPct": 7.7
+          }
+        },
+        "21d": {
+          "available": true,
+          "horizonDays": 21,
+          "startDate": "2026-07-25",
+          "endDate": "2026-08-14",
+          "points": 21,
+          "spanDays": 20,
+          "startPrice": 104.8,
+          "endPrice": 104.88,
+          "cumulativeChangePct": 0.08,
+          "logSlopePerDay": -0.00364502,
+          "slopePctPerDay": -0.3638,
+          "equivalent30dPct": -10.36,
+          "rSquared": 0.6293,
+          "residualNoisePct": 1.708,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 17,
+            "totalTransitions": 20,
+            "changedPct": 85,
+            "flatPct": 15
+          }
+        },
+        "30d": {
+          "available": true,
+          "horizonDays": 30,
+          "startDate": "2026-07-19",
+          "endDate": "2026-08-14",
+          "points": 27,
+          "spanDays": 26,
+          "startPrice": 100.48,
+          "endPrice": 104.88,
+          "cumulativeChangePct": 4.38,
+          "logSlopePerDay": -0.0017451,
+          "slopePctPerDay": -0.1744,
+          "equivalent30dPct": -5.1,
+          "rSquared": 0.2729,
+          "residualNoisePct": 2.244,
+          "confidence": {
+            "latest": 60,
+            "average": 60,
+            "minimum": 60,
+            "maximum": 60,
+            "change": 0
+          },
+          "modelChangeCount": 0,
+          "priceFrequency": {
+            "changedTransitions": 22,
+            "totalTransitions": 26,
+            "changedPct": 84.6,
+            "flatPct": 15.4
+          }
+        },
+        "45d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 27,
+          "requiredSpanDays": 35
+        },
+        "60d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 36,
+          "requiredSpanDays": 47
+        },
+        "90d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
+          "requiredPoints": 54,
+          "requiredSpanDays": 71
+        },
+        "180d": {
+          "available": false,
+          "reason": "Historique insuffisant",
+          "points": 27,
+          "spanDays": 26,
           "requiredPoints": 108,
           "requiredSpanDays": 143
         }
@@ -137133,268 +137133,6 @@
       }
     },
     {
-      "printingKey": "serra angel|foreign white border||french",
-      "cardIds": [
-        1719,
-        1755
-      ],
-      "quantity": 2,
-      "nomCarte": "Serra Angel",
-      "edition": "Foreign White Border",
-      "langue": "French",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-16",
-      "latestDate": "2026-07-31",
-      "historyPoints": 16,
-      "historyAgeDays": 15,
-      "stableSince": "2026-07-16",
-      "stableHistoryPoints": 16,
-      "stableHistoryAgeDays": 15,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 4.04,
-      "latestConfidence": 41,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "modelFamily": "edition_reference",
-      "gradeModelSource": "anchor + global/edition ratios",
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "marketAnchorPrice": 4.9,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.941,
-      "radarEligible": true,
-      "convictionScore": 17,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 14,
-      "maturityFactor": 0.75,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": null,
-        "quality": 67.9,
-        "noise": 56.1,
-        "confidence": 41
-      },
-      "availableHorizons": [
-        14
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-07-18",
-          "endDate": "2026-07-31",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 4.53,
-          "endPrice": 4.04,
-          "cumulativeChangePct": -10.82,
-          "logSlopePerDay": -0.01548202,
-          "slopePctPerDay": -1.5363,
-          "equivalent30dPct": -37.15,
-          "rSquared": 0.6787,
-          "residualNoisePct": 4.388,
-          "confidence": {
-            "latest": 41,
-            "average": 41,
-            "minimum": 41,
-            "maximum": 41,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 7,
-            "totalTransitions": 13,
-            "changedPct": 53.8,
-            "flatPct": 46.2
-          }
-        },
-        "21d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 13,
-          "requiredSpanDays": 16
-        },
-        "30d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 18,
-          "requiredSpanDays": 23
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "serra angel|foreign white border||french",
-      "cardIds": [
-        1719,
-        1755
-      ],
-      "quantity": 2,
-      "nomCarte": "Serra Angel",
-      "edition": "Foreign White Border",
-      "langue": "French",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-16",
-      "latestDate": "2026-07-31",
-      "historyPoints": 16,
-      "historyAgeDays": 15,
-      "stableSince": "2026-07-16",
-      "stableHistoryPoints": 16,
-      "stableHistoryAgeDays": 15,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 4.9,
-      "latestConfidence": 41,
-      "pricingModel": "standard_fallback_condition_ratio",
-      "modelFamily": "edition_reference",
-      "gradeModelSource": "anchor + global/edition ratios",
-      "observationDaysCount": 0,
-      "observationRowsCount": 0,
-      "marketAnchorPrice": 4.9,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.941,
-      "radarEligible": true,
-      "convictionScore": 17,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 14,
-      "maturityFactor": 0.75,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": null,
-        "quality": 68,
-        "noise": 56.4,
-        "confidence": 41
-      },
-      "availableHorizons": [
-        14
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-07-18",
-          "endDate": "2026-07-31",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 5.5,
-          "endPrice": 4.9,
-          "cumulativeChangePct": -10.91,
-          "logSlopePerDay": -0.0154611,
-          "slopePctPerDay": -1.5342,
-          "equivalent30dPct": -37.11,
-          "rSquared": 0.6804,
-          "residualNoisePct": 4.364,
-          "confidence": {
-            "latest": 41,
-            "average": 41,
-            "minimum": 41,
-            "maximum": 41,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 7,
-            "totalTransitions": 13,
-            "changedPct": 53.8,
-            "flatPct": 46.2
-          }
-        },
-        "21d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 13,
-          "requiredSpanDays": 16
-        },
-        "30d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 18,
-          "requiredSpanDays": 23
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
       "printingKey": "glacial chasm|ice age||english",
       "cardIds": [
         1703
@@ -141343,268 +141081,6 @@
           "reason": "Historique insuffisant",
           "points": 27,
           "spanDays": 26,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "savannah|foreign white border||french",
-      "cardIds": [
-        1721,
-        1743
-      ],
-      "quantity": 2,
-      "nomCarte": "Savannah",
-      "edition": "Foreign White Border",
-      "langue": "French",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-16",
-      "latestDate": "2026-07-31",
-      "historyPoints": 16,
-      "historyAgeDays": 15,
-      "stableSince": "2026-07-16",
-      "stableHistoryPoints": 16,
-      "stableHistoryAgeDays": 15,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 211.68,
-      "latestConfidence": 59,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 237.99,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.9392,
-      "radarEligible": true,
-      "convictionScore": 15,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 14,
-      "maturityFactor": 0.75,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": null,
-        "quality": 20.9,
-        "noise": 88.5,
-        "confidence": 59
-      },
-      "availableHorizons": [
-        14
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-07-18",
-          "endDate": "2026-07-31",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 215.6,
-          "endPrice": 211.68,
-          "cumulativeChangePct": -1.82,
-          "logSlopePerDay": -0.0014637,
-          "slopePctPerDay": -0.1463,
-          "equivalent30dPct": -4.3,
-          "rSquared": 0.2095,
-          "residualNoisePct": 1.153,
-          "confidence": {
-            "latest": 59,
-            "average": 59,
-            "minimum": 59,
-            "maximum": 59,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 13,
-          "requiredSpanDays": 16
-        },
-        "30d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 18,
-          "requiredSpanDays": 23
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "savannah|foreign white border||french",
-      "cardIds": [
-        1721,
-        1743
-      ],
-      "quantity": 2,
-      "nomCarte": "Savannah",
-      "edition": "Foreign White Border",
-      "langue": "French",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-16",
-      "latestDate": "2026-07-31",
-      "historyPoints": 16,
-      "historyAgeDays": 15,
-      "stableSince": "2026-07-16",
-      "stableHistoryPoints": 16,
-      "stableHistoryAgeDays": 15,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 267.39,
-      "latestConfidence": 59,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 237.99,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.9392,
-      "radarEligible": true,
-      "convictionScore": 15,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 14,
-      "maturityFactor": 0.75,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": null,
-        "quality": 21,
-        "noise": 88.5,
-        "confidence": 59
-      },
-      "availableHorizons": [
-        14
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-07-18",
-          "endDate": "2026-07-31",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 272.34,
-          "endPrice": 267.39,
-          "cumulativeChangePct": -1.82,
-          "logSlopePerDay": -0.00146286,
-          "slopePctPerDay": -0.1462,
-          "equivalent30dPct": -4.29,
-          "rSquared": 0.2098,
-          "residualNoisePct": 1.151,
-          "confidence": {
-            "latest": 59,
-            "average": 59,
-            "minimum": 59,
-            "maximum": 59,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 13,
-          "requiredSpanDays": 16
-        },
-        "30d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 18,
-          "requiredSpanDays": 23
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 16,
-          "spanDays": 15,
           "requiredPoints": 108,
           "requiredSpanDays": 143
         }
