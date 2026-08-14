@@ -44,8 +44,8 @@ jobs:
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
 
-      - name: Send alerts
-        if: github.event_name == 'schedule'
+        - name: Send alerts
+        if: github.event_name != 'push'
         run: npm run send:alerts
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
