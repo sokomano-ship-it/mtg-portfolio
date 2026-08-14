@@ -182,6 +182,23 @@ function buildPrintingKey(row) {
     ].join("|");
 }
 
+function getHistoryEntityId(row) {
+    const numericCardId = Number(row?.cardId);
+
+    if (Number.isFinite(numericCardId)) {
+        return numericCardId;
+    }
+
+    const trackedId =
+        String(row?.trackedId || "").trim();
+
+    if (trackedId) {
+        return `tracked:${trackedId}`;
+    }
+
+    return null;
+}
+
 function chooseMostRecentValue(
     currentValue,
     candidateValue
@@ -213,14 +230,14 @@ function groupHistoryByPrinting(
                 normalizeDate(row?.date);
 
             const cardId =
-                Number(row?.cardId);
+    getHistoryEntityId(row);
 
-            if (
-                !date ||
-                !Number.isFinite(cardId)
-            ) {
-                return;
-            }
+if (
+    !date ||
+    cardId === null
+) {
+    return;
+}
 
             if (
                 startDate &&
@@ -241,26 +258,39 @@ function groupHistoryByPrinting(
 
             if (!groups.has(key)) {
                 groups.set(key, {
-                    printingKey: key,
+    printingKey: key,
 
-                    nomCarte:
-                        row.nomCarte || "",
+    nomCarte:
+        row.nomCarte || "",
 
-                    edition:
-                        row.edition || "",
+    edition:
+        row.edition || "",
 
-                    version:
-                        row.version || "",
+    version:
+        row.version || "",
 
-                    langue:
-                        row.langue || "",
+    langue:
+        row.langue || "",
 
-                    cardIds:
-                        new Set(),
+    historySource:
+        row.historySource ||
+        (
+            String(cardId).startsWith("tracked:")
+                ? "tracked"
+                : "collection"
+        ),
 
-                    rowsByDate:
-                        new Map()
-                });
+    owned:
+        row.owned !== undefined
+            ? Boolean(row.owned)
+            : !String(cardId).startsWith("tracked:"),
+
+    cardIds:
+        new Set(),
+
+    rowsByDate:
+        new Map()
+});
             }
 
             const group =
@@ -345,12 +375,25 @@ function groupHistoryByPrinting(
             langue:
                 group.langue,
 
+            historySource:
+    group.historySource,
+
+owned:
+    group.owned,
+
             cardIds:
-                [...group.cardIds]
-                    .sort(
-                        (a, b) =>
-                            a - b
-                    ),
+    [...group.cardIds]
+        .sort(
+            (a, b) =>
+                String(a).localeCompare(
+                    String(b),
+                    "en",
+                    {
+                        numeric: true,
+                        sensitivity: "base"
+                    }
+                )
+        ),
 
             quantity:
                 group.cardIds.size,
@@ -782,6 +825,12 @@ series.push({
                     langue:
                         group.langue,
 
+                    historySource:
+    group.historySource,
+
+owned:
+    group.owned,
+
                     cardIds:
                         group.cardIds,
 
@@ -845,6 +894,7 @@ module.exports = {
     getConditionPrice,
     getConfidence,
     getModelFamily,
+    getHistoryEntityId,
     relativeRatioChange,
     buildPrintingKey,
     groupHistoryByPrinting,

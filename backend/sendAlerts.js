@@ -4,6 +4,13 @@ const path = require("path");
 const { getEmailOpportunities } = require("./opportunityScoring");
 
 const opportunitiesPath = path.join(__dirname, "..", "frontend", "data", "opportunities.json");
+const radarPath = path.join(
+    __dirname,
+    "..",
+    "frontend",
+    "data",
+    "radar.json"
+);
 const alertsHistoryPath = path.join(__dirname, "..", "frontend", "data", "alerts-history.json");
 
 const {
@@ -128,6 +135,134 @@ function getMomentumLabel(card) {
     return "Neutre";
 }
 
+function getRadarAlerts(radarRows) {
+    const grouped = new Map();
+
+    for (const row of radarRows || []) {
+        if (
+    row.signalLevel !== "Hausse forte" ||
+    Number(row.convictionScore || 0) < 80 ||
+    Number(row.latestPrice || 0) < 3 ||
+    !row.horizons?.["30d"]?.available ||
+    Number(row.horizons["30d"].rSquared || 0) < 0.70
+) {
+    continue;
+}
+
+        const key =
+            row.printingKey ||
+            [
+                row.nomCarte || "",
+                row.edition || "",
+                row.version || "",
+                row.langue || ""
+            ].join("|");
+
+        if (!grouped.has(key)) {
+            grouped.set(key, {
+                printingKey: key,
+
+                nomCarte: row.nomCarte,
+                edition: row.edition,
+                version: row.version || null,
+                langue: row.langue,
+
+                owned: Boolean(row.owned),
+                historySource:
+                    row.historySource || "collection",
+
+                nmPrice: null,
+                exPrice: null,
+
+                convictionScore: 0,
+                signalLevel: row.signalLevel,
+
+                eq14: null,
+                eq21: null,
+                eq30: null,
+
+                rSquared30: null,
+                noise30: null
+            });
+        }
+
+        const card = grouped.get(key);
+
+        if (row.condition === "NM") {
+            card.nmPrice =
+                Number(row.latestPrice || 0) || null;
+        }
+
+        if (row.condition === "EX") {
+            card.exPrice =
+                Number(row.latestPrice || 0) || null;
+        }
+
+        /*
+         * On retient comme référence la série
+         * NM/EX ayant la conviction la plus élevée.
+         */
+        if (
+            Number(row.convictionScore || 0) >=
+            Number(card.convictionScore || 0)
+        ) {
+            card.convictionScore =
+                Number(row.convictionScore || 0);
+
+            card.signalLevel =
+                row.signalLevel;
+
+            card.eq14 =
+                row.horizons?.["14d"]?.available
+                    ? Number(
+                        row.horizons["14d"]
+                            .equivalent30dPct
+                    )
+                    : null;
+
+            card.eq21 =
+                row.horizons?.["21d"]?.available
+                    ? Number(
+                        row.horizons["21d"]
+                            .equivalent30dPct
+                    )
+                    : null;
+
+            card.eq30 =
+                row.horizons?.["30d"]?.available
+                    ? Number(
+                        row.horizons["30d"]
+                            .equivalent30dPct
+                    )
+                    : null;
+
+            card.rSquared30 =
+                row.horizons?.["30d"]?.available
+                    ? Number(
+                        row.horizons["30d"]
+                            .rSquared
+                    )
+                    : null;
+
+            card.noise30 =
+                row.horizons?.["30d"]?.available
+                    ? Number(
+                        row.horizons["30d"]
+                            .residualNoisePct
+                    )
+                    : null;
+        }
+    }
+
+    return [...grouped.values()]
+        .sort(
+            (a, b) =>
+                b.convictionScore -
+                a.convictionScore
+        )
+        .slice(0, 10);
+}
+
 function buildCardHtml(card, index) {
     return `
         <div style="border:1px solid #ddd; border-radius:8px; padding:16px; margin-bottom:20px;">
@@ -179,21 +314,48 @@ function buildCardHtml(card, index) {
 }
 
 async function main() {
-    if (!fs.existsSync(opportunitiesPath)) {
-        console.log("opportunities.json introuvable, aucun email envoyé.");
-        return;
-    }
+    const opportunityData =
+    loadJson(
+        opportunitiesPath,
+        {}
+    );
 
-    const data = loadJson(opportunitiesPath, {});
-    const opportunities = data.opportunities || [];
-    const alerts = getEmailOpportunities(opportunities);
+const opportunities =
+    opportunityData.opportunities || [];
 
-    if (alerts.length === 0) {
-        console.log("Aucune opportunité forte aujourd'hui, aucun email envoyé.");
-        return;
-    }
+const alerts =
+    getEmailOpportunities(
+        opportunities
+    );
 
+const radarData =
+    loadJson(
+        radarPath,
+        {}
+    );
+
+const radarRows =
+    radarData.rows || [];
+
+const radarAlerts =
+    getRadarAlerts(
+        radarRows
+    );
+
+if (
+    alerts.length === 0 &&
+    radarAlerts.length === 0
+) {
+    console.log(
+        "Aucune opportunité ni alerte Radar aujourd'hui, aucun email envoyé."
+    );
+
+    return;
+}
+
+if (alerts.length > 0) {
     saveAlertsHistory(alerts);
+}
 
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !ALERT_EMAIL_TO) {
         throw new Error("Secrets SMTP manquants.");
@@ -209,38 +371,181 @@ async function main() {
         }
     });
 
-    const cardsHtml = alerts.map(buildCardHtml).join("");
+    const cardsHtml =
+    alerts
+        .map(buildCardHtml)
+        .join("");
+
+const radarCardsHtml =
+    radarAlerts
+        .map(buildRadarCardHtml)
+        .join("");
+
+    function formatOptionalPercent(value) {
+    const number = Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "-";
+    }
+
+    return formatPercent(number);
+}
+
+function buildRadarCardHtml(card, index) {
+    return `
+        <div style="border:1px solid #ddd; border-radius:8px; padding:16px; margin-bottom:20px;">
+
+            <h2 style="margin-top:0;">
+                ${index + 1}. ${escapeHtml(card.nomCarte)}
+            </h2>
+
+            <p>
+                <strong>${escapeHtml(card.edition || "-")}</strong>
+                ${card.version ? " • " + escapeHtml(card.version) : ""}
+                • ${escapeHtml(card.langue || "-")}
+            </p>
+
+            <p>
+                <strong>Possédée :</strong>
+                ${card.owned ? "Oui" : "Non"}
+            </p>
+
+            <h3>📡 Signal Radar</h3>
+
+            <p>
+                <strong>Conviction :</strong>
+                ${card.convictionScore} / 100<br>
+
+                <strong>Signal :</strong>
+                ${escapeHtml(card.signalLevel)}
+            </p>
+
+            <h3>📈 Tendance du modèle</h3>
+
+            <p>
+                <strong>14 jours :</strong>
+                ${formatOptionalPercent(card.eq14)}<br>
+
+                <strong>21 jours :</strong>
+                ${formatOptionalPercent(card.eq21)}<br>
+
+                <strong>30 jours :</strong>
+                ${formatOptionalPercent(card.eq30)}
+            </p>
+
+            <h3>💶 Estimation actuelle</h3>
+
+            <p>
+                <strong>NM :</strong>
+                ${card.nmPrice
+                    ? formatEuro(card.nmPrice)
+                    : "-"}<br>
+
+                <strong>EX :</strong>
+                ${card.exPrice
+                    ? formatEuro(card.exPrice)
+                    : "-"}
+            </p>
+
+            <h3>📊 Qualité du signal</h3>
+
+            <p>
+                <strong>R² 30 jours :</strong>
+                ${
+                    Number.isFinite(card.rSquared30)
+                        ? card.rSquared30.toFixed(2)
+                        : "-"
+                }<br>
+
+                <strong>Bruit :</strong>
+                ${
+                    Number.isFinite(card.noise30)
+                        ? `${card.noise30.toFixed(1)} %`
+                        : "-"
+                }
+            </p>
+
+            <p style="font-weight:bold;">
+                🔎 Action : vérifier les annonces Cardmarket
+            </p>
+
+        </div>
+    `;
+}
 
     const html = `
-        <h1>🎯 MTG Investment Alerts</h1>
+    <h1>📊 MTG Portfolio — Alertes quotidiennes</h1>
 
-        <p>
-            Le moteur a identifié
-            <strong>${alerts.length}</strong> opportunité(s) forte(s) aujourd'hui.
-        </p>
+    ${
+        radarAlerts.length
+            ? `
+                <h2>📡 Radar — hausses à vérifier sur Cardmarket</h2>
 
-        <p>
-            Ces alertes combinent score d'achat, timing, momentum récent et risque acceptable.
-            Les prix max NM/EX sont des plafonds théoriques à comparer manuellement aux annonces Cardmarket.
-        </p>
+                <p>
+                    Le Radar statistique a identifié
+                    <strong>${radarAlerts.length}</strong>
+                    carte(s) présentant une hausse suffisamment
+                    forte, persistante et propre pour justifier
+                    une vérification manuelle des annonces Cardmarket.
+                </p>
 
-        ${cardsHtml}
+                <p>
+                    Le signal repose principalement sur les
+                    tendances 14 / 21 / 30 jours du modèle,
+                    leur persistance, le R², le bruit et
+                    la confiance du moteur.
+                </p>
 
-        <p>
-            <a href="https://sokomano-ship-it.github.io/mtg-portfolio/">
-                Ouvrir le portefeuille MTG
-            </a>
-        </p>
-    `;
+                ${radarCardsHtml}
+            `
+            : ""
+    }
+
+    ${
+        alerts.length
+            ? `
+                <hr>
+
+                <h2>🎯 Opportunités d'achat</h2>
+
+                <p>
+                    L'ancien moteur d'opportunités a identifié
+                    <strong>${alerts.length}</strong>
+                    opportunité(s) forte(s).
+                </p>
+
+                <p>
+                    Les prix maximum NM/EX sont des plafonds
+                    théoriques à comparer manuellement aux
+                    annonces Cardmarket.
+                </p>
+
+                ${cardsHtml}
+            `
+            : ""
+    }
+
+    <p>
+        <a href="https://sokomano-ship-it.github.io/mtg-portfolio/">
+            Ouvrir le portefeuille MTG
+        </a>
+    </p>
+`;
 
     await transporter.sendMail({
         from: `"MTG Portfolio Alerts" <${SMTP_USER}>`,
         to: ALERT_EMAIL_TO,
-        subject: `🎯 ${alerts.length} opportunité(s) MTG forte(s) détectée(s)`,
+        subject:
+    `📡 ${radarAlerts.length} Radar · ` +
+    `🎯 ${alerts.length} opportunité(s) MTG`,
         html
     });
 
-    console.log(`Email envoyé avec ${alerts.length} opportunité(s) forte(s).`);
+    console.log(
+    `Email envoyé : ` +
+    `${radarAlerts.length} alerte(s) Radar, ` +
+    `${alerts.length} opportunité(s) achat.`
+);
 }
 
 main().catch(error => {
