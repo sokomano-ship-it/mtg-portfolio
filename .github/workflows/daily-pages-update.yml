@@ -76,6 +76,7 @@ jobs:
           git add frontend/data/price-history-snapshots.json
           git add frontend/data/price-history-analysis.json
           git add frontend/data/estimated-price-history.json
+          git add frontend/data/tracked-price-history.json
           git add frontend/data/alerts-history.json
 
           git diff --cached --quiet || git commit -m "Daily portfolio update"
