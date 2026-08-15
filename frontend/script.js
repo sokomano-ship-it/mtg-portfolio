@@ -2996,7 +2996,7 @@ function calculateInvestmentSummary(
             b.change.perCard -
             a.change.perCard
     )
-    .slice(0, 5);
+    .slice(0, 10);
 
 const worstContributions = [
     ...rowsWithHistory
@@ -3009,7 +3009,7 @@ const worstContributions = [
             a.change.perCard -
             b.change.perCard
     )
-    .slice(0, 5);
+    .slice(0, 10);
 
     const positiveCount =
     rowsWithHistory.filter(
@@ -3260,12 +3260,12 @@ const coverageDetailElement =
 
     if (topLabelElement) {
         topLabelElement.textContent =
-            `Top 5 contributions — ${periodLabel}`;
+            `Top 10 contributions — ${periodLabel}`;
     }
 
     if (worstLabelElement) {
         worstLabelElement.textContent =
-            `Pires 5 contributions — ${periodLabel}`;
+            `Pires 10 contributions — ${periodLabel}`;
     }
 
     if (directionLabelElement) {
