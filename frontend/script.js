@@ -3719,14 +3719,19 @@ async function showInvestmentDetails(cardId) {
     }
 
     try {
-        const detail = await window.apiAdapter.getCardDetail(cardId);
-        const modelCard = detail?.card || {};
+    const detail = await window.apiAdapter.getCardDetail(cardId);
 
-        renderInvestmentModelCards(modelCard);
-        renderInvestmentChart(cardId);
-    } catch (error) {
-        console.error("Erreur chargement détail modèle :", error);
+    if (Number(selectedInvestmentCardId) !== Number(cardId)) {
+        return;
     }
+
+    const modelCard = detail?.card || {};
+
+    renderInvestmentModelCards(modelCard);
+    renderInvestmentChart(cardId);
+} catch (error) {
+    console.error("Erreur chargement détail modèle :", error);
+}
 }
 
 function renderInvestmentModelCards(card) {
@@ -4000,6 +4005,10 @@ async function renderInvestmentChart(cardId) {
 
     try {
         const detail = await window.apiAdapter.getCardDetail(cardId);
+
+        if (Number(selectedInvestmentCardId) !== Number(cardId)) {
+    return;
+}
 
         if (!detail) {
             investmentChart = null;
