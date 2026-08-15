@@ -2989,12 +2989,12 @@ function calculateInvestmentSummary(
     ...rowsWithHistory
 ]
     .filter(row =>
-        row.change.lot > 0
+        row.change.perCard > 0
     )
     .sort(
         (a, b) =>
-            b.change.lot -
-            a.change.lot
+            b.change.perCard -
+            a.change.perCard
     )
     .slice(0, 5);
 
@@ -3002,12 +3002,12 @@ const worstContributions = [
     ...rowsWithHistory
 ]
     .filter(row =>
-        row.change.lot < 0
+        row.change.perCard < 0
     )
     .sort(
         (a, b) =>
-            a.change.lot -
-            b.change.lot
+            a.change.perCard -
+            b.change.perCard
     )
     .slice(0, 5);
 
@@ -3136,8 +3136,8 @@ function renderInvestmentRanking(
 
                     <div class="${changeClass}">
                         ${formatSignedEuro(
-                            row.change.lot
-                        )}
+    row.change.perCard
+)}
                     </div>
                 </div>
             `;
