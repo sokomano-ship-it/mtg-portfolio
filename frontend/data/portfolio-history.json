@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T07:39:44.211Z",
+  "generatedAt": "2026-08-17T20:31:16.071Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -5165,9 +5165,9 @@
     },
     {
       "date": "2026-08-17",
-      "totalValue": 10008.73,
+      "totalValue": 10016.44,
       "categoryValues": {
-        "Classeur 3": 321.75,
+        "Classeur 3": 329.46,
         "GG Mono Green": 1049.7,
         "Classeur 1": 1286.36,
         "RR Mono Red": 509.86,
@@ -5191,7 +5191,7 @@
         "Foreign White Bordered": 1136.48,
         "Fourth Edition": 132.75,
         "Homelands": 28.1,
-        "Ice Age": 154.38,
+        "Ice Age": 162.09,
         "Legends": 788.07,
         "Legends Italian": 2.99,
         "Mirage": 123.48,
@@ -5214,7 +5214,7 @@
         "Classeur 3": {
           "Alliances": 139.27,
           "Homelands": 28.1,
-          "Ice Age": 154.38
+          "Ice Age": 162.09
         },
         "GG Mono Green": {
           "Antiquities": 264.37,
@@ -5309,7 +5309,20 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "1793",
+            "nomCarte": "Thermokarst",
+            "edition": "Ice Age",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "Classeur 3"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
