@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T07:25:11.861Z",
+  "generatedAt": "2026-08-18T19:19:33.988Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -5313,13 +5313,13 @@
     },
     {
       "date": "2026-08-18",
-      "totalValue": 10029.23,
+      "totalValue": 10030.08,
       "categoryValues": {
-        "Classeur 3": 327.84,
+        "Classeur 3": 328.7,
         "GG Mono Green": 1050.03,
         "Classeur 1": 1286.52,
         "RR Mono Red": 509.99,
-        "WW Mono White": 786.53,
+        "WW Mono White": 786.52,
         "BB Mono Black": 637.81,
         "UU Mono Blue": 609.94,
         "Classeur 2": 246.62,
@@ -5330,7 +5330,7 @@
       "editionValues": {
         "Alliances": 138.57,
         "Antiquities": 448.04,
-        "Arabian Nights": 957.35,
+        "Arabian Nights": 957.34,
         "Chronicles": 174.09,
         "Exodus": 83.41,
         "Fallen Empires": 10.47,
@@ -5339,7 +5339,7 @@
         "Foreign White Bordered": 1136.13,
         "Fourth Edition": 133.17,
         "Homelands": 28.21,
-        "Ice Age": 161.06,
+        "Ice Age": 161.92,
         "Legends": 789.24,
         "Legends Italian": 3.03,
         "Mirage": 123.42,
@@ -5362,7 +5362,7 @@
         "Classeur 3": {
           "Alliances": 138.57,
           "Homelands": 28.21,
-          "Ice Age": 161.06
+          "Ice Age": 161.92
         },
         "GG Mono Green": {
           "Antiquities": 264.83,
@@ -5394,7 +5394,7 @@
           "Unlimited": 1.09
         },
         "WW Mono White": {
-          "Arabian Nights": 324.2,
+          "Arabian Nights": 324.19,
           "Fallen Empires": 5.52,
           "Foreign Black Bordered": 2.08,
           "Foreign White Bordered": 34.77,
@@ -5457,7 +5457,28 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "1794",
+            "nomCarte": "Order of the Sacred Torch",
+            "edition": "Ice Age",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1795",
+            "nomCarte": "Seraph",
+            "edition": "Ice Age",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
