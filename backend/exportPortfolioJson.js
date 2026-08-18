@@ -1319,15 +1319,21 @@ portfolioHistoryEstimated =
             historyStart: index === 0,
 
             collectionChanges:
-                row.date === todayDate
-                    ? (
-                        hasCurrentCollectionChanges
-                            ? currentCollectionChanges
-                            : null
-                    )
-                    : (
-                        row.collectionChanges || null
-                    )
+    row.date === todayDate
+        ? (
+            hasCurrentCollectionChanges
+                ? currentCollectionChanges
+                : (
+                    existingPortfolioHistory.find(
+                        historyRow =>
+                            String(historyRow.date).slice(0, 10) ===
+                            todayDate
+                    )?.collectionChanges || null
+                )
+        )
+        : (
+            row.collectionChanges || null
+        )
         })
     );
 
