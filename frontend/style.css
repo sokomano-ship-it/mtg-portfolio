@@ -2719,3 +2719,19 @@ th:nth-child(4)
     }
 
 }
+
+/* Catégories sous le nom de carte — Ma collection */
+
+.collection-card-main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+.collection-card-categories {
+    color: #8e96a8;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+}

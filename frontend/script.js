@@ -1425,6 +1425,29 @@ const totalAvg30 =
              * dans les variantes dépliées.
              */
 
+
+            /*
+ * Catégories auxquelles appartient la carte.
+ * Une même carte peut appartenir à plusieurs catégories.
+ */
+const categories =
+    [...new Set(
+        group.cards
+            .map(card =>
+                String(
+                    card.categorie || "Non classé"
+                ).trim()
+            )
+            .filter(Boolean)
+    )]
+    .sort((a, b) =>
+        a.localeCompare(
+            b,
+            "fr",
+            { sensitivity: "base" }
+        )
+    );
+
             const firstCard =
     representativeCard;
 
@@ -1435,12 +1458,14 @@ const totalAvg30 =
                     group.key,
 
                 nomCarte:
-                    group.nomCarte,
+    group.nomCarte,
 
-                cards:
-                    group.cards,
+categories,
 
-                variants,
+cards:
+    group.cards,
+
+variants,
 
                 quantity:
                     group.cards.length,
@@ -1702,24 +1727,32 @@ if (
 
                         <td>
 
-                            <button
-                                type="button"
+                            <div class="collection-card-main-info">
 
-                                class="
-                                    card-link-button
-                                    collection-card-name
-                                "
+    <button
+        type="button"
+        class="
+            card-link-button
+            collection-card-name
+        "
+        onclick="openCardDetail(
+            ${firstCard.id}
+        )"
+    >
+        ${escapeHtml(
+            group.nomCarte
+        )}
+    </button>
 
-                                onclick="openCardDetail(
-                                    ${firstCard.id}
-                                )"
-                            >
+    <div class="collection-card-categories">
+        ${group.categories
+            .map(category =>
+                escapeHtml(category)
+            )
+            .join(" · ")}
+    </div>
 
-                                ${escapeHtml(
-                                    group.nomCarte
-                                )}
-
-                            </button>
+</div>
 
                         </td>
 
@@ -2557,6 +2590,36 @@ if (freshnessElement) {
     document.getElementById(
         "portfolio-chart-selection"
     );
+
+    const contextCategoryElement =
+    document.getElementById(
+        "portfolio-chart-context-category"
+    );
+
+    if (contextCategoryElement) {
+
+    if (
+        selectedPortfolioCardKey &&
+        selectedPortfolioCategory
+    ) {
+
+        contextCategoryElement.textContent =
+            `📁 Catégorie : ${selectedPortfolioCategory}`;
+
+        contextCategoryElement.hidden =
+            false;
+
+    } else {
+
+        contextCategoryElement.textContent =
+            "";
+
+        contextCategoryElement.hidden =
+            true;
+
+    }
+
+}
 
 if (chartSelectionElement) {
     chartSelectionElement.textContent = noFilters
