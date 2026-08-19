@@ -2586,6 +2586,14 @@ if (freshnessElement) {
         const displayName =
             getPortfolioSelectionLabel(selectedCards);
 
+        const kpiDisplayName =
+    selectedPortfolioCardKey
+        ? (
+            selectedCards[0]?.nomCarte ||
+            displayName
+        )
+        : displayName;
+
         const chartSelectionElement =
     document.getElementById(
         "portfolio-chart-selection"
@@ -2767,16 +2775,16 @@ if (weightElement) {
         }
 
         if (totalCardsLabel) {
-            totalCardsLabel.textContent = noFilters
-                ? "Cartes totales"
-                : `Cartes — ${displayName}`;
-        }
+    totalCardsLabel.textContent = noFilters
+        ? "Cartes totales"
+        : `Cartes — ${kpiDisplayName}`;
+}
 
-        if (totalValueLabel) {
-            totalValueLabel.textContent = noFilters
-                ? "Valeur estimée portefeuille"
-                : `Valeur estimée — ${displayName}`;
-        }
+if (totalValueLabel) {
+    totalValueLabel.textContent = noFilters
+        ? "Valeur estimée portefeuille"
+        : `Valeur estimée — ${kpiDisplayName}`;
+}
 
         if (changeLabel) {
             changeLabel.textContent = noFilters
@@ -3317,8 +3325,8 @@ function rowHasVisibleCollectionChanges(row) {
 
 
         if (!chartArea) {
-            return "rgba(62, 166, 255, 0.08)";
-        }
+    return "rgba(62, 166, 255, 0.06)";
+}
 
 
         const gradient =
@@ -3331,19 +3339,19 @@ function rowHasVisibleCollectionChanges(row) {
 
 
         gradient.addColorStop(
-            0,
-            "rgba(62, 166, 255, 0.22)"
-        );
+    0,
+    "rgba(62, 166, 255, 0.17)"
+);
 
-        gradient.addColorStop(
-            0.55,
-            "rgba(62, 166, 255, 0.07)"
-        );
+gradient.addColorStop(
+    0.55,
+    "rgba(62, 166, 255, 0.045)"
+);
 
-        gradient.addColorStop(
-            1,
-            "rgba(62, 166, 255, 0.00)"
-        );
+gradient.addColorStop(
+    1,
+    "rgba(62, 166, 255, 0.00)"
+);
 
 
         return gradient;

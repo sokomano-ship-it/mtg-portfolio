@@ -1542,14 +1542,14 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
     position: relative;
 
-    min-height: 112px;
+    min-height: 102px;
 
-    padding: 18px 20px;
+    padding: 16px 18px;
 
     display: flex;
     align-items: center;
 
-    gap: 16px;
+    gap: 14px;
 
     background:
         linear-gradient(
@@ -1683,33 +1683,27 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         20px;
 
     min-height:
-        175px;
+        166px;
 
     margin:
-        -6px
-        0
-        8px;
+    -8px
+    0
+    2px;
 
-    padding:
-        10px
-        18px
-        10px
-        0;
+padding:
+    6px
+    18px
+    6px
+    0;
 }
 
 
 .portfolio-chart-context-info {
-    position:
-        relative;
+    position: relative;
 
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    justify-content:
-        center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     width:
         min(
@@ -1717,12 +1711,11 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
             38vw
         );
 
-    min-height:
-        138px;
+    min-height: 126px;
 
     padding:
-        18px
-        20px;
+        15px
+        18px;
 
     background:
         linear-gradient(
@@ -1735,8 +1728,7 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         1px solid
         rgba(255, 255, 255, 0.09);
 
-    border-radius:
-        14px;
+    border-radius: 14px;
 
     box-shadow:
         0 10px 30px
@@ -1758,7 +1750,7 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     flex:
         0
         0
-        150px;
+        158px;
 
     display: flex;
     align-items: center;
@@ -1767,20 +1759,15 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
 
 .portfolio-card-preview img {
-    display:
-        block;
+    display: block;
 
-    width:
-        auto;
+    width: auto;
 
-    height:
-        178px;
+    height: 188px;
 
-    max-width:
-        150px;
+    max-width: 158px;
 
-    border-radius:
-        7px;
+    border-radius: 7px;
 
     border:
         1px solid
@@ -3111,7 +3098,7 @@ th:nth-child(4)
 .portfolio-summary-content strong {
     color: #ffffff;
 
-    font-size: 29px;
+    font-size: 27px;
 
     font-weight: 800;
 
