@@ -1678,31 +1678,30 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
    ======================================== */
 
 .portfolio-chart-context {
-    display:
-        flex;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
-    align-items:
-        center;
+    gap: 14px;
 
-    justify-content:
-        flex-end;
-
-    gap:
-        20px;
-
-    min-height:
-        166px;
+    min-height: 166px;
 
     margin:
-    -8px
-    0
-    2px;
+        -8px
+        0
+        2px
+        auto;
 
-padding:
-    6px
-    18px
-    6px
-    0;
+    padding:
+        6px
+        18px
+        6px
+        0;
+
+    flex:
+        0
+        0
+        auto;
 }
 
 
