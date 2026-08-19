@@ -1564,24 +1564,57 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
 .portfolio-chart-filters {
     display: grid;
-    grid-template-columns:
-    minmax(150px, 1fr)
-    minmax(150px, 1fr)
-    minmax(280px, 2fr)
-    auto
-    72px;
-    gap: 12px;
-    align-items: end;
-    margin-bottom: 16px;
-}
-.portfolio-card-preview {
-    width: 62px;
-    height: 86px;
 
-    align-self: end;
+    grid-template-columns:
+        minmax(150px, 1fr)
+        minmax(150px, 1fr)
+        minmax(320px, 2fr)
+        auto;
+
+    gap: 12px;
+
+    align-items: end;
+
+    margin-bottom: 18px;
+}
+/* ========================================
+   Portfolio chart - contexte sélectionné
+   ======================================== */
+
+.portfolio-chart-context {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 28px;
+
+    min-height: 175px;
+
+    margin:
+        -6px
+        0
+        8px;
+
+    padding:
+        8px
+        18px
+        8px
+        0;
+}
+
+
+/* Image de la carte sélectionnée */
+
+.portfolio-card-preview {
+    flex:
+        0
+        0
+        145px;
 
     display: flex;
-    align-items: flex-end;
+
+    align-items: center;
     justify-content: center;
 }
 
@@ -1594,14 +1627,85 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 .portfolio-card-preview img {
     display: block;
 
-    max-width: 62px;
-    max-height: 86px;
+    width: auto;
+    height: 165px;
 
-    border-radius: 5px;
+    max-width: 145px;
+
+    border-radius: 8px;
 
     box-shadow:
-        0 4px 12px
-        rgba(0, 0, 0, 0.35);
+        0 8px 24px
+        rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+
+.portfolio-card-preview img:hover {
+    transform:
+        translateY(-2px)
+        scale(1.02);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.55);
+}
+
+
+/* Informations à droite de la carte */
+
+.portfolio-chart-context-info {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    width:
+        min(
+            430px,
+            35vw
+        );
+
+    min-height: 120px;
+}
+
+
+#portfolio-chart-selection {
+    margin: 0;
+
+    padding:
+        0
+        0
+        14px;
+
+    color: #f5f5f5;
+
+    
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    line-height: 1.45;
+}
+
+
+.portfolio-chart-context
+.portfolio-data-freshness {
+    margin:
+        16px
+        0
+        0;
+
+    color: #8e96a8;
+
+    font-size: 12px;
+
+    line-height: 1.5;
 }
 
 .portfolio-chart-filters label {
@@ -1615,21 +1719,83 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     width: 100%;
 }
 
-#portfolio-chart-selection {
-    font-weight: 600;
-    margin-bottom: 10px;
-}
+
 
 @media (max-width:900px) {
+
     .portfolio-chart-filters {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
+
+
+    .portfolio-chart-context {
+        justify-content:
+            flex-start;
+
+        min-height:
+            150px;
+
+        padding-right:
+            0;
+    }
+
+
+    .portfolio-card-preview {
+        flex-basis:
+            110px;
+    }
+
+
+    .portfolio-card-preview img {
+        height:
+            135px;
+
+        max-width:
+            110px;
+    }
+
+
+    .portfolio-chart-context-info {
+        width:
+            auto;
+
+        flex:
+            1;
+    }
+
 }
 
 @media (max-width:600px) {
     .portfolio-chart-filters {
         grid-template-columns: 1fr;
     }
+
+    .portfolio-chart-context {
+    align-items:
+        flex-start;
+
+    flex-direction:
+        column;
+
+    gap:
+        14px;
+
+    min-height:
+        0;
+}
+
+
+.portfolio-card-preview {
+    flex-basis:
+        auto;
+}
+
+
+.portfolio-card-preview img {
+    height:
+        150px;
+}
 }
 
 .portfolio-kpi-unavailable {
@@ -2486,4 +2652,36 @@ th:nth-child(4)
     font-weight: 800;
 
     text-transform: uppercase;
+}
+
+.portfolio-chart-context-category {
+    margin-bottom:
+        14px;
+
+    padding-bottom:
+        14px;
+
+    color:
+        #f5f5f5;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+
+    font-size:
+        17px;
+
+    font-weight:
+        800;
+}
+
+
+.portfolio-chart-context-category[hidden] {
+    display:
+        none;
 }
