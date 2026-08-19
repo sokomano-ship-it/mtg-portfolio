@@ -3286,11 +3286,68 @@ function rowHasVisibleCollectionChanges(row) {
 
                 datasets: [
     {
-        label: chartLabel,
-        data,
-        tension: 0.3,
-        spanGaps: false,
-        fill: false,
+    label: chartLabel,
+
+    data,
+
+    tension:
+        0.32,
+
+    spanGaps:
+        false,
+
+    fill:
+        true,
+
+    borderColor:
+        "#3ea6ff",
+
+    borderWidth:
+        2.5,
+
+    backgroundColor(context) {
+
+        const chart =
+            context.chart;
+
+        const {
+            ctx,
+            chartArea
+        } = chart;
+
+
+        if (!chartArea) {
+            return "rgba(62, 166, 255, 0.08)";
+        }
+
+
+        const gradient =
+            ctx.createLinearGradient(
+                0,
+                chartArea.top,
+                0,
+                chartArea.bottom
+            );
+
+
+        gradient.addColorStop(
+            0,
+            "rgba(62, 166, 255, 0.22)"
+        );
+
+        gradient.addColorStop(
+            0.55,
+            "rgba(62, 166, 255, 0.07)"
+        );
+
+        gradient.addColorStop(
+            1,
+            "rgba(62, 166, 255, 0.00)"
+        );
+
+
+        return gradient;
+    },
 
         pointRadius(context) {
     const row =
@@ -3461,7 +3518,7 @@ if (moved.length) {
                 scales: {
                     x: {
                         ticks: {
-                            color: "#f5f5f5",
+                            color: "#9da8ba",
                             autoSkip: true,
                             maxTicksLimit: 12,
                             maxRotation: 0,
@@ -3469,16 +3526,19 @@ if (moved.length) {
                         },
 
                         grid: {
-                            color:
-                                "rgba(255,255,255,0.1)"
-                        }
+    color:
+        "rgba(255,255,255,0.055)",
+
+    drawBorder:
+        false
+}
                     },
 
                     y: {
                         beginAtZero: false,
 
                         ticks: {
-                            color: "#f5f5f5",
+                            color: "#9da8ba",
 
                             callback(value) {
                                 return formatEuro(value);
@@ -3486,9 +3546,12 @@ if (moved.length) {
                         },
 
                         grid: {
-                            color:
-                                "rgba(255,255,255,0.1)"
-                        }
+    color:
+        "rgba(255,255,255,0.055)",
+
+    drawBorder:
+        false
+}
                     }
                 }
             }
@@ -5243,7 +5306,7 @@ async function renderInvestmentChart(cardId) {
                 scales: {
                     x: {
                         ticks: {
-                            color: "#f5f5f5",
+                            color: "#9da8ba",
                             maxRotation: 45,
                             minRotation: 0
                         },
@@ -5257,7 +5320,7 @@ async function renderInvestmentChart(cardId) {
                         beginAtZero: false,
 
                         ticks: {
-                            color: "#f5f5f5",
+                            color: "#9da8ba",
 
                             callback(value) {
                                 return formatEuro(value);
@@ -6806,7 +6869,7 @@ function renderCardDetailChart(history) {
             scales: {
                 x: {
                     ticks: {
-                        color: "#f5f5f5"
+                        color: "#9da8ba"
                     },
                     grid: {
                         color: "rgba(255,255,255,0.1)"
@@ -6814,7 +6877,7 @@ function renderCardDetailChart(history) {
                 },
                 y: {
                     ticks: {
-                        color: "#f5f5f5"
+                        color: "#9da8ba"
                     },
                     grid: {
                         color: "rgba(255,255,255,0.1)"
