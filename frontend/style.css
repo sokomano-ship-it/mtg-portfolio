@@ -1671,8 +1671,10 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
     align-items: end;
 
-    margin-bottom: 18px;
+    margin-bottom: 0;
 }
+
+
 /* ========================================
    Portfolio chart - contexte sélectionné
    ======================================== */
@@ -1686,22 +1688,13 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
     min-height: 166px;
 
-    margin:
-        -8px
-        0
-        2px
-        auto;
+    margin: 0;
 
     padding:
         6px
-        18px
-        6px
         0;
 
-    flex:
-        0
-        0
-        auto;
+    flex: none;
 }
 
 
@@ -3232,4 +3225,30 @@ strong.score-negative {
 .portfolio-summary-icon svg * {
     fill: none !important;
     stroke: var(--kpi-color) !important;
+}
+
+.portfolio-chart-top {
+    display: grid;
+
+    grid-template-columns:
+        minmax(620px, 1fr)
+        auto;
+
+    gap: 30px;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+@media (max-width: 1200px) {
+
+    .portfolio-chart-top {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-chart-context {
+        justify-content: flex-end;
+    }
+
 }
