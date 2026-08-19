@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T07:25:50.804Z",
+  "generatedAt": "2026-08-19T13:13:45.317Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -5611,13 +5611,13 @@
     },
     {
       "date": "2026-08-19",
-      "totalValue": 9979.29,
+      "totalValue": 9987.53,
       "categoryValues": {
-        "Classeur 3": 347.74,
+        "Classeur 3": 355.34,
         "GG Mono Green": 1034.48,
         "Classeur 1": 1280.09,
         "RR Mono Red": 507.96,
-        "WW Mono White": 780.06,
+        "WW Mono White": 780.7,
         "BB Mono Black": 635.66,
         "UU Mono Blue": 609.68,
         "Classeur 2": 243.91,
@@ -5626,17 +5626,17 @@
         "Classeur 4": 958.24
       },
       "editionValues": {
-        "Alliances": 138.85,
+        "Alliances": 141.72,
         "Antiquities": 448.51,
-        "Arabian Nights": 947.85,
+        "Arabian Nights": 948.45,
         "Chronicles": 171.91,
         "Exodus": 82.5,
         "Fallen Empires": 10.91,
         "Fifth Edition": 27.94,
         "Foreign Black Bordered": 275.31,
-        "Foreign White Bordered": 1121.18,
-        "Fourth Edition": 133.65,
-        "Homelands": 28,
+        "Foreign White Bordered": 1121.21,
+        "Fourth Edition": 133.66,
+        "Homelands": 32.73,
         "Ice Age": 180.89,
         "Legends": 785.95,
         "Legends Italian": 3.03,
@@ -5658,8 +5658,8 @@
       },
       "categoryEditionValues": {
         "Classeur 3": {
-          "Alliances": 138.85,
-          "Homelands": 28,
+          "Alliances": 141.72,
+          "Homelands": 32.73,
           "Ice Age": 180.89
         },
         "GG Mono Green": {
@@ -5692,11 +5692,11 @@
           "Unlimited": 1.09
         },
         "WW Mono White": {
-          "Arabian Nights": 321.64,
+          "Arabian Nights": 322.24,
           "Fallen Empires": 5.52,
           "Foreign Black Bordered": 2.44,
-          "Foreign White Bordered": 34.62,
-          "Fourth Edition": 7.85,
+          "Foreign White Bordered": 34.65,
+          "Fourth Edition": 7.86,
           "Legends": 246.79,
           "Renaissance": 30.14,
           "Revised": 65.2,
@@ -5755,7 +5755,84 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "1813",
+            "nomCarte": "Aysen Crusader",
+            "edition": "Homelands",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1820",
+            "nomCarte": "Bounty of the Hunt",
+            "edition": "Alliances",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1816",
+            "nomCarte": "Grandmother Sengir",
+            "edition": "Homelands",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1817",
+            "nomCarte": "Heart Wolf",
+            "edition": "Homelands",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1818",
+            "nomCarte": "Mammoth Harness",
+            "edition": "Homelands",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1814",
+            "nomCarte": "Narwhal",
+            "edition": "Homelands",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1819",
+            "nomCarte": "Pillage",
+            "edition": "Alliances",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1815",
+            "nomCarte": "Sengir Autocrat",
+            "edition": "Homelands",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          },
+          {
+            "id": "1821",
+            "nomCarte": "Wandering Mage",
+            "edition": "Alliances",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 3"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
