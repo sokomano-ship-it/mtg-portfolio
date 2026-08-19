@@ -629,27 +629,115 @@ function getCollectionFilters() {
 }
 
 function filterCards() {
-    const select = document.getElementById("category-filter");
-    const filters = getCollectionFilters();
 
-    let cards = [...allCards];
-
-    if (select && select.value !== "Toutes") {
-        cards = cards.filter(card =>
-            (card.categorie || "Non classé") === select.value
+    const select =
+        document.getElementById(
+            "category-filter"
         );
+
+    const filters =
+        getCollectionFilters();
+
+
+    /*
+     * Le filtre quantité doit être appliqué
+     * APRÈS regroupement par nom de carte.
+     */
+    const quantityFilter =
+        filters.quantity || "";
+
+    delete filters.quantity;
+
+
+    let cards =
+        [...allCards];
+
+
+    /*
+     * Filtre catégorie.
+     */
+    if (
+        select &&
+        select.value !== "Toutes"
+    ) {
+
+        cards =
+            cards.filter(card =>
+                (
+                    card.categorie ||
+                    "Non classé"
+                ) === select.value
+            );
+
     }
 
-    cards = cards.filter(card =>
-        Object.entries(filters).every(([key, value]) =>
-            matchesCollectionFilter(card, key, value)
-        )
-    );
 
-    sortCollectionCards(cards);
+    /*
+     * Filtres portant sur les exemplaires :
+     * nom, Trend, Avg30...
+     */
+    cards =
+        cards.filter(card =>
+            Object.entries(filters)
+                .every(
+                    ([key, value]) =>
+                        matchesCollectionFilter(
+                            card,
+                            key,
+                            value
+                        )
+                )
+        );
+
+
+    /*
+     * Filtre Qté.
+     *
+     * On regroupe d'abord les cartes,
+     * puis on conserve uniquement les groupes
+     * dont la quantité correspond au filtre.
+     */
+    if (quantityFilter) {
+
+        const matchingGroups =
+            groupCollectionCards(cards)
+                .filter(group =>
+                    matchesNumericFilter(
+                        group.quantity,
+                        quantityFilter
+                    )
+                );
+
+
+        cards =
+            matchingGroups.flatMap(
+                group => group.cards
+            );
+
+    }
+
+
+    /*
+     * Le tri alphabétique continue ici.
+     * Le tri Qté sera effectué après regroupement
+     * dans renderCards().
+     */
+    if (
+        currentCollectionSort !==
+        "quantity"
+    ) {
+
+        sortCollectionCards(cards);
+
+    }
+
+
     updateCollectionHeaderState();
+
     updateCategoryStats(cards);
+
     renderCards(cards);
+
 }
 
 function sortCollectionCards(cards) {
@@ -1210,9 +1298,40 @@ function renderCards(cards) {
      * avant d'arriver ici.
      */
 
-    const groups =
-        groupCollectionCards(cards);
+    let groups =
+    groupCollectionCards(cards);
 
+
+/*
+ * Tri par quantité.
+ *
+ * Ce tri doit intervenir après regroupement,
+ * puisque quantity représente le nombre
+ * d'exemplaires d'une même carte.
+ */
+if (
+    currentCollectionSort ===
+    "quantity"
+) {
+
+    groups.sort(
+        (a, b) => {
+
+            const result =
+                a.quantity -
+                b.quantity;
+
+            return (
+                currentCollectionDirection ===
+                "asc"
+                    ? result
+                    : -result
+            );
+
+        }
+    );
+
+}
 
     const rowsHtml =
         groups
@@ -1364,37 +1483,27 @@ function renderCards(cards) {
 
 
                         <td
-                            class="collection-quantity"
-                        >
-                            ×${group.quantity}
-                        </td>
+    class="collection-quantity"
+>
+    ×${group.quantity}
+</td>
 
 
-                        <td>
-                            ${group.variantCount}
-                        </td>
+<td class="price">
+    ${formatEuro(
+        group.totalValue
+    )}
+</td>
 
 
-                        <td class="price">
-                            ${formatEuro(
-                                group.totalValue
-                            )}
-                        </td>
+<td>
+    ${trendText}
+</td>
 
 
-                        <td>
-                            ${confidenceText}
-                        </td>
-
-
-                        <td>
-                            ${trendText}
-                        </td>
-
-
-                        <td>
-                            ${avg30Text}
-                        </td>
+<td>
+    ${avg30Text}
+</td>
 
 
                     </tr>
@@ -1467,7 +1576,7 @@ function renderCards(cards) {
                                     <td></td>
 
 
-                                    <td colspan="7">
+                                    <td colspan="5">
 
                                         <div
                                             class="

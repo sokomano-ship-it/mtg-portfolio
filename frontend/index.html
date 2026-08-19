@@ -821,67 +821,66 @@ placeholder="Gain lot >=5"
                 <th>Image</th>
 
                 <th
-                    class="collection-sortable sortable"
-                    data-sort="nomCarte"
-                >
-                    Carte
-                </th>
+    class="collection-sortable sortable"
+    data-sort="nomCarte"
+>
+    Carte
+</th>
 
-                <th>Qté</th>
-                <th>Variantes</th>
-                <th>Valeur</th>
-                <th>Confiance</th>
-                <th>Trend</th>
-                <th>Avg30</th>
+<th
+    class="collection-sortable sortable"
+    data-sort="quantity"
+>
+    Qté
+</th>
+
+<th>Valeur</th>
+<th>Trend</th>
+<th>Avg30</th>
             </tr>
 
             <tr class="collection-filter-row">
-                <th></th>
-                <th></th>
 
-                <th>
-                    <input
-                        class="collection-filter"
-                        data-filter="nomCarte"
-                        placeholder="Filtrer carte"
-                    >
-                </th>
+    <th></th>
 
-                <th></th>
-                <th></th>
+    <th></th>
 
-                <th>
-                    <input
-                        class="collection-filter"
-                        data-filter="estimatedByCondition"
-                        placeholder=">10 / 5-20"
-                    >
-                </th>
+    <th>
+        <input
+            class="collection-filter"
+            data-filter="nomCarte"
+            placeholder="Filtrer carte"
+        >
+    </th>
 
-                <th>
-                    <input
-                        class="collection-filter"
-                        data-filter="gradeModelConfidence"
-                        placeholder=">60"
-                    >
-                </th>
+    <th>
+        <input
+            class="collection-filter"
+            data-filter="quantity"
+            placeholder=">=4"
+            inputmode="numeric"
+        >
+    </th>
 
-                <th>
-                    <input
-                        class="collection-filter"
-                        data-filter="trendPrice"
-                        placeholder=">10 / 5-20"
-                    >
-                </th>
+    <th></th>
 
-                <th>
-                    <input
-                        class="collection-filter"
-                        data-filter="avg30"
-                        placeholder=">10 / 5-20"
-                    >
-                </th>
-            </tr>
+    <th>
+        <input
+            class="collection-filter"
+            data-filter="trendPrice"
+            placeholder=">10 / 5-20"
+        >
+    </th>
+
+    <th>
+        <input
+            class="collection-filter"
+            data-filter="avg30"
+            placeholder=">10 / 5-20"
+        >
+    </th>
+
+</tr>
         </thead>
 
         <tbody id="cards-body"></tbody>
