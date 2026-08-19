@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T13:13:45.317Z",
+  "generatedAt": "2026-08-19T20:53:14.261Z",
   "cards": [
     {
       "id": 1761,
@@ -106,6 +106,110 @@
       "referenceCardFound": true
     },
     {
+      "id": 1823,
+      "nomCarte": "Balduvian Trading Post",
+      "nomBase": "Balduvian Trading Post",
+      "version": null,
+      "edition": "Alliances",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "c2c54af8-17a1-44f1-b824-0bdd487e7d8e",
+      "imageUrl": "https://cards.scryfall.io/normal/front/c/2/c2c54af8-17a1-44f1-b824-0bdd487e7d8e.jpg?1783058050",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8034,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 3",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 2.23,
+      "lowPrice": 0.5,
+      "avgPrice": 2.44,
+      "avg1": 1.8,
+      "avg7": 2.49,
+      "avg30": 2.4,
+      "prixEtat": 2.05,
+      "estimatedPrice": 1.84,
+      "baseEstimatedPrice": 1.84,
+      "estimatedByCondition": {
+        "NM": 2.23,
+        "EX": 1.84,
+        "GD": 1.8,
+        "LP": 1.57,
+        "PL": 1.57,
+        "PO": 1.35
+      },
+      "buyTargetByCondition": {
+        "NM": 2.01,
+        "EX": 1.62
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.8233,
+        "GD": 0.8055,
+        "LP": 0.7052,
+        "PL": 0.7052,
+        "PO": 0.6041
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.6939,
+        "language": 0.1695,
+        "global": 0.1367
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 2.23,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Balduvian Trading Post",
+      "referenceEdition": "Alliances",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1820,
       "nomCarte": "Bounty of the Hunt",
       "nomBase": "Bounty of the Hunt",
@@ -207,7 +311,7 @@
       "referenceEdition": "Alliances",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1326,
@@ -1144,6 +1248,110 @@
       "referenceEdition": "Alliances",
       "referenceLanguage": "French",
       "referenceVersion": null,
+      "referenceCardFound": true
+    },
+    {
+      "id": 1822,
+      "nomCarte": "Pillage",
+      "nomBase": "Pillage",
+      "version": null,
+      "edition": "Alliances",
+      "langue": "French",
+      "etat": "NM",
+      "scryfallId": "0e913118-6a01-4e35-99aa-6ef6cbaa4186",
+      "imageUrl": "https://cards.scryfall.io/normal/front/0/e/0e913118-6a01-4e35-99aa-6ef6cbaa4186.jpg?1783058276",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 7965,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 3",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.41,
+      "lowPrice": 0.04,
+      "avgPrice": 1.39,
+      "avg1": 0.99,
+      "avg7": 1.26,
+      "avg30": 1.37,
+      "prixEtat": 1.41,
+      "estimatedPrice": 1.41,
+      "baseEstimatedPrice": 1.41,
+      "estimatedByCondition": {
+        "NM": 1.41,
+        "EX": 1.16,
+        "GD": 1.14,
+        "LP": 0.99,
+        "PL": 0.99,
+        "PO": 0.85
+      },
+      "buyTargetByCondition": {
+        "NM": 1.27,
+        "EX": 1.02
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.8233,
+        "GD": 0.8055,
+        "LP": 0.7052,
+        "PL": 0.7052,
+        "PO": 0.6041
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.6939,
+        "language": 0.1695,
+        "global": 0.1367
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 1.3976,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.41,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Pillage",
+      "referenceEdition": "Alliances",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
       "referenceCardFound": false
     },
     {
@@ -1251,6 +1459,110 @@
       "referenceCardFound": true
     },
     {
+      "id": 1824,
+      "nomCarte": "Sheltered Valley",
+      "nomBase": "Sheltered Valley",
+      "version": null,
+      "edition": "Alliances",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "94d6ea68-c39f-479a-9cbb-1ea2b10f8ad5",
+      "imageUrl": "https://cards.scryfall.io/normal/front/9/4/94d6ea68-c39f-479a-9cbb-1ea2b10f8ad5.jpg?1783058035",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 8039,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 3",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.16,
+      "lowPrice": 0.15,
+      "avgPrice": 1.33,
+      "avg1": 1.32,
+      "avg7": 1.15,
+      "avg30": 1.28,
+      "prixEtat": 1.07,
+      "estimatedPrice": 0.95,
+      "baseEstimatedPrice": 0.95,
+      "estimatedByCondition": {
+        "NM": 1.16,
+        "EX": 0.95,
+        "GD": 0.93,
+        "LP": 0.82,
+        "PL": 0.82,
+        "PO": 0.7
+      },
+      "buyTargetByCondition": {
+        "NM": 1.04,
+        "EX": 0.84
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.8233,
+        "GD": 0.8055,
+        "LP": 0.7052,
+        "PL": 0.7052,
+        "PO": 0.6041
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.6939,
+        "language": 0.1695,
+        "global": 0.1367
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.16,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Sheltered Valley",
+      "referenceEdition": "Alliances",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1821,
       "nomCarte": "Wandering Mage",
       "nomBase": "Wandering Mage",
@@ -1352,7 +1664,7 @@
       "referenceEdition": "Alliances",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1402,
@@ -25851,6 +26163,110 @@
       "referenceCardFound": true
     },
     {
+      "id": 1827,
+      "nomCarte": "Control Magic",
+      "nomBase": "Control Magic",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "cbbf1f3e-8fb9-4205-a3b6-b13ea198e8da",
+      "imageUrl": "https://cards.scryfall.io/normal/front/c/b/cbbf1f3e-8fb9-4205-a3b6-b13ea198e8da.jpg?1783062280",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5898,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 0.69,
+      "lowPrice": 0.05,
+      "avgPrice": 0.71,
+      "avg1": 0.74,
+      "avg7": 0.78,
+      "avg30": 0.71,
+      "prixEtat": 0.63,
+      "estimatedPrice": 0.53,
+      "baseEstimatedPrice": 0.53,
+      "estimatedByCondition": {
+        "NM": 0.69,
+        "EX": 0.53,
+        "GD": 0.39,
+        "LP": 0.32,
+        "PL": 0.26,
+        "PO": 0.25
+      },
+      "buyTargetByCondition": {
+        "NM": 0.62,
+        "EX": 0.47
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 0.69,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Control Magic",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1500,
       "nomCarte": "Counterspell",
       "nomBase": "Counterspell",
@@ -26041,6 +26457,214 @@
       "marketReferenceRole": "observations_only",
       "usesExternalReference": false,
       "referenceName": "Crusade",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
+      "id": 1828,
+      "nomCarte": "Dark Ritual",
+      "nomBase": "Dark Ritual",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "PL",
+      "scryfallId": "4a919a59-b745-451e-a59f-ded8257d1dde",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/a/4a919a59-b745-451e-a59f-ded8257d1dde.jpg?1783062013",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5847,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.94,
+      "lowPrice": 0.38,
+      "avgPrice": 2.05,
+      "avg1": 1.98,
+      "avg7": 1.94,
+      "avg30": 1.9,
+      "prixEtat": 1.07,
+      "estimatedPrice": 0.74,
+      "baseEstimatedPrice": 0.74,
+      "estimatedByCondition": {
+        "NM": 1.94,
+        "EX": 1.49,
+        "GD": 1.09,
+        "LP": 0.9,
+        "PL": 0.74,
+        "PO": 0.71
+      },
+      "buyTargetByCondition": {
+        "NM": 1.75,
+        "EX": 1.31
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.596,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.94,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Dark Ritual",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
+      "id": 1832,
+      "nomCarte": "Elvish Archers",
+      "nomBase": "Elvish Archers",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "ec20bd58-1a83-4670-8ffd-0ce6ff97f7a6",
+      "imageUrl": "https://cards.scryfall.io/normal/front/e/c/ec20bd58-1a83-4670-8ffd-0ce6ff97f7a6.jpg?1783061620",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5961,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 0.52,
+      "lowPrice": 0.1,
+      "avgPrice": 0.64,
+      "avg1": 0.59,
+      "avg7": 0.64,
+      "avg30": 0.69,
+      "prixEtat": 0.48,
+      "estimatedPrice": 0.4,
+      "baseEstimatedPrice": 0.4,
+      "estimatedByCondition": {
+        "NM": 0.52,
+        "EX": 0.4,
+        "GD": 0.29,
+        "LP": 0.24,
+        "PL": 0.2,
+        "PO": 0.19
+      },
+      "buyTargetByCondition": {
+        "NM": 0.47,
+        "EX": 0.35
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 0.52,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Elvish Archers",
       "referenceEdition": "Fourth Edition",
       "referenceLanguage": "French",
       "referenceVersion": null,
@@ -26567,6 +27191,110 @@
       "referenceCardFound": true
     },
     {
+      "id": 1833,
+      "nomCarte": "Instill Energy",
+      "nomBase": "Instill Energy",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "GD",
+      "scryfallId": "3b0dd3db-7993-4081-ac6b-dd80befe2f2f",
+      "imageUrl": "https://cards.scryfall.io/normal/front/3/b/3b0dd3db-7993-4081-ac6b-dd80befe2f2f.jpg?1783061588",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5970,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.1,
+      "lowPrice": 0.05,
+      "avgPrice": 1.12,
+      "avg1": 0.92,
+      "avg7": 1.14,
+      "avg30": 1.1,
+      "prixEtat": 0.9,
+      "estimatedPrice": 0.62,
+      "baseEstimatedPrice": 0.62,
+      "estimatedByCondition": {
+        "NM": 1.1,
+        "EX": 0.84,
+        "GD": 0.62,
+        "LP": 0.51,
+        "PL": 0.42,
+        "PO": 0.4
+      },
+      "buyTargetByCondition": {
+        "NM": 0.99,
+        "EX": 0.74
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.7414,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.1,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Instill Energy",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1497,
       "nomCarte": "Island Sanctuary",
       "nomBase": "Island Sanctuary",
@@ -26879,6 +27607,214 @@
       "referenceCardFound": true
     },
     {
+      "id": 1826,
+      "nomCarte": "Mahamoti Djinn",
+      "nomBase": "Mahamoti Djinn",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "German",
+      "etat": "EX",
+      "scryfallId": "452cc9bc-b638-44d7-b6eb-cc6ffbcd73c3",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/5/452cc9bc-b638-44d7-b6eb-cc6ffbcd73c3.jpg?1783062207",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5918,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.06,
+      "lowPrice": 0.1,
+      "avgPrice": 0.61,
+      "avg1": 3,
+      "avg7": 1.16,
+      "avg30": 0.82,
+      "prixEtat": 0.98,
+      "estimatedPrice": 0.83,
+      "baseEstimatedPrice": 0.83,
+      "estimatedByCondition": {
+        "NM": 1.06,
+        "EX": 0.83,
+        "GD": 0.62,
+        "LP": 0.53,
+        "PL": 0.42,
+        "PO": 0.4
+      },
+      "buyTargetByCondition": {
+        "NM": 0.95,
+        "EX": 0.73
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7822,
+        "GD": 0.5857,
+        "LP": 0.5004,
+        "PL": 0.3977,
+        "PO": 0.3743
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0,
+        "global": 0.1604
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.06,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mahamoti Djinn",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "German",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
+      "id": 1831,
+      "nomCarte": "Mana Flare",
+      "nomBase": "Mana Flare",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "PL",
+      "scryfallId": "403fb2de-0b22-4b74-a86a-fcef95d5bed6",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/0/403fb2de-0b22-4b74-a86a-fcef95d5bed6.jpg?1783061729",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 6064,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.31,
+      "lowPrice": 0.02,
+      "avgPrice": 1.43,
+      "avg1": 1.99,
+      "avg7": 1.41,
+      "avg30": 1.43,
+      "prixEtat": 0.72,
+      "estimatedPrice": 0.5,
+      "baseEstimatedPrice": 0.5,
+      "estimatedByCondition": {
+        "NM": 1.31,
+        "EX": 1,
+        "GD": 0.74,
+        "LP": 0.61,
+        "PL": 0.5,
+        "PO": 0.48
+      },
+      "buyTargetByCondition": {
+        "NM": 1.18,
+        "EX": 0.88
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.596,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.31,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mana Flare",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1511,
       "nomCarte": "Mishra's Factory",
       "nomBase": "Mishra's Factory",
@@ -26983,6 +27919,110 @@
       "referenceCardFound": true
     },
     {
+      "id": 1834,
+      "nomCarte": "Mishra's Factory",
+      "nomBase": "Mishra's Factory",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "PO",
+      "scryfallId": "6cd008c4-11f2-49e7-b1b8-823fd0ea2317",
+      "imageUrl": "https://cards.scryfall.io/normal/front/6/c/6cd008c4-11f2-49e7-b1b8-823fd0ea2317.jpg?1783061197",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 6015,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 9.14,
+      "lowPrice": 2.92,
+      "avgPrice": 7.91,
+      "avg1": 7.95,
+      "avg7": 8.83,
+      "avg30": 8.26,
+      "prixEtat": 3.2,
+      "estimatedPrice": 3.13,
+      "baseEstimatedPrice": 3.13,
+      "estimatedByCondition": {
+        "NM": 8.35,
+        "EX": 6.88,
+        "GD": 5.41,
+        "LP": 4.75,
+        "PL": 3.8,
+        "PO": 3.13
+      },
+      "buyTargetByCondition": {
+        "NM": 7.52,
+        "EX": 6.05
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.8024,
+        "GD": 0.6172,
+        "LP": 0.531,
+        "PL": 0.4248,
+        "PO": 0.36
+      },
+      "gradeModelConfidence": 60,
+      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": 5.8,
+        "EX": 5,
+        "GD": 4,
+        "LP": 4.5,
+        "PL": 4,
+        "PO": 3
+      },
+      "observedMinByCondition": {
+        "NM": 5.8,
+        "EX": 5,
+        "GD": 4,
+        "LP": 4.5,
+        "PL": 4,
+        "PO": 3
+      },
+      "reliableObservedByCondition": {
+        "NM": 5.8,
+        "EX": 4.93,
+        "GD": 4,
+        "LP": 3.6,
+        "PL": 2.78,
+        "PO": 2.03
+      },
+      "observationReliabilityByCondition": {
+        "NM": 1,
+        "EX": 1,
+        "GD": 1,
+        "LP": 0.8,
+        "PL": 0.5,
+        "PO": 0.5
+      },
+      "averageObservationReliability": 0.8,
+      "bayesianWeights": {
+        "card": 0.4286,
+        "edition": 0.4798,
+        "language": 0.0639,
+        "global": 0.0278
+      },
+      "observationDaysCount": 1,
+      "observationRowsCount": 6,
+      "pricingModel": "standard_observed_condition_ratio",
+      "pricingConfidence": 60,
+      "pricingRatio": 0.4386,
+      "pricingObservationCount": 1,
+      "marketAnchorPrice": 9.14,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Mishra's Factory",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1770,
       "nomCarte": "Nether Shadow",
       "nomBase": "Nether Shadow",
@@ -27085,6 +28125,110 @@
       "referenceLanguage": "French",
       "referenceVersion": null,
       "referenceCardFound": true
+    },
+    {
+      "id": 1829,
+      "nomCarte": "Nightmare",
+      "nomBase": "Nightmare",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "LP",
+      "scryfallId": "44470b25-1aee-4972-95fc-d789a53f88e5",
+      "imageUrl": "https://cards.scryfall.io/normal/front/4/4/44470b25-1aee-4972-95fc-d789a53f88e5.jpg?1783061939",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5868,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.2,
+      "lowPrice": 0.05,
+      "avgPrice": 1.09,
+      "avg1": 0.8,
+      "avg7": 1.25,
+      "avg30": 1.09,
+      "prixEtat": 0.84,
+      "estimatedPrice": 0.56,
+      "baseEstimatedPrice": 0.56,
+      "estimatedByCondition": {
+        "NM": 1.2,
+        "EX": 0.92,
+        "GD": 0.68,
+        "LP": 0.56,
+        "PL": 0.46,
+        "PO": 0.44
+      },
+      "buyTargetByCondition": {
+        "NM": 1.08,
+        "EX": 0.81
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.6857,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.2,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Nightmare",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
     },
     {
       "id": 1309,
@@ -27919,6 +29063,110 @@
       "referenceCardFound": true
     },
     {
+      "id": 1825,
+      "nomCarte": "Serra Angel",
+      "nomBase": "Serra Angel",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "English",
+      "etat": "EX",
+      "scryfallId": "8072d00a-82ff-4406-bdf8-1af20cd3a170",
+      "imageUrl": "https://cards.scryfall.io/normal/front/8/0/8072d00a-82ff-4406-bdf8-1af20cd3a170.jpg?1783947865",
+      "priceUsd": 1.03,
+      "priceEur": 1.04,
+      "cardmarketId": 6134,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 1.04,
+      "lowPrice": 0.05,
+      "avgPrice": 0.98,
+      "avg1": 0.76,
+      "avg7": 1.09,
+      "avg30": 0.95,
+      "prixEtat": 0.96,
+      "estimatedPrice": 0.81,
+      "baseEstimatedPrice": 0.81,
+      "estimatedByCondition": {
+        "NM": 1.04,
+        "EX": 0.81,
+        "GD": 0.61,
+        "LP": 0.52,
+        "PL": 0.42,
+        "PO": 0.4
+      },
+      "buyTargetByCondition": {
+        "NM": 0.94,
+        "EX": 0.71
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7795,
+        "GD": 0.5824,
+        "LP": 0.503,
+        "PL": 0.3994,
+        "PO": 0.3874
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.0672,
+        "global": 0.0933
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 1.04,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Serra Angel",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "English",
+      "referenceVersion": null,
+      "referenceCardFound": false
+    },
+    {
       "id": 1507,
       "nomCarte": "Shivan Dragon",
       "nomBase": "Shivan Dragon",
@@ -28021,6 +29269,110 @@
       "referenceLanguage": "French",
       "referenceVersion": null,
       "referenceCardFound": true
+    },
+    {
+      "id": 1830,
+      "nomCarte": "Sorceress Queen",
+      "nomBase": "Sorceress Queen",
+      "version": null,
+      "edition": "Fourth Edition",
+      "langue": "French",
+      "etat": "EX",
+      "scryfallId": "2936f474-f712-4459-b78c-0dfe3eddcdda",
+      "imageUrl": "https://cards.scryfall.io/normal/front/2/9/2936f474-f712-4459-b78c-0dfe3eddcdda.jpg?1783061899",
+      "priceUsd": null,
+      "priceEur": null,
+      "cardmarketId": 5880,
+      "createdAt": "2026-08-19 20:38:35",
+      "categorie": "Classeur 2",
+      "isActive": 1,
+      "removedAt": null,
+      "trendPrice": 0.37,
+      "lowPrice": 0.1,
+      "avgPrice": 0.59,
+      "avg1": 0.82,
+      "avg7": 0.52,
+      "avg30": 0.72,
+      "prixEtat": 0.34,
+      "estimatedPrice": 0.28,
+      "baseEstimatedPrice": 0.28,
+      "estimatedByCondition": {
+        "NM": 0.37,
+        "EX": 0.28,
+        "GD": 0.21,
+        "LP": 0.17,
+        "PL": 0.14,
+        "PO": 0.14
+      },
+      "buyTargetByCondition": {
+        "NM": 0.33,
+        "EX": 0.25
+      },
+      "ratioByCondition": {
+        "NM": 1,
+        "EX": 0.7668,
+        "GD": 0.5628,
+        "LP": 0.4637,
+        "PL": 0.3839,
+        "PO": 0.3676
+      },
+      "gradeModelConfidence": 45,
+      "gradeModelSource": "anchor + global/edition ratios",
+      "lastObservedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observedMinByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "reliableObservedByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "observationReliabilityByCondition": {
+        "NM": null,
+        "EX": null,
+        "GD": null,
+        "LP": null,
+        "PL": null,
+        "PO": null
+      },
+      "averageObservationReliability": 0,
+      "bayesianWeights": {
+        "card": 0,
+        "edition": 0.8396,
+        "language": 0.1118,
+        "global": 0.0486
+      },
+      "observationDaysCount": 0,
+      "observationRowsCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "pricingConfidence": 45,
+      "pricingRatio": 0.9482,
+      "pricingObservationCount": 0,
+      "marketAnchorPrice": 0.37,
+      "referenceMarketAnchorPrice": null,
+      "marketReferenceType": "same_printing_market",
+      "marketReferenceRole": "level_and_evolution",
+      "usesExternalReference": false,
+      "referenceName": "Sorceress Queen",
+      "referenceEdition": "Fourth Edition",
+      "referenceLanguage": "French",
+      "referenceVersion": null,
+      "referenceCardFound": false
     },
     {
       "id": 1512,
@@ -29476,7 +30828,7 @@
       "referenceEdition": "Homelands",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1708,
@@ -29788,7 +31140,7 @@
       "referenceEdition": "Homelands",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1817,
@@ -29892,7 +31244,7 @@
       "referenceEdition": "Homelands",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1709,
@@ -30100,7 +31452,7 @@
       "referenceEdition": "Homelands",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1784,
@@ -30308,7 +31660,7 @@
       "referenceEdition": "Homelands",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1815,
@@ -30412,7 +31764,7 @@
       "referenceEdition": "Homelands",
       "referenceLanguage": "French",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 1707,

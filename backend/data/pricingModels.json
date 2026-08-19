@@ -2679,7 +2679,7 @@
       "avg1": 35.99,
       "avg7": 31.09,
       "avg30": 29.15,
-      "priceUpdatedAt": "2026-08-19T13:13:12.557Z"
+      "priceUpdatedAt": "2026-08-19T20:52:38.826Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {
@@ -4603,9 +4603,9 @@
     "syntheticAnchor": {
       "factor": 1.003937,
       "rawFactor": 1.003937,
-      "comparableCount": 637,
+      "comparableCount": 650,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-08-19T13:13:14.625Z"
+      "generatedAt": "2026-08-19T20:52:41.016Z"
     },
     "byCondition": {
       "PO": {
@@ -4848,9 +4848,9 @@
     "syntheticAnchor": {
       "factor": 1.003937,
       "rawFactor": 1.003937,
-      "comparableCount": 637,
+      "comparableCount": 650,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-08-19T13:13:14.714Z"
+      "generatedAt": "2026-08-19T20:52:41.120Z"
     },
     "byCondition": {
       "PL": {
@@ -5373,9 +5373,9 @@
     "syntheticAnchor": {
       "factor": 1.003937,
       "rawFactor": 1.003937,
-      "comparableCount": 637,
+      "comparableCount": 650,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-08-19T13:13:14.683Z"
+      "generatedAt": "2026-08-19T20:52:41.083Z"
     },
     "byCondition": {
       "PO": {
@@ -6215,7 +6215,7 @@
       "avg1": 4.93,
       "avg7": 5.12,
       "avg30": 5.38,
-      "priceUpdatedAt": "2026-08-19T13:13:12.557Z"
+      "priceUpdatedAt": "2026-08-19T20:52:38.826Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {
@@ -8890,43 +8890,43 @@
         "ratioToMarketAnchor": 0.4386,
         "observedPrice": 3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.5848,
         "observedPrice": 4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.6579,
         "observedPrice": 4.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.5848,
         "observedPrice": 4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.731,
         "observedPrice": 5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.848,
         "observedPrice": 5.8,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
@@ -17608,6 +17608,61 @@
   "wandering mage|alliances|french": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 1.39,
+    "byCondition": {}
+  },
+  "balduvian trading post|alliances|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.23,
+    "byCondition": {}
+  },
+  "sheltered valley|alliances|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.16,
+    "byCondition": {}
+  },
+  "serra angel|fourth edition|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.04,
+    "byCondition": {}
+  },
+  "mahamoti djinn|fourth edition|german": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.06,
+    "byCondition": {}
+  },
+  "control magic|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.69,
+    "byCondition": {}
+  },
+  "dark ritual|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.94,
+    "byCondition": {}
+  },
+  "nightmare|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.2,
+    "byCondition": {}
+  },
+  "sorceress queen|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.37,
+    "byCondition": {}
+  },
+  "mana flare|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.31,
+    "byCondition": {}
+  },
+  "elvish archers|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.52,
+    "byCondition": {}
+  },
+  "instill energy|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.1,
     "byCondition": {}
   },
   "__globalConditionModel": {

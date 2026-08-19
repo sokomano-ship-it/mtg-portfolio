@@ -14042,7 +14042,7 @@
     "marketAnchorPrice": null,
     "syntheticMarketFactor": 1.003937,
     "syntheticMarketRawFactor": 1.003937,
-    "syntheticComparableCount": 637,
+    "syntheticComparableCount": 650,
     "syntheticAnchorSource": "portfolio_trend_vs_avg30_median",
     "ratioUsed": 1.003937,
     "confidence": 65,
@@ -14553,7 +14553,7 @@
     "marketAnchorPrice": null,
     "syntheticMarketFactor": 1.003937,
     "syntheticMarketRawFactor": 1.003937,
-    "syntheticComparableCount": 637,
+    "syntheticComparableCount": 650,
     "syntheticAnchorSource": "portfolio_trend_vs_avg30_median",
     "ratioUsed": 1.003937,
     "confidence": 65,
@@ -15236,7 +15236,7 @@
     "marketAnchorPrice": null,
     "syntheticMarketFactor": 1.003937,
     "syntheticMarketRawFactor": 1.003937,
-    "syntheticComparableCount": 637,
+    "syntheticComparableCount": 650,
     "syntheticAnchorSource": "portfolio_trend_vs_avg30_median",
     "ratioUsed": 1.003937,
     "confidence": 65,
@@ -17198,7 +17198,7 @@
     "marketAnchorPrice": null,
     "syntheticMarketFactor": 1.003937,
     "syntheticMarketRawFactor": 1.003937,
-    "syntheticComparableCount": 637,
+    "syntheticComparableCount": 650,
     "syntheticAnchorSource": "portfolio_trend_vs_avg30_median",
     "ratioUsed": 1.003937,
     "confidence": 65,
@@ -54516,7 +54516,7 @@
     "referenceEdition": "Homelands",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 0.96,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 0.96,
@@ -54602,7 +54602,7 @@
     "referenceEdition": "Homelands",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 0.42,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 0.54,
@@ -54688,7 +54688,7 @@
     "referenceEdition": "Homelands",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 1.29,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 1.67,
@@ -54774,7 +54774,7 @@
     "referenceEdition": "Homelands",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 0.99,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 1.29,
@@ -54860,7 +54860,7 @@
     "referenceEdition": "Homelands",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 0.48,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 0.62,
@@ -54946,7 +54946,7 @@
     "referenceEdition": "Homelands",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 0.59,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 0.77,
@@ -55032,7 +55032,7 @@
     "referenceEdition": "Alliances",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 1.16,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 1.41,
@@ -55118,7 +55118,7 @@
     "referenceEdition": "Alliances",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 0.57,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 0.57,
@@ -55204,7 +55204,7 @@
     "referenceEdition": "Alliances",
     "referenceLanguage": "French",
     "referenceVersion": null,
-    "referenceCardFound": false,
+    "referenceCardFound": true,
     "estimatedPrice": 1.14,
     "pricingModel": "standard_fallback_condition_ratio",
     "marketAnchorPrice": 1.39,
@@ -55275,5 +55275,1123 @@
     "averageObservationReliability": 0,
     "gradeModelConfidence": 45,
     "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1822,
+    "nomCarte": "Pillage",
+    "edition": "Alliances",
+    "langue": "French",
+    "etat": "NM",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Pillage",
+    "referenceEdition": "Alliances",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 1.41,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.41,
+    "ratioUsed": 1.3976,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 1.97,
+    "estimatedByCondition": {
+      "NM": 1.41,
+      "EX": 1.16,
+      "GD": 1.14,
+      "LP": 0.99,
+      "PL": 0.99,
+      "PO": 0.85
+    },
+    "buyTargetByCondition": {
+      "NM": 1.27,
+      "EX": 1.02
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8233,
+      "GD": 0.8055,
+      "LP": 0.7052,
+      "PL": 0.7052,
+      "PO": 0.6041
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.6939,
+      "language": 0.1695,
+      "global": 0.1367
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1823,
+    "nomCarte": "Balduvian Trading Post",
+    "edition": "Alliances",
+    "langue": "French",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Balduvian Trading Post",
+    "referenceEdition": "Alliances",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 1.84,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 2.23,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 2.11,
+    "estimatedByCondition": {
+      "NM": 2.23,
+      "EX": 1.84,
+      "GD": 1.8,
+      "LP": 1.57,
+      "PL": 1.57,
+      "PO": 1.35
+    },
+    "buyTargetByCondition": {
+      "NM": 2.01,
+      "EX": 1.62
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8233,
+      "GD": 0.8055,
+      "LP": 0.7052,
+      "PL": 0.7052,
+      "PO": 0.6041
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.6939,
+      "language": 0.1695,
+      "global": 0.1367
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1824,
+    "nomCarte": "Sheltered Valley",
+    "edition": "Alliances",
+    "langue": "French",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Sheltered Valley",
+    "referenceEdition": "Alliances",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.95,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.16,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 1.1,
+    "estimatedByCondition": {
+      "NM": 1.16,
+      "EX": 0.95,
+      "GD": 0.93,
+      "LP": 0.82,
+      "PL": 0.82,
+      "PO": 0.7
+    },
+    "buyTargetByCondition": {
+      "NM": 1.04,
+      "EX": 0.84
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8233,
+      "GD": 0.8055,
+      "LP": 0.7052,
+      "PL": 0.7052,
+      "PO": 0.6041
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.6939,
+      "language": 0.1695,
+      "global": 0.1367
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1825,
+    "nomCarte": "Serra Angel",
+    "edition": "Fourth Edition",
+    "langue": "English",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Serra Angel",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "English",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.81,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.04,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.99,
+    "estimatedByCondition": {
+      "NM": 1.04,
+      "EX": 0.81,
+      "GD": 0.61,
+      "LP": 0.52,
+      "PL": 0.42,
+      "PO": 0.4
+    },
+    "buyTargetByCondition": {
+      "NM": 0.94,
+      "EX": 0.71
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7795,
+      "GD": 0.5824,
+      "LP": 0.503,
+      "PL": 0.3994,
+      "PO": 0.3874
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.0672,
+      "global": 0.0933
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1826,
+    "nomCarte": "Mahamoti Djinn",
+    "edition": "Fourth Edition",
+    "langue": "German",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Mahamoti Djinn",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "German",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.83,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.06,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 1.01,
+    "estimatedByCondition": {
+      "NM": 1.06,
+      "EX": 0.83,
+      "GD": 0.62,
+      "LP": 0.53,
+      "PL": 0.42,
+      "PO": 0.4
+    },
+    "buyTargetByCondition": {
+      "NM": 0.95,
+      "EX": 0.73
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7822,
+      "GD": 0.5857,
+      "LP": 0.5004,
+      "PL": 0.3977,
+      "PO": 0.3743
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0,
+      "global": 0.1604
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1827,
+    "nomCarte": "Control Magic",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Control Magic",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.53,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 0.69,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.65,
+    "estimatedByCondition": {
+      "NM": 0.69,
+      "EX": 0.53,
+      "GD": 0.39,
+      "LP": 0.32,
+      "PL": 0.26,
+      "PO": 0.25
+    },
+    "buyTargetByCondition": {
+      "NM": 0.62,
+      "EX": 0.47
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1828,
+    "nomCarte": "Dark Ritual",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "PL",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Dark Ritual",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.74,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.94,
+    "ratioUsed": 0.596,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 1.16,
+    "estimatedByCondition": {
+      "NM": 1.94,
+      "EX": 1.49,
+      "GD": 1.09,
+      "LP": 0.9,
+      "PL": 0.74,
+      "PO": 0.71
+    },
+    "buyTargetByCondition": {
+      "NM": 1.75,
+      "EX": 1.31
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1829,
+    "nomCarte": "Nightmare",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "LP",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Nightmare",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.56,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.2,
+    "ratioUsed": 0.6857,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.82,
+    "estimatedByCondition": {
+      "NM": 1.2,
+      "EX": 0.92,
+      "GD": 0.68,
+      "LP": 0.56,
+      "PL": 0.46,
+      "PO": 0.44
+    },
+    "buyTargetByCondition": {
+      "NM": 1.08,
+      "EX": 0.81
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1830,
+    "nomCarte": "Sorceress Queen",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Sorceress Queen",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.28,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 0.37,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.35,
+    "estimatedByCondition": {
+      "NM": 0.37,
+      "EX": 0.28,
+      "GD": 0.21,
+      "LP": 0.17,
+      "PL": 0.14,
+      "PO": 0.14
+    },
+    "buyTargetByCondition": {
+      "NM": 0.33,
+      "EX": 0.25
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1831,
+    "nomCarte": "Mana Flare",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "PL",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Mana Flare",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.5,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.31,
+    "ratioUsed": 0.596,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.78,
+    "estimatedByCondition": {
+      "NM": 1.31,
+      "EX": 1,
+      "GD": 0.74,
+      "LP": 0.61,
+      "PL": 0.5,
+      "PO": 0.48
+    },
+    "buyTargetByCondition": {
+      "NM": 1.18,
+      "EX": 0.88
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1832,
+    "nomCarte": "Elvish Archers",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "EX",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Elvish Archers",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.4,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 0.52,
+    "ratioUsed": 0.9482,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.49,
+    "estimatedByCondition": {
+      "NM": 0.52,
+      "EX": 0.4,
+      "GD": 0.29,
+      "LP": 0.24,
+      "PL": 0.2,
+      "PO": 0.19
+    },
+    "buyTargetByCondition": {
+      "NM": 0.47,
+      "EX": 0.35
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1833,
+    "nomCarte": "Instill Energy",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "GD",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Instill Energy",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 0.62,
+    "pricingModel": "standard_fallback_condition_ratio",
+    "marketAnchorPrice": 1.1,
+    "ratioUsed": 0.7414,
+    "confidence": 35,
+    "observationCount": 0,
+    "baseEstimatedPrice": 0.82,
+    "estimatedByCondition": {
+      "NM": 1.1,
+      "EX": 0.84,
+      "GD": 0.62,
+      "LP": 0.51,
+      "PL": 0.42,
+      "PO": 0.4
+    },
+    "buyTargetByCondition": {
+      "NM": 0.99,
+      "EX": 0.74
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.7668,
+      "GD": 0.5628,
+      "LP": 0.4637,
+      "PL": 0.3839,
+      "PO": 0.3676
+    },
+    "bayesianWeights": {
+      "card": 0,
+      "edition": 0.8396,
+      "language": 0.1118,
+      "global": 0.0486
+    },
+    "observationDaysCount": 0,
+    "observationRowsCount": 0,
+    "lastObservedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observedMinByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "reliableObservedByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "observationReliabilityByCondition": {
+      "NM": null,
+      "EX": null,
+      "GD": null,
+      "LP": null,
+      "PL": null,
+      "PO": null
+    },
+    "averageObservationReliability": 0,
+    "gradeModelConfidence": 45,
+    "gradeModelSource": "anchor + global/edition ratios"
+  },
+  {
+    "id": 1834,
+    "nomCarte": "Mishra's Factory",
+    "edition": "Fourth Edition",
+    "langue": "French",
+    "etat": "PO",
+    "version": null,
+    "marketReferenceType": "same_printing_market",
+    "marketReferenceRole": "level_and_evolution",
+    "usesExternalReference": false,
+    "referenceName": "Mishra's Factory",
+    "referenceEdition": "Fourth Edition",
+    "referenceLanguage": "French",
+    "referenceVersion": null,
+    "referenceCardFound": false,
+    "estimatedPrice": 3.13,
+    "pricingModel": "standard_observed_condition_ratio",
+    "marketAnchorPrice": 9.14,
+    "ratioUsed": 0.4386,
+    "confidence": 63,
+    "observationCount": 1,
+    "baseEstimatedPrice": 4.01,
+    "estimatedByCondition": {
+      "NM": 8.35,
+      "EX": 6.88,
+      "GD": 5.41,
+      "LP": 4.75,
+      "PL": 3.8,
+      "PO": 3.13
+    },
+    "buyTargetByCondition": {
+      "NM": 7.52,
+      "EX": 6.05
+    },
+    "ratioByCondition": {
+      "NM": 1,
+      "EX": 0.8024,
+      "GD": 0.6172,
+      "LP": 0.531,
+      "PL": 0.4248,
+      "PO": 0.36
+    },
+    "bayesianWeights": {
+      "card": 0.4286,
+      "edition": 0.4798,
+      "language": 0.0639,
+      "global": 0.0278
+    },
+    "observationDaysCount": 1,
+    "observationRowsCount": 6,
+    "lastObservedMinByCondition": {
+      "NM": 5.8,
+      "EX": 5,
+      "GD": 4,
+      "LP": 4.5,
+      "PL": 4,
+      "PO": 3
+    },
+    "observedMinByCondition": {
+      "NM": 5.8,
+      "EX": 5,
+      "GD": 4,
+      "LP": 4.5,
+      "PL": 4,
+      "PO": 3
+    },
+    "reliableObservedByCondition": {
+      "NM": 5.8,
+      "EX": 4.93,
+      "GD": 4,
+      "LP": 3.6,
+      "PL": 2.78,
+      "PO": 2.03
+    },
+    "observationReliabilityByCondition": {
+      "NM": 1,
+      "EX": 1,
+      "GD": 1,
+      "LP": 0.8,
+      "PL": 0.5,
+      "PO": 0.5
+    },
+    "averageObservationReliability": 0.8,
+    "gradeModelConfidence": 60,
+    "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
   }
 ]
