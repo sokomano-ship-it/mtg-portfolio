@@ -1018,12 +1018,57 @@ function getEstimatedConditionPrice(card) {
     );
 }
 
+function getCollectionCanonicalName(card) {
+
+    const name =
+        String(
+            card.nomCarte || ""
+        ).trim();
+
+
+    /*
+     * Regroupe les variantes de nom du type :
+     *
+     * Island
+     * Island (V.1)
+     * Island (V.2)
+     *
+     * Hymn to Tourach
+     * Hymn to Tourach (V.1)
+     * Hymn to Tourach (V.2)
+     *
+     * mais ne touche pas à :
+     *
+     * Island Sanctuary
+     */
+    return name
+        .replace(
+            /\s*\(V\.\d+\)\s*$/i,
+            ""
+        )
+        .trim();
+
+}
+
 function getCollectionVariantKey(card) {
 
     return [
-        String(card.edition || "").trim(),
-        String(card.langue || "").trim(),
-        String(card.etat || "").trim()
+        String(
+            card.nomCarte || ""
+        ).trim(),
+
+        String(
+            card.edition || ""
+        ).trim(),
+
+        String(
+            card.langue || ""
+        ).trim(),
+
+        String(
+            card.etat || ""
+        ).trim()
+
     ].join("||");
 
 }
@@ -1042,27 +1087,37 @@ function groupCollectionCards(cards) {
 
     cards.forEach(card => {
 
-        const name =
-            String(
-                card.nomCarte || ""
-            ).trim();
+        const originalName =
+    String(
+        card.nomCarte || ""
+    ).trim();
 
-        const key =
-            normalizeText(name);
+const canonicalName =
+    getCollectionCanonicalName(
+        card
+    );
+
+const key =
+    normalizeText(
+        canonicalName
+    );
 
 
         if (!groupsMap.has(key)) {
 
-            groupsMap.set(
-                key,
-                {
-                    key,
-                    nomCarte: name,
-                    cards: []
-                }
-            );
+    groupsMap.set(
+        key,
+        {
+            key,
 
+            nomCarte:
+                canonicalName,
+
+            cards: []
         }
+    );
+
+}
 
 
         groupsMap
@@ -1097,30 +1152,33 @@ function groupCollectionCards(cards) {
                 if (!variantsMap.has(variantKey)) {
 
                     variantsMap.set(
-                        variantKey,
-                        {
-                            key: variantKey,
+    variantKey,
+    {
+        key: variantKey,
 
-                            edition:
-                                card.edition || "-",
+        nomCarte:
+            card.nomCarte || "-",
 
-                            langue:
-                                card.langue || "-",
+        edition:
+            card.edition || "-",
 
-                            etat:
-                                card.etat || "-",
+        langue:
+            card.langue || "-",
 
-                            categorie:
-                                card.categorie ||
-                                "Non classé",
+        etat:
+            card.etat || "-",
 
-                            cards: [],
+        categorie:
+            card.categorie ||
+            "Non classé",
 
-                            quantity: 0,
+        cards: [],
 
-                            totalValue: 0
-                        }
-                    );
+        quantity: 0,
+
+        totalValue: 0
+    }
+);
 
                 }
 
@@ -1758,11 +1816,11 @@ if (
                                                 "
                                             >
 
-                                                ${
-                                                    escapeHtml(
-                                                        variant.edition
-                                                    )
-                                                }
+                                                ${escapeHtml(
+    variant.nomCarte !== group.nomCarte
+        ? `${variant.nomCarte} · ${variant.edition}`
+        : variant.edition
+)}
 
                                             </div>
 
