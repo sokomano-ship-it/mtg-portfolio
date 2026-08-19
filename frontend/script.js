@@ -203,6 +203,7 @@ function handlePortfolioMainFilterChange() {
     if (clearButton) {
         clearButton.hidden = true;
     }
+    updatePortfolioCardPreview(null);
 
     rebuildPortfolioCardSuggestions();
 
@@ -210,6 +211,44 @@ function handlePortfolioMainFilterChange() {
         currentPortfolioChartRenderer();
     }
 }
+function updatePortfolioCardPreview(card = null) {
+
+    const preview =
+        document.getElementById(
+            "portfolio-card-preview"
+        );
+
+    const image =
+        document.getElementById(
+            "portfolio-card-preview-image"
+        );
+
+
+    if (!preview || !image) {
+        return;
+    }
+
+
+    if (!card?.imageUrl) {
+
+        preview.hidden = true;
+
+        image.removeAttribute("src");
+        image.alt = "";
+
+        return;
+    }
+
+
+    image.src =
+        card.imageUrl;
+
+    image.alt =
+        card.nomCarte || "Carte Magic";
+
+    preview.hidden = false;
+}
+
 
 function setupPortfolioChartFilterEvents() {
     const categorySelect = document.getElementById(
@@ -248,6 +287,10 @@ function setupPortfolioChartFilterEvents() {
             selectedPortfolioCardKey =
                 selectedSuggestion?.key || "";
 
+            updatePortfolioCardPreview(
+    selectedSuggestion?.card || null
+);
+
             if (clearButton) {
                 clearButton.hidden =
                     !cardSearch.value.trim();
@@ -261,19 +304,22 @@ function setupPortfolioChartFilterEvents() {
 
     if (clearButton) {
         clearButton.onclick = () => {
-            selectedPortfolioCardKey = "";
 
-            if (cardSearch) {
-                cardSearch.value = "";
-                cardSearch.focus();
-            }
+    selectedPortfolioCardKey = "";
 
-            clearButton.hidden = true;
+    if (cardSearch) {
+        cardSearch.value = "";
+        cardSearch.focus();
+    }
 
-            if (currentPortfolioChartRenderer) {
-                currentPortfolioChartRenderer();
-            }
-        };
+    clearButton.hidden = true;
+
+    updatePortfolioCardPreview(null);
+
+    if (currentPortfolioChartRenderer) {
+        currentPortfolioChartRenderer();
+    }
+};
     }
 }
 

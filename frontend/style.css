@@ -1564,10 +1564,44 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
 .portfolio-chart-filters {
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr auto;
+    grid-template-columns:
+    minmax(150px, 1fr)
+    minmax(150px, 1fr)
+    minmax(280px, 2fr)
+    auto
+    72px;
     gap: 12px;
     align-items: end;
     margin-bottom: 16px;
+}
+.portfolio-card-preview {
+    width: 62px;
+    height: 86px;
+
+    align-self: end;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+
+.portfolio-card-preview[hidden] {
+    display: none;
+}
+
+
+.portfolio-card-preview img {
+    display: block;
+
+    max-width: 62px;
+    max-height: 86px;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0, 0, 0, 0.35);
 }
 
 .portfolio-chart-filters label {
