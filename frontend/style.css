@@ -2045,3 +2045,305 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         width: 100%;
     }
 }
+
+/* ========================================
+   MA COLLECTION - AFFICHAGE REGROUPE
+   ======================================== */
+
+
+.collection-grouped-table {
+    min-width: 1000px;
+}
+
+
+/* Ligne principale d'une carte */
+
+.collection-group-row {
+    background: #171b26;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.collection-group-row:hover {
+    background:
+        rgba(
+            127,
+            183,
+            255,
+            0.05
+        );
+}
+
+
+.collection-group-row td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+/* Image plus petite */
+
+.collection-group-image {
+    width: 46px;
+}
+
+
+/* Nom de carte */
+
+.collection-card-name {
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+/* Quantité */
+
+.collection-quantity {
+    font-weight: 800;
+    white-space: nowrap;
+
+    color: #ffffff;
+}
+
+
+/* Colonne du triangle */
+
+.collection-expand-column {
+    width: 34px;
+}
+
+
+.collection-expand-cell {
+    width: 34px;
+
+    padding-left: 6px;
+    padding-right: 4px;
+}
+
+
+/* Triangle */
+
+.collection-expand-button {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    width: 26px;
+
+    height: 26px;
+
+
+    padding: 0;
+
+
+    background: transparent;
+
+    color: #8e96a8;
+
+
+    border: 0;
+
+    border-radius: 6px;
+
+
+    cursor: pointer;
+
+
+    font-size: 11px;
+
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+
+.collection-expand-button:hover {
+
+    background:
+        rgba(
+            127,
+            183,
+            255,
+            0.12
+        );
+
+    color: #ffffff;
+
+}
+
+
+.collection-expand-button.expanded {
+
+    transform:
+        rotate(90deg);
+
+    color: #7fb7ff;
+
+}
+
+
+/* ========================================
+   Lignes des variantes
+   ======================================== */
+
+
+.collection-variant-row {
+
+    background:
+        #111520;
+
+}
+
+
+.collection-variant-row:hover {
+
+    background:
+        #151a27;
+
+}
+
+
+.collection-variant-row td {
+
+    padding-top: 5px;
+
+    padding-bottom: 5px;
+
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
+
+}
+
+
+/* Contenu interne */
+
+.collection-variant-content {
+
+    display: grid;
+
+
+    grid-template-columns:
+
+        minmax(180px, 1.6fr)
+
+        minmax(80px, 0.7fr)
+
+        minmax(55px, 0.5fr)
+
+        minmax(45px, 0.4fr)
+
+        minmax(115px, 0.9fr)
+
+        minmax(95px, 0.8fr)
+
+        minmax(65px, 0.6fr)
+
+        minmax(80px, 0.7fr)
+
+        minmax(80px, 0.7fr);
+
+
+    gap: 14px;
+
+
+    align-items: center;
+
+
+    padding:
+
+        5px
+        12px
+        5px
+        16px;
+
+
+    color: #c8d0df;
+
+
+    font-size: 12px;
+
+}
+
+
+/* Edition */
+
+.collection-variant-edition {
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+}
+
+
+/* Quantité variante */
+
+.collection-variant-qty {
+
+    color: #ffffff;
+
+    font-weight: 800;
+
+}
+
+
+/* Etat */
+
+.collection-condition {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    min-width: 34px;
+
+
+    padding:
+        3px
+        7px;
+
+
+    background:
+        #202636;
+
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+
+    border-radius:
+        999px;
+
+
+    font-size:
+        11px;
+
+
+    font-weight:
+        800;
+
+}

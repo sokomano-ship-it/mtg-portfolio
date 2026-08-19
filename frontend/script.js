@@ -18,6 +18,7 @@ let currentOpportunityDisplayLevel = "strong";
 
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
+const expandedCollectionCards = new Set();
 let investmentChart = null;
 let portfolioChart = null;
 
@@ -844,11 +845,48 @@ function matchesNumericFilter(number, filter) {
 }
 
 function updateCategoryStats(cards) {
-    const count = document.getElementById("category-count");
-    const value = document.getElementById("category-value");
 
-    if (count) count.textContent = cards.length;
-    if (value) value.textContent = formatEuro(calculateCardsValue(cards));
+    const count =
+        document.getElementById("category-count");
+
+    const uniqueCount =
+        document.getElementById("category-unique-count");
+
+    const value =
+        document.getElementById("category-value");
+
+
+    if (count) {
+        count.textContent =
+            cards.length;
+    }
+
+
+    if (uniqueCount) {
+
+        const uniqueNames =
+            new Set(
+                cards.map(card =>
+                    normalizeText(
+                        card.nomCarte || ""
+                    )
+                )
+            );
+
+        uniqueCount.textContent =
+            uniqueNames.size;
+    }
+
+
+    if (value) {
+
+        value.textContent =
+            formatEuro(
+                calculateCardsValue(cards)
+            );
+
+    }
+
 }
 
 function calculateCardsValue(cards) {
@@ -883,118 +921,687 @@ function getEstimatedConditionPrice(card) {
     );
 }
 
-function renderCards(cards) {
-    const tbody = document.getElementById("cards-body");
-    if (!tbody) return;
+function getCollectionVariantKey(card) {
 
-    const rowsHtml = cards.map(card => {
-        const scryfallUrl = card.scryfallId
-            ? `https://scryfall.com/card/${card.scryfallId}`
-            : null;
+    return [
+        String(card.edition || "").trim(),
+        String(card.langue || "").trim(),
+        String(card.etat || "").trim()
+    ].join("||");
 
-        const estimatedPrice =
-            getEstimatedConditionPrice(card);
+}
 
-        return `
-            <tr>
-                <td>
-                    ${
-                        card.imageUrl
-                            ? `
-                                <img
-                                    src="${escapeHtml(card.imageUrl)}"
-                                    alt="${escapeHtml(card.nomCarte)}"
-                                    class="card-image"
-                                    loading="lazy"
-                                    decoding="async"
-                                >
-                            `
-                            : `<span class="muted">Aucune image</span>`
-                    }
-                </td>
 
-                <td>
-                    <button
-                        class="card-link-button"
-                        onclick="openCardDetail(${card.id})"
-                    >
-                        ${escapeHtml(card.nomCarte)}
-                    </button>
-                </td>
+function groupCollectionCards(cards) {
 
-                <td>${escapeHtml(card.edition)}</td>
-                <td>${escapeHtml(card.langue)}</td>
-                <td>${escapeHtml(card.etat)}</td>
-                <td>${escapeHtml(card.categorie || "Non classé")}</td>
+    const groupsMap =
+        new Map();
 
-                <td class="price">
-                    <strong>
-                        ${
-                            estimatedPrice !== null &&
-                            estimatedPrice !== undefined
-                                ? formatEuro(estimatedPrice)
-                                : "-"
+
+    /*
+     * Niveau 1 :
+     * regroupement par nom de carte.
+     */
+
+    cards.forEach(card => {
+
+        const name =
+            String(
+                card.nomCarte || ""
+            ).trim();
+
+        const key =
+            normalizeText(name);
+
+
+        if (!groupsMap.has(key)) {
+
+            groupsMap.set(
+                key,
+                {
+                    key,
+                    nomCarte: name,
+                    cards: []
+                }
+            );
+
+        }
+
+
+        groupsMap
+            .get(key)
+            .cards
+            .push(card);
+
+    });
+
+
+    /*
+     * Niveau 2 :
+     * regroupement des exemplaires
+     * identiques :
+     *
+     * édition + langue + état.
+     */
+
+    return [...groupsMap.values()]
+        .map(group => {
+
+            const variantsMap =
+                new Map();
+
+
+            group.cards.forEach(card => {
+
+                const variantKey =
+                    getCollectionVariantKey(card);
+
+
+                if (!variantsMap.has(variantKey)) {
+
+                    variantsMap.set(
+                        variantKey,
+                        {
+                            key: variantKey,
+
+                            edition:
+                                card.edition || "-",
+
+                            langue:
+                                card.langue || "-",
+
+                            etat:
+                                card.etat || "-",
+
+                            categorie:
+                                card.categorie ||
+                                "Non classé",
+
+                            cards: [],
+
+                            quantity: 0,
+
+                            totalValue: 0
                         }
-                    </strong>
-                </td>
+                    );
 
-                <td>
-                    ${
-                        card.gradeModelConfidence !== null &&
-                        card.gradeModelConfidence !== undefined
-                            ? `${card.gradeModelConfidence} %`
-                            : "-"
-                    }
-                </td>
+                }
 
-                <td>
-                    ${card.trendPrice
-                        ? formatEuro(card.trendPrice)
-                        : "-"
-                    }
-                </td>
 
-                <td>
-                    ${card.avg30
-                        ? formatEuro(card.avg30)
-                        : "-"
-                    }
-                </td>
+                const variant =
+                    variantsMap.get(
+                        variantKey
+                    );
 
-                <td>
-                    ${card.avg7
-                        ? formatEuro(card.avg7)
-                        : "-"
-                    }
-                </td>
 
-                <td>
-                    ${card.avg1
-                        ? formatEuro(card.avg1)
-                        : "-"
-                    }
-                </td>
+                variant.cards.push(card);
 
-                <td class="links">
-                    ${
-                        scryfallUrl
-                            ? `
-                                <a
-                                    href="${escapeHtml(scryfallUrl)}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                variant.quantity += 1;
+
+
+                variant.totalValue +=
+                    Number(
+                        getEstimatedConditionPrice(
+                            card
+                        )
+                    ) || 0;
+
+            });
+
+
+            const variants =
+                [...variantsMap.values()];
+
+
+            /*
+             * Valeur totale de toutes
+             * les copies de cette carte.
+             */
+
+            const totalValue =
+                group.cards.reduce(
+                    (sum, card) => {
+
+                        return (
+                            sum +
+                            (
+                                Number(
+                                    getEstimatedConditionPrice(
+                                        card
+                                    )
+                                ) || 0
+                            )
+                        );
+
+                    },
+                    0
+                );
+
+
+            /*
+             * Confiance moyenne.
+             */
+
+            const confidenceValues =
+                group.cards
+                    .map(card =>
+                        Number(
+                            card.gradeModelConfidence
+                        )
+                    )
+                    .filter(
+                        Number.isFinite
+                    );
+
+
+            const confidence =
+                confidenceValues.length
+
+                    ? confidenceValues.reduce(
+                        (sum, value) =>
+                            sum + value,
+                        0
+                    ) /
+                    confidenceValues.length
+
+                    : null;
+
+
+            /*
+             * Trend et Avg30 :
+             *
+             * ils sont des indicateurs marché,
+             * pas des valeurs de lot.
+             *
+             * On prend ici la première impression
+             * uniquement pour la ligne résumé.
+             *
+             * Les détails exacts restent disponibles
+             * dans les variantes dépliées.
+             */
+
+            const firstCard =
+                group.cards[0];
+
+
+            return {
+
+                key:
+                    group.key,
+
+                nomCarte:
+                    group.nomCarte,
+
+                cards:
+                    group.cards,
+
+                variants,
+
+                quantity:
+                    group.cards.length,
+
+                variantCount:
+                    variants.length,
+
+                totalValue,
+
+                confidence,
+
+                imageUrl:
+                    firstCard?.imageUrl || null,
+
+                trendPrice:
+                    firstCard?.trendPrice ??
+                    null,
+
+                avg30:
+                    firstCard?.avg30 ??
+                    null,
+
+                firstCard
+
+            };
+
+        });
+
+}
+
+
+
+function toggleCollectionGroup(groupKey) {
+
+    if (
+        expandedCollectionCards.has(
+            groupKey
+        )
+    ) {
+
+        expandedCollectionCards.delete(
+            groupKey
+        );
+
+    } else {
+
+        expandedCollectionCards.add(
+            groupKey
+        );
+
+    }
+
+    filterCards();
+}
+
+
+function renderCards(cards) {
+
+    const tbody =
+        document.getElementById(
+            "cards-body"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    /*
+     * Les cartes ont déjà été filtrées
+     * avant d'arriver ici.
+     */
+
+    const groups =
+        groupCollectionCards(cards);
+
+
+    const rowsHtml =
+        groups
+            .map(group => {
+
+                const expanded =
+                    expandedCollectionCards.has(
+                        group.key
+                    );
+
+
+                const firstCard =
+                    group.firstCard;
+
+
+                const confidenceText =
+                    group.confidence !== null
+
+                        ? `${Math.round(
+                            group.confidence
+                        )} %`
+
+                        : "-";
+
+
+                const trendText =
+                    group.trendPrice !== null &&
+                    group.trendPrice !== undefined
+
+                        ? formatEuro(
+                            group.trendPrice
+                        )
+
+                        : "-";
+
+
+                const avg30Text =
+                    group.avg30 !== null &&
+                    group.avg30 !== undefined
+
+                        ? formatEuro(
+                            group.avg30
+                        )
+
+                        : "-";
+
+
+                /*
+                 * Ligne principale.
+                 */
+
+                let html = `
+
+                    <tr class="collection-group-row">
+
+
+                        <td
+                            class="collection-expand-cell"
+                        >
+
+                            <button
+                                type="button"
+
+                                class="
+                                    collection-expand-button
+                                    ${
+                                        expanded
+                                            ? "expanded"
+                                            : ""
+                                    }
+                                "
+
+                                onclick="toggleCollectionGroup(
+    ${escapeHtml(
+        JSON.stringify(group.key)
+    )}
+)"
+
+                                title="Afficher les variantes"
+                            >
+                                ▶
+                            </button>
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                                group.imageUrl
+
+                                    ? `
+                                        <img
+                                            src="${
+                                                escapeHtml(
+                                                    group.imageUrl
+                                                )
+                                            }"
+
+                                            alt="${
+                                                escapeHtml(
+                                                    group.nomCarte
+                                                )
+                                            }"
+
+                                            class="
+                                                card-image
+                                                collection-group-image
+                                            "
+
+                                            loading="lazy"
+
+                                            decoding="async"
+                                        >
+                                    `
+
+                                    : `
+                                        <span class="muted">
+                                            -
+                                        </span>
+                                    `
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                type="button"
+
+                                class="
+                                    card-link-button
+                                    collection-card-name
+                                "
+
+                                onclick="openCardDetail(
+                                    ${firstCard.id}
+                                )"
+                            >
+
+                                ${escapeHtml(
+                                    group.nomCarte
+                                )}
+
+                            </button>
+
+                        </td>
+
+
+                        <td
+                            class="collection-quantity"
+                        >
+                            ×${group.quantity}
+                        </td>
+
+
+                        <td>
+                            ${group.variantCount}
+                        </td>
+
+
+                        <td class="price">
+                            ${formatEuro(
+                                group.totalValue
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${confidenceText}
+                        </td>
+
+
+                        <td>
+                            ${trendText}
+                        </td>
+
+
+                        <td>
+                            ${avg30Text}
+                        </td>
+
+
+                    </tr>
+
+                `;
+
+
+                /*
+                 * Détail des variantes.
+                 */
+
+                if (expanded) {
+
+                    group.variants
+                        .forEach(variant => {
+
+                            const card =
+                                variant.cards[0];
+
+
+                            const estimatedPrice =
+                                getEstimatedConditionPrice(
+                                    card
+                                );
+
+
+                            const confidence =
+                                card.gradeModelConfidence !== null &&
+                                card.gradeModelConfidence !== undefined
+
+                                    ? `${
+                                        card.gradeModelConfidence
+                                    } %`
+
+                                    : "-";
+
+
+                            const trend =
+                                card.trendPrice !== null &&
+                                card.trendPrice !== undefined
+
+                                    ? formatEuro(
+                                        card.trendPrice
+                                    )
+
+                                    : "-";
+
+
+                            const avg30 =
+                                card.avg30 !== null &&
+                                card.avg30 !== undefined
+
+                                    ? formatEuro(
+                                        card.avg30
+                                    )
+
+                                    : "-";
+
+
+                            html += `
+
+                                <tr
+                                    class="
+                                        collection-variant-row
+                                    "
                                 >
-                                    Scryfall
-                                </a>
-                            `
-                            : ""
-                    }
-                </td>
-            </tr>
-        `;
-    }).join("");
 
-    tbody.innerHTML = rowsHtml;
+                                    <td></td>
+
+                                    <td></td>
+
+
+                                    <td colspan="7">
+
+                                        <div
+                                            class="
+                                                collection-variant-content
+                                            "
+                                        >
+
+
+                                            <div
+                                                class="
+                                                    collection-variant-edition
+                                                "
+                                            >
+
+                                                ${
+                                                    escapeHtml(
+                                                        variant.edition
+                                                    )
+                                                }
+
+                                            </div>
+
+
+                                            <div>
+                                                ${
+                                                    escapeHtml(
+                                                        variant.langue
+                                                    )
+                                                }
+                                            </div>
+
+
+                                            <div>
+
+                                                <span
+                                                    class="
+                                                        collection-condition
+                                                    "
+                                                >
+                                                    ${
+                                                        escapeHtml(
+                                                            variant.etat
+                                                        )
+                                                    }
+                                                </span>
+
+                                            </div>
+
+
+                                            <div
+                                                class="
+                                                    collection-variant-qty
+                                                "
+                                            >
+                                                ×${
+                                                    variant.quantity
+                                                }
+                                            </div>
+
+
+                                            <div>
+
+                                                ${
+                                                    estimatedPrice !== null &&
+                                                    estimatedPrice !== undefined
+
+                                                        ? formatEuro(
+                                                            estimatedPrice
+                                                        )
+
+                                                        : "-"
+                                                }
+
+                                                <span class="muted">
+                                                    / carte
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="price">
+
+                                                ${
+                                                    formatEuro(
+                                                        variant.totalValue
+                                                    )
+                                                }
+
+                                            </div>
+
+
+                                            <div>
+
+                                                ${confidence}
+
+                                            </div>
+
+
+                                            <div>
+
+                                                ${trend}
+
+                                            </div>
+
+
+                                            <div>
+
+                                                ${avg30}
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        });
+
+                }
+
+
+                return html;
+
+            })
+            .join("");
+
+
+    tbody.innerHTML =
+        rowsHtml;
+
 }
 
 function getResponsiveChartPointLimit(canvas) {
