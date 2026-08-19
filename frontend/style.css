@@ -1532,14 +1532,30 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     margin-bottom: 24px;
 }
 
+/* ========================================
+   Portfolio - KPI cards
+   ======================================== */
+
 .portfolio-summary-card {
+    --kpi-color: #7fb7ff;
+    --kpi-bg: rgba(127, 183, 255, 0.10);
+
     position: relative;
+
+    min-height: 112px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
 
     background:
         linear-gradient(
             145deg,
             #191f2c 0%,
-            #151923 100%
+            #141923 100%
         );
 
     border:
@@ -1548,19 +1564,11 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
     border-radius: 14px;
 
-    padding:
-        18px
-        20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    min-height: 100px;
-
     box-shadow:
         0 8px 24px
         rgba(0, 0, 0, 0.18);
+
+    overflow: hidden;
 
     transition:
         transform 0.18s ease,
@@ -1570,30 +1578,52 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 
 
 .portfolio-summary-card:hover {
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 
     border-color:
-        rgba(127, 183, 255, 0.20);
+        color-mix(
+            in srgb,
+            var(--kpi-color) 35%,
+            transparent
+        );
 
     box-shadow:
         0 12px 30px
         rgba(0, 0, 0, 0.26);
 }
 
-.portfolio-summary-card span {
-    font-size: 13px;
-    color: #9fa7b7;
-    margin-bottom: 8px;
+/* Cartes */
+.portfolio-kpi-cards {
+    --kpi-color: #6da8ff;
+    --kpi-bg: rgba(73, 132, 255, 0.13);
 }
 
-.portfolio-summary-card strong {
-    font-size: 29px;
-    font-weight: 800;
-    color: #ffffff;
 
-    letter-spacing:
-        -0.4px;
+/* Valeur */
+.portfolio-kpi-value {
+    --kpi-color: #f5b82e;
+    --kpi-bg: rgba(245, 184, 46, 0.12);
+}
+
+
+/* Poids */
+.portfolio-kpi-weight {
+    --kpi-color: #9b7cff;
+    --kpi-bg: rgba(155, 124, 255, 0.12);
+}
+
+
+/* Variation */
+.portfolio-kpi-change {
+    --kpi-color: #5ee38a;
+    --kpi-bg: rgba(94, 227, 138, 0.11);
+}
+
+
+/* Contribution */
+.portfolio-kpi-contribution {
+    --kpi-color: #28d6e5;
+    --kpi-bg: rgba(40, 214, 229, 0.11);
 }
 
 @media (max-width:1200px){
@@ -3019,4 +3049,107 @@ th:nth-child(4)
 
     border-color:
         rgba(127, 183, 255, 0.35);
+}
+
+.portfolio-summary-icon {
+    flex:
+        0
+        0
+        48px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        var(--kpi-bg);
+
+    color:
+        var(--kpi-color);
+
+    font-size: 26px;
+
+    font-weight: 900;
+
+    box-shadow:
+        inset 0 0 0 1px
+        color-mix(
+            in srgb,
+            var(--kpi-color) 15%,
+            transparent
+        );
+}
+
+.portfolio-summary-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+.portfolio-summary-content span {
+    margin-bottom: 7px;
+
+    color: #9faabd;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    line-height: 1.25;
+}
+
+
+.portfolio-summary-content strong {
+    color: #ffffff;
+
+    font-size: 29px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.4px;
+
+    line-height: 1.05;
+}
+
+.portfolio-summary-content
+strong.score-positive {
+    color: #5ee38a;
+}
+
+
+.portfolio-summary-content
+strong.score-negative {
+    color: #ff6b6b;
+}
+
+.portfolio-summary-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+
+    width: 2px;
+
+    border-radius: 0 3px 3px 0;
+
+    background:
+        var(--kpi-color);
+
+    opacity: 0.55;
+
+    box-shadow:
+        0 0 12px
+        var(--kpi-color);
 }
