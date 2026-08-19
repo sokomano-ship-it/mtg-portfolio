@@ -3153,3 +3153,14 @@ strong.score-negative {
         0 0 12px
         var(--kpi-color);
 }
+
+.portfolio-summary-icon svg {
+    width: 28px;
+    height: 28px;
+
+    fill: none;
+    stroke: var(--kpi-color);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
