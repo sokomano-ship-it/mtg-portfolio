@@ -2347,3 +2347,109 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
         800;
 
 }
+
+/* ========================================
+   Collection - largeur des colonnes
+   ======================================== */
+
+.collection-grouped-table {
+    table-layout: fixed;
+}
+
+
+/* Triangle */
+.collection-grouped-table th:nth-child(1),
+.collection-grouped-table td:nth-child(1) {
+    width: 36px;
+}
+
+
+/* Image */
+.collection-grouped-table th:nth-child(2),
+.collection-grouped-table td:nth-child(2) {
+    width: 78px;
+}
+
+
+/* Carte */
+.collection-grouped-table th:nth-child(3),
+.collection-grouped-table td:nth-child(3) {
+    width: auto;
+}
+
+
+/* Quantité */
+.collection-grouped-table th:nth-child(4),
+.collection-grouped-table td:nth-child(4) {
+    width: 90px;
+}
+
+
+/* Valeur */
+.collection-grouped-table th:nth-child(5),
+.collection-grouped-table td:nth-child(5) {
+    width: 135px;
+}
+
+
+/* Trend lot */
+.collection-grouped-table th:nth-child(6),
+.collection-grouped-table td:nth-child(6) {
+    width: 135px;
+}
+
+
+/* Avg30 lot */
+.collection-grouped-table th:nth-child(7),
+.collection-grouped-table td:nth-child(7) {
+    width: 135px;
+}
+
+
+.collection-grouped-table
+th:nth-child(4)
+.collection-filter {
+    min-width: 0;
+    width: 100%;
+}
+
+.collection-variant-header-row {
+    background: #0d111b;
+}
+
+
+.collection-variant-header-row td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.collection-variant-header {
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 1.6fr)
+        minmax(80px, 0.7fr)
+        minmax(55px, 0.5fr)
+        minmax(45px, 0.4fr)
+        minmax(115px, 0.9fr)
+        minmax(95px, 0.8fr)
+        minmax(65px, 0.6fr)
+        minmax(80px, 0.7fr)
+        minmax(80px, 0.7fr);
+
+    gap: 14px;
+
+    padding:
+        3px
+        12px
+        3px
+        16px;
+
+    color: #7f899d;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}

@@ -722,14 +722,23 @@ function filterCards() {
      * Le tri Qté sera effectué après regroupement
      * dans renderCards().
      */
-    if (
-        currentCollectionSort !==
-        "quantity"
-    ) {
+    const groupedSorts = [
+    "quantity",
+    "totalValue",
+    "trendPrice",
+    "avg30"
+];
 
-        sortCollectionCards(cards);
 
-    }
+if (
+    !groupedSorts.includes(
+        currentCollectionSort
+    )
+) {
+
+    sortCollectionCards(cards);
+
+}
 
 
     updateCollectionHeaderState();
@@ -1140,6 +1149,55 @@ function groupCollectionCards(cards) {
             const variants =
                 [...variantsMap.values()];
 
+            /*
+ * Edition représentative :
+ * on affiche l'image de l'édition
+ * dont on possède le plus d'exemplaires.
+ */
+const editionCounts =
+    new Map();
+
+group.cards.forEach(card => {
+
+    const edition =
+        String(
+            card.edition || ""
+        ).trim();
+
+    if (!editionCounts.has(edition)) {
+
+        editionCounts.set(
+            edition,
+            {
+                edition,
+                quantity: 0,
+                card
+            }
+        );
+
+    }
+
+    const editionEntry =
+        editionCounts.get(edition);
+
+    editionEntry.quantity += 1;
+
+});
+
+
+const representativeEdition =
+    [...editionCounts.values()]
+        .sort(
+            (a, b) =>
+                b.quantity -
+                a.quantity
+        )[0];
+
+
+const representativeCard =
+    representativeEdition?.card ||
+    group.cards[0];
+
 
             /*
              * Valeur totale de toutes
@@ -1165,7 +1223,62 @@ function groupCollectionCards(cards) {
                     0
                 );
 
+/*
+ * Valeur Trend totale de la carte.
+ *
+ * Chaque exemplaire contribue avec
+ * le Trend de son impression.
+ */
+const totalTrend =
+    group.cards.reduce(
+        (sum, card) => {
 
+            const trend =
+                Number(
+                    card.trendPrice
+                );
+
+            return (
+                sum +
+                (
+                    Number.isFinite(trend)
+                        ? trend
+                        : 0
+                )
+            );
+
+        },
+        0
+    );
+
+
+/*
+ * Valeur Avg30 totale.
+ *
+ * Même principe que Trend :
+ * somme de chaque exemplaire possédé.
+ */
+const totalAvg30 =
+    group.cards.reduce(
+        (sum, card) => {
+
+            const avg30 =
+                Number(
+                    card.avg30
+                );
+
+            return (
+                sum +
+                (
+                    Number.isFinite(avg30)
+                        ? avg30
+                        : 0
+                )
+            );
+
+        },
+        0
+    );
             /*
              * Confiance moyenne.
              */
@@ -1209,7 +1322,7 @@ function groupCollectionCards(cards) {
              */
 
             const firstCard =
-                group.cards[0];
+    representativeCard;
 
 
             return {
@@ -1236,17 +1349,17 @@ function groupCollectionCards(cards) {
                 confidence,
 
                 imageUrl:
-                    firstCard?.imageUrl || null,
+    representativeCard?.imageUrl ||
+    null,
 
-                trendPrice:
-                    firstCard?.trendPrice ??
-                    null,
+trendPrice:
+    totalTrend,
 
-                avg30:
-                    firstCard?.avg30 ??
-                    null,
+avg30:
+    totalAvg30,
 
-                firstCard
+firstCard:
+    representativeCard
 
             };
 
@@ -1309,17 +1422,42 @@ function renderCards(cards) {
  * puisque quantity représente le nombre
  * d'exemplaires d'une même carte.
  */
+/*
+ * Tris qui nécessitent le regroupement
+ * préalable par nom de carte.
+ */
+const groupedNumericSorts = [
+    "quantity",
+    "totalValue",
+    "trendPrice",
+    "avg30"
+];
+
+
 if (
-    currentCollectionSort ===
-    "quantity"
+    groupedNumericSorts.includes(
+        currentCollectionSort
+    )
 ) {
 
     groups.sort(
         (a, b) => {
 
+            const aValue =
+                Number(
+                    a[currentCollectionSort]
+                ) || 0;
+
+            const bValue =
+                Number(
+                    b[currentCollectionSort]
+                ) || 0;
+
+
             const result =
-                a.quantity -
-                b.quantity;
+                aValue -
+                bValue;
+
 
             return (
                 currentCollectionDirection ===
@@ -1516,6 +1654,35 @@ if (
                  */
 
                 if (expanded) {
+
+                    html += `
+
+    <tr class="collection-variant-header-row">
+
+        <td></td>
+        <td></td>
+
+        <td colspan="5">
+
+            <div class="collection-variant-header">
+
+                <div>Édition</div>
+                <div>Langue</div>
+                <div>État</div>
+                <div>Qté</div>
+                <div>Prix / carte</div>
+                <div>Valeur</div>
+                <div>Conf.</div>
+                <div>Trend</div>
+                <div>Avg30</div>
+
+            </div>
+
+        </td>
+
+    </tr>
+
+`;
 
                     group.variants
                         .forEach(variant => {
