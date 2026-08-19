@@ -2501,7 +2501,7 @@ if (freshnessElement) {
                 lastHistoryDate
             )
         }`,
-        `Historique disponible depuis : ${
+        `Historique depuis : ${
             formatPortfolioFreshnessDate(
                 firstHistoryDate
             )
@@ -2599,6 +2599,11 @@ if (freshnessElement) {
         "portfolio-chart-selection"
     );
 
+    const cardMetaElement =
+    document.getElementById(
+        "portfolio-chart-card-meta"
+    );
+
     const contextCategoryElement =
     document.getElementById(
         "portfolio-chart-context-category"
@@ -2630,16 +2635,88 @@ if (freshnessElement) {
 }
 
 if (chartSelectionElement) {
-    chartSelectionElement.textContent = noFilters
-        ? "📊 Portefeuille total"
-        : selectedPortfolioCardKey
-            ? `🃏 Carte : ${displayName}`
-            : selectedPortfolioCategory &&
-              selectedPortfolioEdition
-                ? `📊 Catégorie : ${selectedPortfolioCategory} · Édition : ${selectedPortfolioEdition}`
-                : selectedPortfolioEdition
-                    ? `📚 Édition : ${selectedPortfolioEdition}`
-                    : `📁 Catégorie : ${selectedPortfolioCategory}`;
+
+    if (selectedPortfolioCardKey) {
+
+        const selectedCard =
+            selectedCards[0];
+
+        if (selectedCard) {
+
+            chartSelectionElement.textContent =
+                [
+                    selectedCard.nomCarte,
+                    selectedCard.edition
+                ]
+                    .filter(Boolean)
+                    .join(" — ");
+
+        } else {
+
+            chartSelectionElement.textContent =
+                displayName;
+        }
+
+    } else {
+
+        chartSelectionElement.textContent =
+            noFilters
+                ? "📊 Portefeuille total"
+                : selectedPortfolioCategory &&
+                  selectedPortfolioEdition
+                    ? `📊 Catégorie : ${selectedPortfolioCategory} · Édition : ${selectedPortfolioEdition}`
+                    : selectedPortfolioEdition
+                        ? `📚 Édition : ${selectedPortfolioEdition}`
+                        : `📁 Catégorie : ${selectedPortfolioCategory}`;
+    }
+
+}
+
+if (cardMetaElement) {
+
+    if (
+        selectedPortfolioCardKey &&
+        selectedCards[0]
+    ) {
+
+        const selectedCard =
+            selectedCards[0];
+
+        cardMetaElement.innerHTML = "";
+
+        [
+            selectedCard.langue,
+            selectedCard.etat
+        ]
+            .filter(Boolean)
+            .forEach(value => {
+
+                const badge =
+                    document.createElement(
+                        "span"
+                    );
+
+                badge.textContent =
+                    value;
+
+                cardMetaElement.appendChild(
+                    badge
+                );
+
+            });
+
+        cardMetaElement.hidden =
+            false;
+
+    } else {
+
+        cardMetaElement.innerHTML =
+            "";
+
+        cardMetaElement.hidden =
+            true;
+    }
+
 }
 
         const currentCards = noFilters

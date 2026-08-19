@@ -1233,6 +1233,14 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
     }
 }
 
+@media (max-width: 900px) {
+
+    #portfolio-chart-selection {
+        white-space: normal;
+    }
+
+}
+
 .investment-drawer {
     position: fixed;
     top: 0;
@@ -1706,10 +1714,10 @@ padding:
     justify-content: center;
 
     width:
-        min(
-            470px,
-            38vw
-        );
+    min(
+        520px,
+        40vw
+    );
 
     min-height: 126px;
 
@@ -1802,39 +1810,95 @@ padding:
 
 
 #portfolio-chart-selection {
-    margin:
-        0;
+    margin: 0;
+    padding: 0;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.35;
+
+    white-space: nowrap;
+}
+
+.portfolio-chart-card-meta {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+
+.portfolio-chart-card-meta[hidden] {
+    display: none;
+}
+
+
+.portfolio-chart-card-meta span {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 26px;
 
     padding:
-        0;
+        4px
+        11px;
 
     color:
-        #ffffff;
+        #dce7f5;
+
+    background:
+        rgba(
+            127,
+            183,
+            255,
+            0.10
+        );
+
+    border:
+        1px solid
+        rgba(
+            127,
+            183,
+            255,
+            0.12
+        );
+
+    border-radius:
+        999px;
 
     font-size:
-        18px;
+        12px;
 
     font-weight:
-        800;
+        700;
 
     line-height:
-        1.35;
+        1;
 }
 
 
 .portfolio-chart-context
 .portfolio-data-freshness {
     margin:
-        18px
+        14px
         0
         0;
 
     padding-top:
-        14px;
+        12px;
 
     border-top:
         1px solid
-        rgba(255, 255, 255, 0.07);
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
 
     color:
         #8f9bad;
@@ -1843,9 +1907,20 @@ padding:
         12px;
 
     line-height:
-        1.55;
+        1.4;
+
+    white-space:
+        nowrap;
 }
 
+@media (max-width: 900px) {
+
+    .portfolio-chart-context
+    .portfolio-data-freshness {
+        white-space: normal;
+    }
+
+}
 
 
 .portfolio-chart-filters select,
