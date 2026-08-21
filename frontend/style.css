@@ -2851,7 +2851,7 @@ body.observations-page .obs-svg-chart [class^="legend-"] {
 /* Valeur */
 .collection-grouped-table th:nth-child(5),
 .collection-grouped-table td:nth-child(5) {
-    width: 135px;
+    width: 155px;
 }
 
 
@@ -3269,14 +3269,19 @@ strong.score-negative {
 .collection-group-value {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
     gap: 3px;
+
+    width: 100%;
+    min-width: 0;
 
     line-height: 1.2;
 }
 
-
 .collection-group-value strong {
+    display: block;
+
     color: #f0d27a;
 
     font-size: 13px;
@@ -3285,8 +3290,9 @@ strong.score-negative {
     white-space: nowrap;
 }
 
-
 .collection-group-value small {
+    display: block;
+
     color: #7f899d;
 
     font-size: 10px;
