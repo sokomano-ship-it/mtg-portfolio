@@ -3261,3 +3261,79 @@ strong.score-negative {
     width: 100%;
     min-width: 160px;
 }
+
+/* ========================================
+   Collection - valeur principale
+   ======================================== */
+
+.collection-group-value {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    line-height: 1.2;
+}
+
+
+.collection-group-value strong {
+    color: #f0d27a;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.collection-group-value small {
+    color: #7f899d;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+/* ========================================
+   Collection - bloc variantes
+   ======================================== */
+
+.collection-variant-header-row td,
+.collection-variant-row td {
+    background:
+        rgba(
+            9,
+            13,
+            21,
+            0.46
+        );
+}
+
+
+.collection-variant-header-row td:nth-child(3),
+.collection-variant-row td:nth-child(3) {
+    border-left:
+        2px solid
+        rgba(
+            127,
+            183,
+            255,
+            0.20
+        );
+}
+
+.table-toolbar .toolbar-stat:first-of-type {
+    margin-left: 12px;
+
+    padding-left: 24px;
+
+    border-left:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.09
+        );
+}

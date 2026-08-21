@@ -1936,6 +1936,45 @@ if (
                 const firstCard =
                     group.firstCard;
 
+                /*
+ * Prix unitaire maximum parmi
+ * toutes les variantes de la carte.
+ *
+ * Exemple :
+ * Dark Ritual
+ * FBB NM 6,40 €
+ * FBB EX 4,76 €
+ * Revised NM 2,06 €
+ *
+ * => maxUnitPrice = 6,40 €
+ */
+const maxUnitPrice =
+    group.variants.reduce(
+        (maxPrice, variant) => {
+
+            const card =
+                variant.cards[0];
+
+            const price =
+                Number(
+                    getEstimatedConditionPrice(
+                        card
+                    )
+                );
+
+            if (!Number.isFinite(price)) {
+                return maxPrice;
+            }
+
+            return Math.max(
+                maxPrice,
+                price
+            );
+
+        },
+        0
+    );
+
 
                 const confidenceText =
                     group.confidence !== null
@@ -2088,9 +2127,31 @@ if (
 
 
 <td class="price">
-    ${formatEuro(
-        group.totalValue
-    )}
+
+    <div class="collection-group-value">
+
+        <strong>
+            ${formatEuro(
+                group.totalValue
+            )}
+        </strong>
+
+        ${
+            maxUnitPrice > 0
+                ? `
+                    <small>
+                        max ${
+                            formatEuro(
+                                maxUnitPrice
+                            )
+                        } / carte
+                    </small>
+                `
+                : ""
+        }
+
+    </div>
+
 </td>
 
 
