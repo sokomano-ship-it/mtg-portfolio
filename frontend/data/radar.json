@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-21T14:20:34.359Z",
+  "generatedAt": "2026-08-21T15:29:22.712Z",
   "methodology": {
     "minimumHorizonDays": 14,
     "preferredHorizonDays": 30,
     "earlySignalPenalty": true
   },
   "summary": {
-    "total": 762,
+    "total": 758,
     "strongRise": 51,
     "probableRise": 76,
-    "watch": 112
+    "watch": 110
   },
   "rows": [
     {
@@ -39549,206 +39549,6 @@
       }
     },
     {
-      "printingKey": "royal assassin|fourth edition||french",
-      "cardIds": [
-        1247,
-        1782
-      ],
-      "quantity": 2,
-      "nomCarte": "Royal Assassin",
-      "edition": "Fourth Edition",
-      "langue": "French",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-21",
-      "historyPoints": 41,
-      "historyAgeDays": 40,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 41,
-      "stableHistoryAgeDays": 40,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 3.79,
-      "latestConfidence": 70,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
-      "observationDaysCount": 2,
-      "observationRowsCount": 11,
-      "marketAnchorPrice": 2.48,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 3.9109,
-      "radarEligible": true,
-      "convictionScore": 51,
-      "signalLevel": "À surveiller",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 82.4,
-        "persistence": 11.6,
-        "acceleration": 10.2,
-        "quality": 58.9,
-        "noise": 60.5,
-        "confidence": 70
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30,
-        45
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-08",
-          "endDate": "2026-08-21",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 4.03,
-          "endPrice": 3.79,
-          "cumulativeChangePct": -5.96,
-          "logSlopePerDay": -0.00317987,
-          "slopePctPerDay": -0.3175,
-          "equivalent30dPct": -9.1,
-          "rSquared": 0.631,
-          "residualNoisePct": 0.985,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 8,
-            "totalTransitions": 13,
-            "changedPct": 61.5,
-            "flatPct": 38.5
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-21",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 3.78,
-          "endPrice": 3.79,
-          "cumulativeChangePct": 0.26,
-          "logSlopePerDay": 0.00024316,
-          "slopePctPerDay": 0.0243,
-          "equivalent30dPct": 0.73,
-          "rSquared": 0.0056,
-          "residualNoisePct": 1.977,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 13,
-            "totalTransitions": 20,
-            "changedPct": 65,
-            "flatPct": 35
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-23",
-          "endDate": "2026-08-21",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 3.46,
-          "endPrice": 3.79,
-          "cumulativeChangePct": 9.54,
-          "logSlopePerDay": 0.00534959,
-          "slopePctPerDay": 0.5364,
-          "equivalent30dPct": 17.41,
-          "rSquared": 0.5888,
-          "residualNoisePct": 3.946,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 17,
-            "totalTransitions": 29,
-            "changedPct": 58.6,
-            "flatPct": 41.4
-          }
-        },
-        "45d": {
-          "available": true,
-          "horizonDays": 45,
-          "startDate": "2026-07-12",
-          "endDate": "2026-08-21",
-          "points": 41,
-          "spanDays": 40,
-          "startPrice": 3.4,
-          "endPrice": 3.79,
-          "cumulativeChangePct": 11.47,
-          "logSlopePerDay": 0.00457316,
-          "slopePctPerDay": 0.4584,
-          "equivalent30dPct": 14.71,
-          "rSquared": 0.6991,
-          "residualNoisePct": 3.614,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 24,
-            "totalTransitions": 40,
-            "changedPct": 60,
-            "flatPct": 40
-          }
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
       "printingKey": "sandstorm|arabian nights||english",
       "cardIds": [
         1184
@@ -42232,206 +42032,6 @@
           "reason": "Historique insuffisant",
           "points": 30,
           "spanDays": 29,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "royal assassin|fourth edition||french",
-      "cardIds": [
-        1247,
-        1782
-      ],
-      "quantity": 2,
-      "nomCarte": "Royal Assassin",
-      "edition": "Fourth Edition",
-      "langue": "French",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-21",
-      "historyPoints": 41,
-      "historyAgeDays": 40,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 41,
-      "stableHistoryAgeDays": 40,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 4.39,
-      "latestConfidence": 70,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
-      "observationDaysCount": 2,
-      "observationRowsCount": 11,
-      "marketAnchorPrice": 2.48,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 3.9109,
-      "radarEligible": true,
-      "convictionScore": 50,
-      "signalLevel": "À surveiller",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 83.5,
-        "persistence": 11.7,
-        "acceleration": 9.6,
-        "quality": 58.5,
-        "noise": 57.9,
-        "confidence": 70
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30,
-        45
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-08",
-          "endDate": "2026-08-21",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 4.68,
-          "endPrice": 4.39,
-          "cumulativeChangePct": -6.2,
-          "logSlopePerDay": -0.00350974,
-          "slopePctPerDay": -0.3504,
-          "equivalent30dPct": -9.99,
-          "rSquared": 0.6588,
-          "residualNoisePct": 1.023,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 8,
-            "totalTransitions": 13,
-            "changedPct": 61.5,
-            "flatPct": 38.5
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-21",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 4.38,
-          "endPrice": 4.39,
-          "cumulativeChangePct": 0.23,
-          "logSlopePerDay": 0.00021106,
-          "slopePctPerDay": 0.0211,
-          "equivalent30dPct": 0.64,
-          "rSquared": 0.0038,
-          "residualNoisePct": 2.091,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 13,
-            "totalTransitions": 20,
-            "changedPct": 65,
-            "flatPct": 35
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-23",
-          "endDate": "2026-08-21",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 3.98,
-          "endPrice": 4.39,
-          "cumulativeChangePct": 10.3,
-          "logSlopePerDay": 0.00565447,
-          "slopePctPerDay": 0.567,
-          "equivalent30dPct": 18.49,
-          "rSquared": 0.5851,
-          "residualNoisePct": 4.208,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 17,
-            "totalTransitions": 29,
-            "changedPct": 58.6,
-            "flatPct": 41.4
-          }
-        },
-        "45d": {
-          "available": true,
-          "horizonDays": 45,
-          "startDate": "2026-07-12",
-          "endDate": "2026-08-21",
-          "points": 41,
-          "spanDays": 40,
-          "startPrice": 4.1,
-          "endPrice": 4.39,
-          "cumulativeChangePct": 7.07,
-          "logSlopePerDay": 0.00424877,
-          "slopePctPerDay": 0.4258,
-          "equivalent30dPct": 13.59,
-          "rSquared": 0.605,
-          "residualNoisePct": 4.145,
-          "confidence": {
-            "latest": 70,
-            "average": 70,
-            "minimum": 70,
-            "maximum": 70,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 24,
-            "totalTransitions": 40,
-            "changedPct": 60,
-            "flatPct": 40
-          }
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
           "requiredPoints": 108,
           "requiredSpanDays": 143
         }
@@ -99306,9 +98906,10 @@
         1424,
         1523,
         1528,
-        1738
+        1738,
+        1863
       ],
-      "quantity": 8,
+      "quantity": 9,
       "nomCarte": "Mishra's Factory",
       "edition": "Renaissance",
       "langue": "French",
@@ -99512,9 +99113,10 @@
         1424,
         1523,
         1528,
-        1738
+        1738,
+        1863
       ],
-      "quantity": 8,
+      "quantity": 9,
       "nomCarte": "Mishra's Factory",
       "edition": "Renaissance",
       "langue": "French",
@@ -108505,209 +108107,6 @@
             "totalTransitions": 40,
             "changedPct": 30,
             "flatPct": 70
-          }
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "disenchant|foreign black bordered||french",
-      "cardIds": [
-        1199,
-        1332,
-        1358,
-        1362,
-        1368
-      ],
-      "quantity": 5,
-      "nomCarte": "Disenchant",
-      "edition": "Foreign Black Bordered",
-      "langue": "French",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-21",
-      "historyPoints": 41,
-      "historyAgeDays": 40,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 41,
-      "stableHistoryAgeDays": 40,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 0.58,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 0.73,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.5882,
-      "radarEligible": true,
-      "convictionScore": 27,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 13.9,
-        "acceleration": 100,
-        "quality": 30.6,
-        "noise": 25.5,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30,
-        45
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-08",
-          "endDate": "2026-08-21",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 0.51,
-          "endPrice": 0.58,
-          "cumulativeChangePct": 13.73,
-          "logSlopePerDay": 0.01571071,
-          "slopePctPerDay": 1.5835,
-          "equivalent30dPct": 60.21,
-          "rSquared": 0.6784,
-          "residualNoisePct": 4.457,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-21",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 0.58,
-          "endPrice": 0.58,
-          "cumulativeChangePct": 0,
-          "logSlopePerDay": 0.0002159,
-          "slopePctPerDay": 0.0216,
-          "equivalent30dPct": 0.65,
-          "rSquared": 0.0003,
-          "residualNoisePct": 7.705,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 9,
-            "totalTransitions": 20,
-            "changedPct": 45,
-            "flatPct": 55
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-23",
-          "endDate": "2026-08-21",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 0.62,
-          "endPrice": 0.58,
-          "cumulativeChangePct": -6.45,
-          "logSlopePerDay": -0.00550633,
-          "slopePctPerDay": -0.5491,
-          "equivalent30dPct": -15.23,
-          "rSquared": 0.3057,
-          "residualNoisePct": 7.446,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 12,
-            "totalTransitions": 29,
-            "changedPct": 41.4,
-            "flatPct": 58.6
-          }
-        },
-        "45d": {
-          "available": true,
-          "horizonDays": 45,
-          "startDate": "2026-07-12",
-          "endDate": "2026-08-21",
-          "points": 41,
-          "spanDays": 40,
-          "startPrice": 0.69,
-          "endPrice": 0.58,
-          "cumulativeChangePct": -15.94,
-          "logSlopePerDay": -0.00713745,
-          "slopePctPerDay": -0.7112,
-          "equivalent30dPct": -19.28,
-          "rSquared": 0.6209,
-          "residualNoisePct": 6.822,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 20,
-            "totalTransitions": 40,
-            "changedPct": 50,
-            "flatPct": 50
           }
         },
         "60d": {
@@ -118700,209 +118099,6 @@
           "reason": "Historique insuffisant",
           "points": 34,
           "spanDays": 33,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "disenchant|foreign black bordered||french",
-      "cardIds": [
-        1199,
-        1332,
-        1358,
-        1362,
-        1368
-      ],
-      "quantity": 5,
-      "nomCarte": "Disenchant",
-      "edition": "Foreign Black Bordered",
-      "langue": "French",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-12",
-      "latestDate": "2026-08-21",
-      "historyPoints": 41,
-      "historyAgeDays": 40,
-      "stableSince": "2026-07-12",
-      "stableHistoryPoints": 41,
-      "stableHistoryAgeDays": 40,
-      "structuralBreakCount": 0,
-      "lastStructuralBreak": null,
-      "structuralBreaks": [],
-      "latestPrice": 0.8,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 0.73,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.5882,
-      "radarEligible": true,
-      "convictionScore": 25,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 15,
-        "acceleration": 100,
-        "quality": 28.4,
-        "noise": 10.3,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30,
-        45
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-08",
-          "endDate": "2026-08-21",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 0.68,
-          "endPrice": 0.8,
-          "cumulativeChangePct": 17.65,
-          "logSlopePerDay": 0.0194642,
-          "slopePctPerDay": 1.9655,
-          "equivalent30dPct": 79.31,
-          "rSquared": 0.7059,
-          "residualNoisePct": 5.195,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 6,
-            "totalTransitions": 13,
-            "changedPct": 46.2,
-            "flatPct": 53.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-08-01",
-          "endDate": "2026-08-21",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 0.79,
-          "endPrice": 0.8,
-          "cumulativeChangePct": 1.27,
-          "logSlopePerDay": 0.000601,
-          "slopePctPerDay": 0.0601,
-          "equivalent30dPct": 1.82,
-          "rSquared": 0.0017,
-          "residualNoisePct": 9.297,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 9,
-            "totalTransitions": 20,
-            "changedPct": 45,
-            "flatPct": 55
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-23",
-          "endDate": "2026-08-21",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 0.85,
-          "endPrice": 0.8,
-          "cumulativeChangePct": -5.88,
-          "logSlopePerDay": -0.00625881,
-          "slopePctPerDay": -0.6239,
-          "equivalent30dPct": -17.12,
-          "rSquared": 0.2845,
-          "residualNoisePct": 8.97,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 13,
-            "totalTransitions": 29,
-            "changedPct": 44.8,
-            "flatPct": 55.2
-          }
-        },
-        "45d": {
-          "available": true,
-          "horizonDays": 45,
-          "startDate": "2026-07-12",
-          "endDate": "2026-08-21",
-          "points": 41,
-          "spanDays": 40,
-          "startPrice": 0.97,
-          "endPrice": 0.8,
-          "cumulativeChangePct": -17.53,
-          "logSlopePerDay": -0.00836814,
-          "slopePctPerDay": -0.8333,
-          "equivalent30dPct": -22.2,
-          "rSquared": 0.6114,
-          "residualNoisePct": 8.214,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 20,
-            "totalTransitions": 40,
-            "changedPct": 50,
-            "flatPct": 50
-          }
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 41,
-          "spanDays": 40,
           "requiredPoints": 108,
           "requiredSpanDays": 143
         }
@@ -149136,7 +148332,7 @@
           "currentPrice": 8.01
         }
       ],
-      "latestPrice": 7.92,
+      "latestPrice": 7.93,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -149145,18 +148341,18 @@
       "observationRowsCount": 5,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.993043,
+      "pricingRatio": 0.993795,
       "radarEligible": true,
       "convictionScore": 14,
       "signalLevel": "Pas de signal",
       "signalHorizon": 21,
       "maturityFactor": 0.9,
       "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
+        "trend": 0.3,
+        "persistence": 0.1,
         "acceleration": 0,
         "quality": 0,
-        "noise": 91.8,
+        "noise": 91.9,
         "confidence": 65
       },
       "availableHorizons": [
@@ -149172,13 +148368,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 8.03,
-          "endPrice": 7.92,
-          "cumulativeChangePct": -1.37,
-          "logSlopePerDay": -0.00126659,
-          "slopePctPerDay": -0.1266,
-          "equivalent30dPct": -3.73,
-          "rSquared": 0.4622,
-          "residualNoisePct": 0.552,
+          "endPrice": 7.93,
+          "cumulativeChangePct": -1.25,
+          "logSlopePerDay": -0.00123054,
+          "slopePctPerDay": -0.123,
+          "equivalent30dPct": -3.62,
+          "rSquared": 0.4607,
+          "residualNoisePct": 0.538,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149202,13 +148398,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 7.98,
-          "endPrice": 7.92,
-          "cumulativeChangePct": -0.75,
-          "logSlopePerDay": -0.00000301,
-          "slopePctPerDay": -0.0003,
-          "equivalent30dPct": -0.01,
-          "rSquared": 0,
-          "residualNoisePct": 0.819,
+          "endPrice": 7.93,
+          "cumulativeChangePct": -0.63,
+          "logSlopePerDay": 0.00001338,
+          "slopePctPerDay": 0.0013,
+          "equivalent30dPct": 0.04,
+          "rSquared": 0.0001,
+          "residualNoisePct": 0.808,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149325,7 +148521,7 @@
           "currentPrice": 8.54
         }
       ],
-      "latestPrice": 8.44,
+      "latestPrice": 8.45,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -149334,18 +148530,18 @@
       "observationRowsCount": 5,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.993043,
+      "pricingRatio": 0.993795,
       "radarEligible": true,
       "convictionScore": 14,
       "signalLevel": "Pas de signal",
       "signalHorizon": 21,
       "maturityFactor": 0.9,
       "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
+        "trend": 0.3,
+        "persistence": 0.1,
         "acceleration": 0,
         "quality": 0,
-        "noise": 91.8,
+        "noise": 91.9,
         "confidence": 65
       },
       "availableHorizons": [
@@ -149361,13 +148557,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 8.56,
-          "endPrice": 8.44,
-          "cumulativeChangePct": -1.4,
-          "logSlopePerDay": -0.00128644,
-          "slopePctPerDay": -0.1286,
-          "equivalent30dPct": -3.79,
-          "rSquared": 0.4956,
-          "residualNoisePct": 0.525,
+          "endPrice": 8.45,
+          "cumulativeChangePct": -1.29,
+          "logSlopePerDay": -0.0012526,
+          "slopePctPerDay": -0.1252,
+          "equivalent30dPct": -3.69,
+          "rSquared": 0.495,
+          "residualNoisePct": 0.511,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149391,13 +148587,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 8.5,
-          "endPrice": 8.44,
-          "cumulativeChangePct": -0.71,
-          "logSlopePerDay": 5e-7,
-          "slopePctPerDay": 0,
-          "equivalent30dPct": 0,
-          "rSquared": 0,
-          "residualNoisePct": 0.82,
+          "endPrice": 8.45,
+          "cumulativeChangePct": -0.59,
+          "logSlopePerDay": 0.00001587,
+          "slopePctPerDay": 0.0016,
+          "equivalent30dPct": 0.05,
+          "rSquared": 0.0001,
+          "residualNoisePct": 0.809,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150473,7 +149669,7 @@
           "currentPrice": 301.24
         }
       ],
-      "latestPrice": 297.91,
+      "latestPrice": 298.14,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -150482,18 +149678,18 @@
       "observationRowsCount": 6,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.993043,
+      "pricingRatio": 0.993795,
       "radarEligible": true,
       "convictionScore": 14,
       "signalLevel": "Pas de signal",
       "signalHorizon": 21,
       "maturityFactor": 0.9,
       "radarComponents": {
-        "trend": 0.1,
-        "persistence": 0,
+        "trend": 0.3,
+        "persistence": 0.1,
         "acceleration": 0,
         "quality": 0,
-        "noise": 91.9,
+        "noise": 92,
         "confidence": 65
       },
       "availableHorizons": [
@@ -150509,13 +149705,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 302.04,
-          "endPrice": 297.91,
-          "cumulativeChangePct": -1.37,
-          "logSlopePerDay": -0.00126138,
-          "slopePctPerDay": -0.1261,
-          "equivalent30dPct": -3.71,
-          "rSquared": 0.4846,
-          "residualNoisePct": 0.526,
+          "endPrice": 298.14,
+          "cumulativeChangePct": -1.29,
+          "logSlopePerDay": -0.00123933,
+          "slopePctPerDay": -0.1239,
+          "equivalent30dPct": -3.65,
+          "rSquared": 0.4841,
+          "residualNoisePct": 0.517,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150539,13 +149735,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 300,
-          "endPrice": 297.91,
-          "cumulativeChangePct": -0.7,
-          "logSlopePerDay": 0.00000434,
-          "slopePctPerDay": 0.0004,
-          "equivalent30dPct": 0.01,
-          "rSquared": 0,
-          "residualNoisePct": 0.806,
+          "endPrice": 298.14,
+          "cumulativeChangePct": -0.62,
+          "logSlopePerDay": 0.00001436,
+          "slopePctPerDay": 0.0014,
+          "equivalent30dPct": 0.04,
+          "rSquared": 0.0001,
+          "residualNoisePct": 0.799,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150660,7 +149856,7 @@
           "currentPrice": 359.6
         }
       ],
-      "latestPrice": 355.63,
+      "latestPrice": 355.9,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -150669,18 +149865,18 @@
       "observationRowsCount": 6,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.993043,
+      "pricingRatio": 0.993795,
       "radarEligible": true,
       "convictionScore": 14,
       "signalLevel": "Pas de signal",
       "signalHorizon": 21,
       "maturityFactor": 0.9,
       "radarComponents": {
-        "trend": 0.1,
-        "persistence": 0,
+        "trend": 0.3,
+        "persistence": 0.1,
         "acceleration": 0,
         "quality": 0,
-        "noise": 91.9,
+        "noise": 92,
         "confidence": 65
       },
       "availableHorizons": [
@@ -150696,13 +149892,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 360.55,
-          "endPrice": 355.63,
-          "cumulativeChangePct": -1.36,
-          "logSlopePerDay": -0.00126108,
-          "slopePctPerDay": -0.126,
-          "equivalent30dPct": -3.71,
-          "rSquared": 0.4841,
-          "residualNoisePct": 0.526,
+          "endPrice": 355.9,
+          "cumulativeChangePct": -1.29,
+          "logSlopePerDay": -0.0012394,
+          "slopePctPerDay": -0.1239,
+          "equivalent30dPct": -3.65,
+          "rSquared": 0.4837,
+          "residualNoisePct": 0.518,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150726,13 +149922,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 358.12,
-          "endPrice": 355.63,
-          "cumulativeChangePct": -0.7,
-          "logSlopePerDay": 0.00000446,
-          "slopePctPerDay": 0.0004,
-          "equivalent30dPct": 0.01,
-          "rSquared": 0,
-          "residualNoisePct": 0.806,
+          "endPrice": 355.9,
+          "cumulativeChangePct": -0.62,
+          "logSlopePerDay": 0.00001431,
+          "slopePctPerDay": 0.0014,
+          "equivalent30dPct": 0.04,
+          "rSquared": 0.0001,
+          "residualNoisePct": 0.799,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -155884,9 +155080,10 @@
     {
       "printingKey": "hell's caretaker|chronicles||english",
       "cardIds": [
-        1513
+        1513,
+        1840
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Hell's Caretaker",
       "edition": "Chronicles",
       "langue": "English",
@@ -155949,7 +155146,7 @@
       "observationRowsCount": 6,
       "marketAnchorPrice": 1.41,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.746,
+      "pricingRatio": 0.5556,
       "radarEligible": true,
       "convictionScore": 12,
       "signalLevel": "Pas de signal",
@@ -156096,9 +155293,10 @@
     {
       "printingKey": "hell's caretaker|chronicles||english",
       "cardIds": [
-        1513
+        1513,
+        1840
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Hell's Caretaker",
       "edition": "Chronicles",
       "langue": "English",
@@ -156161,7 +155359,7 @@
       "observationRowsCount": 6,
       "marketAnchorPrice": 1.41,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.746,
+      "pricingRatio": 0.5556,
       "radarEligible": true,
       "convictionScore": 12,
       "signalLevel": "Pas de signal",
