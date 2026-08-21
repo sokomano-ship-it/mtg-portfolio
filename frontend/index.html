@@ -935,23 +935,51 @@ placeholder="Gain lot >=5"
             <h2>Ma collection</h2>
 
             <div class="table-toolbar">
-                <div>
-                    <label for="category-filter">Catégorie</label>
-                    <select id="category-filter">
-                        <option value="Toutes">Toutes</option>
-                    </select>
-                </div>
 
-                <div class="toolbar-stat">
-                    <span>Cartes</span>
-                    <strong id="category-count">0</strong>
-                </div>
+    <div class="collection-toolbar-filter">
+        <label for="category-filter">
+            Catégorie
+        </label>
 
-                <div class="toolbar-stat">
-                    <span>Valeur estimée</span>
-                    <strong id="category-value">0 €</strong>
-                </div>
-            </div>
+        <select id="category-filter">
+            <option value="Toutes">
+                Toutes
+            </option>
+        </select>
+    </div>
+
+
+    <div class="collection-toolbar-filter">
+        <label for="collection-edition-filter">
+            Édition
+        </label>
+
+        <select id="collection-edition-filter">
+            <option value="Toutes">
+                Toutes les éditions
+            </option>
+        </select>
+    </div>
+
+
+    <div class="toolbar-stat">
+        <span>Cartes</span>
+
+        <strong id="category-count">
+            0
+        </strong>
+    </div>
+
+
+    <div class="toolbar-stat">
+        <span>Valeur estimée</span>
+
+        <strong id="category-value">
+            0 €
+        </strong>
+    </div>
+
+</div>
 
             <div id="status">Chargement...</div>
 

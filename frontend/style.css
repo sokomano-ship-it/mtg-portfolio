@@ -3252,3 +3252,12 @@ strong.score-negative {
     }
 
 }
+
+.collection-toolbar-filter {
+    min-width: 160px;
+}
+
+.collection-toolbar-filter select {
+    width: 100%;
+    min-width: 160px;
+}

@@ -603,24 +603,226 @@ async function loadPortfolioSummary() {
 }
 
 function populateCategories(cards) {
-    const select = document.getElementById("category-filter");
-    if (!select) return;
 
-    select.innerHTML = `<option value="Toutes">Toutes</option>`;
+    const categorySelect =
+        document.getElementById(
+            "category-filter"
+        );
 
-    const categories = [...new Set(
-        cards.map(card => card.categorie || "Non classé")
-    )].sort();
+    const editionSelect =
+        document.getElementById(
+            "collection-edition-filter"
+        );
+
+
+    if (!categorySelect) {
+        return;
+    }
+
+
+    /*
+     * Catégories disponibles.
+     */
+    categorySelect.innerHTML =
+        `<option value="Toutes">Toutes</option>`;
+
+
+    const categories =
+        [...new Set(
+            cards.map(card =>
+                card.categorie ||
+                "Non classé"
+            )
+        )]
+            .sort((a, b) =>
+                String(a).localeCompare(
+                    String(b),
+                    "fr",
+                    {
+                        sensitivity: "base"
+                    }
+                )
+            );
+
 
     categories.forEach(category => {
-        const option = document.createElement("option");
-        option.value = category;
-        option.textContent = category;
-        select.appendChild(option);
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            category;
+
+        option.textContent =
+            category;
+
+        categorySelect.appendChild(
+            option
+        );
+
     });
 
-    select.removeEventListener("change", filterCards);
-    select.addEventListener("change", filterCards);
+
+    /*
+     * Initialise les éditions.
+     */
+    refreshCollectionEditionFilter(
+        cards
+    );
+
+
+    /*
+     * Quand la catégorie change :
+     *
+     * 1. recalcul des éditions disponibles ;
+     * 2. nouveau filtrage de la collection.
+     */
+    categorySelect.onchange = () => {
+
+        refreshCollectionEditionFilter(
+            cards
+        );
+
+        filterCards();
+
+    };
+
+
+    /*
+     * Quand l'édition change :
+     * nouveau filtrage.
+     */
+    if (editionSelect) {
+
+        editionSelect.onchange =
+            filterCards;
+
+    }
+
+}
+
+function refreshCollectionEditionFilter(
+    cards = allCards
+) {
+
+    const categorySelect =
+        document.getElementById(
+            "category-filter"
+        );
+
+    const editionSelect =
+        document.getElementById(
+            "collection-edition-filter"
+        );
+
+
+    if (!editionSelect) {
+        return;
+    }
+
+
+    const previousEdition =
+        editionSelect.value ||
+        "Toutes";
+
+
+    const selectedCategory =
+        categorySelect?.value ||
+        "Toutes";
+
+
+    /*
+     * Pour rendre le filtre intelligent :
+     *
+     * si une catégorie est sélectionnée,
+     * seules ses éditions sont proposées.
+     */
+    const sourceCards =
+        selectedCategory === "Toutes"
+
+            ? cards
+
+            : cards.filter(card =>
+                (
+                    card.categorie ||
+                    "Non classé"
+                ) === selectedCategory
+            );
+
+
+    const editions =
+        [...new Set(
+            sourceCards
+                .map(card =>
+                    String(
+                        card.edition || ""
+                    ).trim()
+                )
+                .filter(Boolean)
+        )]
+            .sort((a, b) =>
+                a.localeCompare(
+                    b,
+                    "fr",
+                    {
+                        sensitivity: "base"
+                    }
+                )
+            );
+
+
+    editionSelect.innerHTML =
+        `
+            <option value="Toutes">
+                Toutes les éditions
+            </option>
+        `;
+
+
+    editions.forEach(edition => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            edition;
+
+        option.textContent =
+            edition;
+
+        editionSelect.appendChild(
+            option
+        );
+
+    });
+
+
+    /*
+     * Conserve l'édition choisie
+     * si elle existe encore dans
+     * la catégorie sélectionnée.
+     */
+    if (
+        previousEdition !== "Toutes" &&
+        editions.includes(
+            previousEdition
+        )
+    ) {
+
+        editionSelect.value =
+            previousEdition;
+
+    } else {
+
+        editionSelect.value =
+            "Toutes";
+
+    }
+
 }
 
 function setupCollectionFilters() {
@@ -676,10 +878,15 @@ function getCollectionFilters() {
 
 function filterCards() {
 
-    const select =
-        document.getElementById(
-            "category-filter"
-        );
+    const categorySelect =
+    document.getElementById(
+        "category-filter"
+    );
+
+const editionSelect =
+    document.getElementById(
+        "collection-edition-filter"
+    );
 
     const filters =
         getCollectionFilters();
@@ -702,20 +909,42 @@ function filterCards() {
     /*
      * Filtre catégorie.
      */
-    if (
-        select &&
-        select.value !== "Toutes"
-    ) {
+    /*
+ * Filtre Catégorie.
+ */
+if (
+    categorySelect &&
+    categorySelect.value !== "Toutes"
+) {
 
-        cards =
-            cards.filter(card =>
-                (
-                    card.categorie ||
-                    "Non classé"
-                ) === select.value
-            );
+    cards =
+        cards.filter(card =>
+            (
+                card.categorie ||
+                "Non classé"
+            ) === categorySelect.value
+        );
 
-    }
+}
+
+
+/*
+ * Filtre Édition.
+ */
+if (
+    editionSelect &&
+    editionSelect.value !== "Toutes"
+) {
+
+    cards =
+        cards.filter(card =>
+            String(
+                card.edition || ""
+            ).trim() ===
+            editionSelect.value
+        );
+
+}
 
 
     /*
@@ -1250,8 +1479,102 @@ const key =
             });
 
 
-            const variants =
-                [...variantsMap.values()];
+            /*
+ * Variantes classées par prix unitaire décroissant.
+ *
+ * La version la plus chère de la carte
+ * apparaît donc en premier lorsque
+ * le groupe est déplié.
+ */
+const variants =
+    [...variantsMap.values()]
+        .sort((a, b) => {
+
+            const aCard =
+                a.cards[0];
+
+            const bCard =
+                b.cards[0];
+
+
+            const aPrice =
+                Number(
+                    getEstimatedConditionPrice(
+                        aCard
+                    )
+                );
+
+            const bPrice =
+                Number(
+                    getEstimatedConditionPrice(
+                        bCard
+                    )
+                );
+
+
+            const safeAPrice =
+                Number.isFinite(aPrice)
+                    ? aPrice
+                    : -Infinity;
+
+            const safeBPrice =
+                Number.isFinite(bPrice)
+                    ? bPrice
+                    : -Infinity;
+
+
+            /*
+             * Critère principal :
+             * prix d'un exemplaire.
+             */
+            if (
+                safeAPrice !==
+                safeBPrice
+            ) {
+
+                return (
+                    safeBPrice -
+                    safeAPrice
+                );
+
+            }
+
+
+            /*
+             * Égalité de prix :
+             * la variante ayant la plus
+             * grande valeur de lot d'abord.
+             */
+            if (
+                a.totalValue !==
+                b.totalValue
+            ) {
+
+                return (
+                    b.totalValue -
+                    a.totalValue
+                );
+
+            }
+
+
+            /*
+             * Dernier départage :
+             * édition alphabétique.
+             */
+            return String(
+                a.edition || ""
+            ).localeCompare(
+                String(
+                    b.edition || ""
+                ),
+                "fr",
+                {
+                    sensitivity: "base"
+                }
+            );
+
+        });
 
             /*
  * Edition représentative :
