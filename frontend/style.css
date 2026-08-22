@@ -4581,8 +4581,8 @@ strong.score-negative {
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1.35fr)
-        minmax(420px, 1fr);
+        minmax(0, 1.1fr)
+        minmax(560px, 0.9fr);
 
     gap: 16px;
 
@@ -4681,28 +4681,24 @@ strong.score-negative {
 
 .migration-card-details-inline
 .migration-detail-card {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+        minmax(220px, 1.5fr)
+        minmax(145px, 0.8fr)
+        minmax(105px, 0.6fr);
 
-    gap: 7px;
+    gap: 14px;
+
+    align-items: center;
+
+    min-height: 68px;
 
     padding:
-        11px
+        12px
         2px;
 }
 
 
-.migration-card-details-inline
-.migration-detail-prices {
-    justify-content: flex-start;
-}
 
-
-.migration-card-details-inline
-.migration-detail-change {
-    align-items: flex-start;
-
-    text-align: left;
-}
 
 
 /*
