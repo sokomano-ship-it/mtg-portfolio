@@ -1368,6 +1368,55 @@ function shiftIsoDate(
 
 }
 
+function formatShortPortfolioDate(
+    isoDate
+) {
+
+    if (!isoDate) {
+        return "-";
+    }
+
+
+    const [
+        year,
+        month,
+        day
+    ] =
+        String(isoDate)
+            .slice(0, 10)
+            .split("-")
+            .map(Number);
+
+
+    if (
+        !year ||
+        !month ||
+        !day
+    ) {
+        return String(isoDate);
+    }
+
+
+    return new Intl.DateTimeFormat(
+        "fr-FR",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            timeZone: "UTC"
+        }
+    ).format(
+        new Date(
+            Date.UTC(
+                year,
+                month - 1,
+                day
+            )
+        )
+    );
+
+}
+
 function getValueMigrationSnapshots(
     snapshots,
     period
@@ -1580,27 +1629,31 @@ function calculateValueMigrations(
                 );
 
 
-            matrix[
-                fromIndex
-            ][
-                toIndex
-            ] += 1;
-
-
             /*
-             * Même tranche :
-             * pas de migration.
-             */
-            if (
-                startBucket.key ===
-                endBucket.key
-            ) {
+ * Même tranche :
+ * ce n'est PAS une migration.
+ */
+if (
+    startBucket.key ===
+    endBucket.key
+) {
 
-                stableCards += 1;
+    stableCards += 1;
 
-                return;
+    return;
 
-            }
+}
+
+
+/*
+ * On renseigne la matrice uniquement
+ * pour une vraie migration.
+ */
+matrix[
+    fromIndex
+][
+    toIndex
+] += 1;
 
 
             const direction =
@@ -1785,92 +1838,155 @@ function buildValueMigrationSeries(
         )
         .map(snapshot => {
 
-            const crossings = {};
+            /*
+             * Flux net de chaque vraie tranche.
+             *
+             * Une migration :
+             *
+             * tranche de départ = -1
+             * tranche d'arrivée = +1
+             *
+             * Donc la somme doit toujours faire 0.
+             */
+            const flows =
+                Object.fromEntries(
+                    VALUE_BUCKETS.map(
+                        bucket => [
+                            bucket.key,
+                            0
+                        ]
+                    )
+                );
 
 
-            VALUE_MIGRATION_CHART_THRESHOLDS
+            startSnapshot
+                .prices
                 .forEach(
-                    threshold => {
+                    (
+                        startPrice,
+                        cardId
+                    ) => {
 
-                        let up = 0;
-                        let down = 0;
-
-
-                        startSnapshot
-                            .prices
-                            .forEach(
-                                (
-                                    startPrice,
+                        /*
+                         * Carte non comparable :
+                         * ignorée.
+                         *
+                         * Une nouvelle carte ne peut
+                         * donc jamais créer de flux.
+                         */
+                        if (
+                            !snapshot
+                                .prices
+                                .has(
                                     cardId
-                                ) => {
+                                )
+                        ) {
 
-                                    /*
-                                     * Même cohorte :
-                                     * si l'ID n'était pas présent
-                                     * au début, impossible d'arriver ici.
-                                     */
-                                    if (
-                                        !snapshot
-                                            .prices
-                                            .has(
-                                                cardId
-                                            )
-                                    ) {
+                            return;
 
-                                        return;
-
-                                    }
+                        }
 
 
-                                    const currentPrice =
-                                        snapshot
-                                            .prices
-                                            .get(
-                                                cardId
-                                            );
+                        const currentPrice =
+                            snapshot
+                                .prices
+                                .get(
+                                    cardId
+                                );
 
 
-                                    if (
-                                        startPrice <
-                                            threshold &&
-                                        currentPrice >=
-                                            threshold
-                                    ) {
-
-                                        up += 1;
-
-                                    }
-
-
-                                    if (
-                                        startPrice >=
-                                            threshold &&
-                                        currentPrice <
-                                            threshold
-                                    ) {
-
-                                        down += 1;
-
-                                    }
-
-                                }
+                        const startBucket =
+                            getValueBucket(
+                                startPrice
                             );
 
 
-                        crossings[
-                            threshold
-                        ] =
-                            up - down;
+                        const currentBucket =
+                            getValueBucket(
+                                currentPrice
+                            );
+
+
+                        if (
+                            !startBucket ||
+                            !currentBucket
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * Pas de changement de tranche :
+                         * aucun flux.
+                         */
+                        if (
+                            startBucket.key ===
+                            currentBucket.key
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * Sortie de la tranche initiale.
+                         */
+                        flows[
+                            startBucket.key
+                        ] -= 1;
+
+
+                        /*
+                         * Entrée dans la nouvelle tranche.
+                         */
+                        flows[
+                            currentBucket.key
+                        ] += 1;
 
                     }
                 );
 
 
+            /*
+             * Contrôle de cohérence.
+             *
+             * Doit TOUJOURS être 0.
+             */
+            const balance =
+                Object.values(
+                    flows
+                )
+                    .reduce(
+                        (sum, value) =>
+                            sum + value,
+                        0
+                    );
+
+
+            if (balance !== 0) {
+
+                console.warn(
+                    "Value migration balance != 0",
+                    snapshot.date,
+                    flows,
+                    balance
+                );
+
+            }
+
+
             return {
+
                 date:
                     snapshot.date,
 
-                crossings
+                flows,
+
+                balance
+
             };
 
         });
@@ -2265,6 +2381,28 @@ function renderValueMigrationChart(
     }
 
 
+    /*
+     * On n'affiche que les tranches ayant
+     * eu au moins un mouvement pendant
+     * la période.
+     *
+     * Les tranches totalement stables
+     * sont donc masquées automatiquement.
+     */
+    const activeBuckets =
+        VALUE_BUCKETS.filter(
+            bucket =>
+                series.some(
+                    row =>
+                        Number(
+                            row.flows[
+                                bucket.key
+                            ] || 0
+                        ) !== 0
+                )
+        );
+
+
     const colors = [
         "#60a5fa",
         "#a78bfa",
@@ -2272,7 +2410,10 @@ function renderValueMigrationChart(
         "#f0d27a",
         "#f97373",
         "#22d3ee",
-        "#f472b6"
+        "#f472b6",
+        "#fb923c",
+        "#34d399",
+        "#c084fc"
     ];
 
 
@@ -2292,49 +2433,52 @@ function renderValueMigrationChart(
                         ),
 
                     datasets:
-                        VALUE_MIGRATION_CHART_THRESHOLDS
-                            .map(
-                                (
-                                    threshold,
-                                    index
-                                ) => ({
+                        activeBuckets.map(
+                            (
+                                bucket,
+                                index
+                            ) => ({
 
-                                    label:
-                                        `≥ ${threshold} €`,
+                                label:
+                                    bucket.label,
 
-                                    data:
-                                        series.map(
-                                            row =>
-                                                row
-                                                    .crossings[
-                                                        threshold
-                                                    ] ||
-                                                0
-                                        ),
+                                data:
+                                    series.map(
+                                        row =>
+                                            row.flows[
+                                                bucket.key
+                                            ] || 0
+                                    ),
 
-                                    borderColor:
-                                        colors[index],
+                                borderColor:
+                                    colors[
+                                        index %
+                                        colors.length
+                                    ],
 
-                                    backgroundColor:
-                                        colors[index],
+                                backgroundColor:
+                                    colors[
+                                        index %
+                                        colors.length
+                                    ],
 
-                                    borderWidth:
-                                        2,
+                                borderWidth:
+                                    2,
 
-                                    pointRadius:
-                                        0,
+                                pointRadius:
+                                    0,
 
-                                    pointHoverRadius:
-                                        4,
+                                pointHoverRadius:
+                                    4,
 
-                                    tension:
-                                        0.2,
+                                tension:
+                                    0.2,
 
-                                    fill:
-                                        false
+                                fill:
+                                    false
 
-                                })
-                            )
+                            })
+                        )
 
                 },
 
@@ -2348,10 +2492,8 @@ function renderValueMigrationChart(
                         false,
 
                     interaction: {
-                        mode:
-                            "index",
-                        intersect:
-                            false
+                        mode: "index",
+                        intersect: false
                     },
 
                     plugins: {
@@ -2360,22 +2502,27 @@ function renderValueMigrationChart(
 
                             callbacks: {
 
-                                label(context) {
+                                afterBody(
+                                    contexts
+                                ) {
 
-                                    const value =
-                                        Number(
-                                            context.raw ||
+                                    const total =
+                                        contexts.reduce(
+                                            (
+                                                sum,
+                                                context
+                                            ) =>
+                                                sum +
+                                                Number(
+                                                    context.raw ||
+                                                    0
+                                                ),
                                             0
                                         );
 
 
                                     return (
-                                        `${context.dataset.label} : ` +
-                                        `${
-                                            value > 0
-                                                ? "+"
-                                                : ""
-                                        }${value} cartes`
+                                        `Somme des flux : ${total}`
                                     );
 
                                 }
@@ -2389,8 +2536,10 @@ function renderValueMigrationChart(
                             labels: {
                                 color:
                                     "#c8d0df",
+
                                 boxWidth:
                                     10,
+
                                 usePointStyle:
                                     true
                             }
@@ -2398,6 +2547,7 @@ function renderValueMigrationChart(
                         }
 
                     },
+
 
                     scales: {
 
@@ -2417,6 +2567,7 @@ function renderValueMigrationChart(
 
                         },
 
+
                         y: {
 
                             ticks: {
@@ -2427,11 +2578,13 @@ function renderValueMigrationChart(
                             },
 
                             grid: {
+
                                 color:
                                     context =>
                                         context.tick.value === 0
-                                            ? "rgba(255,255,255,.25)"
+                                            ? "rgba(255,255,255,.30)"
                                             : "rgba(255,255,255,.06)"
+
                             },
 
                             title: {
@@ -2439,7 +2592,7 @@ function renderValueMigrationChart(
                                     true,
 
                                 text:
-                                    "Flux net de cartes",
+                                    "Flux net cumulé",
 
                                 color:
                                     "#8e96a8"

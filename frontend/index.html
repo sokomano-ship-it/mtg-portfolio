@@ -326,25 +326,32 @@
     </label>
 
     <select id="value-migration-period">
-        <option value="30">
-            30 jours
-        </option>
 
-        <option value="90">
-            90 jours
-        </option>
+    <option value="7">
+        7 jours
+    </option>
 
-        <option value="365">
-            1 an
-        </option>
+    <option value="30" selected>
+        30 jours
+    </option>
 
-        <option
-            value="all"
-            selected
-        >
-            Tout l'historique
-        </option>
-    </select>
+    <option value="60">
+        60 jours
+    </option>
+
+    <option value="90">
+        90 jours
+    </option>
+
+    <option value="365">
+        1 an
+    </option>
+
+    <option value="all">
+        Tout l'historique
+    </option>
+
+</select>
 
 </div>
 
@@ -392,12 +399,12 @@
         <div class="value-history-panel">
 
             <div class="value-panel-title">
-    Franchissements nets de seuil
+    Flux net cumulé par tranche
 </div>
 
 <div class="value-panel-subtitle">
-    Même cohorte de cartes sur toute la période —
-    les ajouts et suppressions sont exclus
+    Entrées − sorties par changement de tranche uniquement ·
+    somme des flux = 0
 </div>
 
             <div class="value-bucket-chart-wrapper">
