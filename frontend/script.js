@@ -2837,13 +2837,77 @@ function renderValueMigrationRoutes(
         });
 
 
-    const groups =
-        [...grouped.values()]
-            .sort(
-                (a, b) =>
-                    b.cards.length -
-                    a.cards.length
-            );
+    const bucketOrder =
+    new Map(
+        VALUE_BUCKETS.map(
+            (
+                bucket,
+                index
+            ) => [
+                bucket.key,
+                index
+            ]
+        )
+    );
+
+
+const groups =
+    [...grouped.values()]
+        .sort(
+            (a, b) => {
+
+                /*
+                 * 1. Tranche de départ
+                 *
+                 * <1 €
+                 * 1–2 €
+                 * 2–5 €
+                 * 5–10 €
+                 * ...
+                 */
+                const fromComparison =
+                    (
+                        bucketOrder.get(
+                            a.fromKey
+                        ) ?? 999
+                    ) -
+                    (
+                        bucketOrder.get(
+                            b.fromKey
+                        ) ?? 999
+                    );
+
+
+                if (
+                    fromComparison !== 0
+                ) {
+
+                    return fromComparison;
+
+                }
+
+
+                /*
+                 * 2. Si plusieurs migrations
+                 * partent de la même tranche,
+                 * classement par tranche
+                 * d'arrivée.
+                 */
+                return (
+                    (
+                        bucketOrder.get(
+                            a.toKey
+                        ) ?? 999
+                    ) -
+                    (
+                        bucketOrder.get(
+                            b.toKey
+                        ) ?? 999
+                    )
+                );
+
+            }
+        );
 
 
     const renderGroups =
