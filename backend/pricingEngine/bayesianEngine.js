@@ -71,9 +71,22 @@ function getBayesianWeights({
   languageObservationRows = 0,
   globalObservationRows = 0
 } = {}) {
-  const cardEvidence = Math.max(
-    number(cardObservationRows),
-    number(cardObservationDays) * 2
+
+  const dayEvidence =
+  number(cardObservationDays) * 2;
+
+const rowEvidence =
+  Math.sqrt(
+    Math.max(
+      0,
+      number(cardObservationRows)
+    )
+  );
+
+const cardEvidence =
+  Math.max(
+    dayEvidence,
+    rowEvidence
   );
 
   const cardStrength = evidenceStrength(cardEvidence, 8);
@@ -280,35 +293,101 @@ function calculateObservationReliability({
   expectedPrice,
   sampleSize = 1
 } = {}) {
-  const observed = number(observedPrice);
-  const expected = number(expectedPrice);
 
-  if (observed <= 0 || expected <= 0) {
-    return 0.25;
+  const observed =
+    number(observedPrice);
+
+  const expected =
+    number(expectedPrice);
+
+  if (
+    observed <= 0 ||
+    expected <= 0
+  ) {
+    return 0.10;
   }
 
-  const ratio = observed / expected;
-  const deviation = Math.abs(Math.log(ratio));
 
-  let reliability;
+  /*
+   * 1. Cohérence avec le niveau attendu.
+   *
+   * Ceci mesure si l'observation est plausible,
+   * pas encore si elle est statistiquement solide.
+   */
+  const ratio =
+    observed / expected;
 
-  if (deviation <= Math.log(1.15)) {
-    reliability = 1.00;
-  } else if (deviation <= Math.log(1.35)) {
-    reliability = 0.80;
-  } else if (deviation <= Math.log(1.75)) {
-    reliability = 0.50;
-  } else if (deviation <= Math.log(2.50)) {
-    reliability = 0.25;
+  const deviation =
+    Math.abs(
+      Math.log(ratio)
+    );
+
+
+  let consistency;
+
+  if (
+    deviation <= Math.log(1.15)
+  ) {
+
+    consistency = 1.00;
+
+  } else if (
+    deviation <= Math.log(1.35)
+  ) {
+
+    consistency = 0.80;
+
+  } else if (
+    deviation <= Math.log(1.75)
+  ) {
+
+    consistency = 0.50;
+
+  } else if (
+    deviation <= Math.log(2.50)
+  ) {
+
+    consistency = 0.25;
+
   } else {
-    reliability = 0.10;
+
+    consistency = 0.10;
+
   }
 
-  if (sampleSize >= 3) {
-    reliability = Math.min(1, reliability + 0.10);
-  }
 
-  return reliability;
+  /*
+   * 2. Force statistique.
+   *
+   * Un minimum observé pendant seulement
+   * 1 ou 2 jours ne peut pas être considéré
+   * comme parfaitement représentatif.
+   *
+   * n = 1  -> 25 %
+   * n = 2  -> 40 %
+   * n = 3  -> 50 %
+   * n = 5  -> 62,5 %
+   * n = 10 -> 76,9 %
+   * n = 30 -> 90,9 %
+   */
+  const sampleStrength =
+    sampleSize /
+    (
+      sampleSize + 3
+    );
+
+
+  /*
+   * Fiabilité finale =
+   * plausibilité × quantité d'information.
+   */
+  return clamp(
+    consistency *
+      sampleStrength,
+    0.10,
+    1
+  );
+
 }
 
 function weightedMedian(entries = []) {

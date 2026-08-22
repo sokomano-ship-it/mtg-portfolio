@@ -305,73 +305,284 @@ function estimateLanguageRatios(card, allObservations) {
     return estimateGroupRatios(editionLanguageRows);
 }
 
-function countGroupObservationRows(card, allObservations) {
+function countGroupObservationRows(
+    card,
+    allObservations
+) {
+
+    function countDistinctCardDays(rows) {
+
+        const keys = new Set();
+
+        rows.forEach(row => {
+
+            const date =
+                getObservationDate(row);
+
+            if (!date) {
+                return;
+            }
+
+            const key = [
+                normalize(row.nomCarte),
+                normalize(row.edition),
+                normalize(row.langue),
+                date
+            ].join("|");
+
+            keys.add(key);
+
+        });
+
+        return keys.size;
+
+    }
+
+
+    const editionRows =
+        allObservations.filter(row =>
+            normalize(row.edition) ===
+            normalize(card.edition)
+        );
+
+
+    const languageRows =
+        editionRows.filter(row =>
+            normalize(row.langue) ===
+            normalize(card.langue)
+        );
+
+
     return {
-        edition: allObservations.filter(row =>
-            normalize(row.edition) === normalize(card.edition)
-        ).length,
 
-        language: allObservations.filter(row =>
-            normalize(row.edition) === normalize(card.edition) &&
-            normalize(row.langue) === normalize(card.langue)
-        ).length,
+        edition:
+            countDistinctCardDays(
+                editionRows
+            ),
 
-        global: allObservations.length
+        language:
+            countDistinctCardDays(
+                languageRows
+            ),
+
+        global:
+            countDistinctCardDays(
+                allObservations
+            )
+
     };
+
 }
 
 function estimateGroupRatios(rows) {
-    const grouped = new Map();
+
+    /*
+     * 1. Groupement par carte puis date.
+     */
+    const cardGroups =
+        new Map();
+
 
     rows.forEach(row => {
-        const key = [
+
+        const cardKey = [
             normalize(row.nomCarte),
             normalize(row.edition),
-            normalize(row.langue),
-            getObservationDate(row)
+            normalize(row.langue)
         ].join("|");
 
-        if (!grouped.has(key)) {
-            grouped.set(key, []);
+
+        if (!cardGroups.has(cardKey)) {
+
+            cardGroups.set(
+                cardKey,
+                new Map()
+            );
+
         }
 
-        grouped.get(key).push(row);
+
+        const date =
+            getObservationDate(row);
+
+
+        if (!date) {
+            return;
+        }
+
+
+        const dateGroups =
+            cardGroups.get(cardKey);
+
+
+        if (!dateGroups.has(date)) {
+
+            dateGroups.set(
+                date,
+                []
+            );
+
+        }
+
+
+        dateGroups
+            .get(date)
+            .push(row);
+
     });
 
-    const ratiosByCondition = {};
+
+    /*
+     * Chaque carte produira au maximum
+     * UN ratio final par état.
+     */
+    const cardRatiosByCondition = {};
 
     CONDITIONS.forEach(condition => {
-        ratiosByCondition[condition] = [];
+
+        cardRatiosByCondition[
+            condition
+        ] = [];
+
     });
 
-    [...grouped.values()].forEach(groupRows => {
-        const observedMap = latestObservedByCondition(groupRows);
-        const ratios = estimateRatiosFromCardObservations(observedMap);
 
-        CONDITIONS.forEach(condition => {
-            if (condition === "NM") return;
+    cardGroups.forEach(
+        dateGroups => {
 
-            const ratio = number(ratios[condition]);
+            const ratiosByDate = {};
 
-            if (ratio > 0) {
-                ratiosByCondition[condition].push(ratio);
-            }
-        });
-    });
+            CONDITIONS.forEach(condition => {
+
+                ratiosByDate[
+                    condition
+                ] = [];
+
+            });
+
+
+            dateGroups.forEach(
+                groupRows => {
+
+                    const observedMap =
+                        latestObservedByCondition(
+                            groupRows
+                        );
+
+
+                    const ratios =
+                        estimateRatiosFromCardObservations(
+                            observedMap
+                        );
+
+
+                    CONDITIONS.forEach(
+                        condition => {
+
+                            if (
+                                condition ===
+                                "NM"
+                            ) {
+                                return;
+                            }
+
+
+                            const ratio =
+                                number(
+                                    ratios[
+                                        condition
+                                    ]
+                                );
+
+
+                            if (ratio > 0) {
+
+                                ratiosByDate[
+                                    condition
+                                ].push(
+                                    ratio
+                                );
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+             * Une carte = une contribution,
+             * quelle que soit la quantité
+             * de jours observés.
+             */
+            CONDITIONS.forEach(
+                condition => {
+
+                    if (
+                        condition === "NM"
+                    ) {
+                        return;
+                    }
+
+
+                    const cardRatio =
+                        median(
+                            ratiosByDate[
+                                condition
+                            ]
+                        );
+
+
+                    if (cardRatio > 0) {
+
+                        cardRatiosByCondition[
+                            condition
+                        ].push(
+                            cardRatio
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
 
     const result = {
         NM: 1
     };
 
-    CONDITIONS.forEach(condition => {
-        if (condition === "NM") return;
 
-        result[condition] =
-            median(ratiosByCondition[condition]) ||
-            DEFAULT_GLOBAL_RATIOS[condition];
-    });
+    CONDITIONS.forEach(
+        condition => {
+
+            if (
+                condition === "NM"
+            ) {
+                return;
+            }
+
+
+            result[condition] =
+                median(
+                    cardRatiosByCondition[
+                        condition
+                    ]
+                ) ||
+                DEFAULT_GLOBAL_RATIOS[
+                    condition
+                ];
+
+        }
+    );
+
 
     return result;
+
 }
 
 function estimateMeanPriceFromMin(condition, observedMin) {
@@ -488,27 +699,45 @@ const reliableCardRatios =
 const cardRatios = {};
 
 CONDITIONS.forEach(condition => {
+
     const reliability =
         number(
-            reliabilityByCondition?.[condition]
+            reliabilityByCondition
+                ?.[condition]
         );
 
+
+    const hasMatureCardHistory =
+        dayCount >= 5 &&
+        reliability >= 0.65;
+
+
     /*
-     * Une observation peu fiable ne doit pas laisser le ratio appris
-     * à partir des données brutes dominer le modèle.
+     * Un ratio propre à la carte ne devient
+     * prioritaire que lorsque nous avons
+     * suffisamment de recul temporel.
+     *
+     * Avant cela, on utilise la version
+     * fiabilisée, qui reste sous contrôle
+     * du prior global / édition / langue.
      */
     if (
-        reliableCardRatios?.[condition] &&
-        reliability < 0.50
+        hasMatureCardHistory &&
+        learnedRatios?.[condition]
     ) {
+
         cardRatios[condition] =
-            reliableCardRatios[condition];
+            learnedRatios[condition];
+
     } else {
+
         cardRatios[condition] =
-            learnedRatios?.[condition] ??
-            reliableCardRatios?.[condition] ??
+            reliableCardRatios
+                ?.[condition] ??
             null;
+
     }
+
 });
 
 const editionRatios =
@@ -520,11 +749,85 @@ const languageRatios =
 const groupObservationCounts =
     countGroupObservationRows(card, allObservations);
 
-    let inferredAnchor = anchorPrice;
+const reliableNmFloor =
+    number(
+        reliableByCondition?.NM
+    );
 
-    if (!inferredAnchor) {
-        inferredAnchor = estimateAnchorFromObservations(observedMinByCondition);
-    }
+
+let observedNmAnchor = 0;
+
+
+if (reliableNmFloor > 0) {
+
+    /*
+     * Le minimum NM est un plancher,
+     * pas le prix moyen.
+     */
+    const estimatedNmMarketLevel =
+        estimateMeanPriceFromMin(
+            "NM",
+            reliableNmFloor
+        );
+
+
+    /*
+     * Plus on possède de jours,
+     * plus on autorise le minimum NM
+     * transformé à relever l'ancre.
+     *
+     * 2 jours -> 33 %
+     * 5 jours -> 56 %
+     * 10 jours -> 71 %
+     */
+    const nmObservationStrength =
+        dayCount /
+        (
+            dayCount + 4
+        );
+
+
+    observedNmAnchor =
+        reliableNmFloor *
+            (
+                1 -
+                nmObservationStrength
+            ) +
+        estimatedNmMarketLevel *
+            nmObservationStrength;
+
+}
+
+
+let inferredAnchor = 0;
+
+
+if (
+    anchorPrice > 0 &&
+    observedNmAnchor > 0
+) {
+
+    /*
+     * Le Trend reste une information essentielle,
+     * mais il ne peut pas forcer le niveau NM
+     * sous un plancher NM crédible.
+     */
+    inferredAnchor =
+        Math.max(
+            anchorPrice,
+            observedNmAnchor
+        );
+
+} else {
+
+    inferredAnchor =
+        anchorPrice ||
+        observedNmAnchor ||
+        estimateAnchorFromObservations(
+            observedMinByCondition
+        );
+
+}
 
     const {
     ratios: monotonicRatios,
@@ -570,9 +873,54 @@ const observedFloorEstimate =
         )
         : 0;
 
-        const blendedEstimate = ratioEstimate && observedFloorEstimate
-            ? (ratioEstimate * 0.70 + observedFloorEstimate * 0.30)
-            : (ratioEstimate || observedFloorEstimate);
+        const observationReliability =
+    number(
+        reliabilityByCondition
+            ?.[condition]
+    );
+
+
+/*
+ * Le minimum observé transformé en
+ * niveau moyen reçoit :
+ *
+ * fiabilité 0 %   -> 10 %
+ * fiabilité 40 %  -> 18 %
+ * fiabilité 70 %  -> 24 %
+ * fiabilité 100 % -> 30 %
+ */
+const observedWeight =
+    observedFloorEstimate
+        ? Math.min(
+            0.30,
+            0.10 +
+            observationReliability *
+                0.20
+        )
+        : 0;
+
+
+const ratioWeight =
+    1 -
+    observedWeight;
+
+
+const blendedEstimate =
+    ratioEstimate &&
+    observedFloorEstimate
+
+        ? (
+            ratioEstimate *
+                ratioWeight +
+
+            observedFloorEstimate *
+                observedWeight
+        )
+
+        : (
+            ratioEstimate ||
+            observedFloorEstimate
+        );
 
         estimatedByCondition[condition] = blendedEstimate > 0
             ? round(blendedEstimate)
