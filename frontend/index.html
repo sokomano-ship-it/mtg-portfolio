@@ -319,6 +319,35 @@
             </p>
         </div>
 
+        <div class="value-migration-period">
+
+    <label for="value-migration-period">
+        Période migrations
+    </label>
+
+    <select id="value-migration-period">
+        <option value="30">
+            30 jours
+        </option>
+
+        <option value="90">
+            90 jours
+        </option>
+
+        <option value="365">
+            1 an
+        </option>
+
+        <option
+            value="all"
+            selected
+        >
+            Tout l'historique
+        </option>
+    </select>
+
+</div>
+
         <div class="value-distribution-kpis">
 
             <div class="value-distribution-kpi">
@@ -349,7 +378,7 @@
             <div>% cartes</div>
             <div>Valeur</div>
             <div>% valeur</div>
-            <div>Évolution 30 j</div>
+            <div>Flux net</div>
             <div>Répartition</div>
         </div>
 
@@ -363,13 +392,13 @@
         <div class="value-history-panel">
 
             <div class="value-panel-title">
-                Évolution du nombre de cartes par tranche
-            </div>
+    Franchissements nets de seuil
+</div>
 
-            <div class="value-panel-subtitle">
-                Les cartes changent de tranche selon leur
-                valorisation estimée
-            </div>
+<div class="value-panel-subtitle">
+    Même cohorte de cartes sur toute la période —
+    les ajouts et suppressions sont exclus
+</div>
 
             <div class="value-bucket-chart-wrapper">
                 <canvas id="valueBucketChart"></canvas>
@@ -381,8 +410,8 @@
         <div class="value-insights-panel">
 
             <div class="value-panel-title">
-                Lecture utile
-            </div>
+    🔄 Tendances de migration
+</div>
 
             <div
                 id="value-bucket-insights"
@@ -393,6 +422,27 @@
         </div>
 
     </div>
+
+    <div class="value-migration-matrix-panel">
+
+    <div class="value-panel-title">
+        Matrice des migrations
+    </div>
+
+    <div
+        id="value-migration-matrix-subtitle"
+        class="value-panel-subtitle"
+    >
+        Tranche de départ → tranche actuelle
+    </div>
+
+    <div
+        id="value-migration-matrix"
+        class="value-migration-matrix"
+    >
+    </div>
+
+</div>
 
 </section>
 

@@ -129,6 +129,36 @@ const VALUE_BUCKETS = [
 
 ];
 
+const VALUE_MIGRATION_THRESHOLDS = [
+    1,
+    2,
+    5,
+    10,
+    20,
+    50,
+    100,
+    200,
+    500
+];
+
+
+/*
+ * Pour ne pas surcharger le graphique,
+ * on affiche les seuils les plus utiles.
+ *
+ * La matrice plus bas utilise bien
+ * toutes les tranches.
+ */
+const VALUE_MIGRATION_CHART_THRESHOLDS = [
+    1,
+    2,
+    5,
+    10,
+    20,
+    50,
+    100
+];
+
 function getValueBucket(
     price
 ) {
@@ -1179,29 +1209,25 @@ function calculateCurrentValueBuckets() {
     return buckets;
 
 }
-function buildValueBucketHistory(
+
+function buildValuePriceSnapshots(
     estimatedPriceHistory
 ) {
 
     /*
-     * IDs actuellement présents
-     * dans la collection.
+     * On travaille uniquement avec les cartes
+     * actuellement identifiables dans la collection.
      */
     const ownedCardIds =
         new Set(
             allCards
-                .map(card =>
-                    card.id
-                )
+                .map(card => card.id)
                 .filter(
                     id =>
                         id !== null &&
                         id !== undefined
                 )
-                .map(
-                    id =>
-                        String(id)
-                )
+                .map(String)
         );
 
 
@@ -1266,21 +1292,11 @@ function buildValueBucketHistory(
             .sort();
 
 
-    /*
-     * Dernier prix connu de chaque carte.
-     * Cela évite qu'une carte disparaisse
-     * d'un jour si son prix n'a pas été
-     * enregistré ce jour-là.
-     */
     const latestPrices =
         new Map();
 
 
-    const history =
-        [];
-
-
-    dates.forEach(date => {
+    return dates.map(date => {
 
         rowsByDate
             .get(date)
@@ -1299,49 +1315,568 @@ function buildValueBucketHistory(
             );
 
 
-        const counts =
-            Object.fromEntries(
-                VALUE_BUCKETS.map(
-                    bucket => [
-                        bucket.key,
-                        0
-                    ]
+        /*
+         * Important :
+         * une nouvelle Map est créée pour chaque date.
+         */
+        return {
+            date,
+            prices:
+                new Map(
+                    latestPrices
                 )
-            );
+        };
+
+    });
+
+}
+
+function shiftIsoDate(
+    isoDate,
+    days
+) {
+
+    const [
+        year,
+        month,
+        day
+    ] =
+        String(isoDate)
+            .split("-")
+            .map(Number);
 
 
-        latestPrices.forEach(
-            price => {
-
-                const bucket =
-                    getValueBucket(
-                        price
-                    );
-
-
-                if (bucket) {
-
-                    counts[
-                        bucket.key
-                    ] += 1;
-
-                }
-
-            }
+    const date =
+        new Date(
+            Date.UTC(
+                year,
+                month - 1,
+                day
+            )
         );
 
 
-        history.push({
-            date,
-            counts
-        });
+    date.setUTCDate(
+        date.getUTCDate() +
+        days
+    );
+
+
+    return date
+        .toISOString()
+        .slice(0, 10);
+
+}
+
+function getValueMigrationSnapshots(
+    snapshots,
+    period
+) {
+
+    if (!snapshots.length) {
+        return {
+            start: null,
+            end: null
+        };
+    }
+
+
+    const end =
+        snapshots[
+            snapshots.length - 1
+        ];
+
+
+    if (period === "all") {
+
+        return {
+            start:
+                snapshots[0],
+            end
+        };
+
+    }
+
+
+    const days =
+        Number(period);
+
+
+    const targetDate =
+        shiftIsoDate(
+            end.date,
+            -days
+        );
+
+
+    /*
+     * Dernier snapshot disponible
+     * à la date cible ou avant.
+     */
+    let start =
+        snapshots[0];
+
+
+    snapshots.forEach(snapshot => {
+
+        if (
+            snapshot.date <=
+            targetDate
+        ) {
+
+            start =
+                snapshot;
+
+        }
 
     });
 
 
-    return history;
+    return {
+        start,
+        end
+    };
 
 }
+function calculateValueMigrations(
+    snapshots,
+    period
+) {
+
+    const {
+        start,
+        end
+    } =
+        getValueMigrationSnapshots(
+            snapshots,
+            period
+        );
+
+
+    if (!start || !end) {
+
+        return null;
+
+    }
+
+
+    const bucketIndex =
+        new Map(
+            VALUE_BUCKETS.map(
+                (
+                    bucket,
+                    index
+                ) => [
+                    bucket.key,
+                    index
+                ]
+            )
+        );
+
+
+    const matrix =
+        VALUE_BUCKETS.map(
+            () =>
+                VALUE_BUCKETS.map(
+                    () => 0
+                )
+        );
+
+
+    const bucketFlows =
+        Object.fromEntries(
+            VALUE_BUCKETS.map(
+                bucket => [
+                    bucket.key,
+                    {
+                        incoming: 0,
+                        outgoing: 0,
+                        net: 0
+                    }
+                ]
+            )
+        );
+
+
+    const migrations =
+        [];
+
+
+    let comparableCards = 0;
+    let stableCards = 0;
+    let upwardMoves = 0;
+    let downwardMoves = 0;
+
+
+    /*
+     * Point fondamental :
+     *
+     * on parcourt les cartes présentes
+     * AU DÉBUT de la période.
+     *
+     * Si elles n'existent pas à la fin,
+     * elles sont ignorées.
+     *
+     * Les nouvelles cartes qui n'existaient
+     * pas au début ne sont donc JAMAIS comptées.
+     */
+    start.prices.forEach(
+        (
+            startPrice,
+            cardId
+        ) => {
+
+            if (
+                !end.prices.has(
+                    cardId
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            const endPrice =
+                end.prices.get(
+                    cardId
+                );
+
+
+            const startBucket =
+                getValueBucket(
+                    startPrice
+                );
+
+
+            const endBucket =
+                getValueBucket(
+                    endPrice
+                );
+
+
+            if (
+                !startBucket ||
+                !endBucket
+            ) {
+
+                return;
+
+            }
+
+
+            comparableCards += 1;
+
+
+            const fromIndex =
+                bucketIndex.get(
+                    startBucket.key
+                );
+
+
+            const toIndex =
+                bucketIndex.get(
+                    endBucket.key
+                );
+
+
+            matrix[
+                fromIndex
+            ][
+                toIndex
+            ] += 1;
+
+
+            /*
+             * Même tranche :
+             * pas de migration.
+             */
+            if (
+                startBucket.key ===
+                endBucket.key
+            ) {
+
+                stableCards += 1;
+
+                return;
+
+            }
+
+
+            const direction =
+                toIndex > fromIndex
+                    ? "up"
+                    : "down";
+
+
+            if (direction === "up") {
+
+                upwardMoves += 1;
+
+            } else {
+
+                downwardMoves += 1;
+
+            }
+
+
+            bucketFlows[
+                startBucket.key
+            ].outgoing += 1;
+
+
+            bucketFlows[
+                endBucket.key
+            ].incoming += 1;
+
+
+            migrations.push({
+
+                cardId,
+
+                startPrice,
+                endPrice,
+
+                fromKey:
+                    startBucket.key,
+
+                fromLabel:
+                    startBucket.label,
+
+                toKey:
+                    endBucket.key,
+
+                toLabel:
+                    endBucket.label,
+
+                direction
+
+            });
+
+        }
+    );
+
+
+    Object.values(
+        bucketFlows
+    ).forEach(flow => {
+
+        flow.net =
+            flow.incoming -
+            flow.outgoing;
+
+    });
+
+
+    /*
+     * Franchissements de seuil.
+     */
+    const thresholdCrossings =
+        VALUE_MIGRATION_THRESHOLDS
+            .map(threshold => {
+
+                let up = 0;
+                let down = 0;
+
+
+                start.prices.forEach(
+                    (
+                        startPrice,
+                        cardId
+                    ) => {
+
+                        if (
+                            !end.prices.has(
+                                cardId
+                            )
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const endPrice =
+                            end.prices.get(
+                                cardId
+                            );
+
+
+                        if (
+                            startPrice < threshold &&
+                            endPrice >= threshold
+                        ) {
+
+                            up += 1;
+
+                        }
+
+
+                        if (
+                            startPrice >= threshold &&
+                            endPrice < threshold
+                        ) {
+
+                            down += 1;
+
+                        }
+
+                    }
+                );
+
+
+                return {
+                    threshold,
+                    up,
+                    down,
+                    net:
+                        up - down
+                };
+
+            });
+
+
+    return {
+
+        start,
+        end,
+
+        comparableCards,
+        stableCards,
+
+        upwardMoves,
+        downwardMoves,
+
+        momentum:
+            upwardMoves -
+            downwardMoves,
+
+        migrations,
+
+        matrix,
+
+        bucketFlows,
+
+        thresholdCrossings
+
+    };
+
+}
+
+function buildValueMigrationSeries(
+    snapshots,
+    startSnapshot
+) {
+
+    if (
+        !startSnapshot ||
+        !snapshots.length
+    ) {
+
+        return [];
+
+    }
+
+
+    return snapshots
+        .filter(snapshot =>
+            snapshot.date >=
+            startSnapshot.date
+        )
+        .map(snapshot => {
+
+            const crossings = {};
+
+
+            VALUE_MIGRATION_CHART_THRESHOLDS
+                .forEach(
+                    threshold => {
+
+                        let up = 0;
+                        let down = 0;
+
+
+                        startSnapshot
+                            .prices
+                            .forEach(
+                                (
+                                    startPrice,
+                                    cardId
+                                ) => {
+
+                                    /*
+                                     * Même cohorte :
+                                     * si l'ID n'était pas présent
+                                     * au début, impossible d'arriver ici.
+                                     */
+                                    if (
+                                        !snapshot
+                                            .prices
+                                            .has(
+                                                cardId
+                                            )
+                                    ) {
+
+                                        return;
+
+                                    }
+
+
+                                    const currentPrice =
+                                        snapshot
+                                            .prices
+                                            .get(
+                                                cardId
+                                            );
+
+
+                                    if (
+                                        startPrice <
+                                            threshold &&
+                                        currentPrice >=
+                                            threshold
+                                    ) {
+
+                                        up += 1;
+
+                                    }
+
+
+                                    if (
+                                        startPrice >=
+                                            threshold &&
+                                        currentPrice <
+                                            threshold
+                                    ) {
+
+                                        down += 1;
+
+                                    }
+
+                                }
+                            );
+
+
+                        crossings[
+                            threshold
+                        ] =
+                            up - down;
+
+                    }
+                );
+
+
+            return {
+                date:
+                    snapshot.date,
+
+                crossings
+            };
+
+        });
+
+}
+
 function renderValueDistribution(
     estimatedPriceHistory
 ) {
@@ -1360,6 +1895,38 @@ function renderValueDistribution(
     const buckets =
         calculateCurrentValueBuckets();
 
+    const snapshots =
+    buildValuePriceSnapshots(
+        estimatedPriceHistory
+    );
+
+
+const periodSelect =
+    document.getElementById(
+        "value-migration-period"
+    );
+
+
+const period =
+    periodSelect?.value ||
+    "all";
+
+
+const migrationAnalysis =
+    calculateValueMigrations(
+        snapshots,
+        period
+    );
+
+
+const migrationSeries =
+    migrationAnalysis
+        ? buildValueMigrationSeries(
+            snapshots,
+            migrationAnalysis.start
+        )
+        : [];
+
 
     const totalCards =
         buckets.reduce(
@@ -1377,57 +1944,7 @@ function renderValueDistribution(
         );
 
 
-    const bucketHistory =
-        buildValueBucketHistory(
-            estimatedPriceHistory
-        );
-
-
-    const latestHistory =
-        bucketHistory[
-            bucketHistory.length - 1
-        ] || null;
-
-
-    const target =
-        new Date();
-
-    target.setDate(
-        target.getDate() - 30
-    );
-
-
-    const targetDate =
-        target
-            .toISOString()
-            .slice(0, 10);
-
-
-    let history30d =
-        null;
-
-
-    for (
-        let index =
-            bucketHistory.length - 1;
-
-        index >= 0;
-
-        index -= 1
-    ) {
-
-        if (
-            bucketHistory[index].date <=
-            targetDate
-        ) {
-
-            history30d =
-                bucketHistory[index];
-
-            break;
-        }
-
-    }
+    
 
 
     const maxCount =
@@ -1462,30 +1979,16 @@ function renderValueDistribution(
                         : 0;
 
 
-                const previousCount =
-                    history30d
-                        ?.counts
-                        ?.[bucket.key];
+                const flow =
+    migrationAnalysis
+        ?.bucketFlows
+        ?.[bucket.key];
 
 
-                const currentCount =
-                    latestHistory
-                        ?.counts
-                        ?.[bucket.key] ??
-                    bucket.count;
-
-
-                const change =
-                    Number.isFinite(
-                        Number(
-                            previousCount
-                        )
-                    )
-
-                        ? currentCount -
-                            previousCount
-
-                        : null;
+const change =
+    flow
+        ? flow.net
+        : null;
 
 
                 const changeClass =
@@ -1579,15 +2082,41 @@ function renderValueDistribution(
     );
 
 
-    renderValueBucketChart(
-        bucketHistory
-    );
+    renderValueMigrationChart(
+    migrationSeries
+);
 
 
-    renderValueBucketInsights(
-        buckets,
-        bucketHistory
+renderValueMigrationInsights(
+    migrationAnalysis
+);
+
+
+renderValueMigrationMatrix(
+    migrationAnalysis
+);
+
+if (
+    periodSelect &&
+    !periodSelect.dataset.migrationBound
+) {
+
+    periodSelect.dataset.migrationBound =
+        "true";
+
+
+    periodSelect.addEventListener(
+        "change",
+        () => {
+
+            renderValueDistribution(
+                cachedEstimatedPriceHistory
+            );
+
+        }
     );
+
+}
 
 }
 
@@ -1706,8 +2235,8 @@ function renderValueDistributionKpis(
 
 }
 
-function renderValueBucketChart(
-    history
+function renderValueMigrationChart(
+    series
 ) {
 
     const canvas =
@@ -1718,9 +2247,11 @@ function renderValueBucketChart(
 
     if (
         !canvas ||
-        !history.length
+        !series.length
     ) {
+
         return;
+
     }
 
 
@@ -1734,45 +2265,14 @@ function renderValueBucketChart(
     }
 
 
-    /*
-     * 10 courbes seraient trop chargées.
-     *
-     * On affiche les 5 tranches
-     * actuellement les plus importantes.
-     */
-    const latest =
-        history[
-            history.length - 1
-        ];
-
-
-    const visibleBuckets =
-        [...VALUE_BUCKETS]
-            .sort(
-                (a, b) =>
-                    (
-                        latest
-                            .counts[b.key] ||
-                        0
-                    ) -
-                    (
-                        latest
-                            .counts[a.key] ||
-                        0
-                    )
-            )
-            .slice(
-                0,
-                5
-            );
-
-
     const colors = [
         "#60a5fa",
         "#a78bfa",
         "#5ee38a",
         "#f0d27a",
-        "#f97373"
+        "#f97373",
+        "#22d3ee",
+        "#f472b6"
     ];
 
 
@@ -1786,69 +2286,103 @@ function renderValueBucketChart(
                 data: {
 
                     labels:
-                        history.map(
+                        series.map(
                             row =>
                                 row.date
                         ),
 
                     datasets:
-                        visibleBuckets.map(
-                            (
-                                bucket,
-                                index
-                            ) => ({
+                        VALUE_MIGRATION_CHART_THRESHOLDS
+                            .map(
+                                (
+                                    threshold,
+                                    index
+                                ) => ({
 
-                                label:
-                                    bucket.label,
+                                    label:
+                                        `≥ ${threshold} €`,
 
-                                data:
-                                    history.map(
-                                        row =>
-                                            row.counts[
-                                                bucket.key
-                                            ] || 0
-                                    ),
+                                    data:
+                                        series.map(
+                                            row =>
+                                                row
+                                                    .crossings[
+                                                        threshold
+                                                    ] ||
+                                                0
+                                        ),
 
-                                borderColor:
-                                    colors[index],
+                                    borderColor:
+                                        colors[index],
 
-                                backgroundColor:
-                                    colors[index],
+                                    backgroundColor:
+                                        colors[index],
 
-                                borderWidth:
-                                    2,
+                                    borderWidth:
+                                        2,
 
-                                pointRadius:
-                                    0,
+                                    pointRadius:
+                                        0,
 
-                                pointHoverRadius:
-                                    4,
+                                    pointHoverRadius:
+                                        4,
 
-                                tension:
-                                    0.25,
+                                    tension:
+                                        0.2,
 
-                                fill:
-                                    false
+                                    fill:
+                                        false
 
-                            })
-                        )
+                                })
+                            )
 
                 },
 
 
                 options: {
 
-                    responsive: true,
+                    responsive:
+                        true,
 
                     maintainAspectRatio:
                         false,
 
                     interaction: {
-                        mode: "index",
-                        intersect: false
+                        mode:
+                            "index",
+                        intersect:
+                            false
                     },
 
                     plugins: {
+
+                        tooltip: {
+
+                            callbacks: {
+
+                                label(context) {
+
+                                    const value =
+                                        Number(
+                                            context.raw ||
+                                            0
+                                        );
+
+
+                                    return (
+                                        `${context.dataset.label} : ` +
+                                        `${
+                                            value > 0
+                                                ? "+"
+                                                : ""
+                                        }${value} cartes`
+                                    );
+
+                                }
+
+                            }
+
+                        },
 
                         legend: {
 
@@ -1885,9 +2419,6 @@ function renderValueBucketChart(
 
                         y: {
 
-                            beginAtZero:
-                                true,
-
                             ticks: {
                                 color:
                                     "#8e96a8",
@@ -1897,7 +2428,21 @@ function renderValueBucketChart(
 
                             grid: {
                                 color:
-                                    "rgba(255,255,255,.06)"
+                                    context =>
+                                        context.tick.value === 0
+                                            ? "rgba(255,255,255,.25)"
+                                            : "rgba(255,255,255,.06)"
+                            },
+
+                            title: {
+                                display:
+                                    true,
+
+                                text:
+                                    "Flux net de cartes",
+
+                                color:
+                                    "#8e96a8"
                             }
 
                         }
@@ -1911,9 +2456,8 @@ function renderValueBucketChart(
 
 }
 
-function renderValueBucketInsights(
-    buckets,
-    history
+function renderValueMigrationInsights(
+    analysis
 ) {
 
     const container =
@@ -1927,84 +2471,144 @@ function renderValueBucketInsights(
     }
 
 
-    const totalValue =
-        buckets.reduce(
-            (sum, bucket) =>
-                sum +
-                bucket.totalValue,
-            0
-        );
+    if (!analysis) {
+
+        container.innerHTML =
+            `
+                <div class="value-insight-row">
+                    Historique insuffisant
+                </div>
+            `;
+
+        return;
+
+    }
 
 
-    const valueOver50 =
-        buckets
-            .filter(
-                bucket =>
-                    bucket.min >= 50
-            )
-            .reduce(
-                (sum, bucket) =>
-                    sum +
-                    bucket.totalValue,
-                0
-            );
+    const migrationCount =
+        analysis.upwardMoves +
+        analysis.downwardMoves;
 
 
-    const over50 =
-        buckets
-            .filter(
-                bucket =>
-                    bucket.min >= 50
-            )
-            .reduce(
-                (sum, bucket) =>
-                    sum +
-                    bucket.count,
-                0
-            );
-
-
-    const over100 =
-        buckets
-            .filter(
-                bucket =>
-                    bucket.min >= 100
-            )
-            .reduce(
-                (sum, bucket) =>
-                    sum +
-                    bucket.count,
-                0
-            );
-
-
-    const concentration =
-        totalValue > 0
-            ? valueOver50 /
-                totalValue *
+    const upwardRate =
+        migrationCount > 0
+            ? (
+                analysis.upwardMoves /
+                migrationCount *
                 100
+            )
             : 0;
 
 
-    const largestBucket =
-        [...buckets]
+    const routeCounts =
+        new Map();
+
+
+    analysis.migrations
+        .forEach(migration => {
+
+            const key =
+                `${migration.fromLabel} → ${migration.toLabel}`;
+
+
+            if (!routeCounts.has(key)) {
+
+                routeCounts.set(
+                    key,
+                    {
+                        label: key,
+                        direction:
+                            migration.direction,
+                        count: 0
+                    }
+                );
+
+            }
+
+
+            routeCounts
+                .get(key)
+                .count += 1;
+
+        });
+
+
+    const routes =
+        [...routeCounts.values()];
+
+
+    const bestUpRoute =
+        routes
+            .filter(route =>
+                route.direction ===
+                "up"
+            )
             .sort(
                 (a, b) =>
-                    b.totalValue -
-                    a.totalValue
+                    b.count -
+                    a.count
             )[0];
+
+
+    const bestDownRoute =
+        routes
+            .filter(route =>
+                route.direction ===
+                "down"
+            )
+            .sort(
+                (a, b) =>
+                    b.count -
+                    a.count
+            )[0];
+
+
+    const usefulThresholds =
+        analysis
+            .thresholdCrossings
+            .filter(row =>
+                [
+                    1,
+                    5,
+                    10,
+                    20,
+                    50,
+                    100
+                ].includes(
+                    row.threshold
+                )
+            );
 
 
     container.innerHTML = `
 
+        <div class="migration-period-summary">
+
+            ${
+                formatShortPortfolioDate(
+                    analysis.start.date
+                )
+            }
+
+            →
+
+            ${
+                formatShortPortfolioDate(
+                    analysis.end.date
+                )
+            }
+
+        </div>
+
+
         <div class="value-insight-row">
 
             <span>
-                Cartes ≥ 50 €
+                Cartes comparables
             </span>
 
             <strong>
-                ${over50}
+                ${analysis.comparableCards}
             </strong>
 
         </div>
@@ -2013,11 +2617,11 @@ function renderValueBucketInsights(
         <div class="value-insight-row">
 
             <span>
-                Cartes ≥ 100 €
+                Montées de tranche
             </span>
 
-            <strong>
-                ${over100}
+            <strong class="score-positive">
+                ${analysis.upwardMoves}
             </strong>
 
         </div>
@@ -2026,16 +2630,34 @@ function renderValueBucketInsights(
         <div class="value-insight-row">
 
             <span>
-                Tranche concentrant
-                le plus de valeur
+                Baisses de tranche
             </span>
 
-            <strong class="price">
+            <strong class="score-negative">
+                ${analysis.downwardMoves}
+            </strong>
+
+        </div>
+
+
+        <div class="value-insight-row">
+
+            <span>
+                Solde des migrations
+            </span>
+
+            <strong class="${
+                analysis.momentum >= 0
+                    ? "score-positive"
+                    : "score-negative"
+            }">
+
                 ${
-                    largestBucket
-                        ?.label ||
-                    "-"
-                }
+                    analysis.momentum > 0
+                        ? "+"
+                        : ""
+                }${analysis.momentum}
+
             </strong>
 
         </div>
@@ -2044,17 +2666,263 @@ function renderValueBucketInsights(
         <div class="value-insight-row">
 
             <span>
-                Valeur concentrée
-                dans ≥ 50 €
+                Part des migrations haussières
             </span>
 
             <strong>
                 ${
                     formatSimplePercent(
-                        concentration
+                        upwardRate
                     )
                 }
             </strong>
+
+        </div>
+
+
+        ${
+            bestUpRoute
+                ? `
+                    <div class="value-insight-row">
+
+                        <span>
+                            Migration haussière
+                            la plus fréquente
+                        </span>
+
+                        <strong class="score-positive">
+                            ${bestUpRoute.label}
+                            · ${bestUpRoute.count}
+                        </strong>
+
+                    </div>
+                `
+                : ""
+        }
+
+
+        ${
+            bestDownRoute
+                ? `
+                    <div class="value-insight-row">
+
+                        <span>
+                            Migration baissière
+                            la plus fréquente
+                        </span>
+
+                        <strong class="score-negative">
+                            ${bestDownRoute.label}
+                            · ${bestDownRoute.count}
+                        </strong>
+
+                    </div>
+                `
+                : ""
+        }
+
+
+        <div class="migration-threshold-title">
+            Franchissements de seuil
+        </div>
+
+
+        ${
+            usefulThresholds
+                .map(row => `
+
+                    <div class="value-insight-row">
+
+                        <span>
+                            Seuil ${row.threshold} €
+                        </span>
+
+                        <strong class="${
+                            row.net > 0
+                                ? "score-positive"
+                                : row.net < 0
+                                    ? "score-negative"
+                                    : ""
+                        }">
+
+                            ${
+                                row.net > 0
+                                    ? "+"
+                                    : ""
+                            }${row.net}
+
+                            <small>
+                                (${row.up} ↑ / ${row.down} ↓)
+                            </small>
+
+                        </strong>
+
+                    </div>
+
+                `)
+                .join("")
+        }
+
+    `;
+
+}
+
+function renderValueMigrationMatrix(
+    analysis
+) {
+
+    const container =
+        document.getElementById(
+            "value-migration-matrix"
+        );
+
+
+    const subtitle =
+        document.getElementById(
+            "value-migration-matrix-subtitle"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    if (!analysis) {
+
+        container.innerHTML =
+            "Historique insuffisant";
+
+        return;
+
+    }
+
+
+    if (subtitle) {
+
+        subtitle.textContent =
+            `${
+                formatShortPortfolioDate(
+                    analysis.start.date
+                )
+            } → ${
+                formatShortPortfolioDate(
+                    analysis.end.date
+                )
+            } · nouvelles cartes exclues`;
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="migration-matrix-scroll">
+
+            <table class="migration-matrix-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Départ ↓ / Arrivée →
+                        </th>
+
+                        ${
+                            VALUE_BUCKETS
+                                .map(
+                                    bucket =>
+                                        `
+                                            <th>
+                                                ${bucket.label}
+                                            </th>
+                                        `
+                                )
+                                .join("")
+                        }
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    ${
+                        VALUE_BUCKETS
+                            .map(
+                                (
+                                    fromBucket,
+                                    fromIndex
+                                ) => `
+
+                                    <tr>
+
+                                        <th>
+                                            ${fromBucket.label}
+                                        </th>
+
+                                        ${
+                                            VALUE_BUCKETS
+                                                .map(
+                                                    (
+                                                        toBucket,
+                                                        toIndex
+                                                    ) => {
+
+                                                        const count =
+                                                            analysis
+                                                                .matrix[
+                                                                    fromIndex
+                                                                ][
+                                                                    toIndex
+                                                                ];
+
+
+                                                        const cssClass =
+                                                            toIndex >
+                                                                fromIndex
+
+                                                                ? "migration-up-cell"
+
+                                                                : toIndex <
+                                                                    fromIndex
+
+                                                                    ? "migration-down-cell"
+
+                                                                    : "migration-stable-cell";
+
+
+                                                        return `
+
+                                                            <td
+                                                                class="${cssClass}"
+                                                            >
+
+                                                                ${
+                                                                    count ||
+                                                                    "·"
+                                                                }
+
+                                                            </td>
+
+                                                        `;
+
+                                                    }
+                                                )
+                                                .join("")
+                                        }
+
+                                    </tr>
+
+                                `
+                            )
+                            .join("")
+                    }
+
+                </tbody>
+
+            </table>
 
         </div>
 
