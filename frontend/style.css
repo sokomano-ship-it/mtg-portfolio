@@ -4572,3 +4572,152 @@ strong.score-negative {
     background:
         rgba(255,255,255,.04);
 }
+
+/* ========================================
+   MIGRATIONS + SELECTED CARDS
+   ======================================== */
+
+.migration-analysis-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.85fr)
+        minmax(320px, 0.75fr);
+
+    gap: 16px;
+
+    align-items: start;
+
+    margin-top: 16px;
+}
+
+
+.migration-analysis-grid
+.migration-routes-table {
+    margin-top: 0;
+}
+
+
+.migration-selection-panel {
+    min-width: 0;
+
+    padding: 15px;
+
+    background: #111520;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 12px;
+}
+
+
+.migration-selection-title {
+    margin-bottom: 12px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+
+.migration-selection-empty {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 150px;
+
+    padding: 20px;
+
+    color: #697386;
+
+    font-size: 11px;
+
+    text-align: center;
+
+    border:
+        1px dashed
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 9px;
+}
+
+
+/*
+ * Le détail n'est plus un gros panneau indépendant.
+ */
+.migration-card-details-inline {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+    border: 0;
+
+    border-radius: 0;
+}
+
+
+/*
+ * Important si 10 ou 15 cartes sont sélectionnées :
+ * on évite d'allonger toute la page.
+ */
+.migration-card-details-inline
+.migration-detail-list {
+    max-height: 410px;
+
+    overflow-y: auto;
+
+    padding-right: 4px;
+}
+
+
+.migration-card-details-inline
+.migration-detail-card {
+    grid-template-columns: 1fr;
+
+    gap: 7px;
+
+    padding:
+        11px
+        2px;
+}
+
+
+.migration-card-details-inline
+.migration-detail-prices {
+    justify-content: flex-start;
+}
+
+
+.migration-card-details-inline
+.migration-detail-change {
+    align-items: flex-start;
+
+    text-align: left;
+}
+
+
+/*
+ * Le titre du détail reste compact.
+ */
+.migration-card-details-inline
+.migration-detail-heading {
+    margin-bottom: 8px;
+}
+
+
+@media (max-width: 1050px) {
+
+    .migration-analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

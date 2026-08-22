@@ -3199,8 +3199,7 @@ function renderMigrationCardDetails(
     }
 
 
-    container.hidden =
-        false;
+    
 
 
     container.innerHTML = `
@@ -3446,21 +3445,26 @@ function renderMigrationCardDetails(
 
 
     document
-        .getElementById(
-            "migration-detail-close"
-        )
-        ?.addEventListener(
-            "click",
-            () => {
+    .getElementById(
+        "migration-detail-close"
+    )
+    ?.addEventListener(
+        "click",
+        () => {
 
-                container.hidden =
-                    true;
+            container.innerHTML = `
 
-                container.innerHTML =
-                    "";
+                <div class="migration-selection-empty">
 
-            }
-        );
+                    Cliquez sur une migration pour afficher
+                    les cartes concernées.
+
+                </div>
+
+            `;
+
+        }
+    );
 
 }
 
