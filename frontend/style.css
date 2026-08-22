@@ -4219,15 +4219,193 @@ strong.score-negative {
 }
 
 
-.migration-detail-table-wrapper {
-    overflow-x: auto;
+/* ========================================
+   MIGRATION DETAIL - COMPACT
+   ======================================== */
+
+.migration-card-details {
+    width: min(900px, 100%);
+
+    margin:
+        16px
+        auto
+        0;
+
+    padding: 15px 17px;
+
+    background:
+        #0e141e;
+
+    border:
+        1px solid
+        rgba(
+            127,
+            183,
+            255,
+            0.16
+        );
+
+    border-radius: 12px;
 }
 
 
-.migration-detail-table {
-    width: 100%;
+.migration-detail-list {
+    display: flex;
+    flex-direction: column;
+}
 
-    min-width: 760px;
+
+.migration-detail-card {
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 1.5fr)
+        minmax(190px, 0.8fr)
+        minmax(180px, 0.8fr);
+
+    gap: 20px;
+
+    align-items: center;
+
+    min-height: 58px;
+
+    padding:
+        10px
+        4px;
+
+    border-top:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+}
+
+
+.migration-detail-card:first-child {
+    border-top: 0;
+}
+
+
+.migration-detail-identity strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.migration-detail-identity > span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #7f899d;
+
+    font-size: 10px;
+}
+
+
+.migration-detail-qty {
+    display: inline-block;
+
+    margin-left: 5px;
+
+    padding:
+        2px
+        6px;
+
+    color: #b9d7ff;
+
+    background:
+        rgba(
+            127,
+            183,
+            255,
+            0.10
+        );
+
+    border-radius: 5px;
+
+    font-size: 10px;
+}
+
+
+.migration-detail-prices {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+}
+
+
+.migration-detail-prices > span:first-child {
+    color: #9fa7b7;
+}
+
+
+.migration-detail-prices strong {
+    color: #ffffff;
+}
+
+
+.migration-price-arrow {
+    color: #596275;
+}
+
+
+.migration-detail-change {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 3px;
+
+    text-align: right;
+}
+
+
+.migration-detail-change strong {
+    font-size: 12px;
+}
+
+
+.migration-threshold-distance {
+    color: #7f899d;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+
+@media (max-width: 800px) {
+
+    .migration-detail-card {
+        grid-template-columns:
+            1fr;
+        gap: 7px;
+    }
+
+
+    .migration-detail-change {
+        align-items:
+            flex-start;
+
+        text-align:
+            left;
+    }
+
 }
 
 

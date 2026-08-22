@@ -3063,29 +3063,77 @@ function renderMigrationCardDetails(
     }
 
 
+    /*
+     * Regroupe les exemplaires strictement identiques.
+     *
+     * Exemple :
+     * Ancient Tomb Tempest FR NM x2
+     *
+     * devient une seule ligne avec quantité 2.
+     */
+    const groupedCards =
+        new Map();
+
+
+    group.cards.forEach(card => {
+
+        const key = [
+            card.cardName,
+            card.edition,
+            card.langue,
+            card.etat,
+            card.categorie,
+            Number(card.startPrice).toFixed(4),
+            Number(card.endPrice).toFixed(4)
+        ].join("||");
+
+
+        if (!groupedCards.has(key)) {
+
+            groupedCards.set(
+                key,
+                {
+                    ...card,
+                    quantity: 0
+                }
+            );
+
+        }
+
+
+        groupedCards.get(key)
+            .quantity += 1;
+
+    });
+
+
     const cards =
-        [...group.cards]
+        [...groupedCards.values()]
             .sort(
                 (a, b) => {
 
                     const changeA =
-                        Math.abs(
-                            (
-                                a.endPrice -
+                        a.startPrice > 0
+                            ? Math.abs(
+                                (
+                                    a.endPrice -
+                                    a.startPrice
+                                ) /
                                 a.startPrice
-                            ) /
-                            a.startPrice
-                        );
+                            )
+                            : 0;
 
 
                     const changeB =
-                        Math.abs(
-                            (
-                                b.endPrice -
+                        b.startPrice > 0
+                            ? Math.abs(
+                                (
+                                    b.endPrice -
+                                    b.startPrice
+                                ) /
                                 b.startPrice
-                            ) /
-                            b.startPrice
-                        );
+                            )
+                            : 0;
 
 
                     return (
@@ -3095,6 +3143,60 @@ function renderMigrationCardDetails(
 
                 }
             );
+
+
+    /*
+     * Seuil principal franchi.
+     *
+     * Montée :
+     * destination.min
+     *
+     * Baisse :
+     * tranche de départ.min
+     */
+    const fromBucket =
+        VALUE_BUCKETS.find(
+            bucket =>
+                bucket.key ===
+                group.fromKey
+        );
+
+
+    const toBucket =
+        VALUE_BUCKETS.find(
+            bucket =>
+                bucket.key ===
+                group.toKey
+        );
+
+
+    let threshold = null;
+
+
+    if (
+        group.direction === "up" &&
+        Number.isFinite(
+            toBucket?.min
+        )
+    ) {
+
+        threshold =
+            toBucket.min;
+
+    }
+
+
+    if (
+        group.direction === "down" &&
+        Number.isFinite(
+            fromBucket?.min
+        )
+    ) {
+
+        threshold =
+            fromBucket.min;
+
+    }
 
 
     container.hidden =
@@ -3107,7 +3209,12 @@ function renderMigrationCardDetails(
 
             <div>
 
-                <strong>
+                <strong class="${
+                    group.direction === "up"
+                        ? "score-positive"
+                        : "score-negative"
+                }">
+
                     ${
                         group.direction ===
                         "up"
@@ -3118,12 +3225,13 @@ function renderMigrationCardDetails(
                     ${group.fromLabel}
                     →
                     ${group.toLabel}
+
                 </strong>
 
                 <span>
-                    ${cards.length}
+                    ${group.cards.length}
                     ${
-                        cards.length > 1
+                        group.cards.length > 1
                             ? "cartes"
                             : "carte"
                     }
@@ -3144,135 +3252,193 @@ function renderMigrationCardDetails(
         </div>
 
 
-        <div class="migration-detail-table-wrapper">
+        <div class="migration-detail-list">
 
-            <table class="migration-detail-table">
+            ${
+                cards
+                    .map(card => {
 
-                <thead>
+                        const changePct =
+                            card.startPrice > 0
 
-                    <tr>
-                        <th>Carte</th>
-                        <th>Édition</th>
-                        <th>Catégorie</th>
-                        <th>Avant</th>
-                        <th>Maintenant</th>
-                        <th>Variation</th>
-                    </tr>
+                                ? (
+                                    (
+                                        card.endPrice -
+                                        card.startPrice
+                                    ) /
+                                    card.startPrice
+                                ) * 100
 
-                </thead>
-
-
-                <tbody>
-
-                    ${
-                        cards
-                            .map(card => {
-
-                                const changePct =
-                                    card.startPrice > 0
-                                        ? (
-                                            (
-                                                card.endPrice -
-                                                card.startPrice
-                                            ) /
-                                            card.startPrice
-                                        ) * 100
-                                        : null;
+                                : null;
 
 
-                                const changeClass =
-                                    Number(changePct) >= 0
-                                        ? "score-positive"
-                                        : "score-negative";
+                        const changeClass =
+                            changePct >= 0
+                                ? "score-positive"
+                                : "score-negative";
 
 
-                                return `
-
-                                    <tr>
-
-                                        <td>
-
-                                            <strong>
-                                                ${
-                                                    escapeHtml(
-                                                        card.cardName
-                                                    )
-                                                }
-                                            </strong>
-
-                                            <small>
-                                                ${
-                                                    escapeHtml(
-                                                        [
-                                                            card.langue,
-                                                            card.etat
-                                                        ]
-                                                            .filter(Boolean)
-                                                            .join(" · ")
-                                                    )
-                                                }
-                                            </small>
-
-                                        </td>
+                        let thresholdText =
+                            "";
 
 
-                                        <td>
-                                            ${
-                                                escapeHtml(
-                                                    card.edition
-                                                )
-                                            }
-                                        </td>
+                        if (
+                            Number.isFinite(
+                                threshold
+                            )
+                        ) {
+
+                            const distance =
+                                group.direction === "up"
+
+                                    ? card.endPrice -
+                                        threshold
+
+                                    : threshold -
+                                        card.endPrice;
 
 
-                                        <td>
-                                            ${
-                                                escapeHtml(
+                            thresholdText = `
+
+                                <span
+                                    class="
+                                        migration-threshold-distance
+                                    "
+                                >
+
+                                    ${
+                                        distance >= 0
+                                            ? "+"
+                                            : ""
+                                    }${
+                                        formatEuro(
+                                            distance
+                                        )
+                                    }
+
+                                    ${
+                                        group.direction ===
+                                        "up"
+
+                                            ? "au-dessus"
+
+                                            : "sous"
+                                    }
+
+                                    du seuil ${
+                                        formatEuro(
+                                            threshold
+                                        )
+                                    }
+
+                                </span>
+
+                            `;
+
+                        }
+
+
+                        return `
+
+                            <div class="migration-detail-card">
+
+                                <div class="migration-detail-identity">
+
+                                    <strong>
+
+                                        ${
+                                            escapeHtml(
+                                                card.cardName
+                                            )
+                                        }
+
+                                        ${
+                                            card.quantity > 1
+                                                ? `
+                                                    <span
+                                                        class="
+                                                            migration-detail-qty
+                                                        "
+                                                    >
+                                                        ×${card.quantity}
+                                                    </span>
+                                                `
+                                                : ""
+                                        }
+
+                                    </strong>
+
+
+                                    <span>
+
+                                        ${
+                                            escapeHtml(
+                                                [
+                                                    card.edition,
+                                                    card.langue,
+                                                    card.etat,
                                                     card.categorie
+                                                ]
+                                                    .filter(Boolean)
+                                                    .join(" · ")
+                                            )
+                                        }
+
+                                    </span>
+
+                                </div>
+
+
+                                <div class="migration-detail-prices">
+
+                                    <span>
+                                        ${
+                                            formatEuro(
+                                                card.startPrice
+                                            )
+                                        }
+                                    </span>
+
+                                    <span class="migration-price-arrow">
+                                        →
+                                    </span>
+
+                                    <strong>
+                                        ${
+                                            formatEuro(
+                                                card.endPrice
+                                            )
+                                        }
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="migration-detail-change">
+
+                                    <strong class="${changeClass}">
+
+                                        ${
+                                            changePct === null
+                                                ? "-"
+                                                : formatPercent(
+                                                    changePct
                                                 )
-                                            }
-                                        </td>
+                                        }
 
+                                    </strong>
 
-                                        <td>
-                                            ${
-                                                formatEuro(
-                                                    card.startPrice
-                                                )
-                                            }
-                                        </td>
+                                    ${thresholdText}
 
+                                </div>
 
-                                        <td>
-                                            ${
-                                                formatEuro(
-                                                    card.endPrice
-                                                )
-                                            }
-                                        </td>
+                            </div>
 
+                        `;
 
-                                        <td class="${changeClass}">
-                                            ${
-                                                changePct === null
-                                                    ? "-"
-                                                    : formatPercent(
-                                                        changePct
-                                                    )
-                                            }
-                                        </td>
-
-                                    </tr>
-
-                                `;
-
-                            })
-                            .join("")
-                    }
-
-                </tbody>
-
-            </table>
+                    })
+                    .join("")
+            }
 
         </div>
 
