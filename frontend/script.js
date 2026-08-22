@@ -21,6 +21,10 @@ let currentCollectionDirection = "asc";
 const expandedCollectionCards = new Set();
 let investmentChart = null;
 let portfolioChart = null;
+let valueBucketChart = null;
+
+let cachedPortfolioHistory = [];
+let cachedEstimatedPriceHistory = [];
 
 let portfolioChartPeriod = "daily";
 let portfolioChartResizeTimer = null;
@@ -50,6 +54,101 @@ let opportunityFilters = {
     price: "",
     gain: ""
 };
+
+const VALUE_BUCKETS = [
+
+    {
+        key: "under1",
+        label: "< 1 €",
+        min: -Infinity,
+        max: 1
+    },
+
+    {
+        key: "1to2",
+        label: "1–2 €",
+        min: 1,
+        max: 2
+    },
+
+    {
+        key: "2to5",
+        label: "2–5 €",
+        min: 2,
+        max: 5
+    },
+
+    {
+        key: "5to10",
+        label: "5–10 €",
+        min: 5,
+        max: 10
+    },
+
+    {
+        key: "10to20",
+        label: "10–20 €",
+        min: 10,
+        max: 20
+    },
+
+    {
+        key: "20to50",
+        label: "20–50 €",
+        min: 20,
+        max: 50
+    },
+
+    {
+        key: "50to100",
+        label: "50–100 €",
+        min: 50,
+        max: 100
+    },
+
+    {
+        key: "100to200",
+        label: "100–200 €",
+        min: 100,
+        max: 200
+    },
+
+    {
+        key: "200to500",
+        label: "200–500 €",
+        min: 200,
+        max: 500
+    },
+
+    {
+        key: "over500",
+        label: "≥ 500 €",
+        min: 500,
+        max: Infinity
+    }
+
+];
+
+function getValueBucket(
+    price
+) {
+
+    const value =
+        Number(price);
+
+
+    if (!Number.isFinite(value)) {
+        return null;
+    }
+
+
+    return VALUE_BUCKETS.find(
+        bucket =>
+            value >= bucket.min &&
+            value < bucket.max
+    ) || null;
+
+}
 
 const MODEL_START_DATE = "2026-07-12";
 document.addEventListener("DOMContentLoaded", () => {
@@ -499,30 +598,36 @@ function setupInvestmentDrawerTabs() {
 }
 
 async function loadDashboard() {
-    /*
-     * Toutes les requêtes démarrent immédiatement.
-     * L'historique reste en attente pendant le chargement des cartes,
-     * car le graphique utilise allCards pour calculer la valeur du jour.
-     */
-    const cardsPromise = loadCards();
 
-    
+    /*
+     * On démarre les deux requêtes immédiatement.
+     */
+    const cardsPromise =
+        loadCards();
 
     const portfolioHistoryPromise =
         window.apiAdapter.getPortfolioHistory();
 
-    const categorySummaryPromise =
-        loadCategorySummary();
 
     /*
-     * Il faut que allCards soit rempli avant de construire le graphique.
+     * Les analyses ci-dessous ont besoin
+     * de allCards.
      */
     await cardsPromise;
 
+
     await Promise.all([
-    categorySummaryPromise,
-    loadPortfolioHistory(portfolioHistoryPromise)
-]);
+
+        loadCategorySummary(
+            portfolioHistoryPromise
+        ),
+
+        loadPortfolioHistory(
+            portfolioHistoryPromise
+        )
+
+    ]);
+
 }
 
 async function loadCards() {
@@ -553,32 +658,1408 @@ setupCollectionSorting();
     }
 }
 
-async function loadCategorySummary() {
-    const tbody = document.getElementById("category-summary-body");
-    if (!tbody) return;
+async function loadCategorySummary(
+    historyPromise = null
+) {
+
+    const tbody =
+        document.getElementById(
+            "category-summary-body"
+        );
+
+    if (!tbody) {
+        return;
+    }
+
 
     try {
-        const categories = await window.apiAdapter.getCategorySummary();
 
-        tbody.innerHTML = "";
+        const history =
+            historyPromise
+                ? await historyPromise
+                : await window.apiAdapter
+                    .getPortfolioHistory();
 
-        categories.forEach(row => {
-            tbody.innerHTML += `
-                <tr>
-                    <td><strong>${escapeHtml(row.categorie)}</strong></td>
-                    <td>${row.cardsCount}</td>
-                    <td class="price">${formatEuro(row.totalValue)}</td>
-                </tr>
-            `;
+
+        const totalPortfolioValue =
+            calculateCardsValue(
+                allCards
+            );
+
+
+        /*
+         * Ligne historique utilisée pour J-30.
+         */
+        const targetDate =
+            new Date();
+
+        targetDate.setDate(
+            targetDate.getDate() - 30
+        );
+
+
+        const target30d =
+            targetDate
+                .toISOString()
+                .slice(0, 10);
+
+
+        const historyRows =
+            Array.isArray(history)
+                ? [...history]
+                    .filter(row =>
+                        row?.date
+                    )
+                    .sort((a, b) =>
+                        String(a.date)
+                            .localeCompare(
+                                String(b.date)
+                            )
+                    )
+                : [];
+
+
+        let row30d = null;
+
+
+        for (
+            let index =
+                historyRows.length - 1;
+
+            index >= 0;
+
+            index -= 1
+        ) {
+
+            const row =
+                historyRows[index];
+
+            if (
+                String(row.date)
+                    .slice(0, 10) <=
+                target30d
+            ) {
+
+                row30d = row;
+
+                break;
+            }
+
+        }
+
+
+        const portfolioValue30d =
+            Number(
+                row30d?.totalValue
+            );
+
+
+        /*
+         * Regroupement actuel par catégorie.
+         */
+        const groups =
+            new Map();
+
+
+        allCards.forEach(card => {
+
+            const category =
+                String(
+                    card.categorie ||
+                    "Non classé"
+                ).trim();
+
+
+            if (!groups.has(category)) {
+
+                groups.set(
+                    category,
+                    []
+                );
+
+            }
+
+
+            groups
+                .get(category)
+                .push(card);
+
         });
+
+
+        const rows =
+            [...groups.entries()]
+                .map(
+                    ([
+                        category,
+                        cards
+                    ]) => {
+
+
+            const prices =
+                cards
+                    .map(card =>
+                        Number(
+                            getEstimatedConditionPrice(
+                                card
+                            )
+                        )
+                    )
+                    .filter(
+                        Number.isFinite
+                    )
+                    .sort(
+                        (a, b) =>
+                            a - b
+                    );
+
+
+            const totalValue =
+                prices.reduce(
+                    (sum, value) =>
+                        sum + value,
+                    0
+                );
+
+
+            const averagePrice =
+                prices.length
+                    ? totalValue /
+                        prices.length
+                    : 0;
+
+
+            const medianPrice =
+                getMedianValue(
+                    prices
+                );
+
+
+            const weight =
+                totalPortfolioValue > 0
+                    ? (
+                        totalValue /
+                        totalPortfolioValue
+                    ) * 100
+                    : null;
+
+
+            const value30d =
+                Number(
+                    row30d
+                        ?.categoryValues
+                        ?.[category]
+                );
+
+
+            const has30d =
+                Number.isFinite(
+                    value30d
+                ) &&
+                value30d > 0;
+
+
+            const change30d =
+                has30d
+                    ? (
+                        (
+                            totalValue -
+                            value30d
+                        ) /
+                        value30d
+                    ) * 100
+                    : null;
+
+
+            /*
+             * Même définition que tes KPI :
+             * variation € de la catégorie /
+             * portefeuille total J-30.
+             */
+            const contribution30d =
+                has30d &&
+                Number.isFinite(
+                    portfolioValue30d
+                ) &&
+                portfolioValue30d > 0
+
+                    ? (
+                        (
+                            totalValue -
+                            value30d
+                        ) /
+                        portfolioValue30d
+                    ) * 100
+
+                    : null;
+
+
+            const cardsOver50 =
+                prices.filter(
+                    value =>
+                        value >= 50
+                ).length;
+
+
+            return {
+
+                category,
+
+                cardsCount:
+                    cards.length,
+
+                totalValue,
+
+                averagePrice,
+
+                medianPrice,
+
+                weight,
+
+                change30d,
+
+                contribution30d,
+
+                cardsOver50
+
+            };
+
+        });
+
+
+        /*
+         * Catégories les plus importantes
+         * financièrement en premier.
+         */
+        rows.sort(
+            (a, b) =>
+                b.totalValue -
+                a.totalValue
+        );
+
+
+        tbody.innerHTML =
+            rows
+                .map(row => {
+
+                    const changeClass =
+                        row.change30d === null
+                            ? ""
+                            : row.change30d >= 0
+                                ? "score-positive"
+                                : "score-negative";
+
+
+                    const contributionClass =
+                        row.contribution30d === null
+                            ? ""
+                            : row.contribution30d >= 0
+                                ? "score-positive"
+                                : "score-negative";
+
+
+                    return `
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    ${
+                                        escapeHtml(
+                                            row.category
+                                        )
+                                    }
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${row.cardsCount}
+                            </td>
+
+                            <td class="price">
+                                ${
+                                    formatEuro(
+                                        row.totalValue
+                                    )
+                                }
+                            </td>
+
+                            <td>
+                                ${
+                                    formatEuro(
+                                        row.averagePrice
+                                    )
+                                }
+                            </td>
+
+                            <td>
+                                ${
+                                    formatEuro(
+                                        row.medianPrice
+                                    )
+                                }
+                            </td>
+
+                            <td>
+                                ${
+                                    formatSimplePercent(
+                                        row.weight
+                                    )
+                                }
+                            </td>
+
+                            <td class="${changeClass}">
+                                ${
+                                    row.change30d === null
+                                        ? "-"
+                                        : formatPercent(
+                                            row.change30d
+                                        )
+                                }
+                            </td>
+
+                            <td class="${contributionClass}">
+                                ${
+                                    row.contribution30d === null
+                                        ? "-"
+                                        : formatPercent(
+                                            row.contribution30d
+                                        )
+                                }
+                            </td>
+
+                            <td>
+                                ${row.cardsOver50}
+                            </td>
+
+                        </tr>
+                    `;
+
+                })
+                .join("");
+
+
     } catch (error) {
+
         console.error(error);
+
         tbody.innerHTML = `
             <tr>
-                <td colspan="3">Erreur : ${escapeHtml(error.message)}</td>
+                <td colspan="9">
+                    Erreur :
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </td>
             </tr>
         `;
+
     }
+
+}
+
+function getMedianValue(values) {
+
+    const sorted =
+        values
+            .map(Number)
+            .filter(
+                Number.isFinite
+            )
+            .sort(
+                (a, b) =>
+                    a - b
+            );
+
+
+    if (!sorted.length) {
+        return 0;
+    }
+
+
+    const middle =
+        Math.floor(
+            sorted.length / 2
+        );
+
+
+    if (
+        sorted.length % 2 === 0
+    ) {
+
+        return (
+            sorted[middle - 1] +
+            sorted[middle]
+        ) / 2;
+
+    }
+
+
+    return sorted[middle];
+
+}
+
+
+function formatSimplePercent(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        !Number.isFinite(
+            Number(value)
+        )
+    ) {
+
+        return "-";
+
+    }
+
+
+    return `${
+        Number(value)
+            .toLocaleString(
+                "fr-FR",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2
+                }
+            )
+    } %`;
+
+}
+
+
+function calculateCurrentValueBuckets() {
+
+    const buckets =
+        VALUE_BUCKETS.map(
+            bucket => ({
+                ...bucket,
+                count: 0,
+                totalValue: 0
+            })
+        );
+
+
+    allCards.forEach(card => {
+
+        const price =
+            Number(
+                getEstimatedConditionPrice(
+                    card
+                )
+            );
+
+
+        if (!Number.isFinite(price)) {
+            return;
+        }
+
+
+        const bucket =
+            buckets.find(
+                item =>
+                    price >= item.min &&
+                    price < item.max
+            );
+
+
+        if (!bucket) {
+            return;
+        }
+
+
+        bucket.count += 1;
+
+        bucket.totalValue +=
+            price;
+
+    });
+
+
+    return buckets;
+
+}
+function buildValueBucketHistory(
+    estimatedPriceHistory
+) {
+
+    /*
+     * IDs actuellement présents
+     * dans la collection.
+     */
+    const ownedCardIds =
+        new Set(
+            allCards
+                .map(card =>
+                    card.id
+                )
+                .filter(
+                    id =>
+                        id !== null &&
+                        id !== undefined
+                )
+                .map(
+                    id =>
+                        String(id)
+                )
+        );
+
+
+    /*
+     * date -> cardId -> prix
+     */
+    const rowsByDate =
+        new Map();
+
+
+    estimatedPriceHistory
+        .filter(row =>
+            row?.date &&
+            row?.cardId !== null &&
+            row?.cardId !== undefined
+        )
+        .filter(row =>
+            ownedCardIds.has(
+                String(row.cardId)
+            )
+        )
+        .forEach(row => {
+
+            const date =
+                String(row.date)
+                    .slice(0, 10);
+
+
+            const price =
+                Number(
+                    row.estimatedPrice
+                );
+
+
+            if (!Number.isFinite(price)) {
+                return;
+            }
+
+
+            if (!rowsByDate.has(date)) {
+
+                rowsByDate.set(
+                    date,
+                    new Map()
+                );
+
+            }
+
+
+            rowsByDate
+                .get(date)
+                .set(
+                    String(row.cardId),
+                    price
+                );
+
+        });
+
+
+    const dates =
+        [...rowsByDate.keys()]
+            .sort();
+
+
+    /*
+     * Dernier prix connu de chaque carte.
+     * Cela évite qu'une carte disparaisse
+     * d'un jour si son prix n'a pas été
+     * enregistré ce jour-là.
+     */
+    const latestPrices =
+        new Map();
+
+
+    const history =
+        [];
+
+
+    dates.forEach(date => {
+
+        rowsByDate
+            .get(date)
+            .forEach(
+                (
+                    price,
+                    cardId
+                ) => {
+
+                    latestPrices.set(
+                        cardId,
+                        price
+                    );
+
+                }
+            );
+
+
+        const counts =
+            Object.fromEntries(
+                VALUE_BUCKETS.map(
+                    bucket => [
+                        bucket.key,
+                        0
+                    ]
+                )
+            );
+
+
+        latestPrices.forEach(
+            price => {
+
+                const bucket =
+                    getValueBucket(
+                        price
+                    );
+
+
+                if (bucket) {
+
+                    counts[
+                        bucket.key
+                    ] += 1;
+
+                }
+
+            }
+        );
+
+
+        history.push({
+            date,
+            counts
+        });
+
+    });
+
+
+    return history;
+
+}
+function renderValueDistribution(
+    estimatedPriceHistory
+) {
+
+    const body =
+        document.getElementById(
+            "value-bucket-body"
+        );
+
+
+    if (!body) {
+        return;
+    }
+
+
+    const buckets =
+        calculateCurrentValueBuckets();
+
+
+    const totalCards =
+        buckets.reduce(
+            (sum, bucket) =>
+                sum + bucket.count,
+            0
+        );
+
+
+    const totalValue =
+        buckets.reduce(
+            (sum, bucket) =>
+                sum + bucket.totalValue,
+            0
+        );
+
+
+    const bucketHistory =
+        buildValueBucketHistory(
+            estimatedPriceHistory
+        );
+
+
+    const latestHistory =
+        bucketHistory[
+            bucketHistory.length - 1
+        ] || null;
+
+
+    const target =
+        new Date();
+
+    target.setDate(
+        target.getDate() - 30
+    );
+
+
+    const targetDate =
+        target
+            .toISOString()
+            .slice(0, 10);
+
+
+    let history30d =
+        null;
+
+
+    for (
+        let index =
+            bucketHistory.length - 1;
+
+        index >= 0;
+
+        index -= 1
+    ) {
+
+        if (
+            bucketHistory[index].date <=
+            targetDate
+        ) {
+
+            history30d =
+                bucketHistory[index];
+
+            break;
+        }
+
+    }
+
+
+    const maxCount =
+        Math.max(
+            1,
+            ...buckets.map(
+                bucket =>
+                    bucket.count
+            )
+        );
+
+
+    body.innerHTML =
+        buckets
+            .map(bucket => {
+
+                const cardsPct =
+                    totalCards > 0
+                        ? (
+                            bucket.count /
+                            totalCards
+                        ) * 100
+                        : 0;
+
+
+                const valuePct =
+                    totalValue > 0
+                        ? (
+                            bucket.totalValue /
+                            totalValue
+                        ) * 100
+                        : 0;
+
+
+                const previousCount =
+                    history30d
+                        ?.counts
+                        ?.[bucket.key];
+
+
+                const currentCount =
+                    latestHistory
+                        ?.counts
+                        ?.[bucket.key] ??
+                    bucket.count;
+
+
+                const change =
+                    Number.isFinite(
+                        Number(
+                            previousCount
+                        )
+                    )
+
+                        ? currentCount -
+                            previousCount
+
+                        : null;
+
+
+                const changeClass =
+                    change === null ||
+                    change === 0
+
+                        ? ""
+
+                        : change > 0
+                            ? "score-positive"
+                            : "score-negative";
+
+
+                return `
+                    <div class="value-bucket-row">
+
+                        <div class="value-bucket-label">
+                            ${bucket.label}
+                        </div>
+
+                        <div>
+                            <strong>
+                                ${bucket.count}
+                            </strong>
+                        </div>
+
+                        <div>
+                            ${
+                                formatSimplePercent(
+                                    cardsPct
+                                )
+                            }
+                        </div>
+
+                        <div class="price">
+                            ${
+                                formatEuro(
+                                    bucket.totalValue
+                                )
+                            }
+                        </div>
+
+                        <div>
+                            ${
+                                formatSimplePercent(
+                                    valuePct
+                                )
+                            }
+                        </div>
+
+                        <div class="${changeClass}">
+                            ${
+                                change === null
+                                    ? "-"
+                                    : change > 0
+                                        ? `+${change}`
+                                        : String(change)
+                            }
+                        </div>
+
+                        <div>
+
+                            <div class="value-bucket-bar">
+
+                                <span
+                                    style="
+                                        width:
+                                        ${
+                                            (
+                                                bucket.count /
+                                                maxCount *
+                                                100
+                                            ).toFixed(1)
+                                        }%
+                                    "
+                                ></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+
+
+    renderValueDistributionKpis(
+        buckets
+    );
+
+
+    renderValueBucketChart(
+        bucketHistory
+    );
+
+
+    renderValueBucketInsights(
+        buckets,
+        bucketHistory
+    );
+
+}
+
+function renderValueDistributionKpis(
+    buckets
+) {
+
+    const prices =
+        allCards
+            .map(card =>
+                Number(
+                    getEstimatedConditionPrice(
+                        card
+                    )
+                )
+            )
+            .filter(
+                Number.isFinite
+            )
+            .sort(
+                (a, b) =>
+                    a - b
+            );
+
+
+    const median =
+        getMedianValue(
+            prices
+        );
+
+
+    const over50 =
+        prices.filter(
+            price =>
+                price >= 50
+        ).length;
+
+
+    const over100 =
+        prices.filter(
+            price =>
+                price >= 100
+        ).length;
+
+
+    const total =
+        prices.length;
+
+
+    const medianElement =
+        document.getElementById(
+            "value-bucket-median"
+        );
+
+    const over50Element =
+        document.getElementById(
+            "value-bucket-50"
+        );
+
+    const over100Element =
+        document.getElementById(
+            "value-bucket-100"
+        );
+
+
+    if (medianElement) {
+
+        medianElement.textContent =
+            formatEuro(
+                median
+            );
+
+    }
+
+
+    if (over50Element) {
+
+        over50Element.innerHTML =
+            `
+                ${over50}
+                <small>
+                    ${
+                        formatSimplePercent(
+                            total
+                                ? over50 /
+                                    total *
+                                    100
+                                : 0
+                        )
+                    }
+                </small>
+            `;
+
+    }
+
+
+    if (over100Element) {
+
+        over100Element.innerHTML =
+            `
+                ${over100}
+                <small>
+                    ${
+                        formatSimplePercent(
+                            total
+                                ? over100 /
+                                    total *
+                                    100
+                                : 0
+                        )
+                    }
+                </small>
+            `;
+
+    }
+
+}
+
+function renderValueBucketChart(
+    history
+) {
+
+    const canvas =
+        document.getElementById(
+            "valueBucketChart"
+        );
+
+
+    if (
+        !canvas ||
+        !history.length
+    ) {
+        return;
+    }
+
+
+    if (valueBucketChart) {
+
+        valueBucketChart.destroy();
+
+        valueBucketChart =
+            null;
+
+    }
+
+
+    /*
+     * 10 courbes seraient trop chargées.
+     *
+     * On affiche les 5 tranches
+     * actuellement les plus importantes.
+     */
+    const latest =
+        history[
+            history.length - 1
+        ];
+
+
+    const visibleBuckets =
+        [...VALUE_BUCKETS]
+            .sort(
+                (a, b) =>
+                    (
+                        latest
+                            .counts[b.key] ||
+                        0
+                    ) -
+                    (
+                        latest
+                            .counts[a.key] ||
+                        0
+                    )
+            )
+            .slice(
+                0,
+                5
+            );
+
+
+    const colors = [
+        "#60a5fa",
+        "#a78bfa",
+        "#5ee38a",
+        "#f0d27a",
+        "#f97373"
+    ];
+
+
+    valueBucketChart =
+        new Chart(
+            canvas,
+            {
+
+                type: "line",
+
+                data: {
+
+                    labels:
+                        history.map(
+                            row =>
+                                row.date
+                        ),
+
+                    datasets:
+                        visibleBuckets.map(
+                            (
+                                bucket,
+                                index
+                            ) => ({
+
+                                label:
+                                    bucket.label,
+
+                                data:
+                                    history.map(
+                                        row =>
+                                            row.counts[
+                                                bucket.key
+                                            ] || 0
+                                    ),
+
+                                borderColor:
+                                    colors[index],
+
+                                backgroundColor:
+                                    colors[index],
+
+                                borderWidth:
+                                    2,
+
+                                pointRadius:
+                                    0,
+
+                                pointHoverRadius:
+                                    4,
+
+                                tension:
+                                    0.25,
+
+                                fill:
+                                    false
+
+                            })
+                        )
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    interaction: {
+                        mode: "index",
+                        intersect: false
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            labels: {
+                                color:
+                                    "#c8d0df",
+                                boxWidth:
+                                    10,
+                                usePointStyle:
+                                    true
+                            }
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        x: {
+
+                            ticks: {
+                                color:
+                                    "#8e96a8",
+                                maxTicksLimit:
+                                    8
+                            },
+
+                            grid: {
+                                color:
+                                    "rgba(255,255,255,.04)"
+                            }
+
+                        },
+
+                        y: {
+
+                            beginAtZero:
+                                true,
+
+                            ticks: {
+                                color:
+                                    "#8e96a8",
+                                precision:
+                                    0
+                            },
+
+                            grid: {
+                                color:
+                                    "rgba(255,255,255,.06)"
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+function renderValueBucketInsights(
+    buckets,
+    history
+) {
+
+    const container =
+        document.getElementById(
+            "value-bucket-insights"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const totalValue =
+        buckets.reduce(
+            (sum, bucket) =>
+                sum +
+                bucket.totalValue,
+            0
+        );
+
+
+    const valueOver50 =
+        buckets
+            .filter(
+                bucket =>
+                    bucket.min >= 50
+            )
+            .reduce(
+                (sum, bucket) =>
+                    sum +
+                    bucket.totalValue,
+                0
+            );
+
+
+    const over50 =
+        buckets
+            .filter(
+                bucket =>
+                    bucket.min >= 50
+            )
+            .reduce(
+                (sum, bucket) =>
+                    sum +
+                    bucket.count,
+                0
+            );
+
+
+    const over100 =
+        buckets
+            .filter(
+                bucket =>
+                    bucket.min >= 100
+            )
+            .reduce(
+                (sum, bucket) =>
+                    sum +
+                    bucket.count,
+                0
+            );
+
+
+    const concentration =
+        totalValue > 0
+            ? valueOver50 /
+                totalValue *
+                100
+            : 0;
+
+
+    const largestBucket =
+        [...buckets]
+            .sort(
+                (a, b) =>
+                    b.totalValue -
+                    a.totalValue
+            )[0];
+
+
+    container.innerHTML = `
+
+        <div class="value-insight-row">
+
+            <span>
+                Cartes ≥ 50 €
+            </span>
+
+            <strong>
+                ${over50}
+            </strong>
+
+        </div>
+
+
+        <div class="value-insight-row">
+
+            <span>
+                Cartes ≥ 100 €
+            </span>
+
+            <strong>
+                ${over100}
+            </strong>
+
+        </div>
+
+
+        <div class="value-insight-row">
+
+            <span>
+                Tranche concentrant
+                le plus de valeur
+            </span>
+
+            <strong class="price">
+                ${
+                    largestBucket
+                        ?.label ||
+                    "-"
+                }
+            </strong>
+
+        </div>
+
+
+        <div class="value-insight-row">
+
+            <span>
+                Valeur concentrée
+                dans ≥ 50 €
+            </span>
+
+            <strong>
+                ${
+                    formatSimplePercent(
+                        concentration
+                    )
+                }
+            </strong>
+
+        </div>
+
+    `;
+
 }
 
 async function loadPortfolioSummary() {
@@ -2705,6 +4186,11 @@ async function loadPortfolioHistory(historyPromise = null) {
             Array.isArray(loadedHistory)
                 ? loadedHistory
                 : [];
+
+        cachedEstimatedPriceHistory =
+    estimatedPriceHistory;
+
+
     } catch (error) {
         console.error(
             "Erreur chargement historique estimé :",
@@ -2759,6 +4245,9 @@ async function loadPortfolioHistory(historyPromise = null) {
                 String(a.date).localeCompare(String(b.date))
             )
         : [];
+
+    cachedPortfolioHistory =
+    filteredHistory;
 
     const today = new Intl.DateTimeFormat("en-CA", {
         timeZone: "Europe/Paris",
@@ -2864,6 +4353,10 @@ Object.values(currentCategoryEditionValues)
     );
 
     if (!filteredHistory.length) return;
+
+    renderValueDistribution(
+    estimatedPriceHistory
+);
 
     const freshnessElement =
     document.getElementById(

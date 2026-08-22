@@ -3343,3 +3343,371 @@ strong.score-negative {
             0.09
         );
 }
+
+/* ========================================
+   GENERAL - CATEGORY SUMMARY
+   ======================================== */
+
+.category-summary-table {
+    min-width: 1150px;
+}
+
+.category-summary-table th:not(:first-child),
+.category-summary-table td:not(:first-child) {
+    text-align: right;
+}
+
+.category-summary-table tbody tr {
+    transition:
+        background 0.15s ease;
+}
+
+
+/* ========================================
+   GENERAL - VALUE DISTRIBUTION
+   ======================================== */
+
+.value-distribution-card {
+    overflow: hidden;
+}
+
+
+.value-distribution-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 20px;
+}
+
+
+.value-distribution-heading h2 {
+    margin:
+        0
+        0
+        5px;
+}
+
+
+.value-distribution-subtitle {
+    margin: 0;
+
+    color: #8e96a8;
+
+    font-size: 12px;
+}
+
+
+.value-distribution-kpis {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.value-distribution-kpi {
+    min-width: 125px;
+
+    padding:
+        10px
+        13px;
+
+    background:
+        #111520;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border-radius:
+        10px;
+}
+
+
+.value-distribution-kpi span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #8e96a8;
+
+    font-size: 10px;
+}
+
+
+.value-distribution-kpi strong {
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+
+.value-distribution-kpi strong small {
+    margin-left: 5px;
+
+    color: #8e96a8;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* Tableau des tranches */
+
+.value-bucket-table {
+    border-top:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+}
+
+
+.value-bucket-row {
+    display: grid;
+
+    grid-template-columns:
+        110px
+        70px
+        85px
+        120px
+        85px
+        120px
+        minmax(160px, 1fr);
+
+    gap: 14px;
+
+    align-items: center;
+
+    min-height: 42px;
+
+    padding:
+        7px
+        10px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    font-size: 12px;
+}
+
+
+.value-bucket-row > div:not(:first-child) {
+    text-align: right;
+}
+
+
+.value-bucket-header {
+    min-height: 34px;
+
+    color: #7f899d;
+
+    background: #111520;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+
+.value-bucket-label {
+    color: #ffffff;
+
+    font-weight: 700;
+}
+
+
+.value-bucket-bar {
+    width: 100%;
+    height: 7px;
+
+    overflow: hidden;
+
+    background: #202636;
+
+    border-radius:
+        999px;
+}
+
+
+.value-bucket-bar span {
+    display: block;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #3b82f6,
+            #60a5fa
+        );
+
+    border-radius:
+        inherit;
+}
+
+
+/* Zone graphique + insights */
+
+.value-distribution-bottom {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(280px, 0.8fr);
+
+    gap: 16px;
+
+    margin-top: 20px;
+}
+
+
+.value-history-panel,
+.value-insights-panel {
+    padding: 16px;
+
+    background:
+        #111520;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border-radius:
+        12px;
+}
+
+
+.value-panel-title {
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+.value-panel-subtitle {
+    margin-top: 4px;
+
+    color: #8e96a8;
+
+    font-size: 11px;
+}
+
+
+.value-bucket-chart-wrapper {
+    position: relative;
+
+    height: 245px;
+
+    margin-top: 14px;
+}
+
+
+.value-bucket-insights {
+    margin-top: 12px;
+}
+
+
+.value-insight-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding:
+        11px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    color: #c8d0df;
+
+    font-size: 12px;
+}
+
+
+.value-insight-row:last-child {
+    border-bottom: 0;
+}
+
+
+.value-insight-row strong {
+    color: #ffffff;
+
+    white-space: nowrap;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1050px) {
+
+    .value-distribution-heading {
+        flex-direction: column;
+    }
+
+    .value-distribution-bottom {
+        grid-template-columns:
+            1fr;
+    }
+
+    .value-bucket-table {
+        overflow-x: auto;
+    }
+
+    .value-bucket-row {
+        min-width: 900px;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .value-distribution-kpis {
+        width: 100%;
+    }
+
+    .value-distribution-kpi {
+        flex:
+            1
+            1
+            120px;
+    }
+
+}

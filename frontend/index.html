@@ -281,21 +281,120 @@
         </section>
 
         <section class="card">
-            <h2>📊 Résumé par catégorie</h2>
+    <h2>📊 Résumé par catégorie</h2>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Catégorie</th>
-                            <th>Cartes</th>
-                            <th>Valeur estimée</th>
-                        </tr>
-                    </thead>
-                    <tbody id="category-summary-body"></tbody>
-                </table>
+    <div class="table-wrapper">
+        <table class="category-summary-table">
+            <thead>
+                <tr>
+                    <th>Catégorie</th>
+                    <th>Cartes</th>
+                    <th>Valeur</th>
+                    <th>Prix moy.</th>
+                    <th>Prix médian</th>
+                    <th>Poids</th>
+                    <th>30 j</th>
+                    <th>Contribution 30 j</th>
+                    <th>≥ 50 €</th>
+                </tr>
+            </thead>
+
+            <tbody id="category-summary-body"></tbody>
+        </table>
+    </div>
+</section>
+
+<section class="card value-distribution-card">
+
+    <div class="value-distribution-heading">
+
+        <div>
+            <h2>
+                💶 Répartition par valeur unitaire
+            </h2>
+
+            <p class="value-distribution-subtitle">
+                Nombre de cartes, valeur du portefeuille
+                et évolution par tranche de prix
+            </p>
+        </div>
+
+        <div class="value-distribution-kpis">
+
+            <div class="value-distribution-kpi">
+                <span>Prix médian</span>
+                <strong id="value-bucket-median">-</strong>
             </div>
-        </section>
+
+            <div class="value-distribution-kpi">
+                <span>Cartes ≥ 50 €</span>
+                <strong id="value-bucket-50">-</strong>
+            </div>
+
+            <div class="value-distribution-kpi">
+                <span>Cartes ≥ 100 €</span>
+                <strong id="value-bucket-100">-</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="value-bucket-table">
+
+        <div class="value-bucket-row value-bucket-header">
+            <div>Tranche</div>
+            <div>Cartes</div>
+            <div>% cartes</div>
+            <div>Valeur</div>
+            <div>% valeur</div>
+            <div>Évolution 30 j</div>
+            <div>Répartition</div>
+        </div>
+
+        <div id="value-bucket-body"></div>
+
+    </div>
+
+
+    <div class="value-distribution-bottom">
+
+        <div class="value-history-panel">
+
+            <div class="value-panel-title">
+                Évolution du nombre de cartes par tranche
+            </div>
+
+            <div class="value-panel-subtitle">
+                Les cartes changent de tranche selon leur
+                valorisation estimée
+            </div>
+
+            <div class="value-bucket-chart-wrapper">
+                <canvas id="valueBucketChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <div class="value-insights-panel">
+
+            <div class="value-panel-title">
+                Lecture utile
+            </div>
+
+            <div
+                id="value-bucket-insights"
+                class="value-bucket-insights"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
     </section>
 
