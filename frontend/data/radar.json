@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-22T07:19:25.620Z",
+  "generatedAt": "2026-08-22T14:24:39.488Z",
   "methodology": {
     "minimumHorizonDays": 14,
     "preferredHorizonDays": 30,
     "earlySignalPenalty": true
   },
   "summary": {
-    "total": 758,
+    "total": 756,
     "strongRise": 56,
     "probableRise": 73,
     "watch": 110
@@ -7992,9 +7992,10 @@
     {
       "printingKey": "dark ritual|tempest||french",
       "cardIds": [
-        1589
+        1589,
+        2050
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Dark Ritual",
       "edition": "Tempest",
       "langue": "French",
@@ -8208,9 +8209,10 @@
     {
       "printingKey": "dark ritual|tempest||french",
       "cardIds": [
-        1589
+        1589,
+        2050
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Dark Ritual",
       "edition": "Tempest",
       "langue": "French",
@@ -47410,9 +47412,10 @@
     {
       "printingKey": "hanna's custody|tempest||french",
       "cardIds": [
-        1584
+        1584,
+        2037
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Hanna's Custody",
       "edition": "Tempest",
       "langue": "French",
@@ -47622,9 +47625,10 @@
     {
       "printingKey": "hanna's custody|tempest||french",
       "cardIds": [
-        1584
+        1584,
+        2037
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Hanna's Custody",
       "edition": "Tempest",
       "langue": "French",
@@ -72090,9 +72094,10 @@
     {
       "printingKey": "caldera lake|tempest||french",
       "cardIds": [
-        1603
+        1603,
+        2048
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Caldera Lake",
       "edition": "Tempest",
       "langue": "French",
@@ -72306,9 +72311,10 @@
     {
       "printingKey": "caldera lake|tempest||french",
       "cardIds": [
-        1603
+        1603,
+        2048
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Caldera Lake",
       "edition": "Tempest",
       "langue": "French",
@@ -89551,9 +89557,10 @@
     {
       "printingKey": "sadistic glee|tempest||french",
       "cardIds": [
-        1592
+        1592,
+        2040
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Sadistic Glee",
       "edition": "Tempest",
       "langue": "French",
@@ -89767,9 +89774,10 @@
     {
       "printingKey": "sadistic glee|tempest||french",
       "cardIds": [
-        1592
+        1592,
+        2040
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Sadistic Glee",
       "edition": "Tempest",
       "langue": "French",
@@ -107061,438 +107069,6 @@
             "totalTransitions": 29,
             "changedPct": 34.5,
             "flatPct": 65.5
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "choke|tempest||french",
-      "cardIds": [
-        1595
-      ],
-      "quantity": 1,
-      "nomCarte": "Choke",
-      "edition": "Tempest",
-      "langue": "French",
-      "version": null,
-      "condition": "EX",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-15",
-      "latestDate": "2026-08-22",
-      "historyPoints": 39,
-      "historyAgeDays": 38,
-      "stableSince": "2026-07-19",
-      "stableHistoryPoints": 35,
-      "stableHistoryAgeDays": 34,
-      "structuralBreakCount": 1,
-      "lastStructuralBreak": {
-        "date": "2026-07-19",
-        "previousDate": "2026-07-18",
-        "reasons": [
-          "model_family_changed",
-          "observation_days_increased",
-          "confidence_jump",
-          "pricing_ratio_jump"
-        ],
-        "previousModelFamily": "edition_reference",
-        "currentModelFamily": "observed_trained",
-        "previousConfidence": 43,
-        "currentConfidence": 60,
-        "previousObservationDays": 0,
-        "currentObservationDays": 1,
-        "previousPricingRatio": 1.3368,
-        "currentPricingRatio": 0.6383,
-        "previousPrice": 1.06,
-        "currentPrice": 0.94
-      },
-      "structuralBreaks": [
-        {
-          "date": "2026-07-19",
-          "previousDate": "2026-07-18",
-          "reasons": [
-            "model_family_changed",
-            "observation_days_increased",
-            "confidence_jump",
-            "pricing_ratio_jump"
-          ],
-          "previousModelFamily": "edition_reference",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 43,
-          "currentConfidence": 60,
-          "previousObservationDays": 0,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 1.3368,
-          "currentPricingRatio": 0.6383,
-          "previousPrice": 1.06,
-          "currentPrice": 0.94
-        }
-      ],
-      "latestPrice": 0.81,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 1.14,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.6383,
-      "radarEligible": true,
-      "convictionScore": 27,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": 56.8,
-        "quality": 62.3,
-        "noise": 56.3,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-09",
-          "endDate": "2026-08-22",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 0.93,
-          "endPrice": 0.81,
-          "cumulativeChangePct": -12.9,
-          "logSlopePerDay": -0.00462544,
-          "slopePctPerDay": -0.4615,
-          "equivalent30dPct": -12.96,
-          "rSquared": 0.2017,
-          "residualNoisePct": 3.779,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 9,
-            "totalTransitions": 13,
-            "changedPct": 69.2,
-            "flatPct": 30.8
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-08-02",
-          "endDate": "2026-08-22",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 1.02,
-          "endPrice": 0.81,
-          "cumulativeChangePct": -20.59,
-          "logSlopePerDay": -0.00965305,
-          "slopePctPerDay": -0.9607,
-          "equivalent30dPct": -25.14,
-          "rSquared": 0.7089,
-          "residualNoisePct": 3.817,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 13,
-            "totalTransitions": 20,
-            "changedPct": 65,
-            "flatPct": 35
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-24",
-          "endDate": "2026-08-22",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 0.95,
-          "endPrice": 0.81,
-          "cumulativeChangePct": -14.74,
-          "logSlopePerDay": -0.00635704,
-          "slopePctPerDay": -0.6337,
-          "equivalent30dPct": -17.36,
-          "rSquared": 0.6231,
-          "residualNoisePct": 4.372,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 19,
-            "totalTransitions": 29,
-            "changedPct": 65.5,
-            "flatPct": 34.5
-          }
-        },
-        "45d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 27,
-          "requiredSpanDays": 35
-        },
-        "60d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 36,
-          "requiredSpanDays": 47
-        },
-        "90d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 54,
-          "requiredSpanDays": 71
-        },
-        "180d": {
-          "available": false,
-          "reason": "Historique insuffisant",
-          "points": 35,
-          "spanDays": 34,
-          "requiredPoints": 108,
-          "requiredSpanDays": 143
-        }
-      }
-    },
-    {
-      "printingKey": "choke|tempest||french",
-      "cardIds": [
-        1595
-      ],
-      "quantity": 1,
-      "nomCarte": "Choke",
-      "edition": "Tempest",
-      "langue": "French",
-      "version": null,
-      "condition": "NM",
-      "historySource": "collection",
-      "owned": true,
-      "firstDate": "2026-07-15",
-      "latestDate": "2026-08-22",
-      "historyPoints": 39,
-      "historyAgeDays": 38,
-      "stableSince": "2026-07-19",
-      "stableHistoryPoints": 35,
-      "stableHistoryAgeDays": 34,
-      "structuralBreakCount": 1,
-      "lastStructuralBreak": {
-        "date": "2026-07-19",
-        "previousDate": "2026-07-18",
-        "reasons": [
-          "model_family_changed",
-          "observation_days_increased",
-          "confidence_jump",
-          "pricing_ratio_jump"
-        ],
-        "previousModelFamily": "edition_reference",
-        "currentModelFamily": "observed_trained",
-        "previousConfidence": 43,
-        "currentConfidence": 60,
-        "previousObservationDays": 0,
-        "currentObservationDays": 1,
-        "previousPricingRatio": 1.3368,
-        "currentPricingRatio": 0.6383,
-        "previousPrice": 1.42,
-        "currentPrice": 1.29
-      },
-      "structuralBreaks": [
-        {
-          "date": "2026-07-19",
-          "previousDate": "2026-07-18",
-          "reasons": [
-            "model_family_changed",
-            "observation_days_increased",
-            "confidence_jump",
-            "pricing_ratio_jump"
-          ],
-          "previousModelFamily": "edition_reference",
-          "currentModelFamily": "observed_trained",
-          "previousConfidence": 43,
-          "currentConfidence": 60,
-          "previousObservationDays": 0,
-          "currentObservationDays": 1,
-          "previousPricingRatio": 1.3368,
-          "currentPricingRatio": 0.6383,
-          "previousPrice": 1.42,
-          "currentPrice": 1.29
-        }
-      ],
-      "latestPrice": 1.1,
-      "latestConfidence": 60,
-      "pricingModel": "standard_observed_condition_ratio",
-      "modelFamily": "observed_trained",
-      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios",
-      "observationDaysCount": 1,
-      "observationRowsCount": 6,
-      "marketAnchorPrice": 1.14,
-      "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.6383,
-      "radarEligible": true,
-      "convictionScore": 27,
-      "signalLevel": "Pas de signal",
-      "signalHorizon": 30,
-      "maturityFactor": 1,
-      "radarComponents": {
-        "trend": 0,
-        "persistence": 0,
-        "acceleration": 55.7,
-        "quality": 64.2,
-        "noise": 53.4,
-        "confidence": 60
-      },
-      "availableHorizons": [
-        14,
-        21,
-        30
-      ],
-      "horizons": {
-        "14d": {
-          "available": true,
-          "horizonDays": 14,
-          "startDate": "2026-08-09",
-          "endDate": "2026-08-22",
-          "points": 14,
-          "spanDays": 13,
-          "startPrice": 1.28,
-          "endPrice": 1.1,
-          "cumulativeChangePct": -14.06,
-          "logSlopePerDay": -0.00544684,
-          "slopePctPerDay": -0.5432,
-          "equivalent30dPct": -15.08,
-          "rSquared": 0.2372,
-          "residualNoisePct": 4.016,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 10,
-            "totalTransitions": 13,
-            "changedPct": 76.9,
-            "flatPct": 23.1
-          }
-        },
-        "21d": {
-          "available": true,
-          "horizonDays": 21,
-          "startDate": "2026-08-02",
-          "endDate": "2026-08-22",
-          "points": 21,
-          "spanDays": 20,
-          "startPrice": 1.42,
-          "endPrice": 1.1,
-          "cumulativeChangePct": -22.54,
-          "logSlopePerDay": -0.01057893,
-          "slopePctPerDay": -1.0523,
-          "equivalent30dPct": -27.19,
-          "rSquared": 0.7237,
-          "residualNoisePct": 4.038,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 14,
-            "totalTransitions": 20,
-            "changedPct": 70,
-            "flatPct": 30
-          }
-        },
-        "30d": {
-          "available": true,
-          "horizonDays": 30,
-          "startDate": "2026-07-24",
-          "endDate": "2026-08-22",
-          "points": 30,
-          "spanDays": 29,
-          "startPrice": 1.31,
-          "endPrice": 1.1,
-          "cumulativeChangePct": -16.03,
-          "logSlopePerDay": -0.00705361,
-          "slopePctPerDay": -0.7029,
-          "equivalent30dPct": -19.07,
-          "rSquared": 0.642,
-          "residualNoisePct": 4.665,
-          "confidence": {
-            "latest": 60,
-            "average": 60,
-            "minimum": 60,
-            "maximum": 60,
-            "change": 0
-          },
-          "modelChangeCount": 0,
-          "priceFrequency": {
-            "changedTransitions": 20,
-            "totalTransitions": 29,
-            "changedPct": 69,
-            "flatPct": 31
           }
         },
         "45d": {
@@ -132427,9 +132003,10 @@
     {
       "printingKey": "helm of possession|tempest||french",
       "cardIds": [
-        1600
+        1600,
+        2047
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Helm of Possession",
       "edition": "Tempest",
       "langue": "French",
@@ -132496,7 +132073,7 @@
       "observationRowsCount": 5,
       "marketAnchorPrice": 3.56,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.6309,
+      "pricingRatio": 0.694,
       "radarEligible": true,
       "convictionScore": 21,
       "signalLevel": "Pas de signal",
@@ -135568,9 +135145,10 @@
     {
       "printingKey": "helm of possession|tempest||french",
       "cardIds": [
-        1600
+        1600,
+        2047
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Helm of Possession",
       "edition": "Tempest",
       "langue": "French",
@@ -135637,7 +135215,7 @@
       "observationRowsCount": 5,
       "marketAnchorPrice": 3.56,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.6309,
+      "pricingRatio": 0.694,
       "radarEligible": true,
       "convictionScore": 20,
       "signalLevel": "Pas de signal",
@@ -149023,7 +148601,7 @@
           "currentPrice": 8.01
         }
       ],
-      "latestPrice": 7.95,
+      "latestPrice": 7.97,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -149032,7 +148610,7 @@
       "observationRowsCount": 5,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.996289,
+      "pricingRatio": 0.99918,
       "radarEligible": true,
       "convictionScore": 15,
       "signalLevel": "Pas de signal",
@@ -149042,8 +148620,8 @@
         "trend": 0,
         "persistence": 0,
         "acceleration": 0,
-        "quality": 3.9,
-        "noise": 91.9,
+        "quality": 3.1,
+        "noise": 92,
         "confidence": 65
       },
       "availableHorizons": [
@@ -149059,13 +148637,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 8.08,
-          "endPrice": 7.95,
-          "cumulativeChangePct": -1.61,
-          "logSlopePerDay": -0.00173354,
-          "slopePctPerDay": -0.1732,
-          "equivalent30dPct": -5.07,
-          "rSquared": 0.7501,
-          "residualNoisePct": 0.404,
+          "endPrice": 7.97,
+          "cumulativeChangePct": -1.36,
+          "logSlopePerDay": -0.00166175,
+          "slopePctPerDay": -0.166,
+          "equivalent30dPct": -4.86,
+          "rSquared": 0.7366,
+          "residualNoisePct": 0.401,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149089,13 +148667,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 7.98,
-          "endPrice": 7.95,
-          "cumulativeChangePct": -0.38,
-          "logSlopePerDay": -0.000268,
-          "slopePctPerDay": -0.0268,
-          "equivalent30dPct": -0.8,
-          "rSquared": 0.0385,
-          "residualNoisePct": 0.814,
+          "endPrice": 7.97,
+          "cumulativeChangePct": -0.13,
+          "logSlopePerDay": -0.00023537,
+          "slopePctPerDay": -0.0235,
+          "equivalent30dPct": -0.7,
+          "rSquared": 0.0309,
+          "residualNoisePct": 0.802,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149212,7 +148790,7 @@
           "currentPrice": 8.54
         }
       ],
-      "latestPrice": 8.47,
+      "latestPrice": 8.49,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -149221,7 +148799,7 @@
       "observationRowsCount": 5,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.996289,
+      "pricingRatio": 0.99918,
       "radarEligible": true,
       "convictionScore": 15,
       "signalLevel": "Pas de signal",
@@ -149231,8 +148809,8 @@
         "trend": 0,
         "persistence": 0,
         "acceleration": 0,
-        "quality": 3.7,
-        "noise": 91.8,
+        "quality": 3,
+        "noise": 92,
         "confidence": 65
       },
       "availableHorizons": [
@@ -149248,13 +148826,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 8.61,
-          "endPrice": 8.47,
-          "cumulativeChangePct": -1.63,
-          "logSlopePerDay": -0.00172736,
-          "slopePctPerDay": -0.1726,
-          "equivalent30dPct": -5.05,
-          "rSquared": 0.7677,
-          "residualNoisePct": 0.384,
+          "endPrice": 8.49,
+          "cumulativeChangePct": -1.39,
+          "logSlopePerDay": -0.00165997,
+          "slopePctPerDay": -0.1659,
+          "equivalent30dPct": -4.86,
+          "rSquared": 0.7555,
+          "residualNoisePct": 0.381,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149278,13 +148856,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 8.5,
-          "endPrice": 8.47,
-          "cumulativeChangePct": -0.35,
-          "logSlopePerDay": -0.00026344,
-          "slopePctPerDay": -0.0263,
-          "equivalent30dPct": -0.79,
-          "rSquared": 0.0372,
-          "residualNoisePct": 0.815,
+          "endPrice": 8.49,
+          "cumulativeChangePct": -0.12,
+          "logSlopePerDay": -0.00023281,
+          "slopePctPerDay": -0.0233,
+          "equivalent30dPct": -0.7,
+          "rSquared": 0.0301,
+          "residualNoisePct": 0.803,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149826,7 +149404,7 @@
           "currentPrice": 301.24
         }
       ],
-      "latestPrice": 298.89,
+      "latestPrice": 299.75,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -149835,7 +149413,7 @@
       "observationRowsCount": 6,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.996289,
+      "pricingRatio": 0.99918,
       "radarEligible": true,
       "convictionScore": 15,
       "signalLevel": "Pas de signal",
@@ -149845,8 +149423,8 @@
         "trend": 0,
         "persistence": 0,
         "acceleration": 0,
-        "quality": 3.9,
-        "noise": 91.9,
+        "quality": 3,
+        "noise": 92.1,
         "confidence": 65
       },
       "availableHorizons": [
@@ -149862,13 +149440,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 303.81,
-          "endPrice": 298.89,
-          "cumulativeChangePct": -1.62,
-          "logSlopePerDay": -0.00172328,
-          "slopePctPerDay": -0.1722,
-          "equivalent30dPct": -5.04,
-          "rSquared": 0.762,
-          "residualNoisePct": 0.389,
+          "endPrice": 299.75,
+          "cumulativeChangePct": -1.34,
+          "logSlopePerDay": -0.00164119,
+          "slopePctPerDay": -0.164,
+          "equivalent30dPct": -4.8,
+          "rSquared": 0.7462,
+          "residualNoisePct": 0.387,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -149892,13 +149470,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 300,
-          "endPrice": 298.89,
-          "cumulativeChangePct": -0.37,
-          "logSlopePerDay": -0.0002656,
-          "slopePctPerDay": -0.0266,
-          "equivalent30dPct": -0.79,
-          "rSquared": 0.0386,
-          "residualNoisePct": 0.806,
+          "endPrice": 299.75,
+          "cumulativeChangePct": -0.08,
+          "logSlopePerDay": -0.00022828,
+          "slopePctPerDay": -0.0228,
+          "equivalent30dPct": -0.68,
+          "rSquared": 0.0298,
+          "residualNoisePct": 0.792,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150013,7 +149591,7 @@
           "currentPrice": 359.6
         }
       ],
-      "latestPrice": 356.79,
+      "latestPrice": 357.83,
       "latestConfidence": 65,
       "pricingModel": "manual_synthetic_evolution",
       "modelFamily": "manual",
@@ -150022,7 +149600,7 @@
       "observationRowsCount": 6,
       "marketAnchorPrice": null,
       "referenceMarketAnchorPrice": null,
-      "pricingRatio": 0.996289,
+      "pricingRatio": 0.99918,
       "radarEligible": true,
       "convictionScore": 15,
       "signalLevel": "Pas de signal",
@@ -150032,8 +149610,8 @@
         "trend": 0,
         "persistence": 0,
         "acceleration": 0,
-        "quality": 3.9,
-        "noise": 91.9,
+        "quality": 3,
+        "noise": 92.1,
         "confidence": 65
       },
       "availableHorizons": [
@@ -150049,13 +149627,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 362.67,
-          "endPrice": 356.79,
-          "cumulativeChangePct": -1.62,
-          "logSlopePerDay": -0.00172431,
-          "slopePctPerDay": -0.1723,
-          "equivalent30dPct": -5.04,
-          "rSquared": 0.762,
-          "residualNoisePct": 0.389,
+          "endPrice": 357.83,
+          "cumulativeChangePct": -1.33,
+          "logSlopePerDay": -0.00164115,
+          "slopePctPerDay": -0.164,
+          "equivalent30dPct": -4.8,
+          "rSquared": 0.746,
+          "residualNoisePct": 0.387,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150079,13 +149657,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 358.12,
-          "endPrice": 356.79,
-          "cumulativeChangePct": -0.37,
-          "logSlopePerDay": -0.00026587,
-          "slopePctPerDay": -0.0266,
-          "equivalent30dPct": -0.79,
-          "rSquared": 0.0387,
-          "residualNoisePct": 0.806,
+          "endPrice": 357.83,
+          "cumulativeChangePct": -0.08,
+          "logSlopePerDay": -0.00022807,
+          "slopePctPerDay": -0.0228,
+          "equivalent30dPct": -0.68,
+          "rSquared": 0.0298,
+          "residualNoisePct": 0.792,
           "confidence": {
             "latest": 65,
             "average": 65,
@@ -150606,9 +150184,10 @@
     {
       "printingKey": "natural balance|mirage||french",
       "cardIds": [
-        1548
+        1548,
+        1993
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Natural Balance",
       "edition": "Mirage",
       "langue": "French",
@@ -152177,7 +151756,7 @@
           "currentPrice": 4.47
         }
       ],
-      "latestPrice": 4.43,
+      "latestPrice": 4.45,
       "latestConfidence": 60,
       "pricingModel": "manual_observed",
       "modelFamily": "manual",
@@ -152196,8 +151775,8 @@
         "trend": 0,
         "persistence": 0,
         "acceleration": 0,
-        "quality": 5,
-        "noise": 91.9,
+        "quality": 3.5,
+        "noise": 92.1,
         "confidence": 60
       },
       "availableHorizons": [
@@ -152213,12 +151792,12 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 4.51,
-          "endPrice": 4.43,
-          "cumulativeChangePct": -1.77,
-          "logSlopePerDay": -0.00181417,
-          "slopePctPerDay": -0.1813,
-          "equivalent30dPct": -5.3,
-          "rSquared": 0.7917,
+          "endPrice": 4.45,
+          "cumulativeChangePct": -1.33,
+          "logSlopePerDay": -0.00168547,
+          "slopePctPerDay": -0.1684,
+          "equivalent30dPct": -4.93,
+          "rSquared": 0.766,
           "residualNoisePct": 0.376,
           "confidence": {
             "latest": 60,
@@ -152243,13 +151822,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 4.45,
-          "endPrice": 4.43,
-          "cumulativeChangePct": -0.45,
-          "logSlopePerDay": -0.00030707,
-          "slopePctPerDay": -0.0307,
-          "equivalent30dPct": -0.92,
-          "rSquared": 0.0503,
-          "residualNoisePct": 0.812,
+          "endPrice": 4.45,
+          "cumulativeChangePct": 0,
+          "logSlopePerDay": -0.00024857,
+          "slopePctPerDay": -0.0249,
+          "equivalent30dPct": -0.74,
+          "rSquared": 0.0353,
+          "residualNoisePct": 0.79,
           "confidence": {
             "latest": 60,
             "average": 60,
@@ -152330,7 +151909,7 @@
       "structuralBreakCount": 0,
       "lastStructuralBreak": null,
       "structuralBreaks": [],
-      "latestPrice": 5.22,
+      "latestPrice": 5.23,
       "latestConfidence": 60,
       "pricingModel": "manual_observed",
       "modelFamily": "manual",
@@ -152349,8 +151928,8 @@
         "trend": 0,
         "persistence": 0,
         "acceleration": 0,
-        "quality": 4,
-        "noise": 92.1,
+        "quality": 3.4,
+        "noise": 92.2,
         "confidence": 60
       },
       "availableHorizons": [
@@ -152367,13 +151946,13 @@
           "points": 14,
           "spanDays": 13,
           "startPrice": 5.3,
-          "endPrice": 5.22,
-          "cumulativeChangePct": -1.51,
-          "logSlopePerDay": -0.00165867,
-          "slopePctPerDay": -0.1657,
-          "equivalent30dPct": -4.85,
-          "rSquared": 0.7209,
-          "residualNoisePct": 0.417,
+          "endPrice": 5.23,
+          "cumulativeChangePct": -1.32,
+          "logSlopePerDay": -0.00160399,
+          "slopePctPerDay": -0.1603,
+          "equivalent30dPct": -4.7,
+          "rSquared": 0.7096,
+          "residualNoisePct": 0.414,
           "confidence": {
             "latest": 60,
             "average": 60,
@@ -152397,13 +151976,13 @@
           "points": 21,
           "spanDays": 20,
           "startPrice": 5.24,
-          "endPrice": 5.22,
-          "cumulativeChangePct": -0.38,
-          "logSlopePerDay": -0.0002658,
-          "slopePctPerDay": -0.0266,
-          "equivalent30dPct": -0.79,
-          "rSquared": 0.0398,
-          "residualNoisePct": 0.793,
+          "endPrice": 5.23,
+          "cumulativeChangePct": -0.19,
+          "logSlopePerDay": -0.00024095,
+          "slopePctPerDay": -0.0241,
+          "equivalent30dPct": -0.72,
+          "rSquared": 0.0337,
+          "residualNoisePct": 0.784,
           "confidence": {
             "latest": 60,
             "average": 60,
@@ -152435,13 +152014,13 @@
           "points": 31,
           "spanDays": 41,
           "startPrice": 5.24,
-          "endPrice": 5.22,
-          "cumulativeChangePct": -0.38,
-          "logSlopePerDay": 0.00020214,
-          "slopePctPerDay": 0.0202,
-          "equivalent30dPct": 0.61,
-          "rSquared": 0.1222,
-          "residualNoisePct": 0.706,
+          "endPrice": 5.23,
+          "cumulativeChangePct": -0.19,
+          "logSlopePerDay": 0.00020868,
+          "slopePctPerDay": 0.0209,
+          "equivalent30dPct": 0.63,
+          "rSquared": 0.1326,
+          "residualNoisePct": 0.695,
           "confidence": {
             "latest": 60,
             "average": 60,
@@ -153773,9 +153352,10 @@
     {
       "printingKey": "natural balance|mirage||french",
       "cardIds": [
-        1548
+        1548,
+        1993
       ],
-      "quantity": 1,
+      "quantity": 2,
       "nomCarte": "Natural Balance",
       "edition": "Mirage",
       "langue": "French",
