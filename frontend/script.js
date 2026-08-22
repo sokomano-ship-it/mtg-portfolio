@@ -2745,280 +2745,278 @@ function renderValueMigrationRoutes(
     analysis
 ) {
 
-    const downContainer =
+    const container =
         document.getElementById(
-            "migration-down-routes"
-        );
-
-
-    const upContainer =
-        document.getElementById(
-            "migration-up-routes"
-        );
-
-
-    const detailContainer =
-        document.getElementById(
-            "migration-card-details"
+            "migration-routes-body"
         );
 
 
     if (
-        !downContainer ||
-        !upContainer ||
-        !detailContainer
+        !container ||
+        !analysis
     ) {
-
         return;
-
     }
 
 
-    if (!analysis) {
-
-        downContainer.innerHTML =
-            "Historique insuffisant";
-
-        upContainer.innerHTML =
-            "Historique insuffisant";
-
-        return;
-
-    }
-
-
-    const grouped =
+    /*
+     * Regroupement :
+     *
+     * tranche de départ
+     *   -> destinations vers le bas
+     *   -> destinations vers le haut
+     */
+    const routesByBucket =
         new Map();
 
 
-    analysis.migrations
-        .forEach(migration => {
+    VALUE_BUCKETS.forEach(
+        bucket => {
 
-            const key =
-                `${migration.fromKey}__${migration.toKey}`;
-
-
-            if (!grouped.has(key)) {
-
-                grouped.set(
-                    key,
-                    {
-                        key,
-
-                        fromKey:
-                            migration.fromKey,
-
-                        toKey:
-                            migration.toKey,
-
-                        fromLabel:
-                            migration.fromLabel,
-
-                        toLabel:
-                            migration.toLabel,
-
-                        direction:
-                            migration.direction,
-
-                        cards: []
-                    }
-                );
-
-            }
-
-
-            grouped
-                .get(key)
-                .cards
-                .push(
-                    migration
-                );
-
-        });
-
-
-    const bucketOrder =
-    new Map(
-        VALUE_BUCKETS.map(
-            (
-                bucket,
-                index
-            ) => [
+            routesByBucket.set(
                 bucket.key,
-                index
-            ]
-        )
+                {
+                    bucket,
+                    down: new Map(),
+                    up: new Map()
+                }
+            );
+
+        }
     );
 
 
-const groups =
-    [...grouped.values()]
-        .sort(
-            (a, b) => {
+    analysis.migrations
+        .forEach(
+            migration => {
 
-                /*
-                 * 1. Tranche de départ
-                 *
-                 * <1 €
-                 * 1–2 €
-                 * 2–5 €
-                 * 5–10 €
-                 * ...
-                 */
-                const fromComparison =
-                    (
-                        bucketOrder.get(
-                            a.fromKey
-                        ) ?? 999
-                    ) -
-                    (
-                        bucketOrder.get(
-                            b.fromKey
-                        ) ?? 999
+                const source =
+                    routesByBucket.get(
+                        migration.fromKey
                     );
 
 
+                if (!source) {
+                    return;
+                }
+
+
+                const targetMap =
+                    migration.direction === "up"
+                        ? source.up
+                        : source.down;
+
+
                 if (
-                    fromComparison !== 0
+                    !targetMap.has(
+                        migration.toKey
+                    )
                 ) {
 
-                    return fromComparison;
+                    targetMap.set(
+                        migration.toKey,
+                        {
+                            fromKey:
+                                migration.fromKey,
+
+                            toKey:
+                                migration.toKey,
+
+                            fromLabel:
+                                migration.fromLabel,
+
+                            toLabel:
+                                migration.toLabel,
+
+                            direction:
+                                migration.direction,
+
+                            cards: []
+                        }
+                    );
 
                 }
 
 
-                /*
-                 * 2. Si plusieurs migrations
-                 * partent de la même tranche,
-                 * classement par tranche
-                 * d'arrivée.
-                 */
-                return (
-                    (
-                        bucketOrder.get(
-                            a.toKey
-                        ) ?? 999
-                    ) -
-                    (
-                        bucketOrder.get(
-                            b.toKey
-                        ) ?? 999
+                targetMap
+                    .get(
+                        migration.toKey
                     )
-                );
+                    .cards
+                    .push(
+                        migration
+                    );
 
             }
         );
 
 
-    const renderGroups =
-        (
-            direction,
-            container
-        ) => {
+    const bucketOrder =
+        new Map(
+            VALUE_BUCKETS.map(
+                (
+                    bucket,
+                    index
+                ) => [
+                    bucket.key,
+                    index
+                ]
+            )
+        );
 
-            const rows =
-                groups.filter(
-                    group =>
-                        group.direction ===
-                        direction
+
+    function renderDirection(
+        routeMap,
+        direction
+    ) {
+
+        const routes =
+            [...routeMap.values()]
+                .sort(
+                    (a, b) =>
+                        (
+                            bucketOrder.get(
+                                a.toKey
+                            ) ?? 999
+                        ) -
+                        (
+                            bucketOrder.get(
+                                b.toKey
+                            ) ?? 999
+                        )
                 );
 
 
-            if (!rows.length) {
+        if (!routes.length) {
 
-                container.innerHTML =
-                    `
-                        <div class="migration-route-empty">
-                            Aucun changement
+            return `
+                <span class="migration-zero">
+                    0
+                </span>
+            `;
+
+        }
+
+
+        return routes
+            .map(route => {
+
+                const count =
+                    route.cards.length;
+
+
+                const key =
+                    `${route.fromKey}__${route.toKey}`;
+
+
+                return `
+
+                    <button
+                        type="button"
+                        class="
+                            migration-route-chip
+                            ${
+                                direction === "up"
+                                    ? "migration-route-chip-up"
+                                    : "migration-route-chip-down"
+                            }
+                        "
+                        data-migration-route="${key}"
+                    >
+
+                        → ${route.toLabel}
+
+                        <strong>
+                            ${count}
+                        </strong>
+
+                    </button>
+
+                `;
+
+            })
+            .join("");
+
+    }
+
+
+    container.innerHTML =
+        VALUE_BUCKETS
+            .map(bucket => {
+
+                const row =
+                    routesByBucket.get(
+                        bucket.key
+                    );
+
+
+                return `
+
+                    <div class="migration-routes-row">
+
+                        <div class="migration-start-bucket">
+                            ${bucket.label}
                         </div>
-                    `;
-
-                return;
-
-            }
 
 
-            container.innerHTML =
-                rows
-                    .map(group => {
-
-                        const count =
-                            group.cards.length;
-
-
-                        return `
-
-                            <div class="migration-route-row">
-
-                                <span
-                                    class="migration-route-name"
-                                >
-                                    ${
-                                        group.fromLabel
-                                    }
-                                    →
-                                    ${
-                                        group.toLabel
-                                    }
-                                </span>
+                        <div class="migration-routes-cell">
+                            ${
+                                renderDirection(
+                                    row.down,
+                                    "down"
+                                )
+                            }
+                        </div>
 
 
-                                <button
-                                    type="button"
-                                    class="
-                                        migration-route-count
-                                        ${
-                                            direction ===
-                                            "up"
-                                                ? "migration-route-count-up"
-                                                : "migration-route-count-down"
-                                        }
-                                    "
-                                    data-migration-route="${
-                                        escapeHtml(
-                                            group.key
-                                        )
-                                    }"
-                                >
+                        <div class="migration-routes-cell">
+                            ${
+                                renderDirection(
+                                    row.up,
+                                    "up"
+                                )
+                            }
+                        </div>
 
-                                    ${count}
-                                    ${
-                                        count > 1
-                                            ? "cartes"
-                                            : "carte"
-                                    }
+                    </div>
 
-                                </button>
+                `;
 
-                            </div>
-
-                        `;
-
-                    })
-                    .join("");
-
-        };
-
-
-    renderGroups(
-        "down",
-        downContainer
-    );
-
-
-    renderGroups(
-        "up",
-        upContainer
-    );
+            })
+            .join("");
 
 
     /*
-     * Une seule zone de détail.
-     *
-     * Donc pas de multiplication
-     * de blocs dans l'interface.
+     * On reconstruit l'index utilisé
+     * pour afficher les cartes au clic.
      */
-    document
+    const routeIndex =
+        new Map();
+
+
+    routesByBucket
+        .forEach(row => {
+
+            [
+                ...row.down.values(),
+                ...row.up.values()
+            ]
+                .forEach(route => {
+
+                    const key =
+                        `${route.fromKey}__${route.toKey}`;
+
+                    routeIndex.set(
+                        key,
+                        route
+                    );
+
+                });
+
+        });
+
+
+    container
         .querySelectorAll(
             "[data-migration-route]"
         )
@@ -3028,25 +3026,20 @@ const groups =
                 "click",
                 () => {
 
-                    const key =
-                        button.dataset
-                            .migrationRoute;
-
-
-                    const group =
-                        grouped.get(
-                            key
+                    const route =
+                        routeIndex.get(
+                            button.dataset
+                                .migrationRoute
                         );
 
 
-                    if (!group) {
-                        return;
+                    if (route) {
+
+                        renderMigrationCardDetails(
+                            route
+                        );
+
                     }
-
-
-                    renderMigrationCardDetails(
-                        group
-                    );
 
                 }
             );

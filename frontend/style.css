@@ -4265,3 +4265,132 @@ strong.score-negative {
     }
 
 }
+
+.migration-routes-table {
+    margin-top: 16px;
+
+    background: #111520;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+.migration-routes-header,
+.migration-routes-row {
+    display: grid;
+
+    grid-template-columns:
+        140px
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 16px;
+
+    min-height: 44px;
+
+    padding:
+        8px
+        14px;
+}
+
+
+.migration-routes-header {
+    background: #171d2a;
+
+    color: #8e96a8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+
+.migration-routes-row {
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+
+.migration-start-bucket {
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.migration-routes-cell {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+}
+
+
+.migration-zero {
+    color: #596275;
+
+    font-size: 12px;
+}
+
+
+.migration-route-chip {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+        5px
+        8px;
+
+    background: transparent;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius: 7px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.migration-route-chip strong {
+    font-size: 11px;
+}
+
+
+.migration-route-chip-down {
+    color: #ff8585;
+}
+
+
+.migration-route-chip-up {
+    color: #5ee38a;
+}
+
+
+.migration-route-chip:hover {
+    background:
+        rgba(255,255,255,.04);
+}
