@@ -1683,28 +1683,64 @@ matrix[
             ].incoming += 1;
 
 
-            migrations.push({
+            const card =
+    allCards.find(
+        currentCard =>
+            String(
+                currentCard.id
+            ) ===
+            String(
+                cardId
+            )
+    );
 
-                cardId,
 
-                startPrice,
-                endPrice,
+migrations.push({
 
-                fromKey:
-                    startBucket.key,
+    cardId,
 
-                fromLabel:
-                    startBucket.label,
+    cardName:
+        card?.nomCarte ||
+        `Carte ${cardId}`,
 
-                toKey:
-                    endBucket.key,
+    edition:
+        card?.edition ||
+        "",
 
-                toLabel:
-                    endBucket.label,
+    langue:
+        card?.langue ||
+        "",
 
-                direction
+    etat:
+        card?.etat ||
+        "",
 
-            });
+    categorie:
+        card?.categorie ||
+        "",
+
+    imageUrl:
+        card?.imageUrl ||
+        "",
+
+    startPrice,
+    endPrice,
+
+    fromKey:
+        startBucket.key,
+
+    fromLabel:
+        startBucket.label,
+
+    toKey:
+        endBucket.key,
+
+    toLabel:
+        endBucket.label,
+
+    direction
+
+});
 
         }
     );
@@ -1831,6 +1867,20 @@ function buildValueMigrationSeries(
     }
 
 
+    const bucketIndex =
+        new Map(
+            VALUE_BUCKETS.map(
+                (
+                    bucket,
+                    index
+                ) => [
+                    bucket.key,
+                    index
+                ]
+            )
+        );
+
+
     return snapshots
         .filter(snapshot =>
             snapshot.date >=
@@ -1838,25 +1888,9 @@ function buildValueMigrationSeries(
         )
         .map(snapshot => {
 
-            /*
-             * Flux net de chaque vraie tranche.
-             *
-             * Une migration :
-             *
-             * tranche de départ = -1
-             * tranche d'arrivée = +1
-             *
-             * Donc la somme doit toujours faire 0.
-             */
-            const flows =
-                Object.fromEntries(
-                    VALUE_BUCKETS.map(
-                        bucket => [
-                            bucket.key,
-                            0
-                        ]
-                    )
-                );
+            let up = 0;
+            let down = 0;
+            let comparable = 0;
 
 
             startSnapshot
@@ -1868,11 +1902,11 @@ function buildValueMigrationSeries(
                     ) => {
 
                         /*
-                         * Carte non comparable :
-                         * ignorée.
+                         * Carte absente à cette date :
+                         * non comparable.
                          *
-                         * Une nouvelle carte ne peut
-                         * donc jamais créer de flux.
+                         * Les nouvelles acquisitions
+                         * ne peuvent pas arriver ici.
                          */
                         if (
                             !snapshot
@@ -1917,65 +1951,42 @@ function buildValueMigrationSeries(
                         }
 
 
-                        /*
-                         * Pas de changement de tranche :
-                         * aucun flux.
-                         */
+                        comparable += 1;
+
+
+                        const startIndex =
+                            bucketIndex.get(
+                                startBucket.key
+                            );
+
+
+                        const currentIndex =
+                            bucketIndex.get(
+                                currentBucket.key
+                            );
+
+
                         if (
-                            startBucket.key ===
-                            currentBucket.key
+                            currentIndex >
+                            startIndex
                         ) {
 
-                            return;
+                            up += 1;
 
                         }
 
 
-                        /*
-                         * Sortie de la tranche initiale.
-                         */
-                        flows[
-                            startBucket.key
-                        ] -= 1;
+                        if (
+                            currentIndex <
+                            startIndex
+                        ) {
 
+                            down += 1;
 
-                        /*
-                         * Entrée dans la nouvelle tranche.
-                         */
-                        flows[
-                            currentBucket.key
-                        ] += 1;
+                        }
 
                     }
                 );
-
-
-            /*
-             * Contrôle de cohérence.
-             *
-             * Doit TOUJOURS être 0.
-             */
-            const balance =
-                Object.values(
-                    flows
-                )
-                    .reduce(
-                        (sum, value) =>
-                            sum + value,
-                        0
-                    );
-
-
-            if (balance !== 0) {
-
-                console.warn(
-                    "Value migration balance != 0",
-                    snapshot.date,
-                    flows,
-                    balance
-                );
-
-            }
 
 
             return {
@@ -1983,9 +1994,12 @@ function buildValueMigrationSeries(
                 date:
                     snapshot.date,
 
-                flows,
+                up,
+                down,
+                comparable,
 
-                balance
+                momentum:
+                    up - down
 
             };
 
@@ -2208,7 +2222,7 @@ renderValueMigrationInsights(
 );
 
 
-renderValueMigrationMatrix(
+renderValueMigrationRoutes(
     migrationAnalysis
 );
 
@@ -2381,42 +2395,6 @@ function renderValueMigrationChart(
     }
 
 
-    /*
-     * On n'affiche que les tranches ayant
-     * eu au moins un mouvement pendant
-     * la période.
-     *
-     * Les tranches totalement stables
-     * sont donc masquées automatiquement.
-     */
-    const activeBuckets =
-        VALUE_BUCKETS.filter(
-            bucket =>
-                series.some(
-                    row =>
-                        Number(
-                            row.flows[
-                                bucket.key
-                            ] || 0
-                        ) !== 0
-                )
-        );
-
-
-    const colors = [
-        "#60a5fa",
-        "#a78bfa",
-        "#5ee38a",
-        "#f0d27a",
-        "#f97373",
-        "#22d3ee",
-        "#f472b6",
-        "#fb923c",
-        "#34d399",
-        "#c084fc"
-    ];
-
-
     valueBucketChart =
         new Chart(
             canvas,
@@ -2432,53 +2410,78 @@ function renderValueMigrationChart(
                                 row.date
                         ),
 
-                    datasets:
-                        activeBuckets.map(
-                            (
-                                bucket,
-                                index
-                            ) => ({
+                    datasets: [
 
-                                label:
-                                    bucket.label,
+                        {
 
-                                data:
-                                    series.map(
-                                        row =>
-                                            row.flows[
-                                                bucket.key
-                                            ] || 0
-                                    ),
+                            label:
+                                "Montées de tranche",
 
-                                borderColor:
-                                    colors[
-                                        index %
-                                        colors.length
-                                    ],
+                            data:
+                                series.map(
+                                    row =>
+                                        row.up
+                                ),
 
-                                backgroundColor:
-                                    colors[
-                                        index %
-                                        colors.length
-                                    ],
+                            borderColor:
+                                "#5ee38a",
 
-                                borderWidth:
-                                    2,
+                            backgroundColor:
+                                "#5ee38a",
 
-                                pointRadius:
-                                    0,
+                            borderWidth:
+                                2.5,
 
-                                pointHoverRadius:
-                                    4,
+                            pointRadius:
+                                0,
 
-                                tension:
-                                    0.2,
+                            pointHoverRadius:
+                                4,
 
-                                fill:
-                                    false
+                            tension:
+                                0.2,
 
-                            })
-                        )
+                            fill:
+                                false
+
+                        },
+
+
+                        {
+
+                            label:
+                                "Baisses de tranche",
+
+                            data:
+                                series.map(
+                                    row =>
+                                        row.down
+                                ),
+
+                            borderColor:
+                                "#ff6b6b",
+
+                            backgroundColor:
+                                "#ff6b6b",
+
+                            borderWidth:
+                                2.5,
+
+                            pointRadius:
+                                0,
+
+                            pointHoverRadius:
+                                4,
+
+                            tension:
+                                0.2,
+
+                            fill:
+                                false
+
+                        }
+
+                    ]
 
                 },
 
@@ -2496,6 +2499,7 @@ function renderValueMigrationChart(
                         intersect: false
                     },
 
+
                     plugins: {
 
                         tooltip: {
@@ -2506,23 +2510,33 @@ function renderValueMigrationChart(
                                     contexts
                                 ) {
 
-                                    const total =
-                                        contexts.reduce(
-                                            (
-                                                sum,
-                                                context
-                                            ) =>
-                                                sum +
-                                                Number(
-                                                    context.raw ||
-                                                    0
-                                                ),
-                                            0
-                                        );
+                                    if (
+                                        !contexts.length
+                                    ) {
+
+                                        return "";
+
+                                    }
+
+
+                                    const index =
+                                        contexts[0]
+                                            .dataIndex;
+
+
+                                    const row =
+                                        series[index];
+
+
+                                    const sign =
+                                        row.momentum > 0
+                                            ? "+"
+                                            : "";
 
 
                                     return (
-                                        `Somme des flux : ${total}`
+                                        `Solde : ${sign}` +
+                                        `${row.momentum}`
                                     );
 
                                 }
@@ -2531,9 +2545,11 @@ function renderValueMigrationChart(
 
                         },
 
+
                         legend: {
 
                             labels: {
+
                                 color:
                                     "#c8d0df",
 
@@ -2542,6 +2558,7 @@ function renderValueMigrationChart(
 
                                 usePointStyle:
                                     true
+
                             }
 
                         }
@@ -2570,6 +2587,9 @@ function renderValueMigrationChart(
 
                         y: {
 
+                            beginAtZero:
+                                true,
+
                             ticks: {
                                 color:
                                     "#8e96a8",
@@ -2578,13 +2598,8 @@ function renderValueMigrationChart(
                             },
 
                             grid: {
-
                                 color:
-                                    context =>
-                                        context.tick.value === 0
-                                            ? "rgba(255,255,255,.30)"
-                                            : "rgba(255,255,255,.06)"
-
+                                    "rgba(255,255,255,.06)"
                             },
 
                             title: {
@@ -2592,7 +2607,7 @@ function renderValueMigrationChart(
                                     true,
 
                                 text:
-                                    "Flux net cumulé",
+                                    "Nombre de cartes",
 
                                 color:
                                     "#8e96a8"
@@ -2638,90 +2653,13 @@ function renderValueMigrationInsights(
     }
 
 
-    const migrationCount =
-        analysis.upwardMoves +
-        analysis.downwardMoves;
-
-
-    const upwardRate =
-        migrationCount > 0
-            ? (
-                analysis.upwardMoves /
-                migrationCount *
-                100
-            )
-            : 0;
-
-
-    const routeCounts =
-        new Map();
-
-
-    analysis.migrations
-        .forEach(migration => {
-
-            const key =
-                `${migration.fromLabel} → ${migration.toLabel}`;
-
-
-            if (!routeCounts.has(key)) {
-
-                routeCounts.set(
-                    key,
-                    {
-                        label: key,
-                        direction:
-                            migration.direction,
-                        count: 0
-                    }
-                );
-
-            }
-
-
-            routeCounts
-                .get(key)
-                .count += 1;
-
-        });
-
-
-    const routes =
-        [...routeCounts.values()];
-
-
-    const bestUpRoute =
-        routes
-            .filter(route =>
-                route.direction ===
-                "up"
-            )
-            .sort(
-                (a, b) =>
-                    b.count -
-                    a.count
-            )[0];
-
-
-    const bestDownRoute =
-        routes
-            .filter(route =>
-                route.direction ===
-                "down"
-            )
-            .sort(
-                (a, b) =>
-                    b.count -
-                    a.count
-            )[0];
-
-
     const usefulThresholds =
         analysis
             .thresholdCrossings
             .filter(row =>
                 [
                     1,
+                    2,
                     5,
                     10,
                     20,
@@ -2754,165 +2692,48 @@ function renderValueMigrationInsights(
         </div>
 
 
-        <div class="value-insight-row">
-
-            <span>
-                Cartes comparables
-            </span>
-
-            <strong>
-                ${analysis.comparableCards}
-            </strong>
-
-        </div>
-
-
-        <div class="value-insight-row">
-
-            <span>
-                Montées de tranche
-            </span>
-
-            <strong class="score-positive">
-                ${analysis.upwardMoves}
-            </strong>
-
-        </div>
-
-
-        <div class="value-insight-row">
-
-            <span>
-                Baisses de tranche
-            </span>
-
-            <strong class="score-negative">
-                ${analysis.downwardMoves}
-            </strong>
-
-        </div>
-
-
-        <div class="value-insight-row">
-
-            <span>
-                Solde des migrations
-            </span>
-
-            <strong class="${
-                analysis.momentum >= 0
-                    ? "score-positive"
-                    : "score-negative"
-            }">
-
-                ${
-                    analysis.momentum > 0
-                        ? "+"
-                        : ""
-                }${analysis.momentum}
-
-            </strong>
-
-        </div>
-
-
-        <div class="value-insight-row">
-
-            <span>
-                Part des migrations haussières
-            </span>
-
-            <strong>
-                ${
-                    formatSimplePercent(
-                        upwardRate
-                    )
-                }
-            </strong>
-
-        </div>
-
-
-        ${
-            bestUpRoute
-                ? `
-                    <div class="value-insight-row">
-
-                        <span>
-                            Migration haussière
-                            la plus fréquente
-                        </span>
-
-                        <strong class="score-positive">
-                            ${bestUpRoute.label}
-                            · ${bestUpRoute.count}
-                        </strong>
-
-                    </div>
-                `
-                : ""
-        }
-
-
-        ${
-            bestDownRoute
-                ? `
-                    <div class="value-insight-row">
-
-                        <span>
-                            Migration baissière
-                            la plus fréquente
-                        </span>
-
-                        <strong class="score-negative">
-                            ${bestDownRoute.label}
-                            · ${bestDownRoute.count}
-                        </strong>
-
-                    </div>
-                `
-                : ""
-        }
-
-
-        <div class="migration-threshold-title">
-            Franchissements de seuil
-        </div>
-
-
         ${
             usefulThresholds
-                .map(row => `
+                .map(row => {
 
-                    <div class="value-insight-row">
+                    const cssClass =
+                        row.net > 0
+                            ? "score-positive"
+                            : row.net < 0
+                                ? "score-negative"
+                                : "";
 
-                        <span>
-                            Seuil ${row.threshold} €
-                        </span>
 
-                        <strong class="${
-                            row.net > 0
-                                ? "score-positive"
-                                : row.net < 0
-                                    ? "score-negative"
-                                    : ""
-                        }">
+                    const sign =
+                        row.net > 0
+                            ? "+"
+                            : "";
 
-                            ${
-                                row.net > 0
-                                    ? "+"
-                                    : ""
-                            }${row.net}
 
-                            <small>
-                                (${row.up} ↑ / ${row.down} ↓)
-                            </small>
+                    return `
 
-                        </strong>
+                        <div class="value-insight-row">
 
-                    </div>
+                            <span>
+                                Seuil ${row.threshold} €
+                            </span>
 
-                `)
+                            <strong class="${cssClass}">
+
+                                ${sign}${row.net}
+
+                                <small>
+                                    ${row.up} ↑ /
+                                    ${row.down} ↓
+                                </small>
+
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                })
                 .join("")
         }
 
@@ -2920,19 +2741,263 @@ function renderValueMigrationInsights(
 
 }
 
-function renderValueMigrationMatrix(
+function renderValueMigrationRoutes(
     analysis
+) {
+
+    const downContainer =
+        document.getElementById(
+            "migration-down-routes"
+        );
+
+
+    const upContainer =
+        document.getElementById(
+            "migration-up-routes"
+        );
+
+
+    const detailContainer =
+        document.getElementById(
+            "migration-card-details"
+        );
+
+
+    if (
+        !downContainer ||
+        !upContainer ||
+        !detailContainer
+    ) {
+
+        return;
+
+    }
+
+
+    if (!analysis) {
+
+        downContainer.innerHTML =
+            "Historique insuffisant";
+
+        upContainer.innerHTML =
+            "Historique insuffisant";
+
+        return;
+
+    }
+
+
+    const grouped =
+        new Map();
+
+
+    analysis.migrations
+        .forEach(migration => {
+
+            const key =
+                `${migration.fromKey}__${migration.toKey}`;
+
+
+            if (!grouped.has(key)) {
+
+                grouped.set(
+                    key,
+                    {
+                        key,
+
+                        fromKey:
+                            migration.fromKey,
+
+                        toKey:
+                            migration.toKey,
+
+                        fromLabel:
+                            migration.fromLabel,
+
+                        toLabel:
+                            migration.toLabel,
+
+                        direction:
+                            migration.direction,
+
+                        cards: []
+                    }
+                );
+
+            }
+
+
+            grouped
+                .get(key)
+                .cards
+                .push(
+                    migration
+                );
+
+        });
+
+
+    const groups =
+        [...grouped.values()]
+            .sort(
+                (a, b) =>
+                    b.cards.length -
+                    a.cards.length
+            );
+
+
+    const renderGroups =
+        (
+            direction,
+            container
+        ) => {
+
+            const rows =
+                groups.filter(
+                    group =>
+                        group.direction ===
+                        direction
+                );
+
+
+            if (!rows.length) {
+
+                container.innerHTML =
+                    `
+                        <div class="migration-route-empty">
+                            Aucun changement
+                        </div>
+                    `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                rows
+                    .map(group => {
+
+                        const count =
+                            group.cards.length;
+
+
+                        return `
+
+                            <div class="migration-route-row">
+
+                                <span
+                                    class="migration-route-name"
+                                >
+                                    ${
+                                        group.fromLabel
+                                    }
+                                    →
+                                    ${
+                                        group.toLabel
+                                    }
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    class="
+                                        migration-route-count
+                                        ${
+                                            direction ===
+                                            "up"
+                                                ? "migration-route-count-up"
+                                                : "migration-route-count-down"
+                                        }
+                                    "
+                                    data-migration-route="${
+                                        escapeHtml(
+                                            group.key
+                                        )
+                                    }"
+                                >
+
+                                    ${count}
+                                    ${
+                                        count > 1
+                                            ? "cartes"
+                                            : "carte"
+                                    }
+
+                                </button>
+
+                            </div>
+
+                        `;
+
+                    })
+                    .join("");
+
+        };
+
+
+    renderGroups(
+        "down",
+        downContainer
+    );
+
+
+    renderGroups(
+        "up",
+        upContainer
+    );
+
+
+    /*
+     * Une seule zone de détail.
+     *
+     * Donc pas de multiplication
+     * de blocs dans l'interface.
+     */
+    document
+        .querySelectorAll(
+            "[data-migration-route]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const key =
+                        button.dataset
+                            .migrationRoute;
+
+
+                    const group =
+                        grouped.get(
+                            key
+                        );
+
+
+                    if (!group) {
+                        return;
+                    }
+
+
+                    renderMigrationCardDetails(
+                        group
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+function renderMigrationCardDetails(
+    group
 ) {
 
     const container =
         document.getElementById(
-            "value-migration-matrix"
-        );
-
-
-    const subtitle =
-        document.getElementById(
-            "value-migration-matrix-subtitle"
+            "migration-card-details"
         );
 
 
@@ -2941,59 +3006,100 @@ function renderValueMigrationMatrix(
     }
 
 
-    if (!analysis) {
+    const cards =
+        [...group.cards]
+            .sort(
+                (a, b) => {
 
-        container.innerHTML =
-            "Historique insuffisant";
+                    const changeA =
+                        Math.abs(
+                            (
+                                a.endPrice -
+                                a.startPrice
+                            ) /
+                            a.startPrice
+                        );
 
-        return;
 
-    }
+                    const changeB =
+                        Math.abs(
+                            (
+                                b.endPrice -
+                                b.startPrice
+                            ) /
+                            b.startPrice
+                        );
 
 
-    if (subtitle) {
+                    return (
+                        changeB -
+                        changeA
+                    );
 
-        subtitle.textContent =
-            `${
-                formatShortPortfolioDate(
-                    analysis.start.date
-                )
-            } → ${
-                formatShortPortfolioDate(
-                    analysis.end.date
-                )
-            } · nouvelles cartes exclues`;
+                }
+            );
 
-    }
+
+    container.hidden =
+        false;
 
 
     container.innerHTML = `
 
-        <div class="migration-matrix-scroll">
+        <div class="migration-detail-heading">
 
-            <table class="migration-matrix-table">
+            <div>
+
+                <strong>
+                    ${
+                        group.direction ===
+                        "up"
+                            ? "↑"
+                            : "↓"
+                    }
+
+                    ${group.fromLabel}
+                    →
+                    ${group.toLabel}
+                </strong>
+
+                <span>
+                    ${cards.length}
+                    ${
+                        cards.length > 1
+                            ? "cartes"
+                            : "carte"
+                    }
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="migration-detail-close"
+                class="migration-detail-close"
+                aria-label="Fermer"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="migration-detail-table-wrapper">
+
+            <table class="migration-detail-table">
 
                 <thead>
 
                     <tr>
-
-                        <th>
-                            Départ ↓ / Arrivée →
-                        </th>
-
-                        ${
-                            VALUE_BUCKETS
-                                .map(
-                                    bucket =>
-                                        `
-                                            <th>
-                                                ${bucket.label}
-                                            </th>
-                                        `
-                                )
-                                .join("")
-                        }
-
+                        <th>Carte</th>
+                        <th>Édition</th>
+                        <th>Catégorie</th>
+                        <th>Avant</th>
+                        <th>Maintenant</th>
+                        <th>Variation</th>
                     </tr>
 
                 </thead>
@@ -3002,74 +3108,108 @@ function renderValueMigrationMatrix(
                 <tbody>
 
                     ${
-                        VALUE_BUCKETS
-                            .map(
-                                (
-                                    fromBucket,
-                                    fromIndex
-                                ) => `
+                        cards
+                            .map(card => {
+
+                                const changePct =
+                                    card.startPrice > 0
+                                        ? (
+                                            (
+                                                card.endPrice -
+                                                card.startPrice
+                                            ) /
+                                            card.startPrice
+                                        ) * 100
+                                        : null;
+
+
+                                const changeClass =
+                                    Number(changePct) >= 0
+                                        ? "score-positive"
+                                        : "score-negative";
+
+
+                                return `
 
                                     <tr>
 
-                                        <th>
-                                            ${fromBucket.label}
-                                        </th>
+                                        <td>
 
-                                        ${
-                                            VALUE_BUCKETS
-                                                .map(
-                                                    (
-                                                        toBucket,
-                                                        toIndex
-                                                    ) => {
+                                            <strong>
+                                                ${
+                                                    escapeHtml(
+                                                        card.cardName
+                                                    )
+                                                }
+                                            </strong>
 
-                                                        const count =
-                                                            analysis
-                                                                .matrix[
-                                                                    fromIndex
-                                                                ][
-                                                                    toIndex
-                                                                ];
+                                            <small>
+                                                ${
+                                                    escapeHtml(
+                                                        [
+                                                            card.langue,
+                                                            card.etat
+                                                        ]
+                                                            .filter(Boolean)
+                                                            .join(" · ")
+                                                    )
+                                                }
+                                            </small>
 
-
-                                                        const cssClass =
-                                                            toIndex >
-                                                                fromIndex
-
-                                                                ? "migration-up-cell"
-
-                                                                : toIndex <
-                                                                    fromIndex
-
-                                                                    ? "migration-down-cell"
-
-                                                                    : "migration-stable-cell";
+                                        </td>
 
 
-                                                        return `
-
-                                                            <td
-                                                                class="${cssClass}"
-                                                            >
-
-                                                                ${
-                                                                    count ||
-                                                                    "·"
-                                                                }
-
-                                                            </td>
-
-                                                        `;
-
-                                                    }
+                                        <td>
+                                            ${
+                                                escapeHtml(
+                                                    card.edition
                                                 )
-                                                .join("")
-                                        }
+                                            }
+                                        </td>
+
+
+                                        <td>
+                                            ${
+                                                escapeHtml(
+                                                    card.categorie
+                                                )
+                                            }
+                                        </td>
+
+
+                                        <td>
+                                            ${
+                                                formatEuro(
+                                                    card.startPrice
+                                                )
+                                            }
+                                        </td>
+
+
+                                        <td>
+                                            ${
+                                                formatEuro(
+                                                    card.endPrice
+                                                )
+                                            }
+                                        </td>
+
+
+                                        <td class="${changeClass}">
+                                            ${
+                                                changePct === null
+                                                    ? "-"
+                                                    : formatPercent(
+                                                        changePct
+                                                    )
+                                            }
+                                        </td>
 
                                     </tr>
 
-                                `
-                            )
+                                `;
+
+                            })
                             .join("")
                     }
 
@@ -3081,7 +3221,27 @@ function renderValueMigrationMatrix(
 
     `;
 
+
+    document
+        .getElementById(
+            "migration-detail-close"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                container.hidden =
+                    true;
+
+                container.innerHTML =
+                    "";
+
+            }
+        );
+
 }
+
+
 
 async function loadPortfolioSummary() {
     const change = document.getElementById("portfolio-change");

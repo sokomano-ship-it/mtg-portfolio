@@ -399,12 +399,14 @@
         <div class="value-history-panel">
 
             <div class="value-panel-title">
-    Flux net cumulé par tranche
+    Évolution des migrations
 </div>
 
+
+
 <div class="value-panel-subtitle">
-    Entrées − sorties par changement de tranche uniquement ·
-    somme des flux = 0
+    Nombre de cartes situées dans une tranche supérieure
+    ou inférieure par rapport au début de la période
 </div>
 
             <div class="value-bucket-chart-wrapper">
@@ -417,7 +419,7 @@
         <div class="value-insights-panel">
 
             <div class="value-panel-title">
-    🔄 Tendances de migration
+    🎯 Franchissements de seuil
 </div>
 
             <div
@@ -430,26 +432,43 @@
 
     </div>
 
-    <div class="value-migration-matrix-panel">
+    <div class="migration-routes">
 
-    <div class="value-panel-title">
-        Matrice des migrations
+    <div class="migration-route-panel">
+
+        <div class="migration-route-heading migration-route-down">
+            ↓ Cartes ayant baissé de tranche
+        </div>
+
+        <div
+            id="migration-down-routes"
+            class="migration-route-list"
+        ></div>
+
     </div>
 
-    <div
-        id="value-migration-matrix-subtitle"
-        class="value-panel-subtitle"
-    >
-        Tranche de départ → tranche actuelle
-    </div>
 
-    <div
-        id="value-migration-matrix"
-        class="value-migration-matrix"
-    >
+    <div class="migration-route-panel">
+
+        <div class="migration-route-heading migration-route-up">
+            ↑ Cartes ayant monté de tranche
+        </div>
+
+        <div
+            id="migration-up-routes"
+            class="migration-route-list"
+        ></div>
+
     </div>
 
 </div>
+
+
+<div
+    id="migration-card-details"
+    class="migration-card-details"
+    hidden
+></div>
 
 </section>
 
