@@ -52,13 +52,56 @@ function all(sql, params = []) {
 }
 
 function readPricingSimulation() {
-    if (!fs.existsSync(pricingSimulationFile)) return new Map();
+    if (!fs.existsSync(pricingSimulationFile)) {
+        return {
+            byId: new Map(),
+            byPrinting: new Map()
+        };
+    }
 
-    const rows = JSON.parse(fs.readFileSync(pricingSimulationFile, "utf8"));
+    const rows =
+        JSON.parse(
+            fs.readFileSync(
+                pricingSimulationFile,
+                "utf8"
+            )
+        );
 
-    return new Map(
-        rows.map(row => [Number(row.id), row])
-    );
+
+    const byId =
+        new Map();
+
+    const byPrinting =
+        new Map();
+
+
+    rows.forEach(row => {
+
+        if (
+            row.sourceType !== "tracked" &&
+            Number.isFinite(
+                Number(row.id)
+            )
+        ) {
+            byId.set(
+                Number(row.id),
+                row
+            );
+        }
+
+
+        byPrinting.set(
+            observationCardKey(row),
+            row
+        );
+
+    });
+
+
+    return {
+        byId,
+        byPrinting
+    };
 }
 
 function readEstimatedPriceHistory() {
@@ -229,7 +272,11 @@ function buildObservedPricesByCard(observations) {
     return grouped;
 }
 
-function buildWatchlistCards(collectionCards, trackedCards) {
+function buildWatchlistCards(
+    collectionCards,
+    trackedCards,
+    pricingMap
+) {
     const ownedKeys = new Set(collectionCards.map(watchlistKey));
 
     function findReferenceCard(card) {
@@ -249,33 +296,92 @@ function buildWatchlistCards(collectionCards, trackedCards) {
         .map(card => {
             const referenceCard = findReferenceCard(card);
 
-            return {
-                ...card,
+            const simulation =
+    pricingMap.byPrinting.get(
+        observationCardKey(card)
+    );
 
-                id: card.id || `tracked-${card.cardmarketId || watchlistKey(card)}`,
+            const virtualCard = {
+    ...card,
 
-                etat: card.etat || "NM",
-                categorie: card.categorie || "Watchlist",
+    id:
+        card.id ||
+        `tracked-${
+            card.cardmarketId ||
+            watchlistKey(card)
+        }`,
 
-                quantityOwned: 0,
-                owned: false,
-                ownedLabel: "Non",
-                ownedStates: "-",
+    etat:
+        card.etat || "NM",
 
-                trendPrice: Number(card.trendPrice || referenceCard?.trendPrice || 0),
-                avg1: Number(card.avg1 || referenceCard?.avg1 || 0),
-                avg7: Number(card.avg7 || referenceCard?.avg7 || 0),
-                avg30: Number(card.avg30 || referenceCard?.avg30 || 0),
-                lowPrice: Number(card.lowPrice || referenceCard?.lowPrice || 0),
-                avgPrice: Number(card.avgPrice || referenceCard?.avgPrice || 0),
+    categorie:
+        card.categorie ||
+        "Watchlist",
 
-                estimatedPrice: Number(card.estimatedPrice || referenceCard?.trendPrice || 0),
-                pricingConfidence: referenceCard ? 25 : 0,
-                referenceCardFound: Boolean(referenceCard),
-                referenceSource: referenceCard
-                    ? `${referenceCard.nomCarte} | ${referenceCard.edition} | ${referenceCard.langue}`
-                    : null
-            };
+    quantityOwned: 0,
+
+    owned: false,
+
+    ownedLabel: "Non",
+
+    ownedStates: "-",
+
+    trendPrice:
+        Number(
+            card.trendPrice ||
+            referenceCard?.trendPrice ||
+            0
+        ),
+
+    avg1:
+        Number(
+            card.avg1 ||
+            referenceCard?.avg1 ||
+            0
+        ),
+
+    avg7:
+        Number(
+            card.avg7 ||
+            referenceCard?.avg7 ||
+            0
+        ),
+
+    avg30:
+        Number(
+            card.avg30 ||
+            referenceCard?.avg30 ||
+            0
+        ),
+
+    lowPrice:
+        Number(
+            card.lowPrice ||
+            referenceCard?.lowPrice ||
+            0
+        ),
+
+    avgPrice:
+        Number(
+            card.avgPrice ||
+            referenceCard?.avgPrice ||
+            0
+        ),
+
+    referenceCardFound:
+        Boolean(referenceCard),
+
+    referenceSource:
+        referenceCard
+            ? `${referenceCard.nomCarte} | ${referenceCard.edition} | ${referenceCard.langue}`
+            : null
+};
+
+
+return mergePricingSimulation(
+    virtualCard,
+    simulation
+);
         });
 
     return [
@@ -514,85 +620,192 @@ function addPrixEtat(card) {
     };
 }
 
-function addPricingSimulation(card, pricingMap) {
-    const simulation = pricingMap.get(Number(card.id));
-    const ownedCondition = String(card.etat || "").toUpperCase();
+function mergePricingSimulation(
+    card,
+    simulation
+) {
 
-    const estimatedPriceForOwnedCondition =
-        simulation?.estimatedByCondition?.[ownedCondition] ??
-        simulation?.estimatedPrice ??
+    const condition =
+        String(
+            card.etat || "NM"
+        ).toUpperCase();
+
+
+    const estimatedPriceForCondition =
+        simulation
+            ?.estimatedByCondition
+            ?.[condition] ??
+        simulation
+            ?.estimatedPrice ??
         null;
+
 
     return {
         ...card,
 
-        estimatedPrice: estimatedPriceForOwnedCondition,
-        baseEstimatedPrice: simulation?.estimatedPrice ?? null,
+        estimatedPrice:
+            estimatedPriceForCondition,
 
-        estimatedByCondition: simulation?.estimatedByCondition || null,
-        buyTargetByCondition: simulation?.buyTargetByCondition || null,
-        ratioByCondition: simulation?.ratioByCondition || null,
+        baseEstimatedPrice:
+            simulation
+                ?.baseEstimatedPrice ??
+            simulation
+                ?.estimatedPrice ??
+            null,
 
-        gradeModelConfidence: simulation?.gradeModelConfidence ?? null,
-        gradeModelSource: simulation?.gradeModelSource || null,
+        estimatedByCondition:
+            simulation
+                ?.estimatedByCondition ||
+            null,
+
+        buyTargetByCondition:
+            simulation
+                ?.buyTargetByCondition ||
+            null,
+
+        ratioByCondition:
+            simulation
+                ?.ratioByCondition ||
+            null,
+
+        gradeModelConfidence:
+            simulation
+                ?.gradeModelConfidence ??
+            null,
+
+        gradeModelSource:
+            simulation
+                ?.gradeModelSource ||
+            null,
 
         lastObservedMinByCondition:
-    simulation?.lastObservedMinByCondition || null,
-
-observedMinByCondition:
-    simulation?.observedMinByCondition || null,
-
-reliableObservedByCondition:
-    simulation?.reliableObservedByCondition || null,
-
-observationReliabilityByCondition:
-    simulation?.observationReliabilityByCondition || null,
-
-averageObservationReliability:
-    simulation?.averageObservationReliability ?? null,
-
-bayesianWeights:
-    simulation?.bayesianWeights || null,
-
-observationDaysCount:
-    simulation?.observationDaysCount || 0,
-
-observationRowsCount:
-    simulation?.observationRowsCount || 0,
-
-        pricingModel: simulation?.pricingModel ?? null,
-        pricingConfidence:
-            simulation?.gradeModelConfidence ??
-            simulation?.confidence ??
+            simulation
+                ?.lastObservedMinByCondition ||
             null,
-        pricingRatio: simulation?.ratioUsed ?? null,
-        pricingObservationCount: simulation?.observationCount ?? 0,
-        marketAnchorPrice: simulation?.marketAnchorPrice ?? null,
-        referenceMarketAnchorPrice: simulation?.referenceMarketAnchorPrice ?? null,
+
+        observedMinByCondition:
+            simulation
+                ?.observedMinByCondition ||
+            null,
+
+        reliableObservedByCondition:
+            simulation
+                ?.reliableObservedByCondition ||
+            null,
+
+        observationReliabilityByCondition:
+            simulation
+                ?.observationReliabilityByCondition ||
+            null,
+
+        averageObservationReliability:
+            simulation
+                ?.averageObservationReliability ??
+            null,
+
+        bayesianWeights:
+            simulation
+                ?.bayesianWeights ||
+            null,
+
+        observationDaysCount:
+            simulation
+                ?.observationDaysCount ||
+            0,
+
+        observationRowsCount:
+            simulation
+                ?.observationRowsCount ||
+            0,
+
+        pricingModel:
+            simulation
+                ?.pricingModel ??
+            null,
+
+        pricingConfidence:
+            simulation
+                ?.gradeModelConfidence ??
+            simulation
+                ?.confidence ??
+            null,
+
+        pricingRatio:
+            simulation
+                ?.ratioUsed ??
+            null,
+
+        pricingObservationCount:
+            simulation
+                ?.observationCount ??
+            0,
+
+        marketAnchorPrice:
+            simulation
+                ?.marketAnchorPrice ??
+            null,
+
+        referenceMarketAnchorPrice:
+            simulation
+                ?.referenceMarketAnchorPrice ??
+            null,
+
         marketReferenceType:
-    simulation?.marketReferenceType ?? null,
+            simulation
+                ?.marketReferenceType ??
+            null,
 
-marketReferenceRole:
-    simulation?.marketReferenceRole ?? null,
+        marketReferenceRole:
+            simulation
+                ?.marketReferenceRole ??
+            null,
 
-usesExternalReference:
-    simulation?.usesExternalReference ?? false,
+        usesExternalReference:
+            simulation
+                ?.usesExternalReference ??
+            false,
 
-referenceName:
-    simulation?.referenceName ?? null,
+        referenceName:
+            simulation
+                ?.referenceName ??
+            null,
 
-referenceEdition:
-    simulation?.referenceEdition ?? null,
+        referenceEdition:
+            simulation
+                ?.referenceEdition ??
+            null,
 
-referenceLanguage:
-    simulation?.referenceLanguage ?? null,
+        referenceLanguage:
+            simulation
+                ?.referenceLanguage ??
+            null,
 
-referenceVersion:
-    simulation?.referenceVersion ?? null,
+        referenceVersion:
+            simulation
+                ?.referenceVersion ??
+            null,
 
-referenceCardFound:
-    simulation?.referenceCardFound ?? false
+        referenceCardFound:
+            simulation
+                ?.referenceCardFound ??
+            false
     };
+}
+
+function addPricingSimulation(
+    card,
+    pricingMap
+) {
+
+    const simulation =
+        pricingMap.byId.get(
+            Number(card.id)
+        );
+
+    return mergePricingSimulation(
+        card,
+        simulation
+    );
 }
 
 function groupByCardEditionEtat(rows) {
@@ -616,6 +829,66 @@ function groupByCardEditionEtat(rows) {
     });
 
     return [...grouped.values()];
+}
+
+function attachObservedMarketData(
+    card,
+    observedPricesByCard
+) {
+
+    const key =
+        observationCardKey(card);
+
+    const observedConditions =
+        observedPricesByCard.get(key) ||
+        {};
+
+
+    const observedMinByCondition = {};
+
+    [
+        "NM",
+        "EX",
+        "GD",
+        "LP",
+        "PL",
+        "PO"
+    ].forEach(condition => {
+
+        observedMinByCondition[
+            condition
+        ] =
+            observedConditions[
+                condition
+            ]?.price ??
+            card
+                .observedMinByCondition
+                ?.[condition] ??
+            null;
+
+    });
+
+
+    return {
+        ...card,
+
+        observedMinByCondition,
+
+        observedNmPrice:
+            observedMinByCondition.NM ??
+            null,
+
+        observedExPrice:
+            observedMinByCondition.EX ??
+            null,
+
+        exPrice:
+            card
+                .reliableObservedByCondition
+                ?.EX ??
+            observedMinByCondition.EX ??
+            null
+    };
 }
 
 function saveTrackedPriceHistory(watchlistCards) {
@@ -1513,11 +1786,28 @@ const observedPricesByCard =
     buildObservedPricesByCard(marketObservations);
 
 const watchlistCards =
-    buildWatchlistCards(cards, trackedMarketCards);
+    buildWatchlistCards(
+        cards,
+        trackedMarketCards,
+        pricingMap
+    )
+    .map(card =>
+        attachObservedMarketData(
+            card,
+            observedPricesByCard
+        )
+    );
 
-saveTrackedPriceHistory(watchlistCards);
 
-const opportunities = buildNmOpportunities(watchlistCards)
+saveTrackedPriceHistory(
+    watchlistCards
+);
+
+
+const opportunities =
+    buildNmOpportunities(
+        watchlistCards
+    )
     .map(opportunity => {
         const key = observationCardKey(opportunity);
 

@@ -21,6 +21,14 @@ const FALLBACK_CONDITION_RATIOS = {
   PO: 0.30
 };
 
+const TRACKED_MARKET_CARDS_PATH =
+  path.join(
+    __dirname,
+    "..",
+    "data",
+    "trackedMarketCards.json"
+  );
+
 const CONDITIONS = ["NM", "EX", "GD", "LP", "PL", "PO"];
 
 function readReferenceCatalog() {
@@ -94,6 +102,23 @@ function getCards() {
 function readModels() {
   if (!fs.existsSync(MODELS_PATH)) return {};
   return JSON.parse(fs.readFileSync(MODELS_PATH, "utf8"));
+}
+
+function readTrackedMarketCards() {
+  if (!fs.existsSync(TRACKED_MARKET_CARDS_PATH)) {
+    return [];
+  }
+
+  const rows = JSON.parse(
+    fs.readFileSync(
+      TRACKED_MARKET_CARDS_PATH,
+      "utf8"
+    )
+  );
+
+  return Array.isArray(rows)
+    ? rows
+    : [];
 }
 
 function estimateCard(card, model, globalConditionModel = null) {
@@ -458,9 +483,65 @@ const impliedNm =
 
 
 async function main() {
-  const cards = await getCards();
-  const models = readModels();
-  const referenceCatalog = readReferenceCatalog();
+  const collectionCards =
+    await getCards();
+
+  const trackedCards =
+    readTrackedMarketCards();
+
+  const models =
+    readModels();
+
+  const referenceCatalog =
+    readReferenceCatalog();
+
+
+  /*
+   * Une impression déjà possédée n'a pas besoin
+   * d'une seconde simulation "tracked".
+   */
+  const ownedKeys =
+    new Set(
+      collectionCards.map(cardKey)
+    );
+
+
+  const trackedVirtualCards =
+    trackedCards
+      .filter(card =>
+        !ownedKeys.has(
+          cardKey(card)
+        )
+      )
+      .map(card => ({
+        ...card,
+
+        id:
+          `tracked:${card.id ||
+          card.cardmarketId ||
+          cardKey(card)}`,
+
+        etat:
+          card.etat || "NM",
+
+        sourceType:
+          "tracked",
+
+        owned:
+          false
+      }));
+
+
+  const cards = [
+    ...collectionCards.map(card => ({
+      ...card,
+      sourceType: "collection",
+      owned: true
+    })),
+
+    ...trackedVirtualCards
+  ];
+
 
   const results = cards.map(card => {
     const model = models[cardKey(card)];
@@ -509,7 +590,34 @@ const estimatedConditionPrice =
         gradeEstimate
       );
 
+
+/*
+ * Si aucun modèle spécifique n'existe mais que
+ * le moteur bayésien dispose d'observations propres
+ * à la carte, ce n'est plus un simple fallback.
+ */
+const finalPricingModel =
+  (
+    estimated.pricingModel ===
+      "missing_model_fallback" &&
+    Number(
+      gradeEstimate?.observationDaysCount || 0
+    ) > 0
+  )
+    ? "bayesian_observed_fallback"
+    : estimated.pricingModel;
+
+
 return {
+
+  sourceType:
+  card.sourceType || "collection",
+
+simulationKey:
+  cardKey(card),
+
+owned:
+  card.owned !== false,
 
     id: card.id,
 
@@ -553,10 +661,16 @@ referenceVersion:
 referenceCardFound:
   Boolean(marketReference?.referenceFound),
 
-    ...estimated,
+      ...estimated,
 
-estimatedPrice: estimatedConditionPrice,
-baseEstimatedPrice: estimated.estimatedPrice,
+    pricingModel:
+      finalPricingModel,
+
+    estimatedPrice:
+      estimatedConditionPrice,
+
+    baseEstimatedPrice:
+      estimated.estimatedPrice,
 
     estimatedByCondition:
         gradeEstimate.estimatedByCondition,
@@ -602,7 +716,18 @@ averageObservationReliability:
 
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(results, null, 2));
 
-  const total = results.reduce((sum, row) => sum + Number(row.estimatedPrice || 0), 0);
+  const total = results
+  .filter(row =>
+    row.sourceType !== "tracked"
+  )
+  .reduce(
+    (sum, row) =>
+      sum +
+      Number(
+        row.estimatedPrice || 0
+      ),
+    0
+  );
 
   console.log(`Simulation générée : ${OUTPUT_PATH}`);
   console.log(`Cartes simulées : ${results.length}`);
