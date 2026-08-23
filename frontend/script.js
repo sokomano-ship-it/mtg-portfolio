@@ -9325,69 +9325,134 @@ function optionalPositiveNumber(...values) {
 }
 
 function getOpportunityMetrics(card) {
-    const marketNM = optionalPositiveNumber(
-        card.nmPrice,
-        card.trendPriceNM,
-        card.trendPrice
-    );
 
-    const marketEX = optionalPositiveNumber(
-        card.exPrice,
-        card.observedExPrice,
-        card.reliableObservedByCondition?.EX
-    );
+    /*
+     * Prix réellement observés dans Administration.
+     *
+     * Ce sont ces valeurs qui permettent de savoir
+     * si une annonce actuellement disponible est
+     * sous notre prix cible.
+     */
+    const observedNM =
+        optionalPositiveNumber(
+            card.observedMinByCondition?.NM,
+            card.lastObservedMinByCondition?.NM
+        );
 
-    const targetNM = optionalPositiveNumber(
-        card.nmTargetPrice,
-        card.buyTargetByCondition?.NM
-    );
+    const observedEX =
+        optionalPositiveNumber(
+            card.observedMinByCondition?.EX,
+            card.observedExPrice,
+            card.lastObservedMinByCondition?.EX
+        );
 
-    const targetEX = optionalPositiveNumber(
-        card.exTargetPrice,
-        card.buyTargetByCondition?.EX
-    );
 
-    const discountNM = calculateDiscountPercent(
-        marketNM,
-        targetNM
-    );
+    /*
+     * Référence générale Cardmarket.
+     *
+     * Elle reste utile comme information de marché,
+     * mais elle ne doit pas être considérée comme
+     * une annonce réellement disponible.
+     */
+    const referenceNM =
+        optionalPositiveNumber(
+            card.nmPrice,
+            card.trendPriceNM,
+            card.trendPrice
+        );
 
-    const discountEX = calculateDiscountPercent(
-        marketEX,
-        targetEX
-    );
 
-    const confidence = optionalPositiveNumber(
-        card.gradeModelConfidence,
-        card.pricingConfidence,
-        card.confidence
-    ) ?? 0;
+    const targetNM =
+        optionalPositiveNumber(
+            card.nmTargetPrice,
+            card.buyTargetByCondition?.NM
+        );
 
-    const observationReliability = Number(
-        card.averageObservationReliability ??
-        card.observationReliability ??
-        0
-    );
+    const targetEX =
+        optionalPositiveNumber(
+            card.exTargetPrice,
+            card.buyTargetByCondition?.EX
+        );
+
+
+    /*
+     * Une opportunité d'achat ne peut être calculée
+     * que si nous avons réellement observé un prix
+     * pour cet état.
+     */
+    const discountNM =
+        observedNM !== null
+            ? calculateDiscountPercent(
+                observedNM,
+                targetNM
+            )
+            : null;
+
+    const discountEX =
+        observedEX !== null
+            ? calculateDiscountPercent(
+                observedEX,
+                targetEX
+            )
+            : null;
+
+
+    const confidence =
+        optionalPositiveNumber(
+            card.gradeModelConfidence,
+            card.pricingConfidence,
+            card.confidence
+        ) ?? 0;
+
+
+    const observationReliability =
+        Number(
+            card.averageObservationReliability ??
+            card.observationReliability ??
+            0
+        );
+
 
     const reliabilityPercent =
         observationReliability <= 1
             ? observationReliability * 100
             : observationReliability;
 
-    const momentum = Number(card.momentumQuality ?? 0);
+
+    const momentum =
+        Number(
+            card.momentumQuality ?? 0
+        );
+
 
     return {
-        marketNM,
-        marketEX,
+
+        /*
+         * Prix servant réellement à évaluer
+         * l'opportunité.
+         */
+        marketNM: observedNM,
+        marketEX: observedEX,
+
+        /*
+         * Conservé pour pouvoir l'afficher plus tard
+         * si nécessaire.
+         */
+        referenceNM,
+
         targetNM,
         targetEX,
+
         discountNM,
         discountEX,
+
         confidence,
         reliabilityPercent,
         momentum
+
     };
 }
+
 function discountToScore(discount) {
     if (discount === null || discount === undefined) {
         return 0;
@@ -10350,20 +10415,46 @@ function formatOptionalPercent(value) {
     if (value === null || value === undefined) return "-";
     return formatPercent(value);
 }
-function calculateDiscountPercent(marketPrice, targetPrice) {
+function calculateDiscountPercent(
+    marketPrice,
+    targetPrice
+) {
 
-    const market = Number(marketPrice);
-    const target = Number(targetPrice);
+    /*
+     * Une absence de prix marché ne doit surtout
+     * pas être convertie en 0 €, sinon elle produit
+     * artificiellement une décote de +100 %.
+     */
+    if (
+        marketPrice === null ||
+        marketPrice === undefined ||
+        marketPrice === "" ||
+        targetPrice === null ||
+        targetPrice === undefined ||
+        targetPrice === ""
+    ) {
+        return null;
+    }
+
+    const market =
+        Number(marketPrice);
+
+    const target =
+        Number(targetPrice);
 
     if (
         !Number.isFinite(market) ||
         !Number.isFinite(target) ||
+        market <= 0 ||
         target <= 0
     ) {
         return null;
     }
 
-    return ((target - market) / target) * 100;
+    return (
+        (target - market) /
+        target
+    ) * 100;
 }
 
 function formatDiscount(value) {
