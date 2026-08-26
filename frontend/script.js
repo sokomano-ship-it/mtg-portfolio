@@ -720,69 +720,88 @@ async function loadCategorySummary(
         /*
          * Ligne historique utilisée pour J-30.
          */
-        const targetDate =
-            new Date();
-
-        targetDate.setDate(
-            targetDate.getDate() - 30
-        );
-
-
-        const target30d =
-            targetDate
-                .toISOString()
-                .slice(0, 10);
+        /*
+ * Horizons utilisés pour comparer
+ * l'évolution des catégories.
+ */
+const periods =
+    [7, 30, 60, 90, 180, 365];
 
 
-        const historyRows =
-            Array.isArray(history)
-                ? [...history]
-                    .filter(row =>
-                        row?.date
+const historyRows =
+    Array.isArray(history)
+        ? [...history]
+            .filter(row =>
+                row?.date
+            )
+            .sort((a, b) =>
+                String(a.date)
+                    .localeCompare(
+                        String(b.date)
                     )
-                    .sort((a, b) =>
-                        String(a.date)
-                            .localeCompare(
-                                String(b.date)
-                            )
-                    )
-                : [];
+            )
+        : [];
 
 
-        let row30d = null;
+/*
+ * Recherche la dernière ligne historique
+ * disponible à la date cible ou avant.
+ *
+ * Exemple :
+ * si J-60 tombe un dimanche sans donnée,
+ * on utilise la dernière observation
+ * disponible avant cette date.
+ */
+function findHistoryRowDaysAgo(days) {
+
+    const targetDate =
+        new Date();
+
+    targetDate.setDate(
+        targetDate.getDate() - days
+    );
+
+    const target =
+        targetDate
+            .toISOString()
+            .slice(0, 10);
 
 
-        for (
-            let index =
-                historyRows.length - 1;
+    for (
+        let index =
+            historyRows.length - 1;
 
-            index >= 0;
+        index >= 0;
 
-            index -= 1
+        index -= 1
+    ) {
+
+        const row =
+            historyRows[index];
+
+        if (
+            String(row.date)
+                .slice(0, 10) <= target
         ) {
-
-            const row =
-                historyRows[index];
-
-            if (
-                String(row.date)
-                    .slice(0, 10) <=
-                target30d
-            ) {
-
-                row30d = row;
-
-                break;
-            }
-
+            return row;
         }
+    }
 
 
-        const portfolioValue30d =
-            Number(
-                row30d?.totalValue
-            );
+    return null;
+}
 
+
+/*
+ * Une ligne historique par horizon.
+ */
+const historyByPeriod =
+    Object.fromEntries(
+        periods.map(days => [
+            days,
+            findHistoryRowDaysAgo(days)
+        ])
+    );
 
         /*
          * Regroupement actuel par catégorie.
@@ -852,29 +871,6 @@ async function loadCategorySummary(
     );
 
 
-/*
- * Concentration de la catégorie :
- * part de sa valeur représentée par
- * les 5 cartes les plus chères.
- */
-const top5Value =
-    [...prices]
-        .sort((a, b) => b - a)
-        .slice(0, 5)
-        .reduce(
-            (sum, value) =>
-                sum + value,
-            0
-        );
-
-
-const top5Share =
-    totalValue > 0
-        ? (
-            top5Value /
-            totalValue
-        ) * 100
-        : null;
 
 
             const weight =
@@ -886,61 +882,65 @@ const top5Share =
                     : null;
 
 
-            const value30d =
+            /*
+ * Evolution de cette catégorie
+ * pour chaque horizon.
+ */
+const changes =
+    Object.fromEntries(
+        periods.map(days => {
+
+            const historicalValue =
                 Number(
-                    row30d
+                    historyByPeriod[days]
                         ?.categoryValues
                         ?.[category]
                 );
 
 
-            const has30d =
+            const hasHistory =
                 Number.isFinite(
-                    value30d
+                    historicalValue
                 ) &&
-                value30d > 0;
+                historicalValue > 0;
 
 
-            const change30d =
-                has30d
+            const change =
+                hasHistory
                     ? (
                         (
                             totalValue -
-                            value30d
+                            historicalValue
                         ) /
-                        value30d
+                        historicalValue
                     ) * 100
                     : null;
 
 
-            /*
-             * Même définition que tes KPI :
-             * variation € de la catégorie /
-             * portefeuille total J-30.
-             */
-            const contribution30d =
-                has30d &&
-                Number.isFinite(
-                    portfolioValue30d
-                ) &&
-                portfolioValue30d > 0
+            return [
+                days,
+                change
+            ];
 
-                    ? (
-                        (
-                            totalValue -
-                            value30d
-                        ) /
-                        portfolioValue30d
-                    ) * 100
-
-                    : null;
+        })
+    );
 
 
-            const cardsOver50 =
-                prices.filter(
-                    value =>
-                        value >= 50
-                ).length;
+
+
+
+            const cardsOver20 =
+    prices.filter(
+        value =>
+            value >= 20
+    ).length;
+
+
+const cardsOver50 =
+    prices.filter(
+        value =>
+            value >= 50
+    ).length;
 
 
             return {
@@ -954,11 +954,9 @@ const top5Share =
 
     weight,
 
-    change30d,
+    changes,
 
-    contribution30d,
-
-    top5Share,
+    cardsOver20,
 
     cardsOver50
 
@@ -982,131 +980,110 @@ const top5Share =
             rows
                 .map(row => {
 
-                    const changeClass =
-                        row.change30d === null
-                            ? ""
-                            : row.change30d >= 0
-                                ? "score-positive"
-                                : "score-negative";
+                    const formatChangeCell =
+    value => {
+
+        const cssClass =
+            value === null
+                ? ""
+                : value >= 0
+                    ? "score-positive"
+                    : "score-negative";
 
 
-                    const contributionClass =
-                        row.contribution30d === null
-                            ? ""
-                            : row.contribution30d >= 0
-                                ? "score-positive"
-                                : "score-negative";
+        return `
+            <td class="${cssClass}">
+                ${
+                    value === null
+                        ? "-"
+                        : formatPercent(
+                            value
+                        )
+                }
+            </td>
+        `;
+    };
 
 
                     return `
-                        <tr>
+    <tr>
 
-                            <td>
-                                <strong>
-                                    ${
-                                        escapeHtml(
-                                            row.category
-                                        )
-                                    }
-                                </strong>
-                            </td>
+        <td>
+            <strong>
+                ${
+                    escapeHtml(
+                        row.category
+                    )
+                }
+            </strong>
+        </td>
 
-                            <td>
-                                ${row.cardsCount}
-                            </td>
+        <td>
+            ${row.cardsCount}
+        </td>
 
-                            <td class="price">
-    ${
-        formatEuro(
-            row.totalValue
-        )
-    }
-</td>
+        <td class="price">
+            ${
+                formatEuro(
+                    row.totalValue
+                )
+            }
+        </td>
 
-<td>
-    ${
-        formatSimplePercent(
-            row.weight
-        )
-    }
-</td>
-                            <td class="${changeClass}">
-                                ${
-                                    row.change30d === null
-                                        ? "-"
-                                        : formatPercent(
-                                            row.change30d
-                                        )
-                                }
-                            </td>
+        <td>
+            ${
+                formatSimplePercent(
+                    row.weight
+                )
+            }
+        </td>
 
-                            <td class="${contributionClass}">
-                                ${
-                                    row.contribution30d === null
-                                        ? "-"
-                                        : formatPercent(
-                                            row.contribution30d
-                                        )
-                                }
-                            </td>
+        ${
+            formatChangeCell(
+                row.changes[7]
+            )
+        }
 
-                            <td>
-    ${
-        row.top5Share === null
-            ? "-"
-            : `
-                <div class="category-concentration">
-                    <div class="category-concentration-bar">
-                        <span
-                            style="width: ${
-                                Math.min(
-                                    100,
-                                    Math.max(
-                                        0,
-                                        row.top5Share
-                                    )
-                                )
-                            }%"
-                        ></span>
-                    </div>
+        ${
+            formatChangeCell(
+                row.changes[30]
+            )
+        }
 
-                    <strong>
-                        ${
-                            formatSimplePercent(
-                                row.top5Share
-                            )
-                        }
-                    </strong>
-                </div>
-            `
-    }
-</td>
+        ${
+            formatChangeCell(
+                row.changes[60]
+            )
+        }
 
-                            <td>
-                                ${row.cardsOver50}
-                            </td>
+        ${
+            formatChangeCell(
+                row.changes[90]
+            )
+        }
 
-                        </tr>
-                    `;
+        ${
+            formatChangeCell(
+                row.changes[180]
+            )
+        }
 
-                })
-                .join("");
+        ${
+            formatChangeCell(
+                row.changes[365]
+            )
+        }
 
+        <td>
+            ${row.cardsOver20}
+        </td>
 
-    } catch (error) {
+        <td>
+            ${row.cardsOver50}
+        </td>
 
-        console.error(error);
-
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="8">
-                    Erreur :
-                    ${escapeHtml(
-                        error.message
-                    )}
-                </td>
-            </tr>
-        `;
+    </tr>
+`;
 
     }
 
