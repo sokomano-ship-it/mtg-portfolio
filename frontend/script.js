@@ -9197,12 +9197,36 @@ function buildConvergenceRows() {
         groupRadarRows(allRadarRows);
 
     const radarByKey =
-        new Map(
-            radarGroups.map(group => [
-                group.key,
-                group
-            ])
+    new Map();
+
+radarGroups.forEach(group => {
+
+    const key =
+        [
+            group.nomCarte || "",
+            group.edition || ""
+        ]
+            .map(normalizeText)
+            .join("||");
+
+    const existing =
+        radarByKey.get(key);
+
+    /*
+     * Si plusieurs langues existent dans Radar,
+     * on conserve le groupe ayant le meilleur score.
+     */
+    if (
+        !existing ||
+        Number(group.bestScore || 0) >
+        Number(existing.bestScore || 0)
+    ) {
+        radarByKey.set(
+            key,
+            group
         );
+    }
+});
 
 
     allConvergenceRows =
@@ -9210,13 +9234,12 @@ function buildConvergenceRows() {
             .map(opportunity => {
 
                 const key =
-                    [
-                        opportunity.nomCarte || "",
-                        opportunity.edition || "",
-                        opportunity.langue || ""
-                    ]
-                        .map(normalizeText)
-                        .join("||");
+    [
+        opportunity.nomCarte || "",
+        opportunity.edition || ""
+    ]
+        .map(normalizeText)
+        .join("||");
 
 
                 const radar =
