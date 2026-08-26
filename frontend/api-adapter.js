@@ -32,6 +32,15 @@ window.apiAdapter = {
     const data = await fetchJson("/api/opportunities");
     return data.opportunities || [];
 },
+async getRadar() {
+    const data = await fetchJson("/api/radar");
+
+    return {
+        rows: data.rows || [],
+        summary: data.summary || {},
+        generatedAt: data.generatedAt || null
+    };
+},
 
     async getCardDetails() {
     const data = await fetchJson("/api/card-details");

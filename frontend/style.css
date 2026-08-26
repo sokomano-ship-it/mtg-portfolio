@@ -4717,3 +4717,113 @@ strong.score-negative {
     }
 
 }
+
+/* ========================================
+   OPPORTUNITIES — DETECTION MODES
+   ======================================== */
+
+.opportunity-mode-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    margin: 18px 0 14px;
+    padding: 12px 14px;
+
+    background: #111520;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 12px;
+}
+
+.opportunity-mode-title {
+    color: #9fa7b7;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.opportunity-mode-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.opportunity-mode-button {
+    background: #202636;
+    color: #c8d0df;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.10);
+
+    border-radius: 999px;
+
+    padding: 8px 13px;
+
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.opportunity-mode-button:hover {
+    background: #293146;
+    color: #ffffff;
+}
+
+.opportunity-mode-button.active {
+    background: #7fb7ff;
+    color: #0f1117;
+    border-color: #7fb7ff;
+}
+
+
+/* ========================================
+   RADAR
+   ======================================== */
+
+#radar-table {
+    min-width: 1250px;
+}
+
+#radar-table th,
+#radar-table td {
+    white-space: nowrap;
+}
+
+.radar-signal-strong,
+.radar-signal-probable,
+.radar-signal-watch,
+.radar-signal-neutral {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.radar-signal-strong {
+    background:
+        rgba(46, 204, 113, 0.18);
+    color: #7ddc7a;
+}
+
+.radar-signal-probable {
+    background:
+        rgba(52, 152, 219, 0.18);
+    color: #7ec8ff;
+}
+
+.radar-signal-watch {
+    background:
+        rgba(241, 196, 15, 0.18);
+    color: #f4d35e;
+}
+
+.radar-signal-neutral {
+    background:
+        rgba(160, 160, 160, 0.14);
+    color: #aaa;
+}

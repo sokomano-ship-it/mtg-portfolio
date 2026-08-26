@@ -886,9 +886,48 @@ placeholder="Gain lot >=5"
                 Le score conviction est volontairement strict pour ne retenir que quelques achats potentiels.
             </p>
 
+            <div class="opportunity-mode-toolbar">
+
+    <div class="opportunity-mode-title">
+        Détection
+    </div>
+
+    <div class="opportunity-mode-buttons">
+
+        <button
+            type="button"
+            class="opportunity-mode-button active"
+            data-opportunity-mode="opportunities"
+        >
+            💰 Opportunités
+            <span
+                id="opportunity-mode-count"
+                class="opportunity-level-count"
+            >0</span>
+        </button>
+
+        <button
+            type="button"
+            class="opportunity-mode-button"
+            data-opportunity-mode="radar"
+        >
+            📡 Radar
+            <span
+                id="radar-mode-count"
+                class="opportunity-level-count"
+            >0</span>
+        </button>
+
+    </div>
+
+</div>
+
             <div id="opportunities-status">Chargement...</div>
 
-            <div class="opportunity-level-toolbar">
+            <div
+    id="opportunity-level-toolbar"
+    class="opportunity-level-toolbar"
+>
 
     <div class="opportunity-level-title">
         Afficher
@@ -940,6 +979,57 @@ placeholder="Gain lot >=5"
                 0
             </span>
         </button>
+    </div>
+
+</div>
+<div
+    id="radar-level-toolbar"
+    class="opportunity-level-toolbar"
+    hidden
+>
+
+    <div class="opportunity-level-title">
+        Afficher
+    </div>
+
+    <div class="opportunity-level-buttons">
+
+        <button
+            type="button"
+            class="opportunity-level-button active"
+            data-radar-level="strong"
+        >
+            🔥 Fortes hausses
+            <span
+                id="radar-count-strong"
+                class="opportunity-level-count"
+            >0</span>
+        </button>
+
+        <button
+            type="button"
+            class="opportunity-level-button"
+            data-radar-level="probable"
+        >
+            📈 Fortes + probables
+            <span
+                id="radar-count-probable"
+                class="opportunity-level-count"
+            >0</span>
+        </button>
+
+        <button
+            type="button"
+            class="opportunity-level-button"
+            data-radar-level="all"
+        >
+            Toutes
+            <span
+                id="radar-count-all"
+                class="opportunity-level-count"
+            >0</span>
+        </button>
+
     </div>
 
 </div>
@@ -1050,7 +1140,10 @@ placeholder="Gain lot >=5"
 
 </div>
 
-            <div class="table-wrapper">
+            <div
+    id="opportunities-table-wrapper"
+    class="table-wrapper"
+>
                 <table>
                     <thead>
    <tr>
@@ -1110,6 +1203,37 @@ placeholder="Gain lot >=5"
                     <tbody id="opportunities-body"></tbody>
                 </table>
             </div>
+            <div
+    id="radar-table-wrapper"
+    class="table-wrapper"
+    hidden
+>
+
+    <table id="radar-table">
+
+        <thead>
+            <tr>
+                <th>Carte</th>
+                <th>Édition</th>
+                <th>Langue</th>
+                <th>Possédé</th>
+                <th>État</th>
+                <th>Prix</th>
+                <th>14 j</th>
+                <th>21 j</th>
+                <th>30 j</th>
+                <th>R² 30 j</th>
+                <th>Bruit</th>
+                <th>Conviction</th>
+                <th>Signal</th>
+            </tr>
+        </thead>
+
+        <tbody id="radar-body"></tbody>
+
+    </table>
+
+</div>
         </section>
 
     </section>

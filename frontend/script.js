@@ -1,7 +1,10 @@
 let allCards = [];
 let allMovers = [];
 let allOpportunities = [];
+let allRadarRows = [];
+let radarSummary = {};
 let allInvestmentAnalysis = [];
+
 let selectedInvestmentCardId = null;
 
 let currentInvestmentSort = "changeLot7d";
@@ -15,6 +18,8 @@ let currentOpportunitySort = "opportunityScore";
 
 let currentOpportunityDirection = "desc";
 let currentOpportunityDisplayLevel = "strong";
+let currentOpportunityMode = "opportunities";
+let currentRadarDisplayLevel = "strong";
 
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
@@ -9127,6 +9132,7 @@ function setupOpportunityFilters() {
 }
 
 async function loadOpportunities() {
+
     const status =
         document.getElementById(
             "opportunities-status"
@@ -9137,22 +9143,595 @@ async function loadOpportunities() {
     }
 
     try {
+
+        const [
+            opportunities,
+            radarData
+        ] = await Promise.all([
+            window.apiAdapter.getOpportunities(),
+            window.apiAdapter.getRadar()
+        ]);
+
         allOpportunities =
-            await window.apiAdapter
-                .getOpportunities();
+            opportunities || [];
+
+        allRadarRows =
+            radarData?.rows || [];
+
+        radarSummary =
+            radarData?.summary || {};
 
         buildOpportunityFilters();
-setupOpportunityFilters();
-setupOpportunitySorting();
-setupOpportunityLevelButtons();
-updateOpportunityLevelCounts();
 
-renderOpportunities();
+        setupOpportunityFilters();
+        setupOpportunitySorting();
+        setupOpportunityLevelButtons();
+
+        setupOpportunityModeButtons();
+        setupRadarLevelButtons();
+
+        updateOpportunityLevelCounts();
+        updateRadarLevelCounts();
+        updateOpportunityModeCounts();
+
+        updateOpportunityModeView();
+
     } catch (error) {
+
         console.error(error);
 
         status.textContent =
-            "Erreur : " + error.message;
+            "Erreur : " +
+            error.message;
+    }
+}
+
+function setupOpportunityModeButtons() {
+
+    document
+        .querySelectorAll(
+            "[data-opportunity-mode]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                currentOpportunityMode =
+                    button.dataset.opportunityMode ||
+                    "opportunities";
+
+                updateOpportunityModeView();
+            };
+        });
+}
+
+
+function updateOpportunityModeButtonState() {
+
+    document
+        .querySelectorAll(
+            "[data-opportunity-mode]"
+        )
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.opportunityMode ===
+                    currentOpportunityMode
+            );
+        });
+}
+
+
+function updateOpportunityModeCounts() {
+
+    const opportunityCount =
+        document.getElementById(
+            "opportunity-mode-count"
+        );
+
+    const radarCount =
+        document.getElementById(
+            "radar-mode-count"
+        );
+
+    if (opportunityCount) {
+        opportunityCount.textContent =
+            allOpportunities.length;
+    }
+
+    if (radarCount) {
+        radarCount.textContent =
+            allRadarRows.length;
+    }
+}
+
+function getRadarLevel(row) {
+
+    const score =
+        Number(
+            row.convictionScore || 0
+        );
+
+    const signal =
+        String(
+            row.signalLevel || ""
+        );
+
+    if (
+        signal === "Hausse forte" &&
+        score >= 75
+    ) {
+        return "strong";
+    }
+
+    if (
+        signal === "Hausse forte" ||
+        signal === "Hausse probable"
+    ) {
+        return "probable";
+    }
+
+    return "other";
+}
+
+
+function matchesRadarDisplayLevel(row) {
+
+    const level =
+        getRadarLevel(row);
+
+    if (
+        currentRadarDisplayLevel === "all"
+    ) {
+        return true;
+    }
+
+    if (
+        currentRadarDisplayLevel ===
+        "probable"
+    ) {
+        return (
+            level === "strong" ||
+            level === "probable"
+        );
+    }
+
+    return level === "strong";
+}
+
+
+function setupRadarLevelButtons() {
+
+    document
+        .querySelectorAll(
+            "[data-radar-level]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                currentRadarDisplayLevel =
+                    button.dataset.radarLevel ||
+                    "strong";
+
+                updateRadarLevelButtonState();
+                renderRadar();
+            };
+        });
+
+    updateRadarLevelButtonState();
+}
+
+
+function updateRadarLevelButtonState() {
+
+    document
+        .querySelectorAll(
+            "[data-radar-level]"
+        )
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.radarLevel ===
+                    currentRadarDisplayLevel
+            );
+        });
+}
+
+
+function updateRadarLevelCounts() {
+
+    let strong = 0;
+    let probable = 0;
+
+    allRadarRows.forEach(row => {
+
+        const level =
+            getRadarLevel(row);
+
+        if (level === "strong") {
+            strong += 1;
+            probable += 1;
+        } else if (
+            level === "probable"
+        ) {
+            probable += 1;
+        }
+    });
+
+    const strongElement =
+        document.getElementById(
+            "radar-count-strong"
+        );
+
+    const probableElement =
+        document.getElementById(
+            "radar-count-probable"
+        );
+
+    const allElement =
+        document.getElementById(
+            "radar-count-all"
+        );
+
+    if (strongElement) {
+        strongElement.textContent =
+            strong;
+    }
+
+    if (probableElement) {
+        probableElement.textContent =
+            probable;
+    }
+
+    if (allElement) {
+        allElement.textContent =
+            allRadarRows.length;
+    }
+}
+
+function formatRadarPercent(value) {
+
+    const number =
+        Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "-";
+    }
+
+    return (
+        number >= 0 ? "+" : ""
+    ) +
+        number.toFixed(1) +
+        " %";
+}
+
+
+function getRadarPerformanceClass(value) {
+
+    const number =
+        Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "";
+    }
+
+    if (number > 0) {
+        return "score-positive";
+    }
+
+    if (number < 0) {
+        return "score-negative";
+    }
+
+    return "";
+}
+
+
+function getRadarSignalClass(row) {
+
+    switch (row.signalLevel) {
+
+        case "Hausse forte":
+            return "radar-signal-strong";
+
+        case "Hausse probable":
+            return "radar-signal-probable";
+
+        case "À surveiller":
+            return "radar-signal-watch";
+
+        default:
+            return "radar-signal-neutral";
+    }
+}
+
+function renderRadar() {
+
+    const tbody =
+        document.getElementById(
+            "radar-body"
+        );
+
+    if (!tbody) {
+        return;
+    }
+
+    const rows =
+        allRadarRows
+            .filter(
+                matchesRadarDisplayLevel
+            )
+            .sort(
+                (a, b) =>
+                    Number(
+                        b.convictionScore || 0
+                    ) -
+                    Number(
+                        a.convictionScore || 0
+                    )
+            );
+
+    const status =
+        document.getElementById(
+            "opportunities-status"
+        );
+
+    if (status) {
+
+        status.textContent =
+            `${rows.length} série${
+                rows.length === 1
+                    ? ""
+                    : "s"
+            } Radar affichée${
+                rows.length === 1
+                    ? ""
+                    : "s"
+            }`;
+    }
+
+    tbody.innerHTML = rows
+        .map(row => {
+
+            const h14 =
+                row.horizons?.["14d"];
+
+            const h21 =
+                row.horizons?.["21d"];
+
+            const h30 =
+                row.horizons?.["30d"];
+
+            const perf14 =
+                h14?.available
+                    ? Number(
+                        h14.equivalent30dPct
+                    )
+                    : null;
+
+            const perf21 =
+                h21?.available
+                    ? Number(
+                        h21.equivalent30dPct
+                    )
+                    : null;
+
+            const perf30 =
+                h30?.available
+                    ? Number(
+                        h30.equivalent30dPct
+                    )
+                    : null;
+
+            const rSquared =
+                h30?.available
+                    ? Number(
+                        h30.rSquared
+                    )
+                    : null;
+
+            const noise =
+                h30?.available
+                    ? Number(
+                        h30.residualNoisePct
+                    )
+                    : null;
+
+            return `
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHtml(
+                                row.nomCarte || "-"
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            row.edition || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            row.langue || "-"
+                        )}
+                    </td>
+
+                    <td>
+                        <span class="${
+                            row.owned
+                                ? "owned-yes"
+                                : "owned-no"
+                        }">
+                            ${
+                                row.owned
+                                    ? "Oui"
+                                    : "Non"
+                            }
+                        </span>
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            row.condition || "-"
+                        )}
+                    </td>
+
+                    <td class="price">
+                        ${formatEuro(
+                            row.latestPrice
+                        )}
+                    </td>
+
+                    <td class="${
+                        getRadarPerformanceClass(
+                            perf14
+                        )
+                    }">
+                        ${formatRadarPercent(
+                            perf14
+                        )}
+                    </td>
+
+                    <td class="${
+                        getRadarPerformanceClass(
+                            perf21
+                        )
+                    }">
+                        ${formatRadarPercent(
+                            perf21
+                        )}
+                    </td>
+
+                    <td class="${
+                        getRadarPerformanceClass(
+                            perf30
+                        )
+                    }">
+                        ${formatRadarPercent(
+                            perf30
+                        )}
+                    </td>
+
+                    <td>
+                        ${
+                            Number.isFinite(
+                                rSquared
+                            )
+                                ? rSquared.toFixed(2)
+                                : "-"
+                        }
+                    </td>
+
+                    <td>
+                        ${
+                            Number.isFinite(
+                                noise
+                            )
+                                ? noise.toFixed(1) +
+                                  " %"
+                                : "-"
+                        }
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${Math.round(
+                                Number(
+                                    row.convictionScore ||
+                                    0
+                                )
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        <span class="${
+                            getRadarSignalClass(row)
+                        }">
+                            ${escapeHtml(
+                                row.signalLevel ||
+                                "-"
+                            )}
+                        </span>
+                    </td>
+
+                </tr>
+            `;
+        })
+        .join("");
+}
+
+function updateOpportunityModeView() {
+
+    updateOpportunityModeButtonState();
+
+    const radarMode =
+        currentOpportunityMode === "radar";
+
+    const opportunityToolbar =
+        document.getElementById(
+            "opportunity-level-toolbar"
+        );
+
+    const radarToolbar =
+        document.getElementById(
+            "radar-level-toolbar"
+        );
+
+    const opportunityTable =
+        document.getElementById(
+            "opportunities-table-wrapper"
+        );
+
+    const radarTable =
+        document.getElementById(
+            "radar-table-wrapper"
+        );
+
+    if (opportunityToolbar) {
+        opportunityToolbar.hidden =
+            radarMode;
+    }
+
+    if (radarToolbar) {
+        radarToolbar.hidden =
+            !radarMode;
+    }
+
+    if (opportunityTable) {
+        opportunityTable.hidden =
+            radarMode;
+    }
+
+    if (radarTable) {
+        radarTable.hidden =
+            !radarMode;
+    }
+
+    /*
+     * Les filtres existants sont
+     * spécifiques aux opportunités.
+     */
+    document
+        .querySelectorAll(
+            ".opportunity-filter-toolbar"
+        )
+        .forEach(element => {
+            element.hidden =
+                radarMode;
+        });
+
+    if (radarMode) {
+        renderRadar();
+    } else {
+        renderOpportunities();
     }
 }
 
