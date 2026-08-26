@@ -1085,6 +1085,25 @@ const cardsOver50 =
     </tr>
 `;
 
+                 })
+                .join("");
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="12">
+                    Erreur :
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </td>
+            </tr>
+        `;
+
     }
 
 }
