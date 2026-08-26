@@ -845,24 +845,36 @@ async function loadCategorySummary(
 
 
             const totalValue =
-                prices.reduce(
-                    (sum, value) =>
-                        sum + value,
-                    0
-                );
+    prices.reduce(
+        (sum, value) =>
+            sum + value,
+        0
+    );
 
 
-            const averagePrice =
-                prices.length
-                    ? totalValue /
-                        prices.length
-                    : 0;
+/*
+ * Concentration de la catégorie :
+ * part de sa valeur représentée par
+ * les 5 cartes les plus chères.
+ */
+const top5Value =
+    [...prices]
+        .sort((a, b) => b - a)
+        .slice(0, 5)
+        .reduce(
+            (sum, value) =>
+                sum + value,
+            0
+        );
 
 
-            const medianPrice =
-                getMedianValue(
-                    prices
-                );
+const top5Share =
+    totalValue > 0
+        ? (
+            top5Value /
+            totalValue
+        ) * 100
+        : null;
 
 
             const weight =
@@ -933,26 +945,24 @@ async function loadCategorySummary(
 
             return {
 
-                category,
+    category,
 
-                cardsCount:
-                    cards.length,
+    cardsCount:
+        cards.length,
 
-                totalValue,
+    totalValue,
 
-                averagePrice,
+    weight,
 
-                medianPrice,
+    change30d,
 
-                weight,
+    contribution30d,
 
-                change30d,
+    top5Share,
 
-                contribution30d,
+    cardsOver50
 
-                cardsOver50
-
-            };
+};
 
         });
 
@@ -1006,37 +1016,20 @@ async function loadCategorySummary(
                             </td>
 
                             <td class="price">
-                                ${
-                                    formatEuro(
-                                        row.totalValue
-                                    )
-                                }
-                            </td>
+    ${
+        formatEuro(
+            row.totalValue
+        )
+    }
+</td>
 
-                            <td>
-                                ${
-                                    formatEuro(
-                                        row.averagePrice
-                                    )
-                                }
-                            </td>
-
-                            <td>
-                                ${
-                                    formatEuro(
-                                        row.medianPrice
-                                    )
-                                }
-                            </td>
-
-                            <td>
-                                ${
-                                    formatSimplePercent(
-                                        row.weight
-                                    )
-                                }
-                            </td>
-
+<td>
+    ${
+        formatSimplePercent(
+            row.weight
+        )
+    }
+</td>
                             <td class="${changeClass}">
                                 ${
                                     row.change30d === null
@@ -1058,6 +1051,38 @@ async function loadCategorySummary(
                             </td>
 
                             <td>
+    ${
+        row.top5Share === null
+            ? "-"
+            : `
+                <div class="category-concentration">
+                    <div class="category-concentration-bar">
+                        <span
+                            style="width: ${
+                                Math.min(
+                                    100,
+                                    Math.max(
+                                        0,
+                                        row.top5Share
+                                    )
+                                )
+                            }%"
+                        ></span>
+                    </div>
+
+                    <strong>
+                        ${
+                            formatSimplePercent(
+                                row.top5Share
+                            )
+                        }
+                    </strong>
+                </div>
+            `
+    }
+</td>
+
+                            <td>
                                 ${row.cardsOver50}
                             </td>
 
@@ -1074,7 +1099,7 @@ async function loadCategorySummary(
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="9">
+                <td colspan="8">
                     Erreur :
                     ${escapeHtml(
                         error.message
