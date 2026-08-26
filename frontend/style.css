@@ -4833,7 +4833,80 @@ strong.score-negative {
 }
 
 #radar-table {
-    min-width: 900px;
+    min-width: 1180px;
+}
+
+.radar-page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.radar-page-heading h2 {
+    margin-bottom: 6px;
+}
+
+.radar-history-info {
+    flex: 0 0 auto;
+    min-width: 190px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #111520;
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.radar-history-info span {
+    display: block;
+    color: #9098a8;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.radar-history-info strong {
+    font-size: 14px;
+}
+
+.radar-learning-banner {
+    margin: 14px 0 18px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(127,183,255,.08);
+    border: 1px solid rgba(127,183,255,.18);
+}
+
+.radar-learning-banner strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.radar-learning-banner span {
+    color: #aeb7c8;
+    font-size: 13px;
+}
+
+.radar-signal-early,
+.radar-signal-learning {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 800;
+}
+
+.radar-signal-early {
+    background: rgba(241,196,15,.18);
+    color: #f4d35e;
+}
+
+.radar-signal-learning {
+    background: rgba(127,183,255,.12);
+    color: #9dc9ff;
+}
+
+.radar-estimate {
+    font-weight: 800;
 }
 
 #radar-table th,

@@ -1,8 +1,13 @@
 const path = require("path");
 const fs = require("fs");
 
+const RADAR_HISTORY_START_DATE =
+    "2026-08-22";
+
 module.exports = function handler(req, res) {
+
     try {
+
         const filePath = path.join(
             process.cwd(),
             "frontend",
@@ -10,22 +15,42 @@ module.exports = function handler(req, res) {
             "radar.json"
         );
 
-        const raw = fs.readFileSync(
-            filePath,
-            "utf8"
-        );
+        const raw =
+            fs.readFileSync(
+                filePath,
+                "utf8"
+            );
 
-        const data = JSON.parse(raw);
+        const data =
+            JSON.parse(raw);
 
-        res.status(200).json(data);
+
+        /*
+         * La coupure historique doit être
+         * appliquée lors de la génération
+         * de radar.json.
+         *
+         * Ici on expose simplement
+         * l'information au frontend.
+         */
+        res.status(200).json({
+            ...data,
+
+            historyStartDate:
+                data.historyStartDate ||
+                RADAR_HISTORY_START_DATE
+        });
 
     } catch (error) {
 
         console.error(error);
 
         res.status(500).json({
-            error: "Impossible de charger radar",
-            message: error.message
+            error:
+                "Impossible de charger radar",
+
+            message:
+                error.message
         });
     }
 };

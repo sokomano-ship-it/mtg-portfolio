@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 const {
@@ -34,17 +34,22 @@ const RADAR_OUTPUT_PATH = path.join(
 );
 
 /*
- * On part du 12 juillet, car cette date correspond
- * au début de la version actuelle du modèle.
+ * Le modÃ¨le statistique de pricing a Ã©tÃ©
+ * significativement modifiÃ© le 22 aoÃ»t 2026.
+ *
+ * Le Radar ne doit donc jamais interprÃ©ter
+ * comme mouvement de marchÃ© une variation
+ * produite par le changement de modÃ¨le.
  */
-const MODEL_START_DATE = "2026-07-12";
+const RADAR_HISTORY_START_DATE =
+    "2026-08-22";
 
 /*
- * Aucune fenêtre n'est encore considérée comme
+ * Aucune fenÃªtre n'est encore considÃ©rÃ©e comme
  * meilleure qu'une autre.
  *
  * Le laboratoire les calcule toutes afin que nous
- * puissions comparer les résultats réels.
+ * puissions comparer les rÃ©sultats rÃ©els.
  */
 const HORIZONS = [
     14,
@@ -57,7 +62,7 @@ const HORIZONS = [
 ];
 
 /*
- * États réellement intéressants pour ton objectif
+ * Ã‰tats rÃ©ellement intÃ©ressants pour ton objectif
  * d'achat sur Cardmarket.
  */
 const CONDITIONS = ["NM", "EX"];
@@ -164,11 +169,11 @@ function getConditionPrice(row, condition) {
 
     /*
      * Les anciennes lignes de l'historique ne
-     * possèdent pas toujours estimatedByCondition.
+     * possÃ¨dent pas toujours estimatedByCondition.
      *
      * On peut utiliser estimatedPrice uniquement
-     * lorsque la ligne correspond exactement à
-     * l'état demandé.
+     * lorsque la ligne correspond exactement Ã
+     * l'Ã©tat demandÃ©.
      */
     if (
         String(row?.etat || "")
@@ -210,7 +215,7 @@ function getModelSignature(row) {
 function deduplicateDailyRows(rows) {
     /*
      * Si plusieurs lignes existent pour une carte
-     * et une date, la dernière ligne gagne.
+     * et une date, la derniÃ¨re ligne gagne.
      */
     const byDate = new Map();
 
@@ -544,8 +549,8 @@ function calculatePriceChangeFrequency(rows) {
             );
 
         /*
-         * Une variation inférieure à 0,05 %
-         * est considérée comme inchangée.
+         * Une variation infÃ©rieure Ã  0,05 %
+         * est considÃ©rÃ©e comme inchangÃ©e.
          */
         if (changePct >= 0.05) {
             changedTransitions += 1;
@@ -610,8 +615,8 @@ function analyzeWindow(
         );
 
     /*
-     * Il faut couvrir au moins 80 % de la fenêtre
-     * demandée afin d'éviter d'appeler "30 jours"
+     * Il faut couvrir au moins 80 % de la fenÃªtre
+     * demandÃ©e afin d'Ã©viter d'appeler "30 jours"
      * un historique qui n'en couvre que 15.
      */
     const minimumSpanDays =
@@ -621,7 +626,7 @@ function analyzeWindow(
 
     /*
      * On demande aussi au moins 60 % des points
-     * quotidiens théoriques.
+     * quotidiens thÃ©oriques.
      */
     const minimumPointCount =
         Math.max(
@@ -657,10 +662,10 @@ function analyzeWindow(
         dateToTimestamp(first.date);
 
     /*
-     * Régression sur log(prix).
+     * RÃ©gression sur log(prix).
      *
      * Ainsi, les pentes sont comparables entre
-     * une carte à 2 € et une carte à 500 €.
+     * une carte Ã  2 â‚¬ et une carte Ã  500 â‚¬.
      */
     const regressionPoints =
         rows.map(row => ({
@@ -691,7 +696,7 @@ function analyzeWindow(
         return {
             available: false,
             reason:
-                "Régression impossible"
+                "RÃ©gression impossible"
         };
     }
 
@@ -721,9 +726,9 @@ function analyzeWindow(
 
     /*
      * Projection purement descriptive :
-     * rythme équivalent sur 30 jours.
+     * rythme Ã©quivalent sur 30 jours.
      *
-     * Ce n'est pas une prévision.
+     * Ce n'est pas une prÃ©vision.
      */
     const equivalent30dPct =
         (
@@ -734,9 +739,9 @@ function analyzeWindow(
         ) * 100;
 
     /*
-     * L'écart-type résiduel est converti en %.
+     * L'Ã©cart-type rÃ©siduel est converti en %.
      * Il mesure le bruit autour de la droite
-     * de tendance, pas la volatilité du marché.
+     * de tendance, pas la volatilitÃ© du marchÃ©.
      */
     const residualNoisePct =
         (
@@ -833,12 +838,12 @@ function buildCardGroups(history) {
             Number(row?.cardId);
 
         if (
-            !date ||
-            date < MODEL_START_DATE ||
-            !Number.isFinite(cardId)
-        ) {
-            return;
-        }
+    !date ||
+    date < RADAR_HISTORY_START_DATE ||
+    !Number.isFinite(cardId)
+) {
+    return;
+}
 
         if (!groups.has(cardId)) {
             groups.set(cardId, {
@@ -859,7 +864,7 @@ function buildCardGroups(history) {
             groups.get(cardId);
 
         /*
-         * Les métadonnées les plus récentes gagnent.
+         * Les mÃ©tadonnÃ©es les plus rÃ©centes gagnent.
          */
         group.nomCarte =
             row.nomCarte ||
@@ -913,8 +918,8 @@ function analyzePreparedSeries(
     /*
      * Point essentiel :
      * toutes les statistiques de tendance sont
-     * calculées uniquement après la dernière
-     * rupture structurelle du modèle.
+     * calculÃ©es uniquement aprÃ¨s la derniÃ¨re
+     * rupture structurelle du modÃ¨le.
      */
     const horizons =
         Object.fromEntries(
@@ -992,7 +997,7 @@ owned:
             ),
 
         /*
-         * Historique réellement utilisé pour
+         * Historique rÃ©ellement utilisÃ© pour
          * les calculs de tendance.
          */
         stableSince:
@@ -1096,16 +1101,35 @@ function clamp(value, minimum = 0, maximum = 100) {
     );
 }
 
-function getBestRadarHorizon(horizons) {
-    if (horizons?.["30d"]?.available) {
+function getBestRadarHorizon(
+    horizons
+) {
+
+    if (
+        horizons?.["90d"]
+            ?.available
+    ) {
+        return 90;
+    }
+
+    if (
+        horizons?.["60d"]
+            ?.available
+    ) {
+        return 60;
+    }
+
+    if (
+        horizons?.["30d"]
+            ?.available
+    ) {
         return 30;
     }
 
-    if (horizons?.["21d"]?.available) {
-        return 21;
-    }
-
-    if (horizons?.["14d"]?.available) {
+    if (
+        horizons?.["14d"]
+            ?.available
+    ) {
         return 14;
     }
 
@@ -1116,22 +1140,38 @@ function calculateRadarAssessment(
     horizons,
     latestConfidence
 ) {
-    const h14 = horizons?.["14d"];
-    const h21 = horizons?.["21d"];
-    const h30 = horizons?.["30d"];
+    const h14 =
+    horizons?.["14d"];
+
+const h30 =
+    horizons?.["30d"];
+
+const h60 =
+    horizons?.["60d"];
+
+const h90 =
+    horizons?.["90d"];
 
     const bestHorizon =
         getBestRadarHorizon(horizons);
 
     if (!bestHorizon) {
-        return {
-            radarEligible: false,
-            convictionScore: null,
-            signalLevel: "En accumulation",
-            signalHorizon: null,
-            components: null
-        };
-    }
+
+    return {
+        radarEligible: false,
+
+        convictionScore: null,
+
+        signalLevel:
+            "En apprentissage",
+
+        signalHorizon: null,
+
+        maturityFactor: 0,
+
+        components: null
+    };
+}
 
     const main =
         horizons[`${bestHorizon}d`];
@@ -1147,14 +1187,14 @@ if (equivalent30d <= 0) {
     trendScore = 0;
 } else if (equivalent30d < 3) {
     /*
-     * Hausse trop faible pour être réellement
-     * intéressante sur ce type de marché.
+     * Hausse trop faible pour Ãªtre rÃ©ellement
+     * intÃ©ressante sur ce type de marchÃ©.
      */
     trendScore =
         (equivalent30d / 3) * 20;
 } else if (equivalent30d < 8) {
     /*
-     * Hausse modérée : 20 -> 55.
+     * Hausse modÃ©rÃ©e : 20 -> 55.
      */
     trendScore =
         20 +
@@ -1174,7 +1214,7 @@ if (equivalent30d <= 0) {
         ) * 25;
 } else if (equivalent30d < 30) {
     /*
-     * Hausse très forte : 80 -> 95.
+     * Hausse trÃ¨s forte : 80 -> 95.
      */
     trendScore =
         80 +
@@ -1186,7 +1226,7 @@ if (equivalent30d <= 0) {
     /*
      * Les mouvements >30 % / 30 j sont
      * exceptionnels mais ne doivent pas
-     * écraser tout le reste du score.
+     * Ã©craser tout le reste du score.
      */
     trendScore =
         Math.min(
@@ -1204,11 +1244,16 @@ trendScore =
 
     /*
      * Persistance :
-     * combien de fenêtres disponibles possèdent
-     * réellement une pente positive.
+     * combien de fenÃªtres disponibles possÃ¨dent
+     * rÃ©ellement une pente positive.
      */
     const persistenceWindows =
-    [h14, h21, h30]
+    [
+        h14,
+        h30,
+        h60,
+        h90
+    ]
         .filter(
             horizon =>
                 horizon?.available
@@ -1226,7 +1271,7 @@ const persistenceValues =
  * Persistance = confirmation de la tendance
  * sur plusieurs horizons.
  *
- * Une ancienne hausse qui disparaît sur 14 j
+ * Une ancienne hausse qui disparaÃ®t sur 14 j
  * ne doit pas conserver un excellent score.
  */
 let persistenceScore = 0;
@@ -1277,11 +1322,11 @@ if (persistenceValues.length) {
         });
 
     /*
-     * La persistance est volontairement dominée
-     * par la fenêtre la plus faible.
+     * La persistance est volontairement dominÃ©e
+     * par la fenÃªtre la plus faible.
      *
      * Si 30 j et 21 j montent mais que 14 j
-     * s'arrête, le signal doit perdre en conviction.
+     * s'arrÃªte, le signal doit perdre en conviction.
      */
     const minimumStrength =
         Math.min(
@@ -1307,22 +1352,20 @@ if (persistenceValues.length) {
         );
 }
     /*
-     * Accélération :
+     * AccÃ©lÃ©ration :
      * comparaison de la pente courte 14 j
      * avec 21 j, ou 30 j si disponible.
      *
      * 50 = rythme stable
-     * >50 = accélération
-     * <50 = décélération
+     * >50 = accÃ©lÃ©ration
+     * <50 = dÃ©cÃ©lÃ©ration
      */
     let accelerationScore = null;
 
     const longer =
-        h30?.available
-            ? h30
-            : h21?.available
-                ? h21
-                : null;
+    h30?.available
+        ? h30
+        : null;
 
     if (
         h14?.available &&
@@ -1358,7 +1401,7 @@ if (persistenceValues.length) {
     }
 
     /*
-     * Qualité de la régression.
+     * QualitÃ© de la rÃ©gression.
      */
     const qualityScore =
         clamp(
@@ -1368,7 +1411,7 @@ if (persistenceValues.length) {
         );
 
     /*
-     * Plus le bruit résiduel est faible,
+     * Plus le bruit rÃ©siduel est faible,
      * meilleur est le score.
      *
      * 0 % bruit = 100
@@ -1444,15 +1487,20 @@ if (persistenceValues.length) {
             : 0;
 
     /*
-     * Une fenêtre courte peut déjà produire
-     * un signal, mais avec une pénalité de maturité.
+     * Une fenÃªtre courte peut dÃ©jÃ  produire
+     * un signal, mais avec une pÃ©nalitÃ© de maturitÃ©.
      */
     const maturityFactor =
-        bestHorizon >= 30
-            ? 1
-            : bestHorizon >= 21
+    bestHorizon >= 90
+        ? 1.00
+
+        : bestHorizon >= 60
+            ? 0.95
+
+            : bestHorizon >= 30
                 ? 0.90
-                : 0.75;
+
+                : 0.70;
 
     const convictionScore =
         round(
@@ -1469,21 +1517,51 @@ if (persistenceValues.length) {
     let signalLevel;
 
     if (!positiveTrend) {
-        signalLevel =
-            "Pas de signal";
-    } else if (convictionScore >= 75) {
-        signalLevel =
-            "Hausse forte";
-    } else if (convictionScore >= 60) {
-        signalLevel =
-            "Hausse probable";
-    } else if (convictionScore >= 45) {
-        signalLevel =
-            "À surveiller";
-    } else {
-        signalLevel =
-            "Pas de signal";
-    }
+
+    signalLevel =
+        "Pas de signal";
+
+} else if (
+    bestHorizon < 30
+) {
+
+    /*
+     * Avec seulement 14 jours propres,
+     * on accepte de dÃ©tecter un mouvement,
+     * mais jamais de produire une alerte
+     * d'achat forte.
+     */
+    signalLevel =
+        convictionScore >= 45
+            ? "Signal prÃ©coce"
+            : "Pas de signal";
+
+} else if (
+    convictionScore >= 75
+) {
+
+    signalLevel =
+        "Hausse forte";
+
+} else if (
+    convictionScore >= 60
+) {
+
+    signalLevel =
+        "Hausse probable";
+
+} else if (
+    convictionScore >= 45
+) {
+
+    signalLevel =
+        "Ã€ surveiller";
+
+} else {
+
+    signalLevel =
+        "Pas de signal";
+}
 
     return {
         radarEligible: true,
@@ -1612,13 +1690,13 @@ const trackedHistory =
 
 if (!Array.isArray(collectionHistory)) {
     throw new Error(
-        "L'historique estimé de la collection n'est pas un tableau JSON."
+        "L'historique estimÃ© de la collection n'est pas un tableau JSON."
     );
 }
 
 if (!Array.isArray(trackedHistory)) {
     throw new Error(
-        "L'historique estimé des cartes suivies n'est pas un tableau JSON."
+        "L'historique estimÃ© des cartes suivies n'est pas un tableau JSON."
     );
 }
 
@@ -1641,7 +1719,7 @@ const history = [
         history,
         {
             startDate:
-                MODEL_START_DATE,
+                RADAR_HISTORY_START_DATE,
 
             conditions:
                 CONDITIONS
@@ -1717,19 +1795,40 @@ return String(a.condition)
     });
 
     const radarRows =
-    rows
-        .filter(
-            row =>
-                row.radarEligible
-        )
+    [...rows]
         .sort(
-            (a, b) =>
-                Number(
-                    b.convictionScore || 0
-                ) -
-                Number(
-                    a.convictionScore || 0
-                )
+            (a, b) => {
+
+                /*
+                 * Les vrais signaux passent
+                 * avant les sÃ©ries encore
+                 * en apprentissage.
+                 */
+                const eligibleDifference =
+                    Number(
+                        b.radarEligible
+                    ) -
+                    Number(
+                        a.radarEligible
+                    );
+
+                if (
+                    eligibleDifference !== 0
+                ) {
+                    return eligibleDifference;
+                }
+
+                return (
+                    Number(
+                        b.convictionScore ||
+                        0
+                    ) -
+                    Number(
+                        a.convictionScore ||
+                        0
+                    )
+                );
+            }
         );
 
     const output = {
@@ -1742,7 +1841,7 @@ return String(a.condition)
 ],
 
         modelStartDate:
-            MODEL_START_DATE,
+            RADAR_HISTORY_START_DATE,
 
         conditions:
             CONDITIONS,
@@ -1790,15 +1889,44 @@ return String(a.condition)
         generatedAt:
             new Date().toISOString(),
 
+        historyStartDate:
+            RADAR_HISTORY_START_DATE,
+
         methodology: {
-            minimumHorizonDays: 14,
-            preferredHorizonDays: 30,
-            earlySignalPenalty: true
-        },
+
+    historyStartDate:
+        RADAR_HISTORY_START_DATE,
+
+    minimumHorizonDays: 14,
+
+    preferredHorizonDays: 30,
+
+    confirmationHorizons:
+        [30, 60, 90],
+
+    earlySignalPenalty: true,
+
+    strongSignalRequires30Days:
+        true
+},
 
         summary: {
             total:
                 radarRows.length,
+
+            learning:
+    radarRows.filter(
+        row =>
+            row.signalLevel ===
+            "En apprentissage"
+    ).length,
+
+earlySignal:
+    radarRows.filter(
+        row =>
+            row.signalLevel ===
+            "Signal prÃ©coce"
+    ).length,
 
             strongRise:
                 radarRows.filter(
@@ -1814,11 +1942,12 @@ return String(a.condition)
                         "Hausse probable"
                 ).length,
 
+
             watch:
                 radarRows.filter(
                     row =>
                         row.signalLevel ===
-                        "À surveiller"
+                        "Ã€ surveiller"
                 ).length
         },
 
@@ -1828,29 +1957,29 @@ return String(a.condition)
 );
 
     console.log(
-        `Laboratoire généré : ${OUTPUT_PATH}`
+        `Laboratoire gÃ©nÃ©rÃ© : ${OUTPUT_PATH}`
     );
     console.log(
-    `${radarRows.length} série(s) éligible(s) au Radar`
+    `${radarRows.length} sÃ©rie(s) Ã©ligible(s) au Radar`
 );
 
     console.log(
-    `${output.summary.totalPrintings} impression(s) distincte(s) analysée(s)`
+    `${output.summary.totalPrintings} impression(s) distincte(s) analysÃ©e(s)`
 );
 
 console.log(
-    `${output.summary.totalPhysicalCards} carte(s) physique(s) regroupée(s)`
+    `${output.summary.totalPhysicalCards} carte(s) physique(s) regroupÃ©e(s)`
 );
 
 console.log(
-    `${rows.length} série(s) NM/EX générée(s)`
+    `${rows.length} sÃ©rie(s) NM/EX gÃ©nÃ©rÃ©e(s)`
 );
 
 console.log(
-    `${output.summary.seriesWithStructuralBreak} série(s) avec rupture structurelle`
+    `${output.summary.seriesWithStructuralBreak} sÃ©rie(s) avec rupture structurelle`
 );
 
-    
+
 
     HORIZONS.forEach(days => {
         console.log(

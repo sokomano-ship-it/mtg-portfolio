@@ -36,10 +36,14 @@ async getRadar() {
     const data = await fetchJson("/api/radar");
 
     return {
-        rows: data.rows || [],
-        summary: data.summary || {},
-        generatedAt: data.generatedAt || null
-    };
+    rows: data.rows || [],
+    summary: data.summary || {},
+    generatedAt: data.generatedAt || null,
+    historyStartDate:
+        data.historyStartDate || null,
+    methodology:
+        data.methodology || {}
+};
 },
 
     async getCardDetails() {
