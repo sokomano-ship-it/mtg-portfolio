@@ -4855,3 +4855,34 @@ strong.score-negative {
 
     font-weight: 500;
 }
+
+/* ========================================
+   CONVERGENCE
+   ======================================== */
+
+#convergence-table {
+    min-width: 900px;
+}
+
+#convergence-table th,
+#convergence-table td {
+    padding: 9px 12px;
+    vertical-align: middle;
+}
+
+#convergence-table th {
+    white-space: nowrap;
+}
+
+#convergence-table td:first-child {
+    min-width: 220px;
+}
+
+#convergence-table td:nth-child(2),
+#convergence-table td:nth-child(3),
+#convergence-table td:nth-child(4),
+#convergence-table td:nth-child(5),
+#convergence-table td:nth-child(6),
+#convergence-table td:nth-child(7) {
+    text-align: center;
+}

@@ -918,6 +918,20 @@ placeholder="Gain lot >=5"
             >0</span>
         </button>
 
+        <button
+    type="button"
+    class="opportunity-mode-button"
+    data-opportunity-mode="convergence"
+>
+    🎯 Convergence
+    <span
+        id="convergence-mode-count"
+        class="opportunity-level-count"
+    >
+        0
+    </span>
+</button>
+
     </div>
 
 </div>
@@ -1029,6 +1043,71 @@ placeholder="Gain lot >=5"
         class="opportunity-level-count"
     >0</span>
 </button>
+
+    </div>
+
+</div>
+
+<div
+    id="convergence-level-toolbar"
+    class="opportunity-level-toolbar"
+    hidden
+>
+
+    <div class="opportunity-level-title">
+        Afficher
+    </div>
+
+    <div
+        class="opportunity-level-buttons"
+        role="group"
+        aria-label="Niveau de convergence"
+    >
+
+        <button
+            type="button"
+            class="opportunity-level-button active"
+            data-convergence-level="strong"
+        >
+            🔥 Forte conviction
+
+            <span
+                id="convergence-count-strong"
+                class="opportunity-level-count"
+            >
+                0
+            </span>
+        </button>
+
+        <button
+            type="button"
+            class="opportunity-level-button"
+            data-convergence-level="watch"
+        >
+            👀 À surveiller
+
+            <span
+                id="convergence-count-watch"
+                class="opportunity-level-count"
+            >
+                0
+            </span>
+        </button>
+
+        <button
+            type="button"
+            class="opportunity-level-button"
+            data-convergence-level="all"
+        >
+            Toutes
+
+            <span
+                id="convergence-count-all"
+                class="opportunity-level-count"
+            >
+                0
+            </span>
+        </button>
 
     </div>
 
@@ -1224,6 +1303,56 @@ placeholder="Gain lot >=5"
 </thead>
 
         <tbody id="radar-body"></tbody>
+
+    </table>
+
+</div>
+
+<div
+    id="convergence-table-wrapper"
+    class="table-wrapper"
+    hidden
+>
+
+    <table id="convergence-table">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Carte
+                </th>
+
+                <th>
+                    Prix marché
+                </th>
+
+                <th>
+                    Cible achat
+                </th>
+
+                <th>
+                    Opportunité
+                </th>
+
+                <th>
+                    Radar
+                </th>
+
+                <th>
+                    Qualité
+                </th>
+
+                <th>
+                    Convergence
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="convergence-body"></tbody>
 
     </table>
 

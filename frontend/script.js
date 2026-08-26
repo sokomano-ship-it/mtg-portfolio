@@ -3,6 +3,8 @@ let allMovers = [];
 let allOpportunities = [];
 let allRadarRows = [];
 let radarSummary = {};
+let allConvergenceRows = [];
+let currentConvergenceDisplayLevel = "strong";
 let allInvestmentAnalysis = [];
 
 let selectedInvestmentCardId = null;
@@ -9160,6 +9162,7 @@ async function loadOpportunities() {
 
         radarSummary =
             radarData?.summary || {};
+        buildConvergenceRows();
 
         buildOpportunityFilters();
 
@@ -9169,9 +9172,11 @@ async function loadOpportunities() {
 
         setupOpportunityModeButtons();
         setupRadarLevelButtons();
+        setupConvergenceLevelButtons();
 
         updateOpportunityLevelCounts();
         updateRadarLevelCounts();
+        updateConvergenceCounts();
         updateOpportunityModeCounts();
 
         updateOpportunityModeView();
@@ -9184,6 +9189,474 @@ async function loadOpportunities() {
             "Erreur : " +
             error.message;
     }
+}
+
+function buildConvergenceRows() {
+
+    const radarGroups =
+        groupRadarRows(allRadarRows);
+
+    const radarByKey =
+        new Map(
+            radarGroups.map(group => [
+                group.key,
+                group
+            ])
+        );
+
+
+    allConvergenceRows =
+        allOpportunities
+            .map(opportunity => {
+
+                const key =
+                    [
+                        opportunity.nomCarte || "",
+                        opportunity.edition || "",
+                        opportunity.langue || ""
+                    ]
+                        .map(normalizeText)
+                        .join("||");
+
+
+                const radar =
+                    radarByKey.get(key);
+
+                if (!radar) {
+                    return null;
+                }
+
+
+                const recommended =
+                    getRecommendedOpportunityMetrics(
+                        opportunity
+                    );
+
+                if (!recommended) {
+                    return null;
+                }
+
+
+                const opportunityScore =
+                    Number(
+                        calculateOpportunityScore(
+                            opportunity
+                        ) || 0
+                    );
+
+
+                const radarScore =
+                    Number(
+                        radar.bestScore || 0
+                    );
+
+
+                const pricingConfidence =
+                    Number(
+                        opportunity.gradeModelConfidence ??
+                        opportunity.pricingConfidence ??
+                        opportunity.confidence ??
+                        0
+                    );
+
+
+                /*
+                 * Score principal :
+                 *
+                 * 50 % qualité de l'opportunité
+                 * 35 % dynamique Radar
+                 * 15 % confiance pricing
+                 */
+                let convergenceScore =
+                    opportunityScore * 0.50 +
+                    radarScore * 0.35 +
+                    pricingConfidence * 0.15;
+
+
+                /*
+                 * Garde-fou :
+                 * une carte sans signal Radar positif
+                 * ne doit pas devenir une forte convergence.
+                 */
+                if (!radarGroupHasSignal(radar)) {
+
+                    convergenceScore =
+                        Math.min(
+                            convergenceScore,
+                            59
+                        );
+                }
+
+
+                /*
+                 * Bonus léger si le Radar atteint
+                 * le niveau d'alerte strict.
+                 */
+                if (radarGroupHasAlert(radar)) {
+
+                    convergenceScore += 3;
+                }
+
+
+                convergenceScore =
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            convergenceScore
+                        )
+                    );
+
+
+                return {
+
+                    ...opportunity,
+
+                    convergenceScore,
+
+                    opportunityScore,
+
+                    radarScore,
+
+                    pricingConfidence,
+
+                    recommended,
+
+                    radarGroup:
+                        radar
+
+                };
+
+            })
+            .filter(Boolean)
+            .sort(
+                (a, b) =>
+                    b.convergenceScore -
+                    a.convergenceScore
+            );
+}
+
+
+function getConvergenceLevel(row) {
+
+    if (
+        row.convergenceScore >= 80 &&
+        row.radarScore >= 75 &&
+        row.opportunityScore >= 70
+    ) {
+        return "strong";
+    }
+
+
+    if (
+        row.convergenceScore >= 65 &&
+        row.radarScore >= 60
+    ) {
+        return "watch";
+    }
+
+
+    return "other";
+}
+
+
+function matchesConvergenceLevel(row) {
+
+    if (
+        currentConvergenceDisplayLevel ===
+        "all"
+    ) {
+        return true;
+    }
+
+
+    return (
+        getConvergenceLevel(row) ===
+        currentConvergenceDisplayLevel
+    );
+}
+
+
+function updateConvergenceCounts() {
+
+    const strong =
+        allConvergenceRows.filter(
+            row =>
+                getConvergenceLevel(row) ===
+                "strong"
+        ).length;
+
+
+    const watch =
+        allConvergenceRows.filter(
+            row =>
+                getConvergenceLevel(row) ===
+                "watch"
+        ).length;
+
+
+    const strongElement =
+        document.getElementById(
+            "convergence-count-strong"
+        );
+
+    const watchElement =
+        document.getElementById(
+            "convergence-count-watch"
+        );
+
+    const allElement =
+        document.getElementById(
+            "convergence-count-all"
+        );
+
+    const modeCount =
+        document.getElementById(
+            "convergence-mode-count"
+        );
+
+
+    if (strongElement) {
+        strongElement.textContent = strong;
+    }
+
+    if (watchElement) {
+        watchElement.textContent = watch;
+    }
+
+    if (allElement) {
+        allElement.textContent =
+            allConvergenceRows.length;
+    }
+
+    if (modeCount) {
+        modeCount.textContent =
+            allConvergenceRows.length;
+    }
+}
+
+
+function setupConvergenceLevelButtons() {
+
+    document
+        .querySelectorAll(
+            "[data-convergence-level]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                currentConvergenceDisplayLevel =
+                    button.dataset
+                        .convergenceLevel ||
+                    "strong";
+
+                updateConvergenceLevelButtonState();
+                renderConvergence();
+            };
+        });
+
+
+    updateConvergenceLevelButtonState();
+}
+
+
+function updateConvergenceLevelButtonState() {
+
+    document
+        .querySelectorAll(
+            "[data-convergence-level]"
+        )
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset
+                    .convergenceLevel ===
+                    currentConvergenceDisplayLevel
+            );
+        });
+}
+
+function renderConvergence() {
+
+    const tbody =
+        document.getElementById(
+            "convergence-body"
+        );
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const rows =
+        allConvergenceRows
+            .filter(
+                matchesConvergenceLevel
+            );
+
+
+    const status =
+        document.getElementById(
+            "opportunities-status"
+        );
+
+
+    if (status) {
+
+        status.textContent =
+            `${rows.length} convergence${
+                rows.length === 1 ? "" : "s"
+            } affichée${
+                rows.length === 1 ? "" : "s"
+            }`;
+    }
+
+
+    tbody.innerHTML =
+        rows
+            .map(row => {
+
+                const rec =
+                    row.recommended;
+
+                const radar =
+                    row.radarGroup;
+
+                const h30 =
+                    radar?.horizons?.["30d"];
+
+                const rSquared =
+                    h30?.available
+                        ? Number(
+                            h30.rSquared
+                        )
+                        : null;
+
+
+                const level =
+                    getConvergenceLevel(
+                        row
+                    );
+
+
+                const badge =
+                    level === "strong"
+                        ? "🔥"
+                        : level === "watch"
+                            ? "👀"
+                            : "•";
+
+
+                const scoreClass =
+                    row.convergenceScore >= 80
+                        ? "radar-signal-strong"
+                        : row.convergenceScore >= 65
+                            ? "radar-signal-probable"
+                            : "radar-signal-neutral";
+
+
+                return `
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    row.nomCarte || ""
+                                )}
+                            </strong>
+
+                            <div class="radar-card-subline">
+
+                                ${escapeHtml(
+                                    row.edition || ""
+                                )}
+
+                                ·
+
+                                ${escapeHtml(
+                                    row.langue || ""
+                                )}
+
+                                ·
+
+                                ${rec.condition}
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+
+                            ${formatEuro(
+                                rec.marketPrice
+                            )}
+
+                        </td>
+
+
+                        <td class="price">
+
+                            ${formatEuro(
+                                rec.targetPrice
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${Math.round(
+                                row.opportunityScore
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${Math.round(
+                                row.radarScore
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                                Number.isFinite(
+                                    rSquared
+                                )
+                                    ? `R² ${rSquared.toFixed(2)}`
+                                    : "-"
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="${scoreClass}">
+
+                                ${badge}
+
+                                ${Math.round(
+                                    row.convergenceScore
+                                )}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+                `;
+
+            })
+            .join("");
 }
 
 function setupOpportunityModeButtons() {
@@ -9235,19 +9708,34 @@ function updateOpportunityModeCounts() {
             "radar-mode-count"
         );
 
+    const convergenceCount =
+        document.getElementById(
+            "convergence-mode-count"
+        );
+
+
     if (opportunityCount) {
+
         opportunityCount.textContent =
             allOpportunities.length;
     }
 
+
     if (radarCount) {
+
         radarCount.textContent =
-    groupRadarRows(
-        allRadarRows
-    ).length;
+            groupRadarRows(
+                allRadarRows
+            ).length;
+    }
+
+
+    if (convergenceCount) {
+
+        convergenceCount.textContent =
+            allConvergenceRows.length;
     }
 }
-
 
 
 function isRadarAlert(row) {
@@ -9463,8 +9951,8 @@ function setupRadarLevelButtons() {
             button.onclick = () => {
 
                 currentRadarDisplayLevel =
-                    button.dataset.radarLevel ||
-                    "strong";
+    button.dataset.radarLevel ||
+    "alert";
 
                 updateRadarLevelButtonState();
                 renderRadar();
@@ -9948,8 +10436,19 @@ function updateOpportunityModeView() {
 
     updateOpportunityModeButtonState();
 
+
     const radarMode =
-        currentOpportunityMode === "radar";
+        currentOpportunityMode ===
+        "radar";
+
+    const convergenceMode =
+        currentOpportunityMode ===
+        "convergence";
+
+    const opportunityMode =
+        currentOpportunityMode ===
+        "opportunities";
+
 
     const opportunityToolbar =
         document.getElementById(
@@ -9961,6 +10460,12 @@ function updateOpportunityModeView() {
             "radar-level-toolbar"
         );
 
+    const convergenceToolbar =
+        document.getElementById(
+            "convergence-level-toolbar"
+        );
+
+
     const opportunityTable =
         document.getElementById(
             "opportunities-table-wrapper"
@@ -9971,9 +10476,15 @@ function updateOpportunityModeView() {
             "radar-table-wrapper"
         );
 
+    const convergenceTable =
+        document.getElementById(
+            "convergence-table-wrapper"
+        );
+
+
     if (opportunityToolbar) {
         opportunityToolbar.hidden =
-            radarMode;
+            !opportunityMode;
     }
 
     if (radarToolbar) {
@@ -9981,9 +10492,15 @@ function updateOpportunityModeView() {
             !radarMode;
     }
 
+    if (convergenceToolbar) {
+        convergenceToolbar.hidden =
+            !convergenceMode;
+    }
+
+
     if (opportunityTable) {
         opportunityTable.hidden =
-            radarMode;
+            !opportunityMode;
     }
 
     if (radarTable) {
@@ -9991,22 +10508,33 @@ function updateOpportunityModeView() {
             !radarMode;
     }
 
-    /*
-     * Les filtres existants sont
-     * spécifiques aux opportunités.
-     */
+    if (convergenceTable) {
+        convergenceTable.hidden =
+            !convergenceMode;
+    }
+
+
     document
         .querySelectorAll(
             ".opportunity-filter-toolbar"
         )
         .forEach(element => {
+
             element.hidden =
-                radarMode;
+                !opportunityMode;
         });
 
+
     if (radarMode) {
+
         renderRadar();
+
+    } else if (convergenceMode) {
+
+        renderConvergence();
+
     } else {
+
         renderOpportunities();
     }
 }
