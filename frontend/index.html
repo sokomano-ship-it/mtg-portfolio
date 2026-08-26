@@ -995,40 +995,40 @@ placeholder="Gain lot >=5"
     <div class="opportunity-level-buttons">
 
         <button
-            type="button"
-            class="opportunity-level-button active"
-            data-radar-level="strong"
-        >
-            🔥 Fortes hausses
-            <span
-                id="radar-count-strong"
-                class="opportunity-level-count"
-            >0</span>
-        </button>
+    type="button"
+    class="opportunity-level-button active"
+    data-radar-level="alert"
+>
+    🚨 Alertes Radar
+    <span
+        id="radar-count-alert"
+        class="opportunity-level-count"
+    >0</span>
+</button>
 
-        <button
-            type="button"
-            class="opportunity-level-button"
-            data-radar-level="probable"
-        >
-            📈 Fortes + probables
-            <span
-                id="radar-count-probable"
-                class="opportunity-level-count"
-            >0</span>
-        </button>
+<button
+    type="button"
+    class="opportunity-level-button"
+    data-radar-level="signal"
+>
+    📈 Signaux Radar
+    <span
+        id="radar-count-signal"
+        class="opportunity-level-count"
+    >0</span>
+</button>
 
-        <button
-            type="button"
-            class="opportunity-level-button"
-            data-radar-level="all"
-        >
-            Toutes
-            <span
-                id="radar-count-all"
-                class="opportunity-level-count"
-            >0</span>
-        </button>
+<button
+    type="button"
+    class="opportunity-level-button"
+    data-radar-level="all"
+>
+    Toutes
+    <span
+        id="radar-count-all"
+        class="opportunity-level-count"
+    >0</span>
+</button>
 
     </div>
 
@@ -1212,22 +1212,16 @@ placeholder="Gain lot >=5"
     <table id="radar-table">
 
         <thead>
-            <tr>
-                <th>Carte</th>
-                <th>Édition</th>
-                <th>Langue</th>
-                <th>Possédé</th>
-                <th>État</th>
-                <th>Prix</th>
-                <th>14 j</th>
-                <th>21 j</th>
-                <th>30 j</th>
-                <th>R² 30 j</th>
-                <th>Bruit</th>
-                <th>Conviction</th>
-                <th>Signal</th>
-            </tr>
-        </thead>
+    <tr>
+        <th>Carte</th>
+        <th>Édition / état</th>
+        <th>Prix</th>
+        <th>14 j</th>
+        <th>30 j</th>
+        <th>Qualité</th>
+        <th>Radar</th>
+    </tr>
+</thead>
 
         <tbody id="radar-body"></tbody>
 

@@ -4827,3 +4827,31 @@ strong.score-negative {
         rgba(160, 160, 160, 0.14);
     color: #aaa;
 }
+
+[hidden] {
+    display: none !important;
+}
+
+#radar-table {
+    min-width: 900px;
+}
+
+#radar-table th,
+#radar-table td {
+    padding: 8px 12px;
+    vertical-align: middle;
+}
+
+#radar-table td:first-child {
+    min-width: 180px;
+}
+
+.radar-card-subline {
+    margin-top: 2px;
+
+    color: #9098a8;
+
+    font-size: 0.70rem;
+
+    font-weight: 500;
+}

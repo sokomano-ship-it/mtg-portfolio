@@ -19,7 +19,7 @@ let currentOpportunitySort = "opportunityScore";
 let currentOpportunityDirection = "desc";
 let currentOpportunityDisplayLevel = "strong";
 let currentOpportunityMode = "opportunities";
-let currentRadarDisplayLevel = "strong";
+let currentRadarDisplayLevel = "alert";
 
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
@@ -9242,64 +9242,215 @@ function updateOpportunityModeCounts() {
 
     if (radarCount) {
         radarCount.textContent =
-            allRadarRows.length;
+    groupRadarRows(
+        allRadarRows
+    ).length;
     }
 }
 
-function getRadarLevel(row) {
+
+
+function isRadarAlert(row) {
 
     const score =
         Number(
             row.convictionScore || 0
         );
 
-    const signal =
-        String(
-            row.signalLevel || ""
+    const price =
+        Number(
+            row.latestPrice || 0
         );
 
-    if (
-        signal === "Hausse forte" &&
-        score >= 75
-    ) {
-        return "strong";
-    }
+    const h30 =
+        row.horizons?.["30d"];
 
-    if (
-        signal === "Hausse forte" ||
-        signal === "Hausse probable"
-    ) {
-        return "probable";
-    }
+    const rSquared =
+        Number(
+            h30?.rSquared
+        );
 
-    return "other";
+    return (
+        row.signalLevel ===
+            "Hausse forte" &&
+
+        score >= 80 &&
+
+        price >= 3 &&
+
+        h30?.available === true &&
+
+        Number.isFinite(
+            rSquared
+        ) &&
+
+        rSquared >= 0.70
+    );
 }
 
 
-function matchesRadarDisplayLevel(row) {
+function isRadarSignal(row) {
 
-    const level =
-        getRadarLevel(row);
+    return (
+        row.signalLevel ===
+            "Hausse forte" ||
+
+        row.signalLevel ===
+            "Hausse probable"
+    );
+}
+
+function getRadarGroupKey(row) {
+
+    return [
+        String(
+            row.nomCarte || ""
+        ).trim(),
+
+        String(
+            row.edition || ""
+        ).trim(),
+
+        String(
+            row.langue || ""
+        ).trim()
+    ]
+        .map(normalizeText)
+        .join("||");
+}
+
+
+function groupRadarRows(rows) {
+
+    const groups =
+        new Map();
+
+
+    rows.forEach(row => {
+
+        const key =
+            getRadarGroupKey(row);
+
+
+        if (!groups.has(key)) {
+
+            groups.set(
+                key,
+                {
+                    key,
+                    rows: []
+                }
+            );
+        }
+
+
+        groups
+            .get(key)
+            .rows
+            .push(row);
+    });
+
+
+    return [...groups.values()]
+        .map(group => {
+
+            const sorted =
+                [...group.rows]
+                    .sort(
+                        (a, b) =>
+                            Number(
+                                b.convictionScore ||
+                                0
+                            ) -
+                            Number(
+                                a.convictionScore ||
+                                0
+                            )
+                    );
+
+
+            const best =
+                sorted[0];
+
+
+            const nm =
+                sorted.find(
+                    row =>
+                        row.condition === "NM"
+                ) || null;
+
+
+            const ex =
+                sorted.find(
+                    row =>
+                        row.condition === "EX"
+                ) || null;
+
+
+            return {
+                ...best,
+
+                radarRows:
+                    sorted,
+
+                nm,
+
+                ex,
+
+                bestCondition:
+                    best.condition || "-",
+
+                bestScore:
+                    Number(
+                        best.convictionScore ||
+                        0
+                    )
+            };
+        });
+}
+
+function radarGroupHasAlert(group) {
+
+    return group.radarRows.some(
+        isRadarAlert
+    );
+}
+
+
+function radarGroupHasSignal(group) {
+
+    return group.radarRows.some(
+        isRadarSignal
+    );
+}
+
+
+function matchesRadarGroupLevel(
+    group
+) {
 
     if (
-        currentRadarDisplayLevel === "all"
+        currentRadarDisplayLevel ===
+        "all"
     ) {
         return true;
     }
 
+
     if (
         currentRadarDisplayLevel ===
-        "probable"
+        "signal"
     ) {
-        return (
-            level === "strong" ||
-            level === "probable"
+        return radarGroupHasSignal(
+            group
         );
     }
 
-    return level === "strong";
-}
 
+    return radarGroupHasAlert(
+        group
+    );
+}
 
 function setupRadarLevelButtons() {
 
@@ -9341,34 +9492,35 @@ function updateRadarLevelButtonState() {
 }
 
 
+
 function updateRadarLevelCounts() {
 
-    let strong = 0;
-    let probable = 0;
-
-    allRadarRows.forEach(row => {
-
-        const level =
-            getRadarLevel(row);
-
-        if (level === "strong") {
-            strong += 1;
-            probable += 1;
-        } else if (
-            level === "probable"
-        ) {
-            probable += 1;
-        }
-    });
-
-    const strongElement =
-        document.getElementById(
-            "radar-count-strong"
+    const groups =
+        groupRadarRows(
+            allRadarRows
         );
 
-    const probableElement =
+
+    const alertCount =
+        groups.filter(
+            radarGroupHasAlert
+        ).length;
+
+
+    const signalCount =
+        groups.filter(
+            radarGroupHasSignal
+        ).length;
+
+
+    const alertElement =
         document.getElementById(
-            "radar-count-probable"
+            "radar-count-alert"
+        );
+
+    const signalElement =
+        document.getElementById(
+            "radar-count-signal"
         );
 
     const allElement =
@@ -9376,19 +9528,22 @@ function updateRadarLevelCounts() {
             "radar-count-all"
         );
 
-    if (strongElement) {
-        strongElement.textContent =
-            strong;
+
+    if (alertElement) {
+        alertElement.textContent =
+            alertCount;
     }
 
-    if (probableElement) {
-        probableElement.textContent =
-            probable;
+
+    if (signalElement) {
+        signalElement.textContent =
+            signalCount;
     }
+
 
     if (allElement) {
         allElement.textContent =
-            allRadarRows.length;
+            groups.length;
     }
 }
 
@@ -9459,213 +9614,334 @@ function renderRadar() {
         return;
     }
 
-    const rows =
-        allRadarRows
+
+    const groups =
+        groupRadarRows(
+            allRadarRows
+        )
             .filter(
-                matchesRadarDisplayLevel
+                matchesRadarGroupLevel
             )
             .sort(
                 (a, b) =>
-                    Number(
-                        b.convictionScore || 0
-                    ) -
-                    Number(
-                        a.convictionScore || 0
-                    )
+                    b.bestScore -
+                    a.bestScore
             );
+
 
     const status =
         document.getElementById(
             "opportunities-status"
         );
 
+
     if (status) {
 
+        const label =
+            currentRadarDisplayLevel ===
+                "alert"
+                ? "alertes Radar"
+
+                : currentRadarDisplayLevel ===
+                    "signal"
+                    ? "signaux Radar"
+
+                    : "cartes Radar";
+
+
         status.textContent =
-            `${rows.length} série${
-                rows.length === 1
-                    ? ""
-                    : "s"
-            } Radar affichée${
-                rows.length === 1
+            `${groups.length} ${label} affiché${
+                groups.length === 1
                     ? ""
                     : "s"
             }`;
     }
 
-    tbody.innerHTML = rows
-        .map(row => {
 
-            const h14 =
-                row.horizons?.["14d"];
+    tbody.innerHTML =
+        groups
+            .map(group => {
 
-            const h21 =
-                row.horizons?.["21d"];
+                /*
+                 * Pour la vue Alertes,
+                 * prendre comme référence
+                 * la meilleure série qui
+                 * respecte réellement
+                 * le filtre d'alerte.
+                 */
+                let row =
+                    group;
 
-            const h30 =
-                row.horizons?.["30d"];
 
-            const perf14 =
-                h14?.available
-                    ? Number(
-                        h14.equivalent30dPct
-                    )
-                    : null;
+                if (
+                    currentRadarDisplayLevel ===
+                    "alert"
+                ) {
 
-            const perf21 =
-                h21?.available
-                    ? Number(
-                        h21.equivalent30dPct
-                    )
-                    : null;
+                    row =
+                        group.radarRows
+                            .filter(
+                                isRadarAlert
+                            )
+                            .sort(
+                                (a, b) =>
+                                    Number(
+                                        b.convictionScore ||
+                                        0
+                                    ) -
+                                    Number(
+                                        a.convictionScore ||
+                                        0
+                                    )
+                            )[0] ||
+                        group;
+                }
 
-            const perf30 =
-                h30?.available
-                    ? Number(
-                        h30.equivalent30dPct
-                    )
-                    : null;
 
-            const rSquared =
-                h30?.available
-                    ? Number(
-                        h30.rSquared
-                    )
-                    : null;
+                const h14 =
+                    row.horizons
+                        ?.["14d"];
 
-            const noise =
-                h30?.available
-                    ? Number(
-                        h30.residualNoisePct
-                    )
-                    : null;
 
-            return `
-                <tr>
+                const h30 =
+                    row.horizons
+                        ?.["30d"];
 
-                    <td>
-                        <strong>
-                            ${escapeHtml(
-                                row.nomCarte || "-"
+
+                const perf14 =
+                    h14?.available
+                        ? Number(
+                            h14
+                                .equivalent30dPct
+                        )
+                        : null;
+
+
+                const perf30 =
+                    h30?.available
+                        ? Number(
+                            h30
+                                .equivalent30dPct
+                        )
+                        : null;
+
+
+                const rSquared =
+                    h30?.available
+                        ? Number(
+                            h30.rSquared
+                        )
+                        : null;
+
+
+                const score =
+                    Number(
+                        row.convictionScore ||
+                        0
+                    );
+
+
+                const nmScore =
+                    group.nm
+                        ? Number(
+                            group.nm
+                                .convictionScore ||
+                            0
+                        )
+                        : null;
+
+
+                const exScore =
+                    group.ex
+                        ? Number(
+                            group.ex
+                                .convictionScore ||
+                            0
+                        )
+                        : null;
+
+
+                const conditionScores =
+                    [
+                        nmScore !== null
+                            ? `NM ${Math.round(
+                                nmScore
+                            )}`
+                            : null,
+
+                        exScore !== null
+                            ? `EX ${Math.round(
+                                exScore
+                            )}`
+                            : null
+                    ]
+                        .filter(Boolean)
+                        .join(" · ");
+
+
+                const radarClass =
+                    isRadarAlert(row)
+                        ? "radar-signal-strong"
+
+                        : row.signalLevel ===
+                            "Hausse probable"
+                            ? "radar-signal-probable"
+
+                            : "radar-signal-watch";
+
+
+                return `
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    row.nomCarte ||
+                                    "-"
+                                )}
+                            </strong>
+
+                            <div
+                                class="
+                                    radar-card-subline
+                                "
+                            >
+                                ${
+                                    row.owned
+                                        ? "Possédée"
+                                        : "Non possédée"
+                                }
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <div>
+                                ${escapeHtml(
+                                    row.edition ||
+                                    "-"
+                                )}
+                            </div>
+
+                            <div
+                                class="
+                                    radar-card-subline
+                                "
+                            >
+                                ${escapeHtml(
+                                    row.langue ||
+                                    "-"
+                                )}
+                                ·
+                                ${escapeHtml(
+                                    row.condition ||
+                                    "-"
+                                )}
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+
+                            ${formatEuro(
+                                row.latestPrice
                             )}
-                        </strong>
-                    </td>
 
-                    <td>
-                        ${escapeHtml(
-                            row.edition || "-"
-                        )}
-                    </td>
+                        </td>
 
-                    <td>
-                        ${escapeHtml(
-                            row.langue || "-"
-                        )}
-                    </td>
 
-                    <td>
-                        <span class="${
-                            row.owned
-                                ? "owned-yes"
-                                : "owned-no"
-                        }">
-                            ${
-                                row.owned
-                                    ? "Oui"
-                                    : "Non"
-                            }
-                        </span>
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            row.condition || "-"
-                        )}
-                    </td>
-
-                    <td class="price">
-                        ${formatEuro(
-                            row.latestPrice
-                        )}
-                    </td>
-
-                    <td class="${
-                        getRadarPerformanceClass(
-                            perf14
-                        )
-                    }">
-                        ${formatRadarPercent(
-                            perf14
-                        )}
-                    </td>
-
-                    <td class="${
-                        getRadarPerformanceClass(
-                            perf21
-                        )
-                    }">
-                        ${formatRadarPercent(
-                            perf21
-                        )}
-                    </td>
-
-                    <td class="${
-                        getRadarPerformanceClass(
-                            perf30
-                        )
-                    }">
-                        ${formatRadarPercent(
-                            perf30
-                        )}
-                    </td>
-
-                    <td>
-                        ${
-                            Number.isFinite(
-                                rSquared
-                            )
-                                ? rSquared.toFixed(2)
-                                : "-"
-                        }
-                    </td>
-
-                    <td>
-                        ${
-                            Number.isFinite(
-                                noise
-                            )
-                                ? noise.toFixed(1) +
-                                  " %"
-                                : "-"
-                        }
-                    </td>
-
-                    <td>
-                        <strong>
-                            ${Math.round(
-                                Number(
-                                    row.convictionScore ||
-                                    0
+                        <td
+                            class="${
+                                getRadarPerformanceClass(
+                                    perf14
                                 )
-                            )}
-                        </strong>
-                    </td>
+                            }"
+                        >
 
-                    <td>
-                        <span class="${
-                            getRadarSignalClass(row)
-                        }">
-                            ${escapeHtml(
-                                row.signalLevel ||
-                                "-"
+                            ${formatRadarPercent(
+                                perf14
                             )}
-                        </span>
-                    </td>
 
-                </tr>
-            `;
-        })
-        .join("");
+                        </td>
+
+
+                        <td
+                            class="${
+                                getRadarPerformanceClass(
+                                    perf30
+                                )
+                            }"
+                        >
+
+                            ${formatRadarPercent(
+                                perf30
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                                Number.isFinite(
+                                    rSquared
+                                )
+                                    ? `R² ${
+                                        rSquared
+                                            .toFixed(
+                                                2
+                                            )
+                                    }`
+                                    : "-"
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="${radarClass}"
+                            >
+
+                                ${
+                                    isRadarAlert(
+                                        row
+                                    )
+                                        ? "🔥"
+                                        : "📈"
+                                }
+
+                                ${Math.round(
+                                    score
+                                )}
+
+                            </span>
+
+                            ${
+                                conditionScores
+                                    ? `
+                                        <div
+                                            class="
+                                                radar-card-subline
+                                            "
+                                        >
+                                            ${conditionScores}
+                                        </div>
+                                    `
+                                    : ""
+                            }
+
+                        </td>
+
+                    </tr>
+                `;
+            })
+            .join("");
 }
 
 function updateOpportunityModeView() {
