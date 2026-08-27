@@ -10137,11 +10137,19 @@ function updateRadarLevelCounts() {
 
 function formatRadarPercent(value) {
 
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "—";
+    }
+
     const number =
         Number(value);
 
     if (!Number.isFinite(number)) {
-        return "-";
+        return "—";
     }
 
     return (
@@ -10151,8 +10159,15 @@ function formatRadarPercent(value) {
         " %";
 }
 
-
 function getRadarPerformanceClass(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "";
+    }
 
     const number =
         Number(value);
