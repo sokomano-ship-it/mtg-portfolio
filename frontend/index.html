@@ -15,16 +15,16 @@
 </header>
 
 <nav class="tabs">
-    <button class="tab-button active" data-tab="tab-general">ðŸ“Š GÃ©nÃ©ral</button>
+    <button class="tab-button active" data-tab="tab-general">📊 Général</button>
     <button class="tab-button" data-tab="tab-investment-analysis">
-    ðŸ“ˆ Analyse investissements
+    📈 Analyse investissements
 </button>
     <button class="tab-button" data-tab="tab-opportunities">
-    ðŸ“¡ Radar d'achat
+    📡 Radar d'achat
 </button>
-    <button class="tab-button" data-tab="tab-collection">ðŸƒ Ma collection</button>
-    <button class="tab-button" onclick="window.location.href='market-observations.html'">ðŸ“Š Observations MarchÃ©</button>
-    <button class="tab-button" onclick="window.location.href='admin.html'">âš™ï¸ Administration</button>
+    <button class="tab-button" data-tab="tab-collection">🃏 Ma collection</button>
+    <button class="tab-button" onclick="window.location.href='market-observations.html'">📊 Observations Marché</button>
+    <button class="tab-button" onclick="window.location.href='admin.html'">⚙️ Administration</button>
 </nav>
 <main>
 
@@ -73,7 +73,7 @@
         <div class="portfolio-summary-content">
 
             <span id="total-value-label">
-                Valeur estimÃ©e
+                Valeur estimée
             </span>
 
             <strong id="total-value">
@@ -163,7 +163,7 @@
 </div>
 
         <section class="card chart-card">
-            <h2>Ã‰volution de la valeur estimÃ©e du portefeuille</h2>
+            <h2>Évolution de la valeur estimée du portefeuille</h2>
 <div class="portfolio-period-top">
 
     <button
@@ -191,16 +191,16 @@
     <div class="portfolio-chart-filters">
 
     <label>
-        CatÃ©gorie
+        Catégorie
         <select id="portfolio-category-filter">
-            <option value="">Toutes les catÃ©gories</option>
+            <option value="">Toutes les catégories</option>
         </select>
     </label>
 
     <label>
-        Ã‰dition
+        Édition
         <select id="portfolio-edition-filter">
-            <option value="">Toutes les Ã©ditions</option>
+            <option value="">Toutes les éditions</option>
         </select>
     </label>
 
@@ -209,7 +209,7 @@
         <input
             id="portfolio-card-search"
             list="portfolio-card-suggestions"
-            placeholder="Commencez Ã  saisir..."
+            placeholder="Commencez à saisir..."
             autocomplete="off"
         >
 
@@ -224,9 +224,6 @@
     >
         Effacer
     </button>
-
-
-
 </div>
 
 <div class="portfolio-chart-context">
@@ -251,7 +248,7 @@
     ></div>
 
     <div id="portfolio-chart-selection">
-        ðŸ“Š Portefeuille total
+        📊 Portefeuille total
     </div>
 
     <div
@@ -275,7 +272,6 @@
 
 
 
-
 </div>
 
 <canvas id="portfolioChart"></canvas>
@@ -283,13 +279,13 @@
         </section>
 
         <section class="card">
-    <h2>ðŸ“Š RÃ©sumÃ© par catÃ©gorie</h2>
+    <h2>📊 Résumé par catégorie</h2>
 
     <div class="table-wrapper">
         <table class="category-summary-table">
             <thead>
                <tr>
-    <th>CatÃ©gorie</th>
+    <th>Catégorie</th>
     <th>Cartes</th>
     <th>Valeur</th>
     <th>Poids</th>
@@ -299,8 +295,8 @@
     <th>90 j</th>
     <th>180 j</th>
     <th>365 j</th>
-    <th>â‰¥ 20 â‚¬</th>
-    <th>â‰¥ 50 â‚¬</th>
+    <th>≥ 20 €</th>
+    <th>≥ 50 €</th>
 </tr>
             </thead>
 
@@ -315,19 +311,19 @@
 
         <div>
             <h2>
-                ðŸ’¶ RÃ©partition par valeur unitaire
+                💶 Répartition par valeur unitaire
             </h2>
 
             <p class="value-distribution-subtitle">
                 Nombre de cartes, valeur du portefeuille
-                et Ã©volution par tranche de prix
+                et évolution par tranche de prix
             </p>
         </div>
 
         <div class="value-migration-period">
 
     <label for="value-migration-period">
-        PÃ©riode migrations
+        Période migrations
     </label>
 
     <select id="value-migration-period">
@@ -363,17 +359,17 @@
         <div class="value-distribution-kpis">
 
             <div class="value-distribution-kpi">
-                <span>Prix mÃ©dian</span>
+                <span>Prix médian</span>
                 <strong id="value-bucket-median">-</strong>
             </div>
 
             <div class="value-distribution-kpi">
-                <span>Cartes â‰¥ 50 â‚¬</span>
+                <span>Cartes ≥ 50 €</span>
                 <strong id="value-bucket-50">-</strong>
             </div>
 
             <div class="value-distribution-kpi">
-                <span>Cartes â‰¥ 100 â‚¬</span>
+                <span>Cartes ≥ 100 €</span>
                 <strong id="value-bucket-100">-</strong>
             </div>
 
@@ -391,7 +387,7 @@
             <div>Valeur</div>
             <div>% valeur</div>
             <div>Flux net</div>
-            <div>RÃ©partition</div>
+            <div>Répartition</div>
         </div>
 
         <div id="value-bucket-body"></div>
@@ -404,14 +400,14 @@
         <div class="value-history-panel">
 
             <div class="value-panel-title">
-    Ã‰volution des migrations
+    Évolution des migrations
 </div>
 
 
 
 <div class="value-panel-subtitle">
-    Nombre de cartes situÃ©es dans une tranche supÃ©rieure
-    ou infÃ©rieure par rapport au dÃ©but de la pÃ©riode
+    Nombre de cartes situées dans une tranche supérieure
+    ou inférieure par rapport au début de la période
 </div>
 
             <div class="value-bucket-chart-wrapper">
@@ -424,7 +420,7 @@
         <div class="value-insights-panel">
 
             <div class="value-panel-title">
-    ðŸŽ¯ Franchissements de seuil
+    🎯 Franchissements de seuil
 </div>
 
             <div
@@ -442,14 +438,14 @@
     <div class="migration-routes-table">
 
         <div class="migration-routes-header">
-            <div>Tranche de dÃ©part</div>
+            <div>Tranche de départ</div>
 
             <div class="migration-down-title">
-                â†“ Baisses
+                ↓ Baisses
             </div>
 
             <div class="migration-up-title">
-                â†‘ MontÃ©es
+                ↑ Montées
             </div>
         </div>
 
@@ -461,7 +457,7 @@
     <div class="migration-selection-panel">
 
         <div class="migration-selection-title">
-            Cartes sÃ©lectionnÃ©es
+            Cartes sélectionnées
         </div>
 
         <div
@@ -472,7 +468,7 @@
             <div class="migration-selection-empty">
 
                 Cliquez sur une migration pour afficher
-                les cartes concernÃ©es.
+                les cartes concernées.
 
             </div>
 
@@ -491,11 +487,11 @@
     <section class="card">
 
         <div class="investment-summary-heading">
-    <h2>ðŸ“Š Analyse des investissements</h2>
+    <h2>📊 Analyse des investissements</h2>
 
     <div class="investment-summary-toolbar">
         <span class="investment-summary-toolbar-label">
-            RÃ©sumÃ©
+            Résumé
         </span>
 
         <select id="investment-summary-period">
@@ -508,20 +504,19 @@
     </div>
 </div>
 
-
 <div
     id="investment-summary"
     class="investment-summary-cards"
 >
     <div class="investment-summary-card investment-summary-compact">
-        <span>Valeur analysÃ©e</span>
+        <span>Valeur analysée</span>
 
         <strong id="investment-summary-value">
             -
         </strong>
 
         <small id="investment-summary-value-detail">
-            Lots actuellement affichÃ©s
+            Lots actuellement affichés
         </small>
     </div>
 
@@ -569,7 +564,7 @@
 
     <div class="investment-summary-card investment-ranking-card">
         <span id="investment-summary-top-label">
-            Top 5 contributions â€” 7 jours
+            Top 5 contributions — 7 jours
         </span>
 
         <div
@@ -584,7 +579,7 @@
 
     <div class="investment-summary-card investment-ranking-card">
         <span id="investment-summary-worst-label">
-            Pires 5 contributions â€” 7 jours
+            Pires 5 contributions — 7 jours
         </span>
 
         <div
@@ -619,10 +614,10 @@
 
                         <th class="sortable" data-sort="etat">Etat</th>
 
-                        <th class="sortable" data-sort="quantity">QtÃ©</th>
+                        <th class="sortable" data-sort="quantity">Qté</th>
 
                         <th class="sortable" data-sort="currentEstimatedPrice">
-                            Prix modÃ¨le
+                            Prix modèle
                         </th>
 
                         <th class="sortable" data-sort="lotValue">
@@ -689,7 +684,7 @@
         <input
             class="collection-filter investment-filter"
             data-filter="edition"
-            placeholder="Ã‰dition"
+            placeholder="Édition"
         >
     </th>
 
@@ -705,7 +700,7 @@
         <input
             class="collection-filter investment-filter"
             data-filter="etat"
-            placeholder="Ã‰tat"
+            placeholder="État"
         >
     </th>
 
@@ -713,7 +708,7 @@
     <input
         class="collection-filter investment-filter"
         data-filter="quantity"
-        placeholder="QtÃ© min."
+        placeholder="Qté min."
         inputmode="numeric"
     >
 </th>
@@ -808,13 +803,13 @@ placeholder="Gain lot >=5"
  <aside id="investment-drawer" class="investment-drawer">
 
     <button class="investment-drawer-close" onclick="closeInvestmentDrawer()">
-        Ã—
+        ×
     </button>
 
     <div id="investment-drawer-header" class="investment-drawer-header">
-    <h2 id="investment-drawer-title">DÃ©tails</h2>
+    <h2 id="investment-drawer-title">Détails</h2>
     <p id="investment-drawer-subtitle" class="muted">
-        SÃ©lectionnez une carte.
+        Sélectionnez une carte.
     </p>
 
     <div id="investment-drawer-score" class="investment-score">
@@ -824,19 +819,19 @@ placeholder="Gain lot >=5"
 
 <div class="investment-drawer-tabs">
     <button class="investment-drawer-tab active" data-investment-panel="analysis">
-        ðŸ“Š Analyse
+        📊 Analyse
     </button>
     <button class="investment-drawer-tab" data-investment-panel="chart">
-        ðŸ“ˆ Graphique
+        📈 Graphique
     </button>
     <button class="investment-drawer-tab" data-investment-panel="model">
-        ðŸ§  ModÃ¨le
+        🧠 Modèle
     </button>
 </div>
 
 <section id="investment-panel-analysis" class="investment-drawer-panel active">
     <div id="investment-details">
-        SÃ©lectionnez une carte.
+        Sélectionnez une carte.
     </div>
 </section>
 
@@ -849,27 +844,27 @@ placeholder="Gain lot >=5"
 <section id="investment-panel-model" class="investment-drawer-panel">
 
     <div class="drawer-card">
-        <h3>ðŸ’° Prix</h3>
+        <h3>💰 Prix</h3>
         <div id="investment-model-price"></div>
     </div>
 
     <div class="drawer-card">
-        <h3>ðŸ“Œ RÃ©fÃ©rence utilisÃ©e</h3>
+        <h3>📌 Référence utilisée</h3>
         <div id="investment-model-reference"></div>
     </div>
 
     <div class="drawer-card">
-        <h3>ðŸ§  Apprentissage du modÃ¨le</h3>
+        <h3>🧠 Apprentissage du modèle</h3>
         <div id="investment-model-weights"></div>
     </div>
 
     <div class="drawer-card">
-        <h3>ðŸ“Š Observations retenues</h3>
+        <h3>📊 Observations retenues</h3>
         <div id="investment-model-observations"></div>
     </div>
 
     <div class="drawer-card">
-        <h3>ðŸ“ˆ Ratios appris</h3>
+        <h3>📈 Ratios appris</h3>
         <div id="investment-model-ratios"></div>
     </div>
 
@@ -879,21 +874,20 @@ placeholder="Gain lot >=5"
 
 </section>
 
-<section id="tab-opportunities" class="tab-content">
+    <section id="tab-opportunities" class="tab-content">
 
     <section class="card radar-main-card">
 
         <div class="radar-page-heading">
 
             <div>
-                <h2>ðŸ“¡ Radar d'achat</h2>
+                <h2>📡 Radar d'achat</h2>
 
                 <p class="section-help">
-                    DÃ©tection des cartes dont la hausse du prix modÃ¨le
+                    Détection des cartes dont la hausse du prix modèle
                     se confirme sur plusieurs horizons.
-                    Le Radar indique la dynamique du marchÃ© ;
-                    les estimations NM et EX servent ensuite de rÃ©fÃ©rence
-                    pour rechercher un prix intÃ©ressant sur Cardmarket.
+                    Les estimations NM et EX servent de référence
+                    pour rechercher ensuite un prix intéressant sur Cardmarket.
                 </p>
             </div>
 
@@ -906,31 +900,27 @@ placeholder="Gain lot >=5"
 
         </div>
 
-
         <div
             id="radar-learning-banner"
             class="radar-learning-banner"
         >
-            <strong>ðŸ§ª Phase d'apprentissage</strong>
+            <strong>🧪 Phase d'apprentissage</strong>
 
             <span id="radar-learning-text">
                 Le Radar accumule actuellement son nouvel historique.
-                Les premiers signaux 14 jours apparaÃ®tront lorsque
-                suffisamment de donnÃ©es seront disponibles.
+                Les premiers signaux 14 jours apparaîtront lorsque
+                suffisamment de données seront disponibles.
             </span>
         </div>
-
 
         <div id="opportunities-status">
             Chargement du Radar...
         </div>
 
-
         <div
             id="radar-level-toolbar"
             class="opportunity-level-toolbar"
         >
-
             <div class="opportunity-level-title">
                 Afficher
             </div>
@@ -942,7 +932,7 @@ placeholder="Gain lot >=5"
                     class="opportunity-level-button"
                     data-radar-level="alert"
                 >
-                    ðŸš¨ Alertes
+                    🚨 Alertes
                     <span
                         id="radar-count-alert"
                         class="opportunity-level-count"
@@ -954,7 +944,7 @@ placeholder="Gain lot >=5"
                     class="opportunity-level-button"
                     data-radar-level="signal"
                 >
-                    ðŸ“ˆ Signaux
+                    📈 Signaux
                     <span
                         id="radar-count-signal"
                         class="opportunity-level-count"
@@ -974,29 +964,25 @@ placeholder="Gain lot >=5"
                 </button>
 
             </div>
-
         </div>
-
 
         <div
             id="radar-table-wrapper"
             class="table-wrapper"
         >
-
             <table id="radar-table">
 
                 <thead>
                     <tr>
                         <th>Carte</th>
-                        <th>Ã‰dition / langue</th>
-
+                        <th>Édition / langue</th>
 
                         <th>14 j</th>
                         <th>30 j</th>
                         <th>60 j</th>
                         <th>90 j</th>
 
-                        <th>QualitÃ©</th>
+                        <th>Qualité</th>
                         <th>Radar</th>
 
                         <th>Est. NM</th>
@@ -1007,7 +993,6 @@ placeholder="Gain lot >=5"
                 <tbody id="radar-body"></tbody>
 
             </table>
-
         </div>
 
     </section>
@@ -1023,7 +1008,7 @@ placeholder="Gain lot >=5"
 
     <div class="collection-toolbar-filter">
         <label for="category-filter">
-            CatÃ©gorie
+            Catégorie
         </label>
 
         <select id="category-filter">
@@ -1036,12 +1021,12 @@ placeholder="Gain lot >=5"
 
     <div class="collection-toolbar-filter">
         <label for="collection-edition-filter">
-            Ã‰dition
+            Édition
         </label>
 
         <select id="collection-edition-filter">
             <option value="Toutes">
-                Toutes les Ã©ditions
+                Toutes les éditions
             </option>
         </select>
     </div>
@@ -1057,10 +1042,10 @@ placeholder="Gain lot >=5"
 
 
     <div class="toolbar-stat">
-        <span>Valeur estimÃ©e</span>
+        <span>Valeur estimée</span>
 
         <strong id="category-value">
-            0 â‚¬
+            0 €
         </strong>
     </div>
 
@@ -1086,7 +1071,7 @@ placeholder="Gain lot >=5"
     class="collection-sortable sortable"
     data-sort="quantity"
 >
-    QtÃ©
+    Qté
 </th>
 
 <th
@@ -1165,9 +1150,9 @@ placeholder="Gain lot >=5"
 
 <div id="card-detail-modal" class="modal">
     <div class="modal-content">
-        <button class="modal-close" onclick="closeCardDetail()">Ã—</button>
+        <button class="modal-close" onclick="closeCardDetail()">×</button>
 
-        <h2 id="detail-title">DÃ©tail carte</h2>
+        <h2 id="detail-title">Détail carte</h2>
 
         <div class="detail-layout">
             <div id="detail-image" class="detail-image"></div>

@@ -66,70 +66,70 @@ const VALUE_BUCKETS = [
 
     {
         key: "under1",
-        label: "< 1 â‚¬",
+        label: "< 1 €",
         min: -Infinity,
         max: 1
     },
 
     {
         key: "1to2",
-        label: "1â€“2 â‚¬",
+        label: "1–2 €",
         min: 1,
         max: 2
     },
 
     {
         key: "2to5",
-        label: "2â€“5 â‚¬",
+        label: "2–5 €",
         min: 2,
         max: 5
     },
 
     {
         key: "5to10",
-        label: "5â€“10 â‚¬",
+        label: "5–10 €",
         min: 5,
         max: 10
     },
 
     {
         key: "10to20",
-        label: "10â€“20 â‚¬",
+        label: "10–20 €",
         min: 10,
         max: 20
     },
 
     {
         key: "20to50",
-        label: "20â€“50 â‚¬",
+        label: "20–50 €",
         min: 20,
         max: 50
     },
 
     {
         key: "50to100",
-        label: "50â€“100 â‚¬",
+        label: "50–100 €",
         min: 50,
         max: 100
     },
 
     {
         key: "100to200",
-        label: "100â€“200 â‚¬",
+        label: "100–200 €",
         min: 100,
         max: 200
     },
 
     {
         key: "200to500",
-        label: "200â€“500 â‚¬",
+        label: "200–500 €",
         min: 200,
         max: 500
     },
 
     {
         key: "over500",
-        label: "â‰¥ 500 â‚¬",
+        label: "≥ 500 €",
         min: 500,
         max: Infinity
     }
@@ -257,7 +257,7 @@ function buildPortfolioChartFilters() {
 
     categorySelect.innerHTML = `
         <option value="">
-            Toutes les catÃ©gories
+            Toutes les catégories
         </option>
     `;
 
@@ -272,7 +272,7 @@ function buildPortfolioChartFilters() {
 
     editionSelect.innerHTML = `
         <option value="">
-            Toutes les Ã©ditions
+            Toutes les éditions
         </option>
     `;
 
@@ -540,7 +540,7 @@ function rebuildPortfolioCardSuggestions() {
             card.etat
         ]
             .filter(Boolean)
-            .join(" â€” ");
+            .join(" — ");
 
         const option = document.createElement("option");
 
@@ -637,7 +637,7 @@ function setupInvestmentDrawerTabs() {
 async function loadDashboard() {
 
     /*
-     * On dÃ©marre les deux requÃªtes immÃ©diatement.
+     * On démarre les deux requêtes immédiatement.
      */
     const cardsPromise =
         loadCards();
@@ -675,7 +675,7 @@ async function loadCards() {
     try {
         allCards = await window.apiAdapter.getCards();
 
-        status.textContent = `${allCards.length} cartes chargÃ©es`;
+        status.textContent = `${allCards.length} cartes chargées`;
         totalCards.textContent = allCards.length;
         totalValue.textContent = formatEuro(calculateCardsValue(allCards));
 
@@ -725,11 +725,11 @@ async function loadCategorySummary(
 
 
         /*
-         * Ligne historique utilisÃ©e pour J-30.
+         * Ligne historique utilisée pour J-30.
          */
         /*
- * Horizons utilisÃ©s pour comparer
- * l'Ã©volution des catÃ©gories.
+ * Horizons utilisés pour comparer
+ * l'évolution des catégories.
  */
 const periods =
     [7, 30, 60, 90, 180, 365];
@@ -751,12 +751,12 @@ const historyRows =
 
 
 /*
- * Recherche la derniÃ¨re ligne historique
- * disponible Ã  la date cible ou avant.
+ * Recherche la dernière ligne historique
+ * disponible à la date cible ou avant.
  *
  * Exemple :
- * si J-60 tombe un dimanche sans donnÃ©e,
- * on utilise la derniÃ¨re observation
+ * si J-60 tombe un dimanche sans donnée,
+ * on utilise la dernière observation
  * disponible avant cette date.
  */
 function findHistoryRowDaysAgo(days) {
@@ -811,7 +811,7 @@ const historyByPeriod =
     );
 
         /*
-         * Regroupement actuel par catÃ©gorie.
+         * Regroupement actuel par catégorie.
          */
         const groups =
             new Map();
@@ -822,7 +822,7 @@ const historyByPeriod =
             const category =
                 String(
                     card.categorie ||
-                    "Non classÃ©"
+                    "Non classé"
                 ).trim();
 
 
@@ -890,7 +890,7 @@ const historyByPeriod =
 
 
             /*
- * Evolution de cette catÃ©gorie
+ * Evolution de cette catégorie
  * pour chaque horizon.
  */
 const changes =
@@ -973,8 +973,8 @@ const cardsOver50 =
 
 
         /*
-         * CatÃ©gories les plus importantes
-         * financiÃ¨rement en premier.
+         * Catégories les plus importantes
+         * financièrement en premier.
          */
         rows.sort(
             (a, b) =>
@@ -1345,7 +1345,7 @@ function buildValuePriceSnapshots(
 
         /*
          * Important :
-         * une nouvelle Map est crÃ©Ã©e pour chaque date.
+         * une nouvelle Map est créée pour chaque date.
          */
         return {
             date,
@@ -1488,7 +1488,7 @@ function getValueMigrationSnapshots(
 
     /*
      * Dernier snapshot disponible
-     * Ã  la date cible ou avant.
+     * à la date cible ou avant.
      */
     let start =
         snapshots[0];
@@ -1588,14 +1588,14 @@ function calculateValueMigrations(
     /*
      * Point fondamental :
      *
-     * on parcourt les cartes prÃ©sentes
-     * AU DÃ‰BUT de la pÃ©riode.
+     * on parcourt les cartes présentes
+     * AU DÉBUT de la période.
      *
-     * Si elles n'existent pas Ã  la fin,
-     * elles sont ignorÃ©es.
+     * Si elles n'existent pas à la fin,
+     * elles sont ignorées.
      *
      * Les nouvelles cartes qui n'existaient
-     * pas au dÃ©but ne sont donc JAMAIS comptÃ©es.
+     * pas au début ne sont donc JAMAIS comptées.
      */
     start.prices.forEach(
         (
@@ -1658,7 +1658,7 @@ function calculateValueMigrations(
 
 
             /*
- * MÃªme tranche :
+ * Même tranche :
  * ce n'est PAS une migration.
  */
 if (
@@ -1930,7 +1930,7 @@ function buildValueMigrationSeries(
                     ) => {
 
                         /*
-                         * Carte absente Ã  cette date :
+                         * Carte absente à cette date :
                          * non comparable.
                          *
                          * Les nouvelles acquisitions
@@ -2443,7 +2443,7 @@ function renderValueMigrationChart(
                         {
 
                             label:
-                                "MontÃ©es de tranche",
+                                "Montées de tranche",
 
                             data:
                                 series.map(
@@ -2709,7 +2709,7 @@ function renderValueMigrationInsights(
                 )
             }
 
-            â†’
+            →
 
             ${
                 formatShortPortfolioDate(
@@ -2743,7 +2743,7 @@ function renderValueMigrationInsights(
                         <div class="value-insight-row">
 
                             <span>
-                                Seuil ${row.threshold} â‚¬
+                                Seuil ${row.threshold} €
                             </span>
 
                             <strong class="${cssClass}">
@@ -2751,8 +2751,8 @@ function renderValueMigrationInsights(
                                 ${sign}${row.net}
 
                                 <small>
-                                    ${row.up} â†‘ /
-                                    ${row.down} â†“
+                                    ${row.up} ↑ /
+                                    ${row.down} ↓
                                 </small>
 
                             </strong>
@@ -2790,7 +2790,7 @@ function renderValueMigrationRoutes(
     /*
      * Regroupement :
      *
-     * tranche de dÃ©part
+     * tranche de départ
      *   -> destinations vers le bas
      *   -> destinations vers le haut
      */
@@ -2952,7 +2952,7 @@ function renderValueMigrationRoutes(
                         data-migration-route="${key}"
                     >
 
-                        â†’ ${route.toLabel}
+                        → ${route.toLabel}
 
                         <strong>
                             ${count}
@@ -3015,7 +3015,7 @@ function renderValueMigrationRoutes(
 
 
     /*
-     * On reconstruit l'index utilisÃ©
+     * On reconstruit l'index utilisé
      * pour afficher les cartes au clic.
      */
     const routeIndex =
@@ -3097,7 +3097,7 @@ function renderMigrationCardDetails(
      * Exemple :
      * Ancient Tomb Tempest FR NM x2
      *
-     * devient une seule ligne avec quantitÃ© 2.
+     * devient une seule ligne avec quantité 2.
      */
     const groupedCards =
         new Map();
@@ -3176,11 +3176,11 @@ function renderMigrationCardDetails(
     /*
      * Seuil principal franchi.
      *
-     * MontÃ©e :
+     * Montée :
      * destination.min
      *
      * Baisse :
-     * tranche de dÃ©part.min
+     * tranche de départ.min
      */
     const fromBucket =
         VALUE_BUCKETS.find(
@@ -3245,12 +3245,12 @@ function renderMigrationCardDetails(
                     ${
                         group.direction ===
                         "up"
-                            ? "â†‘"
-                            : "â†“"
+                            ? "↑"
+                            : "↓"
                     }
 
                     ${group.fromLabel}
-                    â†’
+                    →
                     ${group.toLabel}
 
                 </strong>
@@ -3273,7 +3273,7 @@ function renderMigrationCardDetails(
                 class="migration-detail-close"
                 aria-label="Fermer"
             >
-                Ã—
+                ×
             </button>
 
         </div>
@@ -3387,7 +3387,7 @@ function renderMigrationCardDetails(
                                                             migration-detail-qty
                                                         "
                                                     >
-                                                        Ã—${card.quantity}
+                                                        ×${card.quantity}
                                                     </span>
                                                 `
                                                 : ""
@@ -3407,7 +3407,7 @@ function renderMigrationCardDetails(
                                                     card.categorie
                                                 ]
                                                     .filter(Boolean)
-                                                    .join(" Â· ")
+                                                    .join(" · ")
                                             )
                                         }
 
@@ -3427,7 +3427,7 @@ function renderMigrationCardDetails(
                                     </span>
 
                                     <span class="migration-price-arrow">
-                                        â†’
+                                        →
                                     </span>
 
                                     <strong>
@@ -3485,7 +3485,7 @@ function renderMigrationCardDetails(
                 <div class="migration-selection-empty">
 
                     Cliquez sur une migration pour afficher
-                    les cartes concernÃ©es.
+                    les cartes concernées.
 
                 </div>
 
@@ -3538,7 +3538,7 @@ function populateCategories(cards) {
 
 
     /*
-     * CatÃ©gories disponibles.
+     * Catégories disponibles.
      */
     categorySelect.innerHTML =
         `<option value="Toutes">Toutes</option>`;
@@ -3548,7 +3548,7 @@ function populateCategories(cards) {
         [...new Set(
             cards.map(card =>
                 card.categorie ||
-                "Non classÃ©"
+                "Non classé"
             )
         )]
             .sort((a, b) =>
@@ -3583,7 +3583,7 @@ function populateCategories(cards) {
 
 
     /*
-     * Initialise les Ã©ditions.
+     * Initialise les éditions.
      */
     refreshCollectionEditionFilter(
         cards
@@ -3591,9 +3591,9 @@ function populateCategories(cards) {
 
 
     /*
-     * Quand la catÃ©gorie change :
+     * Quand la catégorie change :
      *
-     * 1. recalcul des Ã©ditions disponibles ;
+     * 1. recalcul des éditions disponibles ;
      * 2. nouveau filtrage de la collection.
      */
     categorySelect.onchange = () => {
@@ -3608,7 +3608,7 @@ function populateCategories(cards) {
 
 
     /*
-     * Quand l'Ã©dition change :
+     * Quand l'édition change :
      * nouveau filtrage.
      */
     if (editionSelect) {
@@ -3653,8 +3653,8 @@ function refreshCollectionEditionFilter(
     /*
      * Pour rendre le filtre intelligent :
      *
-     * si une catÃ©gorie est sÃ©lectionnÃ©e,
-     * seules ses Ã©ditions sont proposÃ©es.
+     * si une catégorie est sélectionnée,
+     * seules ses éditions sont proposées.
      */
     const sourceCards =
         selectedCategory === "Toutes"
@@ -3664,7 +3664,7 @@ function refreshCollectionEditionFilter(
             : cards.filter(card =>
                 (
                     card.categorie ||
-                    "Non classÃ©"
+                    "Non classé"
                 ) === selectedCategory
             );
 
@@ -3693,7 +3693,7 @@ function refreshCollectionEditionFilter(
     editionSelect.innerHTML =
         `
             <option value="Toutes">
-                Toutes les Ã©ditions
+                Toutes les éditions
             </option>
         `;
 
@@ -3719,9 +3719,9 @@ function refreshCollectionEditionFilter(
 
 
     /*
-     * Conserve l'Ã©dition choisie
+     * Conserve l'édition choisie
      * si elle existe encore dans
-     * la catÃ©gorie sÃ©lectionnÃ©e.
+     * la catégorie sélectionnée.
      */
     if (
         previousEdition !== "Toutes" &&
@@ -3810,8 +3810,8 @@ const editionSelect =
 
 
     /*
-     * Le filtre quantitÃ© doit Ãªtre appliquÃ©
-     * APRÃˆS regroupement par nom de carte.
+     * Le filtre quantité doit être appliqué
+     * APRÈS regroupement par nom de carte.
      */
     const quantityFilter =
         filters.quantity || "";
@@ -3824,10 +3824,10 @@ const editionSelect =
 
 
     /*
-     * Filtre catÃ©gorie.
+     * Filtre catégorie.
      */
     /*
- * Filtre CatÃ©gorie.
+ * Filtre Catégorie.
  */
 if (
     categorySelect &&
@@ -3838,7 +3838,7 @@ if (
         cards.filter(card =>
             (
                 card.categorie ||
-                "Non classÃ©"
+                "Non classé"
             ) === categorySelect.value
         );
 
@@ -3846,7 +3846,7 @@ if (
 
 
 /*
- * Filtre Ã‰dition.
+ * Filtre Édition.
  */
 if (
     editionSelect &&
@@ -3883,11 +3883,11 @@ if (
 
 
     /*
-     * Filtre QtÃ©.
+     * Filtre Qté.
      *
      * On regroupe d'abord les cartes,
      * puis on conserve uniquement les groupes
-     * dont la quantitÃ© correspond au filtre.
+     * dont la quantité correspond au filtre.
      */
     if (quantityFilter) {
 
@@ -3910,8 +3910,8 @@ if (
 
 
     /*
-     * Le tri alphabÃ©tique continue ici.
-     * Le tri QtÃ© sera effectuÃ© aprÃ¨s regroupement
+     * Le tri alphabétique continue ici.
+     * Le tri Qté sera effectué après regroupement
      * dans renderCards().
      */
     const groupedSorts = [
@@ -3960,14 +3960,14 @@ function sortCollectionCards(cards) {
     currentCollectionSort === "estimatedByCondition"
         ? getEstimatedConditionPrice(a)
         : currentCollectionSort === "categorie"
-            ? (a.categorie || "Non classÃ©")
+            ? (a.categorie || "Non classé")
             : a[currentCollectionSort];
 
 const bValue =
     currentCollectionSort === "estimatedByCondition"
         ? getEstimatedConditionPrice(b)
         : currentCollectionSort === "categorie"
-            ? (b.categorie || "Non classÃ©")
+            ? (b.categorie || "Non classé")
             : b[currentCollectionSort];
 
         if (aValue === null || aValue === undefined) return 1;
@@ -4025,7 +4025,7 @@ return matchesNumericFilter(Number(number || 0), value);
 
     const fieldValue =
         key === "categorie"
-            ? String(card.categorie || "Non classÃ©")
+            ? String(card.categorie || "Non classé")
             : String(card[key] || "");
 
     return normalizeText(fieldValue).includes(normalizeText(value));
@@ -4034,7 +4034,7 @@ return matchesNumericFilter(Number(number || 0), value);
 function matchesNumericFilter(number, filter) {
     const value = String(filter || "")
         .replace(",", ".")
-        .replace("â‚¬", "")
+        .replace("€", "")
         .trim();
 
     if (!value) {
@@ -4042,9 +4042,9 @@ function matchesNumericFilter(number, filter) {
     }
 
     /*
-     * Intervalle positif ou nÃ©gatif.
+     * Intervalle positif ou négatif.
      *
-     * Exemples acceptÃ©s :
+     * Exemples acceptés :
      * 5-10
      * -10--5
      * -5-5
@@ -4229,7 +4229,7 @@ function getCollectionCanonicalName(card) {
      * Hymn to Tourach (V.1)
      * Hymn to Tourach (V.2)
      *
-     * mais ne touche pas Ã  :
+     * mais ne touche pas à :
      *
      * Island Sanctuary
      */
@@ -4325,7 +4325,7 @@ const key =
      * regroupement des exemplaires
      * identiques :
      *
-     * Ã©dition + langue + Ã©tat.
+     * édition + langue + état.
      */
 
     return [...groupsMap.values()]
@@ -4362,7 +4362,7 @@ const key =
 
         categorie:
             card.categorie ||
-            "Non classÃ©",
+            "Non classé",
 
         cards: [],
 
@@ -4397,11 +4397,11 @@ const key =
 
 
             /*
- * Variantes classÃ©es par prix unitaire dÃ©croissant.
+ * Variantes classées par prix unitaire décroissant.
  *
- * La version la plus chÃ¨re de la carte
- * apparaÃ®t donc en premier lorsque
- * le groupe est dÃ©pliÃ©.
+ * La version la plus chère de la carte
+ * apparaît donc en premier lorsque
+ * le groupe est déplié.
  */
 const variants =
     [...variantsMap.values()]
@@ -4441,7 +4441,7 @@ const variants =
 
 
             /*
-             * CritÃ¨re principal :
+             * Critère principal :
              * prix d'un exemplaire.
              */
             if (
@@ -4458,7 +4458,7 @@ const variants =
 
 
             /*
-             * Ã‰galitÃ© de prix :
+             * Égalité de prix :
              * la variante ayant la plus
              * grande valeur de lot d'abord.
              */
@@ -4476,8 +4476,8 @@ const variants =
 
 
             /*
-             * Dernier dÃ©partage :
-             * Ã©dition alphabÃ©tique.
+             * Dernier départage :
+             * édition alphabétique.
              */
             return String(
                 a.edition || ""
@@ -4494,9 +4494,9 @@ const variants =
         });
 
             /*
- * Edition reprÃ©sentative :
- * on affiche l'image de l'Ã©dition
- * dont on possÃ¨de le plus d'exemplaires.
+ * Edition représentative :
+ * on affiche l'image de l'édition
+ * dont on possède le plus d'exemplaires.
  */
 const editionCounts =
     new Map();
@@ -4599,8 +4599,8 @@ const totalTrend =
 /*
  * Valeur Avg30 totale.
  *
- * MÃªme principe que Trend :
- * somme de chaque exemplaire possÃ©dÃ©.
+ * Même principe que Trend :
+ * somme de chaque exemplaire possédé.
  */
 const totalAvg30 =
     group.cards.reduce(
@@ -4655,27 +4655,27 @@ const totalAvg30 =
             /*
              * Trend et Avg30 :
              *
-             * ils sont des indicateurs marchÃ©,
+             * ils sont des indicateurs marché,
              * pas des valeurs de lot.
              *
-             * On prend ici la premiÃ¨re impression
-             * uniquement pour la ligne rÃ©sumÃ©.
+             * On prend ici la première impression
+             * uniquement pour la ligne résumé.
              *
-             * Les dÃ©tails exacts restent disponibles
-             * dans les variantes dÃ©pliÃ©es.
+             * Les détails exacts restent disponibles
+             * dans les variantes dépliées.
              */
 
 
             /*
- * CatÃ©gories auxquelles appartient la carte.
- * Une mÃªme carte peut appartenir Ã  plusieurs catÃ©gories.
+ * Catégories auxquelles appartient la carte.
+ * Une même carte peut appartenir à plusieurs catégories.
  */
 const categories =
     [...new Set(
         group.cards
             .map(card =>
                 String(
-                    card.categorie || "Non classÃ©"
+                    card.categorie || "Non classé"
                 ).trim()
             )
             .filter(Boolean)
@@ -4776,7 +4776,7 @@ function renderCards(cards) {
 
 
     /*
-     * Les cartes ont dÃ©jÃ  Ã©tÃ© filtrÃ©es
+     * Les cartes ont déjà été filtrées
      * avant d'arriver ici.
      */
 
@@ -4785,15 +4785,15 @@ function renderCards(cards) {
 
 
 /*
- * Tri par quantitÃ©.
+ * Tri par quantité.
  *
- * Ce tri doit intervenir aprÃ¨s regroupement,
- * puisque quantity reprÃ©sente le nombre
- * d'exemplaires d'une mÃªme carte.
+ * Ce tri doit intervenir après regroupement,
+ * puisque quantity représente le nombre
+ * d'exemplaires d'une même carte.
  */
 /*
- * Tris qui nÃ©cessitent le regroupement
- * prÃ©alable par nom de carte.
+ * Tris qui nécessitent le regroupement
+ * préalable par nom de carte.
  */
 const groupedNumericSorts = [
     "quantity",
@@ -4859,11 +4859,11 @@ if (
  *
  * Exemple :
  * Dark Ritual
- * FBB NM 6,40 â‚¬
- * FBB EX 4,76 â‚¬
- * Revised NM 2,06 â‚¬
+ * FBB NM 6,40 €
+ * FBB EX 4,76 €
+ * Revised NM 2,06 €
  *
- * => maxUnitPrice = 6,40 â‚¬
+ * => maxUnitPrice = 6,40 €
  */
 const maxUnitPrice =
     group.variants.reduce(
@@ -4958,7 +4958,7 @@ const maxUnitPrice =
 
                                 title="Afficher les variantes"
                             >
-                                â–¶
+                                ▶
                             </button>
 
                         </td>
@@ -5028,7 +5028,7 @@ const maxUnitPrice =
             .map(category =>
                 escapeHtml(category)
             )
-            .join(" Â· ")}
+            .join(" · ")}
     </div>
 
 </div>
@@ -5039,7 +5039,7 @@ const maxUnitPrice =
                         <td
     class="collection-quantity"
 >
-    Ã—${group.quantity}
+    ×${group.quantity}
 </td>
 
 
@@ -5088,7 +5088,7 @@ const maxUnitPrice =
 
 
                 /*
-                 * DÃ©tail des variantes.
+                 * Détail des variantes.
                  */
 
                 if (expanded) {
@@ -5104,10 +5104,10 @@ const maxUnitPrice =
 
             <div class="collection-variant-header">
 
-                <div>Ã‰dition</div>
+                <div>Édition</div>
                 <div>Langue</div>
-                <div>Ã‰tat</div>
-                <div>QtÃ©</div>
+                <div>État</div>
+                <div>Qté</div>
                 <div>Prix / carte</div>
                 <div>Valeur</div>
                 <div>Conf.</div>
@@ -5198,7 +5198,7 @@ const maxUnitPrice =
 
                                                 ${escapeHtml(
     variant.nomCarte !== group.nomCarte
-        ? `${variant.nomCarte} Â· ${variant.edition}`
+        ? `${variant.nomCarte} · ${variant.edition}`
         : variant.edition
 )}
 
@@ -5236,7 +5236,7 @@ const maxUnitPrice =
                                                     collection-variant-qty
                                                 "
                                             >
-                                                Ã—${
+                                                ×${
                                                     variant.quantity
                                                 }
                                             </div>
@@ -5428,9 +5428,9 @@ function aggregateHistoryByPeriod(rows, period) {
             );
 
         /*
-         * Les lignes sont classÃ©es par date.
-         * La derniÃ¨re valeur de chaque pÃ©riode
-         * remplace donc les prÃ©cÃ©dentes.
+         * Les lignes sont classées par date.
+         * La dernière valeur de chaque période
+         * remplace donc les précédentes.
          */
         latestRowByPeriod.set(
             periodKey,
@@ -5629,7 +5629,7 @@ async function loadPortfolioHistory(historyPromise = null) {
 
     } catch (error) {
         console.error(
-            "Erreur chargement historique estimÃ© :",
+            "Erreur chargement historique estimé :",
             error
         );
     }
@@ -5702,10 +5702,10 @@ const currentCategoryEditionValues = {};
 
 allCards.forEach(card => {
     const category =
-        String(card.categorie || "Non classÃ©").trim();
+        String(card.categorie || "Non classé").trim();
 
     const edition =
-        String(card.edition || "Ã‰dition inconnue").trim();
+        String(card.edition || "Édition inconnue").trim();
 
     const value =
         Number(getEstimatedConditionPrice(card)) || 0;
@@ -5809,7 +5809,7 @@ if (freshnessElement) {
         ]?.date || null;
 
     freshnessElement.textContent = [
-        `DerniÃ¨re valorisation : ${
+        `Dernière valorisation : ${
             formatPortfolioFreshnessDate(
                 lastHistoryDate
             )
@@ -5819,7 +5819,7 @@ if (freshnessElement) {
                 firstHistoryDate
             )
         }`
-    ].join(" Â· ");
+    ].join(" · ");
 }
 
     function getSelectedPortfolioCards() {
@@ -5863,7 +5863,7 @@ if (freshnessElement) {
                     card.etat
                 ]
                     .filter(Boolean)
-                    .join(" â€” ");
+                    .join(" — ");
             }
         }
 
@@ -5871,7 +5871,7 @@ if (freshnessElement) {
             selectedPortfolioCategory &&
             selectedPortfolioEdition
         ) {
-            return `${selectedPortfolioCategory} â€” ${selectedPortfolioEdition}`;
+            return `${selectedPortfolioCategory} — ${selectedPortfolioEdition}`;
         }
 
         if (selectedPortfolioEdition) {
@@ -5930,7 +5930,7 @@ if (freshnessElement) {
     ) {
 
         contextCategoryElement.textContent =
-            `ðŸ“ CatÃ©gorie : ${selectedPortfolioCategory}`;
+            `📁 Catégorie : ${selectedPortfolioCategory}`;
 
         contextCategoryElement.hidden =
             false;
@@ -5962,7 +5962,7 @@ if (chartSelectionElement) {
                     selectedCard.edition
                 ]
                     .filter(Boolean)
-                    .join(" â€” ");
+                    .join(" — ");
 
         } else {
 
@@ -5974,13 +5974,13 @@ if (chartSelectionElement) {
 
         chartSelectionElement.textContent =
             noFilters
-                ? "ðŸ“Š Portefeuille total"
+                ? "📊 Portefeuille total"
                 : selectedPortfolioCategory &&
                   selectedPortfolioEdition
-                    ? `ðŸ“Š CatÃ©gorie : ${selectedPortfolioCategory} Â· Ã‰dition : ${selectedPortfolioEdition}`
+                    ? `📊 Catégorie : ${selectedPortfolioCategory} · Édition : ${selectedPortfolioEdition}`
                     : selectedPortfolioEdition
-                        ? `ðŸ“š Ã‰dition : ${selectedPortfolioEdition}`
-                        : `ðŸ“ CatÃ©gorie : ${selectedPortfolioCategory}`;
+                        ? `📚 Édition : ${selectedPortfolioEdition}`
+                        : `📁 Catégorie : ${selectedPortfolioCategory}`;
     }
 
 }
@@ -6167,25 +6167,25 @@ if (weightElement) {
         if (totalCardsLabel) {
     totalCardsLabel.textContent = noFilters
         ? "Cartes totales"
-        : `Cartes â€” ${kpiDisplayName}`;
+        : `Cartes — ${kpiDisplayName}`;
 }
 
 if (totalValueLabel) {
     totalValueLabel.textContent = noFilters
-        ? "Valeur estimÃ©e portefeuille"
-        : `Valeur estimÃ©e â€” ${kpiDisplayName}`;
+        ? "Valeur estimée portefeuille"
+        : `Valeur estimée — ${kpiDisplayName}`;
 }
 
         if (changeLabel) {
             changeLabel.textContent = noFilters
                 ? "Variation depuis hier"
-                : `Variation â€” ${displayName}`;
+                : `Variation — ${displayName}`;
         }
 
         if (changePctLabel) {
             changePctLabel.textContent = noFilters
                 ? "Variation %"
-                : `Variation % â€” ${displayName}`;
+                : `Variation % — ${displayName}`;
         }
 
         const getSelectedRowValue = row => {
@@ -6219,7 +6219,7 @@ if (selectedPortfolioCardKey) {
 }
 
     /*
-     * CatÃ©gorie + Ã©dition.
+     * Catégorie + édition.
      */
     if (
         selectedPortfolioCategory &&
@@ -6244,7 +6244,7 @@ if (selectedPortfolioCardKey) {
     }
 
     /*
-     * Ã‰dition seule.
+     * Édition seule.
      */
     if (selectedPortfolioEdition) {
         const value =
@@ -6264,7 +6264,7 @@ if (selectedPortfolioCardKey) {
     }
 
     /*
-     * CatÃ©gorie seule.
+     * Catégorie seule.
      */
     if (selectedPortfolioCategory) {
         const value =
@@ -6310,7 +6310,7 @@ let selectedValue30dAgo = null;
 let portfolioValue30dAgo = null;
 
 /*
- * On utilise le dernier point disponible Ã  la date
+ * On utilise le dernier point disponible à la date
  * cible ou avant celle-ci.
  */
 for (
@@ -6377,13 +6377,13 @@ const selectedChange30d =
         : null;
 
 /*
- * Contribution Ã  la performance totale :
+ * Contribution à la performance totale :
  *
- * variation en euros de la sÃ©lection
- * divisÃ©e par la valeur totale du portefeuille
+ * variation en euros de la sélection
+ * divisée par la valeur totale du portefeuille
  * il y a 30 jours.
  *
- * Le rÃ©sultat est exprimÃ© en points de
+ * Le résultat est exprimé en points de
  * pourcentage de performance du portefeuille.
  */
 const contribution30d =
@@ -6559,7 +6559,7 @@ function getVisibleCollectionChanges(row) {
                 }
 
                 return String(
-                    card.categorie || "Non classÃ©"
+                    card.categorie || "Non classé"
                 ).trim() === selectedPortfolioCategory;
             })
             : [];
@@ -6578,7 +6578,7 @@ function getVisibleCollectionChanges(row) {
                 }
 
                 return String(
-                    card.categorie || "Non classÃ©"
+                    card.categorie || "Non classé"
                 ).trim() === selectedPortfolioCategory;
             })
             : [];
@@ -6594,8 +6594,8 @@ function getVisibleCollectionChanges(row) {
 
                 /*
                  * Dans le portefeuille total ou sur une carte
-                 * individuelle, tous les dÃ©placements pertinents
-                 * peuvent Ãªtre affichÃ©s.
+                 * individuelle, tous les déplacements pertinents
+                 * peuvent être affichés.
                  */
                 if (
                     !selectedPortfolioCategory
@@ -6609,17 +6609,17 @@ function getVisibleCollectionChanges(row) {
                 const fromCategory =
                     String(
                         card.fromCategory ||
-                        "Non classÃ©"
+                        "Non classé"
                     ).trim();
 
                 const toCategory =
                     String(
                         card.toCategory ||
-                        "Non classÃ©"
+                        "Non classé"
                     ).trim();
 
                 /*
-                 * Le dÃ©placement apparaÃ®t dans l'ancien
+                 * Le déplacement apparaît dans l'ancien
                  * et dans le nouveau classeur.
                  */
                 return (
@@ -6663,10 +6663,10 @@ function rowHasVisibleCollectionChanges(row) {
         );
 
         const chartLabel = noFilters
-    ? "Valeur estimÃ©e du portefeuille (â‚¬)"
+    ? "Valeur estimée du portefeuille (€)"
     : selectedPortfolioCardKey
-        ? `${displayName} â€” valeur actuelle (â‚¬)`
-        : `${displayName} (â‚¬)`;
+        ? `${displayName} — valeur actuelle (€)`
+        : `${displayName} (€)`;
 
         if (portfolioChart) {
             portfolioChart.destroy();
@@ -6824,7 +6824,7 @@ if (added.length) {
     lines.push(
         `${added.length} carte${
             added.length > 1 ? "s" : ""
-        } ajoutÃ©e${
+        } ajoutée${
             added.length > 1 ? "s" : ""
         }`
     );
@@ -6838,7 +6838,7 @@ if (added.length) {
                 card.etat
             ]
                 .filter(Boolean)
-                .join(" â€” ")}`
+                .join(" — ")}`
         );
     });
 
@@ -6853,27 +6853,27 @@ if (removed.length) {
     lines.push(
         `${removed.length} carte${
             removed.length > 1 ? "s" : ""
-        } retirÃ©e${
+        } retirée${
             removed.length > 1 ? "s" : ""
         }`
     );
 
     removed.slice(0, 5).forEach(card => {
         lines.push(
-            `âˆ’ ${[
+            `− ${[
                 card.nomCarte,
                 card.edition,
                 card.langue,
                 card.etat
             ]
                 .filter(Boolean)
-                .join(" â€” ")}`
+                .join(" — ")}`
         );
     });
 
     if (removed.length > 5) {
         lines.push(
-            `âˆ’ ${removed.length - 5} autre(s)`
+            `− ${removed.length - 5} autre(s)`
         );
     }
 }
@@ -6882,26 +6882,26 @@ if (moved.length) {
     lines.push(
         `${moved.length} carte${
             moved.length > 1 ? "s" : ""
-        } dÃ©placÃ©e${
+        } déplacée${
             moved.length > 1 ? "s" : ""
         }`
     );
 
     moved.slice(0, 5).forEach(card => {
         lines.push(
-            `â†ª ${card.nomCarte} : ${
+            `↪ ${card.nomCarte} : ${
                 card.fromCategory ||
-                "Non classÃ©"
-            } â†’ ${
+                "Non classé"
+            } → ${
                 card.toCategory ||
-                "Non classÃ©"
+                "Non classé"
             }`
         );
     });
 
     if (moved.length > 5) {
         lines.push(
-            `â†ª ${moved.length - 5} autre(s)`
+            `↪ ${moved.length - 5} autre(s)`
         );
     }
 }
@@ -7179,8 +7179,8 @@ function matchesInvestmentFilter(
         : card[key];
 
         /*
-         * Une pÃ©riode sans historique ne doit pas
-         * Ãªtre considÃ©rÃ©e comme Ã©gale Ã  zÃ©ro.
+         * Une période sans historique ne doit pas
+         * être considérée comme égale à zéro.
          */
         if (
             value === null ||
@@ -7227,7 +7227,7 @@ async function loadInvestmentAnalysis() {
         allInvestmentAnalysis = await window.apiAdapter.getInvestmentAnalysis();
 
         status.textContent =
-            `${allInvestmentAnalysis.length} lignes analysÃ©es`;
+            `${allInvestmentAnalysis.length} lignes analysées`;
 
         updateInvestmentPeriodColumns(
     allInvestmentAnalysis
@@ -7268,7 +7268,7 @@ async function loadTopMovers() {
     try {
         allMovers = await window.apiAdapter.getTopMovers();
 
-        status.textContent = `${allMovers.length} lignes analysÃ©es`;
+        status.textContent = `${allMovers.length} lignes analysées`;
 
         document.querySelectorAll(".sortable:not(.collection-sortable):not(.opportunity-sortable)").forEach(header => {
             header.onclick = () => {
@@ -7408,13 +7408,13 @@ function getInvestmentCardLabel(card) {
         card.edition,
         card.langue,
         card.etat,
-        `QtÃ© ${Math.max(
+        `Qté ${Math.max(
             1,
             Number(card.quantity || 1)
         )}`
     ]
         .filter(Boolean)
-        .join(" Â· ");
+        .join(" · ");
 }
 
 function calculateInvestmentSummary(
@@ -7595,7 +7595,7 @@ function renderInvestmentRanking(
                 ${
                     type === "positive"
                         ? "Aucune contribution positive"
-                        : "Aucune baisse sur la sÃ©lection"
+                        : "Aucune baisse sur la sélection"
                 }
             </div>
         `;
@@ -7616,7 +7616,7 @@ function renderInvestmentRanking(
                 card.edition,
                 card.langue,
                 card.etat,
-                `QtÃ© ${Math.max(
+                `Qté ${Math.max(
                     1,
                     Number(
                         card.quantity || 1
@@ -7624,7 +7624,7 @@ function renderInvestmentRanking(
                 )}`
             ]
                 .filter(Boolean)
-                .join(" Â· ");
+                .join(" · ");
 
             return `
                 <div class="investment-ranking-row">
@@ -7757,7 +7757,7 @@ const coverageDetailElement =
                 summary.rowsCount > 1
                     ? "s"
                     : ""
-            } affichÃ©${
+            } affiché${
                 summary.rowsCount > 1
                     ? "s"
                     : ""
@@ -7771,22 +7771,22 @@ const coverageDetailElement =
 
     if (topLabelElement) {
         topLabelElement.textContent =
-            `Top 10 contributions â€” ${periodLabel}`;
+            `Top 10 contributions — ${periodLabel}`;
     }
 
     if (worstLabelElement) {
         worstLabelElement.textContent =
-            `Pires 10 contributions â€” ${periodLabel}`;
+            `Pires 10 contributions — ${periodLabel}`;
     }
 
     if (directionLabelElement) {
     directionLabelElement.textContent =
-        `Lots en hausse / baisse â€” ${periodLabel}`;
+        `Lots en hausse / baisse — ${periodLabel}`;
 }
 
 if (coverageLabelElement) {
     coverageLabelElement.textContent =
-        `Couverture historique â€” ${periodLabel}`;
+        `Couverture historique — ${periodLabel}`;
 }
 
     if (
@@ -7836,7 +7836,7 @@ setInvestmentSummaryValue(
 
 if (coverageDetailElement) {
     coverageDetailElement.textContent =
-        "0,0 % des lots affichÃ©s";
+        "0,0 % des lots affichés";
 }
 
         return;
@@ -7859,7 +7859,7 @@ if (coverageDetailElement) {
         performanceDetailElement.textContent =
             `${formatPercent(
                 summary.periodPerformance
-            )} Â· ${
+            )} · ${
                 summary.rowsWithHistoryCount
             } lot${
                 summary.rowsWithHistoryCount > 1
@@ -7875,8 +7875,8 @@ if (coverageDetailElement) {
 
 if (directionDetailElement) {
     directionDetailElement.textContent =
-        `${summary.positiveCount} en hausse Â· ` +
-        `${summary.negativeCount} en baisse Â· ` +
+        `${summary.positiveCount} en hausse · ` +
+        `${summary.negativeCount} en baisse · ` +
         `${summary.stableCount} stable${
             summary.stableCount > 1
                 ? "s"
@@ -7897,7 +7897,7 @@ if (coverageDetailElement) {
                 minimumFractionDigits: 1,
                 maximumFractionDigits: 1
             }
-        )} % des lots affichÃ©s`;
+        )} % des lots affichés`;
 }
 
     renderInvestmentRanking(
@@ -7954,10 +7954,10 @@ if (status) {
     status.textContent =
         filteredRows.length ===
         allInvestmentAnalysis.length
-            ? `${allInvestmentAnalysis.length} lignes analysÃ©es`
+            ? `${allInvestmentAnalysis.length} lignes analysées`
             : `${filteredRows.length} ligne${
                 filteredRows.length > 1 ? "s" : ""
-            } affichÃ©e${
+            } affichée${
                 filteredRows.length > 1 ? "s" : ""
             } sur ${allInvestmentAnalysis.length}`;
 }
@@ -8101,11 +8101,11 @@ function calculateInvestmentScore(card) {
 function formatStars(score) {
     const value = Number(score || 0);
 
-    if (value >= 85) return "â˜…â˜…â˜…â˜…â˜…";
-    if (value >= 70) return "â˜…â˜…â˜…â˜…â˜†";
-    if (value >= 55) return "â˜…â˜…â˜…â˜†â˜†";
-    if (value >= 40) return "â˜…â˜…â˜†â˜†â˜†";
-    return "â˜…â˜†â˜†â˜†â˜†";
+    if (value >= 85) return "★★★★★";
+    if (value >= 70) return "★★★★☆";
+    if (value >= 55) return "★★★☆☆";
+    if (value >= 40) return "★★☆☆☆";
+    return "★☆☆☆☆";
 }
 
 function updateInvestmentDrawerHeader(card) {
@@ -8120,7 +8120,7 @@ function updateInvestmentDrawerHeader(card) {
     }
 
     if (subtitle) {
-        subtitle.textContent = `${card.edition || "-"} Â· ${card.langue || "-"} Â· ${card.etat || "-"} Â· QtÃ© ${Number(card.quantity || 1)}`;
+        subtitle.textContent = `${card.edition || "-"} · ${card.langue || "-"} · ${card.etat || "-"} · Qté ${Number(card.quantity || 1)}`;
     }
 
     if (score) {
@@ -8154,15 +8154,15 @@ async function showInvestmentDetails(cardId) {
             <h3>${escapeHtml(investmentCard.nomCarte || "-")}</h3>
 
             <p class="muted">
-                ${escapeHtml(investmentCard.edition || "-")} Â·
-                ${escapeHtml(investmentCard.langue || "-")} Â·
-                ${escapeHtml(investmentCard.etat || "-")} Â·
-                QtÃ© ${Number(investmentCard.quantity || 1)}
+                ${escapeHtml(investmentCard.edition || "-")} ·
+                ${escapeHtml(investmentCard.langue || "-")} ·
+                ${escapeHtml(investmentCard.etat || "-")} ·
+                Qté ${Number(investmentCard.quantity || 1)}
             </p>
 
             <div class="detail-performances">
                 <span>
-                    <strong>Prix modÃ¨le</strong><br>
+                    <strong>Prix modèle</strong><br>
                     ${formatEuro(investmentCard.currentEstimatedPrice)}
                 </span>
 
@@ -8182,7 +8182,7 @@ async function showInvestmentDetails(cardId) {
                 </span>
 
                 <span>
-                    <strong>Jours observÃ©s</strong><br>
+                    <strong>Jours observés</strong><br>
                     ${investmentCard.observationDaysCount ?? "-"}
                 </span>
             </div>
@@ -8220,7 +8220,7 @@ async function showInvestmentDetails(cardId) {
             <hr>
 
             <p>
-                <strong>ModÃ¨le :</strong>
+                <strong>Modèle :</strong>
                 ${escapeHtml(investmentCard.pricingModel || "-")}<br>
 
                 <strong>Source :</strong>
@@ -8241,7 +8241,7 @@ async function showInvestmentDetails(cardId) {
     renderInvestmentModelCards(modelCard);
     renderInvestmentChart(cardId);
 } catch (error) {
-    console.error("Erreur chargement dÃ©tail modÃ¨le :", error);
+    console.error("Erreur chargement détail modèle :", error);
 }
 }
 
@@ -8285,7 +8285,7 @@ function renderInvestmentModelCards(card) {
     if (priceContainer) {
         priceContainer.innerHTML = `
             <div class="drawer-grid">
-                <div>Prix estimÃ©</div>
+                <div>Prix estimé</div>
                 <div>${formatOptionalEuro(estimatedPrice)}</div>
 
                 <div>Trend Cardmarket</div>
@@ -8294,13 +8294,13 @@ function renderInvestmentModelCards(card) {
                 <div>Moyenne 30 jours</div>
                 <div>${formatOptionalEuro(card.avg30)}</div>
 
-                <div>Prix observÃ© brut</div>
+                <div>Prix observé brut</div>
                 <div>${formatOptionalEuro(rawObservedPrice)}</div>
 
-                <div>Prix observÃ© fiabilisÃ©</div>
+                <div>Prix observé fiabilisé</div>
                 <div>${formatOptionalEuro(reliableObservedPrice)}</div>
 
-                <div>FiabilitÃ© de lâ€™Ã©tat</div>
+                <div>Fiabilité de l’état</div>
                 <div>${formatReliability(reliability)}</div>
 
                 <div>Confiance globale</div>
@@ -8320,13 +8320,13 @@ function renderInvestmentModelCards(card) {
         const referenceType =
             card.usesExternalReference
                 ? "Proxy externe"
-                : "MÃªme impression";
+                : "Même impression";
 
         const referenceRole =
             card.marketReferenceRole === "evolution_only"
-                ? "Ã‰volution uniquement"
+                ? "Évolution uniquement"
                 : card.marketReferenceRole === "level_and_evolution"
-                    ? "Niveau et Ã©volution"
+                    ? "Niveau et évolution"
                     : card.marketReferenceRole || "-";
 
         referenceContainer.innerHTML = `
@@ -8337,16 +8337,16 @@ function renderInvestmentModelCards(card) {
                 <div>Carte</div>
                 <div>${escapeHtml(card.referenceName || card.nomCarte || "-")}</div>
 
-                <div>Ã‰dition</div>
+                <div>Édition</div>
                 <div>${escapeHtml(card.referenceEdition || card.edition || "-")}</div>
 
                 <div>Langue</div>
                 <div>${escapeHtml(card.referenceLanguage || card.langue || "-")}</div>
 
-                <div>RÃ´le</div>
+                <div>Rôle</div>
                 <div>${escapeHtml(referenceRole)}</div>
 
-                <div>RÃ©fÃ©rence trouvÃ©e</div>
+                <div>Référence trouvée</div>
                 <div>${card.referenceCardFound ? "Oui" : "Non"}</div>
             </div>
         `;
@@ -8394,12 +8394,12 @@ function formatReliability(value) {
 
 function renderBayesianWeights(weights) {
     if (!weights || typeof weights !== "object") {
-        return `<p class="muted">PondÃ©rations indisponibles.</p>`;
+        return `<p class="muted">Pondérations indisponibles.</p>`;
     }
 
     const rows = [
         ["Carte", weights.card],
-        ["Ã‰dition", weights.edition],
+        ["Édition", weights.edition],
         ["Langue", weights.language],
         ["Global", weights.global]
     ];
@@ -8459,7 +8459,7 @@ function renderObservationTable(card) {
             </span>
 
             <span>
-                FiabilitÃ© moyenne :
+                Fiabilité moyenne :
                 ${formatReliability(card.averageObservationReliability)}
             </span>
         </div>
@@ -8468,10 +8468,10 @@ function renderObservationTable(card) {
             <table class="drawer-table">
                 <thead>
                     <tr>
-                        <th>Ã‰tat</th>
+                        <th>État</th>
                         <th>Brut</th>
-                        <th>FiabilisÃ©</th>
-                        <th>FiabilitÃ©</th>
+                        <th>Fiabilisé</th>
+                        <th>Fiabilité</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -8600,7 +8600,7 @@ async function renderInvestmentChart(cardId) {
 
         const datasets = [
             {
-                label: "Prix modÃ¨le (â‚¬)",
+                label: "Prix modèle (€)",
                 data: chartRows.map(row =>
                     getEstimatedPrice(row)
                 ),
@@ -8608,7 +8608,7 @@ async function renderInvestmentChart(cardId) {
                 spanGaps: true
             },
             {
-                label: "Trend Cardmarket (â‚¬)",
+                label: "Trend Cardmarket (€)",
                 data: chartRows.map(row =>
                     getTrendPrice(row)
                 ),
@@ -8616,7 +8616,7 @@ async function renderInvestmentChart(cardId) {
                 spanGaps: true
             },
             {
-                label: "Moyenne 30 jours (â‚¬)",
+                label: "Moyenne 30 jours (€)",
                 data: chartRows.map(row =>
                     getAvg30Price(row)
                 ),
@@ -8630,7 +8630,7 @@ async function renderInvestmentChart(cardId) {
             currentBuyTarget !== undefined
         ) {
             datasets.push({
-                label: `Achat cible ${condition} (â‚¬)`,
+                label: `Achat cible ${condition} (€)`,
                 data: chartRows.map(() =>
                     Number(currentBuyTarget)
                 ),
@@ -8646,7 +8646,7 @@ async function renderInvestmentChart(cardId) {
             currentReliableObservation !== undefined
         ) {
             datasets.push({
-                label: `Observation fiabilisÃ©e ${condition} (â‚¬)`,
+                label: `Observation fiabilisée ${condition} (€)`,
                 data: chartRows.map(() =>
                     Number(currentReliableObservation)
                 ),
@@ -9149,21 +9149,15 @@ async function loadOpportunities() {
         const radarData =
             await window.apiAdapter.getRadar();
 
-
         allRadarRows =
             radarData?.rows || [];
 
         radarSummary =
             radarData?.summary || {};
 
-
-        /*
-         * Date de dÃ©part du nouvel historique Radar.
-         */
         const historyStartDate =
             radarData?.historyStartDate ||
             "2026-08-22";
-
 
         const historyElement =
             document.getElementById(
@@ -9185,9 +9179,7 @@ async function loadOpportunities() {
                     : historyStartDate;
         }
 
-
         setupRadarLevelButtons();
-
         updateRadarLevelCounts();
 
         updateRadarLearningState(
@@ -9224,12 +9216,10 @@ function updateRadarLearningState(
         return;
     }
 
-
     const groups =
         groupRadarRows(
             allRadarRows
         );
-
 
     const available14 =
         groups.filter(group =>
@@ -9241,7 +9231,6 @@ function updateRadarLearningState(
             )
         ).length;
 
-
     const available30 =
         groups.filter(group =>
             group.radarRows.some(
@@ -9252,29 +9241,24 @@ function updateRadarLearningState(
             )
         ).length;
 
-
     if (available30 > 0) {
 
         banner.hidden = true;
-
         return;
     }
 
-
     banner.hidden = false;
-
 
     if (available14 > 0) {
 
         text.textContent =
             `${available14} carte(s) disposent maintenant ` +
             `d'un signal 14 jours. ` +
-            `Le Radar reste en phase prÃ©coce jusqu'Ã  ` +
-            `l'apparition des premiÃ¨res fenÃªtres 30 jours.`;
+            `Le Radar reste en phase précoce jusqu'à ` +
+            `l'apparition des premières fenêtres 30 jours.`;
 
         return;
     }
-
 
     text.textContent =
         "Le Radar accumule son historique depuis le " +
@@ -9377,7 +9361,7 @@ radarGroups.forEach(group => {
                 /*
                  * Score principal :
                  *
-                 * 50 % qualitÃ© de l'opportunitÃ©
+                 * 50 % qualité de l'opportunité
                  * 35 % dynamique Radar
                  * 15 % confiance pricing
                  */
@@ -9403,7 +9387,7 @@ radarGroups.forEach(group => {
 
 
                 /*
-                 * Bonus lÃ©ger si le Radar atteint
+                 * Bonus léger si le Radar atteint
                  * le niveau d'alerte strict.
                  */
                 if (radarGroupHasAlert(radar)) {
@@ -9622,7 +9606,7 @@ function renderConvergence() {
         status.textContent =
             `${rows.length} convergence${
                 rows.length === 1 ? "" : "s"
-            } affichÃ©e${
+            } affichée${
                 rows.length === 1 ? "" : "s"
             }`;
     }
@@ -9641,8 +9625,6 @@ function renderConvergence() {
                 const h30 =
                     radar?.horizons?.["30d"];
 
-
-
                 const rSquared =
                     h30?.available
                         ? Number(
@@ -9659,10 +9641,10 @@ function renderConvergence() {
 
                 const badge =
                     level === "strong"
-                        ? "ðŸ”¥"
+                        ? "🔥"
                         : level === "watch"
-                            ? "ðŸ‘€"
-                            : "â€¢";
+                            ? "👀"
+                            : "•";
 
 
                 const scoreClass =
@@ -9690,13 +9672,13 @@ function renderConvergence() {
                                     row.edition || ""
                                 )}
 
-                                Â·
+                                ·
 
                                 ${escapeHtml(
                                     row.langue || ""
                                 )}
 
-                                Â·
+                                ·
 
                                 ${rec.condition}
 
@@ -9747,7 +9729,7 @@ function renderConvergence() {
                                 Number.isFinite(
                                     rSquared
                                 )
-                                    ? `RÂ² ${rSquared.toFixed(2)}`
+                                    ? `R² ${rSquared.toFixed(2)}`
                                     : "-"
                             }
 
@@ -9892,7 +9874,6 @@ function isRadarAlert(row) {
     );
 }
 
-
 function isRadarSignal(row) {
 
     return (
@@ -9900,7 +9881,10 @@ function isRadarSignal(row) {
             "Hausse forte" ||
 
         row.signalLevel ===
-            "Hausse probable"
+            "Hausse probable" ||
+
+        row.signalLevel ===
+            "Signal précoce"
     );
 }
 
@@ -10068,7 +10052,7 @@ function setupRadarLevelButtons() {
 
                 currentRadarDisplayLevel =
     button.dataset.radarLevel ||
-    "alert";
+    "all";
 
                 updateRadarLevelButtonState();
                 renderRadar();
@@ -10199,32 +10183,18 @@ function getRadarSignalClass(row) {
         case "Hausse probable":
             return "radar-signal-probable";
 
-        case "Ã€ surveiller":
+        case "À surveiller":
             return "radar-signal-watch";
 
-        case "Signal prÃ©coce":
-    return "radar-signal-early";
+        case "Signal précoce":
+            return "radar-signal-early";
 
-case "En apprentissage":
-    return "radar-signal-learning";
+        case "En apprentissage":
+            return "radar-signal-learning";
 
         default:
             return "radar-signal-neutral";
     }
-}
-
-function isRadarSignal(row) {
-
-    return (
-        row.signalLevel ===
-            "Hausse forte" ||
-
-        row.signalLevel ===
-            "Hausse probable" ||
-
-        row.signalLevel ===
-            "Signal prÃ©coce"
-    );
 }
 
 function renderRadar() {
@@ -10237,7 +10207,6 @@ function renderRadar() {
     if (!tbody) {
         return;
     }
-
 
     const groups =
         groupRadarRows(
@@ -10252,12 +10221,10 @@ function renderRadar() {
                     a.bestScore
             );
 
-
     const status =
         document.getElementById(
             "opportunities-status"
         );
-
 
     if (status) {
 
@@ -10272,30 +10239,20 @@ function renderRadar() {
 
                     : "cartes Radar";
 
-
         status.textContent =
-            `${groups.length} ${label} affichÃ©${
+            `${groups.length} ${label} affiché${
                 groups.length === 1
                     ? ""
                     : "s"
             }`;
     }
 
-
     tbody.innerHTML =
         groups
             .map(group => {
 
-                /*
-                 * Pour la vue Alertes,
-                 * prendre comme rÃ©fÃ©rence
-                 * la meilleure sÃ©rie qui
-                 * respecte rÃ©ellement
-                 * le filtre d'alerte.
-                 */
                 let row =
                     group;
-
 
                 if (
                     currentRadarDisplayLevel ===
@@ -10321,77 +10278,67 @@ function renderRadar() {
                         group;
                 }
 
-
                 const h14 =
                     row.horizons
                         ?.["14d"];
-
 
                 const h30 =
                     row.horizons
                         ?.["30d"];
 
                 const h60 =
-    row.horizons
-        ?.["60d"];
+                    row.horizons
+                        ?.["60d"];
 
-const h90 =
-    row.horizons
-        ?.["90d"];
-
+                const h90 =
+                    row.horizons
+                        ?.["90d"];
 
                 const perf14 =
                     h14?.available
                         ? Number(
-                            h14
-                                .equivalent30dPct
+                            h14.equivalent30dPct
                         )
                         : null;
-
 
                 const perf30 =
                     h30?.available
                         ? Number(
-                            h30
-                                .equivalent30dPct
+                            h30.equivalent30dPct
                         )
                         : null;
 
                 const perf60 =
-    h60?.available
-        ? Number(
-            h60.equivalent30dPct
-        )
-        : null;
+                    h60?.available
+                        ? Number(
+                            h60.equivalent30dPct
+                        )
+                        : null;
 
-
-const perf90 =
-    h90?.available
-        ? Number(
-            h90.equivalent30dPct
-        )
-        : null;
-
+                const perf90 =
+                    h90?.available
+                        ? Number(
+                            h90.equivalent30dPct
+                        )
+                        : null;
 
                 const qualityHorizon =
-    h90?.available
-        ? h90
-        : h60?.available
-            ? h60
-            : h30?.available
-                ? h30
-                : h14?.available
-                    ? h14
-                    : null;
+                    h90?.available
+                        ? h90
+                        : h60?.available
+                            ? h60
+                            : h30?.available
+                                ? h30
+                                : h14?.available
+                                    ? h14
+                                    : null;
 
-
-const rSquared =
-    qualityHorizon
-        ? Number(
-            qualityHorizon.rSquared
-        )
-        : null;
-
+                const rSquared =
+                    qualityHorizon
+                        ? Number(
+                            qualityHorizon.rSquared
+                        )
+                        : null;
 
                 const score =
                     Number(
@@ -10400,34 +10347,28 @@ const rSquared =
                     );
 
                 const estimatedNM =
-    group.nm
-        ? Number(
-            group.nm.latestPrice
-        )
-        : null;
+                    group.nm
+                        ? Number(
+                            group.nm.latestPrice
+                        )
+                        : null;
 
-
-const estimatedEX =
-    group.ex
-        ? Number(
-            group.ex.latestPrice
-        )
-        : null;
-
-
-
+                const estimatedEX =
+                    group.ex
+                        ? Number(
+                            group.ex.latestPrice
+                        )
+                        : null;
 
                 const radarClass =
-    getRadarSignalClass(
-        row
-    );
-
+                    getRadarSignalClass(
+                        row
+                    );
 
                 return `
                     <tr>
 
                         <td>
-
                             <strong>
                                 ${escapeHtml(
                                     row.nomCarte ||
@@ -10435,23 +10376,16 @@ const estimatedEX =
                                 )}
                             </strong>
 
-                            <div
-                                class="
-                                    radar-card-subline
-                                "
-                            >
+                            <div class="radar-card-subline">
                                 ${
                                     row.owned
-                                        ? "PossÃ©dÃ©e"
-                                        : "Non possÃ©dÃ©e"
+                                        ? "Possédée"
+                                        : "Non possédée"
                                 }
                             </div>
-
                         </td>
 
-
                         <td>
-
                             <div>
                                 ${escapeHtml(
                                     row.edition ||
@@ -10459,22 +10393,12 @@ const estimatedEX =
                                 )}
                             </div>
 
-                            <div
-                                class="
-                                    radar-card-subline
-                                "
-                            >
+                            <div class="radar-card-subline">
                                 ${escapeHtml(
                                     row.langue ||
                                     "-"
                                 )}
-                                Â·
-                                ${escapeHtml(
-                                    row.condition ||
-                                    "-"
-                                )}
                             </div>
-
                         </td>
 
                         <td
@@ -10484,13 +10408,10 @@ const estimatedEX =
                                 )
                             }"
                         >
-
                             ${formatRadarPercent(
                                 perf14
                             )}
-
                         </td>
-
 
                         <td
                             class="${
@@ -10499,106 +10420,99 @@ const estimatedEX =
                                 )
                             }"
                         >
-
                             ${formatRadarPercent(
                                 perf30
                             )}
-
                         </td>
 
-                      <td
-    class="${
-        getRadarPerformanceClass(
-            perf60
-        )
-    }"
->
-    ${formatRadarPercent(
-        perf60
-    )}
-</td>
+                        <td
+                            class="${
+                                getRadarPerformanceClass(
+                                    perf60
+                                )
+                            }"
+                        >
+                            ${formatRadarPercent(
+                                perf60
+                            )}
+                        </td>
 
-
-<td
-    class="${
-        getRadarPerformanceClass(
-            perf90
-        )
-    }"
->
-    ${formatRadarPercent(
-        perf90
-    )}
-</td>
-
+                        <td
+                            class="${
+                                getRadarPerformanceClass(
+                                    perf90
+                                )
+                            }"
+                        >
+                            ${formatRadarPercent(
+                                perf90
+                            )}
+                        </td>
 
                         <td>
-
                             ${
                                 Number.isFinite(
                                     rSquared
                                 )
-                                    ? `RÂ² ${
-                                        rSquared
-                                            .toFixed(
-                                                2
-                                            )
+                                    ? `R² ${
+                                        rSquared.toFixed(
+                                            2
+                                        )
                                     }`
                                     : "-"
                             }
-
                         </td>
 
-
                         <td>
-
                             <span class="${radarClass}">
+                                ${
+                                    row.signalLevel ===
+                                    "En apprentissage"
+                                        ? "🧪 Apprentissage"
 
-    ${
-        row.signalLevel ===
-        "En apprentissage"
-            ? "ðŸ§ª Apprentissage"
+                                        : row.signalLevel ===
+                                            "Signal précoce"
+                                            ? `⚡ ${Math.round(
+                                                score
+                                            )}`
 
-            : row.signalLevel ===
-                "Signal prÃ©coce"
-                ? `âš¡ ${Math.round(score)}`
+                                            : isRadarAlert(
+                                                row
+                                            )
+                                                ? `🚨 ${Math.round(
+                                                    score
+                                                )}`
 
-                : isRadarAlert(row)
-                    ? `ðŸš¨ ${Math.round(score)}`
-
-                    : `ðŸ“ˆ ${Math.round(score)}`
-    }
-
-</span>
-
-
-
+                                                : `📈 ${Math.round(
+                                                    score
+                                                )}`
+                                }
+                            </span>
                         </td>
 
                         <td class="price radar-estimate">
-    ${
-        Number.isFinite(
-            estimatedNM
-        )
-            ? formatEuro(
-                estimatedNM
-            )
-            : "-"
-    }
-</td>
+                            ${
+                                Number.isFinite(
+                                    estimatedNM
+                                )
+                                    ? formatEuro(
+                                        estimatedNM
+                                    )
+                                    : "-"
+                            }
+                        </td>
 
-
-<td class="price radar-estimate">
-    ${
-        Number.isFinite(
-            estimatedEX
-        )
-            ? formatEuro(
-                estimatedEX
-            )
-            : "-"
-    }
-</td>
+                        <td class="price radar-estimate">
+                            ${
+                                Number.isFinite(
+                                    estimatedEX
+                                )
+                                    ? formatEuro(
+                                        estimatedEX
+                                    )
+                                    : "-"
+                            }
+                        </td>
 
                     </tr>
                 `;
@@ -10738,11 +10652,11 @@ function getMomentumLabel(card) {
     const avg1Vs7 = Number(card.avg1Vs7 || 0);
     const trendVs30 = Number(card.trendVs30 || 0);
 
-    if (momentum >= 80 || avg1Vs7 >= 8) return "ðŸš€ Forte hausse";
-    if (momentum >= 65 || avg1Vs7 >= 4) return "ðŸ“ˆ Hausse";
-    if (momentum >= 50 || trendVs30 >= 0) return "ðŸ‘€ Ã€ surveiller";
+    if (momentum >= 80 || avg1Vs7 >= 8) return "🚀 Forte hausse";
+    if (momentum >= 65 || avg1Vs7 >= 4) return "📈 Hausse";
+    if (momentum >= 50 || trendVs30 >= 0) return "👀 À surveiller";
 
-    return "âž– Neutre";
+    return "➖ Neutre";
 }
 
 function getMomentumClass(card) {
@@ -10767,10 +10681,10 @@ function formatOpportunityExplanation(value) {
     if (Array.isArray(value)) {
         return value
             .map(item => {
-                if (typeof item === "string") return `â€¢ ${escapeHtml(item)}`;
+                if (typeof item === "string") return `• ${escapeHtml(item)}`;
 
                 if (typeof item === "object" && item !== null) {
-                    return `â€¢ ${escapeHtml(
+                    return `• ${escapeHtml(
                         item.label ||
                         item.text ||
                         item.reason ||
@@ -10779,7 +10693,7 @@ function formatOpportunityExplanation(value) {
                     )}`;
                 }
 
-                return `â€¢ ${escapeHtml(String(item))}`;
+                return `• ${escapeHtml(String(item))}`;
             })
             .join("<br>");
     }
@@ -10905,7 +10819,7 @@ function optionalPositiveNumber(...values) {
 function getOpportunityMetrics(card) {
 
     /*
-     * Prix rÃ©ellement observÃ©s dans Administration.
+     * Prix réellement observés dans Administration.
      *
      * Ce sont ces valeurs qui permettent de savoir
      * si une annonce actuellement disponible est
@@ -10926,11 +10840,11 @@ function getOpportunityMetrics(card) {
 
 
     /*
-     * RÃ©fÃ©rence gÃ©nÃ©rale Cardmarket.
+     * Référence générale Cardmarket.
      *
-     * Elle reste utile comme information de marchÃ©,
-     * mais elle ne doit pas Ãªtre considÃ©rÃ©e comme
-     * une annonce rÃ©ellement disponible.
+     * Elle reste utile comme information de marché,
+     * mais elle ne doit pas être considérée comme
+     * une annonce réellement disponible.
      */
     const referenceNM =
         optionalPositiveNumber(
@@ -10954,9 +10868,9 @@ function getOpportunityMetrics(card) {
 
 
     /*
-     * Une opportunitÃ© d'achat ne peut Ãªtre calculÃ©e
-     * que si nous avons rÃ©ellement observÃ© un prix
-     * pour cet Ã©tat.
+     * Une opportunité d'achat ne peut être calculée
+     * que si nous avons réellement observé un prix
+     * pour cet état.
      */
     const discountNM =
         observedNM !== null
@@ -11006,15 +10920,15 @@ function getOpportunityMetrics(card) {
     return {
 
         /*
-         * Prix servant rÃ©ellement Ã  Ã©valuer
-         * l'opportunitÃ©.
+         * Prix servant réellement à évaluer
+         * l'opportunité.
          */
         marketNM: observedNM,
         marketEX: observedEX,
 
         /*
-         * ConservÃ© pour pouvoir l'afficher plus tard
-         * si nÃ©cessaire.
+         * Conservé pour pouvoir l'afficher plus tard
+         * si nécessaire.
          */
         referenceNM,
 
@@ -11176,7 +11090,7 @@ function getOpportunityLevel(card) {
 
     /*
      * Niveau le plus strict :
-     * excellente marge et score Ã©levÃ©.
+     * excellente marge et score élevé.
      */
     if (
         score >= 80 &&
@@ -11186,9 +11100,9 @@ function getOpportunityLevel(card) {
     }
 
     /*
-     * Candidate positive Ã  surveiller.
+     * Candidate positive à surveiller.
      *
-     * Cela regroupe les anciennes catÃ©gories :
+     * Cela regroupe les anciennes catégories :
      * - Acheter
      * - Surveiller
      */
@@ -11207,14 +11121,14 @@ function getOpportunityLevelLabel(card) {
         getOpportunityLevel(card);
 
     if (level === "strong") {
-        return "â­ Forte opportunitÃ©";
+        return "⭐ Forte opportunité";
     }
 
     if (level === "watch") {
-        return "ðŸŸ¡ Ã€ surveiller";
+        return "🟡 À surveiller";
     }
 
-    return "âšª Non retenue";
+    return "⚪ Non retenue";
 }
 
 function getBuyingAction(card) {
@@ -11229,17 +11143,17 @@ function getBuyingAction(card) {
 
     if (level === "strong") {
         return condition
-            ? `â­ Forte opportunitÃ© ${condition}`
-            : "â­ Forte opportunitÃ©";
+            ? `⭐ Forte opportunité ${condition}`
+            : "⭐ Forte opportunité";
     }
 
     if (level === "watch") {
         return condition
-            ? `ðŸŸ¡ Ã€ surveiller en ${condition}`
-            : "ðŸŸ¡ Ã€ surveiller";
+            ? `🟡 À surveiller en ${condition}`
+            : "🟡 À surveiller";
     }
 
-    return "âšª Non retenue";
+    return "⚪ Non retenue";
 }
 
 function getBuyingActionClass(card) {
@@ -11279,8 +11193,8 @@ function matchesOpportunityDisplayLevel(card) {
     }
 
     /*
-     * Valeur par dÃ©faut :
-     * uniquement les fortes opportunitÃ©s.
+     * Valeur par défaut :
+     * uniquement les fortes opportunités.
      */
     return level === "strong";
 }
@@ -11431,10 +11345,10 @@ const filtered =
     const levelLabel =
         currentOpportunityDisplayLevel ===
         "strong"
-            ? "fortes opportunitÃ©s"
+            ? "fortes opportunités"
             : currentOpportunityDisplayLevel ===
               "watch"
-                ? "fortes opportunitÃ©s et candidates Ã  surveiller"
+                ? "fortes opportunités et candidates à surveiller"
                 : "candidates";
 
     const hasUserFilters =
@@ -11447,14 +11361,14 @@ const filtered =
     filtered.length === 1
         ? ""
         : "s"
-} affichÃ©e${
+} affichée${
     filtered.length === 1
         ? ""
         : "s"
 } sur ${
                 levelFiltered.length
             } ${levelLabel}`
-            : `${filtered.length} ${levelLabel} affichÃ©e${
+            : `${filtered.length} ${levelLabel} affichée${
     filtered.length === 1
         ? ""
         : "s"
@@ -11493,11 +11407,11 @@ const opportunityScore =
 
 
         const reasons = Array.isArray(card.reasons)
-            ? card.reasons.map(reason => "âœ… " + escapeHtml(reason)).join("<br>")
+            ? card.reasons.map(reason => "✅ " + escapeHtml(reason)).join("<br>")
             : "";
 
         const warnings = Array.isArray(card.warnings)
-            ? card.warnings.map(warning => "âš ï¸ " + escapeHtml(warning)).join("<br>")
+            ? card.warnings.map(warning => "⚠️ " + escapeHtml(warning)).join("<br>")
             : "";
 
         const details = [reasons, warnings].filter(Boolean).join("<br>");
@@ -11509,7 +11423,7 @@ const opportunityScore =
                 <strong>${escapeHtml(card.nomCarte || "-")}</strong>
             </button>
             <div class="opportunity-subline">
-                ${escapeHtml(card.ownedStates && card.ownedStates !== "-" ? `PossÃ©dÃ© : ${card.ownedStates}` : "")}
+                ${escapeHtml(card.ownedStates && card.ownedStates !== "-" ? `Possédé : ${card.ownedStates}` : "")}
             </div>
         </td>
 
@@ -11546,7 +11460,7 @@ const opportunityScore =
        <td>
     <span
         class="${getBuyingActionClass(card)}"
-        title="Score d'opportunitÃ© : ${opportunityScore} / 100"
+        title="Score d'opportunité : ${opportunityScore} / 100"
     >
         ${getBuyingAction(card)}
     </span>
@@ -11555,7 +11469,7 @@ const opportunityScore =
     Score ${opportunityScore} / 100
     ${
         bestOpportunity
-            ? ` Â· Meilleure marge ${bestOpportunity.condition} :
+            ? ` · Meilleure marge ${bestOpportunity.condition} :
                ${bestOpportunity.discount >= 0 ? "+" : ""}
                ${bestOpportunity.discount.toFixed(1)} %`
             : ""
@@ -11635,7 +11549,7 @@ async function openCardDetail(cardId) {
         const detail = await window.apiAdapter.getCardDetail(cardId);
 
 if (!detail) {
-    throw new Error("Impossible de charger le dÃ©tail de la carte");
+    throw new Error("Impossible de charger le détail de la carte");
 }
 
         const card = detail.card;
@@ -11657,11 +11571,11 @@ if (!detail) {
         info.innerHTML = `
             <p><strong>Edition :</strong> ${escapeHtml(card.edition)}</p>
             <p><strong>Etat :</strong> ${escapeHtml(card.etat)}</p>
-            <p><strong>CatÃ©gorie :</strong> ${escapeHtml(card.categorie || "Non classÃ©")}</p>
-            <p><strong>Estimation Ã©tat :</strong> ${formatEuro(getEstimatedConditionPrice(card))}</p>
+            <p><strong>Catégorie :</strong> ${escapeHtml(card.categorie || "Non classé")}</p>
+            <p><strong>Estimation état :</strong> ${formatEuro(getEstimatedConditionPrice(card))}</p>
 <p><strong>Confiance :</strong> ${card.gradeModelConfidence ?? "-"} %</p>
-<p><strong>Source modÃ¨le :</strong> ${escapeHtml(card.gradeModelSource || "-")}</p>
-<p><strong>Jours observÃ©s :</strong> ${card.observationDaysCount ?? "-"}</p>
+<p><strong>Source modèle :</strong> ${escapeHtml(card.gradeModelSource || "-")}</p>
+<p><strong>Jours observés :</strong> ${card.observationDaysCount ?? "-"}</p>
             <p><strong>Trend :</strong> ${formatEuro(card.trendPrice)}</p>
             <p><strong>Avg30 :</strong> ${formatEuro(card.avg30)}</p>
             <p><strong>Avg7 :</strong> ${formatEuro(card.avg7)}</p>
@@ -11713,7 +11627,6 @@ window.debugChartHistory = chartHistoryWithCondition;
 
 renderCardDetailChart(chartHistoryWithCondition);
 
-
     } catch (error) {
         console.error(error);
         alert(error.message);
@@ -11724,7 +11637,7 @@ function openOpportunityDetail(opportunityId) {
     const card = allOpportunities.find(row => String(row.id) === String(opportunityId));
 
     if (!card) {
-        alert("Impossible de charger le dÃ©tail de l'opportunitÃ©");
+        alert("Impossible de charger le détail de l'opportunité");
         return;
     }
 
@@ -11740,14 +11653,14 @@ function openOpportunityDetail(opportunityId) {
         : "";
 
     info.innerHTML = `
-        <p><strong>Ã‰dition :</strong> ${escapeHtml(card.edition || "-")}</p>
+        <p><strong>Édition :</strong> ${escapeHtml(card.edition || "-")}</p>
         <p><strong>Langue :</strong> ${escapeHtml(card.langue || "-")}</p>
-        <p><strong>PossÃ©dÃ© :</strong> ${escapeHtml(card.ownedLabel || "Non")}</p>
-        <p><strong>Ã‰tats possÃ©dÃ©s :</strong> ${escapeHtml(card.ownedStates || "-")}</p>
+        <p><strong>Possédé :</strong> ${escapeHtml(card.ownedLabel || "Non")}</p>
+        <p><strong>États possédés :</strong> ${escapeHtml(card.ownedStates || "-")}</p>
 
         <hr>
 
-        <p><strong>Prix marchÃ© :</strong> ${formatEuro(card.nmPrice || card.trendPrice)}</p>
+        <p><strong>Prix marché :</strong> ${formatEuro(card.nmPrice || card.trendPrice)}</p>
         <p><strong>Prix max NM :</strong> ${formatEuro(card.nmTargetPrice)}</p>
         <p><strong>Prix max EX :</strong> ${formatEuro(card.exTargetPrice)}</p>
 
@@ -11766,7 +11679,7 @@ function openOpportunityDetail(opportunityId) {
         <p><strong>Tendance :</strong> ${Number(card.trendQuality || 0)} %</p>
         <p><strong>Timing :</strong> ${Number(card.timingScore || 0)} %</p>
         <p><strong>Potentiel :</strong> ${Number(card.remainingPotential || 0)} %</p>
-        <p><strong>Risque :</strong> Ã—${Number(card.riskMultiplier || 0)}</p>
+        <p><strong>Risque :</strong> ×${Number(card.riskMultiplier || 0)}</p>
         <p><strong>Score achat :</strong> ${Number(card.buyProbability || 0)} %</p>
 
         <hr>
@@ -11842,7 +11755,7 @@ function renderCardDetailChart(history) {
 
     const datasets = [
         {
-            label: "Estimation Ã©tat (â‚¬)",
+            label: "Estimation état (€)",
             data: history.map(row => {
                 const market = getMarketStatePrice(row);
 
@@ -11858,7 +11771,7 @@ function renderCardDetailChart(history) {
 
     if (hasMarketHistory) {
         datasets.push({
-            label: "Trend marchÃ© Ã©tat (â‚¬)",
+            label: "Trend marché état (€)",
             data: history.map(row => getMarketStatePrice(row)),
             tension: 0.3
         });
@@ -11933,12 +11846,12 @@ function getSignalClass(signal) {
         return "signal-strong";
     }
 
-    if (signal.includes("Achat sÃ©lectif")) {
+    if (signal.includes("Achat sélectif")) {
         return "signal-up";
     }
 
     if (
-        signal.includes("Ã€ surveiller") ||
+        signal.includes("À surveiller") ||
         signal.includes("Surveillance") ||
         signal.includes("surveiller")
     ) {
@@ -11999,9 +11912,9 @@ function calculateDiscountPercent(
 ) {
 
     /*
-     * Une absence de prix marchÃ© ne doit surtout
-     * pas Ãªtre convertie en 0 â‚¬, sinon elle produit
-     * artificiellement une dÃ©cote de +100 %.
+     * Une absence de prix marché ne doit surtout
+     * pas être convertie en 0 €, sinon elle produit
+     * artificiellement une décote de +100 %.
      */
     if (
         marketPrice === null ||
