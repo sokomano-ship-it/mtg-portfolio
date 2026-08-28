@@ -5025,12 +5025,19 @@ strong.score-negative {
 
 .radar-card-filter-cell {
     min-width: 190px;
+    white-space: normal !important;
+    overflow: visible !important;
+}
+
+.radar-card-filter-cell .radar-filter {
+    display: block;
+    width: 100%;
+    min-width: 0;
 }
 
 .radar-card-filter-cell .radar-filter + .radar-filter {
     margin-top: 4px;
 }
-
 .radar-us-eu {
     font-weight: 800;
 }
@@ -5074,7 +5081,7 @@ strong.score-negative {
 
 #radar-table {
     width: 100%;
-    min-width: 1880px;
+    min-width: 1640px;
     table-layout: fixed;
 }
 
