@@ -10050,12 +10050,390 @@ function groupRadarRows(rows) {
         });
 }
 
+function getRadarAlertAssessment(group) {
+
+    const values =
+        getRadarGroupValues(group);
+
+
+    /*
+     * Filtre économique principal.
+     *
+     * Une carte <= 5 € sur Cardmarket
+     * ne peut pas être une Alerte.
+     */
+    if (
+        values.cardmarketTrend === null ||
+        values.cardmarketTrend <= 5
+    ) {
+
+        return {
+            eligible: false,
+            score: 0,
+            type: null
+        };
+    }
+
+
+    const signal =
+        values.trendSignal || "";
+
+    const momentum =
+        values.momentum || "";
+
+
+    /*
+     * Helpers.
+     */
+    const positive =
+        value =>
+            Number.isFinite(
+                Number(value)
+            ) &&
+            Number(value) > 0;
+
+
+    const nonNegative =
+        value =>
+            Number.isFinite(
+                Number(value)
+            ) &&
+            Number(value) >= 0;
+
+
+    /*
+     * Persistance moyen / long terme.
+     *
+     * On ne donne volontairement
+     * pas trop d'importance au 14j ici :
+     * une grosse carte peut progresser
+     * lentement et régulièrement.
+     */
+    const persistenceValues = [
+
+        values.tcg30,
+        values.tcg60,
+        values.tcg90,
+
+        values.cm30,
+        values.cm60,
+        values.cm90
+
+    ];
+
+
+    const persistenceCount =
+        persistenceValues.filter(
+            positive
+        ).length;
+
+
+    const tcgPersistent =
+        [
+            values.tcg30,
+            values.tcg60,
+            values.tcg90
+        ].filter(
+            positive
+        ).length;
+
+
+    const cmPersistent =
+        [
+            values.cm30,
+            values.cm60,
+            values.cm90
+        ].filter(
+            positive
+        ).length;
+
+
+    const cross30 =
+        positive(values.tcg30) &&
+        positive(values.cm30);
+
+
+    const cross60 =
+        positive(values.tcg60) &&
+        positive(values.cm60);
+
+
+    const cross90 =
+        positive(values.tcg90) &&
+        positive(values.cm90);
+
+
+    /*
+     * -------------------------------------------------
+     * A — HAUSSE PERSISTANTE
+     * -------------------------------------------------
+     *
+     * Cas typique :
+     * carte ancienne / chère qui grimpe
+     * sans rupture brutale.
+     *
+     * Il faut :
+     * - Hausse confirmée
+     * - au moins 4 horizons positifs sur 6
+     * - présence de hausse dans les deux marchés
+     */
+    const persistentTrend =
+        signal === "🔥 Hausse confirmée" &&
+        persistenceCount >= 4 &&
+        tcgPersistent >= 1 &&
+        cmPersistent >= 1;
+
+
+    /*
+     * -------------------------------------------------
+     * B — MOMENTUM CONFIRMÉ
+     * -------------------------------------------------
+     */
+    const confirmedMomentum =
+        momentum ===
+            "🚀 Rupture confirmée" ||
+        momentum ===
+            "⚡ Accélération confirmée";
+
+
+    /*
+     * Rupture sur un seul marché :
+     * on exige au moins une confirmation
+     * courte de l'autre marché.
+     */
+    const usBreakoutConfirmed =
+        momentum === "🚀 Rupture US" &&
+        (
+            positive(values.cm14) ||
+            positive(values.cm30)
+        );
+
+
+    const euBreakoutConfirmed =
+        momentum === "🚀 Rupture EU" &&
+        (
+            positive(values.tcg14) ||
+            positive(values.tcg30)
+        );
+
+
+    /*
+     * Accélération non confirmée :
+     * elle n'est retenue que si la tendance
+     * globale est déjà confirmée.
+     */
+    const accelerationWithTrend =
+        (
+            momentum ===
+                "⚡ Accélération US" ||
+            momentum ===
+                "⚡ Accélération EU"
+        ) &&
+        signal ===
+            "🔥 Hausse confirmée" &&
+        (
+            cross30 ||
+            (
+                positive(values.tcg14) &&
+                positive(values.cm14)
+            )
+        );
+
+
+    const momentumAlert =
+        confirmedMomentum ||
+        usBreakoutConfirmed ||
+        euBreakoutConfirmed ||
+        accelerationWithTrend;
+
+
+    /*
+     * -------------------------------------------------
+     * C — HAUSSE FORTE SUR UN MARCHÉ
+     * -------------------------------------------------
+     *
+     * Important pour ne pas rater une grosse carte
+     * lorsque US et EU ne bougent pas exactement
+     * au même moment.
+     *
+     * Le marché leader doit monter sur 30 + 60j,
+     * et l'autre marché ne doit pas être clairement
+     * en opposition.
+     */
+    const strongTcgTrend =
+        signal === "🇺🇸 Hausse TCG" &&
+        positive(values.tcg30) &&
+        positive(values.tcg60) &&
+        Number(values.tcg30) >= 2 &&
+        (
+            nonNegative(values.cm30) ||
+            nonNegative(values.cm60)
+        );
+
+
+    const strongCardmarketTrend =
+        signal ===
+            "🇪🇺 Hausse Cardmarket" &&
+        positive(values.cm30) &&
+        positive(values.cm60) &&
+        Number(values.cm30) >= 2 &&
+        (
+            nonNegative(values.tcg30) ||
+            nonNegative(values.tcg60)
+        );
+
+
+    const strongSingleMarketTrend =
+        strongTcgTrend ||
+        strongCardmarketTrend;
+
+
+    /*
+     * -------------------------------------------------
+     * SCORE DE PRIORITÉ
+     * -------------------------------------------------
+     *
+     * Le score ne décide pas seul de l'alerte.
+     * Il sert surtout à classer les alertes.
+     */
+    let score = 0;
+
+
+    if (
+        signal ===
+        "🔥 Hausse confirmée"
+    ) {
+        score += 30;
+    }
+
+
+    if (
+        signal === "🇺🇸 Hausse TCG" ||
+        signal === "🇪🇺 Hausse Cardmarket"
+    ) {
+        score += 16;
+    }
+
+
+    if (
+        momentum ===
+        "🚀 Rupture confirmée"
+    ) {
+        score += 25;
+    }
+    else if (
+        momentum.includes("🚀")
+    ) {
+        score += 16;
+    }
+
+
+    if (
+        momentum ===
+        "⚡ Accélération confirmée"
+    ) {
+        score += 20;
+    }
+    else if (
+        momentum.includes("⚡")
+    ) {
+        score += 10;
+    }
+
+
+    score +=
+        persistenceCount * 3;
+
+
+    if (cross30) {
+        score += 10;
+    }
+
+    if (cross60) {
+        score += 7;
+    }
+
+    if (cross90) {
+        score += 5;
+    }
+
+
+    /*
+     * Une carte financièrement significative
+     * reçoit un petit bonus, sans permettre
+     * au prix de dominer le signal.
+     */
+    if (
+        values.cardmarketTrend >= 20
+    ) {
+        score += 3;
+    }
+
+    if (
+        values.cardmarketTrend >= 50
+    ) {
+        score += 3;
+    }
+
+    if (
+        values.cardmarketTrend >= 100
+    ) {
+        score += 2;
+    }
+
+
+    const eligible =
+        persistentTrend ||
+        momentumAlert ||
+        strongSingleMarketTrend;
+
+
+    let type = null;
+
+
+    if (persistentTrend) {
+        type =
+            "📈 Hausse persistante";
+    }
+
+
+    if (momentumAlert) {
+        type =
+            persistentTrend
+                ? "🔥 Tendance + momentum"
+                : "⚡ Momentum";
+    }
+
+
+    if (
+        strongSingleMarketTrend &&
+        !persistentTrend &&
+        !momentumAlert
+    ) {
+        type =
+            "🌍 Hausse marché";
+    }
+
+
+    return {
+        eligible,
+        score,
+        type,
+
+        persistentTrend,
+        momentumAlert,
+        strongSingleMarketTrend,
+
+        persistenceCount
+    };
+}
+
+
 function radarGroupHasAlert(group) {
 
-    return group.radarRows.some(row =>
-        row.marketRadar?.finalSignal ===
-        "🔥 Hausse confirmée"
-    );
+    return getRadarAlertAssessment(
+        group
+    ).eligible;
 }
 
 
@@ -11015,19 +11393,46 @@ function renderRadar() {
     }
 
 
-    const groups =
-        groupRadarRows(
-            allRadarRows
+    let groups =
+    groupRadarRows(
+        allRadarRows
+    )
+        .filter(
+            matchesRadarGroupLevel
         )
-            .filter(
-                matchesRadarGroupLevel
-            )
-            .filter(
-                matchesRadarFilters
-            )
-            .sort(
-                compareRadarValues
+        .filter(
+            matchesRadarFilters
+        );
+
+
+if (
+    currentRadarDisplayLevel ===
+    "alert"
+) {
+
+    groups.sort(
+        (a, b) => {
+
+            const alertA =
+                getRadarAlertAssessment(a);
+
+            const alertB =
+                getRadarAlertAssessment(b);
+
+
+            return (
+                alertB.score -
+                alertA.score
             );
+        }
+    );
+
+} else {
+
+    groups.sort(
+        compareRadarValues
+    );
+}
 
 
     const status =
