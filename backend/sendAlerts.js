@@ -1,9 +1,7 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
-const { getEmailOpportunities } = require("./opportunityScoring");
 
-const opportunitiesPath = path.join(__dirname, "..", "frontend", "data", "opportunities.json");
 const radarPath = path.join(
     __dirname,
     "..",
@@ -822,19 +820,7 @@ function buildRadarCardHtml(
 }
 
 async function main() {
-    const opportunityData =
-    loadJson(
-        opportunitiesPath,
-        {}
-    );
 
-const opportunities =
-    opportunityData.opportunities || [];
-
-const alerts =
-    getEmailOpportunities(
-        opportunities
-    );
 
 const radarData =
     loadJson(
@@ -851,19 +837,16 @@ const radarAlerts =
     );
 
 if (
-    alerts.length === 0 &&
     radarAlerts.length === 0
 ) {
     console.log(
-        "Aucune opportunité ni alerte Radar aujourd'hui, aucun email envoyé."
-    );
+    "Aucune alerte Radar aujourd'hui, aucun email envoyé."
+);
 
     return;
 }
 
-if (alerts.length > 0) {
-    saveAlertsHistory(alerts);
-}
+
 
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !ALERT_EMAIL_TO) {
         throw new Error("Secrets SMTP manquants.");
@@ -879,10 +862,6 @@ if (alerts.length > 0) {
         }
     });
 
-    const cardsHtml =
-    alerts
-        .map(buildCardHtml)
-        .join("");
 
 const radarCardsHtml =
     radarAlerts
@@ -918,29 +897,7 @@ const radarCardsHtml =
             : ""
     }
 
-    ${
-        alerts.length
-            ? `
-                <hr>
 
-                <h2>🎯 Opportunités d'achat</h2>
-
-                <p>
-                    L'ancien moteur d'opportunités a identifié
-                    <strong>${alerts.length}</strong>
-                    opportunité(s) forte(s).
-                </p>
-
-                <p>
-                    Les prix maximum NM/EX sont des plafonds
-                    théoriques à comparer manuellement aux
-                    annonces Cardmarket.
-                </p>
-
-                ${cardsHtml}
-            `
-            : ""
-    }
 
     <p>
         <a href="https://sokomano-ship-it.github.io/mtg-portfolio/">
@@ -953,15 +910,13 @@ const radarCardsHtml =
         from: `"MTG Portfolio Alerts" <${SMTP_USER}>`,
         to: ALERT_EMAIL_TO,
         subject:
-    `📡 ${radarAlerts.length} Radar · ` +
-    `🎯 ${alerts.length} opportunité(s) MTG`,
+    `📡 ${radarAlerts.length} alerte(s) Radar MTG`,
         html
     });
 
-    console.log(
+   console.log(
     `Email envoyé : ` +
-    `${radarAlerts.length} alerte(s) Radar, ` +
-    `${alerts.length} opportunité(s) achat.`
+    `${radarAlerts.length} alerte(s) Radar.`
 );
 }
 
