@@ -10381,6 +10381,11 @@ function getRadarAlertAssessment(group) {
         score += 2;
     }
 
+    score =
+    Math.min(
+        100,
+        score
+    );
 
     const eligible =
         persistentTrend ||
@@ -10414,11 +10419,24 @@ function getRadarAlertAssessment(group) {
             "🌍 Hausse marché";
     }
 
+    let priority = "🟢 Normale";
+
+if (score >= 75) {
+    priority = "🔴 Prioritaire";
+}
+else if (score >= 60) {
+    priority = "🟠 Forte";
+}
+else if (score >= 45) {
+    priority = "🟡 Intéressante";
+}
+
 
     return {
         eligible,
         score,
-        type,
+        priority,
+    type,
 
         persistentTrend,
         momentumAlert,

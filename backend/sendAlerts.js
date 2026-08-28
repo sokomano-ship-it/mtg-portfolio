@@ -33,6 +33,26 @@ function formatPercent(value) {
     return `${n >= 0 ? "+" : ""}${n.toFixed(1)} %`;
 }
 
+function formatOptionalPercent(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "-";
+    }
+
+    const number =
+        Number(value);
+
+    if (!Number.isFinite(number)) {
+        return "-";
+    }
+
+    return formatPercent(number);
+}
+
 function todayIsoDate() {
     return new Date().toISOString().slice(0, 10);
 }
@@ -482,6 +502,12 @@ function getExternalRadarAssessment(
         score += 2;
     }
 
+    score =
+    Math.min(
+        100,
+        score
+    );
+
 
     const eligible =
         persistentTrend ||
@@ -863,97 +889,6 @@ const radarCardsHtml =
         .map(buildRadarCardHtml)
         .join("");
 
-    function formatOptionalPercent(value) {
-    const number = Number(value);
-
-    if (!Number.isFinite(number)) {
-        return "-";
-    }
-
-    return formatPercent(number);
-}
-
-function buildRadarCardHtml(card, index) {
-    return `
-        <div style="border:1px solid #ddd; border-radius:8px; padding:16px; margin-bottom:20px;">
-
-            <h2 style="margin-top:0;">
-                ${index + 1}. ${escapeHtml(card.nomCarte)}
-            </h2>
-
-            <p>
-                <strong>${escapeHtml(card.edition || "-")}</strong>
-                ${card.version ? " • " + escapeHtml(card.version) : ""}
-                • ${escapeHtml(card.langue || "-")}
-            </p>
-
-            <p>
-                <strong>Possédée :</strong>
-                ${card.owned ? "Oui" : "Non"}
-            </p>
-
-            <h3>📡 Signal Radar</h3>
-
-            <p>
-                <strong>Conviction :</strong>
-                ${card.convictionScore} / 100<br>
-
-                <strong>Signal :</strong>
-                ${escapeHtml(card.signalLevel)}
-            </p>
-
-            <h3>📈 Tendance du modèle</h3>
-
-            <p>
-                <strong>14 jours :</strong>
-                ${formatOptionalPercent(card.eq14)}<br>
-
-                <strong>21 jours :</strong>
-                ${formatOptionalPercent(card.eq21)}<br>
-
-                <strong>30 jours :</strong>
-                ${formatOptionalPercent(card.eq30)}
-            </p>
-
-            <h3>💶 Estimation actuelle</h3>
-
-            <p>
-                <strong>NM :</strong>
-                ${card.nmPrice
-                    ? formatEuro(card.nmPrice)
-                    : "-"}<br>
-
-                <strong>EX :</strong>
-                ${card.exPrice
-                    ? formatEuro(card.exPrice)
-                    : "-"}
-            </p>
-
-            <h3>📊 Qualité du signal</h3>
-
-            <p>
-                <strong>R² 30 jours :</strong>
-                ${
-                    Number.isFinite(card.rSquared30)
-                        ? card.rSquared30.toFixed(2)
-                        : "-"
-                }<br>
-
-                <strong>Bruit :</strong>
-                ${
-                    Number.isFinite(card.noise30)
-                        ? `${card.noise30.toFixed(1)} %`
-                        : "-"
-                }
-            </p>
-
-            <p style="font-weight:bold;">
-                🔎 Action : vérifier les annonces Cardmarket
-            </p>
-
-        </div>
-    `;
-}
 
     const html = `
     <h1>📊 MTG Portfolio — Alertes quotidiennes</h1>

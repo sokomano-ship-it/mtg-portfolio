@@ -138,6 +138,38 @@ function splitCardVariant(name) {
     };
 }
 
+function normalizeLanguage(value) {
+
+    const normalized =
+        normalize(value);
+
+    const aliases = {
+        en: "english",
+        eng: "english",
+        english: "english",
+
+        fr: "french",
+        fra: "french",
+        fre: "french",
+        french: "french",
+
+        de: "german",
+        ger: "german",
+        deu: "german",
+        german: "german",
+
+        it: "italian",
+        ita: "italian",
+        italian: "italian",
+
+        es: "spanish",
+        spa: "spanish",
+        spanish: "spanish"
+    };
+
+    return aliases[normalized] || normalized;
+}
+
 
 function keyOf(row) {
 
@@ -396,14 +428,79 @@ const matches =
         );
 
 
-            card =
-                matches.find(
-                    candidate =>
-                        normalize(candidate.language) ===
-                        normalize(printing.langue)
-                ) ||
-                matches[0] ||
-                null;
+            const wantedLanguage =
+    normalizeLanguage(
+        printing.langue
+    );
+
+
+card =
+    matches.find(
+        candidate =>
+            normalizeLanguage(
+                candidate.language
+            ) === wantedLanguage
+    ) ||
+    matches.find(
+        candidate =>
+            normalizeLanguage(
+                candidate.language
+            ) === "english"
+    ) ||
+    matches[0] ||
+    null;
+
+    const normalizedEdition =
+    normalize(
+        printing.edition
+    );
+
+
+const isForeignBorderSet =
+    [
+        "fbb",
+        "foreign black border",
+        "foreign black bordered",
+        "fwb",
+        "foreign white border",
+        "foreign white bordered"
+    ].includes(
+        normalizedEdition
+    );
+
+
+if (
+    isForeignBorderSet &&
+    matches.length
+) {
+
+    /*
+     * FBB/FWB :
+     * on peut utiliser un produit TCGplayer
+     * commun à l'impression seulement
+     * lorsqu'il n'y a pas de variante explicite.
+     *
+     * Pour V.1 / V.2 / V.3, on préfère
+     * ne pas attribuer un mauvais produit.
+     */
+
+    if (
+        printingVariant.variant === null
+    ) {
+
+        card =
+            matches.find(
+                candidate =>
+                    candidate?.identifiers
+                        ?.tcgplayerProductId
+            ) ||
+            card;
+
+    } else {
+
+        card = null;
+    }
+}
         }
 
 
@@ -474,7 +571,14 @@ const matches =
                     null,
 
                 setCode:
-                    code
+                    code,
+                mappingStatus:
+    !card
+        ? "no-mtgjson-card"
+        : !card?.identifiers
+            ?.tcgplayerProductId
+            ? "no-tcgplayer-product"
+            : "mapped"
             }
         );
     }
