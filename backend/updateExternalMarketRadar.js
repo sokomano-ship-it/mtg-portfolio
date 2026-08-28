@@ -848,6 +848,439 @@ function regression(rows) {
 }
 
 
+function percentile(values, p) {
+
+    const clean =
+        values
+            .filter(Number.isFinite)
+            .sort((a, b) => a - b);
+
+    if (!clean.length) {
+        return null;
+    }
+
+    const index =
+        Math.floor(
+            (clean.length - 1) * p
+        );
+
+    return clean[index];
+}
+
+
+function accelerationMetrics(series) {
+
+    if (
+        !Array.isArray(series) ||
+        series.length < 30
+    ) {
+        return {
+            available: false
+        };
+    }
+
+
+    const clean =
+        series
+            .filter(
+                row =>
+                    /^\d{4}-\d{2}-\d{2}$/
+                        .test(row.date) &&
+                    Number.isFinite(
+                        Number(row.price)
+                    ) &&
+                    Number(row.price) > 0
+            )
+            .map(
+                row => ({
+                    date: row.date,
+                    price: Number(row.price)
+                })
+            )
+            .sort(
+                (a, b) =>
+                    a.date.localeCompare(b.date)
+            );
+
+
+    if (clean.length < 30) {
+        return {
+            available: false
+        };
+    }
+
+
+    const DAY = 86400000;
+
+    const latestTime =
+        new Date(
+            clean.at(-1).date +
+            "T12:00:00Z"
+        ).getTime();
+
+
+    /*
+     * Les trois horizons ne sont plus
+     * en concurrence.
+     *
+     * 14j = mouvement ACTUEL
+     * 21j = confirmation intermédiaire
+     * 30j = tendance de fond
+     */
+    const windows = {};
+
+
+    for (const days of [14, 21, 30]) {
+
+        const start =
+            latestTime -
+            (days - 1) * DAY;
+
+
+        const rows =
+            clean.filter(row => {
+
+                const time =
+                    new Date(
+                        row.date +
+                        "T12:00:00Z"
+                    ).getTime();
+
+                return (
+                    time >= start &&
+                    time <= latestTime
+                );
+            });
+
+
+        const minimumPoints =
+            Math.max(
+                8,
+                Math.floor(days * 0.60)
+            );
+
+
+        if (
+            rows.length < minimumPoints
+        ) {
+
+            windows[days] = {
+                available: false,
+                observations:
+                    rows.length
+            };
+
+            continue;
+        }
+
+
+        const reg =
+            regression(rows);
+
+
+        if (!reg) {
+
+            windows[days] = {
+                available: false,
+                observations:
+                    rows.length
+            };
+
+            continue;
+        }
+
+
+        const average =
+            rows.reduce(
+                (sum, row) =>
+                    sum + row.price,
+                0
+            ) /
+            rows.length;
+
+
+        const slopePctPerDay =
+            average > 0
+                ? (
+                    reg.slope /
+                    average
+                ) * 100
+                : null;
+
+
+        windows[days] = {
+
+            available: true,
+
+            trendPct:
+                round(
+                    reg.trendPct,
+                    2
+                ),
+
+            slopePctPerDay:
+                round(
+                    slopePctPerDay,
+                    3
+                ),
+
+            rSquared:
+                round(
+                    reg.rSquared,
+                    3
+                ),
+
+            observations:
+                rows.length
+        };
+    }
+
+
+    const h14 =
+        windows[14];
+
+    const h21 =
+        windows[21];
+
+    const h30 =
+        windows[30];
+
+
+    if (
+        !h14?.available ||
+        !h21?.available ||
+        !h30?.available
+    ) {
+
+        return {
+            available: false,
+            windows
+        };
+    }
+
+
+    /*
+     * Accélération actuelle :
+     *
+     * on compare la pente 14j à une
+     * référence constituée des tendances
+     * plus longues.
+     */
+    const referenceSlope =
+        (
+            h21.slopePctPerDay +
+            h30.slopePctPerDay
+        ) / 2;
+
+
+    const accelerationPctPerDay =
+        h14.slopePctPerDay -
+        referenceSlope;
+
+
+    /*
+     * Ratio de maintien :
+     *
+     * proche de 1 :
+     * le mouvement 14j reste cohérent
+     * avec le 21j.
+     *
+     * très inférieur à 1 :
+     * essoufflement.
+     */
+    const continuationRatio =
+        h21.trendPct > 0
+            ? h14.trendPct /
+                h21.trendPct
+            : null;
+
+
+    return {
+
+        available: true,
+
+        windows,
+
+        trend14:
+            h14.trendPct,
+
+        trend21:
+            h21.trendPct,
+
+        trend30:
+            h30.trendPct,
+
+        slope14:
+            h14.slopePctPerDay,
+
+        slope21:
+            h21.slopePctPerDay,
+
+        slope30:
+            h30.slopePctPerDay,
+
+        accelerationPctPerDay:
+            round(
+                accelerationPctPerDay,
+                3
+            ),
+
+        continuationRatio:
+            continuationRatio === null
+                ? null
+                : round(
+                    continuationRatio,
+                    2
+                ),
+
+        rSquared14:
+            h14.rSquared
+    };
+}
+
+
+function classifyAcceleration(
+    metrics,
+    thresholds
+) {
+
+    if (
+        !metrics?.available ||
+        !thresholds
+    ) {
+
+        return {
+            ...metrics,
+            signal: "—",
+            level: 0
+        };
+    }
+
+
+    const {
+        trend14,
+        trend21,
+        trend30,
+        slope14,
+        accelerationPctPerDay,
+        continuationRatio,
+        rSquared14
+    } = metrics;
+
+
+    /*
+     * 🚀 RUPTURE
+     *
+     * - mouvement dans les ~3 % les
+     *   plus forts du marché
+     * - minimum absolu
+     * - pente actuelle positive
+     * - accélération réelle
+     * - mouvement statistiquement
+     *   suffisamment propre
+     * - pas d'essoufflement récent
+     */
+    const breakout =
+        trend14 >= thresholds.p97 &&
+        trend14 >= thresholds.breakoutFloor &&
+        slope14 > 0 &&
+        accelerationPctPerDay >=
+            thresholds.breakoutAcceleration &&
+        rSquared14 >= 0.45 &&
+        (
+            continuationRatio === null ||
+            continuationRatio >= 0.85
+        );
+
+
+    /*
+     * ⚡ ACCÉLÉRATION
+     *
+     * P90 + accélération positive.
+     */
+    const accelerating =
+        trend14 >= thresholds.p90 &&
+        trend14 >= thresholds.accelerationFloor &&
+        slope14 > 0 &&
+        accelerationPctPerDay >=
+            thresholds.accelerationMinimum &&
+        rSquared14 >= 0.30 &&
+        (
+            continuationRatio === null ||
+            continuationRatio >= 0.45
+        );
+
+
+    /*
+     * ↘ ESSOUFFLEMENT
+     *
+     * Le mouvement moyen/long était
+     * positif mais le 14j a fortement
+     * perdu de sa vigueur.
+     */
+    const fading =
+        trend21 >= thresholds.accelerationFloor &&
+        trend30 > 0 &&
+        (
+            trend14 <= trend21 * 0.40 ||
+            accelerationPctPerDay < 0
+        );
+
+
+    /*
+     * ↗ HAUSSE INSTALLÉE
+     *
+     * Les trois horizons restent
+     * positifs sans nouvelle rupture.
+     */
+    const established =
+        trend14 > 0 &&
+        trend21 > 0 &&
+        trend30 > 0 &&
+        rSquared14 >= 0.20;
+
+
+    let signal = "—";
+    let level = 0;
+
+
+    if (breakout) {
+
+        signal =
+            "🚀 Rupture";
+
+        level = 2;
+
+    } else if (accelerating) {
+
+        signal =
+            "⚡ Accélération";
+
+        level = 1;
+
+    } else if (fading) {
+
+        signal =
+            "↘ Essoufflement";
+
+        level = -2;
+
+    } else if (established) {
+
+        signal =
+            "↗ Hausse installée";
+
+        level = -1;
+    }
+
+
+    return {
+        ...metrics,
+        signal,
+        level
+    };
+}
+
 function analyzeMarket(
     series,
     sparse = false
@@ -1466,6 +1899,178 @@ const firstBackfill =
     );
 
 
+/*
+ * =========================================================
+ * MOMENTUM V2
+ *
+ * Les seuils sont recalculés quotidiennement
+ * séparément pour TCGplayer et Cardmarket.
+ * =========================================================
+ */
+
+const uniqueMomentumEntries =
+    [
+        ...new Map(
+            radar.rows.map(
+                row => [
+                    [
+                        normalize(row.nomCarte),
+                        normalize(row.edition)
+                    ].join("||"),
+                    row
+                ]
+            )
+        ).values()
+    ];
+
+
+const tcgMetricsByKey =
+    new Map();
+
+const cardmarketMetricsByKey =
+    new Map();
+
+
+const tcg14Values = [];
+const cardmarket14Values = [];
+
+
+for (
+    const row of
+    uniqueMomentumEntries
+) {
+
+    const historyEntry =
+        history.cards[
+            keyOf(row)
+        ] || {};
+
+
+    const tcgMetrics =
+        accelerationMetrics(
+            historyEntry.tcg || []
+        );
+
+
+    const cardmarketMetrics =
+        accelerationMetrics(
+            historyEntry.cardmarket || []
+        );
+
+
+    const momentumKey =
+        [
+            normalize(row.nomCarte),
+            normalize(row.edition)
+        ].join("||");
+
+
+    tcgMetricsByKey.set(
+        momentumKey,
+        tcgMetrics
+    );
+
+
+    cardmarketMetricsByKey.set(
+        momentumKey,
+        cardmarketMetrics
+    );
+
+
+    if (
+        tcgMetrics.available &&
+        Number.isFinite(
+            tcgMetrics.trend14
+        )
+    ) {
+
+        tcg14Values.push(
+            tcgMetrics.trend14
+        );
+    }
+
+
+    if (
+        cardmarketMetrics.available &&
+        Number.isFinite(
+            cardmarketMetrics.trend14
+        )
+    ) {
+
+        cardmarket14Values.push(
+            cardmarketMetrics.trend14
+        );
+    }
+}
+
+
+const tcgMomentumThresholds = {
+
+    p90:
+        percentile(
+            tcg14Values,
+            0.90
+        ),
+
+    p97:
+        percentile(
+            tcg14Values,
+            0.97
+        ),
+
+    accelerationFloor:
+        5,
+
+    breakoutFloor:
+        10,
+
+    accelerationMinimum:
+        0.05,
+
+    breakoutAcceleration:
+        0.10
+};
+
+
+const cardmarketMomentumThresholds = {
+
+    p90:
+        percentile(
+            cardmarket14Values,
+            0.90
+        ),
+
+    p97:
+        percentile(
+            cardmarket14Values,
+            0.97
+        ),
+
+    accelerationFloor:
+        12,
+
+    breakoutFloor:
+        25,
+
+    accelerationMinimum:
+        0.10,
+
+    breakoutAcceleration:
+        0.20
+};
+
+
+console.log(
+    "Momentum TCG :",
+    tcgMomentumThresholds
+);
+
+
+console.log(
+    "Momentum Cardmarket :",
+    cardmarketMomentumThresholds
+);
+
     radar.rows =
         radar.rows.map(row => {
 
@@ -1506,6 +2111,112 @@ const firstBackfill =
                     .cardmarketCurrent
                     ?.trend ??
                 null;
+
+
+                const momentumKey =
+    [
+        normalize(row.nomCarte),
+        normalize(row.edition)
+    ].join("||");
+
+
+const tcgMomentum =
+    classifyAcceleration(
+        tcgMetricsByKey.get(
+            momentumKey
+        ),
+        tcgMomentumThresholds
+    );
+
+
+const cardmarketMomentum =
+    classifyAcceleration(
+        cardmarketMetricsByKey.get(
+            momentumKey
+        ),
+        cardmarketMomentumThresholds
+    );
+
+
+const tcgPriceEur =
+    latestUsd &&
+    fx
+        ? latestUsd * fx
+        : null;
+
+
+const usEuPct =
+    Number.isFinite(tcgPriceEur) &&
+    tcgPriceEur > 0 &&
+    Number.isFinite(
+        Number(cardmarketTrend)
+    ) &&
+    Number(cardmarketTrend) > 0
+
+        ? (
+            (
+                tcgPriceEur -
+                Number(cardmarketTrend)
+            ) /
+            Number(cardmarketTrend)
+        ) * 100
+
+        : null;
+
+
+/*
+ * Momentum global.
+ *
+ * Une rupture simultanée sur les deux
+ * marchés constitue le signal maximal.
+ */
+let momentumSignal = "—";
+
+
+if (
+    tcgMomentum.level === 2 &&
+    cardmarketMomentum.level === 2
+) {
+
+    momentumSignal =
+        "🚀 Rupture confirmée";
+
+} else if (
+    tcgMomentum.level === 2
+) {
+
+    momentumSignal =
+        "🚀 Rupture US";
+
+} else if (
+    cardmarketMomentum.level === 2
+) {
+
+    momentumSignal =
+        "🚀 Rupture EU";
+
+} else if (
+    tcgMomentum.level === 1 &&
+    cardmarketMomentum.level === 1
+) {
+
+    momentumSignal =
+        "⚡ Accélération confirmée";
+
+} else if (
+    tcgMomentum.level === 1
+) {
+
+    momentumSignal =
+        "⚡ Accélération US";
+
+} else if (
+    cardmarketMomentum.level === 1
+) {
+
+    momentumSignal =
+        "⚡ Accélération EU";
+}
 
 
             let finalSignal =
@@ -1549,9 +2260,25 @@ const firstBackfill =
 
                 marketRadar: {
 
-                    finalSignal,
+    finalSignal,
 
-                    tcg: {
+    momentumSignal,
+
+    usEuPct:
+        round(
+            usEuPct,
+            1
+        ),
+
+    momentum: {
+        tcg:
+            tcgMomentum,
+
+        cardmarket:
+            cardmarketMomentum
+    },
+
+    tcg: {
                         ...tcg,
 
                         currentPriceUsd:
@@ -1560,13 +2287,9 @@ const firstBackfill =
                             ),
 
                         currentPriceEur:
-                            latestUsd &&
-                            fx
-                                ? round(
-                                    latestUsd *
-                                    fx
-                                )
-                                : null,
+    round(
+        tcgPriceEur
+    ),
 
                         observations:
                             entry.tcg
