@@ -9999,9 +9999,26 @@ function groupRadarRows(rows) {
 
 function radarGroupHasAlert(group) {
 
-    return group.radarRows.some(
-        isRadarAlert
+    return group.radarRows.some(row =>
+        row.marketRadar?.finalSignal ===
+        "🔥 Hausse confirmée"
     );
+}
+
+
+function radarGroupHasSignal(group) {
+
+    return group.radarRows.some(row => {
+
+        const signal =
+            row.marketRadar?.finalSignal;
+
+        return (
+            signal === "🔥 Hausse confirmée" ||
+            signal === "🇺🇸 Hausse TCG" ||
+            signal === "🇪🇺 Hausse Cardmarket"
+        );
+    });
 }
 
 
@@ -10190,21 +10207,20 @@ function getRadarPerformanceClass(value) {
 
 function getRadarSignalClass(row) {
 
-    switch (row.signalLevel) {
+    const signal =
+        row.marketRadar?.finalSignal ||
+        "— Neutre";
 
-        case "Hausse forte":
+    switch (signal) {
+
+        case "🔥 Hausse confirmée":
             return "radar-signal-strong";
 
-        case "Hausse probable":
+        case "🇺🇸 Hausse TCG":
+        case "🇪🇺 Hausse Cardmarket":
             return "radar-signal-probable";
 
-        case "À surveiller":
-            return "radar-signal-watch";
-
-        case "Signal précoce":
-            return "radar-signal-early";
-
-        case "En apprentissage":
+        case "🧪 Apprentissage":
             return "radar-signal-learning";
 
         default:
@@ -10223,6 +10239,7 @@ function renderRadar() {
         return;
     }
 
+
     const groups =
         groupRadarRows(
             allRadarRows
@@ -10230,28 +10247,55 @@ function renderRadar() {
             .filter(
                 matchesRadarGroupLevel
             )
-            .sort(
-                (a, b) =>
-                    b.bestScore -
-                    a.bestScore
-            );
+            .sort((a, b) => {
+
+                const scoreA =
+                    Number(
+                        a.marketRadar
+                            ?.tcg
+                            ?.score ||
+                        0
+                    ) +
+                    Number(
+                        a.marketRadar
+                            ?.cardmarket
+                            ?.score ||
+                        0
+                    );
+
+                const scoreB =
+                    Number(
+                        b.marketRadar
+                            ?.tcg
+                            ?.score ||
+                        0
+                    ) +
+                    Number(
+                        b.marketRadar
+                            ?.cardmarket
+                            ?.score ||
+                        0
+                    );
+
+                return scoreB - scoreA;
+            });
+
 
     const status =
         document.getElementById(
             "opportunities-status"
         );
 
+
     if (status) {
 
         const label =
             currentRadarDisplayLevel ===
-                "alert"
+            "alert"
                 ? "alertes Radar"
-
                 : currentRadarDisplayLevel ===
                     "signal"
                     ? "signaux Radar"
-
                     : "cartes Radar";
 
         status.textContent =
@@ -10262,104 +10306,94 @@ function renderRadar() {
             }`;
     }
 
+
     tbody.innerHTML =
         groups
             .map(group => {
 
-                let row =
+                const row =
                     group;
 
-                if (
-                    currentRadarDisplayLevel ===
-                    "alert"
-                ) {
 
-                    row =
-                        group.radarRows
-                            .filter(
-                                isRadarAlert
-                            )
-                            .sort(
-                                (a, b) =>
-                                    Number(
-                                        b.convictionScore ||
-                                        0
-                                    ) -
-                                    Number(
-                                        a.convictionScore ||
-                                        0
-                                    )
-                            )[0] ||
-                        group;
-                }
+                const marketRadar =
+                    row.marketRadar || {};
 
-                const h14 =
-                    row.horizons
-                        ?.["14d"];
 
-                const h30 =
-                    row.horizons
-                        ?.["30d"];
+                const tcg =
+                    marketRadar.tcg || {};
 
-                const h60 =
-                    row.horizons
-                        ?.["60d"];
 
-                const h90 =
-                    row.horizons
-                        ?.["90d"];
+                const cardmarket =
+                    marketRadar.cardmarket || {};
 
-                const perf14 =
-                    h14?.available
-                        ? Number(
-                            h14.equivalent30dPct
-                        )
+
+                const tcg14 =
+                    tcg.horizons?.["14d"];
+
+                const tcg30 =
+                    tcg.horizons?.["30d"];
+
+                const tcg60 =
+                    tcg.horizons?.["60d"];
+
+                const tcg90 =
+                    tcg.horizons?.["90d"];
+
+
+                const cm14 =
+                    cardmarket.horizons?.["14d"];
+
+                const cm30 =
+                    cardmarket.horizons?.["30d"];
+
+                const cm60 =
+                    cardmarket.horizons?.["60d"];
+
+                const cm90 =
+                    cardmarket.horizons?.["90d"];
+
+
+                const tcgPerf14 =
+                    tcg14?.available
+                        ? tcg14.trendPct
                         : null;
 
-                const perf30 =
-                    h30?.available
-                        ? Number(
-                            h30.equivalent30dPct
-                        )
+                const tcgPerf30 =
+                    tcg30?.available
+                        ? tcg30.trendPct
                         : null;
 
-                const perf60 =
-                    h60?.available
-                        ? Number(
-                            h60.equivalent30dPct
-                        )
+                const tcgPerf60 =
+                    tcg60?.available
+                        ? tcg60.trendPct
                         : null;
 
-                const perf90 =
-                    h90?.available
-                        ? Number(
-                            h90.equivalent30dPct
-                        )
+                const tcgPerf90 =
+                    tcg90?.available
+                        ? tcg90.trendPct
                         : null;
 
-                const qualityHorizon =
-                    h90?.available
-                        ? h90
-                        : h60?.available
-                            ? h60
-                            : h30?.available
-                                ? h30
-                                : h14?.available
-                                    ? h14
-                                    : null;
 
-                const rSquared =
-                    qualityHorizon
-                        ? Number(
-                            qualityHorizon.rSquared
-                        )
+                const cmPerf14 =
+                    cm14?.available
+                        ? cm14.trendPct
                         : null;
 
-                const score =
-                    Number(
-                        row.convictionScore ||
-                        0
-                    );
+                const cmPerf30 =
+                    cm30?.available
+                        ? cm30.trendPct
+                        : null;
+
+                const cmPerf60 =
+                    cm60?.available
+                        ? cm60.trendPct
+                        : null;
+
+                const cmPerf90 =
+                    cm90?.available
+                        ? cm90.trendPct
+                        : null;
+
 
                 const estimatedNM =
                     group.nm
@@ -10368,6 +10402,7 @@ function renderRadar() {
                         )
                         : null;
 
+
                 const estimatedEX =
                     group.ex
                         ? Number(
@@ -10375,10 +10410,29 @@ function renderRadar() {
                         )
                         : null;
 
+
+                const tcgPrice =
+                    Number(
+                        tcg.currentPriceEur
+                    );
+
+
+                const avg1 =
+                    Number(
+                        cardmarket.avg1
+                    );
+
+
+                const finalSignal =
+                    marketRadar.finalSignal ||
+                    "— Neutre";
+
+
                 const radarClass =
                     getRadarSignalClass(
                         row
                     );
+
 
                 return `
                     <tr>
@@ -10392,23 +10446,11 @@ function renderRadar() {
                             </strong>
 
                             <div class="radar-card-subline">
-                                ${
-                                    row.owned
-                                        ? "Possédée"
-                                        : "Non possédée"
-                                }
-                            </div>
-                        </td>
-
-                        <td>
-                            <div>
                                 ${escapeHtml(
                                     row.edition ||
                                     "-"
                                 )}
-                            </div>
-
-                            <div class="radar-card-subline">
+                                ·
                                 ${escapeHtml(
                                     row.langue ||
                                     "-"
@@ -10416,117 +10458,163 @@ function renderRadar() {
                             </div>
                         </td>
 
-                        <td
-                            class="${
-                                getRadarPerformanceClass(
-                                    perf14
-                                )
-                            }"
-                        >
-                            ${formatRadarPercent(
-                                perf14
-                            )}
-                        </td>
 
-                        <td
-                            class="${
-                                getRadarPerformanceClass(
-                                    perf30
-                                )
-                            }"
-                        >
-                            ${formatRadarPercent(
-                                perf30
-                            )}
-                        </td>
-
-                        <td
-                            class="${
-                                getRadarPerformanceClass(
-                                    perf60
-                                )
-                            }"
-                        >
-                            ${formatRadarPercent(
-                                perf60
-                            )}
-                        </td>
-
-                        <td
-                            class="${
-                                getRadarPerformanceClass(
-                                    perf90
-                                )
-                            }"
-                        >
-                            ${formatRadarPercent(
-                                perf90
-                            )}
-                        </td>
-
-                        <td>
+                        <td class="price">
                             ${
                                 Number.isFinite(
-                                    rSquared
-                                )
-                                    ? `R² ${
-                                        rSquared.toFixed(
-                                            2
-                                        )
-                                    }`
-                                    : "-"
+                                    tcgPrice
+                                ) &&
+                                tcgPrice > 0
+
+                                    ? formatEuro(
+                                        tcgPrice
+                                    )
+
+                                    : "—"
                             }
                         </td>
 
-                        <td>
-                            <span class="${radarClass}">
-                                ${
-                                    row.signalLevel ===
-                                    "En apprentissage"
-                                        ? "🧪 Apprentissage"
 
-                                        : row.signalLevel ===
-                                            "Signal précoce"
-                                            ? `⚡ ${Math.round(
-                                                score
-                                            )}`
-
-                                            : isRadarAlert(
-                                                row
-                                            )
-                                                ? `🚨 ${Math.round(
-                                                    score
-                                                )}`
-
-                                                : `📈 ${Math.round(
-                                                    score
-                                                )}`
-                                }
-                            </span>
+                        <td class="${
+                            getRadarPerformanceClass(
+                                tcgPerf14
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                tcgPerf14
+                            )}
                         </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                tcgPerf30
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                tcgPerf30
+                            )}
+                        </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                tcgPerf60
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                tcgPerf60
+                            )}
+                        </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                tcgPerf90
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                tcgPerf90
+                            )}
+                        </td>
+
+
+                        <td class="price">
+                            ${
+                                Number.isFinite(
+                                    avg1
+                                ) &&
+                                avg1 > 0
+
+                                    ? formatEuro(
+                                        avg1
+                                    )
+
+                                    : "—"
+                            }
+                        </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                cmPerf14
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                cmPerf14
+                            )}
+                        </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                cmPerf30
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                cmPerf30
+                            )}
+                        </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                cmPerf60
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                cmPerf60
+                            )}
+                        </td>
+
+
+                        <td class="${
+                            getRadarPerformanceClass(
+                                cmPerf90
+                            )
+                        }">
+                            ${formatRadarPercent(
+                                cmPerf90
+                            )}
+                        </td>
+
 
                         <td class="price radar-estimate">
                             ${
                                 Number.isFinite(
                                     estimatedNM
                                 )
+
                                     ? formatEuro(
                                         estimatedNM
                                     )
-                                    : "-"
+
+                                    : "—"
                             }
                         </td>
+
 
                         <td class="price radar-estimate">
                             ${
                                 Number.isFinite(
                                     estimatedEX
                                 )
+
                                     ? formatEuro(
                                         estimatedEX
                                     )
-                                    : "-"
+
+                                    : "—"
                             }
+                        </td>
+
+
+                        <td>
+                            <span class="${radarClass}">
+                                ${escapeHtml(
+                                    finalSignal
+                                )}
+                            </span>
                         </td>
 
                     </tr>
@@ -10534,6 +10622,7 @@ function renderRadar() {
             })
             .join("");
 }
+
 
 function updateOpportunityModeView() {
 

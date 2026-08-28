@@ -44,6 +44,10 @@ jobs:
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
 
+      - name: Update external market radar
+        if: github.event_name != 'push'
+        run: node backend/updateExternalMarketRadar.js
+
       - name: Debug Vaevictis pricing
         if: github.event_name != 'push'
         run: | 
@@ -84,6 +88,7 @@ jobs:
           git add frontend/data/estimated-price-history.json
           git add frontend/data/tracked-price-history.json
           git add frontend/data/radar.json
+          git add frontend/data/external-market-history.json
           git add frontend/data/alerts-history.json
 
           git diff --cached --quiet || git commit -m "Daily portfolio update"
