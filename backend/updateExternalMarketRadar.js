@@ -113,6 +113,31 @@ function normalize(value) {
         .trim();
 }
 
+function splitCardVariant(name) {
+
+    const value =
+        String(name || "").trim();
+
+    const match =
+        value.match(
+            /\s*\(V\.\s*(\d+)\)\s*$/i
+        );
+
+    return {
+        baseName:
+            match
+                ? value
+                    .slice(0, match.index)
+                    .trim()
+                : value,
+
+        variant:
+            match
+                ? Number(match[1])
+                : null
+    };
+}
+
 
 function keyOf(row) {
 
@@ -353,14 +378,22 @@ async function buildMappings(
             }
 
 
-            const matches =
-                setCache
-                    .get(code)
-                    .filter(
-                        candidate =>
-                            normalize(candidate.name) ===
-                            normalize(printing.nomCarte)
-                    );
+            const printingVariant =
+    splitCardVariant(
+        printing.nomCarte
+    );
+
+
+const matches =
+    setCache
+        .get(code)
+        .filter(
+            candidate =>
+                normalize(candidate.name) ===
+                normalize(
+                    printingVariant.baseName
+                )
+        );
 
 
             card =
