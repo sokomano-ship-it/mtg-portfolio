@@ -5062,7 +5062,7 @@ strong.score-negative {
 }
 
 /* =========================================================
-   RADAR V2 - largeur et scroll horizontal
+   RADAR V2 - largeur des colonnes
    ========================================================= */
 
 #radar-table-wrapper {
@@ -5074,37 +5074,41 @@ strong.score-negative {
 
 #radar-table {
     width: 100%;
-    min-width: 1750px;
-    table-layout: auto;
+    min-width: 1880px;
+    table-layout: fixed;
 }
 
-/* Carte */
-#radar-table th:first-child,
-#radar-table td:first-child {
-    min-width: 190px;
-}
-
-/* Colonnes numériques */
+/* Toutes les cellules restent sur une ligne */
 #radar-table th,
 #radar-table td {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
 }
 
-/* Tendance */
-#radar-table th:nth-child(15),
-#radar-table td:nth-child(15) {
-    min-width: 165px;
+/* Les titres de groupes sont centrés */
+#radar-table thead tr:first-child th {
+    text-align: center;
 }
 
-/* Momentum */
-#radar-table th:nth-child(16),
+/* Carte reste alignée à gauche */
+#radar-table thead tr:first-child th:first-child {
+    text-align: left;
+}
+
+/* Tendance et Momentum : un peu d'air */
+#radar-table td:nth-child(15),
 #radar-table td:nth-child(16) {
-    min-width: 190px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
 }
 
-/* Les badges ne doivent jamais être écrasés */
+/* Les badges restent entièrement visibles */
+#radar-table td:nth-child(15),
+#radar-table td:nth-child(16) {
+    overflow: visible;
+}
+
 #radar-table td:nth-child(15) span,
 #radar-table td:nth-child(16) span {
     display: inline-block;
@@ -5112,7 +5116,14 @@ strong.score-negative {
     max-width: none;
 }
 
-/* Filtres Tendance / Momentum */
-#radar-table thead select {
-    min-width: 145px;
+/* Filtres */
+#radar-table .radar-filter {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Les selects Tendance / Momentum occupent leur colonne */
+#radar-table select.radar-filter {
+    width: 100%;
+    min-width: 0;
 }
