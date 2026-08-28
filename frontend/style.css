@@ -5060,3 +5060,59 @@ strong.score-negative {
     background: rgba(160, 160, 160, 0.10);
     color: #8e96a8;
 }
+
+/* =========================================================
+   RADAR V2 - largeur et scroll horizontal
+   ========================================================= */
+
+#radar-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+}
+
+#radar-table {
+    width: 100%;
+    min-width: 1750px;
+    table-layout: auto;
+}
+
+/* Carte */
+#radar-table th:first-child,
+#radar-table td:first-child {
+    min-width: 190px;
+}
+
+/* Colonnes numériques */
+#radar-table th,
+#radar-table td {
+    white-space: nowrap;
+}
+
+/* Tendance */
+#radar-table th:nth-child(15),
+#radar-table td:nth-child(15) {
+    min-width: 165px;
+}
+
+/* Momentum */
+#radar-table th:nth-child(16),
+#radar-table td:nth-child(16) {
+    min-width: 190px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Les badges ne doivent jamais être écrasés */
+#radar-table td:nth-child(15) span,
+#radar-table td:nth-child(16) span {
+    display: inline-block;
+    white-space: nowrap;
+    max-width: none;
+}
+
+/* Filtres Tendance / Momentum */
+#radar-table thead select {
+    min-width: 145px;
+}
