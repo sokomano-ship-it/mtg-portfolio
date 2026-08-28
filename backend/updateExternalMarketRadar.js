@@ -537,6 +537,43 @@ async function selectedMtgjsonPrices(
     return result;
 }
 
+function cardmarketTrendSeries(object) {
+
+    const source =
+        object
+            ?.paper
+            ?.cardmarket
+            ?.retail
+            ?.normal;
+
+    if (
+        !source ||
+        typeof source !== "object"
+    ) {
+        return [];
+    }
+
+    return Object
+        .entries(source)
+        .map(
+            ([date, price]) => ({
+                date,
+                price: Number(price)
+            })
+        )
+        .filter(
+            row =>
+                /^\d{4}-\d{2}-\d{2}$/
+                    .test(row.date) &&
+                Number.isFinite(row.price) &&
+                row.price > 0
+        )
+        .sort(
+            (a, b) =>
+                a.date.localeCompare(b.date)
+        );
+}
+
 
 function tcgSeries(object) {
 
@@ -1069,6 +1106,30 @@ async function main() {
 
     history.cards ||= {};
 
+        /*
+     * Migration AVG1 -> Trend.
+     *
+     * Les anciennes observations Cardmarket
+     * contiennent des AVG1. Elles ne doivent
+     * jamais être mélangées à la nouvelle
+     * série Trend.
+     */
+    if (history.cardmarketMetric !== "TREND") {
+
+        for (
+            const entry of
+            Object.values(history.cards)
+        ) {
+            entry.cardmarket = [];
+        }
+
+        history.cardmarketMetric =
+            "TREND";
+
+        history.cardmarketTrendBackfillCompleted =
+            false;
+    }
+
 
     const printings =
         [
@@ -1145,8 +1206,9 @@ async function main() {
         );
 
 
-    const firstBackfill =
-        !history.tcgBackfillCompleted;
+const firstBackfill =
+    !history.tcgBackfillCompleted ||
+    !history.cardmarketTrendBackfillCompleted;
 
 
     console.log(
@@ -1217,18 +1279,43 @@ async function main() {
 
         if (mapping?.mtgjsonUuid) {
 
-            const incoming =
+            const mtgPriceObject =
+                mtgPrices.get(
+                    mapping.mtgjsonUuid
+                );
+
+
+            const incomingTcg =
                 tcgSeries(
-                    mtgPrices.get(
-                        mapping.mtgjsonUuid
-                    )
+                    mtgPriceObject
                 );
 
 
             entry.tcg =
                 mergeSeries(
                     entry.tcg,
-                    incoming
+                    incomingTcg
+                );
+
+
+            /*
+             * MTGJSON conserve également
+             * l'historique Cardmarket Trend.
+             *
+             * Au premier backfill, cela permet
+             * d'obtenir immédiatement environ
+             * 90 jours de Trend Cardmarket.
+             */
+            const incomingCardmarket =
+                cardmarketTrendSeries(
+                    mtgPriceObject
+                );
+
+
+            entry.cardmarket =
+                mergeSeries(
+                    entry.cardmarket,
+                    incomingCardmarket
                 );
 
 
@@ -1236,7 +1323,6 @@ async function main() {
                 mappedTcg += 1;
             }
         }
-
 
         if (
             mapping
@@ -1252,17 +1338,28 @@ async function main() {
                 );
 
 
-            const avg1 =
+                        const trend =
                 Number(
-                    cardmarket?.avg1
+                    cardmarket?.trend
                 );
 
 
             if (
-                Number.isFinite(avg1) &&
-                avg1 > 0
+                Number.isFinite(trend) &&
+                trend > 0
             ) {
 
+                /*
+                 * Cardmarket Trend est la métrique
+                 * principale du Radar européen.
+                 *
+                 * Si MTGJSON fournit un historique
+                 * pour cette impression, il est
+                 * fusionné plus bas.
+                 *
+                 * Le Price Guide Cardmarket fournit
+                 * toujours le point Trend du jour.
+                 */
                 entry.cardmarket =
                     mergeSeries(
                         entry.cardmarket,
@@ -1272,7 +1369,7 @@ async function main() {
                                     today,
 
                                 price:
-                                    avg1
+                                    trend
                             }
                         ]
                     );
@@ -1280,9 +1377,7 @@ async function main() {
 
                 mappedCardmarket += 1;
             }
-
-
-            entry.cardmarketCurrent =
+                entry.cardmarketCurrent =
                 cardmarket
                     ? {
                         avg1:
@@ -1316,6 +1411,8 @@ async function main() {
 
     history.tcgBackfillCompleted =
         true;
+    history.cardmarketTrendBackfillCompleted =
+    true;
 
 
     history.updatedAt =
@@ -1352,14 +1449,15 @@ async function main() {
                 );
 
 
-            /*
-             * AVG1 Cardmarket est plus
-             * naturellement sparse que TCG.
+                       /*
+             * Cardmarket Trend :
+             * série historique utilisée pour
+             * mesurer le momentum européen.
              */
             const cardmarket =
                 analyzeMarket(
                     entry.cardmarket || [],
-                    true
+                    false
                 );
 
 
@@ -1370,10 +1468,10 @@ async function main() {
                 null;
 
 
-            const avg1 =
+                        const cardmarketTrend =
                 entry
                     .cardmarketCurrent
-                    ?.avg1 ??
+                    ?.trend ??
                 null;
 
 
@@ -1401,11 +1499,11 @@ async function main() {
                 finalSignal =
                     "🇪🇺 Hausse Cardmarket";
 
-            } else if (
-                (
-                    entry.cardmarket ||
-                    []
-                ).length < 4
+                        } else if (
+                !cardmarket
+                    .horizons
+                    ?.["14d"]
+                    ?.available
             ) {
 
                 finalSignal =
@@ -1446,7 +1544,7 @@ async function main() {
                     cardmarket: {
                         ...cardmarket,
 
-                        avg1,
+                        cardmarketTrend,
 
                         avg7:
                             entry
@@ -1493,7 +1591,7 @@ async function main() {
             true,
 
         cardmarketMetric:
-            "AVG1",
+            "Cardmarket Trend",
 
         tcgMetric:
             "MTGJSON paper.tcgplayer.retail.normal"
@@ -1506,8 +1604,8 @@ async function main() {
     );
 
 
-    console.log(
-        `Cardmarket mappé avec AVG1 : ${mappedCardmarket}/${printings.length}`
+        console.log(
+        `Cardmarket mappé avec Trend : ${mappedCardmarket}/${printings.length}`
     );
 
     console.log(

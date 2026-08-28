@@ -10417,10 +10417,10 @@ function renderRadar() {
                     );
 
 
-                const avg1 =
-                    Number(
-                        cardmarket.avg1
-                    );
+                const cardmarketTrend =
+    Number(
+        cardmarket.cardmarketTrend
+    );
 
 
                 const finalSignal =
@@ -10522,15 +10522,15 @@ function renderRadar() {
                         <td class="price">
                             ${
                                 Number.isFinite(
-                                    avg1
-                                ) &&
-                                avg1 > 0
+    cardmarketTrend
+) &&
+cardmarketTrend > 0
 
-                                    ? formatEuro(
-                                        avg1
-                                    )
+    ? formatEuro(
+        cardmarketTrend
+    )
 
-                                    : "—"
+    : "—"
                             }
                         </td>
 
