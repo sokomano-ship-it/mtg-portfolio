@@ -972,34 +972,139 @@ placeholder="Gain lot >=5"
         >
             <table id="radar-table">
 
-                <thead>
-                    <tr>
-                        <th rowspan="2">Carte</th>
-                        <th colspan="5">🇺🇸 TCGPLAYER</th>
-                        <th colspan="5">🇪🇺 CARDMARKET</th>
-                        <th colspan="2">ESTIMATION</th>
-                        <th rowspan="2">Radar</th>
-                    </tr>
-                    <tr>
-                        <th>Prix €</th>
-                        <th>14 j</th>
-                        <th>30 j</th>
-                        <th>60 j</th>
-                        <th>90 j</th>
-                        <th>Trend</th>
-                        <th>14 j</th>
-                        <th>30 j</th>
-                        <th>60 j</th>
-                        <th>90 j</th>
-                        <th>Est. NM</th>
-                        <th>Est. EX</th>
-                    </tr>
-                </thead>
+    <thead>
 
-                <tbody id="radar-body"></tbody>
+        <tr>
+            <th rowspan="2"
+                class="radar-sortable"
+                data-radar-sort="nomCarte">
+                Carte
+            </th>
 
-            </table>
-        </div>
+            <th colspan="5">🇺🇸 TCGPLAYER</th>
+
+            <th colspan="5">🇪🇺 CARDMARKET</th>
+
+            <th rowspan="2"
+                class="radar-sortable"
+                data-radar-sort="usEuPct">
+                US/EU
+            </th>
+
+            <th colspan="2">ESTIMATION</th>
+
+            <th rowspan="2"
+                class="radar-sortable"
+                data-radar-sort="trendSignal">
+                Tendance
+            </th>
+
+            <th rowspan="2"
+                class="radar-sortable"
+                data-radar-sort="momentum">
+                Momentum
+            </th>
+        </tr>
+
+        <tr>
+
+            <th class="radar-sortable" data-radar-sort="tcgPrice">Prix €</th>
+            <th class="radar-sortable" data-radar-sort="tcg14">14 j</th>
+            <th class="radar-sortable" data-radar-sort="tcg30">30 j</th>
+            <th class="radar-sortable" data-radar-sort="tcg60">60 j</th>
+            <th class="radar-sortable" data-radar-sort="tcg90">90 j</th>
+
+            <th class="radar-sortable" data-radar-sort="cardmarketTrend">Trend</th>
+            <th class="radar-sortable" data-radar-sort="cm14">14 j</th>
+            <th class="radar-sortable" data-radar-sort="cm30">30 j</th>
+            <th class="radar-sortable" data-radar-sort="cm60">60 j</th>
+            <th class="radar-sortable" data-radar-sort="cm90">90 j</th>
+
+            <th class="radar-sortable" data-radar-sort="estimatedNM">Est. NM</th>
+            <th class="radar-sortable" data-radar-sort="estimatedEX">Est. EX</th>
+
+        </tr>
+
+        <tr class="radar-filter-row">
+
+            <th class="radar-card-filter-cell">
+                <input class="radar-filter" data-radar-filter="card" placeholder="Carte...">
+                <input class="radar-filter" data-radar-filter="edition" placeholder="Édition...">
+                <input class="radar-filter" data-radar-filter="language" placeholder="Langue...">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="tcgPrice" placeholder=">10 / 5-20" inputmode="decimal">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="tcg14" placeholder=">5 / 5-20" inputmode="decimal">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="tcg30" placeholder=">5 / 5-20" inputmode="decimal">
+            </th>
+
+            <th></th>
+            <th></th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="cardmarketTrend" placeholder=">10 / 5-20" inputmode="decimal">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="cm14" placeholder=">10 / 10-30" inputmode="decimal">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="cm30" placeholder=">10 / 10-30" inputmode="decimal">
+            </th>
+
+            <th></th>
+            <th></th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="usEuPct" placeholder=">20 / -20-20" inputmode="decimal">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="estimatedNM" placeholder=">10 / 10-50" inputmode="decimal">
+            </th>
+
+            <th>
+                <input class="radar-filter" data-radar-filter="estimatedEX" placeholder=">10 / 10-50" inputmode="decimal">
+            </th>
+
+            <th>
+                <select class="radar-filter" data-radar-filter="trendSignal">
+                    <option value="">Toutes</option>
+                    <option value="confirmed">🔥 Confirmée</option>
+                    <option value="tcg">🇺🇸 TCG</option>
+                    <option value="cardmarket">🇪🇺 Cardmarket</option>
+                    <option value="learning">🧪 Apprentissage</option>
+                    <option value="neutral">Neutre</option>
+                </select>
+            </th>
+
+            <th>
+                <select class="radar-filter" data-radar-filter="momentum">
+                    <option value="">Tous</option>
+                    <option value="breakout">🚀 Rupture</option>
+                    <option value="acceleration">⚡ Accélération</option>
+                    <option value="confirmed">Confirmé</option>
+                    <option value="us">🇺🇸 US</option>
+                    <option value="eu">🇪🇺 EU</option>
+                    <option value="neutral">Neutre</option>
+                </select>
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="radar-body"></tbody>
+
+</table>        </div>
 
     </section>
 

@@ -4959,3 +4959,104 @@ strong.score-negative {
 #convergence-table td:nth-child(7) {
     text-align: center;
 }
+
+/* ========================================
+   RADAR V2 - TRI / FILTRES / MOMENTUM
+   ======================================== */
+
+#radar-table {
+    min-width: 1600px;
+}
+
+.radar-sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.radar-sortable:hover {
+    color: #ffffff;
+    background: rgba(127, 183, 255, 0.08);
+}
+
+.radar-sortable::after {
+    content: " ⇅";
+    color: #7d869a;
+    font-size: 10px;
+}
+
+.radar-sortable.active-sort {
+    color: #7fb7ff;
+}
+
+.radar-sortable.sort-asc::after {
+    content: " ↑";
+    color: #7fb7ff;
+}
+
+.radar-sortable.sort-desc::after {
+    content: " ↓";
+    color: #7fb7ff;
+}
+
+.radar-filter-row th {
+    padding: 6px 5px !important;
+    background: #171b26;
+    vertical-align: top;
+}
+
+.radar-filter {
+    width: 100%;
+    min-width: 70px;
+    height: 28px;
+    padding: 4px 6px;
+    color: #f5f5f5;
+    background: #202636;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 6px;
+    font-size: 10px;
+    outline: none;
+}
+
+.radar-filter:focus {
+    border-color: #7fb7ff;
+    box-shadow: 0 0 0 2px rgba(127, 183, 255, 0.16);
+}
+
+.radar-card-filter-cell {
+    min-width: 190px;
+}
+
+.radar-card-filter-cell .radar-filter + .radar-filter {
+    margin-top: 4px;
+}
+
+.radar-us-eu {
+    font-weight: 800;
+}
+
+.radar-momentum-breakout,
+.radar-momentum-acceleration,
+.radar-momentum-neutral {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.radar-momentum-breakout {
+    background: rgba(255, 120, 40, 0.18);
+    color: #ffb067;
+}
+
+.radar-momentum-acceleration {
+    background: rgba(241, 196, 15, 0.17);
+    color: #f4d35e;
+}
+
+.radar-momentum-neutral {
+    background: rgba(160, 160, 160, 0.10);
+    color: #8e96a8;
+}
