@@ -9219,13 +9219,16 @@ setupRadarSorting();
     }
 }
 
-function updateRadarLearningState(
-    radarData
-) {
+function updateRadarLearningState(rows = []) {
 
     const banner =
         document.getElementById(
             "radar-learning-banner"
+        );
+
+    const title =
+        document.getElementById(
+            "radar-learning-title"
         );
 
     const text =
@@ -9233,58 +9236,87 @@ function updateRadarLearningState(
             "radar-learning-text"
         );
 
-    if (!banner || !text) {
+    if (!banner || !title || !text) {
         return;
     }
 
-    const groups =
-        groupRadarRows(
-            allRadarRows
-        );
 
-    const available14 =
-        groups.filter(group =>
-            group.radarRows.some(
-                row =>
-                    row.horizons
-                        ?.["14d"]
-                        ?.available
-            )
+    const radarRows =
+        Array.isArray(rows)
+            ? rows
+            : [];
+
+
+    const tcg14Count =
+        radarRows.filter(row =>
+            row.marketRadar
+                ?.tcg
+                ?.horizons
+                ?.["14d"]
+                ?.available === true
         ).length;
 
-    const available30 =
-        groups.filter(group =>
-            group.radarRows.some(
-                row =>
-                    row.horizons
-                        ?.["30d"]
-                        ?.available
-            )
+
+    const cardmarket14Count =
+        radarRows.filter(row =>
+            row.marketRadar
+                ?.cardmarket
+                ?.horizons
+                ?.["14d"]
+                ?.available === true
         ).length;
 
-    if (available30 > 0) {
 
-        banner.hidden = true;
-        return;
-    }
+    const tcg30Count =
+        radarRows.filter(row =>
+            row.marketRadar
+                ?.tcg
+                ?.horizons
+                ?.["30d"]
+                ?.available === true
+        ).length;
 
-    banner.hidden = false;
 
-    if (available14 > 0) {
+    const cardmarket30Count =
+        radarRows.filter(row =>
+            row.marketRadar
+                ?.cardmarket
+                ?.horizons
+                ?.["30d"]
+                ?.available === true
+        ).length;
+
+
+    const externalHistoryAvailable =
+        tcg14Count > 0 ||
+        cardmarket14Count > 0;
+
+
+    if (externalHistoryAvailable) {
+
+        title.textContent =
+            "📡 Radar marchés opérationnel";
 
         text.textContent =
-            `${available14} carte(s) disposent maintenant ` +
-            `d'un signal 14 jours. ` +
-            `Le Radar reste en phase précoce jusqu'à ` +
-            `l'apparition des premières fenêtres 30 jours.`;
+            `Historique externe disponible : ` +
+            `${tcg14Count} séries TCGplayer 14j, ` +
+            `${cardmarket14Count} séries Cardmarket 14j, ` +
+            `${tcg30Count} séries TCGplayer 30j et ` +
+            `${cardmarket30Count} séries Cardmarket 30j. ` +
+            `Les horizons 14/30/60/90 jours sont utilisés lorsqu'ils sont disponibles. ` +
+            `L'historique du modèle interne reste suivi depuis le 22/08/2026.`;
 
         return;
     }
 
+
+    title.textContent =
+        "🧪 Phase d'apprentissage";
+
     text.textContent =
-        "Le Radar accumule son historique depuis le " +
-        "22/08/2026. Aucun signal 14 jours n'est " +
-        "encore statistiquement disponible.";
+        "Le Radar accumule son historique. " +
+        "Les signaux de marché apparaîtront " +
+        "dès que suffisamment de données seront disponibles.";
 }
 
 function buildConvergenceRows() {
