@@ -37,6 +37,13 @@ jobs:
         if: github.event_name != 'push'
         run: npm install
 
+      - name: Sync observations from Turso
+        if: github.event_name != 'push'
+        run: node backend/syncMarketDataFromTurso.js
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+
       - name: Build portfolio
         if: github.event_name != 'push'
         run: npm run build:pages
