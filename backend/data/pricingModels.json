@@ -2679,7 +2679,7 @@
       "avg1": 22.92,
       "avg7": 29.37,
       "avg30": 29.12,
-      "priceUpdatedAt": "2026-09-02T10:34:54.723Z"
+      "priceUpdatedAt": "2026-09-02T17:55:07.595Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {
@@ -4601,11 +4601,11 @@
   "jihad|arabian nights|english": {
     "modelType": "manual_only",
     "syntheticAnchor": {
-      "factor": 1.005149,
-      "rawFactor": 1.005149,
-      "comparableCount": 1028,
+      "factor": 1,
+      "rawFactor": 1,
+      "comparableCount": 1180,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-09-02T10:34:57.527Z"
+      "generatedAt": "2026-09-02T17:55:09.451Z"
     },
     "byCondition": {
       "PO": {
@@ -4846,11 +4846,11 @@
   "crusade|foreign white bordered|french": {
     "modelType": "manual_only",
     "syntheticAnchor": {
-      "factor": 1.005149,
-      "rawFactor": 1.005149,
-      "comparableCount": 1028,
+      "factor": 1,
+      "rawFactor": 1,
+      "comparableCount": 1180,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-09-02T10:34:57.636Z"
+      "generatedAt": "2026-09-02T17:55:09.532Z"
     },
     "byCondition": {
       "PL": {
@@ -5371,11 +5371,11 @@
   "crusade|fourth edition|french": {
     "modelType": "manual_only",
     "syntheticAnchor": {
-      "factor": 1.005149,
-      "rawFactor": 1.005149,
-      "comparableCount": 1028,
+      "factor": 1,
+      "rawFactor": 1,
+      "comparableCount": 1180,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-09-02T10:34:57.598Z"
+      "generatedAt": "2026-09-02T17:55:09.503Z"
     },
     "byCondition": {
       "PO": {
@@ -6215,7 +6215,7 @@
       "avg1": 4.49,
       "avg7": 6.23,
       "avg30": 5.6,
-      "priceUpdatedAt": "2026-09-02T10:34:54.723Z"
+      "priceUpdatedAt": "2026-09-02T17:55:07.595Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {
@@ -14180,36 +14180,36 @@
         "ratioToMarketAnchor": 0.2151,
         "observedPrice": 0.2,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.4301,
         "observedPrice": 0.4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.4194,
         "observedPrice": 0.39,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.4301,
         "observedPrice": 0.4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.7312,
         "observedPrice": 0.68,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
@@ -15563,43 +15563,43 @@
         "ratioToMarketAnchor": 0.2182,
         "observedPrice": 0.24,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.2273,
         "observedPrice": 0.25,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.3545,
         "observedPrice": 0.39,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.4545,
         "observedPrice": 0.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.6273,
         "observedPrice": 0.69,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.9091,
         "observedPrice": 1,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
@@ -17096,43 +17096,43 @@
         "ratioToMarketAnchor": 0.275,
         "observedPrice": 0.44,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.3125,
         "observedPrice": 0.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.2437,
         "observedPrice": 0.39,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.1875,
         "observedPrice": 0.3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.1563,
         "observedPrice": 0.25,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.3125,
         "observedPrice": 0.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
@@ -19176,8 +19176,29 @@
     "byCondition": {}
   },
   "chain lightning|legends italian|italian": {
-    "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.43,
+    "modelType": "edition_ratio",
+    "referenceFound": true,
+    "referenceMarketAnchorPrice": 11.43,
+    "expectedReference": {
+      "nomCarte": "Chain Lightning",
+      "edition": "Legends",
+      "langue": "English",
+      "version": null
+    },
+    "priceReferenceCard": {
+      "nomCarte": "Chain Lightning",
+      "edition": "Legends",
+      "langue": "English",
+      "version": null,
+      "scryfallId": "b5883762-ca0a-4932-8d2a-41a45796a5f8",
+      "scryfallUri": null,
+      "image": "https://cards.scryfall.io/normal/front/b/5/b5883762-ca0a-4932-8d2a-41a45796a5f8.jpg?1562860651",
+      "trendPrice": 11.43,
+      "avg1": 9,
+      "avg7": 11.49,
+      "avg30": 10.73
+    },
+    "referenceSource": "portfolio",
     "byCondition": {}
   },
   "hidden retreat|stronghold|french": {
@@ -19253,6 +19274,511 @@
   "thopter squadron|exodus|french": {
     "modelType": "standard_market_anchor",
     "marketAnchorPrice": 0.83,
+    "byCondition": {}
+  },
+  "chaos confetti|unglued|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.41,
+    "byCondition": {}
+  },
+  "rock lobster|unglued|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.99,
+    "byCondition": {}
+  },
+  "presence of the master|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.83,
+    "byCondition": {}
+  },
+  "telepathy|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.53,
+    "byCondition": {}
+  },
+  "turnabout|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.74,
+    "byCondition": {}
+  },
+  "pestilence|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.74,
+    "byCondition": {}
+  },
+  "shivan hellkite|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.26,
+    "byCondition": {}
+  },
+  "argothian elder|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.95,
+    "byCondition": {}
+  },
+  "child of gaea|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.81,
+    "byCondition": {}
+  },
+  "citanul hierophants|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.86,
+    "byCondition": {}
+  },
+  "citanul flute|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.83,
+    "byCondition": {}
+  },
+  "claws of gix|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 7.58,
+    "byCondition": {}
+  },
+  "thran turbine|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.46,
+    "byCondition": {}
+  },
+  "umbilicus|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.34,
+    "byCondition": {}
+  },
+  "island (v.1)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.27,
+    "byCondition": {}
+  },
+  "island (v.2)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.27,
+    "byCondition": {}
+  },
+  "island (v.3)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.27,
+    "byCondition": {}
+  },
+  "island (v.4)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.27,
+    "byCondition": {}
+  },
+  "plains (v.1)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.45,
+    "byCondition": {}
+  },
+  "plains (v.2)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.45,
+    "byCondition": {}
+  },
+  "plains (v.3)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.45,
+    "byCondition": {}
+  },
+  "plains (v.4)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.45,
+    "byCondition": {}
+  },
+  "swamp (v.1)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "swamp (v.2)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "swamp (v.3)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "swamp (v.4)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "mountain (v.1)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "mountain (v.2)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "mountain (v.3)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "mountain (v.4)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "forest (v.1)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.53,
+    "byCondition": {}
+  },
+  "forest (v.2)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.53,
+    "byCondition": {}
+  },
+  "forest (v.3)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.53,
+    "byCondition": {}
+  },
+  "forest (v.4)|urza's saga|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.53,
+    "byCondition": {}
+  },
+  "transmute artifact|antiquities|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 368.99,
+    "byCondition": {}
+  },
+  "bone shredder|urza's legacy|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.65,
+    "byCondition": {}
+  },
+  "avalanche riders|urza's legacy|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.87,
+    "byCondition": {}
+  },
+  "ghitu encampment|urza's legacy|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.82,
+    "byCondition": {}
+  },
+  "last-ditch effort|urza's legacy|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.27,
+    "byCondition": {}
+  },
+  "prosperity|sixth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.1,
+    "byCondition": {}
+  },
+  "vitalize|sixth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.98,
+    "byCondition": {}
+  },
+  "mountain (v.2)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.34,
+    "byCondition": {}
+  },
+  "forest (v.1)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.33,
+    "byCondition": {}
+  },
+  "swamp (v.1)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.48,
+    "byCondition": {}
+  },
+  "island (v.1)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.44,
+    "byCondition": {}
+  },
+  "plains (v.2)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.56,
+    "byCondition": {}
+  },
+  "plains (v.1)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.56,
+    "byCondition": {}
+  },
+  "plains (v.3)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.72,
+    "byCondition": {}
+  },
+  "plains (v.1)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.72,
+    "byCondition": {}
+  },
+  "plains (v.2)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.72,
+    "byCondition": {}
+  },
+  "plains (v.4)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.72,
+    "byCondition": {}
+  },
+  "forest (v.3)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.47,
+    "byCondition": {}
+  },
+  "forest (v.1)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.47,
+    "byCondition": {}
+  },
+  "forest (v.2)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.47,
+    "byCondition": {}
+  },
+  "forest (v.4)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.47,
+    "byCondition": {}
+  },
+  "island (v.4)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.08,
+    "byCondition": {}
+  },
+  "island (v.1)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.08,
+    "byCondition": {}
+  },
+  "island (v.3)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.08,
+    "byCondition": {}
+  },
+  "island (v.2)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.08,
+    "byCondition": {}
+  },
+  "swamp (v.4)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.93,
+    "byCondition": {}
+  },
+  "mountain (v.1)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.66,
+    "byCondition": {}
+  },
+  "mountain (v.4)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.66,
+    "byCondition": {}
+  },
+  "mountain (v.2)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.66,
+    "byCondition": {}
+  },
+  "swamp (v.1)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.93,
+    "byCondition": {}
+  },
+  "swamp (v.2)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.93,
+    "byCondition": {}
+  },
+  "swamp (v.3)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.93,
+    "byCondition": {}
+  },
+  "mountain (v.3)|mirage|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.66,
+    "byCondition": {}
+  },
+  "island (v.2)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.44,
+    "byCondition": {}
+  },
+  "island (v.3)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.44,
+    "byCondition": {}
+  },
+  "island (v.4)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.44,
+    "byCondition": {}
+  },
+  "plains (v.3)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.56,
+    "byCondition": {}
+  },
+  "swamp (v.2)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.48,
+    "byCondition": {}
+  },
+  "swamp (v.3)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.48,
+    "byCondition": {}
+  },
+  "swamp (v.4)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.48,
+    "byCondition": {}
+  },
+  "mountain (v.1)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.34,
+    "byCondition": {}
+  },
+  "mountain (v.3)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.34,
+    "byCondition": {}
+  },
+  "mountain (v.4)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.34,
+    "byCondition": {}
+  },
+  "forest (v.2)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.33,
+    "byCondition": {}
+  },
+  "forest (v.3)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.33,
+    "byCondition": {}
+  },
+  "forest (v.4)|tempest|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.33,
+    "byCondition": {}
+  },
+  "plains (v.1)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "plains (v.2)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "plains (v.3)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.46,
+    "byCondition": {}
+  },
+  "island (v.1)|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.51,
+    "byCondition": {}
+  },
+  "island (v.2)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.51,
+    "byCondition": {}
+  },
+  "island (v.3)|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.51,
+    "byCondition": {}
+  },
+  "swamp (v.1)|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.36,
+    "byCondition": {}
+  },
+  "swamp (v.2)|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.36,
+    "byCondition": {}
+  },
+  "swamp (v.3)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.36,
+    "byCondition": {}
+  },
+  "mountain (v.1)|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.85,
+    "byCondition": {}
+  },
+  "mountain (v.2)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.85,
+    "byCondition": {}
+  },
+  "mountain (v.3)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.85,
+    "byCondition": {}
+  },
+  "snow-covered mountain|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.29,
+    "byCondition": {}
+  },
+  "forest (v.1)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.75,
+    "byCondition": {}
+  },
+  "forest (v.2)|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.75,
+    "byCondition": {}
+  },
+  "forest (v.3)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.75,
+    "byCondition": {}
+  },
+  "snow-covered forest|ice age|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.28,
+    "byCondition": {}
+  },
+  "forest (v.2)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.75,
+    "byCondition": {}
+  },
+  "island (v.3)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.51,
+    "byCondition": {}
+  },
+  "island (v.1)|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.51,
+    "byCondition": {}
+  },
+  "snow-covered swamp|ice age|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.66,
     "byCondition": {}
   },
   "__globalConditionModel": {
