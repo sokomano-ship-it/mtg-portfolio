@@ -285,18 +285,23 @@ function estimateCard(card, model, globalConditionModel = null) {
         FALLBACK_CONDITION_RATIOS[condition] ??
         1;
 
-    const fallbackBase = referenceAnchor || anchor;
+    const fallbackBase =
+  model.referenceFound
+    ? 0
+    : anchor;
 
-    return {
-        estimatedPrice: Number((fallbackBase * fallbackRatio).toFixed(2)),
-        pricingModel: "edition_fallback_condition_ratio",
-        marketAnchorPrice: anchor,
-        referenceMarketAnchorPrice: referenceAnchor || null,
-        ratioUsed: fallbackRatio,
-        confidence: referenceAnchor ? 30 : 15,
-        observationCount: 0,
-        referenceCardFound: model.referenceFound
-    };
+return {
+    estimatedPrice: Number((fallbackBase * fallbackRatio).toFixed(2)),
+    pricingModel: model.referenceFound
+      ? "edition_missing_initial_ratio"
+      : "edition_fallback_condition_ratio",
+    marketAnchorPrice: anchor,
+    referenceMarketAnchorPrice: referenceAnchor || null,
+    ratioUsed: fallbackRatio,
+    confidence: fallbackBase ? 15 : 0,
+    observationCount: 0,
+    referenceCardFound: model.referenceFound
+};
 }
 
   if (conditionModel?.ratioToMarketAnchor && anchor) {

@@ -684,9 +684,15 @@ function trainEditionRatioModel(
         ?.ratioToReferenceMarketAnchor || 0
     );
 
+        const bootstrapRatio =
+      observedAverage > 0 && currentReferenceAnchor > 0
+        ? observedAverage / currentReferenceAnchor
+        : 0;
+
     const ratioToReferenceMarketAnchor =
       historicalRatioAverage ||
       previousRatio ||
+      bootstrapRatio ||
       0;
 
     if (ratioToReferenceMarketAnchor > 0) {
@@ -707,11 +713,13 @@ function trainEditionRatioModel(
           historicalRatios.length,
 
         ratioSource:
-          historicalRatios.length > 0
-            ? "historical_reference_anchor"
-            : previousRatio > 0
-              ? "previous_model_ratio"
-              : null
+  historicalRatios.length > 0
+    ? "historical_reference_anchor"
+    : previousRatio > 0
+      ? "previous_model_ratio"
+      : bootstrapRatio > 0
+        ? "current_reference_bootstrap"
+        : null
       };
     }
   });
