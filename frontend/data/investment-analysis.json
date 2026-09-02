@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T19:53:59.450Z",
+  "generatedAt": "2026-09-02T20:18:39.391Z",
   "investmentAnalysis": [
     {
       "id": 1771,
@@ -14078,8 +14078,8 @@
       "quantity": 1,
       "scryfallId": "82c43a55-6854-4e3f-9b72-234d03b83ac2",
       "scryfallUri": null,
-      "currentEstimatedPrice": 10.82,
-      "lotValue": 10.82,
+      "currentEstimatedPrice": 3.06,
+      "lotValue": 3.06,
       "price7d": null,
       "perf7d": null,
       "price30d": null,
@@ -14092,8 +14092,8 @@
       "perf365d": null,
       "confidence": 58,
       "observationDaysCount": 1,
-      "pricingModel": "edition_fallback_condition_ratio",
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
+      "pricingModel": "edition_observed_condition_ratio",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
       "id": 2268,
@@ -14105,8 +14105,8 @@
       "quantity": 4,
       "scryfallId": "82c43a55-6854-4e3f-9b72-234d03b83ac2",
       "scryfallUri": null,
-      "currentEstimatedPrice": 5.98,
-      "lotValue": 23.92,
+      "currentEstimatedPrice": 2.56,
+      "lotValue": 10.24,
       "price7d": null,
       "perf7d": null,
       "price30d": null,
@@ -14119,8 +14119,8 @@
       "perf365d": null,
       "confidence": 58,
       "observationDaysCount": 1,
-      "pricingModel": "edition_fallback_condition_ratio",
-      "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
+      "pricingModel": "edition_observed_condition_ratio",
+      "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
       "id": 2055,
