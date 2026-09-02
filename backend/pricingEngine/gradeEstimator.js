@@ -289,13 +289,55 @@ function estimateRatiosFromCardObservations(observedMinByCondition) {
 
     return ratios;
 }
-function estimateEditionRatios(card, allObservations) {
+
+function filterComparablePriceRange(rows, targetPrice) {
+    const target = number(targetPrice);
+
+    if (target <= 0) {
+        return rows;
+    }
+
+    const minPrice = target * 0.20;
+    const maxPrice = target * 5.00;
+
+    const comparableRows = rows.filter(row => {
+        const observed = number(row.observedMinPrice);
+
+        return observed >= minPrice &&
+               observed <= maxPrice;
+    });
+
+    /*
+     * On n'utilise le filtre de prix que si nous disposons
+     * d'au moins 3 cartes comparables différentes.
+     */
+    const comparableCards = new Set(
+        comparableRows.map(row => [
+            normalize(row.nomCarte),
+            normalize(row.edition),
+            normalize(row.langue)
+        ].join("|"))
+    );
+
+    return comparableCards.size >= 3
+        ? comparableRows
+        : rows;
+}
+
+function estimateEditionRatios(card, allObservations, targetPrice) {
     const editionRows = allObservations.filter(row =>
         normalize(row.edition) === normalize(card.edition)
     );
 
-    return estimateGroupRatios(editionRows);
+    const comparableRows =
+        filterComparablePriceRange(
+            editionRows,
+            targetPrice
+        );
+
+    return estimateGroupRatios(comparableRows);
 }
+
 function estimateLanguageRatios(card, allObservations) {
     const editionLanguageRows = allObservations.filter(row =>
         normalize(row.edition) === normalize(card.edition) &&
@@ -741,7 +783,11 @@ CONDITIONS.forEach(condition => {
 });
 
 const editionRatios =
-    estimateEditionRatios(card, allObservations);
+    estimateEditionRatios(
+        card,
+        allObservations,
+        anchorPrice
+    );
 
 const languageRatios =
     estimateLanguageRatios(card, allObservations);
@@ -829,6 +875,16 @@ if (
 
 }
 
+const observedConditionCount =
+    CONDITIONS.filter(condition =>
+        number(reliableByCondition?.[condition]) > 0
+    ).length;
+
+const directCardEvidenceBonus =
+    dayCount > 0
+        ? Math.max(0, observedConditionCount - 1) * 2
+        : 0;
+
     const {
     ratios: monotonicRatios,
     weights
@@ -837,17 +893,21 @@ if (
     editionRatios,
     languageRatios,
     evidence: {
-        cardObservationDays: dayCount,
-        cardObservationRows: rows.length,
-        editionObservationRows:
-    groupObservationCounts.edition,
+    cardObservationDays:
+        dayCount + directCardEvidenceBonus,
 
-languageObservationRows:
-    groupObservationCounts.language,
+    cardObservationRows:
+        rows.length,
 
-globalObservationRows:
-    groupObservationCounts.global
-    }
+    editionObservationRows:
+        groupObservationCounts.edition,
+
+    languageObservationRows:
+        groupObservationCounts.language,
+
+    globalObservationRows:
+        groupObservationCounts.global
+}
 });
 
 const estimatedByCondition = {};
