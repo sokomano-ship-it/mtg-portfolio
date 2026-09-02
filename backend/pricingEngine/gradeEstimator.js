@@ -349,7 +349,8 @@ function estimateLanguageRatios(card, allObservations) {
 
 function countGroupObservationRows(
     card,
-    allObservations
+    allObservations,
+    targetPrice
 ) {
 
     function countDistinctCardDays(rows) {
@@ -381,11 +382,17 @@ function countGroupObservationRows(
     }
 
 
-    const editionRows =
-        allObservations.filter(row =>
-            normalize(row.edition) ===
-            normalize(card.edition)
-        );
+    const allEditionRows =
+    allObservations.filter(row =>
+        normalize(row.edition) ===
+        normalize(card.edition)
+    );
+
+const editionRows =
+    filterComparablePriceRange(
+        allEditionRows,
+        targetPrice
+    );
 
 
     const languageRows =
@@ -749,9 +756,21 @@ CONDITIONS.forEach(condition => {
         );
 
 
-    const hasMatureCardHistory =
-        dayCount >= 5 &&
-        reliability >= 0.65;
+    const observedConditionCount =
+    CONDITIONS.filter(condition =>
+        number(reliableByCondition?.[condition]) > 0
+    ).length;
+
+const hasStrongCrossConditionEvidence =
+    dayCount >= 1 &&
+    observedConditionCount >= 3;
+
+const hasMatureCardHistory =
+    (
+        dayCount >= 3 &&
+        reliability >= 0.50
+    ) ||
+    hasStrongCrossConditionEvidence;
 
 
     /*
@@ -793,7 +812,11 @@ const languageRatios =
     estimateLanguageRatios(card, allObservations);
 
 const groupObservationCounts =
-    countGroupObservationRows(card, allObservations);
+    countGroupObservationRows(
+        card,
+        allObservations,
+        anchorPrice
+    );
 
 const reliableNmFloor =
     number(
@@ -875,15 +898,7 @@ if (
 
 }
 
-const observedConditionCount =
-    CONDITIONS.filter(condition =>
-        number(reliableByCondition?.[condition]) > 0
-    ).length;
 
-const directCardEvidenceBonus =
-    dayCount > 0
-        ? Math.max(0, observedConditionCount - 1) * 2
-        : 0;
 
     const {
     ratios: monotonicRatios,
@@ -894,7 +909,7 @@ const directCardEvidenceBonus =
     languageRatios,
     evidence: {
     cardObservationDays:
-        dayCount + directCardEvidenceBonus,
+    dayCount,
 
     cardObservationRows:
         rows.length,
