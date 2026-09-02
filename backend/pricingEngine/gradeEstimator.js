@@ -290,39 +290,405 @@ function estimateRatiosFromCardObservations(observedMinByCondition) {
     return ratios;
 }
 
-function filterComparablePriceRange(rows, targetPrice) {
+function representativeObservedPrice(rows = []) {
+    if (!rows.length) {
+        return 0;
+    }
+
+    /*
+     * Le NM observé est la meilleure représentation
+     * disponible du niveau de valeur de la carte.
+     */
+    const nmPrices =
+        rows
+            .filter(row =>
+                normalize(row.condition) === "nm"
+            )
+            .map(row =>
+                number(row.observedMinPrice)
+            )
+            .filter(price => price > 0);
+
+    if (nmPrices.length) {
+        return median(nmPrices);
+    }
+
+    /*
+     * En l'absence de NM, on reconstruit un niveau NM
+     * approximatif à partir des états disponibles.
+     *
+     * Cette estimation sert uniquement à sélectionner
+     * les cartes comparables, pas à fixer leur prix.
+     */
+    const impliedNmPrices =
+        rows
+            .map(row => {
+                const condition =
+                    String(row.condition || "")
+                        .toUpperCase();
+
+                const observed =
+                    number(row.observedMinPrice);
+
+                const ratio =
+                    DEFAULT_GLOBAL_RATIOS[condition];
+
+                if (
+                    observed <= 0 ||
+                    !ratio ||
+                    ratio <= 0
+                ) {
+                    return 0;
+                }
+
+                return observed / ratio;
+            })
+            .filter(price => price > 0);
+
+    return impliedNmPrices.length
+        ? median(impliedNmPrices)
+        : 0;
+}
+
+function filterComparablePriceRange(
+    rows,
+    targetPrice,
+    {
+        minFactor = 0.50,
+        maxFactor = 2.00
+    } = {}
+) {
     const target = number(targetPrice);
 
     if (target <= 0) {
-        return rows;
+        return [];
     }
 
-    const minPrice = target * 0.20;
-    const maxPrice = target * 5.00;
+    const minPrice =
+        target * minFactor;
 
-    const comparableRows = rows.filter(row => {
-        const observed = number(row.observedMinPrice);
-
-        return observed >= minPrice &&
-               observed <= maxPrice;
-    });
+    const maxPrice =
+        target * maxFactor;
 
     /*
-     * On n'utilise le filtre de prix que si nous disposons
-     * d'au moins 3 cartes comparables différentes.
+     * Regroupement des observations par carte.
+     *
+     * La comparabilité est décidée sur le niveau
+     * représentatif de la carte entière, et non
+     * séparément sur chaque ligne NM/EX/GD/LP.
      */
-    const comparableCards = new Set(
-        comparableRows.map(row => [
+    const rowsByCard = new Map();
+
+    rows.forEach(row => {
+        const key = [
             normalize(row.nomCarte),
             normalize(row.edition),
             normalize(row.langue)
-        ].join("|"))
-    );
+        ].join("|");
 
-    return comparableCards.size >= 3
-        ? comparableRows
-        : rows;
+        if (!rowsByCard.has(key)) {
+            rowsByCard.set(key, []);
+        }
+
+        rowsByCard.get(key).push(row);
+    });
+
+    const comparableRows = [];
+
+    rowsByCard.forEach(cardRows => {
+        const representativePrice =
+            representativeObservedPrice(
+                cardRows
+            );
+
+        if (
+            representativePrice >= minPrice &&
+            representativePrice <= maxPrice
+        ) {
+            /*
+             * Une carte est comparable dans son ensemble :
+             * on conserve donc toutes ses observations
+             * NM/EX/GD/LP/etc.
+             */
+            comparableRows.push(
+                ...cardRows
+            );
+        }
+    });
+
+    return comparableRows;
 }
+
+function countDistinctCards(rows = []) {
+    return new Set(
+        rows.map(row =>
+            [
+                normalize(row.nomCarte),
+                normalize(row.edition),
+                normalize(row.langue)
+            ].join("|")
+        )
+    ).size;
+}
+
+function countDistinctCardsByCondition(rows = []) {
+    const counts = {};
+
+    CONDITIONS.forEach(condition => {
+        const cards = new Set();
+
+        rows.forEach(row => {
+            if (
+                normalize(row.condition) !==
+                normalize(condition)
+            ) {
+                return;
+            }
+
+            if (number(row.observedMinPrice) <= 0) {
+                return;
+            }
+
+            cards.add(
+                [
+                    normalize(row.nomCarte),
+                    normalize(row.edition),
+                    normalize(row.langue)
+                ].join("|")
+            );
+        });
+
+        counts[condition] = cards.size;
+    });
+
+    return counts;
+}
+
+function countDirectCardEvidenceByCondition(rows = []) {
+    const evidence = {
+        NM: 0,
+        EX: 0,
+        GD: 0,
+        LP: 0,
+        PL: 0,
+        PO: 0
+    };
+
+    /*
+     * On groupe par date/snapshot afin qu'un NM ancien
+     * et un EX saisi beaucoup plus tard ne constituent
+     * pas artificiellement une paire directe.
+     */
+    const rowsBySnapshot = new Map();
+
+    rows.forEach(row => {
+        const snapshotKey =
+            row.observedAt ||
+            row.date ||
+            row.createdAt ||
+            row.timestamp ||
+            "single-snapshot";
+
+        if (!rowsBySnapshot.has(snapshotKey)) {
+            rowsBySnapshot.set(
+                snapshotKey,
+                []
+            );
+        }
+
+        rowsBySnapshot.get(snapshotKey).push(
+            row
+        );
+    });
+
+    rowsBySnapshot.forEach(snapshotRows => {
+        const observedConditions =
+            new Set(
+                snapshotRows
+                    .filter(row =>
+                        number(
+                            row.observedMinPrice
+                        ) > 0
+                    )
+                    .map(row =>
+                        String(
+                            row.condition || ""
+                        ).toUpperCase()
+                    )
+            );
+
+        if (!observedConditions.has("NM")) {
+            return;
+        }
+
+        CONDITIONS.forEach(condition => {
+            if (
+                observedConditions.has(
+                    condition
+                )
+            ) {
+                evidence[condition] += 1;
+            }
+        });
+    });
+
+    return evidence;
+}
+
+function buildValuePeerGroups(
+    card,
+    allObservations,
+    targetPrice
+) {
+    const otherCardRows =
+        allObservations.filter(row =>
+            !sameCard(card, row)
+        );
+
+    const comparableRows =
+        filterComparablePriceRange(
+            otherCardRows,
+            targetPrice
+        );
+
+    /*
+     * Les groupes sont volontairement exclusifs.
+     *
+     * Priorité :
+     * 1. même valeur + même édition
+     * 2. même valeur + même langue, mais autre édition
+     * 3. même valeur, autre édition et autre langue
+     *
+     * Une même carte ne contribue donc jamais
+     * simultanément à plusieurs niveaux.
+     */
+
+    const sameEditionRows =
+        comparableRows.filter(row =>
+            normalize(row.edition) ===
+                normalize(card.edition)
+        );
+
+    const sameLanguageRows =
+        comparableRows.filter(row =>
+            normalize(row.edition) !==
+                normalize(card.edition) &&
+            normalize(row.langue) ===
+                normalize(card.langue)
+        );
+
+    const valueRows =
+        comparableRows.filter(row =>
+            normalize(row.edition) !==
+                normalize(card.edition) &&
+            normalize(row.langue) !==
+                normalize(card.langue)
+        );
+
+    return {
+        valueRows,
+        sameEditionRows,
+        sameLanguageRows,
+
+        counts: {
+            value:
+                countDistinctCards(valueRows),
+
+            sameEdition:
+                countDistinctCards(
+                    sameEditionRows
+                ),
+
+            sameLanguage:
+                countDistinctCards(
+                    sameLanguageRows
+                ),
+
+            total:
+                countDistinctCards(
+                    comparableRows
+                )
+        }
+    };
+}
+
+
+function estimateValuePeerRatios(
+    card,
+    allObservations,
+    targetPrice
+) {
+    /*
+     * Comparables de valeur indépendamment
+     * de l'édition et de la langue.
+     *
+     * On exclut la carte elle-même :
+     * son information propre est déjà traitée
+     * séparément par cardRatios.
+     */
+    const peerRows =
+        allObservations.filter(row =>
+            !sameCard(card, row)
+        );
+
+    const comparableRows =
+        filterComparablePriceRange(
+            peerRows,
+            targetPrice
+        );
+
+    return estimateGroupRatios(
+        comparableRows
+    );
+}
+
+function estimateSameEditionValuePeerRatios(
+    card,
+    allObservations,
+    targetPrice
+) {
+    const peerRows =
+        allObservations.filter(row =>
+            !sameCard(card, row) &&
+            normalize(row.edition) ===
+                normalize(card.edition)
+        );
+
+    const comparableRows =
+        filterComparablePriceRange(
+            peerRows,
+            targetPrice
+        );
+
+    return estimateGroupRatios(
+        comparableRows
+    );
+}
+
+
+function estimateSameLanguageValuePeerRatios(
+    card,
+    allObservations,
+    targetPrice
+) {
+    const peerRows =
+        allObservations.filter(row =>
+            !sameCard(card, row) &&
+            normalize(row.langue) ===
+                normalize(card.langue)
+        );
+
+    const comparableRows =
+        filterComparablePriceRange(
+            peerRows,
+            targetPrice
+        );
+
+    return estimateGroupRatios(
+        comparableRows
+    );
+}
+
 
 function estimateEditionRatios(card, allObservations, targetPrice) {
     const editionRows = allObservations.filter(row =>
@@ -749,58 +1115,55 @@ const cardRatios = {};
 
 CONDITIONS.forEach(condition => {
 
-    const reliability =
-        number(
-            reliabilityByCondition
-                ?.[condition]
-        );
-
-
-    const observedConditionCount =
-    CONDITIONS.filter(condition =>
-        number(reliableByCondition?.[condition]) > 0
-    ).length;
-
-const hasStrongCrossConditionEvidence =
-    dayCount >= 1 &&
-    observedConditionCount >= 3;
-
-const hasMatureCardHistory =
-    (
-        dayCount >= 3 &&
-        reliability >= 0.50
-    ) ||
-    hasStrongCrossConditionEvidence;
-
-
-    /*
-     * Un ratio propre à la carte ne devient
-     * prioritaire que lorsque nous avons
-     * suffisamment de recul temporel.
-     *
-     * Avant cela, on utilise la version
-     * fiabilisée, qui reste sous contrôle
-     * du prior global / édition / langue.
-     */
-    if (
-        hasMatureCardHistory &&
-        learnedRatios?.[condition]
-    ) {
-
-        cardRatios[condition] =
-            learnedRatios[condition];
-
-    } else {
-
-        cardRatios[condition] =
-            reliableCardRatios
-                ?.[condition] ??
-            null;
-
+    if (condition === "NM") {
+        cardRatios.NM = 1;
+        return;
     }
 
+    /*
+     * Le ratio propre à la carte représente sa structure
+     * de décote observée NM -> condition.
+     *
+     * Sa FORCE n'est plus décidée ici.
+     * Elle sera déterminée dynamiquement par
+     * cardEvidenceByCondition dans le moteur bayésien.
+     */
+    cardRatios[condition] =
+        learnedRatios?.[condition] ??
+        null;
 });
 
+const valuePeerGroups =
+    buildValuePeerGroups(
+        card,
+        allObservations,
+        anchorPrice
+    );
+
+
+
+const valuePeerRatios =
+    estimateGroupRatios(
+        valuePeerGroups.valueRows
+    );
+
+const sameEditionValueRatios =
+    estimateGroupRatios(
+        valuePeerGroups.sameEditionRows
+    );
+
+const sameLanguageValueRatios =
+    estimateGroupRatios(
+        valuePeerGroups.sameLanguageRows
+    );
+
+/*
+ * Anciennes sources conservées temporairement.
+ *
+ * Elles sont encore nécessaires au buildHierarchicalRatios()
+ * actuel. Elles seront supprimées lorsque le moteur bayésien
+ * acceptera les nouveaux groupes de valeur comparable.
+ */
 const editionRatios =
     estimateEditionRatios(
         card,
@@ -809,7 +1172,10 @@ const editionRatios =
     );
 
 const languageRatios =
-    estimateLanguageRatios(card, allObservations);
+    estimateLanguageRatios(
+        card,
+        allObservations
+    );
 
 const groupObservationCounts =
     countGroupObservationRows(
@@ -900,30 +1266,69 @@ if (
 
 
 
-    const {
+    const cardEvidenceByCondition =
+    countDirectCardEvidenceByCondition(
+        rows
+    );
+
+const sameEditionValueEvidenceByCondition =
+    countDistinctCardsByCondition(
+        valuePeerGroups.sameEditionRows
+    );
+
+const sameLanguageValueEvidenceByCondition =
+    countDistinctCardsByCondition(
+        valuePeerGroups.sameLanguageRows
+    );
+
+const valuePeerEvidenceByCondition =
+    countDistinctCardsByCondition(
+        valuePeerGroups.valueRows
+    );
+
+const globalEvidenceByCondition =
+    countDistinctCardsByCondition(
+        allObservations
+    );
+
+const {
     ratios: monotonicRatios,
-    weights
+    weightsByCondition
 } = buildHierarchicalRatios({
     cardRatios,
-    editionRatios,
-    languageRatios,
+
+    sameEditionValueRatios,
+    sameLanguageValueRatios,
+    valuePeerRatios,
+
     evidence: {
-    cardObservationDays:
-    dayCount,
-
-    cardObservationRows:
-        rows.length,
-
-    editionObservationRows:
-        groupObservationCounts.edition,
-
-    languageObservationRows:
-        groupObservationCounts.language,
-
-    globalObservationRows:
-        groupObservationCounts.global
-}
+        cardEvidenceByCondition,
+        sameEditionValueEvidenceByCondition,
+        sameLanguageValueEvidenceByCondition,
+        valuePeerEvidenceByCondition,
+        globalEvidenceByCondition
+    }
 });
+
+/*
+ * Pour compatibilité avec le reste du modèle et
+ * l'affichage actuel, on expose comme poids principaux
+ * ceux correspondant à l'état réel de la carte.
+ */
+const cardCondition =
+    String(card.etat || "NM")
+        .toUpperCase();
+
+const weights =
+    weightsByCondition?.[cardCondition] ||
+    weightsByCondition?.NM || {
+        card: 0,
+        sameEditionValue: 0,
+        sameLanguageValue: 0,
+        valuePeer: 0,
+        global: 1
+    };
+
 
 const estimatedByCondition = {};
 const ratioByCondition = {};
@@ -1049,10 +1454,29 @@ if (learnedRatios) {
         buyTargetByCondition,
         ratioByCondition,
         bayesianWeights: {
-    card: round(weights.card, 4),
-    edition: round(weights.edition, 4),
-    language: round(weights.language, 4),
-    global: round(weights.global, 4)
+    card:
+        round(weights.card, 4),
+
+    sameEditionValue:
+        round(
+            weights.sameEditionValue,
+            4
+        ),
+
+    sameLanguageValue:
+        round(
+            weights.sameLanguageValue,
+            4
+        ),
+
+    valuePeer:
+        round(
+            weights.valuePeer,
+            4
+        ),
+
+    global:
+        round(weights.global, 4)
 },
         lastObservedMinByCondition,
         observedMinByCondition,

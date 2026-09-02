@@ -19,26 +19,39 @@ function clamp(value, minimum, maximum) {
 }
 
 function normalizeWeights(weights) {
+
   const total =
     number(weights.card) +
-    number(weights.edition) +
-    number(weights.language) +
+    number(weights.sameEditionValue) +
+    number(weights.sameLanguageValue) +
+    number(weights.valuePeer) +
     number(weights.global);
 
   if (total <= 0) {
     return {
       card: 0,
-      edition: 0,
-      language: 0,
+      sameEditionValue: 0,
+      sameLanguageValue: 0,
+      valuePeer: 0,
       global: 1
     };
   }
 
   return {
-    card: number(weights.card) / total,
-    edition: number(weights.edition) / total,
-    language: number(weights.language) / total,
-    global: number(weights.global) / total
+    card:
+      number(weights.card) / total,
+
+    sameEditionValue:
+      number(weights.sameEditionValue) / total,
+
+    sameLanguageValue:
+      number(weights.sameLanguageValue) / total,
+
+    valuePeer:
+      number(weights.valuePeer) / total,
+
+    global:
+      number(weights.global) / total
   };
 }
 
@@ -65,62 +78,78 @@ function evidenceStrength(count, priorStrength) {
  * à la carte augmentent. Les autres niveaux servent de repli.
  */
 function getBayesianWeights({
-  cardObservationDays = 0,
-  cardObservationRows = 0,
-  editionObservationRows = 0,
-  languageObservationRows = 0,
-  globalObservationRows = 0
+  cardEvidence = 0,
+  sameEditionValueEvidence = 0,
+  sameLanguageValueEvidence = 0,
+  valuePeerEvidence = 0,
+  globalEvidence = 0
 } = {}) {
 
-  const dayEvidence =
-  number(cardObservationDays) * 2;
+  /*
+   * Les nombres ci-dessous sont des priors de régularisation,
+   * pas des poids fixes.
+   *
+   * Les poids finaux restent entièrement dynamiques.
+   */
+  const cardStrength =
+    evidenceStrength(cardEvidence, 3);
 
-const rowEvidence =
-  Math.sqrt(
-    Math.max(
-      0,
-      number(cardObservationRows)
-    )
-  );
+  const sameEditionValueStrength =
+    evidenceStrength(
+      sameEditionValueEvidence,
+      5
+    );
 
-const cardEvidence =
-  Math.max(
-    dayEvidence,
-    rowEvidence
-  );
+  const sameLanguageValueStrength =
+    evidenceStrength(
+      sameLanguageValueEvidence,
+      8
+    );
 
-  const cardStrength = evidenceStrength(cardEvidence, 8);
-  const editionStrength = evidenceStrength(editionObservationRows, 30);
-  const languageStrength = evidenceStrength(languageObservationRows, 50);
-  const globalStrength = evidenceStrength(globalObservationRows, 100);
+  const valuePeerStrength =
+    evidenceStrength(
+      valuePeerEvidence,
+      12
+    );
+
+  const globalStrength =
+    evidenceStrength(
+      globalEvidence,
+      100
+    );
 
   let remaining = 1;
 
-  const card = remaining * cardStrength;
+  const card =
+    remaining * cardStrength;
   remaining -= card;
 
-  const edition = remaining * editionStrength;
-  remaining -= edition;
+  const sameEditionValue =
+    remaining * sameEditionValueStrength;
+  remaining -= sameEditionValue;
 
-  const language = remaining * languageStrength;
-  remaining -= language;
+  const sameLanguageValue =
+    remaining * sameLanguageValueStrength;
+  remaining -= sameLanguageValue;
+
+  const valuePeer =
+    remaining * valuePeerStrength;
+  remaining -= valuePeer;
 
   /*
-   * Le global reçoit tout le poids restant.
-   * globalStrength est utilisé pour conserver une confiance faible lorsque
-   * même les données globales sont rares.
+   * Le global reste le dernier filet de sécurité.
+   * S'il existe peu de données globales, globalStrength
+   * est conservé comme information de confiance,
+   * mais le poids résiduel doit tout de même être attribué.
    */
-  const global =
-    remaining * Math.max(0.25, globalStrength);
-
-  const unresolved =
-    Math.max(0, 1 - card - edition - language - global);
+  const global = remaining;
 
   return normalizeWeights({
     card,
-    edition,
-    language,
-    global: global + unresolved
+    sameEditionValue,
+    sameLanguageValue,
+    valuePeer,
+    global
   });
 }
 
@@ -143,8 +172,9 @@ function safeRatio(value, fallback) {
 function blendHierarchicalRatio({
   condition,
   cardRatio = null,
-  editionRatio = null,
-  languageRatio = null,
+  sameEditionValueRatio = null,
+  sameLanguageValueRatio = null,
+  valuePeerRatio = null,
   globalRatio = null,
   weights = null
 }) {
@@ -160,65 +190,105 @@ function blendHierarchicalRatio({
 
   const sourceWeights = weights || {
     card: 0,
-    edition: 0,
-    language: 0,
+    sameEditionValue: 0,
+    sameLanguageValue: 0,
+    valuePeer: 0,
     global: 1
   };
 
   const sources = [
     {
       name: "card",
-      value: number(cardRatio) > 0
-        ? safeRatio(cardRatio, fallbackGlobal)
-        : null,
-      weight: number(sourceWeights.card)
+      value:
+        number(cardRatio) > 0
+          ? safeRatio(
+              cardRatio,
+              fallbackGlobal
+            )
+          : null,
+      weight:
+        number(sourceWeights.card)
     },
     {
-      name: "edition",
-      value: number(editionRatio) > 0
-        ? safeRatio(editionRatio, fallbackGlobal)
-        : null,
-      weight: number(sourceWeights.edition)
+      name: "sameEditionValue",
+      value:
+        number(sameEditionValueRatio) > 0
+          ? safeRatio(
+              sameEditionValueRatio,
+              fallbackGlobal
+            )
+          : null,
+      weight:
+        number(
+          sourceWeights.sameEditionValue
+        )
     },
     {
-      name: "language",
-      value: number(languageRatio) > 0
-        ? safeRatio(languageRatio, fallbackGlobal)
-        : null,
-      weight: number(sourceWeights.language)
+      name: "sameLanguageValue",
+      value:
+        number(sameLanguageValueRatio) > 0
+          ? safeRatio(
+              sameLanguageValueRatio,
+              fallbackGlobal
+            )
+          : null,
+      weight:
+        number(
+          sourceWeights.sameLanguageValue
+        )
+    },
+    {
+      name: "valuePeer",
+      value:
+        number(valuePeerRatio) > 0
+          ? safeRatio(
+              valuePeerRatio,
+              fallbackGlobal
+            )
+          : null,
+      weight:
+        number(sourceWeights.valuePeer)
     },
     {
       name: "global",
       value: fallbackGlobal,
-      weight: number(sourceWeights.global)
+      weight:
+        number(sourceWeights.global)
     }
   ];
 
-  const validSources = sources.filter(source =>
-    source.value !== null &&
-    source.weight > 0
-  );
+  /*
+   * Une source sans ratio utilisable ne doit pas
+   * conserver artificiellement son poids.
+   *
+   * On renormalise donc uniquement les sources
+   * réellement disponibles pour cette condition.
+   */
+  const availableSources =
+    sources.filter(source =>
+      source.value !== null &&
+      source.value > 0 &&
+      source.weight > 0
+    );
 
-  if (!validSources.length) {
+  const availableWeight =
+    availableSources.reduce(
+      (sum, source) =>
+        sum + source.weight,
+      0
+    );
+
+  if (availableWeight <= 0) {
     return fallbackGlobal;
   }
 
-  const totalWeight = validSources.reduce(
-    (sum, source) => sum + source.weight,
-    0
-  );
-
-  if (totalWeight <= 0) {
-    return fallbackGlobal;
-  }
-
-  const blended = validSources.reduce(
+  return availableSources.reduce(
     (sum, source) =>
-      sum + source.value * (source.weight / totalWeight),
+      sum +
+      source.value *
+        (source.weight / availableWeight),
     0
   );
-
-  return clamp(blended, 0.15, 1);
 }
 
 /**
@@ -257,33 +327,121 @@ function enforceMonotonicRatios(ratios = {}) {
  */
 function buildHierarchicalRatios({
   cardRatios = {},
-  editionRatios = {},
-  languageRatios = {},
+  sameEditionValueRatios = {},
+  sameLanguageValueRatios = {},
+  valuePeerRatios = {},
   globalRatios = DEFAULT_GLOBAL_RATIOS,
   evidence = {}
 } = {}) {
-  const weights = getBayesianWeights(evidence);
 
   const rawRatios = {
     NM: 1
   };
 
+  const weightsByCondition = {
+    NM: {
+      card: 1,
+      sameEditionValue: 0,
+      sameLanguageValue: 0,
+      valuePeer: 0,
+      global: 0
+    }
+  };
+
   CONDITIONS
     .filter(condition => condition !== "NM")
     .forEach(condition => {
-      rawRatios[condition] = blendHierarchicalRatio({
-        condition,
-        cardRatio: cardRatios?.[condition],
-        editionRatio: editionRatios?.[condition],
-        languageRatio: languageRatios?.[condition],
-        globalRatio: globalRatios?.[condition],
-        weights
-      });
+
+      /*
+       * L'évidence propre à la carte est spécifique
+       * à chaque condition.
+       *
+       * Une paire NM/EX observée renforce EX,
+       * sans renforcer artificiellement GD/LP/PL/PO.
+       */
+      const cardEvidence =
+        number(
+          evidence.cardEvidenceByCondition?.[
+            condition
+          ]
+        );
+
+      const sameEditionValueEvidence =
+        number(
+          evidence.sameEditionValueEvidenceByCondition?.[
+            condition
+          ]
+        );
+
+      const sameLanguageValueEvidence =
+        number(
+          evidence.sameLanguageValueEvidenceByCondition?.[
+            condition
+          ]
+        );
+
+      const valuePeerEvidence =
+        number(
+          evidence.valuePeerEvidenceByCondition?.[
+            condition
+          ]
+        );
+
+      const globalEvidence =
+        number(
+          evidence.globalEvidenceByCondition?.[
+            condition
+          ]
+        );
+
+      const weights =
+        getBayesianWeights({
+          cardEvidence,
+          sameEditionValueEvidence,
+          sameLanguageValueEvidence,
+          valuePeerEvidence,
+          globalEvidence
+        });
+
+      weightsByCondition[condition] =
+        weights;
+
+      rawRatios[condition] =
+        blendHierarchicalRatio({
+          condition,
+
+          cardRatio:
+            cardRatios?.[condition],
+
+          sameEditionValueRatio:
+            sameEditionValueRatios?.[
+              condition
+            ],
+
+          sameLanguageValueRatio:
+            sameLanguageValueRatios?.[
+              condition
+            ],
+
+          valuePeerRatio:
+            valuePeerRatios?.[condition],
+
+          globalRatio:
+            globalRatios?.[condition],
+
+          weights
+        });
     });
 
   return {
-    ratios: enforceMonotonicRatios(rawRatios),
-    weights
+    ratios:
+      enforceMonotonicRatios(rawRatios),
+
+    /*
+     * Nouveau format :
+     * les poids peuvent différer selon EX/GD/LP/etc.
+     */
+    weightsByCondition
   };
 }
 
