@@ -1415,8 +1415,20 @@ const blendedEstimate =
  * Pour les autres états, le grade estimator continue
  * d'appliquer les ratios de condition.
  */
+const pricingModel =
+    readPricingModels()[cardKey(card)];
+
+const isEditionRatioModel =
+    pricingModel?.modelType === "edition_ratio";
+
 const finalEstimate =
-    condition === "NM" &&
+    (
+        condition === "NM" ||
+        (
+            isEditionRatioModel &&
+            condition === cardCondition
+        )
+    ) &&
     modelEstimatedPrice > 0
         ? modelEstimatedPrice
         : blendedEstimate;
