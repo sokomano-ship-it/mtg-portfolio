@@ -1,12 +1,5 @@
-
-
-const API_BASE_URL =
-    window.location.hostname === "sokomano-ship-it.github.io"
-        ? "https://mtg-portfolio-lac.vercel.app"
-        : "";
-
 async function fetchJson(path) {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
+    const response = await fetch(path, {
         cache: "no-store"
     });
 
@@ -18,38 +11,40 @@ async function fetchJson(path) {
 }
 
 window.apiAdapter = {
+
     async getCards() {
-    const data = await fetchJson("/api/cards");
-    return data.cards || [];
-},
+        const data = await fetchJson("data/cards.json");
+        return data.cards || [];
+    },
 
     async getWatchlist() {
-    const data = await fetchJson("/api/watchlist");
-    return data.watchlistCards || [];
-},
+        const data = await fetchJson("data/watchlist.json");
+        return data.watchlistCards || [];
+    },
 
     async getOpportunities() {
-    const data = await fetchJson("/api/opportunities");
-    return data.opportunities || [];
-},
-async getRadar() {
-    const data = await fetchJson("/api/radar");
+        const data = await fetchJson("data/opportunities.json");
+        return data.opportunities || [];
+    },
 
-    return {
-    rows: data.rows || [],
-    summary: data.summary || {},
-    generatedAt: data.generatedAt || null,
-    historyStartDate:
-        data.historyStartDate || null,
-    methodology:
-        data.methodology || {}
-};
-},
+    async getRadar() {
+        const data = await fetchJson("data/radar.json");
+
+        return {
+            rows: data.rows || [],
+            summary: data.summary || {},
+            generatedAt: data.generatedAt || null,
+            historyStartDate:
+                data.historyStartDate || null,
+            methodology:
+                data.methodology || {}
+        };
+    },
 
     async getCardDetails() {
-    const data = await fetchJson("/api/card-details");
-    return data.cardDetails || {};
-},
+        const data = await fetchJson("data/card-details.json");
+        return data.cardDetails || {};
+    },
 
     async getCardDetail(cardId) {
         const details = await this.getCardDetails();
@@ -57,27 +52,27 @@ async getRadar() {
     },
 
     async getPortfolioSummary() {
-    const data = await fetchJson("/api/portfolio-summary");
-    return data.portfolioSummary || {};
-},
+        const data = await fetchJson("data/portfolio-summary.json");
+        return data.portfolioSummary || {};
+    },
 
     async getPortfolioHistory() {
-    const data = await fetchJson("/api/portfolio-history");
-    return data.portfolioHistory || [];
-},
+        const data = await fetchJson("data/portfolio-history.json");
+        return data.portfolioHistory || [];
+    },
 
     async getCategorySummary() {
-    const data = await fetchJson("/api/category-summary");
-    return data.categorySummary || [];
-},
+        const data = await fetchJson("data/category-summary.json");
+        return data.categorySummary || [];
+    },
 
     async getTopMovers() {
-    const data = await fetchJson("/api/top-movers");
-    return data.topMovers || [];
-},
+        const data = await fetchJson("data/top-movers.json");
+        return data.topMovers || [];
+    },
 
-async getInvestmentAnalysis() {
-    const data = await fetchJson("/api/investment-analysis");
-    return data.investmentAnalysis || [];
-}
+    async getInvestmentAnalysis() {
+        const data = await fetchJson("data/investment-analysis.json");
+        return data.investmentAnalysis || [];
+    }
 };

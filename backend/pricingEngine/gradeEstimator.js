@@ -1422,13 +1422,7 @@ const isEditionRatioModel =
     pricingModel?.modelType === "edition_ratio";
 
 const finalEstimate =
-    (
-        condition === "NM" ||
-        (
-            isEditionRatioModel &&
-            condition === cardCondition
-        )
-    ) &&
+    condition === cardCondition &&
     modelEstimatedPrice > 0
         ? modelEstimatedPrice
         : blendedEstimate;
