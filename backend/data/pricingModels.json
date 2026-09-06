@@ -1,7 +1,7 @@
 {
   "artifact blast|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.4,
+    "marketAnchorPrice": 2.62,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4876,
@@ -42,7 +42,7 @@
   },
   "su-chi|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 102.88,
+    "marketAnchorPrice": 103.69,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8512,
@@ -90,7 +90,7 @@
   },
   "wall of spears|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.78,
+    "marketAnchorPrice": 2.67,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.335,
@@ -138,55 +138,55 @@
   },
   "desert|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.33,
+    "marketAnchorPrice": 12.21,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3554,
         "observedPrice": 3.59,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.395,
         "observedPrice": 3.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.396,
         "observedPrice": 4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.5792,
         "observedPrice": 5.85,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.8851,
         "observedPrice": 8.94,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.4842,
         "observedPrice": 14.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "desert nomads|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.06,
+    "marketAnchorPrice": 9.88,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6977,
@@ -234,7 +234,7 @@
   },
   "erg raiders (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.76,
+    "marketAnchorPrice": 4.33,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4876,
@@ -282,7 +282,7 @@
   },
   "ghazban ogre|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.43,
+    "marketAnchorPrice": 5.18,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5305,
@@ -330,7 +330,7 @@
   },
   "hasran ogress (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.19,
+    "marketAnchorPrice": 3.99,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6303,
@@ -378,7 +378,7 @@
   },
   "hurr jackal|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.23,
+    "marketAnchorPrice": 4.3,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6804,
@@ -426,7 +426,7 @@
   },
   "moorish cavalry (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.89,
+    "marketAnchorPrice": 3.87,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5395,
@@ -474,7 +474,7 @@
   },
   "nafs asp (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.43,
+    "marketAnchorPrice": 3,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2336,
@@ -522,7 +522,7 @@
   },
   "piety (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.59,
+    "marketAnchorPrice": 3.64,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3492,
@@ -570,7 +570,7 @@
   },
   "sandstorm|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.65,
+    "marketAnchorPrice": 10.51,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7224,
@@ -618,7 +618,7 @@
   },
   "war elephant (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.45,
+    "marketAnchorPrice": 3.25,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5042,
@@ -666,7 +666,7 @@
   },
   "war elephant (v.2)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.45,
+    "marketAnchorPrice": 3.25,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 1.0369,
@@ -714,7 +714,7 @@
   },
   "wyluli wolf (v.2)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.07,
+    "marketAnchorPrice": 7.95,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4991,
@@ -762,7 +762,7 @@
   },
   "hymn to tourach (v.1)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.94,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2346,
@@ -810,7 +810,7 @@
   },
   "hymn to tourach (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.07,
+    "marketAnchorPrice": 0.93,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2317,
@@ -858,7 +858,7 @@
   },
   "hymn to tourach (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.67,
+    "marketAnchorPrice": 0.73,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2083,
@@ -954,7 +954,7 @@
   },
   "black vise|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.16,
+    "marketAnchorPrice": 7.89,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.123,
@@ -1002,7 +1002,7 @@
   },
   "channel|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.94,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2381,
@@ -1050,7 +1050,7 @@
   },
   "dark ritual|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6,
+    "marketAnchorPrice": 6.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1907,
@@ -1098,7 +1098,7 @@
   },
   "disenchant|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 0.96,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1765,
@@ -1208,7 +1208,7 @@
   },
   "juggernaut|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.61,
+    "marketAnchorPrice": 4.41,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3616,
@@ -1256,7 +1256,7 @@
   },
   "lightning bolt|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 14.35,
+    "marketAnchorPrice": 11.6,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4169,
@@ -1304,7 +1304,7 @@
   },
   "birds of paradise|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 16.19,
+    "marketAnchorPrice": 15.54,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4144,
@@ -1352,7 +1352,7 @@
   },
   "blue elemental blast|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.56,
+    "marketAnchorPrice": 2.59,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5458,
@@ -1400,7 +1400,7 @@
   },
   "dark ritual|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.46,
+    "marketAnchorPrice": 2.52,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1563,
@@ -1489,48 +1489,48 @@
   },
   "hypnotic specter|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.01,
+    "marketAnchorPrice": 5.54,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2439,
         "observedPrice": 1,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.2439,
         "observedPrice": 1,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.3415,
         "observedPrice": 1.4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.4878,
         "observedPrice": 2,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.5854,
         "observedPrice": 2.4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "lightning bolt|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.73,
+    "marketAnchorPrice": 2.69,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1805,
@@ -1626,7 +1626,7 @@
   },
   "meekstone|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.26,
+    "marketAnchorPrice": 9.45,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3129,
@@ -1674,151 +1674,151 @@
   },
   "mind twist|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.74,
+    "marketAnchorPrice": 5.17,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 1.0129,
         "observedPrice": 5.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.5525,
         "observedPrice": 3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.7366,
         "observedPrice": 4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.9116,
         "observedPrice": 4.95,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 1.105,
         "observedPrice": 6,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.8416,
         "observedPrice": 10,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "nevinyrral's disk|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.82,
+    "marketAnchorPrice": 7.59,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3322,
         "observedPrice": 1.9,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.1748,
         "observedPrice": 1,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.4021,
         "observedPrice": 2.3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.3409,
         "observedPrice": 1.95,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.6993,
         "observedPrice": 4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.5717,
         "observedPrice": 8.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "red elemental blast|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.5,
+    "marketAnchorPrice": 6.47,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7763,
         "observedPrice": 3.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.5837,
         "observedPrice": 3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.6809,
         "observedPrice": 3.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.7743,
         "observedPrice": 3.98,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.7782,
         "observedPrice": 4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.7763,
         "observedPrice": 3.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "savannah lions|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.74,
+    "marketAnchorPrice": 6.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2167,
@@ -1866,7 +1866,7 @@
   },
   "serra angel|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.73,
+    "marketAnchorPrice": 1.87,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0849,
@@ -1914,7 +1914,7 @@
   },
   "sol ring|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.96,
+    "marketAnchorPrice": 10.83,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3879,
@@ -1962,7 +1962,7 @@
   },
   "sol ring|foreign white bordered|italian": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.96,
+    "marketAnchorPrice": 10.83,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5245,
@@ -2010,7 +2010,7 @@
   },
   "sorceress queen|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.29,
+    "marketAnchorPrice": 1.96,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2102,
@@ -2058,7 +2058,7 @@
   },
   "the rack|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.89,
+    "marketAnchorPrice": 1.62,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7538,
@@ -2106,7 +2106,7 @@
   },
   "verduran enchantress|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.58,
+    "marketAnchorPrice": 2.42,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2115,
@@ -2147,7 +2147,7 @@
   },
   "hypnotic specter|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.94,
+    "marketAnchorPrice": 5.31,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3205,
@@ -2195,7 +2195,7 @@
   },
   "royal assassin|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.17,
+    "marketAnchorPrice": 1.87,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7376,
@@ -2243,7 +2243,7 @@
   },
   "avoid fate|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.19,
+    "marketAnchorPrice": 8.95,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.8937,
@@ -2284,7 +2284,7 @@
   },
   "relic bind|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.34,
+    "marketAnchorPrice": 1.42,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7662,
@@ -2325,7 +2325,7 @@
   },
   "righteous avengers|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.46,
+    "marketAnchorPrice": 2.25,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5506,
@@ -2462,7 +2462,7 @@
   },
   "underworld dreams|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 87.49,
+    "marketAnchorPrice": 83.02,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7964,
@@ -2510,7 +2510,7 @@
   },
   "urborg|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.18,
+    "marketAnchorPrice": 18.73,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7264,
@@ -2558,7 +2558,7 @@
   },
   "walking dead|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.55,
+    "marketAnchorPrice": 1.53,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5511,
@@ -2606,7 +2606,7 @@
   },
   "wall of dust|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.74,
+    "marketAnchorPrice": 1.84,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5195,
@@ -2679,7 +2679,7 @@
       "avg1": 22.92,
       "avg7": 29.37,
       "avg30": 29.12,
-      "priceUpdatedAt": "2026-09-02T17:55:07.595Z"
+      "priceUpdatedAt": "2026-09-06T10:16:08.735Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {
@@ -2729,7 +2729,7 @@
   },
   "mishra's factory|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.2,
+    "marketAnchorPrice": 9.27,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.287,
@@ -2777,55 +2777,55 @@
   },
   "strip mine|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.43,
+    "marketAnchorPrice": 6.42,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3215,
         "observedPrice": 2.23,
         "observationCount": 2,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.4502,
         "observedPrice": 2.8,
         "observationCount": 2,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.6254,
         "observedPrice": 3.44,
         "observationCount": 2,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.6109,
         "observedPrice": 4.15,
         "observationCount": 2,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.8039,
         "observedPrice": 5.24,
         "observationCount": 2,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.1254,
         "observedPrice": 6.5,
         "observationCount": 2,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "armageddon|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 14.31,
+    "marketAnchorPrice": 13.58,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6158,
@@ -2873,7 +2873,7 @@
   },
   "birds of paradise|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 16.19,
+    "marketAnchorPrice": 15.54,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5629,
@@ -2921,7 +2921,7 @@
   },
   "black vise|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.37,
+    "marketAnchorPrice": 2.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1818,
@@ -2969,7 +2969,7 @@
   },
   "blue elemental blast|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.56,
+    "marketAnchorPrice": 2.59,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4626,
@@ -3010,7 +3010,7 @@
   },
   "dark ritual|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.46,
+    "marketAnchorPrice": 2.52,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2549,
@@ -3058,7 +3058,7 @@
   },
   "demonic tutor|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 37.07,
+    "marketAnchorPrice": 36.87,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6985,
@@ -3106,7 +3106,7 @@
   },
   "fork|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 16.25,
+    "marketAnchorPrice": 16.95,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4983,
@@ -3154,7 +3154,7 @@
   },
   "hypnotic specter|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.01,
+    "marketAnchorPrice": 5.54,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.243,
@@ -3202,7 +3202,7 @@
   },
   "nightmare|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.48,
+    "marketAnchorPrice": 4.1,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4294,
@@ -3250,7 +3250,7 @@
   },
   "royal assassin|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.7,
+    "marketAnchorPrice": 7.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5,
@@ -3298,7 +3298,7 @@
   },
   "sengir vampire|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.6,
+    "marketAnchorPrice": 1.4,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0847,
@@ -3346,103 +3346,103 @@
   },
   "taiga|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 256.39,
+    "marketAnchorPrice": 268.89,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7397,
         "observedPrice": 175,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.8454,
         "observedPrice": 200,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.834,
         "observedPrice": 197.3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.8876,
         "observedPrice": 210,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 1.0948,
         "observedPrice": 259,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.2469,
         "observedPrice": 295,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "verduran enchantress|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.58,
+    "marketAnchorPrice": 2.42,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4049,
         "observedPrice": 1,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.5061,
         "observedPrice": 1.25,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.6032,
         "observedPrice": 1.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.6032,
         "observedPrice": 1.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.8097,
         "observedPrice": 2,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.1336,
         "observedPrice": 2.8,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "will-o'-the-wisp|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.8,
+    "marketAnchorPrice": 2.2,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4851,
@@ -3490,7 +3490,7 @@
   },
   "niall silvain|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.51,
+    "marketAnchorPrice": 3.32,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6579,
@@ -3538,7 +3538,7 @@
   },
   "spitting slug|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.38,
+    "marketAnchorPrice": 3.48,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2665,
@@ -3579,7 +3579,7 @@
   },
   "wormwood treefolk|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.98,
+    "marketAnchorPrice": 4.1,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8291,
@@ -3627,7 +3627,7 @@
   },
   "llanowar elves|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.8,
+    "marketAnchorPrice": 8.16,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4677,
@@ -3675,7 +3675,7 @@
   },
   "sinkhole|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 19.94,
+    "marketAnchorPrice": 19.76,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7505,
@@ -3723,7 +3723,7 @@
   },
   "manabarbs|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.78,
+    "marketAnchorPrice": 4.5,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.603,
@@ -3764,7 +3764,7 @@
   },
   "fireball|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.74,
+    "marketAnchorPrice": 0.72,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.0714,
@@ -3805,7 +3805,7 @@
   },
   "goblin king|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.61,
+    "marketAnchorPrice": 5.32,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3984,
@@ -3853,96 +3853,96 @@
   },
   "hammerheim|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.18,
+    "marketAnchorPrice": 17.59,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7669,
         "observedPrice": 10.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.6971,
         "observedPrice": 9.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.9037,
         "observedPrice": 12.95,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.9735,
         "observedPrice": 13.95,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 1.0112,
         "observedPrice": 14.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.4299,
         "observedPrice": 20.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "wheel of fortune|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 246.29,
+    "marketAnchorPrice": 249.54,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.704,
         "observedPrice": 200,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.7388,
         "observedPrice": 209.9,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.6686,
         "observedPrice": 189.95,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.7004,
         "observedPrice": 198.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.8412,
         "observedPrice": 238.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "disintegrate|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.73,
+    "marketAnchorPrice": 1.57,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.687,
@@ -4038,7 +4038,7 @@
   },
   "ankh of mishra|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.79,
+    "marketAnchorPrice": 7.19,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6479,
@@ -4086,7 +4086,7 @@
   },
   "blood moon|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.51,
+    "marketAnchorPrice": 7.85,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7481,
@@ -4134,7 +4134,7 @@
   },
   "red elemental blast|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.66,
+    "marketAnchorPrice": 5.7,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8406,
@@ -4182,7 +4182,7 @@
   },
   "ball lightning|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.33,
+    "marketAnchorPrice": 10.72,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.47,
@@ -4230,55 +4230,55 @@
   },
   "chain lightning|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.43,
+    "marketAnchorPrice": 11.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6293,
         "observedPrice": 4.89,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.7593,
         "observedPrice": 5.9,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.7748,
         "observedPrice": 6.02,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.7722,
         "observedPrice": 6,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 1.0746,
         "observedPrice": 8.35,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.5444,
         "observedPrice": 12,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "force of will|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 59.02,
+    "marketAnchorPrice": 59.62,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7401,
@@ -4326,7 +4326,7 @@
   },
   "elvish spirit guide|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.17,
+    "marketAnchorPrice": 3.51,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5392,
@@ -4367,7 +4367,7 @@
   },
   "kaysa|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.14,
+    "marketAnchorPrice": 3.01,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5438,
@@ -4408,7 +4408,7 @@
   },
   "lim-dul's vault|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.87,
+    "marketAnchorPrice": 3.38,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4438,
@@ -4456,7 +4456,7 @@
   },
   "heart of yavimaya|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.81,
+    "marketAnchorPrice": 1.76,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3165,
@@ -4504,7 +4504,7 @@
   },
   "lake of the dead|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 75.38,
+    "marketAnchorPrice": 75.58,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.798,
@@ -4552,7 +4552,7 @@
   },
   "army of allah (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 17.61,
+    "marketAnchorPrice": 17.73,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5357,
@@ -4601,11 +4601,11 @@
   "jihad|arabian nights|english": {
     "modelType": "manual_only",
     "syntheticAnchor": {
-      "factor": 1,
-      "rawFactor": 1,
-      "comparableCount": 1180,
+      "factor": 0.982134,
+      "rawFactor": 0.982134,
+      "comparableCount": 1345,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-09-02T17:55:09.451Z"
+      "generatedAt": "2026-09-06T10:16:11.478Z"
     },
     "byCondition": {
       "PO": {
@@ -4660,7 +4660,7 @@
   },
   "karakas|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 43.3,
+    "marketAnchorPrice": 39.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6389,
@@ -4708,7 +4708,7 @@
   },
   "sol ring|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.96,
+    "marketAnchorPrice": 10.83,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.56,
@@ -4756,7 +4756,7 @@
   },
   "dust to dust|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 14.89,
+    "marketAnchorPrice": 14.64,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.8763,
@@ -4797,7 +4797,7 @@
   },
   "aeolipile|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.71,
+    "marketAnchorPrice": 2.48,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3534,
@@ -4846,11 +4846,11 @@
   "crusade|foreign white bordered|french": {
     "modelType": "manual_only",
     "syntheticAnchor": {
-      "factor": 1,
-      "rawFactor": 1,
-      "comparableCount": 1180,
+      "factor": 0.982134,
+      "rawFactor": 0.982134,
+      "comparableCount": 1345,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-09-02T17:55:09.532Z"
+      "generatedAt": "2026-09-06T10:16:11.585Z"
     },
     "byCondition": {
       "PL": {
@@ -4897,55 +4897,55 @@
   },
   "swords to plowshares|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.59,
+    "marketAnchorPrice": 6.89,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3788,
         "observedPrice": 1.75,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.3247,
         "observedPrice": 1.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.3593,
         "observedPrice": 1.66,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.487,
         "observedPrice": 2.25,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.4307,
         "observedPrice": 1.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.974,
         "observedPrice": 4.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "preacher|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 34.54,
+    "marketAnchorPrice": 33.8,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6704,
@@ -4993,7 +4993,7 @@
   },
   "swords to plowshares|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.59,
+    "marketAnchorPrice": 6.89,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2894,
@@ -5041,7 +5041,7 @@
   },
   "holy light|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.66,
+    "marketAnchorPrice": 5.63,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8728,
@@ -5089,7 +5089,7 @@
   },
   "witch hunter|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.72,
+    "marketAnchorPrice": 4.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4,
@@ -5137,7 +5137,7 @@
   },
   "serra angel|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.73,
+    "marketAnchorPrice": 1.87,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.107,
@@ -5185,7 +5185,7 @@
   },
   "savannah lions|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.74,
+    "marketAnchorPrice": 6.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5674,
@@ -5233,7 +5233,7 @@
   },
   "armageddon|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 14.31,
+    "marketAnchorPrice": 13.58,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5911,
@@ -5274,7 +5274,7 @@
   },
   "land tax|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 14.19,
+    "marketAnchorPrice": 14.27,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6723,
@@ -5371,11 +5371,11 @@
   "crusade|fourth edition|french": {
     "modelType": "manual_only",
     "syntheticAnchor": {
-      "factor": 1,
-      "rawFactor": 1,
-      "comparableCount": 1180,
+      "factor": 0.982134,
+      "rawFactor": 0.982134,
+      "comparableCount": 1345,
       "source": "portfolio_trend_vs_avg30_median",
-      "generatedAt": "2026-09-02T17:55:09.503Z"
+      "generatedAt": "2026-09-06T10:16:11.548Z"
     },
     "byCondition": {
       "PO": {
@@ -5422,7 +5422,7 @@
   },
   "thunder spirit|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 111.07,
+    "marketAnchorPrice": 112,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8045,
@@ -5470,7 +5470,7 @@
   },
   "divine offering|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.61,
+    "marketAnchorPrice": 1.6,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4317,
@@ -5518,7 +5518,7 @@
   },
   "balance|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.07,
+    "marketAnchorPrice": 2.17,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3319,
@@ -5614,55 +5614,55 @@
   },
   "pendelhaven|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 26.72,
+    "marketAnchorPrice": 25.74,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7811,
         "observedPrice": 17.99,
         "observationCount": 2,
-        "historicalRatioCount": 2,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.7841,
         "observedPrice": 18.07,
         "observationCount": 2,
-        "historicalRatioCount": 2,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.6544,
         "observedPrice": 15.08,
         "observationCount": 2,
-        "historicalRatioCount": 2,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.759,
         "observedPrice": 17.8,
         "observationCount": 2,
-        "historicalRatioCount": 2,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.9534,
         "observedPrice": 22.5,
         "observationCount": 2,
-        "historicalRatioCount": 2,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.2813,
         "observedPrice": 29.53,
         "observationCount": 2,
-        "historicalRatioCount": 2,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "sylvan library|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 34.72,
+    "marketAnchorPrice": 32.44,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.746,
@@ -5703,7 +5703,7 @@
   },
   "berserk|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 105.07,
+    "marketAnchorPrice": 104.61,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.9631,
@@ -5751,7 +5751,7 @@
   },
   "llanowar elves|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.74,
+    "marketAnchorPrice": 3.85,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1272,
@@ -5847,7 +5847,7 @@
   },
   "sol ring|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 25.82,
+    "marketAnchorPrice": 35.49,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3173,
@@ -5943,7 +5943,7 @@
   },
   "strip mine (v.3)|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 34.23,
+    "marketAnchorPrice": 30.92,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6378,
@@ -5991,7 +5991,7 @@
   },
   "regrowth|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.5,
+    "marketAnchorPrice": 2.49,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2105,
@@ -6039,7 +6039,7 @@
   },
   "crumble|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.34,
+    "marketAnchorPrice": 5.25,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2934,
@@ -6087,7 +6087,7 @@
   },
   "argothian pixies|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.75,
+    "marketAnchorPrice": 2.52,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4668,
@@ -6135,7 +6135,7 @@
   },
   "psionic blast|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 66.4,
+    "marketAnchorPrice": 65.78,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7101,
@@ -6184,7 +6184,7 @@
   "serendib efreet|foreign white bordered|french": {
     "modelType": "edition_ratio",
     "referenceFound": true,
-    "referenceMarketAnchorPrice": 5.55,
+    "referenceMarketAnchorPrice": 5.83,
     "expectedReference": {
       "nomCarte": "Serendib Efreet",
       "edition": "Revised",
@@ -6209,13 +6209,13 @@
       "resolvedLang": "en",
       "resolveStatus": "resolved",
       "resolvedAt": "2026-07-11T14:19:38.994Z",
-      "trendPrice": 5.55,
+      "trendPrice": 5.83,
       "lowPrice": 2.99,
       "avgPrice": 5.13,
-      "avg1": 4.49,
-      "avg7": 6.23,
-      "avg30": 5.6,
-      "priceUpdatedAt": "2026-09-02T17:55:07.595Z"
+      "avg1": 5.97,
+      "avg7": 6.88,
+      "avg30": 5.63,
+      "priceUpdatedAt": "2026-09-06T10:16:08.735Z"
     },
     "referenceSource": "tracked_market_card",
     "byCondition": {
@@ -6265,7 +6265,7 @@
   },
   "flying men|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.55,
+    "marketAnchorPrice": 10.71,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4082,
@@ -6313,7 +6313,7 @@
   },
   "braingeyser|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 12.35,
+    "marketAnchorPrice": 12.98,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2191,
@@ -6368,7 +6368,7 @@
   },
   "tolaria|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.69,
+    "marketAnchorPrice": 6.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4375,
@@ -6416,7 +6416,7 @@
   },
   "boomerang|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.22,
+    "marketAnchorPrice": 3.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2074,
@@ -6464,7 +6464,7 @@
   },
   "clone|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.67,
+    "marketAnchorPrice": 0.72,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0235,
@@ -6512,7 +6512,7 @@
   },
   "svyelunite temple|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.25,
+    "marketAnchorPrice": 2.77,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0281,
@@ -6560,7 +6560,7 @@
   },
   "unstable mutation|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.26,
+    "marketAnchorPrice": 5.06,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.594,
@@ -6608,7 +6608,7 @@
   },
   "mahamoti djinn|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.18,
+    "marketAnchorPrice": 3.21,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1732,
@@ -6656,7 +6656,7 @@
   },
   "counterspell|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.07,
+    "marketAnchorPrice": 4.75,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1536,
@@ -6704,7 +6704,7 @@
   },
   "serendib djinn|arabian nights|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 142.19,
+    "marketAnchorPrice": 148.03,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7442,
@@ -6752,7 +6752,7 @@
   },
   "counterspell|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.07,
+    "marketAnchorPrice": 4.75,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1706,
@@ -6800,49 +6800,49 @@
   },
   "rukh egg (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 19.12,
+    "marketAnchorPrice": 21.51,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6383,
         "observedPrice": 12,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.7447,
         "observedPrice": 14,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.8479,
         "observedPrice": 15.94,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.7979,
         "observedPrice": 15,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 1.0904,
         "observedPrice": 20.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.383,
         "observedPrice": 26,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
@@ -7088,7 +7088,7 @@
   },
   "terror|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3,
+    "marketAnchorPrice": 3.01,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7455,
@@ -7136,7 +7136,7 @@
   },
   "weakness|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.86,
+    "marketAnchorPrice": 1.16,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4537,
@@ -7184,7 +7184,7 @@
   },
   "hurloon minotaur|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.85,
+    "marketAnchorPrice": 1.02,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4535,
@@ -7232,7 +7232,7 @@
   },
   "giant growth|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.96,
+    "marketAnchorPrice": 3.18,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5282,
@@ -7280,7 +7280,7 @@
   },
   "giant spider|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.37,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6757,
@@ -7376,7 +7376,7 @@
   },
   "scryb sprites|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.74,
+    "marketAnchorPrice": 3.6,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4022,
@@ -7520,7 +7520,7 @@
   },
   "demonic torment|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.56,
+    "marketAnchorPrice": 4.12,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5311,
@@ -7616,7 +7616,7 @@
   },
   "wyluli wolf (v.1)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.07,
+    "marketAnchorPrice": 7.95,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.256,
@@ -7801,7 +7801,7 @@
   },
   "forest (v.2)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.79,
+    "marketAnchorPrice": 3.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3801,
@@ -7849,7 +7849,7 @@
   },
   "forest (v.1)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.79,
+    "marketAnchorPrice": 3.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5539,
@@ -7897,7 +7897,7 @@
   },
   "forest (v.3)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.79,
+    "marketAnchorPrice": 3.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4758,
@@ -7945,7 +7945,7 @@
   },
   "island (v.1)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.61,
+    "marketAnchorPrice": 4.32,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5265,
@@ -7993,7 +7993,7 @@
   },
   "island (v.2)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.61,
+    "marketAnchorPrice": 4.32,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5432,
@@ -8041,7 +8041,7 @@
   },
   "plains (v.1)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.58,
+    "marketAnchorPrice": 2.7,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5154,
@@ -8089,7 +8089,7 @@
   },
   "plains (v.2)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.58,
+    "marketAnchorPrice": 2.7,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2769,
@@ -8137,7 +8137,7 @@
   },
   "swamp (v.1)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3,
+    "marketAnchorPrice": 2.67,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5869,
@@ -8185,7 +8185,7 @@
   },
   "swamp (v.3)|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3,
+    "marketAnchorPrice": 2.67,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4918,
@@ -8233,55 +8233,55 @@
   },
   "swords to plowshares|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.89,
+    "marketAnchorPrice": 5.11,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.283,
         "observedPrice": 1.48,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.4589,
         "observedPrice": 2.4,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.4761,
         "observedPrice": 2.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.478,
         "observedPrice": 2.5,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.5736,
         "observedPrice": 3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 0.8509,
         "observedPrice": 4.45,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "island sanctuary|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.56,
+    "marketAnchorPrice": 2.51,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.25,
@@ -8329,7 +8329,7 @@
   },
   "wrath of god|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.72,
+    "marketAnchorPrice": 4.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7519,
@@ -8377,7 +8377,7 @@
   },
   "savannah lions|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.12,
+    "marketAnchorPrice": 5.42,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4172,
@@ -8425,7 +8425,7 @@
   },
   "counterspell|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.8,
+    "marketAnchorPrice": 2.43,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4762,
@@ -8473,7 +8473,7 @@
   },
   "animate dead|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.55,
+    "marketAnchorPrice": 6.09,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7435,
@@ -8521,7 +8521,7 @@
   },
   "hypnotic specter|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.94,
+    "marketAnchorPrice": 5.31,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4894,
@@ -8562,7 +8562,7 @@
   },
   "will-o'-the-wisp|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.36,
+    "marketAnchorPrice": 1.3,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3922,
@@ -8610,7 +8610,7 @@
   },
   "bad moon|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.13,
+    "marketAnchorPrice": 3.39,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6134,
@@ -8658,55 +8658,55 @@
   },
   "lightning bolt|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.06,
+    "marketAnchorPrice": 2.18,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2934,
         "observedPrice": 0.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.1796,
         "observedPrice": 0.3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.2934,
         "observedPrice": 0.49,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.4731,
         "observedPrice": 0.79,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.509,
         "observedPrice": 0.85,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.1617,
         "observedPrice": 1.94,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "shivan dragon|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.59,
+    "marketAnchorPrice": 4.71,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2802,
@@ -8754,7 +8754,7 @@
   },
   "birds of paradise|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.87,
+    "marketAnchorPrice": 12.69,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.906,
@@ -8788,7 +8788,7 @@
   },
   "force of nature|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.87,
+    "marketAnchorPrice": 0.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3731,
@@ -8836,7 +8836,7 @@
   },
   "howling mine|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.77,
+    "marketAnchorPrice": 2.55,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6787,
@@ -8884,7 +8884,7 @@
   },
   "mishra's factory|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.91,
+    "marketAnchorPrice": 7.7,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4386,
@@ -8932,7 +8932,7 @@
   },
   "strip mine|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.64,
+    "marketAnchorPrice": 8.63,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5217,
@@ -8980,7 +8980,7 @@
   },
   "hell's caretaker|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.41,
+    "marketAnchorPrice": 1.35,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3889,
@@ -9028,7 +9028,7 @@
   },
   "concordant crossroads|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 17.78,
+    "marketAnchorPrice": 17.59,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5701,
@@ -9076,7 +9076,7 @@
   },
   "nicol bolas|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.15,
+    "marketAnchorPrice": 1.11,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.137,
@@ -9124,7 +9124,7 @@
   },
   "arena of the ancients|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.13,
+    "marketAnchorPrice": 2.77,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4478,
@@ -9172,7 +9172,7 @@
   },
   "ashnod's altar|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.49,
+    "marketAnchorPrice": 10.54,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8006,
@@ -9220,55 +9220,55 @@
   },
   "city of brass|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 30.16,
+    "marketAnchorPrice": 29.44,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6881,
         "observedPrice": 19.99,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.8606,
         "observedPrice": 25,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.7642,
         "observedPrice": 22.2,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.8262,
         "observedPrice": 24,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.8093,
         "observedPrice": 23.51,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 1.043,
         "observedPrice": 30.3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "fellwar stone|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.29,
+    "marketAnchorPrice": 2.38,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0602,
@@ -9316,7 +9316,7 @@
   },
   "wrath of god|fourth edition|italian": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.72,
+    "marketAnchorPrice": 4.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8964,
@@ -9364,7 +9364,7 @@
   },
   "wrath of god|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.72,
+    "marketAnchorPrice": 4.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5923,
@@ -9412,7 +9412,7 @@
   },
   "kaysa|alliances|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.14,
+    "marketAnchorPrice": 3.01,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 1.5909,
@@ -9460,7 +9460,7 @@
   },
   "enlightened tutor|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 25.47,
+    "marketAnchorPrice": 26.39,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.9587,
@@ -9501,7 +9501,7 @@
   },
   "mystical tutor|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.64,
+    "marketAnchorPrice": 10.57,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.8696,
@@ -9542,7 +9542,7 @@
   },
   "infernal contract|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.28,
+    "marketAnchorPrice": 1.91,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2368,
@@ -9583,7 +9583,7 @@
   },
   "chaosphere|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.84,
+    "marketAnchorPrice": 3.94,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.1603,
@@ -9624,7 +9624,7 @@
   },
   "hivis of the scale|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.4,
+    "marketAnchorPrice": 1.01,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5682,
@@ -9665,7 +9665,7 @@
   },
   "zirilan of the claw|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.2,
+    "marketAnchorPrice": 6.67,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6667,
@@ -9713,7 +9713,7 @@
   },
   "early harvest|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.08,
+    "marketAnchorPrice": 0.96,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2727,
@@ -9761,7 +9761,7 @@
   },
   "hall of gemstone|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.85,
+    "marketAnchorPrice": 9.02,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.823,
@@ -9802,7 +9802,7 @@
   },
   "natural balance|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.53,
+    "marketAnchorPrice": 1.49,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2206,
@@ -9843,7 +9843,7 @@
   },
   "worldly tutor|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.29,
+    "marketAnchorPrice": 17.89,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 1.1292,
@@ -9877,7 +9877,7 @@
   },
   "grim feast|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.55,
+    "marketAnchorPrice": 4.98,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4024,
@@ -9925,7 +9925,7 @@
   },
   "teeka's dragon|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.85,
+    "marketAnchorPrice": 2.63,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2837,
@@ -9973,7 +9973,7 @@
   },
   "crystal vein|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.96,
+    "marketAnchorPrice": 4.71,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3445,
@@ -10014,7 +10014,7 @@
   },
   "bad river|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.64,
+    "marketAnchorPrice": 1.61,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1852,
@@ -10062,7 +10062,7 @@
   },
   "chronatog|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.18,
+    "marketAnchorPrice": 4.08,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3675,
@@ -10103,7 +10103,7 @@
   },
   "necromancy|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.72,
+    "marketAnchorPrice": 10.77,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7549,
@@ -10151,7 +10151,7 @@
   },
   "vampiric tutor|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 49.08,
+    "marketAnchorPrice": 51.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.9011,
@@ -10199,7 +10199,7 @@
   },
   "city of solitude|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.86,
+    "marketAnchorPrice": 10.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8019,
@@ -10247,7 +10247,7 @@
   },
   "quirion ranger|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.37,
+    "marketAnchorPrice": 2.47,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0735,
@@ -10295,7 +10295,7 @@
   },
   "righteous war|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.49,
+    "marketAnchorPrice": 1.56,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3645,
@@ -10336,7 +10336,7 @@
   },
   "squandered resources|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 56.08,
+    "marketAnchorPrice": 51.98,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.9889,
@@ -10384,7 +10384,7 @@
   },
   "anvil of bogardan|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 21.78,
+    "marketAnchorPrice": 25.24,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3995,
@@ -10432,7 +10432,7 @@
   },
   "undiscovered paradise|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 20.33,
+    "marketAnchorPrice": 22.02,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3704,
@@ -10480,7 +10480,7 @@
   },
   "griffin canyon|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.55,
+    "marketAnchorPrice": 4.95,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6494,
@@ -10521,7 +10521,7 @@
   },
   "island sanctuary|fifth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.08,
+    "marketAnchorPrice": 2.12,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.8917,
@@ -10555,7 +10555,7 @@
   },
   "dance of many|fifth edition|spanish": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.82,
+    "marketAnchorPrice": 0.8,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.875,
@@ -10589,7 +10589,7 @@
   },
   "dandan|fifth edition|spanish": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.19,
+    "marketAnchorPrice": 1.17,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.25,
@@ -10671,7 +10671,7 @@
   },
   "dark ritual|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.11,
+    "marketAnchorPrice": 2.18,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1863,
@@ -10719,7 +10719,7 @@
   },
   "pox|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.34,
+    "marketAnchorPrice": 3.36,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7455,
@@ -10767,7 +10767,7 @@
   },
   "ball lightning|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.16,
+    "marketAnchorPrice": 3.85,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3658,
@@ -10808,7 +10808,7 @@
   },
   "manabarbs|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.83,
+    "marketAnchorPrice": 4,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6061,
@@ -10849,7 +10849,7 @@
   },
   "primal order|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 1.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1724,
@@ -10897,7 +10897,7 @@
   },
   "fellwar stone|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.15,
+    "marketAnchorPrice": 1.37,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2101,
@@ -10979,7 +10979,7 @@
   },
   "aura of silence|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.03,
+    "marketAnchorPrice": 8.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3413,
@@ -11027,7 +11027,7 @@
   },
   "abjure|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.88,
+    "marketAnchorPrice": 1.92,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1826,
@@ -11075,7 +11075,7 @@
   },
   "spinning darkness|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.61,
+    "marketAnchorPrice": 1.39,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1852,
@@ -11123,7 +11123,7 @@
   },
   "urborg justice|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.61,
+    "marketAnchorPrice": 2.66,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3426,
@@ -11164,7 +11164,7 @@
   },
   "urborg stalker|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.14,
+    "marketAnchorPrice": 1.19,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5128,
@@ -11205,7 +11205,7 @@
   },
   "goblin bomb|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.19,
+    "marketAnchorPrice": 7.27,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6369,
@@ -11246,7 +11246,7 @@
   },
   "null rod|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 86.91,
+    "marketAnchorPrice": 86.29,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6907,
@@ -11280,7 +11280,7 @@
   },
   "bubble matrix|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.26,
+    "marketAnchorPrice": 3.54,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4603,
@@ -11321,7 +11321,7 @@
   },
   "lotus vale|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 23.39,
+    "marketAnchorPrice": 23.31,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4581,
@@ -11369,7 +11369,7 @@
   },
   "hanna's custody|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.63,
+    "marketAnchorPrice": 1.66,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4464,
@@ -11410,7 +11410,7 @@
   },
   "orim, samite healer|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.88,
+    "marketAnchorPrice": 2.04,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7753,
@@ -11458,7 +11458,7 @@
   },
   "shadow rift|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.62,
+    "marketAnchorPrice": 1.55,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2778,
@@ -11499,7 +11499,7 @@
   },
   "whim of volrath|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.42,
+    "marketAnchorPrice": 6.45,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6734,
@@ -11540,7 +11540,7 @@
   },
   "counterspell|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.96,
+    "marketAnchorPrice": 1.75,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1667,
@@ -11588,7 +11588,7 @@
   },
   "dark ritual|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.03,
+    "marketAnchorPrice": 1.95,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2487,
@@ -11636,7 +11636,7 @@
   },
   "maddening imp|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.22,
+    "marketAnchorPrice": 1.19,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7619,
@@ -11677,7 +11677,7 @@
   },
   "reanimate|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 15.02,
+    "marketAnchorPrice": 14.83,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.697,
@@ -11725,7 +11725,7 @@
   },
   "sadistic glee|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.32,
+    "marketAnchorPrice": 1.22,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.25,
@@ -11773,7 +11773,7 @@
   },
   "goblin bombardment|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.57,
+    "marketAnchorPrice": 4.59,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5995,
@@ -11814,7 +11814,7 @@
   },
   "aluren|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 78.69,
+    "marketAnchorPrice": 77.29,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5899,
@@ -11862,7 +11862,7 @@
   },
   "choke|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.5,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1064,
@@ -11910,7 +11910,7 @@
   },
   "horned sliver|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.22,
+    "marketAnchorPrice": 3.27,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.619,
@@ -11999,7 +11999,7 @@
   },
   "lotus petal|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 24.14,
+    "marketAnchorPrice": 23.48,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.811,
@@ -12047,7 +12047,7 @@
   },
   "emerald medallion|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.67,
+    "marketAnchorPrice": 5.7,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7511,
@@ -12088,7 +12088,7 @@
   },
   "helm of possession|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.63,
+    "marketAnchorPrice": 3.52,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6309,
@@ -12129,7 +12129,7 @@
   },
   "jinxed idol|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.23,
+    "marketAnchorPrice": 1.55,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.119,
@@ -12170,7 +12170,7 @@
   },
   "sapphire medallion|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 13.77,
+    "marketAnchorPrice": 12.98,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6806,
@@ -12211,7 +12211,7 @@
   },
   "caldera lake|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.01,
+    "marketAnchorPrice": 1.07,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.8212,
@@ -12252,7 +12252,7 @@
   },
   "ghost town|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.73,
+    "marketAnchorPrice": 1.88,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4965,
@@ -12300,7 +12300,7 @@
   },
   "pine barrens|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 1.18,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.1509,
@@ -12341,7 +12341,7 @@
   },
   "ancient tomb|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 108.46,
+    "marketAnchorPrice": 107.19,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7536,
@@ -12382,7 +12382,7 @@
   },
   "rolling stones|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.9,
+    "marketAnchorPrice": 1.05,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4494,
@@ -12430,7 +12430,7 @@
   },
   "dream halls|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 25.99,
+    "marketAnchorPrice": 24.31,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7102,
@@ -12519,7 +12519,7 @@
   },
   "reins of power|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.09,
+    "marketAnchorPrice": 2.17,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2146,
@@ -12560,7 +12560,7 @@
   },
   "thalakos deceiver|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.69,
+    "marketAnchorPrice": 2.49,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3729,
@@ -12601,7 +12601,7 @@
   },
   "volrath's shapeshifter|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 15.87,
+    "marketAnchorPrice": 15.58,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.65,
@@ -12649,7 +12649,7 @@
   },
   "bottomless pit|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.39,
+    "marketAnchorPrice": 4.21,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3086,
@@ -12697,7 +12697,7 @@
   },
   "mogg infestation|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.26,
+    "marketAnchorPrice": 3.21,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.739,
@@ -12731,7 +12731,7 @@
   },
   "burgeoning|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 23.85,
+    "marketAnchorPrice": 22.57,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 1,
@@ -12813,7 +12813,7 @@
   },
   "hermit druid|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 15.42,
+    "marketAnchorPrice": 12.61,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6562,
@@ -12854,7 +12854,7 @@
   },
   "primal rage|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.05,
+    "marketAnchorPrice": 2.01,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1266,
@@ -12902,7 +12902,7 @@
   },
   "horn of greed|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.29,
+    "marketAnchorPrice": 11.82,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6084,
@@ -12943,7 +12943,7 @@
   },
   "heartstone|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.53,
+    "marketAnchorPrice": 1.35,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3846,
@@ -12991,7 +12991,7 @@
   },
   "mox diamond|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 881.57,
+    "marketAnchorPrice": 837.79,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8916,
@@ -13039,7 +13039,7 @@
   },
   "limited resources|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.02,
+    "marketAnchorPrice": 1.08,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2381,
@@ -13121,7 +13121,7 @@
   },
   "wall of nets|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.57,
+    "marketAnchorPrice": 1.68,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3226,
@@ -13169,7 +13169,7 @@
   },
   "curiosity|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.52,
+    "marketAnchorPrice": 1.47,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7143,
@@ -13210,7 +13210,7 @@
   },
   "culling the weak|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.17,
+    "marketAnchorPrice": 7.01,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8658,
@@ -13258,7 +13258,7 @@
   },
   "hatred|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 27.67,
+    "marketAnchorPrice": 27.53,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6386,
@@ -13299,7 +13299,7 @@
   },
   "ravenous baboons|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.05,
+    "marketAnchorPrice": 2.24,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.9709,
@@ -13333,7 +13333,7 @@
   },
   "spellshock|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.58,
+    "marketAnchorPrice": 2.39,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4049,
@@ -13381,7 +13381,7 @@
   },
   "oath of druids|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 28.34,
+    "marketAnchorPrice": 30.33,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7541,
@@ -13422,7 +13422,7 @@
   },
   "mirri, cat warrior|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.33,
+    "marketAnchorPrice": 2.11,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7897,
@@ -13463,7 +13463,7 @@
   },
   "incoming!|unglued|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 1.25,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.3636,
@@ -13538,7 +13538,7 @@
   },
   "island|unglued|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 11.76,
+    "marketAnchorPrice": 11.98,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3989,
@@ -13586,7 +13586,7 @@
   },
   "plains|unglued|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.04,
+    "marketAnchorPrice": 5.01,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.226,
@@ -13634,7 +13634,7 @@
   },
   "goblin token (red 1/1)|unglued|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.85,
+    "marketAnchorPrice": 3.82,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6712,
@@ -13682,7 +13682,7 @@
   },
   "herald of serra|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.66,
+    "marketAnchorPrice": 1.43,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7054,
@@ -13723,7 +13723,7 @@
   },
   "hibernation|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.14,
+    "marketAnchorPrice": 1.23,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.1261,
@@ -13764,7 +13764,7 @@
   },
   "annul|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.54,
+    "marketAnchorPrice": 2.71,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2688,
@@ -13805,7 +13805,7 @@
   },
   "morphling|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 29.91,
+    "marketAnchorPrice": 30.08,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8548,
@@ -13846,7 +13846,7 @@
   },
   "sunder|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.73,
+    "marketAnchorPrice": 2.65,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.3448,
@@ -13880,7 +13880,7 @@
   },
   "darkest hour|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.14,
+    "marketAnchorPrice": 3.52,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.7353,
@@ -13914,7 +13914,7 @@
   },
   "duress|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.9,
+    "marketAnchorPrice": 2.88,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.0997,
@@ -13955,7 +13955,7 @@
   },
   "exhume|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.5,
+    "marketAnchorPrice": 3.44,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5559,
@@ -14003,7 +14003,7 @@
   },
   "rain of filth|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.36,
+    "marketAnchorPrice": 4.72,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.6211,
@@ -14037,7 +14037,7 @@
   },
   "raze|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 1.16,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5714,
@@ -14085,7 +14085,7 @@
   },
   "sneak attack|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.5,
+    "marketAnchorPrice": 19.52,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6437,
@@ -14133,7 +14133,7 @@
   },
   "meltdown|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.67,
+    "marketAnchorPrice": 2.05,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4474,
@@ -14174,7 +14174,7 @@
   },
   "wildfire|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.29,
+    "marketAnchorPrice": 1.7,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2151,
@@ -14215,7 +14215,7 @@
   },
   "argothian enchantress|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 46.41,
+    "marketAnchorPrice": 45.07,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 1.0646,
@@ -14256,7 +14256,7 @@
   },
   "priest of titania|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.28,
+    "marketAnchorPrice": 1.88,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.148,
@@ -14304,7 +14304,7 @@
   },
   "vernal bloom|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.14,
+    "marketAnchorPrice": 3.44,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5597,
@@ -14352,7 +14352,7 @@
   },
   "carpet of flowers|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.96,
+    "marketAnchorPrice": 5.79,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6583,
@@ -14400,7 +14400,7 @@
   },
   "gaea's cradle|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1201.1,
+    "marketAnchorPrice": 1160.65,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.8221,
@@ -14434,7 +14434,7 @@
   },
   "shivan gorge|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.42,
+    "marketAnchorPrice": 2.25,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.431,
@@ -14475,7 +14475,7 @@
   },
   "tolarian academy|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 92.35,
+    "marketAnchorPrice": 101.11,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5108,
@@ -14523,7 +14523,7 @@
   },
   "illicit auction|sixth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.4,
+    "marketAnchorPrice": 2.67,
     "byCondition": {
       "LP": {
         "ratioToMarketAnchor": 0.107,
@@ -14557,7 +14557,7 @@
   },
   "jokulhaups|sixth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.15,
+    "marketAnchorPrice": 3.26,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6358,
@@ -14605,7 +14605,7 @@
   },
   "armageddon|portal second age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 27.58,
+    "marketAnchorPrice": 25.51,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4705,
@@ -14653,7 +14653,7 @@
   },
   "energy storm|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.17,
+    "marketAnchorPrice": 1.25,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.9737,
@@ -14701,7 +14701,7 @@
   },
   "enduring renewal|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.29,
+    "marketAnchorPrice": 2.41,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2174,
@@ -14742,7 +14742,7 @@
   },
   "polar kraken|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.88,
+    "marketAnchorPrice": 1.82,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2322,
@@ -14783,7 +14783,7 @@
   },
   "dance of the dead|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 13.86,
+    "marketAnchorPrice": 14.8,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 1.25,
@@ -14831,7 +14831,7 @@
   },
   "burnt offering|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.17,
+    "marketAnchorPrice": 1.29,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.1543,
@@ -14920,7 +14920,7 @@
   },
   "pyroblast|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.39,
+    "marketAnchorPrice": 10.31,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.8053,
@@ -14961,7 +14961,7 @@
   },
   "anarchy|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.18,
+    "marketAnchorPrice": 4.1,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 1.1962,
@@ -15009,7 +15009,7 @@
   },
   "jokulhaups|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.01,
+    "marketAnchorPrice": 3.21,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5435,
@@ -15050,7 +15050,7 @@
   },
   "pyroclasm|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.5,
+    "marketAnchorPrice": 4.02,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2874,
@@ -15098,7 +15098,7 @@
   },
   "balduvian hydra|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.03,
+    "marketAnchorPrice": 0.95,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5814,
@@ -15146,7 +15146,7 @@
   },
   "thermokarst|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.84,
+    "marketAnchorPrice": 7.61,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3979,
@@ -15194,7 +15194,7 @@
   },
   "nature's lore|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.59,
+    "marketAnchorPrice": 2.71,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7087,
@@ -15235,7 +15235,7 @@
   },
   "fyndhorn elves|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.11,
+    "marketAnchorPrice": 3.1,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.9179,
@@ -15276,7 +15276,7 @@
   },
   "lhurgoyf|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.41,
+    "marketAnchorPrice": 1.13,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1099,
@@ -15324,7 +15324,7 @@
   },
   "jeweled amulet|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 6.94,
+    "marketAnchorPrice": 7.11,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5506,
@@ -15372,7 +15372,7 @@
   },
   "fire covenant|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.25,
+    "marketAnchorPrice": 2.18,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8839,
@@ -15420,7 +15420,7 @@
   },
   "snow-covered plains|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.59,
+    "marketAnchorPrice": 1.38,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1307,
@@ -15468,7 +15468,7 @@
   },
   "snow-covered island|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.9,
+    "marketAnchorPrice": 3.13,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.1773,
@@ -15509,7 +15509,7 @@
   },
   "snow-covered swamp|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.66,
+    "marketAnchorPrice": 1.43,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1546,
@@ -15557,7 +15557,7 @@
   },
   "snow-covered forest|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.28,
+    "marketAnchorPrice": 1.23,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2182,
@@ -15605,7 +15605,7 @@
   },
   "adarkar wastes|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 24.33,
+    "marketAnchorPrice": 25.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7014,
@@ -15653,7 +15653,7 @@
   },
   "glacial chasm|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 17.09,
+    "marketAnchorPrice": 17.02,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8149,
@@ -15701,7 +15701,7 @@
   },
   "karplusan forest|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 18.64,
+    "marketAnchorPrice": 20.37,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5039,
@@ -15749,7 +15749,7 @@
   },
   "brushland|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 13.18,
+    "marketAnchorPrice": 15.6,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3038,
@@ -15797,7 +15797,7 @@
   },
   "soraya the falconer|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.54,
+    "marketAnchorPrice": 1.63,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.2793,
@@ -15838,7 +15838,7 @@
   },
   "serra aviary|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.46,
+    "marketAnchorPrice": 1.42,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3371,
@@ -15886,7 +15886,7 @@
   },
   "baron sengir|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.12,
+    "marketAnchorPrice": 1.88,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1351,
@@ -15934,7 +15934,7 @@
   },
   "koskun falls|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.39,
+    "marketAnchorPrice": 9.1,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5215,
@@ -15975,7 +15975,7 @@
   },
   "veldrane of sengir|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.86,
+    "marketAnchorPrice": 0.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2273,
@@ -16023,7 +16023,7 @@
   },
   "an-zerrin ruins|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.59,
+    "marketAnchorPrice": 1.52,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3497,
@@ -16119,55 +16119,55 @@
   },
   "serra angel|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.05,
+    "marketAnchorPrice": 1.19,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.119,
         "observedPrice": 0.1,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "PL": {
         "ratioToMarketAnchor": 0.1786,
         "observedPrice": 0.15,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "LP": {
         "ratioToMarketAnchor": 0.2262,
         "observedPrice": 0.19,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "GD": {
         "ratioToMarketAnchor": 0.2381,
         "observedPrice": 0.2,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "EX": {
         "ratioToMarketAnchor": 0.4286,
         "observedPrice": 0.36,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       },
       "NM": {
         "ratioToMarketAnchor": 3.5714,
         "observedPrice": 3,
         "observationCount": 1,
-        "historicalRatioCount": 1,
-        "ratioSource": "historical_market_anchor"
+        "historicalRatioCount": 0,
+        "ratioSource": "previous_model_ratio"
       }
     }
   },
   "savannah|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 229.37,
+    "marketAnchorPrice": 227.74,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7806,
@@ -16215,12 +16215,12 @@
   },
   "serra angel|foreign white border|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.73,
+    "marketAnchorPrice": 1.87,
     "byCondition": {}
   },
   "savannah|foreign white border|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 229.37,
+    "marketAnchorPrice": 227.74,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8348,
@@ -16268,7 +16268,7 @@
   },
   "spirit link|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.58,
+    "marketAnchorPrice": 1.53,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3419,
@@ -16316,7 +16316,7 @@
   },
   "elvish archers|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 9.35,
+    "marketAnchorPrice": 10.14,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.61,
@@ -16364,7 +16364,7 @@
   },
   "balance|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.95,
+    "marketAnchorPrice": 5.12,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3659,
@@ -16412,7 +16412,7 @@
   },
   "regrowth|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.82,
+    "marketAnchorPrice": 0.8,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.041,
@@ -16460,7 +16460,7 @@
   },
   "tsunami|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.64,
+    "marketAnchorPrice": 0.57,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2979,
@@ -16508,7 +16508,7 @@
   },
   "arcane denial (v.2)|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.8,
+    "marketAnchorPrice": 2.78,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2671,
@@ -16556,7 +16556,7 @@
   },
   "wasteland|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 46.62,
+    "marketAnchorPrice": 46.68,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.6854,
@@ -16597,7 +16597,7 @@
   },
   "academy rector|urza's destiny|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 50.62,
+    "marketAnchorPrice": 48.47,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.8216,
@@ -16638,7 +16638,7 @@
   },
   "deranged hermit|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 74.33,
+    "marketAnchorPrice": 72.17,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7012,
@@ -16686,7 +16686,7 @@
   },
   "pyrokinesis|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.91,
+    "marketAnchorPrice": 5.21,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.8501,
@@ -16734,7 +16734,7 @@
   },
   "reflecting pool|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 38.47,
+    "marketAnchorPrice": 38.28,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6471,
@@ -16775,7 +16775,7 @@
   },
   "nether shadow|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 0.95,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3306,
@@ -16823,7 +16823,7 @@
   },
   "counterspell|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.79,
+    "marketAnchorPrice": 1.7,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0315,
@@ -16871,7 +16871,7 @@
   },
   "tinker|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.24,
+    "marketAnchorPrice": 3.35,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.3401,
@@ -16912,7 +16912,7 @@
   },
   "crop rotation|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.06,
+    "marketAnchorPrice": 3.98,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4634,
@@ -16953,7 +16953,7 @@
   },
   "rancor|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.75,
+    "marketAnchorPrice": 1.69,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2703,
@@ -17001,7 +17001,7 @@
   },
   "unearth|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.83,
+    "marketAnchorPrice": 1.68,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2179,
@@ -17049,7 +17049,7 @@
   },
   "snap|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.61,
+    "marketAnchorPrice": 3.67,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.5806,
@@ -17090,7 +17090,7 @@
   },
   "frantic search|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.28,
+    "marketAnchorPrice": 1.38,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.275,
@@ -17138,7 +17138,7 @@
   },
   "sigil of sleep|urza's destiny|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.47,
+    "marketAnchorPrice": 4.3,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.6098,
@@ -17179,7 +17179,7 @@
   },
   "bubbling muck|urza's destiny|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2,
+    "marketAnchorPrice": 2.04,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2902,
@@ -17227,7 +17227,7 @@
   },
   "thran dynamo|urza's destiny|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.05,
+    "marketAnchorPrice": 4.86,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.7599,
@@ -17268,7 +17268,7 @@
   },
   "merchant scroll|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.69,
+    "marketAnchorPrice": 5.56,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.5367,
@@ -17316,7 +17316,7 @@
   },
   "kjeldoran outpost|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.02,
+    "marketAnchorPrice": 6.87,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.52,
@@ -17357,7 +17357,7 @@
   },
   "mystic remora|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 8.78,
+    "marketAnchorPrice": 9.08,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7557,
@@ -17398,7 +17398,7 @@
   },
   "ice cauldron|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.95,
+    "marketAnchorPrice": 0.81,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.4598,
@@ -17446,7 +17446,7 @@
   },
   "pyroblast|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.39,
+    "marketAnchorPrice": 10.31,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.7036,
@@ -17494,12 +17494,12 @@
   },
   "savannah|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 229.37,
+    "marketAnchorPrice": 227.74,
     "byCondition": {}
   },
   "order of the sacred torch|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.76,
+    "marketAnchorPrice": 0.85,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 1.1429,
@@ -17540,17 +17540,17 @@
   },
   "seraph|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.57,
+    "marketAnchorPrice": 0.51,
     "byCondition": {}
   },
   "chaos lord|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.35,
+    "marketAnchorPrice": 0.44,
     "byCondition": {}
   },
   "tinder wall|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.04,
+    "marketAnchorPrice": 1.03,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.1852,
@@ -17591,7 +17591,7 @@
   },
   "stampede|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 0.98,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.102,
@@ -17639,7 +17639,7 @@
   },
   "fyndhorn elves|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.11,
+    "marketAnchorPrice": 3.1,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.4217,
@@ -17680,12 +17680,12 @@
   },
   "pentagram of the ages|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.6,
+    "marketAnchorPrice": 0.59,
     "byCondition": {}
   },
   "reclamation|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.63,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.2459,
@@ -17733,7 +17733,7 @@
   },
   "glaciers|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.6,
+    "marketAnchorPrice": 0.59,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.1887,
@@ -17781,12 +17781,12 @@
   },
   "fiery justice|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.6,
+    "marketAnchorPrice": 0.53,
     "byCondition": {}
   },
   "ashen ghoul|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.43,
+    "marketAnchorPrice": 0.48,
     "byCondition": {
       "PO": {
         "ratioToMarketAnchor": 0.0625,
@@ -17834,22 +17834,22 @@
   },
   "stampede|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 0.98,
     "byCondition": {}
   },
   "fyndhorn elder|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.28,
+    "marketAnchorPrice": 0.26,
     "byCondition": {}
   },
   "knight of stromgald|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.53,
+    "marketAnchorPrice": 5.11,
     "byCondition": {}
   },
   "monsoon|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.59,
+    "marketAnchorPrice": 0.55,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 1.3889,
@@ -17890,47 +17890,47 @@
   },
   "aysen crusader|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 1.01,
     "byCondition": {}
   },
   "narwhal|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.74,
+    "marketAnchorPrice": 0.87,
     "byCondition": {}
   },
   "sengir autocrat|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.05,
+    "marketAnchorPrice": 0.98,
     "byCondition": {}
   },
   "grandmother sengir|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 0.99,
     "byCondition": {}
   },
   "heart wolf|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.69,
     "byCondition": {}
   },
   "mammoth harness|homelands|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.79,
+    "marketAnchorPrice": 1.07,
     "byCondition": {}
   },
   "pillage|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.47,
+    "marketAnchorPrice": 1.54,
     "byCondition": {}
   },
   "bounty of the hunt|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.74,
+    "marketAnchorPrice": 0.69,
     "byCondition": {}
   },
   "wandering mage|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.67,
+    "marketAnchorPrice": 1.46,
     "byCondition": {}
   },
   "balduvian trading post|alliances|french": {
@@ -17940,12 +17940,12 @@
   },
   "sheltered valley|alliances|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 0.99,
     "byCondition": {}
   },
   "serra angel|fourth edition|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.05,
+    "marketAnchorPrice": 1.19,
     "byCondition": {
       "PL": {
         "ratioToMarketAnchor": 0.0556,
@@ -17991,12 +17991,12 @@
   },
   "control magic|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.15,
+    "marketAnchorPrice": 1.14,
     "byCondition": {}
   },
   "dark ritual|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.7,
+    "marketAnchorPrice": 1.96,
     "byCondition": {}
   },
   "nightmare|fourth edition|french": {
@@ -18006,147 +18006,147 @@
   },
   "sorceress queen|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.65,
     "byCondition": {}
   },
   "mana flare|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "elvish archers|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.64,
+    "marketAnchorPrice": 0.59,
     "byCondition": {}
   },
   "instill energy|fourth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.08,
+    "marketAnchorPrice": 1.02,
     "byCondition": {}
   },
   "dance of many|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.85,
+    "marketAnchorPrice": 0.81,
     "byCondition": {}
   },
   "dandan|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.21,
+    "marketAnchorPrice": 1.03,
     "byCondition": {}
   },
   "land's edge|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.95,
+    "marketAnchorPrice": 0.87,
     "byCondition": {}
   },
   "erhnam djinn|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.61,
     "byCondition": {}
   },
   "dakkon blackblade|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.83,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "tormod's crypt|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.7,
+    "marketAnchorPrice": 1.66,
     "byCondition": {}
   },
   "urza's mine (v.1)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.71,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "urza's mine (v.2)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.71,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "urza's mine (v.3)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.71,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "urza's mine (v.4)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.71,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "urza's power plant (v.1)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "urza's power plant (v.2)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "urza's power plant (v.3)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "urza's power plant (v.4)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "urza's tower (v.1)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "urza's tower (v.2)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "urza's tower (v.3)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "urza's tower (v.4)|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "tetravus|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.21,
+    "marketAnchorPrice": 1.69,
     "byCondition": {}
   },
   "unsummon|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.21,
+    "marketAnchorPrice": 0.22,
     "byCondition": {}
   },
   "merfolk of the pearl trident|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.27,
+    "marketAnchorPrice": 0.19,
     "byCondition": {}
   },
   "time elemental|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.37,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "control magic|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.9,
+    "marketAnchorPrice": 0.96,
     "byCondition": {}
   },
   "recall|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.55,
+    "marketAnchorPrice": 0.43,
     "byCondition": {}
   },
   "energy flux|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.53,
     "byCondition": {}
   },
   "hymn to tourach (v.4)|fallen empires|english": {
@@ -18156,17 +18156,17 @@
   },
   "order of the ebon hand (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.54,
+    "marketAnchorPrice": 0.64,
     "byCondition": {}
   },
   "order of the ebon hand (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.54,
+    "marketAnchorPrice": 0.64,
     "byCondition": {}
   },
   "order of the ebon hand (v.1)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.54,
+    "marketAnchorPrice": 0.64,
     "byCondition": {}
   },
   "terror|foreign black bordered|french": {
@@ -18176,37 +18176,37 @@
   },
   "paralyze|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.21,
+    "marketAnchorPrice": 0.24,
     "byCondition": {}
   },
   "drain life|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.54,
+    "marketAnchorPrice": 0.5,
     "byCondition": {}
   },
   "tranquility|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.32,
+    "marketAnchorPrice": 0.29,
     "byCondition": {}
   },
   "hurricane|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "giant growth|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.44,
     "byCondition": {}
   },
   "scryb sprites|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.43,
+    "marketAnchorPrice": 0.39,
     "byCondition": {}
   },
   "scavenger folk|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.81,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "whirling dervish|renaissance|french": {
@@ -18216,27 +18216,27 @@
   },
   "llanowar elves|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.01,
+    "marketAnchorPrice": 1.03,
     "byCondition": {}
   },
   "karma|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.67,
     "byCondition": {}
   },
   "tsunami|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.56,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "divine offering|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.14,
+    "marketAnchorPrice": 0.09,
     "byCondition": {}
   },
   "circle of protection: black|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.23,
+    "marketAnchorPrice": 0.19,
     "byCondition": {}
   },
   "circle of protection: green|foreign white bordered|french": {
@@ -18246,27 +18246,27 @@
   },
   "circle of protection: red|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.34,
+    "marketAnchorPrice": 0.33,
     "byCondition": {}
   },
   "dragon whelp|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.77,
+    "marketAnchorPrice": 0.76,
     "byCondition": {}
   },
   "ironclaw orcs|renaissance|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.18,
+    "marketAnchorPrice": 0.17,
     "byCondition": {}
   },
   "goblin balloon brigade|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.63,
+    "marketAnchorPrice": 0.65,
     "byCondition": {}
   },
   "goblins of the flarg|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.64,
+    "marketAnchorPrice": 0.63,
     "byCondition": {}
   },
   "goblin digging team|the dark|english": {
@@ -18276,17 +18276,17 @@
   },
   "goblin grenade (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.03,
+    "marketAnchorPrice": 1.01,
     "byCondition": {}
   },
   "goblin grenade (v.1)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.03,
+    "marketAnchorPrice": 1.01,
     "byCondition": {}
   },
   "goblin grenade (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.03,
+    "marketAnchorPrice": 1.01,
     "byCondition": {}
   },
   "flashfires|foreign black bordered|french": {
@@ -18301,112 +18301,112 @@
   },
   "white knight|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.92,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "order of leitbur (v.1)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.55,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "order of leitbur (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.55,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "order of leitbur (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.55,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "icatian javelineers (v.1)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.42,
+    "marketAnchorPrice": 0.32,
     "byCondition": {}
   },
   "icatian javelineers (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.42,
+    "marketAnchorPrice": 0.32,
     "byCondition": {}
   },
   "icatian javelineers (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.42,
+    "marketAnchorPrice": 0.32,
     "byCondition": {}
   },
   "circle of protection: red|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.33,
+    "marketAnchorPrice": 0.3,
     "byCondition": {}
   },
   "ruins of trokair|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.83,
+    "marketAnchorPrice": 0.78,
     "byCondition": {}
   },
   "karma|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.33,
+    "marketAnchorPrice": 0.45,
     "byCondition": {}
   },
   "repentant blacksmith|chronicles|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.13,
+    "marketAnchorPrice": 0.12,
     "byCondition": {}
   },
   "spectral guardian|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.05,
+    "marketAnchorPrice": 1.06,
     "byCondition": {}
   },
   "dark ritual|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.05,
+    "marketAnchorPrice": 1.95,
     "byCondition": {}
   },
   "dwarven miner|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.82,
+    "marketAnchorPrice": 0.65,
     "byCondition": {}
   },
   "dwarven miner|mirage|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.82,
+    "marketAnchorPrice": 0.65,
     "byCondition": {}
   },
   "telim'tor|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.04,
+    "marketAnchorPrice": 1.11,
     "byCondition": {}
   },
   "volcanic dragon|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.78,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "uktabi wildcats|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.64,
+    "marketAnchorPrice": 0.53,
     "byCondition": {}
   },
   "wall of roots|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 1,
     "byCondition": {}
   },
   "benthic djinn|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.5,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "energy bolt|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.96,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "rocky tar pit|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.84,
+    "marketAnchorPrice": 0.57,
     "byCondition": {}
   },
   "mountain valley|mirage|french": {
@@ -18416,187 +18416,187 @@
   },
   "eye of singularity|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.18,
+    "marketAnchorPrice": 1.05,
     "byCondition": {}
   },
   "zhalfirin crusader|visions|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.9,
+    "marketAnchorPrice": 0.93,
     "byCondition": {}
   },
   "flooded shoreline|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.76,
+    "marketAnchorPrice": 1.73,
     "byCondition": {}
   },
   "impulse|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.68,
+    "marketAnchorPrice": 1.73,
     "byCondition": {}
   },
   "impulse|visions|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.68,
+    "marketAnchorPrice": 1.73,
     "byCondition": {}
   },
   "prosperity|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 1.26,
     "byCondition": {}
   },
   "rainbow efreet|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.24,
+    "marketAnchorPrice": 1.69,
     "byCondition": {}
   },
   "vision charm|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.14,
+    "marketAnchorPrice": 1.31,
     "byCondition": {}
   },
   "crypt rats|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.78,
+    "marketAnchorPrice": 0.73,
     "byCondition": {}
   },
   "vision charm|visions|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.14,
+    "marketAnchorPrice": 1.31,
     "byCondition": {}
   },
   "bogardan phoenix|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.16,
+    "marketAnchorPrice": 1.11,
     "byCondition": {}
   },
   "fireblast|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.66,
+    "marketAnchorPrice": 2.63,
     "byCondition": {}
   },
   "ogre enforcer|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.88,
+    "marketAnchorPrice": 0.85,
     "byCondition": {}
   },
   "katabatic winds|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.02,
+    "marketAnchorPrice": 1.09,
     "byCondition": {}
   },
   "quirion druid|visions|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.43,
+    "marketAnchorPrice": 1.31,
     "byCondition": {}
   },
   "uktabi orangutan|visions|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.51,
+    "marketAnchorPrice": 1.6,
     "byCondition": {}
   },
   "snake basket|visions|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.1,
+    "marketAnchorPrice": 0.72,
     "byCondition": {}
   },
   "instill energy|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.49,
+    "marketAnchorPrice": 1.43,
     "byCondition": {}
   },
   "stampede|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "svyelunite temple|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.01,
+    "marketAnchorPrice": 0.93,
     "byCondition": {}
   },
   "urza's power plant|fifth edition|spanish": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.91,
+    "marketAnchorPrice": 0.89,
     "byCondition": {}
   },
   "urza's power plant|fifth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.91,
+    "marketAnchorPrice": 0.89,
     "byCondition": {}
   },
   "alabaster dragon|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.9,
+    "marketAnchorPrice": 0.87,
     "byCondition": {}
   },
   "teferi's veil|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.87,
     "byCondition": {}
   },
   "dense foliage|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 1.03,
     "byCondition": {}
   },
   "veteran explorer|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.87,
+    "marketAnchorPrice": 1.34,
     "byCondition": {}
   },
   "vitalize|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.06,
+    "marketAnchorPrice": 1.04,
     "byCondition": {}
   },
   "mind stone|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.9,
+    "marketAnchorPrice": 0.92,
     "byCondition": {}
   },
   "bosium strip|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.52,
+    "marketAnchorPrice": 6.29,
     "byCondition": {}
   },
   "well of knowledge|weatherlight|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.62,
+    "marketAnchorPrice": 2.48,
     "byCondition": {}
   },
   "chill|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.93,
+    "marketAnchorPrice": 4.09,
     "byCondition": {}
   },
   "perish|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.54,
+    "marketAnchorPrice": 1.48,
     "byCondition": {}
   },
   "heart sliver|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.92,
+    "marketAnchorPrice": 0.82,
     "byCondition": {}
   },
   "scorched earth|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.62,
+    "marketAnchorPrice": 0.54,
     "byCondition": {}
   },
   "earthcraft|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 142.99,
+    "marketAnchorPrice": 151.48,
     "byCondition": {}
   },
   "winter's grasp|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.43,
+    "marketAnchorPrice": 3.77,
     "byCondition": {}
   },
   "bottle gnomes|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.68,
+    "marketAnchorPrice": 0.73,
     "byCondition": {}
   },
   "altar of dementia|tempest|french": {
@@ -18606,72 +18606,72 @@
   },
   "time warp|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 10.14,
+    "marketAnchorPrice": 10.74,
     "byCondition": {}
   },
   "artifact ward|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.88,
+    "marketAnchorPrice": 0.81,
     "byCondition": {}
   },
   "reconstruction|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.2,
+    "marketAnchorPrice": 1.23,
     "byCondition": {}
   },
   "artifact possession|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.1,
+    "marketAnchorPrice": 1.05,
     "byCondition": {}
   },
   "orcish mechanics|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.07,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "argothian treefolk|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.73,
+    "marketAnchorPrice": 0.71,
     "byCondition": {}
   },
   "amulet of kroog|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.79,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "battering ram|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.73,
+    "marketAnchorPrice": 0.67,
     "byCondition": {}
   },
   "clay statue|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.96,
     "byCondition": {}
   },
   "dragon engine|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.87,
+    "marketAnchorPrice": 1.03,
     "byCondition": {}
   },
   "tablet of epityr|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.78,
+    "marketAnchorPrice": 0.79,
     "byCondition": {}
   },
   "urza's chalice|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.82,
+    "marketAnchorPrice": 0.91,
     "byCondition": {}
   },
   "yotian soldier|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.06,
+    "marketAnchorPrice": 1.07,
     "byCondition": {}
   },
   "pirate ship|revised|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.92,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "gloom|revised|english": {
@@ -18681,12 +18681,12 @@
   },
   "clone|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.22,
+    "marketAnchorPrice": 1.23,
     "byCondition": {}
   },
   "kird ape|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.36,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "thicket basilisk|foreign black bordered|french": {
@@ -18696,7 +18696,7 @@
   },
   "crumble|foreign black bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.07,
+    "marketAnchorPrice": 2.4,
     "byCondition": {}
   },
   "island (v.2)|foreign black bordered|french": {
@@ -18729,17 +18729,17 @@
   },
   "island (v.1)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "island (v.2)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "island (v.3)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.58,
     "byCondition": {}
   },
   "plains (v.3)|foreign black bordered|french": {
@@ -18757,17 +18757,8 @@
     "byCondition": {}
   },
   "plains (v.1)|foreign black bordered|french": {
-    "modelType": "edition_ratio",
-    "referenceFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "expectedReference": {
-      "nomCarte": "Plains",
-      "edition": "Revised",
-      "langue": "English",
-      "version": null
-    },
-    "priceReferenceCard": null,
-    "referenceSource": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
     "byCondition": {}
   },
   "plains (v.2)|foreign black bordered|french": {
@@ -18799,45 +18790,18 @@
     "byCondition": {}
   },
   "swamp (v.2)|foreign black bordered|french": {
-    "modelType": "edition_ratio",
-    "referenceFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "expectedReference": {
-      "nomCarte": "Swamp",
-      "edition": "Revised",
-      "langue": "English",
-      "version": null
-    },
-    "priceReferenceCard": null,
-    "referenceSource": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
     "byCondition": {}
   },
   "swamp (v.3)|foreign black bordered|french": {
-    "modelType": "edition_ratio",
-    "referenceFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "expectedReference": {
-      "nomCarte": "Swamp",
-      "edition": "Revised",
-      "langue": "English",
-      "version": null
-    },
-    "priceReferenceCard": null,
-    "referenceSource": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
     "byCondition": {}
   },
   "forest (v.1)|foreign black bordered|french": {
-    "modelType": "edition_ratio",
-    "referenceFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "expectedReference": {
-      "nomCarte": "Forest",
-      "edition": "Revised",
-      "langue": "English",
-      "version": null
-    },
-    "priceReferenceCard": null,
-    "referenceSource": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
     "byCondition": {}
   },
   "forest (v.2)|foreign black bordered|french": {
@@ -18883,81 +18847,63 @@
     "byCondition": {}
   },
   "mountain (v.2)|foreign black bordered|french": {
-    "modelType": "edition_ratio",
-    "referenceFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "expectedReference": {
-      "nomCarte": "Mountain",
-      "edition": "Revised",
-      "langue": "English",
-      "version": null
-    },
-    "priceReferenceCard": null,
-    "referenceSource": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
     "byCondition": {}
   },
   "mountain (v.3)|foreign black bordered|french": {
-    "modelType": "edition_ratio",
-    "referenceFound": false,
-    "referenceMarketAnchorPrice": 0,
-    "expectedReference": {
-      "nomCarte": "Mountain",
-      "edition": "Revised",
-      "langue": "English",
-      "version": null
-    },
-    "priceReferenceCard": null,
-    "referenceSource": null,
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0,
     "byCondition": {}
   },
   "forest (v.1)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "forest (v.2)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "forest (v.3)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "plains (v.1)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.2)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.3)|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "power surge|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.67,
+    "marketAnchorPrice": 1.62,
     "byCondition": {}
   },
   "instill energy|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.22,
+    "marketAnchorPrice": 1.18,
     "byCondition": {}
   },
   "titania's song|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.12,
+    "marketAnchorPrice": 0.96,
     "byCondition": {}
   },
   "millstone|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.07,
+    "marketAnchorPrice": 2.08,
     "byCondition": {}
   },
   "disrupting scepter|foreign white bordered|french": {
@@ -18967,17 +18913,17 @@
   },
   "amrou kithkin|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.71,
+    "marketAnchorPrice": 0.74,
     "byCondition": {}
   },
   "clergy of the holy nimbus|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.86,
+    "marketAnchorPrice": 0.88,
     "byCondition": {}
   },
   "anti-magic aura|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.89,
+    "marketAnchorPrice": 0.92,
     "byCondition": {}
   },
   "flash counter|legends|english": {
@@ -18987,7 +18933,7 @@
   },
   "gaseous form|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.85,
+    "marketAnchorPrice": 0.84,
     "byCondition": {}
   },
   "glyph of delusion|legends|english": {
@@ -18997,7 +18943,7 @@
   },
   "remove soul|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1,
+    "marketAnchorPrice": 1.02,
     "byCondition": {}
   },
   "wall of vapor|legends|english": {
@@ -19007,12 +18953,12 @@
   },
   "transmutation|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.19,
+    "marketAnchorPrice": 1.31,
     "byCondition": {}
   },
   "active volcano|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.04,
+    "marketAnchorPrice": 1.07,
     "byCondition": {}
   },
   "blazing effigy|legends|english": {
@@ -19022,7 +18968,7 @@
   },
   "pyrotechnics|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.92,
+    "marketAnchorPrice": 0.91,
     "byCondition": {}
   },
   "raging bull|legends|english": {
@@ -19032,62 +18978,62 @@
   },
   "the brute|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.77,
     "byCondition": {}
   },
   "wall of earth|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.8,
+    "marketAnchorPrice": 0.83,
     "byCondition": {}
   },
   "aisling leprechaun|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "fire sprites|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.72,
     "byCondition": {}
   },
   "subdue|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.77,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "rust|legends|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.03,
+    "marketAnchorPrice": 1,
     "byCondition": {}
   },
   "fire and brimstone|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.78,
+    "marketAnchorPrice": 0.77,
     "byCondition": {}
   },
   "electric eel|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.48,
+    "marketAnchorPrice": 1.62,
     "byCondition": {}
   },
   "ghost ship|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.73,
+    "marketAnchorPrice": 0.61,
     "byCondition": {}
   },
   "banshee|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.86,
+    "marketAnchorPrice": 0.91,
     "byCondition": {}
   },
   "the fallen|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.19,
+    "marketAnchorPrice": 1.12,
     "byCondition": {}
   },
   "goblin caves|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.06,
+    "marketAnchorPrice": 1.01,
     "byCondition": {}
   },
   "orc general|the dark|english": {
@@ -19107,12 +19053,12 @@
   },
   "whippoorwill|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.11,
+    "marketAnchorPrice": 1.07,
     "byCondition": {}
   },
   "standing stones|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.77,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "evil presence|foreign black bordered|french": {
@@ -19122,47 +19068,47 @@
   },
   "sage of lat-nam|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.3,
+    "marketAnchorPrice": 2.56,
     "byCondition": {}
   },
   "rukh egg (v.2)|arabian nights|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 19.12,
+    "marketAnchorPrice": 21.51,
     "byCondition": {}
   },
   "gaea's touch|the dark|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.05,
+    "marketAnchorPrice": 3.15,
     "byCondition": {}
   },
   "blue elemental blast|unlimited|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 5.75,
+    "marketAnchorPrice": 5.66,
     "byCondition": {}
   },
   "righteousness|foreign white bordered|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.54,
+    "marketAnchorPrice": 1.35,
     "byCondition": {}
   },
   "tourach's gate|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.88,
+    "marketAnchorPrice": 0.82,
     "byCondition": {}
   },
   "goblin chirurgeon (v.2)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.4,
+    "marketAnchorPrice": 2.43,
     "byCondition": {}
   },
   "goblin chirurgeon (v.3)|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 2.4,
+    "marketAnchorPrice": 2.43,
     "byCondition": {}
   },
   "ebon stronghold|fallen empires|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.02,
+    "marketAnchorPrice": 1.07,
     "byCondition": {}
   },
   "delif's cube|fallen empires|english": {
@@ -19172,13 +19118,13 @@
   },
   "oath of ghouls|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 3.69,
+    "marketAnchorPrice": 3.63,
     "byCondition": {}
   },
   "chain lightning|legends italian|italian": {
     "modelType": "edition_ratio",
     "referenceFound": true,
-    "referenceMarketAnchorPrice": 11.43,
+    "referenceMarketAnchorPrice": 11.81,
     "expectedReference": {
       "nomCarte": "Chain Lightning",
       "edition": "Legends",
@@ -19193,32 +19139,32 @@
       "scryfallId": "b5883762-ca0a-4932-8d2a-41a45796a5f8",
       "scryfallUri": null,
       "image": "https://cards.scryfall.io/normal/front/b/5/b5883762-ca0a-4932-8d2a-41a45796a5f8.jpg?1562860651",
-      "trendPrice": 11.43,
-      "avg1": 9,
-      "avg7": 11.49,
-      "avg30": 10.73
+      "trendPrice": 11.81,
+      "avg1": 5.33,
+      "avg7": 12.05,
+      "avg30": 10.99
     },
     "referenceSource": "portfolio",
     "byCondition": {}
   },
   "hidden retreat|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.44,
+    "marketAnchorPrice": 1.57,
     "byCondition": {}
   },
   "nomads en-kor|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.69,
+    "marketAnchorPrice": 0.81,
     "byCondition": {}
   },
   "mana leak|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "wall of tears|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.84,
+    "marketAnchorPrice": 1.1,
     "byCondition": {}
   },
   "megrim|stronghold|french": {
@@ -19228,262 +19174,262 @@
   },
   "wall of souls|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.83,
+    "marketAnchorPrice": 0.75,
     "byCondition": {}
   },
   "jinxed ring|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 0.98,
     "byCondition": {}
   },
   "portcullis|stronghold|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.24,
+    "marketAnchorPrice": 1.16,
     "byCondition": {}
   },
   "carnophage|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.89,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "dauthi warlord|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.1,
+    "marketAnchorPrice": 0.94,
     "byCondition": {}
   },
   "pit spawn|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.77,
+    "marketAnchorPrice": 0.71,
     "byCondition": {}
   },
   "spike cannibal|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.31,
+    "marketAnchorPrice": 1.21,
     "byCondition": {}
   },
   "mogg assassin|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.15,
+    "marketAnchorPrice": 1.03,
     "byCondition": {}
   },
   "manabond|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 4.35,
+    "marketAnchorPrice": 4.75,
     "byCondition": {}
   },
   "thopter squadron|exodus|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.83,
+    "marketAnchorPrice": 0.9,
     "byCondition": {}
   },
   "chaos confetti|unglued|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.41,
+    "marketAnchorPrice": 1.46,
     "byCondition": {}
   },
   "rock lobster|unglued|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.99,
+    "marketAnchorPrice": 1.02,
     "byCondition": {}
   },
   "presence of the master|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.83,
+    "marketAnchorPrice": 0.71,
     "byCondition": {}
   },
   "telepathy|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.51,
     "byCondition": {}
   },
   "turnabout|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.74,
+    "marketAnchorPrice": 0.91,
     "byCondition": {}
   },
   "pestilence|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.74,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "shivan hellkite|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.26,
+    "marketAnchorPrice": 1.37,
     "byCondition": {}
   },
   "argothian elder|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.95,
+    "marketAnchorPrice": 0.93,
     "byCondition": {}
   },
   "child of gaea|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.81,
+    "marketAnchorPrice": 0.74,
     "byCondition": {}
   },
   "citanul hierophants|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.86,
+    "marketAnchorPrice": 1.07,
     "byCondition": {}
   },
   "citanul flute|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.83,
+    "marketAnchorPrice": 1.97,
     "byCondition": {}
   },
   "claws of gix|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 7.58,
+    "marketAnchorPrice": 7.37,
     "byCondition": {}
   },
   "thran turbine|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.46,
+    "marketAnchorPrice": 1.34,
     "byCondition": {}
   },
   "umbilicus|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.34,
+    "marketAnchorPrice": 1.37,
     "byCondition": {}
   },
   "island (v.1)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.25,
     "byCondition": {}
   },
   "island (v.2)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.25,
     "byCondition": {}
   },
   "island (v.3)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.25,
     "byCondition": {}
   },
   "island (v.4)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.25,
     "byCondition": {}
   },
   "plains (v.1)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.45,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.2)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.45,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.3)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.45,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.4)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.45,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "swamp (v.1)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.42,
     "byCondition": {}
   },
   "swamp (v.2)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.42,
     "byCondition": {}
   },
   "swamp (v.3)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.42,
     "byCondition": {}
   },
   "swamp (v.4)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.42,
     "byCondition": {}
   },
   "mountain (v.1)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "mountain (v.2)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "mountain (v.3)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "mountain (v.4)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "forest (v.1)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.56,
     "byCondition": {}
   },
   "forest (v.2)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.56,
     "byCondition": {}
   },
   "forest (v.3)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.56,
     "byCondition": {}
   },
   "forest (v.4)|urza's saga|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.53,
+    "marketAnchorPrice": 0.56,
     "byCondition": {}
   },
   "transmute artifact|antiquities|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 368.99,
+    "marketAnchorPrice": 366.51,
     "byCondition": {}
   },
   "bone shredder|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.65,
+    "marketAnchorPrice": 0.61,
     "byCondition": {}
   },
   "avalanche riders|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.87,
+    "marketAnchorPrice": 0.97,
     "byCondition": {}
   },
   "ghitu encampment|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.82,
+    "marketAnchorPrice": 0.84,
     "byCondition": {}
   },
   "last-ditch effort|urza's legacy|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.27,
+    "marketAnchorPrice": 1.22,
     "byCondition": {}
   },
   "prosperity|sixth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.1,
+    "marketAnchorPrice": 1.14,
     "byCondition": {}
   },
   "vitalize|sixth edition|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.98,
+    "marketAnchorPrice": 1.03,
     "byCondition": {}
   },
   "mountain (v.2)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.34,
+    "marketAnchorPrice": 0.33,
     "byCondition": {}
   },
   "forest (v.1)|tempest|french": {
@@ -19493,42 +19439,42 @@
   },
   "swamp (v.1)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.48,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "island (v.1)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.2)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.56,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "plains (v.1)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.56,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "plains (v.3)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.72,
+    "marketAnchorPrice": 0.69,
     "byCondition": {}
   },
   "plains (v.1)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.72,
+    "marketAnchorPrice": 0.69,
     "byCondition": {}
   },
   "plains (v.2)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.72,
+    "marketAnchorPrice": 0.69,
     "byCondition": {}
   },
   "plains (v.4)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.72,
+    "marketAnchorPrice": 0.69,
     "byCondition": {}
   },
   "forest (v.3)|mirage|french": {
@@ -19553,112 +19499,112 @@
   },
   "island (v.4)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.08,
+    "marketAnchorPrice": 1.22,
     "byCondition": {}
   },
   "island (v.1)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.08,
+    "marketAnchorPrice": 1.22,
     "byCondition": {}
   },
   "island (v.3)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.08,
+    "marketAnchorPrice": 1.22,
     "byCondition": {}
   },
   "island (v.2)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.08,
+    "marketAnchorPrice": 1.22,
     "byCondition": {}
   },
   "swamp (v.4)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 1.1,
     "byCondition": {}
   },
   "mountain (v.1)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.7,
     "byCondition": {}
   },
   "mountain (v.4)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.7,
     "byCondition": {}
   },
   "mountain (v.2)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.7,
     "byCondition": {}
   },
   "swamp (v.1)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 1.1,
     "byCondition": {}
   },
   "swamp (v.2)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 1.1,
     "byCondition": {}
   },
   "swamp (v.3)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.93,
+    "marketAnchorPrice": 1.1,
     "byCondition": {}
   },
   "mountain (v.3)|mirage|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.66,
+    "marketAnchorPrice": 0.7,
     "byCondition": {}
   },
   "island (v.2)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "island (v.3)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "island (v.4)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.44,
+    "marketAnchorPrice": 0.41,
     "byCondition": {}
   },
   "plains (v.3)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.56,
+    "marketAnchorPrice": 0.55,
     "byCondition": {}
   },
   "swamp (v.2)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.48,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "swamp (v.3)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.48,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "swamp (v.4)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.48,
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "mountain (v.1)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.34,
+    "marketAnchorPrice": 0.33,
     "byCondition": {}
   },
   "mountain (v.3)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.34,
+    "marketAnchorPrice": 0.33,
     "byCondition": {}
   },
   "mountain (v.4)|tempest|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.34,
+    "marketAnchorPrice": 0.33,
     "byCondition": {}
   },
   "forest (v.2)|tempest|french": {
@@ -19678,107 +19624,352 @@
   },
   "plains (v.1)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.59,
     "byCondition": {}
   },
   "plains (v.2)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.59,
     "byCondition": {}
   },
   "plains (v.3)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.46,
+    "marketAnchorPrice": 0.59,
     "byCondition": {}
   },
   "island (v.1)|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "island (v.2)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "island (v.3)|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "swamp (v.1)|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.36,
+    "marketAnchorPrice": 1.29,
     "byCondition": {}
   },
   "swamp (v.2)|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.36,
+    "marketAnchorPrice": 1.29,
     "byCondition": {}
   },
   "swamp (v.3)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.36,
+    "marketAnchorPrice": 1.29,
     "byCondition": {}
   },
   "mountain (v.1)|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.85,
+    "marketAnchorPrice": 0.88,
     "byCondition": {}
   },
   "mountain (v.2)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.85,
+    "marketAnchorPrice": 0.88,
     "byCondition": {}
   },
   "mountain (v.3)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.85,
+    "marketAnchorPrice": 0.88,
     "byCondition": {}
   },
   "snow-covered mountain|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.29,
+    "marketAnchorPrice": 1.74,
     "byCondition": {}
   },
   "forest (v.1)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "forest (v.2)|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "forest (v.3)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "snow-covered forest|ice age|french": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.28,
+    "marketAnchorPrice": 1.23,
     "byCondition": {}
   },
   "forest (v.2)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.75,
+    "marketAnchorPrice": 0.8,
     "byCondition": {}
   },
   "island (v.3)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "island (v.1)|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 0.51,
+    "marketAnchorPrice": 0.68,
     "byCondition": {}
   },
   "snow-covered swamp|ice age|english": {
     "modelType": "standard_market_anchor",
-    "marketAnchorPrice": 1.66,
+    "marketAnchorPrice": 1.43,
+    "byCondition": {}
+  },
+  "badlands|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 342.88,
+    "byCondition": {}
+  },
+  "badlands|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 342.88,
+    "byCondition": {}
+  },
+  "maze of ith|the dark|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 32.18,
+    "byCondition": {}
+  },
+  "shivan dragon|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 48.38,
+    "byCondition": {}
+  },
+  "uthden troll|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.68,
+    "byCondition": {}
+  },
+  "uthden troll|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.42,
+    "byCondition": {}
+  },
+  "shatter|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.18,
+    "byCondition": {}
+  },
+  "animate dead|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 6.48,
+    "byCondition": {}
+  },
+  "red elemental blast|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 6.47,
+    "byCondition": {}
+  },
+  "gloom|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.03,
+    "byCondition": {}
+  },
+  "fireball|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.35,
+    "byCondition": {}
+  },
+  "detonate|renaissance|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.47,
+    "byCondition": {}
+  },
+  "disintegrate|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.28,
+    "byCondition": {}
+  },
+  "wheel of fortune|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 249.54,
+    "byCondition": {}
+  },
+  "demonic tutor|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 36.87,
+    "byCondition": {}
+  },
+  "sedge troll|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 3.43,
+    "byCondition": {}
+  },
+  "pestilence|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.64,
+    "byCondition": {}
+  },
+  "blight|renaissance|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.24,
+    "byCondition": {}
+  },
+  "weakness|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.25,
+    "byCondition": {}
+  },
+  "cursed land|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.57,
+    "byCondition": {}
+  },
+  "elves of deep shadow|the dark|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 27.7,
+    "byCondition": {}
+  },
+  "bayou|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 306.28,
+    "byCondition": {}
+  },
+  "web|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.95,
+    "byCondition": {}
+  },
+  "wild growth|foreign black bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 1.13,
+    "byCondition": {}
+  },
+  "dark heart of the wood|the dark|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.64,
+    "byCondition": {}
+  },
+  "regrowth|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.8,
+    "byCondition": {}
+  },
+  "fallen angel|chronicles|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.39,
+    "byCondition": {}
+  },
+  "giant growth|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.15,
+    "byCondition": {}
+  },
+  "kird ape|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.5,
+    "byCondition": {}
+  },
+  "taiga|foreign white bordered|italian": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 268.89,
+    "byCondition": {}
+  },
+  "mountain (v.2)|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.38,
+    "byCondition": {}
+  },
+  "tropical island|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 401.3,
+    "byCondition": {}
+  },
+  "volcanic island|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 582.06,
+    "byCondition": {}
+  },
+  "scryb sprites|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.12,
+    "byCondition": {}
+  },
+  "tranquility|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.1,
+    "byCondition": {}
+  },
+  "channel|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.29,
+    "byCondition": {}
+  },
+  "emerald dragonfly|chronicles|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.09,
+    "byCondition": {}
+  },
+  "plateau|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 275.28,
+    "byCondition": {}
+  },
+  "plateau|unlimited|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 615.75,
+    "byCondition": {}
+  },
+  "plateau|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 275.28,
+    "byCondition": {}
+  },
+  "karma|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.45,
+    "byCondition": {}
+  },
+  "ivory tower|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 2.23,
+    "byCondition": {}
+  },
+  "disrupting scepter|fourth edition|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.52,
+    "byCondition": {}
+  },
+  "diamond valley|arabian nights|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 570.93,
+    "byCondition": {}
+  },
+  "earthquake|revised|english": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 3.31,
+    "byCondition": {}
+  },
+  "wrath of god|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 9.84,
+    "byCondition": {}
+  },
+  "disenchant|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.34,
+    "byCondition": {}
+  },
+  "mountain (v.1)|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.38,
+    "byCondition": {}
+  },
+  "mountain (v.3)|foreign white bordered|french": {
+    "modelType": "standard_market_anchor",
+    "marketAnchorPrice": 0.38,
     "byCondition": {}
   },
   "__globalConditionModel": {
