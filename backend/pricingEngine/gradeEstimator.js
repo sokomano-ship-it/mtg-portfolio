@@ -1317,6 +1317,21 @@ const weights =
     };
 
 
+/*
+ * Base NM propre à la carte.
+ *
+ * Pour un modèle externe (ex. FWB -> Revised),
+ * modelEstimatedPrice contient déjà le niveau de la
+ * bonne impression après application du ratio d'édition.
+ *
+ * Les ratios de condition doivent donc partir de ce
+ * niveau et non directement de l'ancre de référence.
+ */
+const conditionAnchor =
+    modelEstimatedPrice > 0
+        ? modelEstimatedPrice
+        : inferredAnchor;
+
 const estimatedByCondition = {};
 const ratioByCondition = {};
 
@@ -1325,9 +1340,9 @@ CONDITIONS.forEach(condition => {
 
         ratioByCondition[condition] = round(ratio, 4);
 
-        const ratioEstimate = inferredAnchor > 0
-            ? inferredAnchor * ratio
-            : 0;
+        const ratioEstimate = conditionAnchor > 0
+    ? conditionAnchor * ratio
+    : 0;
 
         const reliableObservedPrice =
     reliableByCondition[condition];
