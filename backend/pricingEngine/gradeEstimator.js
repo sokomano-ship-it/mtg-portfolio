@@ -1073,6 +1073,9 @@ function estimateCardByGrade(card, options = {}) {
         card.estimatedPrice ||
         0
     );
+    const modelEstimatedPrice = number(
+    options.estimatedPrice || 0
+);
 
     const rows = allObservations.filter(row => sameCard(card, row));
     const dayCount = observationDaysCount(rows);
@@ -1234,36 +1237,20 @@ if (reliableNmFloor > 0) {
 }
 
 
-let inferredAnchor = 0;
-
-
-if (
-    anchorPrice > 0 &&
-    observedNmAnchor > 0
-) {
-
-    /*
-     * Le Trend reste une information essentielle,
-     * mais il ne peut pas forcer le niveau NM
-     * sous un plancher NM crédible.
-     */
-    inferredAnchor =
-        Math.max(
-            anchorPrice,
-            observedNmAnchor
-        );
-
-} else {
-
-    inferredAnchor =
-        anchorPrice ||
-        observedNmAnchor ||
-        estimateAnchorFromObservations(
-            observedMinByCondition
-        );
-
-}
-
+/*
+ * L'évolution quotidienne doit toujours être pilotée
+ * par le marché Cardmarket lorsqu'il est disponible.
+ *
+ * Les observations par état servent à calibrer
+ * les ratios et niveaux par condition, mais ne doivent
+ * jamais figer l'évolution de l'ancre marché.
+ */
+const inferredAnchor =
+    anchorPrice ||
+    observedNmAnchor ||
+    estimateAnchorFromObservations(
+        observedMinByCondition
+    );
 
 
     const cardEvidenceByCondition =
@@ -1402,12 +1389,30 @@ const blendedEstimate =
             observedFloorEstimate
         );
 
-        estimatedByCondition[condition] = blendedEstimate > 0
-            ? round(blendedEstimate)
-            : null;
-    });
+/*
+ * Pour NM, l'estimation principale du pricing engine
+ * constitue déjà le niveau de marché ajusté par les
+ * observations historiques.
+ *
+ * Elle doit donc suivre quotidiennement le marché,
+ * sans être bloquée par un ancien minimum observé.
+ *
+ * Pour les autres états, le grade estimator continue
+ * d'appliquer les ratios de condition.
+ */
+const finalEstimate =
+    condition === "NM" &&
+    modelEstimatedPrice > 0
+        ? modelEstimatedPrice
+        : blendedEstimate;
 
-    const buyTargetByCondition = {
+estimatedByCondition[condition] =
+    finalEstimate > 0
+        ? round(finalEstimate)
+        : null;
+});
+
+const buyTargetByCondition = {
         NM: estimatedByCondition.NM
             ? round(estimatedByCondition.NM * DEFAULT_BUY_DISCOUNTS.NM)
             : null,

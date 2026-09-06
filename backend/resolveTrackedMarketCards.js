@@ -30,6 +30,11 @@ function normalize(value) {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
+function baseSearchName(name) {
+  return String(name || "")
+    .replace(/\s*\(V\.\d+\)\s*$/i, "")
+    .trim();
+}
 
 function scryfallSetCode(edition) {
   const map = {
@@ -79,15 +84,16 @@ function sleep(ms) {
 
 async function searchScryfall(card) {
   const setCode = scryfallSetCode(card.edition);
-  const langCode = scryfallLang(card.langue);
+const langCode = scryfallLang(card.langue);
+const searchName = baseSearchName(card.nomCarte);
 
-  const queries = [];
+const queries = [];
 
-  if (setCode) {
-    queries.push(`!"${card.nomCarte}" set:${setCode}`);
-  }
+if (setCode) {
+  queries.push(`!"${searchName}" set:${setCode}`);
+}
 
-  queries.push(`!"${card.nomCarte}"`);
+queries.push(`!"${searchName}"`);
 
   for (const q of queries) {
     for (let attempt = 1; attempt <= 3; attempt++) {

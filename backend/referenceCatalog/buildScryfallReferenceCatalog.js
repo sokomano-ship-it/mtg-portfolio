@@ -39,18 +39,105 @@ function same(value1, value2) {
 }
 
 function findReferenceRule(card, referenceCards) {
-  return referenceCards.find(rule => {
-    const sameIdentity =
-      same(rule.nomCarte, baseCardName(card)) &&
-      same(rule.displayEdition, card.edition) &&
-      same(rule.displayLanguage, card.langue);
 
-    if (!sameIdentity) return false;
+  /*
+   * 1. Les règles explicites restent toujours prioritaires.
+   *
+   * Elles permettent de gérer les vraies exceptions :
+   * manual_only, proxy particulier, version spécifique, etc.
+   */
+  const explicitRule =
+    referenceCards.find(rule => {
+      const sameIdentity =
+        same(rule.nomCarte, baseCardName(card)) &&
+        same(rule.displayEdition, card.edition) &&
+        same(rule.displayLanguage, card.langue);
 
-    if (!rule.displayVersion) return true;
+      if (!sameIdentity) return false;
 
-    return same(rule.displayVersion, cardVersion(card));
-  }) || null;
+      if (!rule.displayVersion) return true;
+
+      return same(
+        rule.displayVersion,
+        cardVersion(card)
+      );
+    }) || null;
+
+  if (explicitRule) {
+    return explicitRule;
+  }
+
+
+  /*
+   * 2. Règle générale FWB.
+   *
+   * Une carte Foreign White Bordered FR/DE/IT possède
+   * son propre modèle de prix :
+   *
+   *   carte + FWB + langue + état
+   *
+   * Les observations de cette impression/langue servent
+   * donc à déterminer son niveau relatif.
+   *
+   * En revanche son évolution quotidienne est pilotée
+   * par la même carte en Revised English.
+   */
+  const isFwb =
+    same(
+      card.edition,
+      "Foreign White Bordered"
+    );
+
+  const isSupportedFwbLanguage =
+    [
+      "French",
+      "German",
+      "Italian"
+    ].some(language =>
+      same(card.langue, language)
+    );
+
+  if (
+    isFwb &&
+    isSupportedFwbLanguage
+  ) {
+    return {
+      nomCarte: baseCardName(card),
+
+      displayEdition:
+        card.edition,
+
+      displayLanguage:
+        card.langue,
+
+      referenceName:
+        baseCardName(card),
+
+      referenceEdition:
+        "Revised",
+
+      referenceLanguage:
+        "English",
+
+      pricingModel:
+        "edition_ratio",
+
+      marketReferenceType:
+        "same_card_different_printing_proxy",
+
+      marketReferenceRole:
+        "evolution_only",
+
+      automaticRule:
+        "fwb_to_revised"
+    };
+  }
+
+
+  /*
+   * 3. Aucune règle spéciale.
+   */
+  return null;
 }
 
 function findPortfolioCard(
