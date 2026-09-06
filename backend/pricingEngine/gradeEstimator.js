@@ -3,6 +3,8 @@ const path = require("path");
 const {
     DEFAULT_GLOBAL_RATIOS,
     buildHierarchicalRatios,
+    getBayesianWeights,
+    blendHierarchicalLevelRatio,
     calculateBayesianConfidence,
     calculateObservationReliability,
     weightedMedian
@@ -254,34 +256,97 @@ function observationDaysCount(rows) {
     return dates.size;
 }
 
-function estimateAnchorFromObservations(observedMinByCondition) {
+function estimateAnchorFromObservations(
+    observedMinByCondition
+) {
     const candidates = [];
 
     CONDITIONS.forEach(condition => {
-        const observed = number(observedMinByCondition[condition]);
-        const ratio = DEFAULT_GLOBAL_RATIOS[condition];
+        const observed =
+            number(
+                observedMinByCondition[
+                    condition
+                ]
+            );
 
-        if (observed > 0 && ratio > 0) {
-            candidates.push(observed / ratio);
+        const ratio =
+            DEFAULT_GLOBAL_RATIOS[
+                condition
+            ];
+
+        if (
+            observed > 0 &&
+            ratio > 0
+        ) {
+            const estimatedMarketPrice =
+                estimateMeanPriceFromMin(
+                    condition,
+                    observed
+                );
+
+            candidates.push(
+                estimatedMarketPrice /
+                ratio
+            );
         }
     });
 
     return median(candidates);
 }
 
-function estimateRatiosFromCardObservations(observedMinByCondition) {
-    const nmObserved = number(observedMinByCondition.NM);
-    const impliedNm = nmObserved || estimateAnchorFromObservations(observedMinByCondition);
+function estimateRatiosFromCardObservations(
+    observedMinByCondition
+) {
+    const nmObserved =
+        number(
+            observedMinByCondition.NM
+        );
+
+    const nmMarketLevel =
+        nmObserved > 0
+            ? estimateMeanPriceFromMin(
+                "NM",
+                nmObserved
+            )
+            : estimateAnchorFromObservations(
+                observedMinByCondition
+            );
 
     const ratios = {};
 
     CONDITIONS.forEach(condition => {
-        const observed = number(observedMinByCondition[condition]);
 
         if (condition === "NM") {
             ratios.NM = 1;
-        } else if (observed > 0 && impliedNm > 0) {
-            ratios[condition] = Math.min(1, Math.max(0.15, observed / impliedNm));
+            return;
+        }
+
+        const observed =
+            number(
+                observedMinByCondition[
+                    condition
+                ]
+            );
+
+        if (
+            observed > 0 &&
+            nmMarketLevel > 0
+        ) {
+            const conditionMarketLevel =
+                estimateMeanPriceFromMin(
+                    condition,
+                    observed
+                );
+
+            ratios[condition] =
+                Math.min(
+                    1,
+                    Math.max(
+                        0.15,
+                        conditionMarketLevel /
+                        nmMarketLevel
+                    )
+                );
         } else {
             ratios[condition] = null;
         }
@@ -1050,16 +1115,172 @@ function getLearnedConditionRatios(card) {
             model.byCondition?.[condition]?.[ratioField]
         );
 
-        learnedRatios[condition] =
-            conditionRatio > 0
-                ? Math.min(
-                    1,
-                    Math.max(0.15, conditionRatio / nmRatio)
-                )
-                : null;
+        if (conditionRatio > 0) {
+
+    const rawRelativeRatio =
+        conditionRatio /
+        nmRatio;
+
+    const upliftByCondition = {
+        NM: 1.12,
+        EX: 1.18,
+        GD: 1.22,
+        LP: 1.25,
+        PL: 1.30,
+        PO: 1.35
+    };
+
+    const upliftAdjustment =
+        upliftByCondition[condition] /
+        upliftByCondition.NM;
+
+    learnedRatios[condition] =
+        Math.min(
+            1,
+            Math.max(
+                0.15,
+                rawRelativeRatio *
+                upliftAdjustment
+            )
+        );
+
+} else {
+
+    learnedRatios[condition] =
+        null;
+}
     });
 
     return learnedRatios;
+}
+
+function getLearnedNmMarketRatio(card) {
+
+    const models =
+        readPricingModels();
+
+    const model =
+        models[cardKey(card)];
+
+    if (!model) {
+        return null;
+    }
+
+    let ratio = 0;
+
+    if (
+        model.modelType ===
+        "standard_market_anchor"
+    ) {
+        ratio = number(
+            model.byCondition?.NM
+                ?.ratioToMarketAnchor
+        );
+    } else if (
+        model.modelType ===
+        "edition_ratio"
+    ) {
+        ratio = number(
+            model.byCondition?.NM
+                ?.ratioToReferenceMarketAnchor
+        );
+    }
+
+    if (ratio <= 0) {
+        return null;
+    }
+
+    /*
+     * Le trainer travaille avec les minima observés.
+     * Pour le niveau NM final, on transforme ce minimum
+     * en niveau de marché estimé.
+     */
+    return ratio * 1.12;
+}
+
+
+function estimateNmMarketRatio(rows = []) {
+
+    const byCard =
+        new Map();
+
+    rows.forEach(row => {
+
+        if (
+            normalize(row.condition) !==
+            "nm"
+        ) {
+            return;
+        }
+
+        const observed =
+            number(
+                row.observedMinPrice
+            );
+
+        if (observed <= 0) {
+            return;
+        }
+
+        let rawRatio =
+            number(
+                row.ratios
+                    ?.vsTrendPrice
+            );
+
+        if (rawRatio <= 0) {
+
+            const trend =
+                number(
+                    row.marketSnapshot
+                        ?.trendPrice
+                );
+
+            if (trend > 0) {
+                rawRatio =
+                    observed / trend;
+            }
+        }
+
+        if (rawRatio <= 0) {
+            return;
+        }
+
+        const key = [
+            normalize(row.nomCarte),
+            normalize(row.edition),
+            normalize(row.langue)
+        ].join("|");
+
+        if (!byCard.has(key)) {
+            byCard.set(
+                key,
+                []
+            );
+        }
+
+        /*
+         * Passage du minimum NM vers le niveau
+         * de marché NM estimé.
+         */
+        byCard.get(key).push(
+            rawRatio * 1.12
+        );
+    });
+
+    const cardRatios = [];
+
+    byCard.forEach(values => {
+
+        const ratio =
+            median(values);
+
+        if (ratio > 0) {
+            cardRatios.push(ratio);
+        }
+    });
+
+    return median(cardRatios);
 }
 
 
@@ -1073,9 +1294,7 @@ function estimateCardByGrade(card, options = {}) {
         card.estimatedPrice ||
         0
     );
-    const modelEstimatedPrice = number(
-    options.estimatedPrice || 0
-);
+
 
     const rows = allObservations.filter(row => sameCard(card, row));
     const dayCount = observationDaysCount(rows);
@@ -1245,12 +1464,6 @@ if (reliableNmFloor > 0) {
  * les ratios et niveaux par condition, mais ne doivent
  * jamais figer l'évolution de l'ancre marché.
  */
-const inferredAnchor =
-    anchorPrice ||
-    observedNmAnchor ||
-    estimateAnchorFromObservations(
-        observedMinByCondition
-    );
 
 
     const cardEvidenceByCondition =
@@ -1277,6 +1490,209 @@ const globalEvidenceByCondition =
     countDistinctCardsByCondition(
         allObservations
     );
+
+    const pricingModel =
+    readPricingModels()[
+        cardKey(card)
+    ];
+
+const learnedNmMarketRatio =
+    getLearnedNmMarketRatio(card);
+
+let nmLevelRatio = 1;
+let nmLevelWeights = {
+    card: 0,
+    sameEditionValue: 0,
+    sameLanguageValue: 0,
+    valuePeer: 0,
+    global: 1
+};
+
+
+/*
+ * MODELE STANDARD
+ *
+ * Le niveau NM par rapport au Trend est lui aussi
+ * régularisé par le Bayesian.
+ */
+
+
+  /*
+ * BAYESIAN DU NIVEAU ABSOLU
+ *
+ * Le niveau NM d'une impression ne doit être appris
+ * qu'à partir des observations propres à cette impression.
+ *
+ * Les autres cartes restent utiles pour apprendre
+ * NM -> EX -> GD -> LP -> PL -> PO,
+ * mais jamais pour déplacer le niveau absolu.
+ */
+
+const directNmEvidence =
+    Number(
+        cardEvidenceByCondition?.NM || 0
+    );
+
+const cardStrength =
+    directNmEvidence > 0
+        ? directNmEvidence /
+          (directNmEvidence + 3)
+        : 0;
+
+const isEditionRatio =
+    pricingModel?.modelType === "edition_ratio";
+
+
+/*
+ * NIVEAU NM ABSOLU
+ *
+ * STANDARD
+ * --------
+ * Trend = niveau naturel du printing.
+ * Les observations propres à la carte peuvent déplacer
+ * ce niveau, mais sont régularisées vers 1.
+ *
+ * EDITION_RATIO / FWB
+ * -------------------
+ * L'ancre est une AUTRE impression (ex. Revised EN).
+ *
+ * Le ratio FWB/Revised est précisément l'information
+ * que nous cherchons à apprendre.
+ *
+ * Le ramener vers 1 reviendrait à supposer :
+ *      FWB = Revised
+ *
+ * ce qui est faux et écrase notamment Serendib Efreet.
+ *
+ * Un ratio NM FWB n'est donc utilisé que s'il existe
+ * une observation NM propre à cette impression.
+ * Dans ce cas, il est appliqué tel quel.
+ *
+ * En absence de NM propre :
+ *      ratio neutre = 1
+ *
+ * On n'invente PAS un niveau NM à partir de EX/GD
+ * avec des ratios globaux.
+ */
+
+if (
+    isEditionRatio &&
+    learnedNmMarketRatio > 0 &&
+    directNmEvidence > 0
+) {
+
+    /*
+     * Pour une edition_ratio, une vraie mesure historique
+     * FWB/reference est préférable au bootstrap.
+     *
+     * Mais une seule mesure historique ne doit pas déplacer
+     * immédiatement 100 % du niveau du printing.
+     *
+     * historicalRatioCount :
+     *   1 -> 50 %
+     *   2 -> 67 %
+     *   3 -> 75 %
+     *   5 -> 83 %
+     *
+     * Tant qu'aucun historique réel n'existe (count = 0),
+     * on conserve le ratio legacy tel quel afin de ne pas
+     * déstabiliser les FWB déjà calibrées.
+     */
+
+    const historicalNmEvidence =
+        Number(
+            pricingModel
+                ?.byCondition
+                ?.NM
+                ?.historicalRatioCount || 0
+        );
+
+    if (historicalNmEvidence > 0) {
+
+        const historicalStrength =
+            historicalNmEvidence /
+            (
+                historicalNmEvidence + 1
+            );
+
+        nmLevelRatio =
+            1 +
+            (
+                learnedNmMarketRatio - 1
+            ) *
+            historicalStrength;
+
+        nmLevelWeights = {
+            card: historicalStrength,
+            sameEditionValue: 0,
+            sameLanguageValue: 0,
+            valuePeer: 0,
+            global: 1 - historicalStrength
+        };
+
+    } else {
+
+        /*
+         * Ancien ratio déjà calibré :
+         * on le conserve jusqu'à ce que de vraies
+         * observations historiques soient disponibles.
+         */
+        nmLevelRatio =
+            learnedNmMarketRatio;
+
+        nmLevelWeights = {
+            card: 1,
+            sameEditionValue: 0,
+            sameLanguageValue: 0,
+            valuePeer: 0,
+            global: 0
+        };
+    }
+
+} else if (
+    !isEditionRatio &&
+    learnedNmMarketRatio > 0 &&
+    directNmEvidence > 0
+) {
+
+    nmLevelRatio =
+        1 +
+        (
+            learnedNmMarketRatio - 1
+        ) *
+        cardStrength;
+
+    nmLevelWeights = {
+        card: cardStrength,
+        sameEditionValue: 0,
+        sameLanguageValue: 0,
+        valuePeer: 0,
+        global: 1 - cardStrength
+    };
+
+} else {
+
+    nmLevelRatio = 1;
+
+    nmLevelWeights = {
+        card: 0,
+        sameEditionValue: 0,
+        sameLanguageValue: 0,
+        valuePeer: 0,
+        global: 1
+    };
+}
+
+const conditionAnchor =
+    anchorPrice > 0
+        ? anchorPrice *
+          nmLevelRatio
+        : (
+            observedNmAnchor ||
+            estimateAnchorFromObservations(
+                observedMinByCondition
+            )
+        );
 
 const {
     ratios: monotonicRatios,
@@ -1318,19 +1734,18 @@ const weights =
 
 
 /*
- * Base NM propre à la carte.
+ * L'ancre reçue ici représente toujours le niveau NM
+ * de la bonne impression.
  *
- * Pour un modèle externe (ex. FWB -> Revised),
- * modelEstimatedPrice contient déjà le niveau de la
- * bonne impression après application du ratio d'édition.
+ * Le moteur bayésien est seul responsable de la
+ * transformation NM -> EX -> GD -> LP -> PL -> PO.
  *
- * Les ratios de condition doivent donc partir de ce
- * niveau et non directement de l'ancre de référence.
+ * On ne doit jamais utiliser ici un prix déjà ajusté
+ * pour l'état réellement possédé, sinon le Bayesian
+ * serait court-circuité ou la décote serait appliquée
+ * deux fois.
  */
-const conditionAnchor =
-    modelEstimatedPrice > 0
-        ? modelEstimatedPrice
-        : inferredAnchor;
+
 
 const estimatedByCondition = {};
 const ratioByCondition = {};
@@ -1344,88 +1759,17 @@ CONDITIONS.forEach(condition => {
     ? conditionAnchor * ratio
     : 0;
 
-        const reliableObservedPrice =
-    reliableByCondition[condition];
-
-const observedFloorEstimate =
-    reliableObservedPrice
-        ? estimateMeanPriceFromMin(
-            condition,
-            reliableObservedPrice
-        )
-        : 0;
-
-        const observationReliability =
-    number(
-        reliabilityByCondition
-            ?.[condition]
-    );
-
-
-/*
- * Le minimum observé transformé en
- * niveau moyen reçoit :
+    /*
+ * Les observations ont déjà influencé :
  *
- * fiabilité 0 %   -> 10 %
- * fiabilité 40 %  -> 18 %
- * fiabilité 70 %  -> 24 %
- * fiabilité 100 % -> 30 %
+ * 1. le niveau NM bayésien ;
+ * 2. les ratios de condition bayésiens.
+ *
+ * Les réinjecter directement ici compterait
+ * deux fois la même information.
  */
-const observedWeight =
-    observedFloorEstimate
-        ? Math.min(
-            0.30,
-            0.10 +
-            observationReliability *
-                0.20
-        )
-        : 0;
-
-
-const ratioWeight =
-    1 -
-    observedWeight;
-
-
-const blendedEstimate =
-    ratioEstimate &&
-    observedFloorEstimate
-
-        ? (
-            ratioEstimate *
-                ratioWeight +
-
-            observedFloorEstimate *
-                observedWeight
-        )
-
-        : (
-            ratioEstimate ||
-            observedFloorEstimate
-        );
-
-/*
- * Pour NM, l'estimation principale du pricing engine
- * constitue déjà le niveau de marché ajusté par les
- * observations historiques.
- *
- * Elle doit donc suivre quotidiennement le marché,
- * sans être bloquée par un ancien minimum observé.
- *
- * Pour les autres états, le grade estimator continue
- * d'appliquer les ratios de condition.
- */
-const pricingModel =
-    readPricingModels()[cardKey(card)];
-
-const isEditionRatioModel =
-    pricingModel?.modelType === "edition_ratio";
-
 const finalEstimate =
-    condition === cardCondition &&
-    modelEstimatedPrice > 0
-        ? modelEstimatedPrice
-        : blendedEstimate;
+    ratioEstimate;
 
 estimatedByCondition[condition] =
     finalEstimate > 0
@@ -1482,7 +1826,8 @@ const buyTargetByCondition = {
     };
 
     const confidence = calculateBayesianConfidence({
-    hasAnchor: inferredAnchor > 0,
+    hasAnchor:
+    conditionAnchor > 0,
     cardObservationDays: dayCount,
     cardObservationRows: rows.length,
     editionObservationRows:
@@ -1514,7 +1859,55 @@ if (learnedRatios) {
 }
 
     return {
-        anchorPrice: inferredAnchor ? round(inferredAnchor) : null,
+        anchorPrice:
+    anchorPrice > 0
+        ? round(anchorPrice)
+        : null,
+
+nmAnchorPrice:
+    conditionAnchor > 0
+        ? round(conditionAnchor)
+        : null,
+
+nmLevelRatio:
+    round(
+        nmLevelRatio,
+        4
+    ),
+
+nmBayesianWeights: {
+    card:
+        round(
+            nmLevelWeights.card,
+            4
+        ),
+
+    sameEditionValue:
+        round(
+            nmLevelWeights
+                .sameEditionValue,
+            4
+        ),
+
+    sameLanguageValue:
+        round(
+            nmLevelWeights
+                .sameLanguageValue,
+            4
+        ),
+
+    valuePeer:
+        round(
+            nmLevelWeights.valuePeer,
+            4
+        ),
+
+    global:
+        round(
+            nmLevelWeights.global,
+            4
+        )
+},
         estimatedByCondition,
         buyTargetByCondition,
         ratioByCondition,

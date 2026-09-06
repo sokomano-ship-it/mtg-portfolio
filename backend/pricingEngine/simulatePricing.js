@@ -568,17 +568,51 @@ if (isManualOnly) {
     model,
     estimated
   );
-} else {
-  const gradeAnchorPrice =
-    model?.modelType === "edition_ratio"
-      ? estimated.estimatedPrice
-      : estimated.marketAnchorPrice;
 
-  gradeEstimate = estimateCardByGrade(card, {
-    anchorPrice: gradeAnchorPrice,
-    estimatedPrice: estimated.estimatedPrice
-  });
+} else {
+
+  /*
+   * Le gradeEstimator reçoit uniquement
+   * l'ancre marché de base.
+   *
+   * standard :
+   *   Trend de la carte
+   *
+   * edition_ratio :
+   *   Trend de la carte de référence
+   *
+   * Le gradeEstimator construit ensuite :
+   *   ancre marché
+   *   -> niveau NM
+   *   -> ratios de condition
+   */
+  const gradeAnchorPrice =
+    model?.modelType ===
+      "edition_ratio"
+      ? Number(
+          estimated
+            .referenceMarketAnchorPrice ||
+          model
+            ?.referenceMarketAnchorPrice ||
+          0
+        )
+      : Number(
+          estimated
+            .marketAnchorPrice ||
+          0
+        );
+
+  gradeEstimate =
+    estimateCardByGrade(
+      card,
+      {
+        anchorPrice:
+          gradeAnchorPrice
+      }
+    );
 }
+
+
 
 const estimatedConditionPrice =
   isManualOnly
@@ -685,6 +719,15 @@ referenceCardFound:
 
     ratioByCondition:
         gradeEstimate.ratioByCondition,
+
+    nmAnchorPrice:
+    gradeEstimate.nmAnchorPrice,
+
+nmLevelRatio:
+    gradeEstimate.nmLevelRatio,
+
+nmBayesianWeights:
+    gradeEstimate.nmBayesianWeights,
 
     bayesianWeights:
     gradeEstimate.bayesianWeights,

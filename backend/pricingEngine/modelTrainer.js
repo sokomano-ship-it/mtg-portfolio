@@ -10,6 +10,13 @@ const TRACKED_MARKET_CARDS_PATH = path.join(
   "data",
   "trackedMarketCards.json"
 );
+const TRACKED_MARKET_HISTORY_PATH =
+    path.join(
+        __dirname,
+        "..",
+        "data",
+        "trackedMarketHistory.json"
+    );
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 
 const CONDITIONS = ["PO", "PL", "LP", "GD", "EX", "NM"];
@@ -141,6 +148,145 @@ function readJson(file, fallback) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
+function currentDateKey() {
+    return new Date()
+        .toISOString()
+        .slice(0, 10);
+}
+
+
+function updateTrackedMarketHistory(
+    trackedCards,
+    previousHistory
+) {
+
+    const history =
+        Array.isArray(previousHistory)
+            ? [...previousHistory]
+            : [];
+
+    const today =
+        currentDateKey();
+
+    const indexByCardDate =
+        new Map();
+
+    history.forEach((row, index) => {
+
+        const date =
+            normalizeDate(row.date);
+
+        if (!date) {
+            return;
+        }
+
+        indexByCardDate.set(
+            `${cardKey(row)}|${date}`,
+            index
+        );
+    });
+
+
+    trackedCards.forEach(card => {
+
+        const anchor =
+            referenceAnchorPrice(card);
+
+        if (anchor <= 0) {
+            return;
+        }
+
+        const row = {
+            date: today,
+
+            nomCarte:
+                card.nomCarte ||
+                card.nomBase,
+
+            edition:
+                card.edition,
+
+            langue:
+                card.langue,
+
+            version:
+                card.version || null,
+
+            trendPrice:
+                Number(
+                    card.trendPrice || 0
+                ),
+
+            avgPrice:
+                Number(
+                    card.avgPrice || 0
+                ),
+
+            lowPrice:
+                Number(
+                    card.lowPrice || 0
+                ),
+
+            avg1:
+                Number(
+                    card.avg1 || 0
+                ),
+
+            avg7:
+                Number(
+                    card.avg7 || 0
+                ),
+
+            avg30:
+                Number(
+                    card.avg30 || 0
+                )
+        };
+
+        const key =
+            `${cardKey(row)}|${today}`;
+
+        if (indexByCardDate.has(key)) {
+
+            history[
+                indexByCardDate.get(key)
+            ] = row;
+
+        } else {
+
+            indexByCardDate.set(
+                key,
+                history.length
+            );
+
+            history.push(row);
+        }
+    });
+
+
+    history.sort((a, b) => {
+
+        const cardCompare =
+            cardKey(a).localeCompare(
+                cardKey(b)
+            );
+
+        if (cardCompare !== 0) {
+            return cardCompare;
+        }
+
+        return String(a.date)
+            .localeCompare(
+                String(b.date)
+            );
+    });
+
+
+    return history;
+}
+
+
+
 function getCards() {
   return new Promise((resolve, reject) => {
     db.all(
@@ -204,14 +350,17 @@ function normalizeDate(dateValue) {
 }
 
 function historicalMarketAnchorPrice(row) {
-  if (!row) return 0;
+    if (!row) return 0;
 
-  return (
-    Number(row.trendPrice || 0) ||
-    Number(row.avgPrice || 0) ||
-    Number(row.lowPrice || 0) ||
-    0
-  );
+    return (
+        Number(row.trendPrice || 0) ||
+        Number(row.avg30 || 0) ||
+        Number(row.avg7 || 0) ||
+        Number(row.avg1 || 0) ||
+        Number(row.avgPrice || 0) ||
+        Number(row.lowPrice || 0) ||
+        0
+    );
 }
 
 function buildHistoricalAnchorsByCard(rows) {
@@ -430,6 +579,124 @@ function enforceMonotonicManualPrices(byCondition = {}) {
   return byCondition;
 }
 
+function enforceMonotonicRatios(
+  byCondition = {},
+  ratioField
+) {
+  /*
+   * CONDITIONS est ordonné :
+   * PO < PL < LP < GD < EX < NM
+   *
+   * Le ratio doit donc être croissant avec
+   * la qualité de la carte.
+   */
+
+  const blocks = CONDITIONS
+    .map(condition => {
+      const row = byCondition[condition];
+
+      if (!row) {
+        return null;
+      }
+
+      const ratio =
+        Number(row[ratioField] || 0);
+
+      if (ratio <= 0) {
+        return null;
+      }
+
+      const weight =
+        Math.max(
+          1,
+          Number(row.observationCount || 1)
+        );
+
+      return {
+        conditions: [condition],
+        weightedTotal: ratio * weight,
+        weight,
+        average: ratio
+      };
+    })
+    .filter(Boolean);
+
+  let index = 0;
+
+  while (index < blocks.length - 1) {
+    const current = blocks[index];
+    const next = blocks[index + 1];
+
+    /*
+     * Violation :
+     * une condition inférieure possède
+     * un ratio supérieur à la condition
+     * immédiatement meilleure.
+     */
+    if (current.average > next.average) {
+      const merged = {
+        conditions: [
+          ...current.conditions,
+          ...next.conditions
+        ],
+
+        weightedTotal:
+          current.weightedTotal +
+          next.weightedTotal,
+
+        weight:
+          current.weight +
+          next.weight
+      };
+
+      merged.average =
+        merged.weightedTotal /
+        merged.weight;
+
+      blocks.splice(
+        index,
+        2,
+        merged
+      );
+
+      if (index > 0) {
+        index -= 1;
+      }
+    } else {
+      index += 1;
+    }
+  }
+
+  blocks.forEach(block => {
+    const correctedRatio =
+      Number(block.average.toFixed(4));
+
+    block.conditions.forEach(condition => {
+      const originalRatio =
+        Number(
+          byCondition[condition][ratioField] || 0
+        );
+
+      byCondition[condition] = {
+        ...byCondition[condition],
+
+        [`raw${ratioField[0].toUpperCase()}${ratioField.slice(1)}`]:
+          originalRatio,
+
+        [ratioField]:
+          correctedRatio,
+
+        monotonicRatioCorrectionApplied:
+          Math.abs(
+            originalRatio - correctedRatio
+          ) > 0.0001
+      };
+    });
+  });
+
+  return byCondition;
+}
+
 function referenceAnchorPrice(referenceCard) {
   if (!referenceCard) return 0;
 
@@ -639,11 +906,21 @@ function trainStandardModel(
     }
   });
 
-  return {
-    modelType: "standard_market_anchor",
-    marketAnchorPrice: currentAnchor,
-    byCondition
-  };
+  /*
+ * Les ratios absolus condition / marché restent
+ * des observations statistiques brutes.
+ *
+ * On ne les force PAS à être monotones ici :
+ * NM/Trend et EX/Trend sont deux informations distinctes.
+ *
+ * La monotonie sera imposée plus tard sur les ratios
+ * relatifs NM -> EX -> GD -> etc. par le moteur bayésien.
+ */
+return {
+  modelType: "standard_market_anchor",
+  marketAnchorPrice: currentAnchor,
+  byCondition
+};
 }
 
 
@@ -668,8 +945,7 @@ function trainEditionRatioModel(
   const currentReferenceAnchor =
     referenceAnchorPrice(effectiveReferenceCard);
 
-  const referenceCardId =
-    Number(effectiveReferenceCard?.id || 0);
+
 
   const cardObs = observationsForCard(card, observations);
   const byCondition = {};
@@ -696,13 +972,13 @@ function trainEditionRatioModel(
          * correspondant à une carte de la base.
          */
         const historicalReferenceAnchor =
-          referenceCardId > 0
-            ? findHistoricalAnchor(
-                historicalAnchorsByCard,
-                referenceCardId,
-                date
-              )
-            : 0;
+    effectiveReferenceCard
+        ? findHistoricalAnchor(
+            historicalAnchorsByCard,
+            effectiveReferenceCard,
+            date
+        )
+        : 0;
 
         return {
           observedPrice,
@@ -781,31 +1057,31 @@ function trainEditionRatioModel(
   });
 
   return {
-    modelType: "edition_ratio",
+  modelType: "edition_ratio",
 
-    referenceFound: Boolean(
-      effectiveReferenceCard &&
-      currentReferenceAnchor > 0
-    ),
+  referenceFound: Boolean(
+    effectiveReferenceCard &&
+    currentReferenceAnchor > 0
+  ),
 
-    referenceMarketAnchorPrice:
-      currentReferenceAnchor,
+  referenceMarketAnchorPrice:
+    currentReferenceAnchor,
 
-    expectedReference:
-      catalogEntry.expectedReference || null,
+  expectedReference:
+    catalogEntry.expectedReference || null,
 
-    priceReferenceCard:
-      effectiveReferenceCard,
+  priceReferenceCard:
+    effectiveReferenceCard,
 
-    referenceSource:
-      catalogEntry.priceReferenceCard
-        ? "portfolio"
-        : trackedReferenceCard
-          ? "tracked_market_card"
-          : null,
+  referenceSource:
+    catalogEntry.priceReferenceCard
+      ? "portfolio"
+      : trackedReferenceCard
+        ? "tracked_market_card"
+        : null,
 
-    byCondition
-  };
+  byCondition
+};
 }
 
 function trainGlobalConditionModel(
@@ -908,15 +1184,56 @@ function trainGlobalConditionModel(
 }
 
 async function main() {
-  const cards = await getCards();
 
-  const historicalMarketPrices =
-    await getHistoricalMarketPrices();
+    const cards =
+        await getCards();
 
-  const historicalAnchorsByCard =
-    buildHistoricalAnchorsByCard(
-      historicalMarketPrices
+    const trackedCards =
+        readJson(
+            TRACKED_MARKET_CARDS_PATH,
+            []
+        );
+
+    const previousTrackedHistory =
+        readJson(
+            TRACKED_MARKET_HISTORY_PATH,
+            []
+        );
+
+    const trackedMarketHistory =
+        updateTrackedMarketHistory(
+            trackedCards,
+            previousTrackedHistory
+        );
+
+    fs.writeFileSync(
+        TRACKED_MARKET_HISTORY_PATH,
+        JSON.stringify(
+            trackedMarketHistory,
+            null,
+            2
+        )
     );
+
+
+    const historicalMarketPrices =
+        await getHistoricalMarketPrices();
+
+
+    /*
+     * Deux sources historiques :
+     *
+     * 1. cartes physiques de la collection
+     * 2. cartes de référence suivies automatiquement
+     *
+     * Elles utilisent ensuite exactement le même moteur
+     * cardKey + date.
+     */
+    const historicalAnchorsByCard =
+        buildHistoricalAnchorsByCard([
+            ...historicalMarketPrices,
+            ...trackedMarketHistory
+        ]);
 
   /*
    * Lecture du modèle généré la veille avant de l'écraser.
@@ -932,8 +1249,7 @@ async function main() {
   const referenceCatalog =
     readJson(REFERENCE_CATALOG_PATH, []);
 
-  const trackedCards =
-    readJson(TRACKED_MARKET_CARDS_PATH, []);
+
 
   const syntheticMarketAnchor =
     buildSyntheticMarketAnchor(cards);

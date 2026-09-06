@@ -292,6 +292,124 @@ function blendHierarchicalRatio({
 }
 
 /**
+ * Combine des ratios de NIVEAU par rapport au marché.
+ *
+ * Contrairement aux ratios de condition :
+ * - EX / NM doit rester <= 1
+ * - NM / Trend peut être < 1 ou > 1
+ *
+ * Exemple :
+ * Savannah NM / Trend = 1.35
+ */
+function blendHierarchicalLevelRatio({
+  cardRatio = null,
+  sameEditionValueRatio = null,
+  sameLanguageValueRatio = null,
+  valuePeerRatio = null,
+  globalRatio = 1,
+  weights = null
+}) {
+
+  const sourceWeights = weights || {
+    card: 0,
+    sameEditionValue: 0,
+    sameLanguageValue: 0,
+    valuePeer: 0,
+    global: 1
+  };
+
+  function safeLevelRatio(value) {
+    const ratio = number(value);
+
+    if (ratio <= 0) {
+      return null;
+    }
+
+    /*
+     * Protection uniquement contre une donnée manifestement
+     * aberrante. Contrairement aux ratios de condition,
+     * une valeur > 1 est parfaitement autorisée.
+     */
+    return clamp(
+      ratio,
+      0.10,
+      10
+    );
+  }
+
+  const fallbackGlobal =
+    safeLevelRatio(globalRatio) || 1;
+
+  const sources = [
+    {
+      value: safeLevelRatio(cardRatio),
+      weight: number(sourceWeights.card)
+    },
+    {
+      value:
+        safeLevelRatio(
+          sameEditionValueRatio
+        ),
+      weight:
+        number(
+          sourceWeights.sameEditionValue
+        )
+    },
+    {
+      value:
+        safeLevelRatio(
+          sameLanguageValueRatio
+        ),
+      weight:
+        number(
+          sourceWeights.sameLanguageValue
+        )
+    },
+    {
+      value:
+        safeLevelRatio(
+          valuePeerRatio
+        ),
+      weight:
+        number(sourceWeights.valuePeer)
+    },
+    {
+      value: fallbackGlobal,
+      weight: number(sourceWeights.global)
+    }
+  ];
+
+  const availableSources =
+    sources.filter(source =>
+      source.value !== null &&
+      source.value > 0 &&
+      source.weight > 0
+    );
+
+  const availableWeight =
+    availableSources.reduce(
+      (sum, source) =>
+        sum + source.weight,
+      0
+    );
+
+  if (availableWeight <= 0) {
+    return fallbackGlobal;
+  }
+
+  return availableSources.reduce(
+    (sum, source) =>
+      sum +
+      source.value *
+        (
+          source.weight /
+          availableWeight
+        ),
+    0
+  );
+}
+
+/**
  * Garantit :
  *
  * NM >= EX >= GD >= LP >= PL >= PO
@@ -632,6 +750,7 @@ module.exports = {
   evidenceStrength,
   getBayesianWeights,
   blendHierarchicalRatio,
+  blendHierarchicalLevelRatio,
   enforceMonotonicRatios,
   buildHierarchicalRatios,
   calculateObservationReliability,
