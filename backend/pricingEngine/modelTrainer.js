@@ -173,14 +173,19 @@ function getHistoricalMarketPrices() {
     db.all(
       `
       SELECT
-        cardId,
-        date,
-        trendPrice,
-        avgPrice,
-        lowPrice
-      FROM card_price_history
-      WHERE date IS NOT NULL
-      ORDER BY cardId, date, id
+        h.cardId,
+        h.date,
+        h.trendPrice,
+        h.avgPrice,
+        h.lowPrice,
+        c.NomCarte AS nomCarte,
+        c.Edition AS edition,
+        c.Langue AS langue
+      FROM card_price_history h
+      LEFT JOIN cards c
+        ON c.id = h.cardId
+      WHERE h.date IS NOT NULL
+      ORDER BY h.date, h.id
       `,
       [],
       (err, rows) => err ? reject(err) : resolve(rows)
@@ -213,28 +218,62 @@ function buildHistoricalAnchorsByCard(rows) {
   const anchorsByCard = new Map();
 
   rows.forEach(row => {
-    const cardId = Number(row.cardId);
+    const key = cardKey(row);
     const date = normalizeDate(row.date);
     const anchor = historicalMarketAnchorPrice(row);
 
-    if (!cardId || !date || anchor <= 0) {
+    if (
+      !key ||
+      !date ||
+      anchor <= 0
+    ) {
       return;
     }
 
-    if (!anchorsByCard.has(cardId)) {
-      anchorsByCard.set(cardId, []);
+    if (!anchorsByCard.has(key)) {
+      anchorsByCard.set(key, []);
     }
 
-    anchorsByCard.get(cardId).push({
+    anchorsByCard.get(key).push({
       date,
       anchor
     });
   });
 
-  anchorsByCard.forEach(anchors => {
-    anchors.sort((a, b) =>
-      String(a.date).localeCompare(String(b.date))
-    );
+  /*
+   * Plusieurs exemplaires du même printing peuvent avoir
+   * une ligne historique le même jour.
+   *
+   * On conserve une seule ancre par date.
+   */
+  anchorsByCard.forEach((anchors, key) => {
+    const byDate = new Map();
+
+    anchors.forEach(row => {
+      if (!byDate.has(row.date)) {
+        byDate.set(row.date, []);
+      }
+
+      byDate.get(row.date).push(
+        Number(row.anchor || 0)
+      );
+    });
+
+    const deduplicated = Array.from(
+      byDate.entries()
+    )
+      .map(([date, values]) => ({
+        date,
+        anchor: median(values)
+      }))
+      .filter(row => row.anchor > 0)
+      .sort((a, b) =>
+        String(a.date).localeCompare(
+          String(b.date)
+        )
+      );
+
+    anchorsByCard.set(key, deduplicated);
   });
 
   return anchorsByCard;
@@ -247,20 +286,35 @@ function buildHistoricalAnchorsByCard(rows) {
  */
 function findHistoricalAnchor(
   historicalAnchorsByCard,
-  cardId,
+  card,
   observationDate
 ) {
-  const normalizedDate = normalizeDate(observationDate);
-  const anchors =
-    historicalAnchorsByCard.get(Number(cardId)) || [];
+  const normalizedDate =
+    normalizeDate(observationDate);
 
-  if (!normalizedDate || !anchors.length) {
+  const key = cardKey(card);
+
+  const anchors =
+    historicalAnchorsByCard.get(key) || [];
+
+  if (
+    !normalizedDate ||
+    !anchors.length
+  ) {
     return 0;
   }
 
-  for (let index = anchors.length - 1; index >= 0; index -= 1) {
-    if (anchors[index].date <= normalizedDate) {
-      return Number(anchors[index].anchor || 0);
+  for (
+    let index = anchors.length - 1;
+    index >= 0;
+    index -= 1
+  ) {
+    if (
+      anchors[index].date <= normalizedDate
+    ) {
+      return Number(
+        anchors[index].anchor || 0
+      );
     }
   }
 
@@ -500,10 +554,12 @@ function trainStandardModel(
           Number(observation.observedMinPrice || 0);
 
         const historicalAnchor = findHistoricalAnchor(
-          historicalAnchorsByCard,
-          card.id,
-          date
-        );
+  historicalAnchorsByCard,
+  card,
+  date
+);
+
+
 
         return {
           observedPrice,
@@ -783,11 +839,11 @@ function trainGlobalConditionModel(
           Number(observation.observedMinPrice || 0);
 
         const historicalAnchor =
-          findHistoricalAnchor(
-            historicalAnchorsByCard,
-            card.id,
-            date
-          );
+  findHistoricalAnchor(
+    historicalAnchorsByCard,
+    card,
+    date
+  );
 
         if (
           observedPrice <= 0 ||

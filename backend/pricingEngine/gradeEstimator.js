@@ -1433,6 +1433,45 @@ estimatedByCondition[condition] =
         : null;
 });
 
+/*
+ * Sécurité finale :
+ * un état inférieur ne peut jamais être estimé
+ * plus cher qu'un état supérieur.
+ *
+ * NM >= EX >= GD >= LP >= PL >= PO
+ */
+for (let i = 1; i < CONDITIONS.length; i++) {
+
+    const betterCondition =
+        CONDITIONS[i - 1];
+
+    const currentCondition =
+        CONDITIONS[i];
+
+    const betterPrice =
+        Number(
+            estimatedByCondition[
+                betterCondition
+            ] || 0
+        );
+
+    const currentPrice =
+        Number(
+            estimatedByCondition[
+                currentCondition
+            ] || 0
+        );
+
+    if (
+        betterPrice > 0 &&
+        currentPrice > betterPrice
+    ) {
+        estimatedByCondition[
+            currentCondition
+        ] = betterPrice;
+    }
+}
+
 const buyTargetByCondition = {
         NM: estimatedByCondition.NM
             ? round(estimatedByCondition.NM * DEFAULT_BUY_DISCOUNTS.NM)
