@@ -736,29 +736,31 @@ function loadRandomCards() {
 
 
         /*
-         * Puis valeur de la carte.
-         */
+ * À score identique :
+ * priorité à la carte dont le dernier relevé
+ * est le plus ancien.
+ */
 
-        if (
-          b.priorityValue !==
-          a.priorityValue
-        ) {
-          return (
-            b.priorityValue -
-            a.priorityValue
-          );
-        }
+const ageA =
+  daysSinceLastObservation(a);
+
+const ageB =
+  daysSinceLastObservation(b);
+
+if (ageB !== ageA) {
+  return ageB - ageA;
+}
 
 
-        /*
-         * Puis ordre alphabétique,
-         * uniquement pour stabilité.
-         */
+/*
+ * Puis ordre alphabétique uniquement
+ * pour avoir un classement stable.
+ */
 
-        return `${a.nomCarte} ${a.edition} ${a.langue}`
-          .localeCompare(
-            `${b.nomCarte} ${b.edition} ${b.langue}`
-          );
+return `${a.nomCarte} ${a.edition} ${a.langue}`
+  .localeCompare(
+    `${b.nomCarte} ${b.edition} ${b.langue}`
+  );
       });
 
 
