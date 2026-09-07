@@ -447,13 +447,10 @@ function observedConditionsForCard(card) {
 
 
 function valuePriorityScore(value) {
-  if (value >= 500) return 85;
-  if (value >= 250) return 70;
-  if (value >= 100) return 55;
-  if (value >= 50) return 45;
-  if (value >= 20) return 35;
+  if (value >= 50) return 40;
+  if (value >= 20) return 30;
   if (value >= 5) return 20;
-  if (value >= 1) return 8;
+  if (value >= 2) return 10;
 
   return 0;
 }
@@ -565,16 +562,11 @@ function modelPriorityForCard(card) {
    * jamais être proposées à nouveau.
    */
   if (
-    observationCount > 0 &&
-    value < 0.20
-  ) {
-    score -= 100;
-  } else if (
-    observationCount > 0 &&
-    value < 1
-  ) {
-    score -= 50;
-  }
+  observationCount > 0 &&
+  value < 2
+) {
+  score -= 100;
+}
 
 
   return {
