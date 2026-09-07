@@ -108,14 +108,14 @@
 
     <br>
     <button onclick="addObservation()">Ajouter observation</button>
-<button onclick="loadRandomCards()">🎲 Charger 3 cartes au hasard</button>
+<button onclick="loadRandomCards()">🎯 Charger 3 cartes à observer</button>
   </div>
 <div class="admin-card">
-  <h2>1b. Saisie rapide aléatoire</h2>
-  <p class="muted">
-    Charge 3 cartes au hasard depuis le portefeuille et les cartes suivies.
-    Renseigne uniquement les états disponibles, puis enregistre les lignes utiles.
-  </p>
+  <h2>1b. Saisie rapide priorisée</h2>
+<p class="muted">
+  Priorité aux cartes sans observation, puis aux cartes pour lesquelles
+  un nouveau relevé améliorera le plus le modèle.
+</p>
 
   <div class="obs-table-wrapper">
     <table class="obs-table">
@@ -317,9 +317,7 @@ function saveSettings() {
 
 let randomCards = [];
 
-function shuffleArray(arr) {
-  return [...arr].sort(() => Math.random() - 0.5);
-}
+
 
 function observationCountForCard(card) {
   const key = cardKey(card);
@@ -342,31 +340,465 @@ function observationCountForCard(card) {
   return dates.size;
 }
 
+function observationsForCard(card) {
+  const key = cardKey(card);
+
+  return observations.filter(
+    obs => cardKey(obs) === key
+  );
+}
+
+
+function currentMarketValueForCard(card) {
+  const trend = Number(card.trendPrice || 0);
+
+  if (trend > 0) {
+    return trend;
+  }
+
+  const avg30 = Number(card.avg30 || 0);
+
+  if (avg30 > 0) {
+    return avg30;
+  }
+
+  const avg7 = Number(card.avg7 || 0);
+
+  if (avg7 > 0) {
+    return avg7;
+  }
+
+  const avg1 = Number(card.avg1 || 0);
+
+  if (avg1 > 0) {
+    return avg1;
+  }
+
+  return 0;
+}
+
+
+function lastObservationForCard(card) {
+  const cardObservations =
+    observationsForCard(card);
+
+  if (!cardObservations.length) {
+    return null;
+  }
+
+  return [...cardObservations].sort((a, b) => {
+    const dateA =
+      a.observationDate ||
+      a.date ||
+      a.createdAt ||
+      "";
+
+    const dateB =
+      b.observationDate ||
+      b.date ||
+      b.createdAt ||
+      "";
+
+    return String(dateB).localeCompare(
+      String(dateA)
+    );
+  })[0];
+}
+
+
+function daysSinceLastObservation(card) {
+  const last =
+    lastObservationForCard(card);
+
+  if (!last) {
+    return Infinity;
+  }
+
+  const rawDate =
+    last.observationDate ||
+    last.date ||
+    last.createdAt ||
+    "";
+
+  const date =
+    new Date(rawDate);
+
+  if (Number.isNaN(date.getTime())) {
+    return 0;
+  }
+
+  return Math.max(
+    0,
+    Math.floor(
+      (Date.now() - date.getTime()) /
+      (1000 * 60 * 60 * 24)
+    )
+  );
+}
+
+
+function observedConditionsForCard(card) {
+  return new Set(
+    observationsForCard(card)
+      .map(obs => obs.condition)
+      .filter(Boolean)
+  );
+}
+
+
+function valuePriorityScore(value) {
+  if (value >= 500) return 85;
+  if (value >= 250) return 70;
+  if (value >= 100) return 55;
+  if (value >= 50) return 45;
+  if (value >= 20) return 35;
+  if (value >= 5) return 20;
+  if (value >= 1) return 8;
+
+  return 0;
+}
+
+
+function modelPriorityForCard(card) {
+  const observationCount =
+    observationCountForCard(card);
+
+  const value =
+    currentMarketValueForCard(card);
+
+  const conditions =
+    observedConditionsForCard(card);
+
+  const age =
+    daysSinceLastObservation(card);
+
+  let score = 0;
+  const reasons = [];
+
+  /*
+   * VALEUR DE LA CARTE
+   */
+  const valueScore =
+    valuePriorityScore(value);
+
+  score += valueScore;
+
+  if (value >= 250) {
+    reasons.push(
+      `forte valeur (${value.toFixed(2)} €)`
+    );
+  } else if (value >= 50) {
+    reasons.push(
+      `valeur élevée (${value.toFixed(2)} €)`
+    );
+  } else if (value >= 20) {
+    reasons.push(
+      `valeur significative (${value.toFixed(2)} €)`
+    );
+  }
+
+
+  /*
+   * NOMBRE DE RELEVÉS
+   */
+  if (observationCount === 1) {
+    score += 40;
+    reasons.push("seulement 1 relevé");
+  } else if (observationCount === 2) {
+    score += 25;
+    reasons.push("seulement 2 relevés");
+  } else if (observationCount === 3) {
+    score += 10;
+    reasons.push("seulement 3 relevés");
+  }
+
+
+  /*
+   * CONDITIONS IMPORTANTES ABSENTES
+   */
+  if (!conditions.has("NM")) {
+    score += 20;
+    reasons.push("NM non observé");
+  }
+
+  if (!conditions.has("EX")) {
+    score += 10;
+    reasons.push("EX non observé");
+  }
+
+
+  /*
+   * ANCIENNETÉ DU DERNIER RELEVÉ
+   */
+  if (
+    Number.isFinite(age) &&
+    age > 180
+  ) {
+    score += 30;
+    reasons.push(
+      `dernier relevé il y a ${age} jours`
+    );
+  } else if (
+    Number.isFinite(age) &&
+    age > 90
+  ) {
+    score += 20;
+    reasons.push(
+      `dernier relevé il y a ${age} jours`
+    );
+  } else if (
+    Number.isFinite(age) &&
+    age > 30
+  ) {
+    score += 10;
+    reasons.push(
+      `dernier relevé il y a ${age} jours`
+    );
+  }
+
+
+  /*
+   * CARTES DE TRÈS FAIBLE VALEUR
+   *
+   * Elles doivent avoir une première observation,
+   * mais ensuite elles ne doivent pratiquement
+   * jamais être proposées à nouveau.
+   */
+  if (
+    observationCount > 0 &&
+    value < 0.20
+  ) {
+    score -= 100;
+  } else if (
+    observationCount > 0 &&
+    value < 1
+  ) {
+    score -= 50;
+  }
+
+
+  return {
+    score,
+    value,
+    reasons
+  };
+}
+
 function loadRandomCards() {
   if (!allSelectableCards.length) {
-    log("Erreur : charge d'abord les données et le portefeuille.");
+    log(
+      "Erreur : charge d'abord les données et le portefeuille."
+    );
     return;
   }
 
-  const cardsWithCounts = allSelectableCards.map(card => ({
-    ...card,
-    observationCount: observationCountForCard(card)
-  }));
 
-  const minCount = Math.min(...cardsWithCounts.map(card => card.observationCount));
+  const cardsWithCounts =
+    allSelectableCards.map(card => ({
+      ...card,
+      observationCount:
+        observationCountForCard(card),
+      marketValue:
+        currentMarketValueForCard(card)
+    }));
 
-  const leastDocumentedCards = cardsWithCounts.filter(
-    card => card.observationCount === minCount
-  );
 
-  randomCards = shuffleArray(leastDocumentedCards).slice(0, 3);
+  /*
+   * ==================================================
+   * PRIORITÉ 1
+   * CARTES AVEC 0 OBSERVATION
+   * ==================================================
+   *
+   * Toutes les cartes doivent à terme avoir
+   * au moins un relevé.
+   *
+   * Pas d'aléatoire :
+   * on commence par les plus chères.
+   */
+
+  const zeroObservationCards =
+    cardsWithCounts
+      .filter(
+        card =>
+          card.observationCount === 0
+      )
+      .sort((a, b) => {
+
+        if (
+          b.marketValue !==
+          a.marketValue
+        ) {
+          return (
+            b.marketValue -
+            a.marketValue
+          );
+        }
+
+        return `${a.nomCarte} ${a.edition} ${a.langue}`
+          .localeCompare(
+            `${b.nomCarte} ${b.edition} ${b.langue}`
+          );
+      });
+
+
+  /*
+   * S'il existe au moins 3 cartes sans
+   * observation, elles prennent les
+   * trois places.
+   */
+
+  if (zeroObservationCards.length >= 3) {
+
+    randomCards =
+      zeroObservationCards
+        .slice(0, 3)
+        .map(card => ({
+          ...card,
+
+          priorityScore: null,
+
+          selectionReason:
+            card.marketValue > 0
+              ? `Première observation · valeur ${card.marketValue.toFixed(2)} €`
+              : "Première observation"
+        }));
+
+
+    renderRandomCards();
+
+
+    log(
+      `${zeroObservationCards.length} carte(s) sont encore sans observation. ` +
+      `Les 3 plus chères sont proposées.`
+    );
+
+    return;
+  }
+
+
+  /*
+   * ==================================================
+   * PRIORITÉ 2
+   * CARTES DÉJÀ OBSERVÉES
+   * ==================================================
+   */
+
+  const selectedZero =
+    zeroObservationCards.map(card => ({
+      ...card,
+
+      priorityScore: null,
+
+      selectionReason:
+        card.marketValue > 0
+          ? `Première observation · valeur ${card.marketValue.toFixed(2)} €`
+          : "Première observation"
+    }));
+
+
+  const remainingSlots =
+    3 - selectedZero.length;
+
+
+  const alreadyObserved =
+    cardsWithCounts
+      .filter(
+        card =>
+          card.observationCount > 0
+      )
+      .map(card => {
+
+        const priority =
+          modelPriorityForCard(card);
+
+        return {
+          ...card,
+
+          priorityScore:
+            priority.score,
+
+          priorityValue:
+            priority.value,
+
+          selectionReason:
+            priority.reasons.length
+              ? priority.reasons.join(" · ")
+              : "Réobservation utile au modèle"
+        };
+      })
+      .sort((a, b) => {
+
+        /*
+         * Score modèle en premier.
+         */
+
+        if (
+          b.priorityScore !==
+          a.priorityScore
+        ) {
+          return (
+            b.priorityScore -
+            a.priorityScore
+          );
+        }
+
+
+        /*
+         * Puis valeur de la carte.
+         */
+
+        if (
+          b.priorityValue !==
+          a.priorityValue
+        ) {
+          return (
+            b.priorityValue -
+            a.priorityValue
+          );
+        }
+
+
+        /*
+         * Puis ordre alphabétique,
+         * uniquement pour stabilité.
+         */
+
+        return `${a.nomCarte} ${a.edition} ${a.langue}`
+          .localeCompare(
+            `${b.nomCarte} ${b.edition} ${b.langue}`
+          );
+      });
+
+
+  randomCards = [
+    ...selectedZero,
+
+    ...alreadyObserved.slice(
+      0,
+      remainingSlots
+    )
+  ];
+
 
   renderRandomCards();
 
-  log(
-    `${randomCards.length} carte(s) chargée(s) parmi celles ayant le moins d'observations (${minCount}).`
-  );
+
+  if (selectedZero.length > 0) {
+
+    log(
+      `${selectedZero.length} carte(s) sans observation + ` +
+      `${remainingSlots} carte(s) prioritaires pour le modèle.`
+    );
+
+  } else {
+
+    log(
+      "Toutes les cartes ont au moins une observation. " +
+      "Les 3 cartes les plus utiles au modèle sont proposées."
+    );
+  }
 }
+
 
 function renderRandomCards() {
   const tbody = $("randomCardsBody");
@@ -384,7 +816,25 @@ function renderRandomCards() {
         <td>${card.edition || "-"}</td>
         <td>
   ${card.langue || "-"}
-  <div class="muted">${card.observationCount || 0} obs.</div>
+
+  <div class="muted">
+    ${card.observationCount || 0} relevé(s)
+  </div>
+
+  <div class="muted">
+    ${card.selectionReason || ""}
+  </div>
+
+  ${
+    card.priorityScore !== null &&
+    card.priorityScore !== undefined
+      ? `
+        <div class="muted">
+          Score priorité : ${card.priorityScore}
+        </div>
+      `
+      : ""
+  }
 </td>
         <td><input class="random-price" id="random-${index}-PO" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
 <td><input class="random-price" id="random-${index}-PL" type="number" step="0.01" oninput="validateRandomRow(${index})"></td>
