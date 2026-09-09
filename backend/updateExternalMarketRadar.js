@@ -15,6 +15,10 @@ const HISTORY_PATH = path.join(
     "data",
     "external-market-history.json"
 );
+const REBUILD_ONLY =
+    process.argv.includes(
+        "--rebuild-only"
+    );
 
 const HORIZONS = [14, 30, 60, 90];
 
@@ -2114,6 +2118,24 @@ async function main() {
 
     history.cards ||= {};
 
+    let fx =
+    Number(
+        history.usdEur
+    );
+
+if (
+    !Number.isFinite(fx) ||
+    fx <= 0
+) {
+    fx = null;
+}
+
+let mappedCardmarket =
+    0;
+
+let mappedTcg =
+    0;
+
         /*
      * Migration AVG1 -> Trend.
      *
@@ -2156,7 +2178,7 @@ async function main() {
         `Marchés externes : ${printings.length} impressions à traiter`
     );
 
-
+if (!REBUILD_ONLY) {
     const [
         productsJson,
         pricesJson,
@@ -2235,7 +2257,7 @@ const firstBackfill =
         );
 
 
-    const fx =
+    fx =
         Number(
             fxJson?.rate ||
             fxJson?.rates?.EUR ||
@@ -2249,8 +2271,8 @@ const firstBackfill =
             .slice(0, 10);
 
 
-    let mappedCardmarket = 0;
-    let mappedTcg = 0;
+mappedCardmarket = 0;
+mappedTcg = 0;
 
 
     for (const printing of printings) {
@@ -2443,6 +2465,32 @@ writeJson(
     HISTORY_PATH,
     history
 );
+} else {
+
+    console.log(
+        "Radar : reconstruction depuis l'historique externe existant."
+    );
+
+    mappedCardmarket =
+        printings.filter(
+            printing =>
+                (
+                    history.cards[
+                        keyOf(printing)
+                    ]?.cardmarket || []
+                ).length > 0
+        ).length;
+
+    mappedTcg =
+        printings.filter(
+            printing =>
+                (
+                    history.cards[
+                        keyOf(printing)
+                    ]?.tcg || []
+                ).length > 0
+        ).length;
+}
 
 
 /*
@@ -2883,8 +2931,13 @@ if (
     radar.externalMarkets = {
 
         updatedAt:
-            new Date()
-                .toISOString(),
+    REBUILD_ONLY
+        ? (
+            history.updatedAt ||
+            null
+        )
+        : new Date()
+            .toISOString(),
 
         usdEur:
             history.usdEur,

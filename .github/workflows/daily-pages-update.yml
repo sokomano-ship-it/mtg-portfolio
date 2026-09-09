@@ -94,7 +94,6 @@ jobs:
           git add frontend/data/investment-analysis.json
           git add frontend/data/portfolio-inventory.json
           git add frontend/data/price-history-analysis.json
-          git add frontend/data/radar.json
           git add frontend/data/alerts-history.json
 
           git diff --cached --quiet || git commit -m "Daily portfolio update"
@@ -107,13 +106,18 @@ jobs:
         if: github.event_name == 'push'
         run: node backend/exportPortfolioJson.js
 
-
-
       - name: Rebuild tracked history from Turso
         run: node backend/exportTrackedHistoryFromTurso.js
 
       - name: Rebuild external market history from Turso
         run: node backend/exportExternalHistoryFromTurso.js
+
+      - name: Rebuild radar base for push deployment
+        if: github.event_name == 'push'
+        run: node backend/analyzeEstimatedPriceLaboratory.js
+
+      - name: Rebuild radar external enrichment
+        run: node backend/updateExternalMarketRadar.js --rebuild-only
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
