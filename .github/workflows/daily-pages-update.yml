@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Rebuild estimated price history from Turso
+        run: node backend/exportEstimatedPriceHistoryFromTurso.js
+
       - name: Sync observations from Turso
         if: github.event_name != 'push'
         run: node backend/syncMarketDataFromTurso.js
@@ -46,7 +49,7 @@ jobs:
       - name: Rebuild price history from Turso
         if: github.event_name != 'push'
         run: node backend/exportPriceHistorySnapshotsFromTurso.js
-        
+
       - name: Build portfolio
         if: github.event_name != 'push'
         run: npm run build:pages
@@ -91,7 +94,6 @@ jobs:
           git add frontend/data/investment-analysis.json
           git add frontend/data/portfolio-inventory.json
           git add frontend/data/price-history-analysis.json
-          git add frontend/data/estimated-price-history.json
           git add frontend/data/radar.json
           git add frontend/data/alerts-history.json
 
@@ -104,6 +106,8 @@ jobs:
       - name: Generate frontend files for push deployment
         if: github.event_name == 'push'
         run: node backend/exportPortfolioJson.js
+
+
 
       - name: Rebuild tracked history from Turso
         run: node backend/exportTrackedHistoryFromTurso.js
