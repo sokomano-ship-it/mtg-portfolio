@@ -164,6 +164,39 @@ async function main() {
         )
     `);
 
+    await db.execute(`
+    CREATE TABLE IF NOT EXISTS price_history_snapshots (
+        snapshot_key TEXT PRIMARY KEY,
+
+        cardmarket_id TEXT NOT NULL,
+        date TEXT NOT NULL,
+
+        nom_carte TEXT NOT NULL,
+        edition TEXT NOT NULL,
+        version TEXT NOT NULL,
+        langue TEXT NOT NULL,
+
+        trend_price REAL,
+        avg_1 REAL,
+        avg_7 REAL,
+        avg_30 REAL,
+        low_price REAL,
+        avg_price REAL,
+
+        snapshot_json TEXT
+    )
+`);
+
+await db.execute(`
+    CREATE INDEX IF NOT EXISTS idx_price_history_snapshots_date
+    ON price_history_snapshots(date)
+`);
+
+await db.execute(`
+    CREATE INDEX IF NOT EXISTS idx_price_history_snapshots_cardmarket
+    ON price_history_snapshots(cardmarket_id)
+`);
+
     console.log("");
     console.log("✅ Tables Turso créées/vérifiées :");
     console.log("   estimated_price_history");
