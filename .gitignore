@@ -25,3 +25,7 @@ frontend/data/estimated-price-history.json
 frontend/data/estimated-price-history.before-turso.json
 frontend/data/radar.json
 frontend/data/radar.before-rebuild.json
+# SQLite working databases - canonical storage is Turso
+database/portfolio.db
+database/portfolio.from-turso.db
+database/portfolio.before-turso.db
