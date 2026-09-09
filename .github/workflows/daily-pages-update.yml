@@ -82,7 +82,7 @@ jobs:
           git add frontend/data/cards.json
           git add frontend/data/watchlist.json
           git add frontend/data/opportunities.json
-          git add frontend/data/card-details.json
+          
           git add frontend/data/portfolio-summary.json
           git add frontend/data/portfolio-history.json
           git add frontend/data/category-summary.json
@@ -102,7 +102,7 @@ jobs:
 
       - name: Push
         if: github.event_name != 'push'
-        run: git push || echo "Nothing to push"
+        run: git push
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
