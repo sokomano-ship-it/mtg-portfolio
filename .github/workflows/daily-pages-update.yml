@@ -21,6 +21,9 @@ concurrency:
 jobs:
   update-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+      TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -39,16 +42,12 @@ jobs:
       - name: Sync observations from Turso
         if: github.event_name != 'push'
         run: node backend/syncMarketDataFromTurso.js
-        env:
-          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
-          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+
 
       - name: Build portfolio
         if: github.event_name != 'push'
         run: npm run build:pages
-        env:
-          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
-          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+
 
       - name: Update external market radar
         if: github.event_name != 'push'
