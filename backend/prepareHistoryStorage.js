@@ -70,6 +70,7 @@ async function main() {
 
             confidence REAL,
             grade_model_source TEXT,
+            snapshot_json TEXT,
 
             PRIMARY KEY (tracked_id, date)
         )
@@ -91,6 +92,16 @@ async function main() {
             ADD COLUMN grade_model_source TEXT
         `);
     }
+    if (!trackedColumns.has("snapshot_json")) {
+    console.log(
+        "Ajout colonne tracked_price_history.snapshot_json..."
+    );
+
+    await db.execute(`
+        ALTER TABLE tracked_price_history
+        ADD COLUMN snapshot_json TEXT
+    `);
+}
 
     await db.execute(`
         CREATE INDEX IF NOT EXISTS idx_tracked_price_history_date

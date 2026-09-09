@@ -1,5 +1,7 @@
 const fs = require("fs");
 const path = require("path");
+const turso = require("./turso");
+
 const db = require("./database");
 const { calculateEtatPrice } = require("./conditionPricing");
 const { buildNmOpportunities } = require("./opportunityScoring");
@@ -891,41 +893,59 @@ function attachObservedMarketData(
     };
 }
 
-function saveTrackedPriceHistory(watchlistCards) {
+async function saveTrackedPriceHistory(watchlistCards) {
     const history = fs.existsSync(TRACKED_PRICE_HISTORY_PATH)
-        ? JSON.parse(fs.readFileSync(TRACKED_PRICE_HISTORY_PATH, "utf8"))
+        ? JSON.parse(
+            fs.readFileSync(
+                TRACKED_PRICE_HISTORY_PATH,
+                "utf8"
+            )
+        )
         : [];
 
-    const today = new Date().toISOString().slice(0, 10);
+    const today =
+        new Date()
+            .toISOString()
+            .slice(0, 10);
 
-    const existingKeys = new Set(
-        history.map(row =>
-            `${row.date}|${row.nomCarte}|${row.edition}|${row.langue}`
-        )
-    );
+    const existingKeys =
+        new Set(
+            history.map(row =>
+                `${row.date}|${row.nomCarte}|${row.edition}|${row.langue}`
+            )
+        );
 
     let trackedSavedCount = 0;
 
+    const tursoStatements = [];
+
     for (const card of watchlistCards) {
 
-    // L'historique tracked ne contient que les cartes
-    // suivies hors collection.
-    if (
-        card.owned === true ||
-        Number(card.quantityOwned || 0) > 0
-    ) {
-        continue;
-    }
+        /*
+         * L'historique tracked ne contient que
+         * les cartes suivies hors collection.
+         */
+        if (
+            card.owned === true ||
+            Number(card.quantityOwned || 0) > 0
+        ) {
+            continue;
+        }
 
-    const trendPrice = Number(card.trendPrice || 0);
+        const trendPrice =
+            Number(card.trendPrice || 0);
 
         const estimatedNmPrice =
-            Number(card.estimatedByCondition?.NM) ||
+            Number(
+                card.estimatedByCondition?.NM
+            ) ||
             Number(card.estimatedPrice) ||
             trendPrice;
 
         const estimatedExPrice =
-            Number(card.estimatedByCondition?.EX) ||
+            Number(
+                card.estimatedByCondition?.EX
+            ) ||
             estimatedNmPrice * 0.85;
 
         if (!estimatedNmPrice) {
@@ -938,41 +958,209 @@ function saveTrackedPriceHistory(watchlistCards) {
             trackedId: card.id,
             nomCarte: card.nomCarte,
             edition: card.edition,
-            version: card.version || null,
+            version:
+                card.version || null,
             langue: card.langue,
 
             owned: false,
 
             estimatedByCondition: {
-                NM: Number(estimatedNmPrice.toFixed(2)),
-                EX: Number(estimatedExPrice.toFixed(2))
+                NM:
+                    Number(
+                        estimatedNmPrice.toFixed(2)
+                    ),
+
+                EX:
+                    Number(
+                        estimatedExPrice.toFixed(2)
+                    )
             },
 
-            trendPrice: trendPrice
-                ? Number(trendPrice.toFixed(2))
-                : null,
+            trendPrice:
+                trendPrice
+                    ? Number(
+                        trendPrice.toFixed(2)
+                    )
+                    : null,
 
-            avg1: Number(card.avg1 || 0) || null,
-            avg7: Number(card.avg7 || 0) || null,
-            avg30: Number(card.avg30 || 0) || null,
+            avg1:
+                Number(card.avg1 || 0) ||
+                null,
+
+            avg7:
+                Number(card.avg7 || 0) ||
+                null,
+
+            avg30:
+                Number(card.avg30 || 0) ||
+                null,
 
             gradeModelConfidence:
-                card.gradeModelConfidence ?? null,
+                card.gradeModelConfidence ??
+                null,
 
             gradeModelSource:
-                card.gradeModelSource || null
+                card.gradeModelSource ||
+                null
         };
+
+        /*
+         * ====================================================
+         * TURSO
+         * ====================================================
+         *
+         * Turso est le stockage historique durable.
+         *
+         * La clé primaire :
+         *
+         *     tracked_id + date
+         *
+         * permet de relancer plusieurs fois le workflow
+         * le même jour sans créer de doublon.
+         */
+
+        if (
+            row.trackedId !== null &&
+            row.trackedId !== undefined
+        ) {
+            tursoStatements.push({
+                sql: `
+                    INSERT INTO tracked_price_history (
+                        tracked_id,
+                        date,
+
+                        price_nm,
+                        price_ex,
+                        price_gd,
+                        price_lp,
+                        price_pl,
+                        price_po,
+
+                        trend_price,
+                        avg_1,
+                        avg_7,
+                        avg_30,
+
+                        confidence,
+                        grade_model_source,
+                        snapshot_json
+                    )
+                    VALUES (
+                        ?, ?,
+                        ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?,
+                        ?, ?, ?
+                    )
+
+                    ON CONFLICT(
+                        tracked_id,
+                        date
+                    )
+                    DO UPDATE SET
+                        price_nm =
+                            excluded.price_nm,
+
+                        price_ex =
+                            excluded.price_ex,
+
+                        price_gd =
+                            excluded.price_gd,
+
+                        price_lp =
+                            excluded.price_lp,
+
+                        price_pl =
+                            excluded.price_pl,
+
+                        price_po =
+                            excluded.price_po,
+
+                        trend_price =
+                            excluded.trend_price,
+
+                        avg_1 =
+                            excluded.avg_1,
+
+                        avg_7 =
+                            excluded.avg_7,
+
+                        avg_30 =
+                            excluded.avg_30,
+
+                        confidence =
+                            excluded.confidence,
+
+                        grade_model_source =
+    excluded.grade_model_source,
+
+snapshot_json =
+    excluded.snapshot_json
+                `,
+
+                args: [
+                    String(row.trackedId),
+                    row.date,
+
+                    row.estimatedByCondition?.NM ??
+                        null,
+
+                    row.estimatedByCondition?.EX ??
+                        null,
+
+                    row.estimatedByCondition?.GD ??
+                        null,
+
+                    row.estimatedByCondition?.LP ??
+                        null,
+
+                    row.estimatedByCondition?.PL ??
+                        null,
+
+                    row.estimatedByCondition?.PO ??
+                        null,
+
+                    row.trendPrice ??
+                        null,
+
+                    row.avg1 ??
+                        null,
+
+                    row.avg7 ??
+                        null,
+
+                    row.avg30 ??
+                        null,
+
+                    row.gradeModelConfidence ??
+                        null,
+
+                    row.gradeModelSource ??
+                        null,
+
+JSON.stringify(row)
+                ]
+            });
+        }
+
+        /*
+         * ====================================================
+         * JSON FRONTEND
+         * ====================================================
+         */
 
         const key =
             `${row.date}|${row.nomCarte}|${row.edition}|${row.langue}`;
 
-                if (!existingKeys.has(key)) {
+        if (!existingKeys.has(key)) {
             history.push(row);
+
             existingKeys.add(key);
         } else {
-            const index = history.findIndex(existing =>
-                `${existing.date}|${existing.nomCarte}|${existing.edition}|${existing.langue}` === key
-            );
+            const index =
+                history.findIndex(existing =>
+                    `${existing.date}|${existing.nomCarte}|${existing.edition}|${existing.langue}` ===
+                    key
+                );
 
             if (index >= 0) {
                 history[index] = row;
@@ -981,28 +1169,80 @@ function saveTrackedPriceHistory(watchlistCards) {
 
         trackedSavedCount += 1;
     }
+
+    /*
+     * ========================================================
+     * ECRITURE TURSO
+     * ========================================================
+     *
+     * IMPORTANT :
+     * le JSON n'est écrit qu'après succès de Turso.
+     */
+
+    const BATCH_SIZE = 100;
+
+    for (
+        let i = 0;
+        i < tursoStatements.length;
+        i += BATCH_SIZE
+    ) {
+        const batch =
+            tursoStatements.slice(
+                i,
+                i + BATCH_SIZE
+            );
+
+        await turso.batch(
+            batch,
+            "write"
+        );
+    }
+
+    console.log(
+        `Turso tracked history : ${tursoStatements.length} ligne(s) sauvegardée(s) pour ${today}`
+    );
+
+    /*
+     * ========================================================
+     * JSON FRONTEND
+     * ========================================================
+     */
+
     history.sort((a, b) => {
         const dateCompare =
-            String(a.date).localeCompare(String(b.date));
+            String(a.date)
+                .localeCompare(
+                    String(b.date)
+                );
 
         if (dateCompare !== 0) {
             return dateCompare;
         }
 
-        return `${a.nomCarte}|${a.edition}|${a.langue}`
-            .localeCompare(
-                `${b.nomCarte}|${b.edition}|${b.langue}`
-            );
+        return (
+            `${a.nomCarte}|${a.edition}|${a.langue}`
+                .localeCompare(
+                    `${b.nomCarte}|${b.edition}|${b.langue}`
+                )
+        );
     });
 
     fs.mkdirSync(
-        path.dirname(TRACKED_PRICE_HISTORY_PATH),
-        { recursive: true }
+        path.dirname(
+            TRACKED_PRICE_HISTORY_PATH
+        ),
+        {
+            recursive: true
+        }
     );
 
     fs.writeFileSync(
         TRACKED_PRICE_HISTORY_PATH,
-        JSON.stringify(history, null, 2),
+        JSON.stringify(
+            history,
+            null,
+            2
+        ),
         "utf8"
     );
 
@@ -1799,7 +2039,7 @@ const watchlistCards =
     );
 
 
-saveTrackedPriceHistory(
+await saveTrackedPriceHistory(
     watchlistCards
 );
 

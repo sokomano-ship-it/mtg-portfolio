@@ -88,11 +88,9 @@ jobs:
           git add frontend/data/top-movers.json
           git add frontend/data/investment-analysis.json
           git add frontend/data/portfolio-inventory.json
-
           git add frontend/data/price-history-snapshots.json
           git add frontend/data/price-history-analysis.json
           git add frontend/data/estimated-price-history.json
-          git add frontend/data/tracked-price-history.json
           git add frontend/data/radar.json
           git add frontend/data/external-market-history.json
           git add frontend/data/alerts-history.json
@@ -106,6 +104,9 @@ jobs:
       - name: Generate frontend files for push deployment
         if: github.event_name == 'push'
         run: node backend/exportPortfolioJson.js
+
+      - name: Rebuild tracked history from Turso
+        run: node backend/exportTrackedHistoryFromTurso.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
