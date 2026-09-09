@@ -42,14 +42,79 @@ window.apiAdapter = {
     },
 
     async getCardDetails() {
-        const data = await fetchJson("data/card-details.json");
-        return data.cardDetails || {};
-    },
+    const data = await fetchJson("data/card-details.json");
+    return data.cardDetails || {};
+},
 
-    async getCardDetail(cardId) {
-        const details = await this.getCardDetails();
-        return details[String(cardId)];
-    },
+async getEstimatedPriceHistory() {
+    if (!this._estimatedPriceHistory) {
+        this._estimatedPriceHistory =
+            await fetchJson("data/estimated-price-history.json");
+    }
+
+    return Array.isArray(this._estimatedPriceHistory)
+        ? this._estimatedPriceHistory
+        : [];
+},
+
+async getCardDetail(cardId) {
+
+    const [detail, estimatedPriceHistory] =
+        await Promise.all([
+            fetchJson(
+                `data/card-details/${encodeURIComponent(cardId)}.json`
+            ),
+            this.getEstimatedPriceHistory()
+        ]);
+
+    if (!detail) {
+        return null;
+    }
+
+    const card =
+        detail.card || {};
+
+    const condition =
+        String(card.etat || "NM").toUpperCase();
+
+    const estimatedHistory =
+        estimatedPriceHistory
+            .filter(row =>
+                String(row.cardId) === String(cardId)
+            )
+            .map(row => {
+
+                const estimatedByCondition =
+                    row.estimatedByCondition &&
+                    typeof row.estimatedByCondition === "object"
+                        ? row.estimatedByCondition
+                        : null;
+
+                const estimatedConditionPrice =
+                    estimatedByCondition?.[condition] ??
+                    row.estimatedPrice ??
+                    null;
+
+                return {
+                    ...row,
+                    etat: card.etat,
+                    estimatedByCondition,
+                    estimatedConditionPrice,
+                    estimatedPrice:
+                        estimatedConditionPrice
+                };
+            })
+            .sort((a, b) =>
+                String(a.date).localeCompare(
+                    String(b.date)
+                )
+            );
+
+    return {
+        ...detail,
+        estimatedHistory
+    };
+},
 
     async getPortfolioSummary() {
         const data = await fetchJson("data/portfolio-summary.json");

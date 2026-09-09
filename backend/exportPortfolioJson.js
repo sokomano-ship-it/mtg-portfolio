@@ -25,6 +25,11 @@ const TRACKED_PRICE_HISTORY_PATH = path.join(
     "tracked-price-history.json"
 );
 
+const cardDetailsDir = path.join(
+    outputDir,
+    "card-details"
+);
+
 
 const splitOutputFiles = {
     cards: path.join(outputDir, "cards.json"),
@@ -565,26 +570,21 @@ scryfallUri: card.scryfallUri || null,
                 perf365d: d365.performance,
 
                 confidence:
-                    latestSnapshot?.gradeModelConfidence ??
-                    latestSnapshot?.confidence ??
-                    card.gradeModelConfidence ??
-                    card.pricingConfidence ??
-                    null,
+    card.gradeModelConfidence ??
+    card.pricingConfidence ??
+    null,
 
-                observationDaysCount:
-                    latestSnapshot?.observationDaysCount ??
-                    card.observationDaysCount ??
-                    0,
+observationDaysCount:
+    card.observationDaysCount ??
+    0,
 
-                pricingModel:
-                    latestSnapshot?.pricingModel ??
-                    card.pricingModel ??
-                    null,
+pricingModel:
+    card.pricingModel ??
+    null,
 
-                gradeModelSource:
-                    latestSnapshot?.gradeModelSource ??
-                    card.gradeModelSource ??
-                    null
+gradeModelSource:
+    card.gradeModelSource ??
+    null
             };
         })
         .sort((a, b) => {
@@ -1858,7 +1858,22 @@ const opportunities =
                 null
         };
     });
-    const cardDetails = {};
+    fs.rmSync(
+    cardDetailsDir,
+    {
+        recursive: true,
+        force: true
+    }
+);
+
+fs.mkdirSync(
+    cardDetailsDir,
+    {
+        recursive: true
+    }
+);
+
+const cardDetailsIndex = {};
 
     function buildEstimatedHistoryForCard(card, estimatedPriceHistory) {
     const condition = String(card.etat || "").toUpperCase();
@@ -1951,20 +1966,33 @@ const opportunities =
     );
 }
 
-        const estimatedHistory = buildEstimatedHistoryForCard(card, estimatedPriceHistory);
+     const cardDetail = {
+    card,
+    history,
+    performance: {
+        perf7d: perf(7),
+        perf30d: perf(30),
+        perf90d: perf(90),
+        perf180d: perf(180),
+        perf365d: perf(365)
+    }
+};
 
-        cardDetails[String(card.id)] = {
-            card,
-            history,
-            estimatedHistory,
-            performance: {
-                perf7d: perf(7),
-                perf30d: perf(30),
-                perf90d: perf(90),
-                perf180d: perf(180),
-                perf365d: perf(365)
-            }
-        };
+writeJson(
+    path.join(
+        cardDetailsDir,
+        `${card.id}.json`
+    ),
+    cardDetail
+);
+
+/*
+ * Le fichier card-details.json devient uniquement
+ * un index léger des cartes disponibles.
+ */
+cardDetailsIndex[String(card.id)] = {
+    id: card.id
+};
     }
 
     fs.mkdirSync(outputDir, { recursive: true });
@@ -1997,7 +2025,7 @@ writeJson(splitOutputFiles.opportunities, {
 
 writeJson(splitOutputFiles.cardDetails, {
     generatedAt,
-    cardDetails
+    cardDetails: cardDetailsIndex
 });
 
 writeJson(splitOutputFiles.portfolioSummary, {

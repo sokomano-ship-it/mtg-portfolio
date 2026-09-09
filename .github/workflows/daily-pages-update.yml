@@ -34,7 +34,6 @@ jobs:
           node-version: 24
 
       - name: Install dependencies
-        if: github.event_name != 'push'
         run: npm install
 
       - name: Sync observations from Turso
@@ -103,6 +102,10 @@ jobs:
       - name: Push
         if: github.event_name != 'push'
         run: git push
+
+      - name: Generate frontend files for push deployment
+        if: github.event_name == 'push'
+        run: node backend/exportPortfolioJson.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
