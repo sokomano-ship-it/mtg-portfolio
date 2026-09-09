@@ -91,7 +91,6 @@ jobs:
           git add frontend/data/price-history-analysis.json
           git add frontend/data/estimated-price-history.json
           git add frontend/data/radar.json
-          git add frontend/data/external-market-history.json
           git add frontend/data/alerts-history.json
 
           git diff --cached --quiet || git commit -m "Daily portfolio update"
@@ -106,6 +105,9 @@ jobs:
 
       - name: Rebuild tracked history from Turso
         run: node backend/exportTrackedHistoryFromTurso.js
+
+      - name: Rebuild external market history from Turso
+        run: node backend/exportExternalHistoryFromTurso.js
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

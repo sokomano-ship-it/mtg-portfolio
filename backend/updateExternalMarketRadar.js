@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const https = require("https");
 const zlib = require("zlib");
+const db = require("./turso");
 const { parser } = require("stream-json");
 const { pick } = require("stream-json/filters/pick.js");
 const { streamObject } = require("stream-json/streamers/stream-object.js");
@@ -214,6 +215,449 @@ function writeJson(file, value) {
         file,
         JSON.stringify(value, null, 2),
         "utf8"
+    );
+}
+
+async function loadExternalHistoryFromTurso() {
+
+    const history = {
+        version: 1,
+        cards: {},
+        tcgBackfillCompleted: false,
+        updatedAt: null,
+        usdEur: null,
+        cardmarketMetric: null,
+        cardmarketTrendBackfillCompleted: false
+    };
+
+
+    const cardResult =
+        await db.execute(`
+            SELECT
+                card_key,
+                nom_carte,
+                edition,
+                langue,
+                mapping_json,
+                cardmarket_current_json
+            FROM external_market_cards
+            ORDER BY card_key
+        `);
+
+
+    for (const row of cardResult.rows) {
+
+        history.cards[row.card_key] = {
+            nomCarte:
+                row.nom_carte,
+
+            edition:
+                row.edition,
+
+            langue:
+                row.langue,
+
+            mapping:
+                row.mapping_json
+                    ? JSON.parse(
+                        row.mapping_json
+                    )
+                    : null,
+
+            cardmarketCurrent:
+                row.cardmarket_current_json
+                    ? JSON.parse(
+                        row.cardmarket_current_json
+                    )
+                    : null,
+
+            tcg: [],
+            cardmarket: []
+        };
+    }
+
+
+    const priceResult =
+        await db.execute(`
+            SELECT
+                card_key,
+                source,
+                date,
+                price
+            FROM external_market_history
+            ORDER BY
+                card_key,
+                source,
+                date
+        `);
+
+
+    for (const row of priceResult.rows) {
+
+        if (!history.cards[row.card_key]) {
+            history.cards[row.card_key] = {
+                nomCarte: null,
+                edition: null,
+                langue: null,
+                mapping: null,
+                cardmarketCurrent: null,
+                tcg: [],
+                cardmarket: []
+            };
+        }
+
+
+        const point = {
+            date:
+                row.date,
+
+            price:
+                Number(row.price)
+        };
+
+
+        if (row.source === "tcg") {
+
+            history.cards[
+                row.card_key
+            ].tcg.push(
+                point
+            );
+
+        } else if (
+            row.source === "cardmarket"
+        ) {
+
+            history.cards[
+                row.card_key
+            ].cardmarket.push(
+                point
+            );
+        }
+    }
+
+
+    const metadataResult =
+        await db.execute(`
+            SELECT
+                key,
+                value
+            FROM storage_metadata
+            WHERE key LIKE 'external_market.%'
+        `);
+
+
+    const metadata =
+        Object.fromEntries(
+            metadataResult.rows.map(
+                row => [
+                    row.key,
+                    row.value
+                ]
+            )
+        );
+
+
+    function parseMetadata(
+        key,
+        fallback
+    ) {
+
+        const raw =
+            metadata[key];
+
+        if (
+            raw === undefined ||
+            raw === null
+        ) {
+            return fallback;
+        }
+
+        try {
+            return JSON.parse(raw);
+        } catch {
+            return raw;
+        }
+    }
+
+
+    history.version =
+        parseMetadata(
+            "external_market.version",
+            1
+        );
+
+    history.tcgBackfillCompleted =
+        parseMetadata(
+            "external_market.tcgBackfillCompleted",
+            false
+        );
+
+    history.updatedAt =
+        parseMetadata(
+            "external_market.updatedAt",
+            null
+        );
+
+    history.usdEur =
+        parseMetadata(
+            "external_market.usdEur",
+            null
+        );
+
+    history.cardmarketMetric =
+        parseMetadata(
+            "external_market.cardmarketMetric",
+            null
+        );
+
+    history.cardmarketTrendBackfillCompleted =
+        parseMetadata(
+            "external_market.cardmarketTrendBackfillCompleted",
+            false
+        );
+
+
+    console.log(
+        `Historique externe chargé depuis Turso : ${Object.keys(history.cards).length} cartes`
+    );
+
+
+    return history;
+}
+
+
+async function saveExternalHistoryToTurso(
+    history
+) {
+
+    const cardStatements = [];
+    const priceStatements = [];
+
+
+    for (
+        const [cardKey, entry]
+        of Object.entries(
+            history.cards || {}
+        )
+    ) {
+
+        cardStatements.push({
+            sql: `
+                INSERT INTO external_market_cards (
+                    card_key,
+                    nom_carte,
+                    edition,
+                    langue,
+                    mapping_json,
+                    cardmarket_current_json
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
+
+                ON CONFLICT(card_key)
+                DO UPDATE SET
+                    nom_carte =
+                        excluded.nom_carte,
+                    edition =
+                        excluded.edition,
+                    langue =
+                        excluded.langue,
+                    mapping_json =
+                        excluded.mapping_json,
+                    cardmarket_current_json =
+                        excluded.cardmarket_current_json
+            `,
+            args: [
+                cardKey,
+                entry.nomCarte ?? null,
+                entry.edition ?? null,
+                entry.langue ?? null,
+                entry.mapping
+                    ? JSON.stringify(
+                        entry.mapping
+                    )
+                    : null,
+                entry.cardmarketCurrent
+                    ? JSON.stringify(
+                        entry.cardmarketCurrent
+                    )
+                    : null
+            ]
+        });
+
+
+        for (
+            const point
+            of entry.tcg || []
+        ) {
+
+            if (
+                !point?.date ||
+                !Number.isFinite(
+                    Number(point.price)
+                )
+            ) {
+                continue;
+            }
+
+            priceStatements.push({
+                sql: `
+                    INSERT INTO external_market_history (
+                        card_key,
+                        source,
+                        date,
+                        price
+                    )
+                    VALUES (?, 'tcg', ?, ?)
+
+                    ON CONFLICT(
+                        card_key,
+                        source,
+                        date
+                    )
+                    DO UPDATE SET
+                        price =
+                            excluded.price
+                `,
+                args: [
+                    cardKey,
+                    point.date,
+                    Number(
+                        point.price
+                    )
+                ]
+            });
+        }
+
+
+        for (
+            const point
+            of entry.cardmarket || []
+        ) {
+
+            if (
+                !point?.date ||
+                !Number.isFinite(
+                    Number(point.price)
+                )
+            ) {
+                continue;
+            }
+
+            priceStatements.push({
+                sql: `
+                    INSERT INTO external_market_history (
+                        card_key,
+                        source,
+                        date,
+                        price
+                    )
+                    VALUES (?, 'cardmarket', ?, ?)
+
+                    ON CONFLICT(
+                        card_key,
+                        source,
+                        date
+                    )
+                    DO UPDATE SET
+                        price =
+                            excluded.price
+                `,
+                args: [
+                    cardKey,
+                    point.date,
+                    Number(
+                        point.price
+                    )
+                ]
+            });
+        }
+    }
+
+
+    const metadata = {
+        "external_market.version":
+            history.version ?? 1,
+
+        "external_market.tcgBackfillCompleted":
+            history.tcgBackfillCompleted ?? false,
+
+        "external_market.updatedAt":
+            history.updatedAt ?? null,
+
+        "external_market.usdEur":
+            history.usdEur ?? null,
+
+        "external_market.cardmarketMetric":
+            history.cardmarketMetric ?? null,
+
+        "external_market.cardmarketTrendBackfillCompleted":
+            history.cardmarketTrendBackfillCompleted ??
+            false
+    };
+
+
+    const metadataStatements =
+        Object.entries(metadata)
+            .map(([key, value]) => ({
+                sql: `
+                    INSERT INTO storage_metadata (
+                        key,
+                        value,
+                        updated_at
+                    )
+                    VALUES (
+                        ?,
+                        ?,
+                        CURRENT_TIMESTAMP
+                    )
+
+                    ON CONFLICT(key)
+                    DO UPDATE SET
+                        value =
+                            excluded.value,
+                        updated_at =
+                            CURRENT_TIMESTAMP
+                `,
+                args: [
+                    key,
+                    value === null
+                        ? null
+                        : JSON.stringify(
+                            value
+                        )
+                ]
+            }));
+
+
+    const allStatements = [
+        ...cardStatements,
+        ...priceStatements,
+        ...metadataStatements
+    ];
+
+
+    const BATCH_SIZE = 100;
+
+
+    for (
+        let i = 0;
+        i < allStatements.length;
+        i += BATCH_SIZE
+    ) {
+
+        await db.batch(
+            allStatements.slice(
+                i,
+                i + BATCH_SIZE
+            ),
+            "write"
+        );
+    }
+
+
+    console.log(
+        `Historique externe sauvegardé dans Turso : ${cardStatements.length} cartes, ${priceStatements.length} points`
     );
 }
 
@@ -1665,13 +2109,7 @@ async function main() {
 
 
     const history =
-        readJson(
-            HISTORY_PATH,
-            {
-                version: 1,
-                cards: {}
-            }
-        );
+    await loadExternalHistoryFromTurso();
 
 
     history.cards ||= {};
@@ -1997,10 +2435,14 @@ const firstBackfill =
             : null;
 
 
-    writeJson(
-        HISTORY_PATH,
-        history
-    );
+    await saveExternalHistoryToTurso(
+    history
+);
+
+writeJson(
+    HISTORY_PATH,
+    history
+);
 
 
 /*
