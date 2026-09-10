@@ -2179,17 +2179,45 @@ let mappedTcg =
     );
 
 if (!REBUILD_ONLY) {
+
     const [
         productsJson,
-        pricesJson,
-        fxJson
+        pricesJson
     ] =
         await Promise.all([
             getJson(CM_PRODUCTS),
-            getJson(CM_PRICES),
-            getJson(FX_URL)
+            getJson(CM_PRICES)
         ]);
 
+    let fxJson = null;
+
+    try {
+
+        fxJson =
+            await getJson(
+                FX_URL
+            );
+
+    } catch (error) {
+
+        if (
+            Number.isFinite(fx) &&
+            fx > 0
+        ) {
+
+            console.warn(
+                `⚠️ Taux USD/EUR indisponible (${error.message}). ` +
+                `Utilisation du dernier taux sauvegardé : ${fx}`
+            );
+
+        } else {
+
+            throw new Error(
+                `Impossible de récupérer le taux USD/EUR et aucun taux historique valide n'est disponible. ` +
+                `Erreur originale : ${error.message}`
+            );
+        }
+    }
 
     const products =
         extractRows(
@@ -2257,12 +2285,43 @@ const firstBackfill =
         );
 
 
-    fx =
+    if (fxJson) {
+
+    const newFx =
         Number(
             fxJson?.rate ||
             fxJson?.rates?.EUR ||
             0
         );
+
+    if (
+        Number.isFinite(newFx) &&
+        newFx > 0
+    ) {
+
+        fx = newFx;
+
+        console.log(
+            `Taux USD/EUR mis à jour : ${fx}`
+        );
+
+    } else if (
+        Number.isFinite(fx) &&
+        fx > 0
+    ) {
+
+        console.warn(
+            `⚠️ Réponse FX invalide. ` +
+            `Utilisation du dernier taux sauvegardé : ${fx}`
+        );
+
+    } else {
+
+        throw new Error(
+            "Réponse FX invalide et aucun taux historique USD/EUR valide n'est disponible."
+        );
+    }
+}
 
 
     const today =
