@@ -35,64 +35,262 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Sync collection and push generated files
+      # ============================================================
+      # READ ONLY FROM TURSO
+      # ============================================================
+
+      - name: Hydrate SQLite database from Turso
+        run: node backend/hydrateSQLiteFromTursoProduction.js
+
+      - name: Rebuild estimated price history from Turso
+        run: node backend/exportEstimatedPriceHistoryFromTurso.js
+
+      - name: Sync observations from Turso
+        run: node backend/syncMarketDataFromTurso.js
+
+      - name: Rebuild price history from Turso
+        run: node backend/exportPriceHistorySnapshotsFromTurso.js
+
+      - name: Rebuild tracked market history from Turso
+        run: node backend/exportTrackedHistoryFromTurso.js
+
+      # ============================================================
+      # IMPORT EXCEL
+      # ============================================================
+
+      - name: Import collection from Excel
+        run: |
+          node backend/importExcel.js
+          node backend/enrichScryfall.js
+
+      # ============================================================
+      # CURRENT MARKET DATA
+      # ============================================================
+
+      - name: Update Cardmarket data
+        run: |
+          npm run update:daily
+          npm run resolve:tracked
+          npm run update:tracked
+
+      # ============================================================
+      # TEMPORARILY DISABLE TURSO WRITES
+      # Only inside this GitHub runner.
+      # Repository source files are restored afterwards.
+      # ============================================================
+
+      - name: Disable Turso writes for this run only
+        shell: bash
+        run: |
+          cp backend/savePriceHistorySnapshot.js /tmp/savePriceHistorySnapshot.js
+          cp backend/saveEstimatedPriceSnapshot.js /tmp/saveEstimatedPriceSnapshot.js
+          cp backend/exportPortfolioJson.js /tmp/exportPortfolioJson.js
+
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          # --------------------------------------------------------
+          # savePriceHistorySnapshot.js
+          # Keep local JSON generation, skip Turso write calls.
+          # --------------------------------------------------------
+          p = Path("backend/savePriceHistorySnapshot.js")
+          s = p.read_text(encoding="utf-8")
+
+          s = re.sub(
+              r'await\s+turso\.batch\(\s*statements\s*,\s*"write"\s*\);',
+              'console.log("Turso write skipped: price history snapshot.");',
+              s
+          )
+
+          p.write_text(s, encoding="utf-8")
+
+          # --------------------------------------------------------
+          # saveEstimatedPriceSnapshot.js
+          # Keep compact frontend history, skip Turso batch writes.
+          # --------------------------------------------------------
+          p = Path("backend/saveEstimatedPriceSnapshot.js")
+          s = p.read_text(encoding="utf-8")
+
+          s = re.sub(
+              r'await\s+db\.batch\(\s*batch\s*,\s*"write"\s*\);',
+              'console.log("Turso write skipped: estimated snapshot batch.");',
+              s
+          )
+
+          p.write_text(s, encoding="utf-8")
+
+          # --------------------------------------------------------
+          # exportPortfolioJson.js
+          # Skip tracked-price-history Turso persistence.
+          # --------------------------------------------------------
+          p = Path("backend/exportPortfolioJson.js")
+          s = p.read_text(encoding="utf-8")
+
+          s, count = re.subn(
+              r'(?:await\s+)?saveTrackedPriceHistory\(\s*watchlistCards\s*\);',
+              'console.log("Turso write skipped: tracked price history.");',
+              s,
+              count=1
+          )
+
+          if count != 1:
+              raise SystemExit(
+                  "Could not locate saveTrackedPriceHistory(watchlistCards)"
+              )
+
+          p.write_text(s, encoding="utf-8")
+          PY
+
+      # ============================================================
+      # PRICING BUILD
+      # ============================================================
+
+      - name: Build pricing without Turso writes
+        run: |
+          npm run snapshot:prices
+          npm run analyze:history
+          npm run reference:catalog
+          npm run train:pricing
+          npm run simulate:pricing
+          npm run snapshot:estimated
+          npm run export:json
+          npm run analyze:estimated-lab
+
+      # ============================================================
+      # DEBUG / VALIDATION
+      # ============================================================
+
+      - name: Pricing validation
+        shell: bash
+        run: |
+          echo "===== PRICING MODEL SUMMARY ====="
+
+          node - <<'NODE'
+          const fs = require("fs");
+
+          const models =
+            JSON.parse(
+              fs.readFileSync(
+                "backend/data/pricingModels.json",
+                "utf8"
+              )
+            );
+
+          let historical = 0;
+          let previous = 0;
+
+          for (const model of Object.values(models)) {
+            if (!model || !model.byCondition) continue;
+
+            for (const condition of Object.values(model.byCondition)) {
+              historical += Number(
+                condition?.historicalRatioCount || 0
+              );
+
+              if (
+                condition?.ratioSource ===
+                "previous_model_ratio"
+              ) {
+                previous++;
+              }
+            }
+          }
+
+          console.log(
+            "Ratios construits avec historique :",
+            historical
+          );
+
+          console.log(
+            "Ratios conservés depuis le modèle précédent :",
+            previous
+          );
+          NODE
+
+          echo "===== CANARY CARDS ====="
+
+          node - <<'NODE'
+          const fs = require("fs");
+
+          const sim =
+            JSON.parse(
+              fs.readFileSync(
+                "backend/data/pricingSimulation.json",
+                "utf8"
+              )
+            );
+
+          const wanted = [
+            "Vaevictis Asmadi",
+            "Serendib Efreet",
+            "Savannah",
+            "Plateau"
+          ];
+
+          for (const name of wanted) {
+            console.log("\n---", name, "---");
+
+            console.log(
+              JSON.stringify(
+                sim.filter(
+                  row =>
+                    String(row.nomCarte || row.nomBase || "")
+                      .toLowerCase() ===
+                    name.toLowerCase()
+                ),
+                null,
+                2
+              )
+            );
+          }
+          NODE
+
+      # ============================================================
+      # RESTORE ORIGINAL JS FILES
+      # This guarantees Daily remains unchanged.
+      # ============================================================
+
+      - name: Restore normal Turso-write scripts
+        if: always()
+        shell: bash
+        run: |
+          if [ -f /tmp/savePriceHistorySnapshot.js ]; then
+            cp /tmp/savePriceHistorySnapshot.js backend/savePriceHistorySnapshot.js
+          fi
+
+          if [ -f /tmp/saveEstimatedPriceSnapshot.js ]; then
+            cp /tmp/saveEstimatedPriceSnapshot.js backend/saveEstimatedPriceSnapshot.js
+          fi
+
+          if [ -f /tmp/exportPortfolioJson.js ]; then
+            cp /tmp/exportPortfolioJson.js backend/exportPortfolioJson.js
+          fi
+
+      # ============================================================
+      # COMMIT ONLY GENERATED WEB DATA
+      # No SQLite -> Turso write while quota is blocked.
+      # ============================================================
+
+      - name: Commit updated frontend data
         shell: bash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          for attempt in 1 2 3
-          do
-            echo "Sync attempt ${attempt}/3"
+          git add frontend/data
+          git add backend/data/pricingModels.json
+          git add backend/data/pricingSimulation.json
+          git add backend/data/referenceCatalog.json
+          git add backend/data/missingReferences.json
 
-            git fetch origin main
-            git reset --hard origin/main
-
-            echo "=== Hydrate SQLite from Turso ==="
-            node backend/hydrateSQLiteFromTursoProduction.js
-
-            echo "=== Rebuild estimated history from Turso ==="
-            node backend/exportEstimatedPriceHistoryFromTurso.js
-
-            echo "=== Rebuild market observations from Turso ==="
-            node backend/syncMarketDataFromTurso.js
-
-            echo "=== Rebuild price history from Turso ==="
-            node backend/exportPriceHistorySnapshotsFromTurso.js
-
-            echo "=== Rebuild tracked market history from Turso ==="
-            node backend/exportTrackedHistoryFromTurso.js
-
-            echo "=== Import Excel and rebuild portfolio ==="
-            npm run sync:collection
-
-            echo "=== Persist updated SQLite back to Turso ==="
-            node backend/syncSQLiteToTurso.js
-
-            git add -A
-
-            if git diff --cached --quiet
-            then
-              echo "No generated changes to commit."
-              break
-            fi
-
+          if git diff --cached --quiet
+          then
+            echo "No generated changes to commit."
+          else
             git commit -m "Sync collection from Excel"
-
-            if git push origin main
-            then
-              echo "Collection synchronized successfully."
-              break
-            fi
-
-            if [ "$attempt" -eq 3 ]
-            then
-              echo "Unable to push after 3 attempts."
-              exit 1
-            fi
-
-            echo "Main changed during generation. Restarting from latest main."
-          done
+            git push origin main
+          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
