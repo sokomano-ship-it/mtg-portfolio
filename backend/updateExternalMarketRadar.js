@@ -435,8 +435,178 @@ async function saveExternalHistoryToTurso(
     history
 ) {
 
+    const DRY_RUN =
+        process.argv.includes(
+            "--dry-run"
+        );
+
+
+    /*
+     * ==========================================================
+     * ÉTAT ACTUEL DANS TURSO
+     * ==========================================================
+     *
+     * On lit d'abord l'état distant afin de n'écrire que :
+     *
+     * - les nouvelles cartes
+     * - les cartes réellement modifiées
+     * - les nouveaux points historiques
+     * - les points historiques dont le prix a réellement changé
+     * - les metadata réellement modifiées
+     *
+     * Les points identiques ne génèrent plus aucun UPSERT.
+     */
+
+
+    const remoteCardsResult =
+        await db.execute(`
+            SELECT
+                card_key,
+                nom_carte,
+                edition,
+                langue,
+                mapping_json,
+                cardmarket_current_json
+            FROM external_market_cards
+        `);
+
+
+    const remoteCards =
+        new Map();
+
+    for (
+        const row of
+        remoteCardsResult.rows || []
+    ) {
+
+        remoteCards.set(
+            String(
+                row.card_key
+            ),
+            {
+                nomCarte:
+                    row.nom_carte == null
+                        ? null
+                        : String(
+                            row.nom_carte
+                        ),
+
+                edition:
+                    row.edition == null
+                        ? null
+                        : String(
+                            row.edition
+                        ),
+
+                langue:
+                    row.langue == null
+                        ? null
+                        : String(
+                            row.langue
+                        ),
+
+                mappingJson:
+                    row.mapping_json == null
+                        ? null
+                        : String(
+                            row.mapping_json
+                        ),
+
+                cardmarketCurrentJson:
+                    row.cardmarket_current_json == null
+                        ? null
+                        : String(
+                            row.cardmarket_current_json
+                        )
+            }
+        );
+    }
+
+
+    const remoteHistoryResult =
+        await db.execute(`
+            SELECT
+                card_key,
+                source,
+                date,
+                price
+            FROM external_market_history
+        `);
+
+
+    const remotePrices =
+        new Map();
+
+    for (
+        const row of
+        remoteHistoryResult.rows || []
+    ) {
+
+        const key =
+            [
+                String(
+                    row.card_key
+                ),
+                String(
+                    row.source
+                ),
+                String(
+                    row.date
+                )
+            ].join("|");
+
+        remotePrices.set(
+            key,
+            Number(
+                row.price
+            )
+        );
+    }
+
+
+    const remoteMetadataResult =
+        await db.execute(`
+            SELECT
+                key,
+                value
+            FROM storage_metadata
+            WHERE key LIKE 'external_market.%'
+        `);
+
+
+    const remoteMetadata =
+        new Map();
+
+    for (
+        const row of
+        remoteMetadataResult.rows || []
+    ) {
+
+        remoteMetadata.set(
+            String(
+                row.key
+            ),
+            row.value == null
+                ? null
+                : String(
+                    row.value
+                )
+        );
+    }
+
+
+    /*
+     * ==========================================================
+     * CARTES
+     * ==========================================================
+     */
+
+
     const cardStatements = [];
-    const priceStatements = [];
+
+    let cardsNew = 0;
+    let cardsModified = 0;
+    let cardsUnchanged = 0;
 
 
     for (
@@ -445,6 +615,67 @@ async function saveExternalHistoryToTurso(
             history.cards || {}
         )
     ) {
+
+        const localCard = {
+
+            nomCarte:
+                entry.nomCarte ?? null,
+
+            edition:
+                entry.edition ?? null,
+
+            langue:
+                entry.langue ?? null,
+
+            mappingJson:
+                entry.mapping
+                    ? JSON.stringify(
+                        entry.mapping
+                    )
+                    : null,
+
+            cardmarketCurrentJson:
+                entry.cardmarketCurrent
+                    ? JSON.stringify(
+                        entry.cardmarketCurrent
+                    )
+                    : null
+        };
+
+
+        const remoteCard =
+            remoteCards.get(
+                cardKey
+            );
+
+
+        const same =
+            remoteCard &&
+            remoteCard.nomCarte ===
+                localCard.nomCarte &&
+            remoteCard.edition ===
+                localCard.edition &&
+            remoteCard.langue ===
+                localCard.langue &&
+            remoteCard.mappingJson ===
+                localCard.mappingJson &&
+            remoteCard.cardmarketCurrentJson ===
+                localCard.cardmarketCurrentJson;
+
+
+        if (same) {
+
+            cardsUnchanged++;
+            continue;
+        }
+
+
+        if (remoteCard) {
+            cardsModified++;
+        } else {
+            cardsNew++;
+        }
+
 
         cardStatements.push({
             sql: `
@@ -459,6 +690,7 @@ async function saveExternalHistoryToTurso(
                 VALUES (?, ?, ?, ?, ?, ?)
 
                 ON CONFLICT(card_key)
+
                 DO UPDATE SET
                     nom_carte =
                         excluded.nom_carte,
@@ -473,64 +705,144 @@ async function saveExternalHistoryToTurso(
             `,
             args: [
                 cardKey,
-                entry.nomCarte ?? null,
-                entry.edition ?? null,
-                entry.langue ?? null,
-                entry.mapping
-                    ? JSON.stringify(
-                        entry.mapping
-                    )
-                    : null,
-                entry.cardmarketCurrent
-                    ? JSON.stringify(
-                        entry.cardmarketCurrent
-                    )
-                    : null
+                localCard.nomCarte,
+                localCard.edition,
+                localCard.langue,
+                localCard.mappingJson,
+                localCard.cardmarketCurrentJson
             ]
         });
+    }
 
+
+    /*
+     * ==========================================================
+     * HISTORIQUE DES PRIX
+     * ==========================================================
+     */
+
+
+    const priceStatements = [];
+
+    let pricesNew = 0;
+    let pricesModified = 0;
+    let pricesUnchanged = 0;
+
+
+    function preparePricePoint(
+        cardKey,
+        source,
+        point
+    ) {
+
+        if (
+            !point?.date ||
+            !Number.isFinite(
+                Number(
+                    point.price
+                )
+            )
+        ) {
+            return;
+        }
+
+
+        const date =
+            String(
+                point.date
+            );
+
+        const price =
+            Number(
+                point.price
+            );
+
+
+        const key =
+            [
+                cardKey,
+                source,
+                date
+            ].join("|");
+
+
+        const hasRemote =
+            remotePrices.has(
+                key
+            );
+
+
+        const remotePrice =
+            remotePrices.get(
+                key
+            );
+
+
+        if (
+            hasRemote &&
+            Number(remotePrice) ===
+                price
+        ) {
+
+            pricesUnchanged++;
+            return;
+        }
+
+
+        if (hasRemote) {
+            pricesModified++;
+        } else {
+            pricesNew++;
+        }
+
+
+        priceStatements.push({
+            sql: `
+                INSERT INTO external_market_history (
+                    card_key,
+                    source,
+                    date,
+                    price
+                )
+                VALUES (?, ?, ?, ?)
+
+                ON CONFLICT(
+                    card_key,
+                    source,
+                    date
+                )
+
+                DO UPDATE SET
+                    price =
+                        excluded.price
+            `,
+            args: [
+                cardKey,
+                source,
+                date,
+                price
+            ]
+        });
+    }
+
+
+    for (
+        const [cardKey, entry]
+        of Object.entries(
+            history.cards || {}
+        )
+    ) {
 
         for (
             const point
             of entry.tcg || []
         ) {
 
-            if (
-                !point?.date ||
-                !Number.isFinite(
-                    Number(point.price)
-                )
-            ) {
-                continue;
-            }
-
-            priceStatements.push({
-                sql: `
-                    INSERT INTO external_market_history (
-                        card_key,
-                        source,
-                        date,
-                        price
-                    )
-                    VALUES (?, 'tcg', ?, ?)
-
-                    ON CONFLICT(
-                        card_key,
-                        source,
-                        date
-                    )
-                    DO UPDATE SET
-                        price =
-                            excluded.price
-                `,
-                args: [
-                    cardKey,
-                    point.date,
-                    Number(
-                        point.price
-                    )
-                ]
-            });
+            preparePricePoint(
+                cardKey,
+                "tcg",
+                point
+            );
         }
 
 
@@ -539,52 +851,30 @@ async function saveExternalHistoryToTurso(
             of entry.cardmarket || []
         ) {
 
-            if (
-                !point?.date ||
-                !Number.isFinite(
-                    Number(point.price)
-                )
-            ) {
-                continue;
-            }
-
-            priceStatements.push({
-                sql: `
-                    INSERT INTO external_market_history (
-                        card_key,
-                        source,
-                        date,
-                        price
-                    )
-                    VALUES (?, 'cardmarket', ?, ?)
-
-                    ON CONFLICT(
-                        card_key,
-                        source,
-                        date
-                    )
-                    DO UPDATE SET
-                        price =
-                            excluded.price
-                `,
-                args: [
-                    cardKey,
-                    point.date,
-                    Number(
-                        point.price
-                    )
-                ]
-            });
+            preparePricePoint(
+                cardKey,
+                "cardmarket",
+                point
+            );
         }
     }
 
 
+    /*
+     * ==========================================================
+     * METADATA
+     * ==========================================================
+     */
+
+
     const metadata = {
+
         "external_market.version":
             history.version ?? 1,
 
         "external_market.tcgBackfillCompleted":
-            history.tcgBackfillCompleted ?? false,
+            history.tcgBackfillCompleted ??
+            false,
 
         "external_market.updatedAt":
             history.updatedAt ?? null,
@@ -601,37 +891,115 @@ async function saveExternalHistoryToTurso(
     };
 
 
-    const metadataStatements =
-        Object.entries(metadata)
-            .map(([key, value]) => ({
-                sql: `
-                    INSERT INTO storage_metadata (
-                        key,
-                        value,
-                        updated_at
-                    )
-                    VALUES (
-                        ?,
-                        ?,
-                        CURRENT_TIMESTAMP
-                    )
+    const metadataStatements = [];
 
-                    ON CONFLICT(key)
-                    DO UPDATE SET
-                        value =
-                            excluded.value,
-                        updated_at =
-                            CURRENT_TIMESTAMP
-                `,
-                args: [
+    let metadataModified = 0;
+    let metadataUnchanged = 0;
+
+
+    for (
+        const [key, value]
+        of Object.entries(
+            metadata
+        )
+    ) {
+
+        const serialized =
+            value === null
+                ? null
+                : JSON.stringify(
+                    value
+                );
+
+
+        const hasRemote =
+            remoteMetadata.has(
+                key
+            );
+
+
+        const remoteValue =
+            hasRemote
+                ? remoteMetadata.get(
+                    key
+                )
+                : undefined;
+
+
+        if (
+            hasRemote &&
+            remoteValue ===
+                serialized
+        ) {
+
+            metadataUnchanged++;
+            continue;
+        }
+
+
+        metadataModified++;
+
+
+        metadataStatements.push({
+            sql: `
+                INSERT INTO storage_metadata (
                     key,
-                    value === null
-                        ? null
-                        : JSON.stringify(
-                            value
-                        )
-                ]
-            }));
+                    value,
+                    updated_at
+                )
+                VALUES (
+                    ?,
+                    ?,
+                    CURRENT_TIMESTAMP
+                )
+
+                ON CONFLICT(key)
+
+                DO UPDATE SET
+                    value =
+                        excluded.value,
+                    updated_at =
+                        CURRENT_TIMESTAMP
+            `,
+            args: [
+                key,
+                serialized
+            ]
+        });
+    }
+
+
+    /*
+     * ==========================================================
+     * RÉSUMÉ
+     * ==========================================================
+     */
+
+
+    console.log("");
+    console.log(
+        "Sauvegarde historique externe Turso :"
+    );
+
+    console.log(
+        `Cartes : ` +
+        `+${cardsNew} nouvelles | ` +
+        `~${cardsModified} modifiées | ` +
+        `=${cardsUnchanged} inchangées`
+    );
+
+    console.log(
+        `Points : ` +
+        `+${pricesNew} nouveaux | ` +
+        `~${pricesModified} modifiés | ` +
+        `=${pricesUnchanged} inchangés`
+    );
+
+    console.log(
+        `Metadata : ` +
+        `${metadataModified} modifiée(s) | ` +
+        `${metadataUnchanged} inchangée(s)`
+    );
 
 
     const allStatements = [
@@ -639,6 +1007,35 @@ async function saveExternalHistoryToTurso(
         ...priceStatements,
         ...metadataStatements
     ];
+
+
+    console.log(
+        `Écritures Turso prévues : ${allStatements.length}`
+    );
+
+
+    /*
+     * ==========================================================
+     * DRY RUN
+     * ==========================================================
+     */
+
+
+    if (DRY_RUN) {
+
+        console.log(
+            "✅ DRY-RUN externe : aucune écriture Turso."
+        );
+
+        return;
+    }
+
+
+    /*
+     * ==========================================================
+     * ÉCRITURE
+     * ==========================================================
+     */
 
 
     const BATCH_SIZE = 100;
@@ -661,10 +1058,12 @@ async function saveExternalHistoryToTurso(
 
 
     console.log(
-        `Historique externe sauvegardé dans Turso : ${cardStatements.length} cartes, ${priceStatements.length} points`
+        `Historique externe sauvegardé dans Turso : ` +
+        `${cardStatements.length} carte(s) écrite(s), ` +
+        `${priceStatements.length} point(s) écrit(s), ` +
+        `${metadataStatements.length} metadata`
     );
 }
-
 
 function getBuffer(url) {
 
