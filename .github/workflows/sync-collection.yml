@@ -15,6 +15,7 @@ concurrency:
 jobs:
   sync-collection:
     runs-on: ubuntu-latest
+
     env:
       TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
       TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
@@ -47,7 +48,26 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
+            echo "=== Hydrate SQLite from Turso ==="
+            node backend/hydrateSQLiteFromTursoProduction.js
+
+            echo "=== Rebuild estimated history from Turso ==="
+            node backend/exportEstimatedPriceHistoryFromTurso.js
+
+            echo "=== Rebuild market observations from Turso ==="
+            node backend/syncMarketDataFromTurso.js
+
+            echo "=== Rebuild price history from Turso ==="
+            node backend/exportPriceHistorySnapshotsFromTurso.js
+
+            echo "=== Rebuild tracked market history from Turso ==="
+            node backend/exportTrackedHistoryFromTurso.js
+
+            echo "=== Import Excel and rebuild portfolio ==="
             npm run sync:collection
+
+            echo "=== Persist updated SQLite back to Turso ==="
+            node backend/syncSQLiteToTurso.js
 
             git add -A
 
