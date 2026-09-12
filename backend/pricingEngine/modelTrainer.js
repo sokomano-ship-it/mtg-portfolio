@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const db = require("../database");
+const turso = require("../turso");
 
 const OBS_PATH = path.join(__dirname, "..", "data", "marketObservations.json");
 const REFERENCE_CATALOG_PATH = path.join(__dirname, "..", "data", "referenceCatalog.json");
@@ -337,6 +338,37 @@ function getHistoricalMarketPrices() {
       (err, rows) => err ? reject(err) : resolve(rows)
     );
   });
+}
+
+async function getReferenceMarketHistoryFromTurso() {
+  const result = await turso.execute(`
+    SELECT
+      c.nom_carte AS nomCarte,
+      c.edition AS edition,
+      c.langue AS langue,
+      h.date AS date,
+      h.price AS trendPrice
+    FROM external_market_history h
+    INNER JOIN external_market_cards c
+      ON c.card_key = h.card_key
+    WHERE h.source = 'cardmarket'
+      AND h.date IS NOT NULL
+      AND h.price IS NOT NULL
+      AND h.price > 0
+    ORDER BY
+      c.nom_carte,
+      c.edition,
+      c.langue,
+      h.date
+  `);
+
+  return (result.rows || []).map(row => ({
+    nomCarte: row.nomCarte,
+    edition: row.edition,
+    langue: row.langue,
+    date: row.date,
+    trendPrice: Number(row.trendPrice || 0)
+  }));
 }
 
 function normalizeDate(dateValue) {
@@ -1194,30 +1226,18 @@ async function main() {
             []
         );
 
-    const previousTrackedHistory =
-        readJson(
-            TRACKED_MARKET_HISTORY_PATH,
-            []
-        );
-
-    const trackedMarketHistory =
-        updateTrackedMarketHistory(
-            trackedCards,
-            previousTrackedHistory
-        );
-
-    fs.writeFileSync(
-        TRACKED_MARKET_HISTORY_PATH,
-        JSON.stringify(
-            trackedMarketHistory,
-            null,
-            2
-        )
-    );
+    
 
 
     const historicalMarketPrices =
         await getHistoricalMarketPrices();
+
+    const referenceMarketHistory =
+    await getReferenceMarketHistoryFromTurso();
+
+console.log(
+  `Historique références Turso : ${referenceMarketHistory.length} point(s)`
+);
 
 
     /*
@@ -1230,10 +1250,10 @@ async function main() {
      * cardKey + date.
      */
     const historicalAnchorsByCard =
-        buildHistoricalAnchorsByCard([
-            ...historicalMarketPrices,
-            ...trackedMarketHistory
-        ]);
+    buildHistoricalAnchorsByCard([
+        ...historicalMarketPrices,
+        ...referenceMarketHistory
+    ]);
 
   /*
    * Lecture du modèle généré la veille avant de l'écraser.
@@ -1271,6 +1291,25 @@ console.log(
   const anchor = marketAnchorPrice(card);
   const catalogEntry =
     catalogByCardId.get(String(card.id));
+  if (
+  catalogEntry &&
+  (
+    normalize(catalogEntry.nomCarte) !==
+      normalize(card.nomCarte) ||
+
+    normalize(catalogEntry.edition) !==
+      normalize(card.edition) ||
+
+    normalize(catalogEntry.langue) !==
+      normalize(card.langue)
+  )
+) {
+  throw new Error(
+    `Reference catalog mismatch pour cardId ${card.id}: ` +
+    `SQLite=${card.nomCarte}|${card.edition}|${card.langue} ; ` +
+    `Catalog=${catalogEntry.nomCarte}|${catalogEntry.edition}|${catalogEntry.langue}`
+  );
+}
 
   const previousModel =
     previousModels[key] || null;

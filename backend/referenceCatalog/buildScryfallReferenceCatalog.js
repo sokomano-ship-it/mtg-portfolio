@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
+const db = require("../database");
 
-const CARDS_PATH = path.join(__dirname, "..", "..", "frontend", "data", "cards.json");
 const REFERENCE_CARDS_PATH = path.join(__dirname, "..", "data", "referenceCards.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "referenceCatalog.json");
 const MISSING_PATH = path.join(__dirname, "..", "data", "missingReferences.json");
@@ -18,11 +18,19 @@ function readJson(file, fallback) {
   if (!fs.existsSync(file)) return fallback;
   return JSON.parse(fs.readFileSync(file, "utf8"));
 }
+function all(sql, params = []) {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (error, rows) => {
+      if (error) {
+        reject(error);
+        return;
+      }
 
-function getCardsFromSplitFile(raw) {
-  if (Array.isArray(raw)) return raw;
-  return raw.cards || raw.portfolio || [];
+      resolve(rows || []);
+    });
+  });
 }
+
 
 function cardName(card) {
   return card.nomCarte || card.nomBase || card.name || "";
@@ -210,10 +218,34 @@ function buildMissingReferences(catalog) {
   });
 }
 
-function main() {
-  const rawCards = readJson(CARDS_PATH, {});
-  const portfolio = getCardsFromSplitFile(rawCards);
-  const referenceCards = readJson(REFERENCE_CARDS_PATH, []);
+async function main() {
+  const portfolio = await all(`
+    SELECT
+      c.*,
+      cp.trendPrice,
+      cp.lowPrice,
+      cp.avgPrice,
+      cp.avg1,
+      cp.avg7,
+      cp.avg30
+    FROM cards c
+    LEFT JOIN cardmarket_prices cp
+      ON cp.id = (
+        SELECT MAX(id)
+        FROM cardmarket_prices
+        WHERE cardId = c.id
+      )
+    WHERE c.isActive IS NULL
+       OR c.isActive = 1
+    ORDER BY c.id
+  `);
+
+  const referenceCards =
+    readJson(REFERENCE_CARDS_PATH, []);
+
+  console.log(
+    `Collection chargée depuis SQLite/Turso : ${portfolio.length} carte(s)`
+  );
 
   const catalog = portfolio.map(card => {
     const rule = findReferenceRule(card, referenceCards);
@@ -329,4 +361,16 @@ expectedReference
   console.log(`Références manquantes exportées : ${MISSING_PATH}`);
 }
 
-main();
+main()
+  .then(() => {
+    db.close();
+  })
+  .catch(error => {
+    console.error(
+      "Erreur génération referenceCatalog :",
+      error
+    );
+
+    db.close();
+    process.exitCode = 1;
+  });
