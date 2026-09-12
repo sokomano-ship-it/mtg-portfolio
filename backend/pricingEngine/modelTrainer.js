@@ -1043,10 +1043,25 @@ function trainEditionRatioModel(
     const historicalRatioAverage =
       weightedAverage(historicalRatios);
 
-    const previousRatio = Number(
+const currentExpectedReference =
+  catalogEntry?.expectedReference || null;
+
+const previousExpectedReference =
+  previousModel?.expectedReference || null;
+
+const samePreviousReference =
+  previousModel?.modelType === "edition_ratio" &&
+  currentExpectedReference &&
+  previousExpectedReference &&
+  cardKey(currentExpectedReference) ===
+    cardKey(previousExpectedReference);
+
+const previousRatio = samePreviousReference
+  ? Number(
       previousModel?.byCondition?.[condition]
         ?.ratioToReferenceMarketAnchor || 0
-    );
+    )
+  : 0;
 
         const bootstrapRatio =
       observedAverage > 0 && currentReferenceAnchor > 0
