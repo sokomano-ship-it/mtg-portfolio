@@ -16,6 +16,21 @@ const DB_PATH =
 const DRY_RUN =
     process.argv.includes("--dry-run");
 
+/*
+ * Hard safety limit.
+ *
+ * A normal incremental daily synchronization should only write
+ * a few thousand rows at most.
+ *
+ * If a regression suddenly makes a large part of the SQLite
+ * mirror appear modified, STOP before writing anything to Turso.
+ */
+const MAX_DATA_WRITES =
+    Number(
+        process.env.TURSO_MAX_MIRROR_WRITES ||
+        10000
+    );
+
 const db =
     new sqlite3.Database(
         DB_PATH,
@@ -777,6 +792,45 @@ if (totalDeleted > 0) {
     console.log(
         `Écritures schéma prévues  : ${schemaWrites.length}`
     );
+
+    /*
+ * ----------------------------------------------------------
+ * WRITE BUDGET SAFETY
+ * ----------------------------------------------------------
+ */
+
+const plannedWrites =
+    dataWrites.length +
+    schemaWrites.length +
+    1;
+
+console.log(
+    `Budget maximum autorisé : ${MAX_DATA_WRITES}`
+);
+
+if (
+    dataWrites.length >
+    MAX_DATA_WRITES
+) {
+
+    console.error("");
+    console.error(
+        "❌ SÉCURITÉ TURSO : synchronisation annulée."
+    );
+
+    console.error(
+        `${dataWrites.length} écritures de données étaient prévues, ` +
+        `au-dessus de la limite de ${MAX_DATA_WRITES}.`
+    );
+
+    console.error(
+        "AUCUNE écriture Turso n'a été effectuée."
+    );
+
+    await closeDb();
+
+    process.exit(2);
+}
 
 
     /*

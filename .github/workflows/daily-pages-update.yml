@@ -3,7 +3,6 @@ name: Daily Portfolio Update and Pages Deploy
 on:
   schedule:
     - cron: "17 5 * * *"
-    - cron: "47 6 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -59,6 +58,8 @@ jobs:
 
       - name: Persist SQLite database to Turso
         if: github.event_name != 'push'
+        env:
+          TURSO_MAX_MIRROR_WRITES: 10000
         run: node backend/syncSQLiteToTurso.js
 
       - name: Update external market radar
