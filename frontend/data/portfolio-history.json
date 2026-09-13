@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T10:31:48.320Z",
+  "generatedAt": "2026-09-13T13:15:30.458Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -59445,7 +59445,7 @@
     },
     {
       "date": "2026-09-13",
-      "totalValue": 20259.61,
+      "totalValue": 20268.73,
       "categoryValues": {
         "Classeur 3": 399.65,
         "Classeur 1": 2724,
@@ -59456,9 +59456,9 @@
         "WR White Red": 2871.29,
         "UU Mono Blue": 712.2,
         "BG Black Green": 1298.76,
-        "RG Red Green": 964.3,
+        "RG Red Green": 965.13,
         "Classeur 2": 309.85,
-        "BR Black Red": 1747.31,
+        "BR Black Red": 1755.6,
         "WG White Green": 1356.08,
         "Classeur 5": 2580.17,
         "Classeur 4": 1953.99
@@ -59472,8 +59472,8 @@
         "Fallen Empires": 24.58,
         "Fifth Edition": 33.18,
         "Foreign Black Bordered": 486.14,
-        "Foreign White Bordered": 4181.46,
-        "Fourth Edition": 205.39,
+        "Foreign White Bordered": 4186.45,
+        "Fourth Edition": 209.06,
         "Homelands": 30.64,
         "Ice Age": 203.29,
         "Legends": 982.61,
@@ -59481,7 +59481,7 @@
         "Mirage": 680.1,
         "Portal Second Age": 21.65,
         "Renaissance": 363.83,
-        "Revised": 3446.8,
+        "Revised": 3447.26,
         "Sixth Edition": 8.36,
         "Stronghold": 956.62,
         "Tempest": 867.51,
@@ -59596,10 +59596,10 @@
           "Chronicles": 0.06,
           "Foreign Black Bordered": 7.83,
           "Foreign White Bordered": 676.47,
-          "Fourth Edition": 14.23,
+          "Fourth Edition": 14.6,
           "Legends Italian": 10.4,
           "Renaissance": 0.28,
-          "Revised": 242.19
+          "Revised": 242.65
         },
         "Classeur 2": {
           "Chronicles": 134.02,
@@ -59611,8 +59611,8 @@
           "Chronicles": 67.01,
           "Fallen Empires": 0.96,
           "Foreign Black Bordered": 85.77,
-          "Foreign White Bordered": 257.01,
-          "Fourth Edition": 4.26,
+          "Foreign White Bordered": 262,
+          "Fourth Edition": 7.56,
           "Legends": 9.95,
           "Renaissance": 13.44,
           "Revised": 1231.44,
@@ -59647,7 +59647,60 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "2692",
+            "nomCarte": "Hurricane",
+            "edition": "Fourth Edition",
+            "langue": "English",
+            "etat": "NM",
+            "categorie": "RG Red Green"
+          },
+          {
+            "id": "2691",
+            "nomCarte": "Nevinyrral's Disk",
+            "edition": "Foreign White Bordered",
+            "langue": "French",
+            "etat": "GD",
+            "categorie": "BR Black Red"
+          },
+          {
+            "id": "2690",
+            "nomCarte": "Nevinyrral's Disk",
+            "edition": "Fourth Edition",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "BR Black Red"
+          },
+          {
+            "id": "2694",
+            "nomCarte": "Scryb Sprites",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "NM",
+            "categorie": "RG Red Green"
+          },
+          {
+            "id": "2695",
+            "nomCarte": "Scryb Sprites",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "NM",
+            "categorie": "RG Red Green"
+          },
+          {
+            "id": "2693",
+            "nomCarte": "Tsunami",
+            "edition": "Fourth Edition",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "RG Red Green"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
