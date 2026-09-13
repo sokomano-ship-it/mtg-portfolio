@@ -502,6 +502,217 @@ const impliedNm =
   };
 }
 
+function stabilizeMissingPoEstimate(model, gradeEstimate) {
+  if (!gradeEstimate?.estimatedByCondition) {
+    return gradeEstimate;
+  }
+
+  /*
+   * Une vraie observation PO existe :
+   * ne rien modifier.
+   */
+  const poObservation =
+    Number(model?.byCondition?.PO?.observedPrice || 0);
+
+  const poObservationCount =
+    Number(model?.byCondition?.PO?.observationCount || 0);
+
+  if (
+    poObservation > 0 ||
+    poObservationCount > 0
+  ) {
+    return gradeEstimate;
+  }
+
+  /*
+   * Pour extrapoler PO, on privilégie les niveaux
+   * réellement appris sur cette impression :
+   *
+   * 1. observation fiabilisée
+   * 2. observation brute/retenue
+   * 3. courbe estimée
+   *
+   * Ainsi une reconstruction bayésienne trop haute
+   * ne peut pas devenir artificiellement la base de PO.
+   */
+  function getBestConditionPrice(condition) {
+    return Number(
+      gradeEstimate
+        ?.reliableObservedByCondition
+        ?.[condition] ||
+      gradeEstimate
+        ?.observedMinByCondition
+        ?.[condition] ||
+      gradeEstimate
+        ?.estimatedByCondition
+        ?.[condition] ||
+      0
+    );
+  }
+
+  const plPrice =
+    getBestConditionPrice("PL");
+
+  if (plPrice <= 0) {
+    return gradeEstimate;
+  }
+
+  const orderedConditions = [
+    "NM",
+    "EX",
+    "GD",
+    "LP",
+    "PL"
+  ];
+
+  const localRatios = [];
+
+  for (
+    let i = 1;
+    i < orderedConditions.length;
+    i++
+  ) {
+    const previous =
+      getBestConditionPrice(
+        orderedConditions[i - 1]
+      );
+
+    const current =
+      getBestConditionPrice(
+        orderedConditions[i]
+      );
+
+    if (
+      previous > 0 &&
+      current > 0 &&
+      current <= previous
+    ) {
+      const ratio =
+        current / previous;
+
+      /*
+       * Ignore les transitions aberrantes.
+       */
+      if (
+        ratio >= 0.40 &&
+        ratio <= 1
+      ) {
+        localRatios.push(ratio);
+      }
+    }
+  }
+
+  /*
+   * Médiane robuste des transitions connues.
+   */
+  let localTailRatio = null;
+
+  if (localRatios.length > 0) {
+    const sorted =
+      [...localRatios]
+        .sort((a, b) => a - b);
+
+    const middle =
+      Math.floor(sorted.length / 2);
+
+    localTailRatio =
+      sorted.length % 2
+        ? sorted[middle]
+        : (
+            sorted[middle - 1] +
+            sorted[middle]
+          ) / 2;
+  }
+
+  /*
+   * A priori structurel :
+   *
+   * PO / PL =
+   * 0.30 / 0.45 =
+   * 0.6667
+   */
+  const priorTailRatio =
+    FALLBACK_CONDITION_RATIOS.PO /
+    FALLBACK_CONDITION_RATIOS.PL;
+
+  /*
+   * Fiabilité globale des observations.
+   */
+  let reliability =
+    Number(
+      gradeEstimate
+        .averageObservationReliability || 0
+    );
+
+  if (reliability > 1) {
+    reliability /= 100;
+  }
+
+  reliability =
+    Math.max(
+      0,
+      Math.min(0.75, reliability)
+    );
+
+  /*
+   * Mélange :
+   *
+   * faible historique -> prior dominant
+   * bon historique     -> pente locale dominante
+   */
+  let poToPlRatio =
+    localTailRatio != null
+      ? (
+          reliability * localTailRatio +
+          (1 - reliability) *
+            priorTailRatio
+        )
+      : priorTailRatio;
+
+  /*
+   * Sécurité :
+   * PO doit rester clairement inférieur à PL.
+   */
+  poToPlRatio =
+    Math.max(
+      0.55,
+      Math.min(0.90, poToPlRatio)
+    );
+
+  const poPrice =
+    Number(
+      (plPrice * poToPlRatio)
+        .toFixed(2)
+    );
+
+  gradeEstimate
+    .estimatedByCondition
+    .PO = poPrice;
+
+  /*
+   * Met à jour le ratio affiché par rapport
+   * au meilleur NM disponible.
+   */
+  const nmPrice =
+    getBestConditionPrice("NM");
+
+  if (
+    nmPrice > 0 &&
+    gradeEstimate.ratioByCondition
+  ) {
+    gradeEstimate
+      .ratioByCondition
+      .PO =
+        Number(
+          (poPrice / nmPrice)
+            .toFixed(4)
+        );
+  }
+
+  return gradeEstimate;
+}
+
+
 
 async function main() {
   const collectionCards =
@@ -625,6 +836,16 @@ if (isManualOnly) {
         anchorPrice:
           gradeAnchorPrice
       }
+    );
+}
+
+if (
+  model?.modelType === "edition_ratio"
+) {
+  gradeEstimate =
+    stabilizeMissingPoEstimate(
+      model,
+      gradeEstimate
     );
 }
 
