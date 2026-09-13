@@ -977,16 +977,17 @@ function trainEditionRatioModel(
   const currentReferenceAnchor =
     referenceAnchorPrice(effectiveReferenceCard);
 
+  const cardObs =
+    observationsForCard(card, observations);
 
-
-  const cardObs = observationsForCard(card, observations);
   const byCondition = {};
 
   CONDITIONS.forEach(condition => {
     const rows = cardObs
       .filter(
         observation =>
-          normalize(observation.condition) === normalize(condition)
+          normalize(observation.condition) ===
+          normalize(condition)
       )
       .map(observation => {
         const date =
@@ -996,21 +997,18 @@ function trainEditionRatioModel(
           null;
 
         const observedPrice =
-          Number(observation.observedMinPrice || 0);
+          Number(
+            observation.observedMinPrice || 0
+          );
 
-        /*
-         * L'historique de la carte de référence ne peut être
-         * recherché que lorsque cette référence possède un id
-         * correspondant à une carte de la base.
-         */
         const historicalReferenceAnchor =
-    effectiveReferenceCard
-        ? findHistoricalAnchor(
-            historicalAnchorsByCard,
-            effectiveReferenceCard,
-            date
-        )
-        : 0;
+          effectiveReferenceCard
+            ? findHistoricalAnchor(
+                historicalAnchorsByCard,
+                effectiveReferenceCard,
+                date
+              )
+            : 0;
 
         return {
           observedPrice,
@@ -1018,15 +1016,27 @@ function trainEditionRatioModel(
           historicalReferenceAnchor
         };
       })
-      .filter(row => row.observedPrice > 0);
+      .filter(
+        row => row.observedPrice > 0
+      );
 
-    const observedAverage = weightedAverage(
-      rows.map(row => ({
-        value: row.observedPrice,
-        date: row.date
-      }))
-    );
+    /*
+     * Prix observé moyen de la condition.
+     */
+    const observedAverage =
+      weightedAverage(
+        rows.map(row => ({
+          value: row.observedPrice,
+          date: row.date
+        }))
+      );
 
+    /*
+     * Priorité 1 :
+     * ratio calculé avec l'ancre historique réelle
+     * de la carte de référence au moment de
+     * l'observation.
+     */
     const historicalRatios = rows
       .filter(
         row =>
@@ -1043,92 +1053,91 @@ function trainEditionRatioModel(
     const historicalRatioAverage =
       weightedAverage(historicalRatios);
 
-const currentExpectedReference =
-  catalogEntry?.expectedReference || null;
-
-const previousExpectedReference =
-  previousModel?.expectedReference || null;
-
-const samePreviousReference =
-  previousModel?.modelType === "edition_ratio" &&
-  currentExpectedReference &&
-  previousExpectedReference &&
-  cardKey(currentExpectedReference) ===
-    cardKey(previousExpectedReference);
-
-const previousRatio = samePreviousReference
-  ? Number(
-      previousModel?.byCondition?.[condition]
-        ?.ratioToReferenceMarketAnchor || 0
-    )
-  : 0;
-
-        const bootstrapRatio =
-      observedAverage > 0 && currentReferenceAnchor > 0
-        ? observedAverage / currentReferenceAnchor
+    /*
+     * Priorité 2 :
+     * lorsqu'aucune ancre historique n'existe
+     * encore, bootstrap avec la référence actuelle.
+     *
+     * IMPORTANT :
+     * on ne réutilise PAS le ratio d'un ancien
+     * pricingModels.json.
+     *
+     * Cela évite qu'un ratio calculé autrefois
+     * contre une mauvaise référence soit
+     * transporté vers la nouvelle référence.
+     */
+    const bootstrapRatio =
+      observedAverage > 0 &&
+      currentReferenceAnchor > 0
+        ? observedAverage /
+          currentReferenceAnchor
         : 0;
 
     const ratioToReferenceMarketAnchor =
       historicalRatioAverage ||
-      previousRatio ||
       bootstrapRatio ||
       0;
 
-    if (ratioToReferenceMarketAnchor > 0) {
+    if (
+      ratioToReferenceMarketAnchor > 0
+    ) {
       byCondition[condition] = {
-        ratioToReferenceMarketAnchor: Number(
-          ratioToReferenceMarketAnchor.toFixed(4)
-        ),
+        ratioToReferenceMarketAnchor:
+          Number(
+            ratioToReferenceMarketAnchor
+              .toFixed(4)
+          ),
 
-        observedPrice: observedAverage
-          ? Number(observedAverage.toFixed(2))
-          : previousModel?.byCondition?.[condition]
-              ?.observedPrice ??
-            null,
+        observedPrice:
+          observedAverage
+            ? Number(
+                observedAverage.toFixed(2)
+              )
+            : null,
 
-        observationCount: rows.length,
+        observationCount:
+          rows.length,
 
         historicalRatioCount:
           historicalRatios.length,
 
         ratioSource:
-  historicalRatios.length > 0
-    ? "historical_reference_anchor"
-    : previousRatio > 0
-      ? "previous_model_ratio"
-      : bootstrapRatio > 0
-        ? "current_reference_bootstrap"
-        : null
+          historicalRatios.length > 0
+            ? "historical_reference_anchor"
+            : bootstrapRatio > 0
+              ? "current_reference_bootstrap"
+              : null
       };
     }
   });
 
   return {
-  modelType: "edition_ratio",
+    modelType: "edition_ratio",
 
-  referenceFound: Boolean(
-    effectiveReferenceCard &&
-    currentReferenceAnchor > 0
-  ),
+    referenceFound: Boolean(
+      effectiveReferenceCard &&
+      currentReferenceAnchor > 0
+    ),
 
-  referenceMarketAnchorPrice:
-    currentReferenceAnchor,
+    referenceMarketAnchorPrice:
+      currentReferenceAnchor,
 
-  expectedReference:
-    catalogEntry.expectedReference || null,
+    expectedReference:
+      catalogEntry.expectedReference ||
+      null,
 
-  priceReferenceCard:
-    effectiveReferenceCard,
+    priceReferenceCard:
+      effectiveReferenceCard,
 
-  referenceSource:
-    catalogEntry.priceReferenceCard
-      ? "portfolio"
-      : trackedReferenceCard
-        ? "tracked_market_card"
-        : null,
+    referenceSource:
+      catalogEntry.priceReferenceCard
+        ? "portfolio"
+        : trackedReferenceCard
+          ? "tracked_market_card"
+          : null,
 
-  byCondition
-};
+    byCondition
+  };
 }
 
 function trainGlobalConditionModel(

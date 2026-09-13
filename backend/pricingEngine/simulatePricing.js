@@ -335,6 +335,22 @@ const fallbackRatio =
 function getEstimatedConditionPrice(card, estimated, gradeEstimate) {
   const condition = String(card.etat || "NM").toUpperCase();
 
+  /*
+   * Si estimateCard() dispose déjà d'un ratio observé spécifique
+   * pour cette impression + langue + condition, ce prix constitue
+   * le niveau de référence.
+   *
+   * Le gradeEstimator ne doit pas écraser cette observation
+   * avec une reconstruction NM -> condition.
+   */
+  if (
+    estimated.pricingModel === "edition_observed_condition_ratio" &&
+    Number(estimated.observationCount || 0) > 0 &&
+    Number(estimated.estimatedPrice || 0) > 0
+  ) {
+    return Number(estimated.estimatedPrice);
+  }
+
   return Number(
     gradeEstimate?.estimatedByCondition?.[condition] ??
     estimated.estimatedPrice ??
