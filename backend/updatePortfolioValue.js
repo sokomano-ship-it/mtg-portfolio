@@ -37,11 +37,13 @@ function savePortfolioValue(value) {
 
         db.run(
             `
-            INSERT OR REPLACE INTO portfolio_history (
+            INSERT INTO portfolio_history (
                 date,
                 totalValue
             )
             VALUES (?, ?)
+            ON CONFLICT(date) DO UPDATE SET
+                totalValue = excluded.totalValue
             `,
             [today, value],
             err => {
@@ -51,7 +53,6 @@ function savePortfolioValue(value) {
         );
     });
 }
-
 function saveCardHistory(cards) {
     return new Promise((resolve, reject) => {
         const today = new Date().toISOString().slice(0, 10);
