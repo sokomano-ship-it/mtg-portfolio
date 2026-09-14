@@ -206,12 +206,40 @@ function getValueBucket(
 
 }
 
-const MODEL_START_DATE = "2026-07-12";
+const MODEL_START_DATE = "2026-09-13";
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     setupInvestmentDrawerTabs();
     loadDashboard();
 });
+
+function getModelHistoryDaysAvailable() {
+    const start = new Date(`${MODEL_START_DATE}T00:00:00Z`);
+    const today = new Date();
+
+    return Math.max(
+        0,
+        Math.floor(
+            (today - start) /
+            (1000 * 60 * 60 * 24)
+        )
+    );
+}
+
+function isModelPeriodAvailable(days) {
+    return getModelHistoryDaysAvailable() >= days;
+}
+
+function formatModelPerformance(
+    value,
+    days
+) {
+    if (!isModelPeriodAvailable(days)) {
+        return "-";
+    }
+
+    return formatOptionalPercent(value);
+}
 
 function getPortfolioCategories() {
 
@@ -758,7 +786,8 @@ const historyRows =
     Array.isArray(history)
         ? [...history]
             .filter(row =>
-                row?.date
+                row?.date &&
+                String(row.date).slice(0, 10) >= MODEL_START_DATE
             )
             .sort((a, b) =>
                 String(a.date)
@@ -779,6 +808,10 @@ const historyRows =
  * disponible avant cette date.
  */
 function findHistoryRowDaysAgo(days) {
+
+    if (!isModelPeriodAvailable(days)) {
+    return null;
+}
 
     const targetDate =
         new Date();
@@ -1261,6 +1294,14 @@ function buildValuePriceSnapshots(
     estimatedPriceHistory
 ) {
 
+    const filteredEstimatedPriceHistory =
+        Array.isArray(estimatedPriceHistory)
+            ? estimatedPriceHistory.filter(row =>
+                row?.date &&
+                String(row.date).slice(0, 10) >= MODEL_START_DATE
+            )
+            : [];
+
     /*
      * On travaille uniquement avec les cartes
      * actuellement identifiables dans la collection.
@@ -1277,17 +1318,11 @@ function buildValuePriceSnapshots(
                 .map(String)
         );
 
-
-    /*
-     * date -> cardId -> prix
-     */
     const rowsByDate =
         new Map();
 
-
-    estimatedPriceHistory
+    filteredEstimatedPriceHistory
         .filter(row =>
-            row?.date &&
             row?.cardId !== null &&
             row?.cardId !== undefined
         )
@@ -1496,6 +1531,13 @@ function getValueMigrationSnapshots(
 
     const days =
         Number(period);
+
+    if (!isModelPeriodAvailable(days)) {
+    return {
+        start: null,
+        end
+    };
+}
 
 
     const targetDate =
@@ -7015,8 +7057,23 @@ function getAvailableInvestmentPeriods(rows) {
         return new Set();
     }
 
+    const periodDays = {
+        perf7d: 7,
+        perf30d: 30,
+        perf60d: 60,
+        perf180d: 180,
+        perf365d: 365
+    };
+
     return new Set(
         INVESTMENT_PERIOD_FIELDS.filter(field => {
+
+            const days = periodDays[field];
+
+            if (!isModelPeriodAvailable(days)) {
+                return false;
+            }
+
             const availableRows = rows.filter(row =>
                 hasInvestmentPerformanceValue(row[field])
             ).length;
@@ -8209,32 +8266,68 @@ async function showInvestmentDetails(cardId) {
             <hr>
 
             <p>
-                <strong>Performance :</strong><br>
-                7j :
-                <span class="${performanceClass(investmentCard.perf7d)}">
-                    ${formatOptionalPercent(investmentCard.perf7d)}
-                </span><br>
+    <strong>Performance :</strong><br>
 
-                30j :
-                <span class="${performanceClass(investmentCard.perf30d)}">
-                    ${formatOptionalPercent(investmentCard.perf30d)}
-                </span><br>
+    7j :
+    <span class="${performanceClass(
+        isModelPeriodAvailable(7)
+            ? investmentCard.perf7d
+            : null
+    )}">
+        ${formatModelPerformance(
+            investmentCard.perf7d,
+            7
+        )}
+    </span><br>
 
-                60j :
-                <span class="${performanceClass(investmentCard.perf60d)}">
-                    ${formatOptionalPercent(investmentCard.perf60d)}
-                </span><br>
+    30j :
+    <span class="${performanceClass(
+        isModelPeriodAvailable(30)
+            ? investmentCard.perf30d
+            : null
+    )}">
+        ${formatModelPerformance(
+            investmentCard.perf30d,
+            30
+        )}
+    </span><br>
 
-                180j :
-                <span class="${performanceClass(investmentCard.perf180d)}">
-                    ${formatOptionalPercent(investmentCard.perf180d)}
-                </span><br>
+    60j :
+    <span class="${performanceClass(
+        isModelPeriodAvailable(60)
+            ? investmentCard.perf60d
+            : null
+    )}">
+        ${formatModelPerformance(
+            investmentCard.perf60d,
+            60
+        )}
+    </span><br>
 
-                365j :
-                <span class="${performanceClass(investmentCard.perf365d)}">
-                    ${formatOptionalPercent(investmentCard.perf365d)}
-                </span>
-            </p>
+    180j :
+    <span class="${performanceClass(
+        isModelPeriodAvailable(180)
+            ? investmentCard.perf180d
+            : null
+    )}">
+        ${formatModelPerformance(
+            investmentCard.perf180d,
+            180
+        )}
+    </span><br>
+
+    365j :
+    <span class="${performanceClass(
+        isModelPeriodAvailable(365)
+            ? investmentCard.perf365d
+            : null
+    )}">
+        ${formatModelPerformance(
+            investmentCard.perf365d,
+            365
+        )}
+    </span>
+</p>
 
             <hr>
 
@@ -12756,12 +12849,12 @@ if (!detail) {
             <p><strong>Avg1 :</strong> ${formatEuro(card.avg1)}</p>
 
             <div class="detail-performances">
-                <span>7j : ${formatOptionalPercent(performance.perf7d)}</span>
-                <span>30j : ${formatOptionalPercent(performance.perf30d)}</span>
-                <span>90j : ${formatOptionalPercent(performance.perf90d)}</span>
-                <span>180j : ${formatOptionalPercent(performance.perf180d)}</span>
-                <span>365j : ${formatOptionalPercent(performance.perf365d)}</span>
-            </div>
+    <span>7j : ${formatModelPerformance(performance.perf7d, 7)}</span>
+    <span>30j : ${formatModelPerformance(performance.perf30d, 30)}</span>
+    <span>90j : ${formatModelPerformance(performance.perf90d, 90)}</span>
+    <span>180j : ${formatModelPerformance(performance.perf180d, 180)}</span>
+    <span>365j : ${formatModelPerformance(performance.perf365d, 365)}</span>
+</div>
         `;
 
         modal.classList.add("visible");
