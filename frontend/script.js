@@ -7504,6 +7504,35 @@ function calculateInvestmentSummary(
         0
     );
 
+    const periodDays =
+    Number(
+        String(period)
+            .replace("d", "")
+    );
+
+if (
+    !Number.isFinite(periodDays) ||
+    !isModelPeriodAvailable(periodDays)
+) {
+    return {
+        analyzedValue,
+        rowsCount: rows.length,
+
+        rowsWithHistoryCount: 0,
+
+        periodChange: null,
+        periodPerformance: null,
+
+        positiveCount: 0,
+        negativeCount: 0,
+        stableCount: 0,
+        coveragePct: 0,
+
+        topContributions: [],
+        worstContributions: []
+    };
+}
+
     const rowsWithHistory = rows
         .map(card => ({
             card,
