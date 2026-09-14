@@ -82,6 +82,11 @@ jobs:
             echo "No generated changes to commit."
           else
             git commit -m "Sync collection from Excel"
+
+            echo "Synchronizing with latest main..."
+            git fetch origin main
+            git rebase origin/main
+
             git push origin main
           fi
 
