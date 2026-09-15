@@ -84,6 +84,11 @@ jobs:
             git commit -m "Sync collection from Excel"
 
             echo "Synchronizing with latest main..."
+
+            # Some build/Turso steps may leave generated files modified
+            # outside the files intentionally committed above.
+            git stash push --include-untracked -m "workflow-temp"
+
             git fetch origin main
             git rebase origin/main
 
