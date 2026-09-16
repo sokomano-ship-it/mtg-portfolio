@@ -935,18 +935,17 @@ async function saveTrackedPriceHistory(watchlistCards) {
         const trendPrice =
             Number(card.trendPrice || 0);
 
-        const estimatedNmPrice =
-            Number(
-                card.estimatedByCondition?.NM
-            ) ||
-            Number(card.estimatedPrice) ||
-            trendPrice;
+        const estimatedByCondition =
+    card.estimatedByCondition &&
+    typeof card.estimatedByCondition === "object"
+        ? card.estimatedByCondition
+        : {};
 
-        const estimatedExPrice =
-            Number(
-                card.estimatedByCondition?.EX
-            ) ||
-            estimatedNmPrice * 0.85;
+const estimatedNmPrice =
+    Number(estimatedByCondition.NM || 0);
+
+const estimatedExPrice =
+    Number(estimatedByCondition.EX || 0);
 
         if (!estimatedNmPrice) {
             continue;
@@ -965,16 +964,13 @@ async function saveTrackedPriceHistory(watchlistCards) {
             owned: false,
 
             estimatedByCondition: {
-                NM:
-                    Number(
-                        estimatedNmPrice.toFixed(2)
-                    ),
-
-                EX:
-                    Number(
-                        estimatedExPrice.toFixed(2)
-                    )
-            },
+    NM: Number(estimatedByCondition.NM || 0) || null,
+    EX: Number(estimatedByCondition.EX || 0) || null,
+    GD: Number(estimatedByCondition.GD || 0) || null,
+    LP: Number(estimatedByCondition.LP || 0) || null,
+    PL: Number(estimatedByCondition.PL || 0) || null,
+    PO: Number(estimatedByCondition.PO || 0) || null
+},
 
             trendPrice:
                 trendPrice
