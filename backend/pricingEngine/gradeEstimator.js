@@ -1496,8 +1496,27 @@ const globalEvidenceByCondition =
         cardKey(card)
     ];
 
-const learnedNmMarketRatio =
+const trainedNmMarketRatio =
     getLearnedNmMarketRatio(card);
+
+const directObservedNmMarketRatio =
+    (
+        reliableNmFloor > 0 &&
+        anchorPrice > 0
+    )
+        ? (
+            estimateMeanPriceFromMin(
+                "NM",
+                reliableNmFloor
+            ) /
+            anchorPrice
+        )
+        : null;
+
+const learnedNmMarketRatio =
+    trainedNmMarketRatio > 0
+        ? trainedNmMarketRatio
+        : directObservedNmMarketRatio;
 
 let nmLevelRatio = 1;
 let nmLevelWeights = {
