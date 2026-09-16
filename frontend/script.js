@@ -2116,12 +2116,27 @@ function renderValueDistribution(
     }
 
         const distributionCards =
-        selectedPortfolioCategory
-            ? allCards.filter(card =>
-                String(card.categorie || "").trim() ===
-                selectedPortfolioCategory
-            )
-            : allCards;
+    allCards.filter(card => {
+
+        const category =
+            String(card.categorie || "").trim();
+
+        const edition =
+            String(card.edition || "").trim();
+
+        const categoryMatches =
+            !selectedPortfolioCategory ||
+            category === selectedPortfolioCategory;
+
+        const editionMatches =
+            !selectedPortfolioEdition ||
+            edition === selectedPortfolioEdition;
+
+        return (
+            categoryMatches &&
+            editionMatches
+        );
+    });
 
 
     const buckets =
