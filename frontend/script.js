@@ -132,19 +132,19 @@ const VALUE_BUCKETS = [
         max: 100
     },
 
-    {
-        key: "100to200",
-        label: "100–200 €",
-        min: 100,
-        max: 200
-    },
+{
+    key: "100to250",
+    label: "100–250 €",
+    min: 100,
+    max: 250
+},
 
-    {
-        key: "200to500",
-        label: "200–500 €",
-        min: 200,
-        max: 500
-    },
+{
+    key: "250to500",
+    label: "250–500 €",
+    min: 250,
+    max: 500
+},
 
     {
         key: "over500",
@@ -163,10 +163,9 @@ const VALUE_MIGRATION_THRESHOLDS = [
     20,
     50,
     100,
-    200,
+    250,
     500
 ];
-
 
 /*
  * Pour ne pas surcharger le graphique,
@@ -393,6 +392,9 @@ function handlePortfolioMainFilterChange() {
     if (currentPortfolioChartRenderer) {
         currentPortfolioChartRenderer();
     }
+    renderValueDistribution(
+    cachedEstimatedPriceHistory
+);
 }
 function updatePortfolioCardPreview(card = null) {
 
@@ -1238,7 +1240,9 @@ function formatSimplePercent(value) {
 }
 
 
-function calculateCurrentValueBuckets() {
+function calculateCurrentValueBuckets(
+    cards = allCards
+) {
 
     const buckets =
         VALUE_BUCKETS.map(
@@ -1250,7 +1254,7 @@ function calculateCurrentValueBuckets() {
         );
 
 
-    allCards.forEach(card => {
+    cards.forEach(card => {
 
         const price =
             Number(
@@ -1291,7 +1295,8 @@ function calculateCurrentValueBuckets() {
 }
 
 function buildValuePriceSnapshots(
-    estimatedPriceHistory
+    estimatedPriceHistory,
+    cards = allCards
 ) {
 
     const filteredEstimatedPriceHistory =
@@ -1307,8 +1312,8 @@ function buildValuePriceSnapshots(
      * actuellement identifiables dans la collection.
      */
     const ownedCardIds =
-        new Set(
-            allCards
+    new Set(
+        cards
                 .map(card => card.id)
                 .filter(
                     id =>
@@ -2110,13 +2115,24 @@ function renderValueDistribution(
         return;
     }
 
+        const distributionCards =
+        selectedPortfolioCategory
+            ? allCards.filter(card =>
+                String(card.categorie || "").trim() ===
+                selectedPortfolioCategory
+            )
+            : allCards;
+
 
     const buckets =
-        calculateCurrentValueBuckets();
+    calculateCurrentValueBuckets(
+        distributionCards
+    );
 
     const snapshots =
     buildValuePriceSnapshots(
-        estimatedPriceHistory
+        estimatedPriceHistory,
+        distributionCards
     );
 
 
@@ -2297,8 +2313,9 @@ const change =
 
 
     renderValueDistributionKpis(
-        buckets
-    );
+    buckets,
+    distributionCards
+);
 
 
     renderValueMigrationChart(
@@ -2340,11 +2357,12 @@ if (
 }
 
 function renderValueDistributionKpis(
-    buckets
+    buckets,
+    cards = allCards
 ) {
 
     const prices =
-        allCards
+        cards
             .map(card =>
                 Number(
                     getEstimatedConditionPrice(
