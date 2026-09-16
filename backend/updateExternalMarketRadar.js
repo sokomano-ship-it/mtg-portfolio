@@ -2663,25 +2663,95 @@ if (!REBUILD_ONLY) {
         );
 
 
-const firstBackfill =
-    !history.tcgBackfillCompleted ||
-    !history.cardmarketTrendBackfillCompleted;
+/*
+ * Backfill MTGJSON.
+ *
+ * Le flag global ne suffit pas :
+ * une impression ajoutée au Radar après le premier
+ * backfill doit elle aussi pouvoir récupérer son
+ * historique disponible dans AllPrices.
+ *
+ * On considère qu'une impression nécessite un
+ * backfill lorsqu'elle possède un UUID MTGJSON mais
+ * n'a pas encore une couverture historique d'au
+ * moins 71 jours (minimum nécessaire au Radar 90j).
+ */
+const needsHistoricalBackfill =
+    [...mappings.entries()].some(
+        ([key, mapping]) => {
 
+            if (!mapping?.mtgjsonUuid) {
+                return false;
+            }
 
-    console.log(
-        firstBackfill
-            ? "TCGplayer : backfill 90 jours"
-            : "TCGplayer : mise à jour quotidienne"
+            const entry =
+                history.cards[key];
+
+            const series = [
+                ...(entry?.tcg || []),
+                ...(entry?.cardmarket || [])
+            ];
+
+            if (!series.length) {
+                return true;
+            }
+
+            const dates =
+                series
+                    .map(row => row?.date)
+                    .filter(
+                        date =>
+                            /^\d{4}-\d{2}-\d{2}$/.test(
+                                String(date || "")
+                            )
+                    )
+                    .sort();
+
+            if (dates.length < 2) {
+                return true;
+            }
+
+            const first =
+                new Date(
+                    dates[0] + "T12:00:00Z"
+                ).getTime();
+
+            const last =
+                new Date(
+                    dates.at(-1) + "T12:00:00Z"
+                ).getTime();
+
+            const spanDays =
+                Math.round(
+                    (last - first) /
+                    86400000
+                );
+
+            return spanDays < 71;
+        }
     );
 
 
-    const mtgPrices =
-        await selectedMtgjsonPrices(
-            firstBackfill
-                ? MTGJSON_ALL
-                : MTGJSON_TODAY,
-            uuids
-        );
+const useFullHistory =
+    !history.tcgBackfillCompleted ||
+    !history.cardmarketTrendBackfillCompleted ||
+    needsHistoricalBackfill;
+
+
+console.log(
+    useFullHistory
+        ? "Marchés externes : backfill historique MTGJSON"
+        : "Marchés externes : mise à jour quotidienne MTGJSON"
+);
+
+
+const mtgPrices =
+    await selectedMtgjsonPrices(
+        useFullHistory
+            ? MTGJSON_ALL
+            : MTGJSON_TODAY,
+        uuids
+    );
 
 
     if (fxJson) {
