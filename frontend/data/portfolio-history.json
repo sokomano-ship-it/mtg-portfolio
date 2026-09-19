@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T09:43:35.161Z",
+  "generatedAt": "2026-09-19T15:08:34.675Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -60848,7 +60848,7 @@
     },
     {
       "date": "2026-09-19",
-      "totalValue": 21514.78,
+      "totalValue": 21523.54,
       "categoryValues": {
         "Classeur 3": 417.98,
         "Classeur 1": 2749.94,
@@ -60856,12 +60856,12 @@
         "RR Mono Red": 549.7,
         "WW Mono White": 828.05,
         "BB Mono Black": 798.71,
-        "WR White Red": 2794.2,
+        "WR White Red": 2778.62,
         "UU Mono Blue": 708.39,
         "BG Black Green": 1316.21,
-        "RG Red Green": 1030.3,
+        "RG Red Green": 1045.88,
         "Classeur 2": 311.48,
-        "BR Black Red": 1799.64,
+        "BR Black Red": 1808.4,
         "WG White Green": 1368.93,
         "Classeur 5": 3674.32,
         "Classeur 4": 1953.79
@@ -60884,7 +60884,7 @@
         "Mirage": 687.46,
         "Portal Second Age": 26.3,
         "Renaissance": 385.63,
-        "Revised": 3441.79,
+        "Revised": 3450.55,
         "Sixth Edition": 7.9,
         "Stronghold": 976.16,
         "Tempest": 858.14,
@@ -60965,9 +60965,9 @@
           "Arabian Nights": 724.52,
           "Chronicles": 60.09,
           "Foreign Black Bordered": 0.77,
-          "Foreign White Bordered": 609.04,
+          "Foreign White Bordered": 609.14,
           "Fourth Edition": 27.54,
-          "Legends": 52.04,
+          "Legends": 36.36,
           "Renaissance": 7.8,
           "Revised": 547.5,
           "The Dark": 61.26,
@@ -60998,8 +60998,9 @@
           "Arabian Nights": 12.84,
           "Chronicles": 0.17,
           "Foreign Black Bordered": 9.03,
-          "Foreign White Bordered": 723.26,
+          "Foreign White Bordered": 723.16,
           "Fourth Edition": 15.66,
+          "Legends": 15.68,
           "Legends Italian": 9.26,
           "Renaissance": 0.28,
           "Revised": 259.8
@@ -61018,7 +61019,7 @@
           "Fourth Edition": 9.01,
           "Legends": 9.09,
           "Renaissance": 15.64,
-          "Revised": 1260.58,
+          "Revised": 1269.34,
           "The Dark": 27.03,
           "Unlimited": 51.64
         },
@@ -61050,7 +61051,57 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "2709",
+            "nomCarte": "Sedge Troll",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "BR Black Red"
+          },
+          {
+            "id": "2710",
+            "nomCarte": "Sedge Troll",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "BR Black Red"
+          },
+          {
+            "id": "2711",
+            "nomCarte": "Sedge Troll",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "BR Black Red"
+          }
+        ],
+        "removed": [],
+        "moved": [
+          {
+            "id": "2565",
+            "nomCarte": "Hammerheim",
+            "edition": "Legends",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "RG Red Green",
+            "fromCategory": "WR White Red",
+            "toCategory": "RG Red Green"
+          },
+          {
+            "id": "2556",
+            "nomCarte": "Mountain (V.2)",
+            "edition": "Foreign White Bordered",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "WR White Red",
+            "fromCategory": "RG Red Green",
+            "toCategory": "WR White Red"
+          }
+        ]
+      }
     }
   ]
 }

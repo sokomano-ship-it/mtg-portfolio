@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T09:43:35.161Z",
+  "generatedAt": "2026-09-19T15:08:34.675Z",
   "investmentAnalysis": [
     {
       "id": 1830,
@@ -14013,6 +14013,33 @@
       "observationDaysCount": 1,
       "pricingModel": "standard_observed_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
+    },
+    {
+      "id": 2709,
+      "nomCarte": "Sedge Troll",
+      "edition": "Revised",
+      "langue": "English",
+      "etat": "EX",
+      "version": null,
+      "quantity": 3,
+      "scryfallId": "485d3707-59ce-4350-9ec8-9df232f88c04",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 2.92,
+      "lotValue": 8.76,
+      "price7d": null,
+      "perf7d": null,
+      "price30d": null,
+      "perf30d": null,
+      "price60d": null,
+      "perf60d": null,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 43,
+      "observationDaysCount": 0,
+      "pricingModel": "standard_fallback_condition_ratio",
+      "gradeModelSource": "anchor + global/edition ratios"
     },
     {
       "id": 2275,
