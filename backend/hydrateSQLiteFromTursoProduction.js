@@ -189,6 +189,24 @@ async function main() {
 
     for (const table of tables) {
 
+    const tableName =
+        String(table.object_name);
+
+    const pkColumns =
+        JSON.parse(
+            String(
+                table.pk_columns_json ||
+                "[]"
+            )
+        );
+
+    const PAGE_SIZE = 2000;
+
+    let lastRowid = -1;
+    let tableRows = 0;
+
+    while (true) {
+
         const rowsResult =
             await turso.execute({
                 sql: `
@@ -199,26 +217,24 @@ async function main() {
                     WHERE
                         generation_id = ?
                         AND table_name = ?
+                        AND rowid_value > ?
                     ORDER BY rowid_value
+                    LIMIT ?
                 `,
                 args: [
                     generationId,
-                    String(
-                        table.object_name
-                    )
+                    tableName,
+                    lastRowid,
+                    PAGE_SIZE
                 ]
             });
 
         const rows =
             rowsResult.rows || [];
 
-        const pkColumns =
-            JSON.parse(
-                String(
-                    table.pk_columns_json ||
-                    "[]"
-                )
-            );
+        if (!rows.length) {
+            break;
+        }
 
         for (const stored of rows) {
 
@@ -230,9 +246,7 @@ async function main() {
                 );
 
             const columns =
-                Object.keys(
-                    row
-                );
+                Object.keys(row);
 
             if (!columns.length) {
                 continue;
@@ -245,22 +259,16 @@ async function main() {
 
             const columnSql =
                 columns
-                    .map(
-                        quoteIdentifier
-                    )
+                    .map(quoteIdentifier)
                     .join(", ");
 
-            /*
-             * Pour une table sans PK explicite,
-             * on conserve également son ROWID.
-             */
             if (!pkColumns.length) {
 
                 await run(
                     db,
                     `
                     INSERT INTO ${quoteIdentifier(
-                        table.object_name
+                        tableName
                     )} (
                         rowid,
                         ${columnSql}
@@ -285,7 +293,7 @@ async function main() {
                     db,
                     `
                     INSERT INTO ${quoteIdentifier(
-                        table.object_name
+                        tableName
                     )} (
                         ${columnSql}
                     )
@@ -301,13 +309,28 @@ async function main() {
             }
         }
 
-        totalRows +=
-            rows.length;
+        tableRows += rows.length;
+        totalRows += rows.length;
+
+        lastRowid =
+            Number(
+                rows[rows.length - 1]
+                    .rowid_value
+            );
 
         console.log(
-            `${table.object_name} : ${rows.length}`
+            `${tableName} : ${tableRows} ligne(s) chargée(s)...`
         );
+
+        if (rows.length < PAGE_SIZE) {
+            break;
+        }
     }
+
+    console.log(
+        `✓ ${tableName} : ${tableRows} ligne(s)`
+    );
+}
 
     /*
      * Index, triggers et vues après les données.
