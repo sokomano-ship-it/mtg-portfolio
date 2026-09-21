@@ -368,10 +368,23 @@ function renderChart(obsList) {
   const chartHeight = height - padTop - padBottom;
   const span = Math.max(max - min, 1);
 
-  function xFor(index) {
-    if (byDateAsc.length === 1) return padLeft + chartWidth / 2;
-    return padLeft + (index / (byDateAsc.length - 1)) * chartWidth;
+ const dateTimes = byDateAsc.map(row =>
+  new Date(`${row.date}T12:00:00Z`).getTime()
+);
+
+const minTime = Math.min(...dateTimes);
+const maxTime = Math.max(...dateTimes);
+const timeSpan = Math.max(maxTime - minTime, 1);
+
+function xFor(index) {
+  if (byDateAsc.length === 1) {
+    return padLeft + chartWidth / 2;
   }
+
+  return padLeft +
+    ((dateTimes[index] - minTime) / timeSpan) *
+    chartWidth;
+}
 
   function yFor(value) {
     return padTop + chartHeight - ((value - min) / span) * chartHeight;
