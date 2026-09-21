@@ -281,24 +281,49 @@ async function loadExternalHistoryFromTurso() {
     }
 
 
+const HISTORY_PAGE_SIZE = 5000;
+
+let historyOffset = 0;
+let historyRowsLoaded = 0;
+
+while (true) {
+
     const priceResult =
-        await db.execute(`
-            SELECT
-                card_key,
-                source,
-                date,
-                price
-            FROM external_market_history
-            ORDER BY
-                card_key,
-                source,
-                date
-        `);
+        await db.execute({
+            sql: `
+                SELECT
+                    card_key,
+                    source,
+                    date,
+                    price
+                FROM external_market_history
+                ORDER BY
+                    card_key,
+                    source,
+                    date
+                LIMIT ?
+                OFFSET ?
+            `,
+            args: [
+                HISTORY_PAGE_SIZE,
+                historyOffset
+            ]
+        });
 
 
-    for (const row of priceResult.rows) {
+    const rows =
+        priceResult.rows || [];
+
+
+    if (!rows.length) {
+        break;
+    }
+
+
+    for (const row of rows) {
 
         if (!history.cards[row.card_key]) {
+
             history.cards[row.card_key] = {
                 nomCarte: null,
                 edition: null,
@@ -312,11 +337,8 @@ async function loadExternalHistoryFromTurso() {
 
 
         const point = {
-            date:
-                row.date,
-
-            price:
-                Number(row.price)
+            date: row.date,
+            price: Number(row.price)
         };
 
 
@@ -339,6 +361,28 @@ async function loadExternalHistoryFromTurso() {
             );
         }
     }
+
+
+    historyRowsLoaded +=
+        rows.length;
+
+
+    if (
+        rows.length <
+        HISTORY_PAGE_SIZE
+    ) {
+        break;
+    }
+
+
+    historyOffset +=
+        rows.length;
+}
+
+
+console.log(
+    `Historique externe Turso : ${historyRowsLoaded} points chargés`
+);
 
 
     const metadataResult =
@@ -523,45 +567,76 @@ async function saveExternalHistoryToTurso(
     }
 
 
-    const remoteHistoryResult =
-        await db.execute(`
-            SELECT
-                card_key,
-                source,
-                date,
-                price
-            FROM external_market_history
-        `);
-
-
     const remotePrices =
-        new Map();
+    new Map();
 
-    for (
-        const row of
-        remoteHistoryResult.rows || []
-    ) {
+const REMOTE_HISTORY_PAGE_SIZE = 5000;
+
+let remoteHistoryOffset = 0;
+
+
+while (true) {
+
+    const remoteHistoryResult =
+        await db.execute({
+            sql: `
+                SELECT
+                    card_key,
+                    source,
+                    date,
+                    price
+                FROM external_market_history
+                ORDER BY
+                    card_key,
+                    source,
+                    date
+                LIMIT ?
+                OFFSET ?
+            `,
+            args: [
+                REMOTE_HISTORY_PAGE_SIZE,
+                remoteHistoryOffset
+            ]
+        });
+
+
+    const rows =
+        remoteHistoryResult.rows || [];
+
+
+    if (!rows.length) {
+        break;
+    }
+
+
+    for (const row of rows) {
 
         const key =
             [
-                String(
-                    row.card_key
-                ),
-                String(
-                    row.source
-                ),
-                String(
-                    row.date
-                )
+                String(row.card_key),
+                String(row.source),
+                String(row.date)
             ].join("|");
+
 
         remotePrices.set(
             key,
-            Number(
-                row.price
-            )
+            Number(row.price)
         );
     }
+
+
+    if (
+        rows.length <
+        REMOTE_HISTORY_PAGE_SIZE
+    ) {
+        break;
+    }
+
+
+    remoteHistoryOffset +=
+        rows.length;
+}
 
 
     const remoteMetadataResult =
