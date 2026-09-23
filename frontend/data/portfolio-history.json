@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T10:12:22.641Z",
+  "generatedAt": "2026-09-23T20:25:37.992Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -61820,10 +61820,10 @@
     },
     {
       "date": "2026-09-23",
-      "totalValue": 21711.4,
+      "totalValue": 21714.98,
       "categoryValues": {
         "Classeur 3": 419.4,
-        "Classeur 1": 2752.35,
+        "Classeur 1": 2755.93,
         "GG Mono Green": 1202.12,
         "RR Mono Red": 578.24,
         "WW Mono White": 833.91,
@@ -61848,7 +61848,7 @@
         "Fifth Edition": 33.69,
         "Foreign Black Bordered": 510.76,
         "Foreign White Bordered": 4226.68,
-        "Fourth Edition": 213.38,
+        "Fourth Edition": 215.57,
         "Homelands": 33.35,
         "Ice Age": 215.32,
         "Legends": 1049.45,
@@ -61856,7 +61856,7 @@
         "Mirage": 671.58,
         "Portal Second Age": 26.3,
         "Renaissance": 384.71,
-        "Revised": 3543.8,
+        "Revised": 3545.19,
         "Sixth Edition": 7.77,
         "Stronghold": 980.26,
         "Tempest": 858.12,
@@ -61880,11 +61880,11 @@
           "Arabian Nights": 199.73,
           "Foreign Black Bordered": 89.86,
           "Foreign White Bordered": 533.03,
-          "Fourth Edition": 3.27,
+          "Fourth Edition": 5.46,
           "Legends": 52.99,
           "Legends Italian": 26.99,
           "Renaissance": 3.8,
-          "Revised": 640.82,
+          "Revised": 642.21,
           "The Dark": 73.79,
           "Unlimited": 98.86
         },
@@ -62023,7 +62023,28 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "2719",
+            "nomCarte": "Serra Angel",
+            "edition": "Fourth Edition",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "Classeur 1"
+          },
+          {
+            "id": "2718",
+            "nomCarte": "Serra Angel",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "Classeur 1"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
