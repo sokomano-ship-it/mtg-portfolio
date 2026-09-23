@@ -13,6 +13,9 @@ let currentInvestmentSort = "changeLot7d";
 let currentInvestmentDirection = "desc";
 let currentInvestmentSummaryPeriod = "7d";
 
+let investmentShowAll = false;
+const INVESTMENT_TOP_BOTTOM_LIMIT = 100;
+
 let currentMoverSort = "perf30d";
 let currentMoverDirection = "desc";
 
@@ -8100,9 +8103,81 @@ if (status) {
             } sur ${allInvestmentAnalysis.length}`;
 }
 
+
+        const rankingSortKey =
+    `changeLot${currentInvestmentSummaryPeriod}`;
+
+const rankingRows =
+    [...filteredRows]
+        .filter(card => {
+            const value =
+                getInvestmentSortValue(
+                    card,
+                    rankingSortKey
+                );
+
+            return (
+                value !== null &&
+                value !== undefined &&
+                Number.isFinite(Number(value))
+            );
+        })
+        .sort((a, b) =>
+            compareValues(
+                getInvestmentSortValue(
+                    a,
+                    rankingSortKey
+                ),
+                getInvestmentSortValue(
+                    b,
+                    rankingSortKey
+                ),
+                "desc"
+            )
+        );
+
+const topRows =
+    rankingRows.slice(
+        0,
+        INVESTMENT_TOP_BOTTOM_LIMIT
+    );
+
+const bottomRows =
+    rankingRows
+        .slice(
+            -INVESTMENT_TOP_BOTTOM_LIMIT
+        )
+        .reverse();
+
+const limitedRows = [];
+
+const seenInvestmentIds =
+    new Set();
+
+[
+    ...topRows,
+    ...bottomRows
+].forEach(card => {
+
+    const key =
+        String(card.id);
+
+    if (!seenInvestmentIds.has(key)) {
+        seenInvestmentIds.add(key);
+        limitedRows.push(card);
+    }
+});
+
+const displayedRows =
+    investmentShowAll
+        ? sortedRows
+        : limitedRows;
+
     tbody.innerHTML = "";
 
-    sortedRows.forEach(card => {
+    displayedRows.forEach(card => {
+
+
         const scryfallUrl =
             card.scryfallUri ||
             (
@@ -8196,6 +8271,60 @@ ${availablePeriods.has("perf365d") ? `
             </tr>
         `;
     });
+
+    const toggleButton =
+    document.getElementById(
+        "investment-toggle-all"
+    );
+
+if (toggleButton) {
+
+    toggleButton.hidden =
+    !investmentShowAll &&
+    filteredRows.length <=
+        displayedRows.length;
+
+    toggleButton.textContent =
+        investmentShowAll
+            ? "Afficher Top 100 + Flop 100"
+            : "Afficher toutes les cartes";
+
+    toggleButton.onclick = () => {
+
+        investmentShowAll =
+            !investmentShowAll;
+
+        renderInvestmentAnalysis();
+    };
+}
+
+if (status) {
+
+    if (investmentShowAll) {
+
+        status.textContent =
+            `${displayedRows.length} carte${
+                displayedRows.length > 1
+                    ? "s"
+                    : ""
+            } affichée${
+                displayedRows.length > 1
+                    ? "s"
+                    : ""
+            }`;
+
+    } else {
+
+        status.textContent =
+            `${displayedRows.length} cartes affichées sur ` +
+            `${filteredRows.length} — ` +
+            `Top ${Math.min(100, topRows.length)} + ` +
+            `Flop ${Math.min(100, bottomRows.length)} — ` +
+            `${getInvestmentSummaryPeriodLabel(
+                currentInvestmentSummaryPeriod
+            )}`;
+    }
+}
 
     updateInvestmentHeaderState();
 }
