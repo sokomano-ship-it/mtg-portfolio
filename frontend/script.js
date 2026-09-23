@@ -8143,11 +8143,9 @@ const topRows =
     );
 
 const bottomRows =
-    rankingRows
-        .slice(
-            -INVESTMENT_TOP_BOTTOM_LIMIT
-        )
-        .reverse();
+    rankingRows.slice(
+        -INVESTMENT_TOP_BOTTOM_LIMIT
+    );
 
 const limitedRows = [];
 
