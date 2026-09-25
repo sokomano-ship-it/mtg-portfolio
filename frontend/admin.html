@@ -447,133 +447,174 @@ function observedConditionsForCard(card) {
 
 
 function valuePriorityScore(value) {
-  if (value >= 50) return 40;
-  if (value >= 20) return 30;
-  if (value >= 5) return 20;
-  if (value >= 2) return 10;
+    const v = Number(value || 0);
 
-  return 0;
+    if (v <= 0) return 0;
+
+    // Score continu de 0 à 20.
+    // 250 € et plus approchent le maximum.
+    return Math.min(
+        20,
+        20 * Math.log1p(v) / Math.log1p(250)
+    );
+}
+
+function marketMovementForCard(card) {
+
+    const trend =
+        Number(card.trendPrice || 0);
+
+    if (trend <= 0) {
+        return 0;
+    }
+
+    const references = [
+        Number(card.avg1 || 0),
+        Number(card.avg7 || 0),
+        Number(card.avg30 || 0)
+    ].filter(value => value > 0);
+
+    if (!references.length) {
+        return 0;
+    }
+
+    const changes =
+        references.map(reference =>
+            Math.abs(
+                (trend - reference) /
+                reference
+            ) * 100
+        );
+
+    return Math.max(...changes);
+}
+
+
+function movementPriorityScore(card) {
+
+    const movement =
+        marketMovementForCard(card);
+
+    /*
+     * Score progressif 0 -> 45.
+     *
+     *  0 % ≈  0 pts
+     *  5 % ≈ 11 pts
+     * 10 % ≈ 23 pts
+     * 15 % ≈ 34 pts
+     * 20 % ≈ 45 pts
+     */
+
+    return Math.min(
+        45,
+        movement / 20 * 45
+    );
+}
+
+function agePriorityScore(card) {
+
+    const age =
+        daysSinceLastObservation(card);
+
+    if (!Number.isFinite(age)) {
+        return 30;
+    }
+
+    /*
+     * Progression continue jusqu'à 120 jours.
+     *
+     *  0 j   =  0 pts
+     * 30 j   ≈  8 pts
+     * 60 j   = 15 pts
+     * 90 j   ≈ 23 pts
+     * 120 j+ = 30 pts
+     */
+
+    return Math.min(
+        30,
+        age / 120 * 30
+    );
 }
 
 
 function modelPriorityForCard(card) {
-  const observationCount =
-    observationCountForCard(card);
 
-  const value =
-    currentMarketValueForCard(card);
+    const observationCount =
+        observationCountForCard(card);
 
-  const conditions =
-    observedConditionsForCard(card);
+    const value =
+        currentMarketValueForCard(card);
 
-  const age =
-    daysSinceLastObservation(card);
+    const age =
+        daysSinceLastObservation(card);
 
-  let score = 0;
-  const reasons = [];
+    const movement =
+        marketMovementForCard(card);
 
-  /*
-   * VALEUR DE LA CARTE
-   */
-  const valueScore =
-    valuePriorityScore(value);
+    const valueScore =
+        valuePriorityScore(value);
 
-  score += valueScore;
+    const movementScore =
+        movementPriorityScore(card);
 
-  if (value >= 250) {
+    const ageScore =
+        agePriorityScore(card);
+
+    /*
+     * Le nombre de relevés devient seulement
+     * un petit facteur secondaire.
+     *
+     * 1 relevé = 5 pts
+     * 2 relevés = 4 pts
+     * 3 relevés = 3 pts
+     * ...
+     */
+
+    const dataScore =
+        Math.max(
+            0,
+            6 - observationCount
+        );
+
+    const score =
+        movementScore +
+        ageScore +
+        valueScore +
+        dataScore;
+
+    const reasons = [];
+
+    if (movement > 0) {
+        reasons.push(
+            `mouvement ${movement.toFixed(1)} %`
+        );
+    }
+
+    if (Number.isFinite(age)) {
+        reasons.push(
+            `dernier relevé il y a ${age} jours`
+        );
+    }
+
+    if (value > 0) {
+        reasons.push(
+            `valeur ${value.toFixed(2)} €`
+        );
+    }
+
     reasons.push(
-      `forte valeur (${value.toFixed(2)} €)`
+        `${observationCount} relevé${
+            observationCount > 1 ? "s" : ""
+        }`
     );
-  } else if (value >= 50) {
-    reasons.push(
-      `valeur élevée (${value.toFixed(2)} €)`
-    );
-  } else if (value >= 20) {
-    reasons.push(
-      `valeur significative (${value.toFixed(2)} €)`
-    );
-  }
 
-
-  /*
-   * NOMBRE DE RELEVÉS
-   */
-  if (observationCount === 1) {
-    score += 40;
-    reasons.push("seulement 1 relevé");
-  } else if (observationCount === 2) {
-    score += 25;
-    reasons.push("seulement 2 relevés");
-  } else if (observationCount === 3) {
-    score += 10;
-    reasons.push("seulement 3 relevés");
-  }
-
-
-  /*
-   * CONDITIONS IMPORTANTES ABSENTES
-   */
-  if (!conditions.has("NM")) {
-    score += 20;
-    reasons.push("NM non observé");
-  }
-
-  if (!conditions.has("EX")) {
-    score += 10;
-    reasons.push("EX non observé");
-  }
-
-
-  /*
-   * ANCIENNETÉ DU DERNIER RELEVÉ
-   */
-  if (
-    Number.isFinite(age) &&
-    age > 180
-  ) {
-    score += 30;
-    reasons.push(
-      `dernier relevé il y a ${age} jours`
-    );
-  } else if (
-    Number.isFinite(age) &&
-    age > 90
-  ) {
-    score += 20;
-    reasons.push(
-      `dernier relevé il y a ${age} jours`
-    );
-  } else if (
-    Number.isFinite(age) &&
-    age > 30
-  ) {
-    score += 10;
-    reasons.push(
-      `dernier relevé il y a ${age} jours`
-    );
-  }
-
-
-  /*
-   * CARTES DE TRÈS FAIBLE VALEUR
-   *
-   * Elles doivent avoir une première observation,
-   * mais ensuite elles ne doivent pratiquement
-   * jamais être proposées à nouveau.
-   */
-  if (
-  observationCount > 0 &&
-  value < 2
-) {
-  score -= 100;
-}
-
-
-  return {
-    score,
-    value,
-    reasons
-  };
+    return {
+        score,
+        value,
+        movement,
+        age,
+        reasons
+    };
 }
 
 function loadRandomCards() {
@@ -694,10 +735,11 @@ function loadRandomCards() {
 
   const alreadyObserved =
     cardsWithCounts
-      .filter(
-        card =>
-          card.observationCount > 0
-      )
+        .filter(
+            card =>
+                card.observationCount > 0 &&
+                card.marketValue >= 5
+        )
       .map(card => {
 
         const priority =
