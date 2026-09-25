@@ -576,11 +576,32 @@ function modelPriorityForCard(card) {
             6 - observationCount
         );
 
-    const score =
-        movementScore +
-        ageScore +
-        valueScore +
-        dataScore;
+    const baseScore =
+    movementScore +
+    ageScore +
+    valueScore +
+    dataScore;
+
+/*
+ * Pénalité progressive si le dernier relevé
+ * est récent.
+ *
+ *  0 jour  ->   0 % du score
+ *  9 jours ->  10 %
+ * 18 jours ->  20 %
+ * 30 jours ->  33 %
+ * 45 jours ->  50 %
+ * 60 jours ->  67 %
+ * 90 jours -> 100 %
+ */
+
+const recencyFactor =
+    Number.isFinite(age)
+        ? Math.min(1, age / 90)
+        : 1;
+
+const score =
+    baseScore * recencyFactor;
 
     const reasons = [];
 
@@ -866,7 +887,7 @@ function renderRandomCards() {
     card.priorityScore !== undefined
       ? `
         <div class="muted">
-          Score priorité : ${card.priorityScore}
+          Score priorité : ${Number(card.priorityScore).toFixed(1)}
         </div>
       `
       : ""
