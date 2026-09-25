@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T10:28:49.934Z",
+  "generatedAt": "2026-09-25T13:31:13.201Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -62255,18 +62255,18 @@
     },
     {
       "date": "2026-09-25",
-      "totalValue": 21712.65,
+      "totalValue": 21821.44,
       "categoryValues": {
         "Classeur 3": 413.29,
-        "Classeur 1": 2741.36,
+        "Classeur 1": 2753.29,
         "GG Mono Green": 1194.76,
         "RR Mono Red": 614.06,
-        "WW Mono White": 830.06,
+        "WW Mono White": 830.11,
         "BB Mono Black": 789.36,
         "WR White Red": 2846.38,
         "UU Mono Blue": 702.62,
         "BG Black Green": 1292.03,
-        "RG Red Green": 1022.09,
+        "RG Red Green": 1118.9,
         "Classeur 2": 314,
         "BR Black Red": 1915.79,
         "WG White Green": 1455.49,
@@ -62276,13 +62276,13 @@
       "editionValues": {
         "Alliances": 168.33,
         "Antiquities": 1295.45,
-        "Arabian Nights": 1758.94,
+        "Arabian Nights": 1758.99,
         "Chronicles": 412.74,
         "Exodus": 1175.51,
         "Fallen Empires": 23.53,
         "Fifth Edition": 34.19,
         "Foreign Black Bordered": 507.79,
-        "Foreign White Bordered": 4207.58,
+        "Foreign White Bordered": 4219.51,
         "Fourth Edition": 213.82,
         "Homelands": 34.08,
         "Ice Age": 210.88,
@@ -62297,7 +62297,7 @@
         "Tempest": 847.6,
         "The Dark": 315.85,
         "Unglued": 28.31,
-        "Unlimited": 1894.34,
+        "Unlimited": 1991.15,
         "Urza's Destiny": 54.28,
         "Urza's Legacy": 80.76,
         "Urza's Saga": 1336.92,
@@ -62314,7 +62314,7 @@
           "Antiquities": 1012.08,
           "Arabian Nights": 194.28,
           "Foreign Black Bordered": 92,
-          "Foreign White Bordered": 513.17,
+          "Foreign White Bordered": 525.1,
           "Fourth Edition": 5.17,
           "Legends": 52.82,
           "Legends Italian": 27.76,
@@ -62346,7 +62346,7 @@
           "Unlimited": 5.71
         },
         "WW Mono White": {
-          "Arabian Nights": 313.61,
+          "Arabian Nights": 313.66,
           "Chronicles": 0.06,
           "Fallen Empires": 8.2,
           "Foreign Black Bordered": 14.72,
@@ -62410,7 +62410,8 @@
           "Legends": 15.58,
           "Legends Italian": 10.42,
           "Renaissance": 0.28,
-          "Revised": 243.36
+          "Revised": 243.36,
+          "Unlimited": 96.81
         },
         "Classeur 2": {
           "Chronicles": 132.09,
@@ -62458,7 +62459,28 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "2720",
+            "nomCarte": "Berserk",
+            "edition": "Unlimited",
+            "langue": "English",
+            "etat": "GD",
+            "categorie": "RG Red Green"
+          },
+          {
+            "id": "2721",
+            "nomCarte": "Birds of Paradise",
+            "edition": "Foreign White Bordered",
+            "langue": "French",
+            "etat": "LP",
+            "categorie": "Classeur 1"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
