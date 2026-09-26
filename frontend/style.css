@@ -968,6 +968,11 @@ body.observations-page .obs-svg-chart .legend-PO {
   fill: #7f1d1d;
 }
 
+/* Never fill observation chart lines */
+body.observations-page .obs-svg-chart polyline.line {
+    fill: none;
+}
+
 body.observations-page .obs-svg-chart .axis {
   stroke: rgba(255, 255, 255, 0.28);
   stroke-width: 1;
