@@ -230,20 +230,27 @@ async function main() {
             });
 
         const rows =
-            rowsResult.rows || [];
+    rowsResult.rows || [];
 
-        if (!rows.length) {
-            break;
-        }
+if (!rows.length) {
+    break;
+}
 
-        for (const stored of rows) {
+await run(
+    db,
+    "BEGIN TRANSACTION"
+);
 
-            const row =
-                JSON.parse(
-                    String(
-                        stored.row_json
-                    )
-                );
+try {
+
+    for (const stored of rows) {
+
+        const row =
+            JSON.parse(
+                String(
+                    stored.row_json
+                )
+            );
 
             const columns =
                 Object.keys(row);
@@ -308,6 +315,23 @@ async function main() {
                 );
             }
         }
+
+          await run(
+        db,
+        "COMMIT"
+    );
+
+} catch (error) {
+
+    try {
+        await run(
+            db,
+            "ROLLBACK"
+        );
+    } catch {}
+
+    throw error;
+}
 
         tableRows += rows.length;
         totalRows += rows.length;

@@ -36,13 +36,14 @@ async function main() {
     `);
 
     await turso.execute(`
-        CREATE INDEX IF NOT EXISTS
-        idx_portfolio_mirror_rows_generation_table
-        ON portfolio_mirror_rows (
-            generation_id,
-            table_name
-        )
-    `);
+    CREATE INDEX IF NOT EXISTS
+    idx_portfolio_mirror_rows_hydration
+    ON portfolio_mirror_rows (
+        generation_id,
+        table_name,
+        rowid_value
+    )
+`);
 
     await turso.execute(`
         CREATE TABLE IF NOT EXISTS portfolio_mirror_metadata (
