@@ -410,8 +410,7 @@ function xFor(index) {
     if (!points.length) return;
 
     const pointString = points.map(p => `${p.x},${p.y}`).join(" ");
-    svg += `<polyline points="${pointString}" class="line line-${condition}" />`;
-
+    svg += `<polyline points="${pointString}" class="line line-${condition}" fill="none" />`;
     points.forEach(p => {
       svg += `
         <circle cx="${p.x}" cy="${p.y}" r="4" class="dot dot-${condition}">
