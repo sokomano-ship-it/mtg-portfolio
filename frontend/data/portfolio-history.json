@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T11:30:43.343Z",
+  "generatedAt": "2026-09-29T19:23:05.967Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -63542,17 +63542,17 @@
     },
     {
       "date": "2026-09-29",
-      "totalValue": 22367.36,
+      "totalValue": 21754.07,
       "categoryValues": {
         "Classeur 3": 428.73,
-        "Classeur 1": 2722.02,
+        "Classeur 1": 2108.62,
         "GG Mono Green": 1210.1,
         "RR Mono Red": 597.67,
-        "WW Mono White": 842.84,
+        "WW Mono White": 841.05,
         "BB Mono Black": 783.35,
         "WR White Red": 2822.3,
         "UU Mono Blue": 708.5,
-        "BG Black Green": 1240.64,
+        "BG Black Green": 1242.54,
         "RG Red Green": 1101.59,
         "Classeur 2": 301.29,
         "BR Black Red": 1918.29,
@@ -63564,14 +63564,14 @@
       "editionValues": {
         "Alliances": 177.66,
         "Antiquities": 1301.1,
-        "Arabian Nights": 1775.61,
+        "Arabian Nights": 1775.65,
         "Chronicles": 407.94,
         "Exodus": 1168.2,
         "Fallen Empires": 23.49,
         "Fifth Edition": 34.29,
         "Foreign Black Bordered": 479.95,
-        "Foreign White Bordered": 4148.21,
-        "Fourth Edition": 214.17,
+        "Foreign White Bordered": 4146.65,
+        "Fourth Edition": 216.2,
         "Homelands": 34.85,
         "Ice Age": 216.22,
         "Legends": 1062.52,
@@ -63579,7 +63579,7 @@
         "Mirage": 671.06,
         "Portal Second Age": 25.83,
         "Renaissance": 384.1,
-        "Revised": 4168.35,
+        "Revised": 3554.55,
         "Sixth Edition": 7.82,
         "Stronghold": 940.75,
         "Tempest": 852.67,
@@ -63602,12 +63602,12 @@
           "Antiquities": 1015.18,
           "Arabian Nights": 194.63,
           "Foreign Black Bordered": 71.92,
-          "Foreign White Bordered": 520.81,
+          "Foreign White Bordered": 519.38,
           "Fourth Edition": 3.63,
           "Legends": 52.46,
           "Legends Italian": 17.13,
           "Renaissance": 3.58,
-          "Revised": 666.31,
+          "Revised": 54.34,
           "The Dark": 75.21,
           "Unlimited": 101.16
         },
@@ -63634,7 +63634,7 @@
           "Unlimited": 5.42
         },
         "WW Mono White": {
-          "Arabian Nights": 319.56,
+          "Arabian Nights": 319.6,
           "Chronicles": 0.06,
           "Fallen Empires": 8.1,
           "Foreign Black Bordered": 14.56,
@@ -63642,7 +63642,7 @@
           "Fourth Edition": 7.15,
           "Legends": 282.43,
           "Renaissance": 28.5,
-          "Revised": 68.74,
+          "Revised": 66.91,
           "The Dark": 76.37
         },
         "BB Mono Black": {
@@ -63682,8 +63682,8 @@
           "Arabian Nights": 270.66,
           "Chronicles": 33.92,
           "Foreign Black Bordered": 14.7,
-          "Foreign White Bordered": 777.19,
-          "Fourth Edition": 2.53,
+          "Foreign White Bordered": 777.06,
+          "Fourth Edition": 4.56,
           "Legends": 37.28,
           "Renaissance": 5.14,
           "Revised": 23.32,
@@ -63757,7 +63757,104 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "2748",
+            "nomCarte": "Verduran Enchantress",
+            "edition": "Fourth Edition",
+            "langue": "English",
+            "etat": "N?",
+            "categorie": "BG Black Green"
+          }
+        ],
+        "removed": [
+          {
+            "id": "1267",
+            "nomCarte": "Birds of Paradise",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "GD",
+            "categorie": "BG Black Green"
+          },
+          {
+            "id": "2718",
+            "nomCarte": "Serra Angel",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "Classeur 1"
+          },
+          {
+            "id": "1448",
+            "nomCarte": "Verduran Enchantress",
+            "edition": "Foreign White Bordered",
+            "langue": "French",
+            "etat": "EX",
+            "categorie": "Classeur 1"
+          },
+          {
+            "id": "2732",
+            "nomCarte": "Volcanic Island",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "UR Blue Red"
+          }
+        ],
+        "moved": [
+          {
+            "id": "1266",
+            "nomCarte": "Birds of Paradise",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "GD",
+            "categorie": "BG Black Green",
+            "fromCategory": "Classeur 1",
+            "toCategory": "BG Black Green"
+          },
+          {
+            "id": "1348",
+            "nomCarte": "Serra Angel",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "Classeur 1",
+            "fromCategory": "WW Mono White",
+            "toCategory": "Classeur 1"
+          },
+          {
+            "id": "1361",
+            "nomCarte": "Serra Angel",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "WR White Red",
+            "fromCategory": "Classeur 1",
+            "toCategory": "WR White Red"
+          },
+          {
+            "id": "2713",
+            "nomCarte": "Serra Angel",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "Classeur 1",
+            "fromCategory": "WR White Red",
+            "toCategory": "Classeur 1"
+          },
+          {
+            "id": "2558",
+            "nomCarte": "Volcanic Island",
+            "edition": "Revised",
+            "langue": "English",
+            "etat": "EX",
+            "categorie": "UR Blue Red",
+            "fromCategory": "Classeur 1",
+            "toCategory": "UR Blue Red"
+          }
+        ]
+      }
     }
   ]
 }
