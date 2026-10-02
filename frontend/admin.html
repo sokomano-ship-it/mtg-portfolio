@@ -850,7 +850,8 @@ function loadRandomCards() {
         .filter(
             card =>
                 card.observationCount > 0 &&
-                card.marketValue >= 5
+                card.marketValue >= 5 &&
+                daysSinceLastObservation(card) >= 1
         )
         .map(card => {
 
