@@ -113,7 +113,8 @@
 <div class="admin-card">
   <h2>1b. Saisie rapide priorisée</h2>
 <p class="muted">
-  Priorité aux cartes sans observation, puis aux cartes pour lesquelles
+  Priorité aux cartes sans observation, puis aux anomalies Cardmarket
+  nécessitant un contrôle manuel, puis aux cartes pour lesquelles
   un nouveau relevé améliorera le plus le modèle.
 </p>
 
@@ -459,6 +460,96 @@ function valuePriorityScore(value) {
     );
 }
 
+function marketAnomalyForCard(card) {
+    const trend = Number(card.trendPrice || 0);
+    const avg1 = Number(card.avg1 || 0);
+    const avg7 = Number(card.avg7 || 0);
+    const avg30 = Number(card.avg30 || 0);
+
+    /*
+     * On ne cherche pas à corriger le prix.
+     * Cette fonction sert uniquement à détecter
+     * une incohérence dans le snapshot Cardmarket.
+     *
+     * avg30 constitue ici le niveau de comparaison
+     * le moins sensible à une transaction isolée.
+     */
+    if (trend <= 0 || avg30 <= 0) {
+        return {
+            suspicious: false,
+            score: 0,
+            trendVs30: 0,
+            avg1Vs30: 0,
+            avg7Vs30: 0,
+            reason: ""
+        };
+    }
+
+    const trendVs30 =
+        Math.abs(trend - avg30) / avg30;
+
+    const avg1Vs30 =
+        avg1 > 0
+            ? Math.abs(avg1 - avg30) / avg30
+            : 0;
+
+    const avg7Vs30 =
+        avg7 > 0
+            ? Math.abs(avg7 - avg30) / avg30
+            : 0;
+
+    /*
+     * Détection volontairement prudente :
+     *
+     * - Trend éloigné d'au moins 50 % du 30 jours
+     * - ou moyenne 1 jour éloignée d'au moins 100 %
+     *
+     * Ce sont des critères de contrôle manuel,
+     * jamais des règles de correction du prix.
+     */
+    const suspicious =
+        trendVs30 >= 0.50 ||
+        avg1Vs30 >= 1.00;
+
+    /*
+     * Score uniquement utilisé pour classer
+     * les anomalies entre elles.
+     */
+    const score =
+        Math.max(
+            trendVs30,
+            avg1Vs30,
+            avg7Vs30
+        ) * 100;
+
+    const reasons = [];
+
+    if (trendVs30 >= 0.50) {
+        reasons.push(
+            `Trend / 30j ${(
+                (trend - avg30) / avg30 * 100
+            ).toFixed(0)} %`
+        );
+    }
+
+    if (avg1Vs30 >= 1.00) {
+        reasons.push(
+            `1j / 30j ${(
+                (avg1 - avg30) / avg30 * 100
+            ).toFixed(0)} %`
+        );
+    }
+
+    return {
+        suspicious,
+        score,
+        trendVs30,
+        avg1Vs30,
+        avg7Vs30,
+        reason: reasons.join(" · ")
+    };
+}
+
 function marketMovementForCard(card) {
 
     const trend =
@@ -761,71 +852,100 @@ function loadRandomCards() {
                 card.observationCount > 0 &&
                 card.marketValue >= 5
         )
-      .map(card => {
+        .map(card => {
 
-        const priority =
-          modelPriorityForCard(card);
+            const priority =
+                modelPriorityForCard(card);
 
-        return {
-          ...card,
+            const anomaly =
+                marketAnomalyForCard(card);
 
-          priorityScore:
-            priority.score,
+            return {
+                ...card,
 
-          priorityValue:
-            priority.value,
+                marketAnomaly:
+                    anomaly.suspicious,
 
-          selectionReason:
-            priority.reasons.length
-              ? priority.reasons.join(" · ")
-              : "Réobservation utile au modèle"
-        };
-      })
-      .sort((a, b) => {
+                marketAnomalyScore:
+                    anomaly.score,
 
-        /*
-         * Score modèle en premier.
-         */
+                priorityScore:
+                    priority.score,
 
-        if (
-          b.priorityScore !==
-          a.priorityScore
-        ) {
-          return (
-            b.priorityScore -
-            a.priorityScore
-          );
-        }
+                priorityValue:
+                    priority.value,
 
+                selectionReason:
+                    anomaly.suspicious
+                        ? `⚠️ Anomalie Cardmarket · ${anomaly.reason}`
+                        : (
+                            priority.reasons.length
+                                ? priority.reasons.join(" · ")
+                                : "Réobservation utile au modèle"
+                        )
+            };
+        })
+        .sort((a, b) => {
 
-        /*
- * À score identique :
- * priorité à la carte dont le dernier relevé
- * est le plus ancien.
- */
+            /*
+             * PRIORITÉ 1 :
+             * anomalie Cardmarket.
+             */
+            if (
+                Boolean(a.marketAnomaly) !==
+                Boolean(b.marketAnomaly)
+            ) {
+                return a.marketAnomaly ? -1 : 1;
+            }
 
-const ageA =
-  daysSinceLastObservation(a);
+            /*
+             * Entre deux anomalies :
+             * la plus incohérente en premier.
+             */
+            if (
+                a.marketAnomaly &&
+                b.marketAnomaly &&
+                b.marketAnomalyScore !==
+                    a.marketAnomalyScore
+            ) {
+                return (
+                    b.marketAnomalyScore -
+                    a.marketAnomalyScore
+                );
+            }
 
-const ageB =
-  daysSinceLastObservation(b);
+            /*
+             * Sinon classement modèle actuel.
+             */
+            if (
+                b.priorityScore !==
+                a.priorityScore
+            ) {
+                return (
+                    b.priorityScore -
+                    a.priorityScore
+                );
+            }
 
-if (ageB !== ageA) {
-  return ageB - ageA;
-}
+            /*
+             * À score identique :
+             * observation la plus ancienne.
+             */
+            const ageA =
+                daysSinceLastObservation(a);
 
+            const ageB =
+                daysSinceLastObservation(b);
 
-/*
- * Puis ordre alphabétique uniquement
- * pour avoir un classement stable.
- */
+            if (ageB !== ageA) {
+                return ageB - ageA;
+            }
 
-return `${a.nomCarte} ${a.edition} ${a.langue}`
-  .localeCompare(
-    `${b.nomCarte} ${b.edition} ${b.langue}`
-  );
-      });
-
+            return `${a.nomCarte} ${a.edition} ${a.langue}`
+                .localeCompare(
+                    `${b.nomCarte} ${b.edition} ${b.langue}`
+                );
+        });
 
   randomCards = [
     ...selectedZero,
@@ -881,6 +1001,19 @@ function renderRandomCards() {
   <div class="muted">
     ${card.selectionReason || ""}
   </div>
+
+  ${
+    card.marketAnomaly
+        ? `
+            <div class="muted">
+                Trend ${formatNumber(card.trendPrice) || "-"} € ·
+                30j ${formatNumber(card.avg30) || "-"} € ·
+                7j ${formatNumber(card.avg7) || "-"} € ·
+                1j ${formatNumber(card.avg1) || "-"} €
+            </div>
+          `
+        : ""
+}
 
   ${
     card.priorityScore !== null &&
@@ -1642,29 +1775,6 @@ function renderTrackedCards() {
   });
 }
 
-function validateRandomRow(index) {
-  const values = {
-    PO: Number($(`random-${index}-PO`)?.value || 0),
-    PL: Number($(`random-${index}-PL`)?.value || 0),
-    LP: Number($(`random-${index}-LP`)?.value || 0),
-    GD: Number($(`random-${index}-GD`)?.value || 0),
-    EX: Number($(`random-${index}-EX`)?.value || 0),
-    NM: Number($(`random-${index}-NM`)?.value || 0)
-  };
-
-  const warnings = [];
-
-  if (values.PO && values.PL && values.PO > values.PL) warnings.push("PO > PL");
-  if (values.PL && values.LP && values.PL > values.LP) warnings.push("PL > LP");
-  if (values.LP && values.GD && values.LP > values.GD) warnings.push("LP > GD");
-  if (values.GD && values.EX && values.GD > values.EX) warnings.push("GD > EX");
-  if (values.EX && values.NM && values.EX > values.NM) warnings.push("EX > NM");
-
-  const box = $(`random-warning-${index}`);
-  if (!box) return;
-
-  box.textContent = warnings.length ? "⚠ " + warnings.join(" | ") : "";
-}
 
 loadSettings();
 loadPortfolio();
