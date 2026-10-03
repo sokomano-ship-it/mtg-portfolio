@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T09:19:50.697Z",
+  "generatedAt": "2026-10-03T10:41:11.195Z",
   "portfolioHistory": [
     {
       "date": "2026-07-12",
@@ -64962,14 +64962,14 @@
     },
     {
       "date": "2026-10-03",
-      "totalValue": 24385.67,
+      "totalValue": 24413.93,
       "categoryValues": {
         "Classeur 3": 420.53,
-        "Classeur 1": 1572.4,
+        "Classeur 1": 1244.7,
         "GG Mono Green": 1231.88,
         "RR Mono Red": 601.15,
-        "UB Blue Black": 429.86,
-        "WW Mono White": 852.55,
+        "UB Blue Black": 785.8,
+        "WW Mono White": 852.57,
         "BB Mono Black": 797.62,
         "WR White Red": 2842.62,
         "UU Mono Blue": 705.62,
@@ -64985,8 +64985,8 @@
       },
       "editionValues": {
         "Alliances": 167.14,
-        "Antiquities": 1342.25,
-        "Arabian Nights": 1797.07,
+        "Antiquities": 1370.49,
+        "Arabian Nights": 1797.09,
         "Chronicles": 429.81,
         "Exodus": 1131.14,
         "Fallen Empires": 24.17,
@@ -65021,12 +65021,12 @@
           "Ice Age": 220.63
         },
         "Classeur 1": {
-          "Antiquities": 650.53,
+          "Antiquities": 322.22,
           "Arabian Nights": 154.71,
           "Foreign Black Bordered": 72.14,
           "Foreign White Bordered": 385.64,
           "Fourth Edition": 12.28,
-          "Legends": 36.34,
+          "Legends": 36.95,
           "Legends Italian": 14.05,
           "Renaissance": 7.75,
           "Revised": 56.76,
@@ -65056,15 +65056,14 @@
           "Unlimited": 5.18
         },
         "UB Blue Black": {
-          "Antiquities": 399.48,
+          "Antiquities": 756.03,
           "Foreign Black Bordered": 0.52,
           "Foreign White Bordered": 14.88,
           "Fourth Edition": 11.41,
-          "Legends": 0.61,
           "Renaissance": 2.96
         },
         "WW Mono White": {
-          "Arabian Nights": 317.4,
+          "Arabian Nights": 317.42,
           "Chronicles": 0.06,
           "Fallen Empires": 7.66,
           "Foreign Black Bordered": 14.42,
@@ -65199,238 +65198,34 @@
       "collectionChanges": {
         "added": [
           {
-            "id": "2781",
-            "nomCarte": "Blue Elemental Blast",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "UB Blue Black"
-          },
-          {
-            "id": "2782",
-            "nomCarte": "Blue Elemental Blast",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "UB Blue Black"
-          },
-          {
-            "id": "2780",
-            "nomCarte": "City of Brass",
-            "edition": "Chronicles",
-            "langue": "English",
-            "etat": "EX",
-            "categorie": "BG Black Green"
-          },
-          {
-            "id": "2778",
-            "nomCarte": "Earthquake",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
-            "etat": "EX",
-            "categorie": "UR Blue Red"
-          },
-          {
-            "id": "2776",
-            "nomCarte": "Ivory Tower",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "Classeur 1"
-          },
-          {
-            "id": "2783",
-            "nomCarte": "Mind Twist",
-            "edition": "Fourth Edition",
-            "langue": "French",
-            "etat": "EX",
-            "categorie": "UB Blue Black"
-          },
-          {
-            "id": "2786",
-            "nomCarte": "Power Sink",
-            "edition": "Foreign Black Bordered",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "UR Blue Red"
-          },
-          {
-            "id": "2787",
-            "nomCarte": "Power Sink",
-            "edition": "Foreign Black Bordered",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "UR Blue Red"
-          },
-          {
-            "id": "2779",
-            "nomCarte": "Serra Angel",
-            "edition": "Fourth Edition",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "Classeur 2"
-          },
-          {
-            "id": "2788",
-            "nomCarte": "Swamp (V.3)",
-            "edition": "Foreign Black Bordered",
-            "langue": "French",
-            "etat": "EX",
-            "categorie": "UB Blue Black"
-          },
-          {
-            "id": "2775",
+            "id": "2789",
             "nomCarte": "Transmute Artifact",
             "edition": "Antiquities",
             "langue": "English",
-            "etat": "NM",
-            "categorie": "UB Blue Black"
-          },
-          {
-            "id": "2777",
-            "nomCarte": "Verduran Enchantress",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
             "etat": "EX",
-            "categorie": "Classeur 1"
-          },
-          {
-            "id": "2785",
-            "nomCarte": "Winter Orb",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
-            "etat": "EX",
-            "categorie": "UB Blue Black"
-          },
-          {
-            "id": "2784",
-            "nomCarte": "Winter Orb",
-            "edition": "Fourth Edition",
-            "langue": "German",
-            "etat": "GD",
             "categorie": "UB Blue Black"
           }
         ],
         "removed": [
           {
-            "id": "2335",
+            "id": "2634",
             "nomCarte": "Transmute Artifact",
             "edition": "Antiquities",
             "langue": "English",
-            "etat": "EX",
+            "etat": "GD",
             "categorie": "Classeur 1"
           }
         ],
         "moved": [
-          {
-            "id": "1530",
-            "nomCarte": "Blood Moon",
-            "edition": "Chronicles",
-            "langue": "English",
-            "etat": "NM",
-            "categorie": "BR Black Red",
-            "fromCategory": "Classeur 2",
-            "toCategory": "BR Black Red"
-          },
-          {
-            "id": "2485",
-            "nomCarte": "Blood Moon",
-            "edition": "Chronicles",
-            "langue": "English",
-            "etat": "NM",
-            "categorie": "UR Blue Red",
-            "fromCategory": "BR Black Red",
-            "toCategory": "UR Blue Red"
-          },
-          {
-            "id": "2680",
-            "nomCarte": "Blue Elemental Blast",
-            "edition": "Foreign White Bordered",
-            "langue": "French",
-            "etat": "GD",
-            "categorie": "UB Blue Black",
-            "fromCategory": "Classeur 1",
-            "toCategory": "UB Blue Black"
-          },
-          {
-            "id": "2673",
-            "nomCarte": "Fellwar Stone",
-            "edition": "Renaissance",
-            "langue": "French",
-            "etat": "EX",
-            "categorie": "UB Blue Black",
-            "fromCategory": "Classeur 1",
-            "toCategory": "UB Blue Black"
-          },
-          {
-            "id": "2674",
-            "nomCarte": "Fellwar Stone",
-            "edition": "Renaissance",
-            "langue": "French",
-            "etat": "NM",
-            "categorie": "UB Blue Black",
-            "fromCategory": "Classeur 1",
-            "toCategory": "UB Blue Black"
-          },
-          {
-            "id": "1834",
-            "nomCarte": "Mishra's Factory",
-            "edition": "Fourth Edition",
-            "langue": "French",
-            "etat": "PO",
-            "categorie": "Classeur 1",
-            "fromCategory": "Classeur 2",
-            "toCategory": "Classeur 1"
-          },
-          {
-            "id": "1863",
-            "nomCarte": "Mishra's Factory",
-            "edition": "Renaissance",
-            "langue": "French",
-            "etat": "GD",
-            "categorie": "Classeur 1",
-            "fromCategory": "Classeur 2",
-            "toCategory": "Classeur 1"
-          },
-          {
-            "id": "2243",
-            "nomCarte": "Sage of Lat-Nam",
-            "edition": "Antiquities",
-            "langue": "English",
-            "etat": "NM",
-            "categorie": "UB Blue Black",
-            "fromCategory": "Classeur 1",
-            "toCategory": "UB Blue Black"
-          },
-          {
-            "id": "1238",
-            "nomCarte": "Sol Ring",
-            "edition": "Foreign White Bordered",
-            "langue": "Italian",
-            "etat": "GD",
-            "categorie": "RG Red Green",
-            "fromCategory": "Classeur 1",
-            "toCategory": "RG Red Green"
-          },
-          {
-            "id": "2675",
-            "nomCarte": "Tetravus",
-            "edition": "Renaissance",
-            "langue": "French",
-            "etat": "EX",
-            "categorie": "UB Blue Black",
-            "fromCategory": "Classeur 1",
-            "toCategory": "UB Blue Black"
-          },
           {
             "id": "2211",
             "nomCarte": "Transmutation",
             "edition": "Legends",
             "langue": "English",
             "etat": "EX",
-            "categorie": "UB Blue Black",
-            "fromCategory": "Classeur 1",
-            "toCategory": "UB Blue Black"
+            "categorie": "Classeur 1",
+            "fromCategory": "UB Blue Black",
+            "toCategory": "Classeur 1"
           }
         ]
       }
