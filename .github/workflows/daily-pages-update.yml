@@ -103,9 +103,19 @@ jobs:
 
           git diff --cached --quiet || git commit -m "Daily portfolio update"
 
-      - name: Push
+      - name: Synchronize and push
         if: github.event_name != 'push'
-        run: git push
+        run: |
+          echo "Synchronizing with latest main..."
+
+          # Build/Turso steps may leave generated files modified
+          # outside the files intentionally committed above.
+          git stash push --include-untracked -m "workflow-temp"
+
+          git fetch origin main
+          git rebase origin/main
+
+          git push origin main
 
       - name: Generate frontend files for push deployment
         if: github.event_name == 'push'
