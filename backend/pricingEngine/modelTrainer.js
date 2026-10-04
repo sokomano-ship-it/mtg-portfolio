@@ -1074,9 +1074,13 @@ function trainEditionRatioModel(
         : 0;
 
     const ratioToReferenceMarketAnchor =
-      historicalRatioAverage ||
-      bootstrapRatio ||
-      0;
+      rows.length >= 2
+        ? (
+            historicalRatioAverage ||
+            bootstrapRatio ||
+            0
+          )
+        : 0;
 
     if (
       ratioToReferenceMarketAnchor > 0
