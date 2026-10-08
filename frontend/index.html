@@ -110,55 +110,131 @@
     </div>
 
 
-    <!-- Variation -->
-    <div class="portfolio-summary-card portfolio-kpi-change">
+<!-- Variation valeur -->
+<div class="portfolio-summary-card portfolio-kpi-change">
 
-        <div class="portfolio-summary-icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 17l6-6 4 4 6-8"></path>
-        <path d="M15 7h5v5"></path>
-    </svg>
-</div>
+    <div class="portfolio-summary-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 17l6-6 4 4 6-8"></path>
+            <path d="M15 7h5v5"></path>
+        </svg>
+    </div>
 
-        <div class="portfolio-summary-content">
+    <div class="portfolio-summary-content">
 
-            <span>
-                Variation 30 jours
-            </span>
+        <span id="portfolio-value-change-label">
+            Variation valeur 30 jours
+        </span>
 
-            <strong id="portfolio-category-change-30d">
-                -
-            </strong>
-
-        </div>
+        <strong id="portfolio-value-change">
+            -
+        </strong>
 
     </div>
 
-
-    <!-- Contribution -->
-    <div class="portfolio-summary-card portfolio-kpi-contribution">
-
-        <div class="portfolio-summary-icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="8"></circle>
-        <circle cx="12" cy="12" r="4"></circle>
-        <circle cx="12" cy="12" r="1"></circle>
-    </svg>
 </div>
 
-        <div class="portfolio-summary-content">
 
-            <span>
-                Contribution 30 jours
-            </span>
+<!-- Performance à périmètre constant -->
+<div class="portfolio-summary-card portfolio-kpi-contribution">
 
-            <strong id="portfolio-category-contribution">
-                -
-            </strong>
+    <div class="portfolio-summary-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8"></circle>
+            <path d="M8 12h8"></path>
+            <path d="M12 8v8"></path>
+        </svg>
+    </div>
 
-        </div>
+    <div class="portfolio-summary-content">
+
+        <span id="portfolio-constant-change-label">
+            Périmètre constant 30 jours
+        </span>
+
+        <strong id="portfolio-constant-change">
+            -
+        </strong>
 
     </div>
+
+</div>
+
+</div>
+
+<div class="portfolio-performance-period">
+
+    <span>Performance :</span>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="1">
+        1j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="7">
+        7j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="14">
+        14j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button active"
+        data-performance-period="30">
+        30j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="60">
+        60j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="90">
+        90j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="180">
+        180j
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="365">
+        1A
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="730">
+        2A
+    </button>
+
+    <button
+        type="button"
+        class="performance-period-button"
+        data-performance-period="1825">
+        5A
+    </button>
 
 </div>
 

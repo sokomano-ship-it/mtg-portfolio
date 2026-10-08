@@ -56,6 +56,8 @@ let cachedPortfolioHistory = [];
 let cachedEstimatedPriceHistory = [];
 
 let portfolioChartPeriod = "3m";
+let portfolioPerformancePeriod = 30;
+
 let portfolioChartResizeTimer = null;
 let currentPortfolioChartRenderer = null;
 let selectedPortfolioCategory = "";
@@ -5541,6 +5543,41 @@ function formatPortfolioChartDate(
     ).format(date);
 }
 
+function setupPortfolioPerformancePeriodButtons(
+    renderPortfolio
+) {
+    document
+        .querySelectorAll(
+            "[data-performance-period]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                portfolioPerformancePeriod =
+                    Number(
+                        button.dataset.performancePeriod
+                    ) || 30;
+
+                document
+                    .querySelectorAll(
+                        "[data-performance-period]"
+                    )
+                    .forEach(periodButton => {
+
+                        periodButton.classList.toggle(
+                            "active",
+                            periodButton === button
+                        );
+
+                    });
+
+                renderPortfolio();
+            };
+
+        });
+}
+
 function setupPortfolioChartPeriodButtons(
     renderChart
 ) {
@@ -6065,15 +6102,6 @@ if (cardMetaElement) {
         "portfolio-category-weight"
     );
 
-const change30dElement =
-    document.getElementById(
-        "portfolio-category-change-30d"
-    );
-
-const contributionElement =
-    document.getElementById(
-        "portfolio-category-contribution"
-    );
 
 const portfolioWeight =
     currentTotal > 0
@@ -6304,21 +6332,107 @@ if (selectedPortfolioCardKey) {
     return null;
 };
 
-let selectedChange30d = null;
-let contribution30d = null;
+const performanceDays =
+    Number(portfolioPerformancePeriod) || 30;
 
-const performance30d =
-    portfolioSummary?.performance?.perf30d ??
-    portfolioSummary?.performance?.["30d"] ??
-    null;
+const performanceKey =
+    `perf${performanceDays}d`;
+
+/*
+ * 1) Variation de la valeur réelle
+ *    → inclut les entrées/sorties de cartes.
+ */
+let selectedValueChange = null;
+
+const latestHistoryRow =
+    filteredHistory.length
+        ? filteredHistory[
+            filteredHistory.length - 1
+        ]
+        : null;
+
+if (latestHistoryRow?.date) {
+
+    const latestDate =
+        String(latestHistoryRow.date)
+            .slice(0, 10);
+
+    const targetDate =
+        shiftIsoDate(
+            latestDate,
+            -performanceDays
+        );
+
+    /*
+     * On ne compare jamais avec une date
+     * antérieure au changement de modèle.
+     */
+    if (targetDate >= MODEL_START_DATE) {
+
+        /*
+         * Période stricte :
+         * pas de fallback sur une autre date.
+         */
+        const targetHistoryRow =
+            filteredHistory.find(row =>
+                String(row.date)
+                    .slice(0, 10) ===
+                targetDate
+            );
+
+        if (targetHistoryRow) {
+
+            const startValue =
+                getSelectedRowValue(
+                    targetHistoryRow
+                );
+
+            const endValue =
+                getSelectedRowValue(
+                    latestHistoryRow
+                );
+
+            if (
+                Number.isFinite(
+                    Number(startValue)
+                ) &&
+                Number.isFinite(
+                    Number(endValue)
+                ) &&
+                Number(startValue) > 0
+            ) {
+
+                selectedValueChange =
+                    (
+                        (
+                            Number(endValue) -
+                            Number(startValue)
+                        ) /
+                        Number(startValue)
+                    ) * 100;
+            }
+        }
+    }
+}
+
+
+/*
+ * 2) Variation à base constante
+ *    → uniquement les cartes comparables
+ *      sur toute la période.
+ */
+let selectedConstantChange = null;
 
 if (noFilters) {
 
-    selectedChange30d =
-        performance30d?.performance ?? null;
+    const performance =
+        portfolioSummary
+            ?.performance
+            ?.[performanceKey];
 
-    contribution30d =
-        performance30d?.performance ?? null;
+    selectedConstantChange =
+        performance?.performance ??
+        null;
 
 } else if (
     selectedPortfolioCategory &&
@@ -6337,35 +6451,35 @@ if (noFilters) {
             )
             : null;
 
-    selectedChange30d =
-        categoryRow?.perf30d ?? null;
-
-    const globalPrevious30d =
-        Number(
-            performance30d?.previousValue
-        );
-
-    const categoryChange30d =
-        Number(
-            categoryRow?.change30d
-        );
-
-    contribution30d =
-        Number.isFinite(categoryChange30d) &&
-        Number.isFinite(globalPrevious30d) &&
-        globalPrevious30d > 0
-            ? (
-                categoryChange30d /
-                globalPrevious30d
-            ) * 100
-            : null;
+    selectedConstantChange =
+        categoryRow?.[performanceKey] ??
+        null;
 }
+
+
+/*
+ * Affichage des deux KPI.
+ *
+ * On garde temporairement les anciens IDs HTML.
+ * On les renommera proprement dans index.html
+ * à l'étape suivante.
+ */
+const valueChangeElement =
+    document.getElementById(
+        "portfolio-value-change"
+    );
+
+const constantChangeElement =
+    document.getElementById(
+        "portfolio-constant-change"
+    );
 
 const setKpiValue = (
     element,
     value,
-    unavailableText = "Historique insuffisant"
+    unavailableText = "—"
 ) => {
+
     if (!element) {
         return;
     }
@@ -6375,6 +6489,7 @@ const setKpiValue = (
         value === undefined ||
         !Number.isFinite(Number(value))
     ) {
+
         element.textContent =
             unavailableText;
 
@@ -6393,14 +6508,15 @@ const setKpiValue = (
             : "score-negative";
 };
 
+
 setKpiValue(
-    change30dElement,
-    selectedChange30d
+    valueChangeElement,
+    selectedValueChange
 );
 
 setKpiValue(
-    contributionElement,
-    contribution30d
+    constantChangeElement,
+    selectedConstantChange
 );
 
         let previousValue = null;
@@ -6923,18 +7039,22 @@ if (moved.length) {
         });
     }
 
-    currentPortfolioChartRenderer =
-        renderSelectedPortfolioChart;
+currentPortfolioChartRenderer =
+    renderSelectedPortfolioChart;
 
-    setupPortfolioChartPeriodButtons(
-        renderSelectedPortfolioChart
-    );
+setupPortfolioChartPeriodButtons(
+    renderSelectedPortfolioChart
+);
 
-    setupPortfolioChartResize(
-        renderSelectedPortfolioChart
-    );
+setupPortfolioPerformancePeriodButtons(
+    renderSelectedPortfolioChart
+);
 
-    renderSelectedPortfolioChart();
+setupPortfolioChartResize(
+    renderSelectedPortfolioChart
+);
+
+renderSelectedPortfolioChart();
 }
 
 const INVESTMENT_PERIOD_FIELDS = [

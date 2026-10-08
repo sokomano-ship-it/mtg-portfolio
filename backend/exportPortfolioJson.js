@@ -7,7 +7,7 @@ const { calculateEtatPrice } = require("./conditionPricing");
 const { buildNmOpportunities } = require("./opportunityScoring");
 
 const outputDir = path.join(__dirname, "..", "frontend", "data");
-const MODEL_START_DATE = "2026-07-12";
+const MODEL_START_DATE = "2026-09-13";
 
 const pricingSimulationFile = path.join(__dirname, "data", "pricingSimulation.json");
 const referenceCatalogFile = path.join(__dirname, "data", "referenceCatalog.json");
@@ -558,14 +558,33 @@ function calculateConstantPerimeterPerformance(
     );
 
     const target =
-        targetDate
-            .toISOString()
-            .slice(0, 10);
+    targetDate
+        .toISOString()
+        .slice(0, 10);
 
-    /*
-     * On part de la collection actuelle.
-     */
-    const targetInventory = new Map(
+/*
+ * Une performance n'est disponible que si toute
+ * la période demandée est couverte par le modèle actuel.
+ *
+ * Exemple :
+ * modèle démarré le 13/09/2026
+ * => le 08/10/2026, une performance 30 jours
+ *    n'est pas encore calculable.
+ */
+if (target < MODEL_START_DATE) {
+    return {
+        performance: null,
+        change: null,
+        previousValue: null,
+        currentValue: null,
+        comparableCards: 0
+    };
+}
+
+/*
+ * On part de la collection actuelle.
+ */
+const targetInventory = new Map(
         currentInventory.map(card => [
             String(card.id),
             { ...card }
@@ -2172,14 +2191,32 @@ const yesterday = Number(
  * interprétés comme de la performance.
  */
 const portfolioPerformance = {
-    perf7d:
-        calculateConstantPerimeterPerformance(
-            cards,
-            estimatedPriceHistory,
-            portfolioHistoryEstimated,
-            currentPortfolioInventory,
-            7
-        ),
+    perf1d:
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        1
+    ),
+
+perf7d:
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        7
+    ),
+
+perf14d:
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        14
+    ),
 
     perf30d:
         calculateConstantPerimeterPerformance(
@@ -2224,7 +2261,25 @@ const portfolioPerformance = {
             portfolioHistoryEstimated,
             currentPortfolioInventory,
             365
-        )
+        ),
+
+    perf730d:
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        730
+    ),
+
+perf1825d:
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        1825
+    )
 };
 
 /*
@@ -2240,6 +2295,16 @@ categorySummary = categorySummary.map(row => {
             "Non classé"
         ).trim();
 
+    const perf1d =
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        1,
+        category
+    );
+
     const perf7d =
         calculateConstantPerimeterPerformance(
             cards,
@@ -2249,6 +2314,16 @@ categorySummary = categorySummary.map(row => {
             7,
             category
         );
+
+    const perf14d =
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        14,
+        category
+    );
 
     const perf30d =
         calculateConstantPerimeterPerformance(
@@ -2300,39 +2375,76 @@ categorySummary = categorySummary.map(row => {
             category
         );
 
+    const perf730d =
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        730,
+        category
+    );
+
+const perf1825d =
+    calculateConstantPerimeterPerformance(
+        cards,
+        estimatedPriceHistory,
+        portfolioHistoryEstimated,
+        currentPortfolioInventory,
+        1825,
+        category
+    );
+
     return {
         ...row,
-
+perf1d: perf1d.performance,
         perf7d: perf7d.performance,
+        perf14d: perf14d.performance,
 perf30d: perf30d.performance,
 perf60d: perf60d.performance,
 perf90d: perf90d.performance,
 perf180d: perf180d.performance,
 perf365d: perf365d.performance,
+perf730d: perf730d.performance,
+perf1825d: perf1825d.performance,
 
+change1d: perf1d.change,
 change7d: perf7d.change,
+change14d: perf14d.change,
 change30d: perf30d.change,
 change60d: perf60d.change,
 change90d: perf90d.change,
 change180d: perf180d.change,
 change365d: perf365d.change,
+change730d: perf730d.change,
+change1825d: perf1825d.change,
 
+previousValue1d: perf1d.previousValue,
 previousValue7d: perf7d.previousValue,
+previousValue14d: perf14d.previousValue,
 previousValue30d: perf30d.previousValue,
 previousValue60d: perf60d.previousValue,
 previousValue90d: perf90d.previousValue,
 previousValue180d: perf180d.previousValue,
 previousValue365d: perf365d.previousValue,
+previousValue730d: perf730d.previousValue,
+previousValue1825d: perf1825d.previousValue,
 
+currentValue1d: perf1d.currentValue,
 currentValue7d: perf7d.currentValue,
+currentValue14d: perf14d.currentValue,
 currentValue30d: perf30d.currentValue,
 currentValue60d: perf60d.currentValue,
 currentValue90d: perf90d.currentValue,
 currentValue180d: perf180d.currentValue,
 currentValue365d: perf365d.currentValue,
+currentValue730d: perf730d.currentValue,
+currentValue1825d: perf1825d.currentValue,
 
+comparableCards1d: perf1d.comparableCards,
 comparableCards7d:
     perf7d.comparableCards,
+    comparableCards14d: perf14d.comparableCards,
 
         comparableCards30d:
             perf30d.comparableCards,
@@ -2347,7 +2459,9 @@ comparableCards7d:
             perf180d.comparableCards,
 
         comparableCards365d:
-            perf365d.comparableCards
+            perf365d.comparableCards,
+        comparableCards730d: perf730d.comparableCards,
+comparableCards1825d: perf1825d.comparableCards
     };
 });
 
