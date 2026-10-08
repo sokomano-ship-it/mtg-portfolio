@@ -6338,6 +6338,43 @@ const performanceDays =
 const performanceKey =
     `perf${performanceDays}d`;
 
+const performanceLabels = {
+    1: "1 jour",
+    7: "7 jours",
+    14: "14 jours",
+    30: "30 jours",
+    60: "60 jours",
+    90: "90 jours",
+    180: "180 jours",
+    365: "1 an",
+    730: "2 ans",
+    1825: "5 ans"
+};
+
+const performanceLabel =
+    performanceLabels[performanceDays] ||
+    `${performanceDays} jours`;
+
+const valueChangeLabel =
+    document.getElementById(
+        "portfolio-value-change-label"
+    );
+
+const constantChangeLabel =
+    document.getElementById(
+        "portfolio-constant-change-label"
+    );
+
+if (valueChangeLabel) {
+    valueChangeLabel.textContent =
+        `Variation valeur ${performanceLabel}`;
+}
+
+if (constantChangeLabel) {
+    constantChangeLabel.textContent =
+        `Périmètre constant ${performanceLabel}`;
+}
+
 /*
  * 1) Variation de la valeur réelle
  *    → inclut les entrées/sorties de cartes.
