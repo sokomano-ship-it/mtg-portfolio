@@ -766,10 +766,85 @@ async function loadCategorySummary() {
             await window.apiAdapter
                 .getCategorySummary();
 
-        const rows =
-            Array.isArray(categorySummary)
-                ? [...categorySummary]
-                : [];
+        const totalPortfolioValue =
+    calculateCardsValue(allCards);
+
+const rows =
+    Array.isArray(categorySummary)
+        ? categorySummary.map(row => {
+
+            const category =
+                String(
+                    row.categorie ||
+                    row.category ||
+                    "Non classé"
+                ).trim();
+
+            /*
+             * On retrouve les cartes actuelles
+             * appartenant à cette catégorie.
+             */
+            const categoryCards =
+                allCards.filter(card =>
+                    String(
+                        card.categorie ||
+                        "Non classé"
+                    ).trim() === category
+                );
+
+            const prices =
+                categoryCards
+                    .map(card =>
+                        Number(
+                            getEstimatedConditionPrice(
+                                card
+                            )
+                        )
+                    )
+                    .filter(Number.isFinite);
+
+            const totalValue =
+                prices.reduce(
+                    (sum, value) =>
+                        sum + value,
+                    0
+                );
+
+            const weight =
+                totalPortfolioValue > 0
+                    ? (
+                        totalValue /
+                        totalPortfolioValue
+                    ) * 100
+                    : null;
+
+            const cardsOver20 =
+                prices.filter(
+                    value => value >= 20
+                ).length;
+
+            const cardsOver50 =
+                prices.filter(
+                    value => value >= 50
+                ).length;
+
+            return {
+                ...row,
+
+                /*
+                 * Données d'affichage actuelles :
+                 * même logique qu'avant.
+                 */
+                category,
+                cardsCount:
+                    categoryCards.length,
+                totalValue,
+                weight,
+                cardsOver20,
+                cardsOver50
+            };
+        })
+        : [];
 
         /*
          * Catégories les plus importantes
