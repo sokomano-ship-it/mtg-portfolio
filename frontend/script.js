@@ -55,7 +55,7 @@ let valueBucketChart = null;
 let cachedPortfolioHistory = [];
 let cachedEstimatedPriceHistory = [];
 
-let portfolioChartPeriod = "daily";
+let portfolioChartPeriod = "3m";
 let portfolioChartResizeTimer = null;
 let currentPortfolioChartRenderer = null;
 let selectedPortfolioCategory = "";
@@ -705,17 +705,15 @@ async function loadDashboard() {
     await cardsPromise;
 
 
-    await Promise.all([
+await Promise.all([
 
-        loadCategorySummary(
-            portfolioHistoryPromise
-        ),
+    loadCategorySummary(),
 
-        loadPortfolioHistory(
-            portfolioHistoryPromise
-        )
+    loadPortfolioHistory(
+        portfolioHistoryPromise
+    )
 
-    ]);
+]);
 
 }
 
@@ -747,9 +745,7 @@ setupCollectionSorting();
     }
 }
 
-async function loadCategorySummary(
-    historyPromise = null
-) {
+async function loadCategorySummary() {
 
     const tbody =
         document.getElementById(
@@ -760,274 +756,20 @@ async function loadCategorySummary(
         return;
     }
 
-
     try {
 
-        const history =
-            historyPromise
-                ? await historyPromise
-                : await window.apiAdapter
-                    .getPortfolioHistory();
-
-
-        const totalPortfolioValue =
-            calculateCardsValue(
-                allCards
-            );
-
-
         /*
-         * Ligne historique utilisée pour J-30.
+         * Les performances par catégorie sont
+         * calculées côté backend à périmètre constant.
          */
-        /*
- * Horizons utilisés pour comparer
- * l'évolution des catégories.
- */
-const periods =
-    [7, 30, 60, 90, 180, 365];
-
-
-const historyRows =
-    Array.isArray(history)
-        ? [...history]
-            .filter(row =>
-                row?.date &&
-                String(row.date).slice(0, 10) >= MODEL_START_DATE
-            )
-            .sort((a, b) =>
-                String(a.date)
-                    .localeCompare(
-                        String(b.date)
-                    )
-            )
-        : [];
-
-
-/*
- * Recherche la dernière ligne historique
- * disponible à la date cible ou avant.
- *
- * Exemple :
- * si J-60 tombe un dimanche sans donnée,
- * on utilise la dernière observation
- * disponible avant cette date.
- */
-function findHistoryRowDaysAgo(days) {
-
-    if (!isModelPeriodAvailable(days)) {
-    return null;
-}
-
-    const targetDate =
-        new Date();
-
-    targetDate.setDate(
-        targetDate.getDate() - days
-    );
-
-    const target =
-        targetDate
-            .toISOString()
-            .slice(0, 10);
-
-
-    for (
-        let index =
-            historyRows.length - 1;
-
-        index >= 0;
-
-        index -= 1
-    ) {
-
-        const row =
-            historyRows[index];
-
-        if (
-            String(row.date)
-                .slice(0, 10) <= target
-        ) {
-            return row;
-        }
-    }
-
-
-    return null;
-}
-
-
-/*
- * Une ligne historique par horizon.
- */
-const historyByPeriod =
-    Object.fromEntries(
-        periods.map(days => [
-            days,
-            findHistoryRowDaysAgo(days)
-        ])
-    );
-
-        /*
-         * Regroupement actuel par catégorie.
-         */
-        const groups =
-            new Map();
-
-
-        allCards.forEach(card => {
-
-            const category =
-                String(
-                    card.categorie ||
-                    "Non classé"
-                ).trim();
-
-
-            if (!groups.has(category)) {
-
-                groups.set(
-                    category,
-                    []
-                );
-
-            }
-
-
-            groups
-                .get(category)
-                .push(card);
-
-        });
-
+        const categorySummary =
+            await window.apiAdapter
+                .getCategorySummary();
 
         const rows =
-            [...groups.entries()]
-                .map(
-                    ([
-                        category,
-                        cards
-                    ]) => {
-
-
-            const prices =
-                cards
-                    .map(card =>
-                        Number(
-                            getEstimatedConditionPrice(
-                                card
-                            )
-                        )
-                    )
-                    .filter(
-                        Number.isFinite
-                    )
-                    .sort(
-                        (a, b) =>
-                            a - b
-                    );
-
-
-            const totalValue =
-    prices.reduce(
-        (sum, value) =>
-            sum + value,
-        0
-    );
-
-
-
-
-            const weight =
-                totalPortfolioValue > 0
-                    ? (
-                        totalValue /
-                        totalPortfolioValue
-                    ) * 100
-                    : null;
-
-
-            /*
- * Evolution de cette catégorie
- * pour chaque horizon.
- */
-const changes =
-    Object.fromEntries(
-        periods.map(days => {
-
-            const historicalValue =
-                Number(
-                    historyByPeriod[days]
-                        ?.categoryValues
-                        ?.[category]
-                );
-
-
-            const hasHistory =
-                Number.isFinite(
-                    historicalValue
-                ) &&
-                historicalValue > 0;
-
-
-            const change =
-                hasHistory
-                    ? (
-                        (
-                            totalValue -
-                            historicalValue
-                        ) /
-                        historicalValue
-                    ) * 100
-                    : null;
-
-
-            return [
-                days,
-                change
-            ];
-
-        })
-    );
-
-
-
-
-
-            const cardsOver20 =
-    prices.filter(
-        value =>
-            value >= 20
-    ).length;
-
-
-const cardsOver50 =
-    prices.filter(
-        value =>
-            value >= 50
-    ).length;
-
-
-            return {
-
-    category,
-
-    cardsCount:
-        cards.length,
-
-    totalValue,
-
-    weight,
-
-    changes,
-
-    cardsOver20,
-
-    cardsOver50
-
-};
-
-        });
-
+            Array.isArray(categorySummary)
+                ? [...categorySummary]
+                : [];
 
         /*
          * Catégories les plus importantes
@@ -1035,123 +777,145 @@ const cardsOver50 =
          */
         rows.sort(
             (a, b) =>
-                b.totalValue -
-                a.totalValue
+                Number(b.totalValue || 0) -
+                Number(a.totalValue || 0)
         );
 
+        const formatChangeCell =
+            value => {
+
+                const numericValue =
+                    value === null ||
+                    value === undefined
+                        ? null
+                        : Number(value);
+
+                const validValue =
+                    Number.isFinite(numericValue)
+                        ? numericValue
+                        : null;
+
+                const cssClass =
+                    validValue === null
+                        ? ""
+                        : validValue >= 0
+                            ? "score-positive"
+                            : "score-negative";
+
+                return `
+                    <td class="${cssClass}">
+                        ${
+                            validValue === null
+                                ? "-"
+                                : formatPercent(
+                                    validValue
+                                )
+                        }
+                    </td>
+                `;
+            };
 
         tbody.innerHTML =
             rows
                 .map(row => {
 
-                    const formatChangeCell =
-    value => {
-
-        const cssClass =
-            value === null
-                ? ""
-                : value >= 0
-                    ? "score-positive"
-                    : "score-negative";
-
-
-        return `
-            <td class="${cssClass}">
-                ${
-                    value === null
-                        ? "-"
-                        : formatPercent(
-                            value
-                        )
-                }
-            </td>
-        `;
-    };
-
-
                     return `
-    <tr>
+                        <tr>
 
-        <td>
-            <strong>
-                ${
-                    escapeHtml(
-                        row.category
-                    )
-                }
-            </strong>
-        </td>
+                            <td>
+                                <strong>
+                                    ${
+                                        escapeHtml(
+                                            row.category ||
+                                            "Non classé"
+                                        )
+                                    }
+                                </strong>
+                            </td>
 
-        <td>
-            ${row.cardsCount}
-        </td>
+                            <td>
+                                ${
+                                    Number(
+                                        row.cardsCount || 0
+                                    )
+                                }
+                            </td>
 
-        <td class="price">
-            ${
-                formatEuro(
-                    row.totalValue
-                )
-            }
-        </td>
+                            <td class="price">
+                                ${
+                                    formatEuro(
+                                        Number(
+                                            row.totalValue || 0
+                                        )
+                                    )
+                                }
+                            </td>
 
-        <td>
-            ${
-                formatSimplePercent(
-                    row.weight
-                )
-            }
-        </td>
+                            <td>
+                                ${
+                                    formatSimplePercent(
+                                        row.weight
+                                    )
+                                }
+                            </td>
 
-        ${
-            formatChangeCell(
-                row.changes[7]
-            )
-        }
+                            ${
+                                formatChangeCell(
+                                    row.perf7d
+                                )
+                            }
 
-        ${
-            formatChangeCell(
-                row.changes[30]
-            )
-        }
+                            ${
+                                formatChangeCell(
+                                    row.perf30d
+                                )
+                            }
 
-        ${
-            formatChangeCell(
-                row.changes[60]
-            )
-        }
+                            ${
+                                formatChangeCell(
+                                    row.perf60d
+                                )
+                            }
 
-        ${
-            formatChangeCell(
-                row.changes[90]
-            )
-        }
+                            ${
+                                formatChangeCell(
+                                    row.perf90d
+                                )
+                            }
 
-        ${
-            formatChangeCell(
-                row.changes[180]
-            )
-        }
+                            ${
+                                formatChangeCell(
+                                    row.perf180d
+                                )
+                            }
 
-        ${
-            formatChangeCell(
-                row.changes[365]
-            )
-        }
+                            ${
+                                formatChangeCell(
+                                    row.perf365d
+                                )
+                            }
 
-        <td>
-            ${row.cardsOver20}
-        </td>
+                            <td>
+                                ${
+                                    Number(
+                                        row.cardsOver20 || 0
+                                    )
+                                }
+                            </td>
 
-        <td>
-            ${row.cardsOver50}
-        </td>
+                            <td>
+                                ${
+                                    Number(
+                                        row.cardsOver50 || 0
+                                    )
+                                }
+                            </td>
 
-    </tr>
-`;
+                        </tr>
+                    `;
 
-                 })
+                })
                 .join("");
-
 
     } catch (error) {
 
@@ -1161,15 +925,12 @@ const cardsOver50 =
             <tr>
                 <td colspan="12">
                     Erreur :
-                    ${escapeHtml(
-                        error.message
-                    )}
+                    ${escapeHtml(error.message)}
                 </td>
             </tr>
         `;
 
     }
-
 }
 
 function getMedianValue(values) {
@@ -5493,70 +5254,145 @@ function getIsoWeekKey(dateString) {
     ].join("-");
 }
 
-function getHistoryPeriodKey(dateString, period) {
-    const normalizedDate =
-        String(dateString).slice(0, 10);
-
-    if (period === "weekly") {
-        return getIsoWeekKey(normalizedDate);
+function getPortfolioPeriodStartDate(
+    rows,
+    period
+) {
+    if (
+        !Array.isArray(rows) ||
+        !rows.length ||
+        period === "all"
+    ) {
+        return null;
     }
 
-    if (period === "monthly") {
-        return normalizedDate.slice(0, 7);
+    const latestDate =
+        String(
+            rows[rows.length - 1]?.date || ""
+        ).slice(0, 10);
+
+    if (!latestDate) {
+        return null;
     }
 
-    return normalizedDate;
+    const date = new Date(
+        `${latestDate}T00:00:00Z`
+    );
+
+    const daysByPeriod = {
+        "1m": 30,
+        "3m": 90,
+        "6m": 180,
+        "1y": 365
+    };
+
+    const days =
+        daysByPeriod[period];
+
+    if (!days) {
+        return null;
+    }
+
+    date.setUTCDate(
+        date.getUTCDate() - days
+    );
+
+    return date
+        .toISOString()
+        .slice(0, 10);
 }
 
-function aggregateHistoryByPeriod(rows, period) {
-    if (period === "daily") {
+
+function filterPortfolioHistoryByPeriod(
+    rows,
+    period
+) {
+    const startDate =
+        getPortfolioPeriodStartDate(
+            rows,
+            period
+        );
+
+    if (!startDate) {
         return [...rows];
     }
 
-    const latestRowByPeriod = new Map();
+    return rows.filter(row =>
+        String(row.date).slice(0, 10) >=
+        startDate
+    );
+}
+
+
+function aggregatePortfolioHistoryWeekly(
+    rows
+) {
+    const latestRowByWeek =
+        new Map();
 
     rows.forEach(row => {
-        if (!row?.date) return;
+        if (!row?.date) {
+            return;
+        }
 
-        const periodKey =
-            getHistoryPeriodKey(
-                row.date,
-                period
-            );
-
-        /*
-         * Les lignes sont classées par date.
-         * La dernière valeur de chaque période
-         * remplace donc les précédentes.
-         */
-        latestRowByPeriod.set(
-            periodKey,
+        latestRowByWeek.set(
+            getIsoWeekKey(row.date),
             row
         );
     });
 
     return [
-        ...latestRowByPeriod.values()
+        ...latestRowByWeek.values()
     ];
 }
+
 
 function prepareResponsiveChartRows(
     rows,
     period,
     canvas
 ) {
-    const aggregatedRows =
-        aggregateHistoryByPeriod(
+    let visibleRows =
+        filterPortfolioHistoryByPeriod(
             rows,
             period
         );
+
+    /*
+     * Jusqu'à 1 an :
+     * on conserve les données quotidiennes.
+     *
+     * Pour "Tout", si l'historique devient
+     * très long, on agrège uniquement
+     * l'affichage par semaine.
+     *
+     * Les données originales restent intactes.
+     */
+    if (
+        period === "all" &&
+        visibleRows.length > 365
+    ) {
+        visibleRows =
+            aggregatePortfolioHistoryWeekly(
+                visibleRows
+            );
+    }
 
     const maximumPoints =
         getResponsiveChartPointLimit(
             canvas
         );
 
-    return aggregatedRows.slice(
+    /*
+     * Pour les périodes explicites,
+     * on ne coupe pas artificiellement
+     * l'historique demandé.
+     */
+    if (period !== "all") {
+        return visibleRows;
+    }
+
+    return visibleRows.slice(
         -maximumPoints
     );
 }
@@ -5596,23 +5432,27 @@ function formatPortfolioChartDate(
         return String(dateString);
     }
 
-    if (period === "monthly") {
+    if (
+        period === "1y" ||
+        period === "all"
+    ) {
         return new Intl.DateTimeFormat(
             "fr-FR",
             {
                 month: "short",
-                year: "numeric"
+                year: "2-digit"
             }
         ).format(date);
     }
 
-    if (period === "weekly") {
+    if (
+        period === "6m"
+    ) {
         return new Intl.DateTimeFormat(
             "fr-FR",
             {
                 day: "2-digit",
-                month: "short",
-                year: "2-digit"
+                month: "short"
             }
         ).format(date);
     }
@@ -5638,7 +5478,7 @@ function setupPortfolioChartPeriodButtons(
                 portfolioChartPeriod =
                     button.dataset
                         .portfolioPeriod ||
-                    "daily";
+                    "3m";
 
                 document
                     .querySelectorAll(
@@ -5696,7 +5536,13 @@ async function loadPortfolioHistory(historyPromise = null) {
         ? await historyPromise
         : await window.apiAdapter.getPortfolioHistory();
 
-        let estimatedPriceHistory = [];
+    const portfolioSummary =
+        await window.apiAdapter.getPortfolioSummary();
+
+    const categorySummary =
+        await window.apiAdapter.getCategorySummary();
+
+    let estimatedPriceHistory = [];
 
     try {
         const response = await fetch(
@@ -6383,119 +6229,49 @@ if (selectedPortfolioCardKey) {
     return null;
 };
 
-const currentDate = new Date(
-    `${today}T12:00:00`
-);
-
-const target30dDate = new Date(currentDate);
-
-target30dDate.setDate(
-    target30dDate.getDate() - 30
-);
-
-const target30d = new Intl.DateTimeFormat(
-    "en-CA",
-    {
-        timeZone: "Europe/Paris",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-    }
-).format(target30dDate);
-
-let selectedValue30dAgo = null;
-let portfolioValue30dAgo = null;
+let selectedChange30d = null;
+let contribution30d = null;
 
 /*
- * On utilise le dernier point disponible à la date
- * cible ou avant celle-ci.
+ * Performance et contribution 30 jours
+ * à périmètre constant.
  */
-for (
-    let index = filteredHistory.length - 1;
-    index >= 0;
-    index -= 1
+if (noFilters) {
+
+    const performance30d =
+        portfolioSummary?.performance?.perf30d ??
+        portfolioSummary?.performance?.["30d"] ??
+        null;
+
+    selectedChange30d =
+        performance30d?.performance ?? null;
+
+    contribution30d =
+        performance30d?.change ?? null;
+
+} else if (
+    selectedPortfolioCategory &&
+    !selectedPortfolioEdition &&
+    !selectedPortfolioCardKey
 ) {
-    const row = filteredHistory[index];
 
-    if (row.date > target30d) {
-        continue;
-    }
+    const categoryRow =
+        Array.isArray(categorySummary)
+            ? categorySummary.find(row =>
+                String(
+                    row.categorie ||
+                    "Non classé"
+                ).trim() ===
+                selectedPortfolioCategory
+            )
+            : null;
 
-    const selectedCandidate =
-        getSelectedRowValue(row);
+    selectedChange30d =
+        categoryRow?.perf30d ?? null;
 
-    const portfolioCandidate =
-        Number(row.totalValue);
-
-    if (
-        selectedValue30dAgo === null &&
-        selectedCandidate !== null &&
-        selectedCandidate !== undefined &&
-        Number.isFinite(Number(selectedCandidate))
-    ) {
-        selectedValue30dAgo =
-            Number(selectedCandidate);
-    }
-
-    if (
-        portfolioValue30dAgo === null &&
-        Number.isFinite(portfolioCandidate)
-    ) {
-        portfolioValue30dAgo =
-            portfolioCandidate;
-    }
-
-    if (
-        selectedValue30dAgo !== null &&
-        portfolioValue30dAgo !== null
-    ) {
-        break;
-    }
+    contribution30d =
+        categoryRow?.change30d ?? null;
 }
-
-const has30dHistory =
-    selectedValue30dAgo !== null &&
-    portfolioValue30dAgo !== null &&
-    selectedValue30dAgo > 0 &&
-    portfolioValue30dAgo > 0;
-
-const selectedChange30d =
-    has30dHistory
-        ? Number(
-            (
-                (
-                    currentValue -
-                    selectedValue30dAgo
-                ) /
-                selectedValue30dAgo *
-                100
-            ).toFixed(2)
-        )
-        : null;
-
-/*
- * Contribution à la performance totale :
- *
- * variation en euros de la sélection
- * divisée par la valeur totale du portefeuille
- * il y a 30 jours.
- *
- * Le résultat est exprimé en points de
- * pourcentage de performance du portefeuille.
- */
-const contribution30d =
-    has30dHistory
-        ? Number(
-            (
-                (
-                    currentValue -
-                    selectedValue30dAgo
-                ) /
-                portfolioValue30dAgo *
-                100
-            ).toFixed(2)
-        )
-        : null;
 
 
 const setKpiValue = (
@@ -6852,9 +6628,16 @@ gradient.addColorStop(
         return 5;
     }
 
-    return visibleHistory.length > 120
-        ? 0
-        : 2;
+    if (
+    portfolioChartPeriod === "1y" ||
+    portfolioChartPeriod === "all"
+) {
+    return 0;
+}
+
+return visibleHistory.length > 120
+    ? 0
+    : 2;
 },
 
         pointHoverRadius: 6,

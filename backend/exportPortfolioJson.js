@@ -507,6 +507,290 @@ function getEstimatedConditionPrice(card) {
     );
 }
 
+function calculateConstantPerimeterPerformance(
+    cards,
+    estimatedPriceHistory,
+    portfolioHistory,
+    currentInventory,
+    days,
+    category = null
+) {
+    if (
+        !Array.isArray(portfolioHistory) ||
+        !portfolioHistory.length ||
+        !Array.isArray(currentInventory)
+    ) {
+        return {
+            performance: null,
+            change: null,
+            previousValue: null,
+            currentValue: null,
+            comparableCards: 0
+        };
+    }
+
+    /*
+     * La date de référence est la dernière date réellement
+     * disponible dans l'historique du portefeuille.
+     */
+    const latestDate = String(
+        portfolioHistory[
+            portfolioHistory.length - 1
+        ]?.date || ""
+    ).slice(0, 10);
+
+    if (!latestDate) {
+        return {
+            performance: null,
+            change: null,
+            previousValue: null,
+            currentValue: null,
+            comparableCards: 0
+        };
+    }
+
+    const targetDate = new Date(
+        `${latestDate}T00:00:00Z`
+    );
+
+    targetDate.setUTCDate(
+        targetDate.getUTCDate() - days
+    );
+
+    const target =
+        targetDate
+            .toISOString()
+            .slice(0, 10);
+
+    /*
+     * On part de la collection actuelle.
+     */
+    const targetInventory = new Map(
+        currentInventory.map(card => [
+            String(card.id),
+            { ...card }
+        ])
+    );
+
+    /*
+     * Puis on remonte l'historique à l'envers.
+     *
+     * IMPORTANT :
+     * on annule uniquement les changements POSTÉRIEURS
+     * à la date cible.
+     */
+    const rowsToReverse =
+        portfolioHistory
+            .filter(row =>
+                row?.date &&
+                String(row.date).slice(0, 10) > target &&
+                String(row.date).slice(0, 10) <= latestDate
+            )
+            .sort((a, b) =>
+                String(b.date).localeCompare(
+                    String(a.date)
+                )
+            );
+
+    rowsToReverse.forEach(row => {
+        const changes =
+            row.collectionChanges;
+
+        if (!changes) {
+            return;
+        }
+
+        /*
+         * Une carte ajoutée ce jour-là
+         * n'existait pas avant.
+         */
+        (changes.added || [])
+            .forEach(card => {
+                targetInventory.delete(
+                    String(card.id)
+                );
+            });
+
+        /*
+         * Une carte retirée ce jour-là
+         * existait encore avant.
+         */
+        (changes.removed || [])
+            .forEach(card => {
+                targetInventory.set(
+                    String(card.id),
+                    { ...card }
+                );
+            });
+
+        /*
+         * Un changement de catégorie est annulé.
+         */
+        (changes.moved || [])
+            .forEach(card => {
+                const id =
+                    String(card.id);
+
+                const existing =
+                    targetInventory.get(id);
+
+                if (!existing) {
+                    return;
+                }
+
+                targetInventory.set(
+                    id,
+                    {
+                        ...existing,
+                        categorie:
+                            card.fromCategory ??
+                            existing.categorie
+                    }
+                );
+            });
+    });
+
+    let currentValue = 0;
+    let previousValue = 0;
+    let comparableCards = 0;
+
+    cards.forEach(card => {
+        const id =
+            String(card.id);
+
+        /*
+         * La carte doit exister aux deux extrémités.
+         */
+        const historicalCard =
+            targetInventory.get(id);
+
+        if (!historicalCard) {
+            return;
+        }
+
+        /*
+         * Pour une catégorie, la carte doit appartenir
+         * à cette même catégorie aux deux dates.
+         */
+        if (category !== null) {
+            const currentCategory =
+                String(
+                    card.categorie ||
+                    "Non classé"
+                ).trim();
+
+            const historicalCategory =
+                String(
+                    historicalCard.categorie ||
+                    "Non classé"
+                ).trim();
+
+            if (
+                currentCategory !== category ||
+                historicalCategory !== category
+            ) {
+                return;
+            }
+        }
+
+        /*
+         * Dernier prix disponible à la date cible
+         * ou avant.
+         */
+        const previous =
+            estimatedPriceHistory
+                .filter(row =>
+                    Number(row.cardId) ===
+                        Number(card.id) &&
+                    row.date &&
+                    String(row.date).slice(0, 10) >=
+                        MODEL_START_DATE &&
+                    String(row.date).slice(0, 10) <=
+                        target
+                )
+                .sort((a, b) =>
+                    String(b.date).localeCompare(
+                        String(a.date)
+                    )
+                )[0];
+
+        if (!previous) {
+            return;
+        }
+
+        /*
+         * On utilise l'état de la carte à la date
+         * historique pour calculer sa valeur passée.
+         */
+        const previousPrice =
+            Number(
+                getEstimatedPriceFromSnapshot(
+                    previous,
+                    historicalCard.etat ||
+                    card.etat
+                ) || 0
+            );
+
+        const currentPrice =
+            Number(
+                getEstimatedConditionPrice(card) || 0
+            );
+
+        if (
+            previousPrice <= 0 ||
+            currentPrice <= 0
+        ) {
+            return;
+        }
+
+        previousValue += previousPrice;
+        currentValue += currentPrice;
+        comparableCards += 1;
+    });
+
+    if (
+        previousValue <= 0 ||
+        comparableCards === 0
+    ) {
+        return {
+            performance: null,
+            change: null,
+            previousValue: null,
+            currentValue: null,
+            comparableCards: 0
+        };
+    }
+
+    const change =
+        currentValue -
+        previousValue;
+
+    return {
+        performance: Number(
+            (
+                change /
+                previousValue *
+                100
+            ).toFixed(2)
+        ),
+
+        change:
+            Number(change.toFixed(2)),
+
+        previousValue:
+            Number(
+                previousValue.toFixed(2)
+            ),
+
+        currentValue:
+            Number(
+                currentValue.toFixed(2)
+            ),
+
+        comparableCards
+    };
+}
+
 function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
     return groupByCardEditionEtat(cards)
         .map(card => {
@@ -1295,7 +1579,7 @@ async function main() {
         categoryMap[categorie].totalValue += value;
     });
 
-    const categorySummary = Object.values(categoryMap)
+    let  categorySummary = Object.values(categoryMap)
         .map(row => ({
             ...row,
             totalValue: Number(row.totalValue.toFixed(2))
@@ -1859,24 +2143,250 @@ portfolioHistoryEstimated =
 
     // portfolioHistoryEstimated est déjà calculé plus haut
 
-const latestHistory = portfolioHistoryEstimated[portfolioHistoryEstimated.length - 1];
-const previousHistory = portfolioHistoryEstimated[portfolioHistoryEstimated.length - 2];
+const latestHistory =
+    portfolioHistoryEstimated[
+        portfolioHistoryEstimated.length - 1
+    ];
 
-const today = Number(latestHistory?.totalValue || estimatedTotalValue || 0);
-const yesterday = Number(previousHistory?.totalValue || today || 0);
+const previousHistory =
+    portfolioHistoryEstimated[
+        portfolioHistoryEstimated.length - 2
+    ];
 
-const change = today - yesterday;
-const changePct = yesterday > 0 ? (change / yesterday) * 100 : 0;
+const today = Number(
+    latestHistory?.totalValue ||
+    estimatedTotalValue ||
+    0
+);
 
-    const portfolioSummary = {
+const yesterday = Number(
+    previousHistory?.totalValue ||
+    today ||
+    0
+);
+
+/*
+ * Performances du portefeuille à périmètre constant.
+ *
+ * Les ajouts et retraits de cartes ne sont donc pas
+ * interprétés comme de la performance.
+ */
+const portfolioPerformance = {
+    perf7d:
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            7
+        ),
+
+    perf30d:
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            30
+        ),
+
+    perf60d:
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            60
+        ),
+
+    perf90d:
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            90
+        ),
+
+    perf180d:
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            180
+        ),
+
+    perf365d:
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            365
+        )
+};
+
+/*
+ * Performances par catégorie à périmètre constant.
+ *
+ * Une carte n'est prise en compte que si elle était
+ * présente dans la même catégorie aux deux dates.
+ */
+categorySummary = categorySummary.map(row => {
+    const category =
+        String(
+            row.categorie ||
+            "Non classé"
+        ).trim();
+
+    const perf7d =
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            7,
+            category
+        );
+
+    const perf30d =
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            30,
+            category
+        );
+
+    const perf60d =
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            60,
+            category
+        );
+
+    const perf90d =
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            90,
+            category
+        );
+
+    const perf180d =
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            180,
+            category
+        );
+
+    const perf365d =
+        calculateConstantPerimeterPerformance(
+            cards,
+            estimatedPriceHistory,
+            portfolioHistoryEstimated,
+            currentPortfolioInventory,
+            365,
+            category
+        );
+
+    return {
+        ...row,
+
+        perf7d: perf7d.performance,
+perf30d: perf30d.performance,
+perf60d: perf60d.performance,
+perf90d: perf90d.performance,
+perf180d: perf180d.performance,
+perf365d: perf365d.performance,
+
+change7d: perf7d.change,
+change30d: perf30d.change,
+change60d: perf60d.change,
+change90d: perf90d.change,
+change180d: perf180d.change,
+change365d: perf365d.change,
+
+previousValue7d: perf7d.previousValue,
+previousValue30d: perf30d.previousValue,
+previousValue60d: perf60d.previousValue,
+previousValue90d: perf90d.previousValue,
+previousValue180d: perf180d.previousValue,
+previousValue365d: perf365d.previousValue,
+
+currentValue7d: perf7d.currentValue,
+currentValue30d: perf30d.currentValue,
+currentValue60d: perf60d.currentValue,
+currentValue90d: perf90d.currentValue,
+currentValue180d: perf180d.currentValue,
+currentValue365d: perf365d.currentValue,
+
+comparableCards7d:
+    perf7d.comparableCards,
+
+        comparableCards30d:
+            perf30d.comparableCards,
+
+        comparableCards60d:
+            perf60d.comparableCards,
+
+        comparableCards90d:
+            perf90d.comparableCards,
+
+        comparableCards180d:
+            perf180d.comparableCards,
+
+        comparableCards365d:
+            perf365d.comparableCards
+    };
+});
+
+/*
+ * Le change journalier historique est conservé.
+ * On ne change pas la valeur réelle du portefeuille.
+ */
+const change =
+    today - yesterday;
+
+const changePct =
+    yesterday > 0
+        ? (change / yesterday) * 100
+        : 0;
+
+const portfolioSummary = {
     today: Number(today.toFixed(2)),
-    estimatedTotalValue: Number(today.toFixed(2)),
-    yesterday: Number(yesterday.toFixed(2)),
-    change: Number(change.toFixed(2)),
-    changePct: Number(changePct.toFixed(2)),
+    estimatedTotalValue:
+        Number(today.toFixed(2)),
+
+    yesterday:
+        Number(yesterday.toFixed(2)),
+
+    change:
+        Number(change.toFixed(2)),
+
+    changePct:
+        Number(changePct.toFixed(2)),
+
+    performance:
+        portfolioPerformance,
+
     valuedCardsCount,
     missingEstimatedCardsCount,
-    averagePricingConfidence: Number(averagePricingConfidence.toFixed(0))
+
+    averagePricingConfidence:
+        Number(
+            averagePricingConfidence.toFixed(0)
+        )
 };
 
     const moverRows = await all(`
