@@ -6232,22 +6232,18 @@ if (selectedPortfolioCardKey) {
 let selectedChange30d = null;
 let contribution30d = null;
 
-/*
- * Performance et contribution 30 jours
- * à périmètre constant.
- */
-if (noFilters) {
+const performance30d =
+    portfolioSummary?.performance?.perf30d ??
+    portfolioSummary?.performance?.["30d"] ??
+    null;
 
-    const performance30d =
-        portfolioSummary?.performance?.perf30d ??
-        portfolioSummary?.performance?.["30d"] ??
-        null;
+if (noFilters) {
 
     selectedChange30d =
         performance30d?.performance ?? null;
 
     contribution30d =
-        performance30d?.change ?? null;
+        performance30d?.performance ?? null;
 
 } else if (
     selectedPortfolioCategory &&
@@ -6269,10 +6265,26 @@ if (noFilters) {
     selectedChange30d =
         categoryRow?.perf30d ?? null;
 
-    contribution30d =
-        categoryRow?.change30d ?? null;
-}
+    const globalPrevious30d =
+        Number(
+            performance30d?.previousValue
+        );
 
+    const categoryChange30d =
+        Number(
+            categoryRow?.change30d
+        );
+
+    contribution30d =
+        Number.isFinite(categoryChange30d) &&
+        Number.isFinite(globalPrevious30d) &&
+        globalPrevious30d > 0
+            ? (
+                categoryChange30d /
+                globalPrevious30d
+            ) * 100
+            : null;
+}
 
 const setKpiValue = (
     element,
