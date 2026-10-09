@@ -49,6 +49,7 @@ let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
 const expandedCollectionCards = new Set();
 let investmentChart = null;
+let investmentChartPeriod = "3m";
 let portfolioChart = null;
 let valueBucketChart = null;
 
@@ -214,6 +215,7 @@ const MODEL_START_DATE = "2026-09-13";
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     setupInvestmentDrawerTabs();
+    setupInvestmentChartPeriodButtons();
     loadDashboard();
 });
 
@@ -9115,6 +9117,209 @@ function renderRatioTable(ratios) {
     `;
 }
 
+function getInvestmentChartPeriodStartDate(
+    rows,
+    period
+) {
+    if (!Array.isArray(rows) || !rows.length) {
+        return null;
+    }
+
+    if (period === "all") {
+        return null;
+    }
+
+    const periodDays = {
+        "1m": 30,
+        "3m": 90,
+        "6m": 180,
+        "1y": 365
+    };
+
+    const days =
+        periodDays[period];
+
+    if (!days) {
+        return null;
+    }
+
+    const lastDate =
+        String(
+            rows[rows.length - 1].date
+        ).slice(0, 10);
+
+    return shiftIsoDate(
+        lastDate,
+        -(days - 1)
+    );
+}
+
+
+function aggregateInvestmentChartRowsWeekly(
+    rows
+) {
+    if (!Array.isArray(rows) || !rows.length) {
+        return [];
+    }
+
+    const weeklyRows = [];
+    let currentWeekKey = null;
+    let currentWeekRow = null;
+
+    rows.forEach(row => {
+        const isoDate =
+            String(row.date).slice(0, 10);
+
+        const [
+            year,
+            month,
+            day
+        ] = isoDate
+            .split("-")
+            .map(Number);
+
+        const date =
+            new Date(
+                Date.UTC(
+                    year,
+                    month - 1,
+                    day
+                )
+            );
+
+        /*
+         * Lundi = début de semaine.
+         */
+        const weekday =
+            date.getUTCDay();
+
+        const daysSinceMonday =
+            (weekday + 6) % 7;
+
+        date.setUTCDate(
+            date.getUTCDate() -
+            daysSinceMonday
+        );
+
+        const weekKey =
+            date
+                .toISOString()
+                .slice(0, 10);
+
+        /*
+         * On conserve la dernière observation
+         * disponible de chaque semaine.
+         */
+        if (weekKey !== currentWeekKey) {
+            if (currentWeekRow) {
+                weeklyRows.push(
+                    currentWeekRow
+                );
+            }
+
+            currentWeekKey =
+                weekKey;
+
+            currentWeekRow =
+                row;
+        } else {
+            currentWeekRow =
+                row;
+        }
+    });
+
+    if (currentWeekRow) {
+        weeklyRows.push(
+            currentWeekRow
+        );
+    }
+
+    return weeklyRows;
+}
+
+
+function prepareInvestmentChartRows(
+    rows,
+    period = investmentChartPeriod
+) {
+    if (!Array.isArray(rows) || !rows.length) {
+        return [];
+    }
+
+    const startDate =
+        getInvestmentChartPeriodStartDate(
+            rows,
+            period
+        );
+
+    let visibleRows =
+        startDate
+            ? rows.filter(row =>
+                String(row.date)
+                    .slice(0, 10) >=
+                startDate
+            )
+            : [...rows];
+
+    /*
+     * Pour "Tout", on conserve le quotidien
+     * tant que l'historique ne dépasse pas un an.
+     *
+     * Au-delà : affichage hebdomadaire uniquement.
+     * L'historique original n'est jamais modifié.
+     */
+    if (
+        period === "all" &&
+        visibleRows.length > 365
+    ) {
+        visibleRows =
+            aggregateInvestmentChartRowsWeekly(
+                visibleRows
+            );
+    }
+
+    return visibleRows;
+}
+
+
+function setupInvestmentChartPeriodButtons() {
+    const buttons =
+        document.querySelectorAll(
+            "[data-investment-chart-period]"
+        );
+
+    buttons.forEach(button => {
+        button.onclick = () => {
+            const period =
+                button.dataset
+                    .investmentChartPeriod;
+
+            if (!period) {
+                return;
+            }
+
+            investmentChartPeriod =
+                period;
+
+            buttons.forEach(item =>
+                item.classList.toggle(
+                    "active",
+                    item === button
+                )
+            );
+
+            if (
+                selectedInvestmentCardId !== null &&
+                selectedInvestmentCardId !== undefined
+            ) {
+                renderInvestmentChart(
+                    selectedInvestmentCardId
+                );
+            }
+        };
+    });
+}
+
 async function renderInvestmentChart(cardId) {
     const ctx = document.getElementById("investmentChart");
     if (!ctx) return;
@@ -9169,19 +9374,30 @@ async function renderInvestmentChart(cardId) {
             });
         });
 
-        const chartRows = [...historyByDate.values()]
-            .filter(row =>
-                row.date &&
-                String(row.date).slice(0, 10) >= MODEL_START_DATE
-            )
-            .sort((a, b) =>
-                String(a.date).localeCompare(String(b.date))
-            );
+const allChartRows =
+    [...historyByDate.values()]
+        .filter(row =>
+            row.date &&
+            String(row.date)
+                .slice(0, 10) >=
+                MODEL_START_DATE
+        )
+        .sort((a, b) =>
+            String(a.date)
+                .localeCompare(
+                    String(b.date)
+                )
+        );
 
-        if (!chartRows.length) {
-            investmentChart = null;
-            return;
-        }
+const chartRows =
+    prepareInvestmentChartRows(
+        allChartRows
+    );
+
+if (!chartRows.length) {
+    investmentChart = null;
+    return;
+}
 
         const getTrendPrice = row =>
             row.trendPrice ??
