@@ -212,6 +212,17 @@ function getValueBucket(
 }
 
 const MODEL_START_DATE = "2026-09-13";
+const SUMMARY_PERFORMANCE_PERIODS = [
+    { key: "7d", days: 7, label: "7 j" },
+    { key: "30d", days: 30, label: "30 j" },
+    { key: "60d", days: 60, label: "60 j" },
+    { key: "90d", days: 90, label: "90 j" },
+    { key: "180d", days: 180, label: "180 j" },
+    { key: "365d", days: 365, label: "1 an" },
+    { key: "730d", days: 730, label: "2 ans" },
+    { key: "1825d", days: 1825, label: "5 ans" }
+];
+
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     setupInvestmentDrawerTabs();
@@ -832,21 +843,35 @@ const rows =
                     value => value >= 50
                 ).length;
 
-            return {
-                ...row,
+            const performances =
+    Object.fromEntries(
+        SUMMARY_PERFORMANCE_PERIODS.map(
+            period => [
+                period.key,
+                calculateSummaryPerformance(
+                    period.days,
+                    "category",
+                    category
+                )
+            ]
+        )
+    );
 
-                /*
-                 * Données d'affichage actuelles :
-                 * même logique qu'avant.
-                 */
-                category,
-                cardsCount:
-                    categoryCards.length,
-                totalValue,
-                weight,
-                cardsOver20,
-                cardsOver50
-            };
+return {
+    ...row,
+
+    category,
+
+    cardsCount:
+        categoryCards.length,
+
+    totalValue,
+    weight,
+    cardsOver20,
+    cardsOver50,
+
+    performances
+};
         })
         : [];
 
@@ -860,39 +885,72 @@ const rows =
                 Number(a.totalValue || 0)
         );
 
-        const formatChangeCell =
-            value => {
+        const formatPerformanceCell =
+    performance => {
 
-                const numericValue =
-                    value === null ||
-                    value === undefined
-                        ? null
-                        : Number(value);
+        const valueChange =
+            Number(
+                performance?.valueChange
+            );
 
-                const validValue =
-                    Number.isFinite(numericValue)
-                        ? numericValue
-                        : null;
+        const constantChange =
+            Number(
+                performance?.constantChange
+            );
 
-                const cssClass =
-                    validValue === null
-                        ? ""
-                        : validValue >= 0
-                            ? "score-positive"
-                            : "score-negative";
+        const validValue =
+            performance?.valueChange !== null &&
+            performance?.valueChange !== undefined &&
+            Number.isFinite(valueChange)
+                ? valueChange
+                : null;
 
-                return `
-                    <td class="${cssClass}">
-                        ${
-                            validValue === null
-                                ? "-"
-                                : formatPercent(
-                                    validValue
-                                )
-                        }
-                    </td>
-                `;
-            };
+        const validConstant =
+            performance?.constantChange !== null &&
+            performance?.constantChange !== undefined &&
+            Number.isFinite(constantChange)
+                ? constantChange
+                : null;
+
+        const valueClass =
+            validValue === null
+                ? ""
+                : validValue >= 0
+                    ? "score-positive"
+                    : "score-negative";
+
+        const constantClass =
+            validConstant === null
+                ? ""
+                : validConstant >= 0
+                    ? "score-positive"
+                    : "score-negative";
+
+        return `
+            <td>
+                <div class="${valueClass}">
+                    ${
+                        validValue === null
+                            ? "-"
+                            : formatPercent(
+                                validValue
+                            )
+                    }
+                </div>
+
+                <small class="${constantClass}">
+                    Cst&nbsp;
+                    ${
+                        validConstant === null
+                            ? "-"
+                            : formatPercent(
+                                validConstant
+                            )
+                    }
+                </small>
+            </td>
+        `;
+    };
 
         tbody.innerHTML =
             rows
@@ -939,40 +997,16 @@ const rows =
                             </td>
 
                             ${
-                                formatChangeCell(
-                                    row.perf7d
-                                )
-                            }
-
-                            ${
-                                formatChangeCell(
-                                    row.perf30d
-                                )
-                            }
-
-                            ${
-                                formatChangeCell(
-                                    row.perf60d
-                                )
-                            }
-
-                            ${
-                                formatChangeCell(
-                                    row.perf90d
-                                )
-                            }
-
-                            ${
-                                formatChangeCell(
-                                    row.perf180d
-                                )
-                            }
-
-                            ${
-                                formatChangeCell(
-                                    row.perf365d
-                                )
-                            }
+    SUMMARY_PERFORMANCE_PERIODS
+        .map(period =>
+            formatPerformanceCell(
+                row.performances?.[
+                    period.key
+                ]
+            )
+        )
+        .join("")
+}
 
                             <td>
                                 ${
@@ -6444,6 +6478,297 @@ if (latestHistoryRow?.date) {
         }
     }
 }
+
+const calculateSummaryPerformance = (
+    days,
+    type,
+    name
+) => {
+
+    const latestRow =
+        filteredHistory.length
+            ? filteredHistory[
+                filteredHistory.length - 1
+            ]
+            : null;
+
+    if (!latestRow?.date) {
+        return {
+            valueChange: null,
+            constantChange: null
+        };
+    }
+
+    const latestDate =
+        String(latestRow.date)
+            .slice(0, 10);
+
+    const targetDate =
+        shiftIsoDate(
+            latestDate,
+            -days
+        );
+
+    /*
+     * Aucun calcul ne doit traverser
+     * le changement de modèle du 13/09/2026.
+     */
+    if (targetDate < MODEL_START_DATE) {
+        return {
+            valueChange: null,
+            constantChange: null
+        };
+    }
+
+    /*
+     * Pas de fallback vers une date plus proche.
+     * Il faut disposer exactement de J-N.
+     */
+    const targetRow =
+        filteredHistory.find(row =>
+            String(row.date)
+                .slice(0, 10) ===
+            targetDate
+        );
+
+    if (!targetRow) {
+        return {
+            valueChange: null,
+            constantChange: null
+        };
+    }
+
+    /*
+     * Valeur actuelle et valeur historique
+     * du groupe, composition incluse.
+     */
+    const currentValues =
+        type === "edition"
+            ? latestRow.editionValues
+            : latestRow.categoryValues;
+
+    const previousValues =
+        type === "edition"
+            ? targetRow.editionValues
+            : targetRow.categoryValues;
+
+    const currentValue =
+        Number(
+            currentValues?.[name]
+        );
+
+    const previousValue =
+        Number(
+            previousValues?.[name]
+        );
+
+    const valueChange =
+        Number.isFinite(currentValue) &&
+        Number.isFinite(previousValue) &&
+        previousValue > 0
+            ? (
+                (
+                    currentValue -
+                    previousValue
+                ) /
+                previousValue
+            ) * 100
+            : null;
+
+    /*
+     * Copies ajoutées après J-N :
+     * elles sont exclues du périmètre constant.
+     */
+    const addedAfterTargetIds =
+        new Set();
+
+    filteredHistory
+        .filter(row =>
+            row.date > targetDate &&
+            row.date <= latestDate
+        )
+        .forEach(row => {
+
+            const added =
+                Array.isArray(
+                    row.collectionChanges?.added
+                )
+                    ? row.collectionChanges.added
+                    : [];
+
+            added.forEach(card => {
+
+                const id =
+                    card?.id ??
+                    card?.cardId;
+
+                if (
+                    id !== null &&
+                    id !== undefined
+                ) {
+                    addedAfterTargetIds.add(
+                        String(id)
+                    );
+                }
+            });
+        });
+
+    /*
+     * Dernier prix disponible de chaque exemplaire
+     * jusqu'à la date de départ.
+     */
+    const historicalPricesById =
+        new Map();
+
+    estimatedPriceHistory
+        .filter(row =>
+            row?.cardId !== null &&
+            row?.cardId !== undefined &&
+            row?.date &&
+            String(row.date)
+                .slice(0, 10) >=
+                MODEL_START_DATE &&
+            String(row.date)
+                .slice(0, 10) <=
+                targetDate
+        )
+        .sort((a, b) =>
+            String(a.date)
+                .localeCompare(
+                    String(b.date)
+                )
+        )
+        .forEach(row => {
+            historicalPricesById.set(
+                String(row.cardId),
+                row
+            );
+        });
+
+    let previousConstantValue = 0;
+    let currentConstantValue = 0;
+    let comparableCards = 0;
+
+    allCards.forEach(card => {
+
+        const cardId =
+            String(card.id);
+
+        /*
+         * Acquisition pendant la période :
+         * non comparable.
+         */
+        if (
+            addedAfterTargetIds.has(
+                cardId
+            )
+        ) {
+            return;
+        }
+
+        const cardGroup =
+            type === "edition"
+                ? String(
+                    card.edition ||
+                    "Édition inconnue"
+                ).trim()
+                : String(
+                    card.categorie ||
+                    "Non classé"
+                ).trim();
+
+        if (cardGroup !== name) {
+            return;
+        }
+
+        const historicalRow =
+            historicalPricesById.get(
+                cardId
+            );
+
+        if (!historicalRow) {
+            return;
+        }
+
+        let estimatedByCondition =
+            historicalRow
+                .estimatedByCondition;
+
+        if (
+            typeof estimatedByCondition ===
+            "string"
+        ) {
+            try {
+                estimatedByCondition =
+                    JSON.parse(
+                        estimatedByCondition
+                    );
+            } catch {
+                estimatedByCondition = {};
+            }
+        }
+
+        const condition =
+            String(
+                card.etat || "NM"
+            ).toUpperCase();
+
+        const historicalPrice =
+            Number(
+                estimatedByCondition?.[
+                    condition
+                ] ??
+                estimatedByCondition?.NM ??
+                historicalRow
+                    .estimatedConditionPrice ??
+                historicalRow
+                    .estimatedPrice
+            );
+
+        const currentPrice =
+            Number(
+                getEstimatedConditionPrice(
+                    card
+                )
+            );
+
+        if (
+            !Number.isFinite(
+                historicalPrice
+            ) ||
+            !Number.isFinite(
+                currentPrice
+            )
+        ) {
+            return;
+        }
+
+        previousConstantValue +=
+            historicalPrice;
+
+        currentConstantValue +=
+            currentPrice;
+
+        comparableCards += 1;
+    });
+
+    const constantChange =
+        comparableCards > 0 &&
+        previousConstantValue > 0
+            ? (
+                (
+                    currentConstantValue -
+                    previousConstantValue
+                ) /
+                previousConstantValue
+            ) * 100
+            : null;
+
+    return {
+        valueChange,
+        constantChange
+    };
+};
 
 const calculateFilteredConstantPerformance = (
     days
