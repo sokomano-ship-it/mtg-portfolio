@@ -728,7 +728,10 @@ async function loadDashboard() {
         portfolioHistoryPromise
     );
 
-    await loadCategorySummary();
+   await Promise.all([
+    loadCategorySummary(),
+    loadEditionSummary()
+]);
 }
 
 async function loadCards() {
@@ -1354,6 +1357,264 @@ return {
             </tr>
         `;
 
+    }
+}
+
+async function loadEditionSummary() {
+
+    const tbody =
+        document.getElementById(
+            "edition-summary-body"
+        );
+
+    if (!tbody) {
+        return;
+    }
+
+    try {
+
+        const totalPortfolioValue =
+            calculateCardsValue(allCards);
+
+        /*
+         * Les éditions sont construites directement
+         * depuis la collection actuelle.
+         */
+        const editions =
+            [...new Set(
+                allCards
+                    .map(card =>
+                        String(
+                            card.edition ||
+                            "Édition inconnue"
+                        ).trim()
+                    )
+                    .filter(Boolean)
+            )];
+
+        const rows =
+            editions.map(edition => {
+
+                const editionCards =
+                    allCards.filter(card =>
+                        String(
+                            card.edition ||
+                            "Édition inconnue"
+                        ).trim() === edition
+                    );
+
+                const prices =
+                    editionCards
+                        .map(card =>
+                            Number(
+                                getEstimatedConditionPrice(
+                                    card
+                                )
+                            )
+                        )
+                        .filter(Number.isFinite);
+
+                const totalValue =
+                    prices.reduce(
+                        (sum, value) =>
+                            sum + value,
+                        0
+                    );
+
+                const weight =
+                    totalPortfolioValue > 0
+                        ? (
+                            totalValue /
+                            totalPortfolioValue
+                        ) * 100
+                        : null;
+
+                const cardsOver20 =
+                    prices.filter(
+                        value => value >= 20
+                    ).length;
+
+                const cardsOver50 =
+                    prices.filter(
+                        value => value >= 50
+                    ).length;
+
+                const performances =
+                    Object.fromEntries(
+                        SUMMARY_PERFORMANCE_PERIODS.map(
+                            period => [
+                                period.key,
+                                calculateSummaryPerformance(
+                                    period.days,
+                                    "edition",
+                                    edition
+                                )
+                            ]
+                        )
+                    );
+
+                return {
+                    edition,
+                    cardsCount:
+                        editionCards.length,
+                    totalValue,
+                    weight,
+                    cardsOver20,
+                    cardsOver50,
+                    performances
+                };
+            });
+
+        /*
+         * Éditions ayant le plus de valeur
+         * en premier.
+         */
+        rows.sort(
+            (a, b) =>
+                Number(b.totalValue || 0) -
+                Number(a.totalValue || 0)
+        );
+
+        const formatPerformanceCell =
+            performance => {
+
+                const valueChange =
+                    Number(
+                        performance?.valueChange
+                    );
+
+                const constantChange =
+                    Number(
+                        performance?.constantChange
+                    );
+
+                const validValue =
+                    performance?.valueChange !== null &&
+                    performance?.valueChange !== undefined &&
+                    Number.isFinite(valueChange)
+                        ? valueChange
+                        : null;
+
+                const validConstant =
+                    performance?.constantChange !== null &&
+                    performance?.constantChange !== undefined &&
+                    Number.isFinite(constantChange)
+                        ? constantChange
+                        : null;
+
+                const valueClass =
+                    validValue === null
+                        ? ""
+                        : valueChange >= 0
+                            ? "score-positive"
+                            : "score-negative";
+
+                const constantClass =
+                    validConstant === null
+                        ? ""
+                        : constantChange >= 0
+                            ? "score-positive"
+                            : "score-negative";
+
+                return `
+                    <td>
+                        <div class="${valueClass}">
+                            ${
+                                validValue === null
+                                    ? "-"
+                                    : formatPercent(
+                                        valueChange
+                                    )
+                            }
+                        </div>
+
+                        <small class="${constantClass}">
+                            Cst&nbsp;${
+                                validConstant === null
+                                    ? "-"
+                                    : formatPercent(
+                                        constantChange
+                                    )
+                            }
+                        </small>
+                    </td>
+                `;
+            };
+
+        tbody.innerHTML =
+            rows
+                .map(row => `
+                    <tr>
+
+                        <td>
+                            <strong>
+                                ${
+                                    escapeHtml(
+                                        row.edition ||
+                                        "Édition inconnue"
+                                    )
+                                }
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${Number(row.cardsCount || 0)}
+                        </td>
+
+                        <td class="price">
+                            ${
+                                formatEuro(
+                                    Number(
+                                        row.totalValue || 0
+                                    )
+                                )
+                            }
+                        </td>
+
+                        <td>
+                            ${
+                                formatSimplePercent(
+                                    row.weight
+                                )
+                            }
+                        </td>
+
+                        ${
+                            SUMMARY_PERFORMANCE_PERIODS
+                                .map(period =>
+                                    formatPerformanceCell(
+                                        row.performances?.[
+                                            period.key
+                                        ]
+                                    )
+                                )
+                                .join("")
+                        }
+
+                        <td>
+                            ${Number(row.cardsOver20 || 0)}
+                        </td>
+
+                        <td>
+                            ${Number(row.cardsOver50 || 0)}
+                        </td>
+
+                    </tr>
+                `)
+                .join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="14">
+                    Erreur :
+                    ${escapeHtml(error.message)}
+                </td>
+            </tr>
+        `;
     }
 }
 
