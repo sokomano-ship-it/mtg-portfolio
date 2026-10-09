@@ -6452,6 +6452,280 @@ if (latestHistoryRow?.date) {
     }
 }
 
+const calculateFilteredConstantPerformance = (
+    days
+) => {
+
+    const latestRow =
+        filteredHistory.length
+            ? filteredHistory[
+                filteredHistory.length - 1
+            ]
+            : null;
+
+    if (!latestRow?.date) {
+        return null;
+    }
+
+    const latestDate =
+        String(latestRow.date)
+            .slice(0, 10);
+
+    const targetDate =
+        shiftIsoDate(
+            latestDate,
+            -days
+        );
+
+    /*
+     * La période complète doit être couverte
+     * par le modèle actuel.
+     */
+    if (targetDate < MODEL_START_DATE) {
+        return null;
+    }
+
+    /*
+     * On exige la date exacte.
+     * Aucun fallback vers une période plus courte.
+     */
+    const targetRow =
+        filteredHistory.find(row =>
+            String(row.date)
+                .slice(0, 10) ===
+            targetDate
+        );
+
+    if (!targetRow) {
+        return null;
+    }
+
+    /*
+     * Copies ajoutées APRÈS la date de départ.
+     *
+     * Elles sont présentes aujourd'hui mais
+     * n'étaient pas présentes au début de la période :
+     * elles doivent donc être exclues du périmètre
+     * constant.
+     */
+    const addedAfterTargetIds =
+        new Set();
+
+    filteredHistory
+        .filter(row =>
+            row.date > targetDate &&
+            row.date <= latestDate
+        )
+        .forEach(row => {
+
+            const added =
+                Array.isArray(
+                    row.collectionChanges?.added
+                )
+                    ? row.collectionChanges.added
+                    : [];
+
+            added.forEach(card => {
+
+                const id =
+                    card?.id ??
+                    card?.cardId;
+
+                if (
+                    id !== null &&
+                    id !== undefined
+                ) {
+                    addedAfterTargetIds.add(
+                        String(id)
+                    );
+                }
+            });
+        });
+
+    /*
+     * Prix connus à la date exacte de départ.
+     *
+     * On conserve pour chaque ID le dernier prix
+     * disponible jusqu'à targetDate.
+     */
+    const historicalPricesById =
+        new Map();
+
+    estimatedPriceHistory
+        .filter(row =>
+            row?.cardId !== null &&
+            row?.cardId !== undefined &&
+            row?.date &&
+            String(row.date)
+                .slice(0, 10) >=
+                MODEL_START_DATE &&
+            String(row.date)
+                .slice(0, 10) <=
+                targetDate
+        )
+        .sort((a, b) =>
+            String(a.date)
+                .localeCompare(
+                    String(b.date)
+                )
+        )
+        .forEach(row => {
+            historicalPricesById.set(
+                String(row.cardId),
+                row
+            );
+        });
+
+    let previousValue = 0;
+    let currentValue = 0;
+    let comparableCards = 0;
+
+    allCards.forEach(card => {
+
+        const cardId =
+            String(card.id);
+
+        /*
+         * Carte entrée dans la collection
+         * pendant la période :
+         * NON comparable.
+         */
+        if (
+            addedAfterTargetIds.has(
+                cardId
+            )
+        ) {
+            return;
+        }
+
+        const category =
+            String(
+                card.categorie ||
+                "Non classé"
+            ).trim();
+
+        const edition =
+            String(
+                card.edition ||
+                "Édition inconnue"
+            ).trim();
+
+        /*
+         * Respect des filtres actuellement
+         * sélectionnés.
+         */
+        if (
+            selectedPortfolioCategory &&
+            category !==
+                selectedPortfolioCategory
+        ) {
+            return;
+        }
+
+        if (
+            selectedPortfolioEdition &&
+            edition !==
+                selectedPortfolioEdition
+        ) {
+            return;
+        }
+
+        if (
+            selectedPortfolioCardKey &&
+            getPortfolioCardKey(card) !==
+                selectedPortfolioCardKey
+        ) {
+            return;
+        }
+
+        const historicalRow =
+            historicalPricesById.get(
+                cardId
+            );
+
+        /*
+         * Aucun prix historique exploitable
+         * à la date de départ :
+         * carte non comparable.
+         */
+        if (!historicalRow) {
+            return;
+        }
+
+        let estimatedByCondition =
+            historicalRow
+                .estimatedByCondition;
+
+        if (
+            typeof estimatedByCondition ===
+            "string"
+        ) {
+            try {
+                estimatedByCondition =
+                    JSON.parse(
+                        estimatedByCondition
+                    );
+            } catch {
+                estimatedByCondition = null;
+            }
+        }
+
+        const condition =
+            String(
+                card.etat || ""
+            ).toUpperCase();
+
+        const previousPrice =
+            Number(
+                estimatedByCondition
+                    ?.[condition] ??
+                estimatedByCondition
+                    ?.NM ??
+                historicalRow
+                    .estimatedConditionPrice ??
+                historicalRow
+                    .estimatedPrice ??
+                0
+            );
+
+        const currentPrice =
+            Number(
+                getEstimatedConditionPrice(
+                    card
+                ) || 0
+            );
+
+        if (
+            previousPrice <= 0 ||
+            currentPrice <= 0
+        ) {
+            return;
+        }
+
+        previousValue +=
+            previousPrice;
+
+        currentValue +=
+            currentPrice;
+
+        comparableCards += 1;
+    });
+
+    if (
+        comparableCards === 0 ||
+        previousValue <= 0
+    ) {
+        return null;
+    }
+
+    return (
+        (
+            currentValue -
+            previousValue
+        ) /
+        previousValue
+    ) * 100;
+};
 
 /*
  * 2) Variation à base constante
@@ -6477,6 +6751,10 @@ if (noFilters) {
     !selectedPortfolioCardKey
 ) {
 
+    /*
+     * Pour une catégorie seule,
+     * on conserve le calcul backend existant.
+     */
     const categoryRow =
         Array.isArray(categorySummary)
             ? categorySummary.find(row =>
@@ -6491,6 +6769,18 @@ if (noFilters) {
     selectedConstantChange =
         categoryRow?.[performanceKey] ??
         null;
+
+} else {
+
+    /*
+     * Édition seule,
+     * Catégorie + Édition,
+     * ou carte précise.
+     */
+    selectedConstantChange =
+        calculateFilteredConstantPerformance(
+            performanceDays
+        );
 }
 
 
