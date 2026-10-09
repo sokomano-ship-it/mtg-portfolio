@@ -5455,23 +5455,14 @@ function prepareResponsiveChartRows(
             );
     }
 
-    const maximumPoints =
-        getResponsiveChartPointLimit(
-            canvas
-        );
-
-    /*
-     * Pour les périodes explicites,
-     * on ne coupe pas artificiellement
-     * l'historique demandé.
-     */
-    if (period !== "all") {
-        return visibleRows;
-    }
-
-    return visibleRows.slice(
-        -maximumPoints
-    );
+/*
+ * Aucune période n'est tronquée.
+ *
+ * Pour "Tout", l'allègement éventuel
+ * a déjà été effectué plus haut
+ * par agrégation hebdomadaire.
+ */
+return visibleRows;
 }
 
 function formatPortfolioFreshnessDate(dateString) {
