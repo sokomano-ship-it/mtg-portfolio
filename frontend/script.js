@@ -704,7 +704,8 @@ function setupInvestmentDrawerTabs() {
 async function loadDashboard() {
 
     /*
-     * On démarre les deux requêtes immédiatement.
+     * On démarre immédiatement les requêtes
+     * qui peuvent l'être en parallèle.
      */
     const cardsPromise =
         loadCards();
@@ -712,24 +713,22 @@ async function loadDashboard() {
     const portfolioHistoryPromise =
         window.apiAdapter.getPortfolioHistory();
 
-
     /*
-     * Les analyses ci-dessous ont besoin
-     * de allCards.
+     * Les analyses ont d'abord besoin
+     * de la collection actuelle.
      */
     await cardsPromise;
 
-
-await Promise.all([
-
-    loadCategorySummary(),
-
-    loadPortfolioHistory(
+    /*
+     * Le résumé catégorie utilise maintenant
+     * les historiques mis en cache par
+     * loadPortfolioHistory().
+     */
+    await loadPortfolioHistory(
         portfolioHistoryPromise
-    )
+    );
 
-]);
-
+    await loadCategorySummary();
 }
 
 async function loadCards() {
@@ -758,6 +757,318 @@ setupCollectionSorting();
         console.error(error);
         status.textContent = "Erreur : " + error.message;
     }
+}
+
+function calculateSummaryPerformance(
+    days,
+    type,
+    name
+) {
+
+    const filteredHistory =
+        cachedPortfolioHistory
+            .filter(row =>
+                row?.date &&
+                String(row.date)
+                    .slice(0, 10) >=
+                    MODEL_START_DATE
+            )
+            .sort((a, b) =>
+                String(a.date)
+                    .localeCompare(
+                        String(b.date)
+                    )
+            );
+
+    const estimatedPriceHistory =
+        cachedEstimatedPriceHistory;
+
+    const latestRow =
+        filteredHistory.length
+            ? filteredHistory[
+                filteredHistory.length - 1
+            ]
+            : null;
+
+    if (!latestRow?.date) {
+        return {
+            valueChange: null,
+            constantChange: null
+        };
+    }
+
+    const latestDate =
+        String(latestRow.date)
+            .slice(0, 10);
+
+    const targetDate =
+        shiftIsoDate(
+            latestDate,
+            -days
+        );
+
+    /*
+     * Aucun calcul ne doit traverser
+     * le changement de modèle.
+     */
+    if (targetDate < MODEL_START_DATE) {
+        return {
+            valueChange: null,
+            constantChange: null
+        };
+    }
+
+    /*
+     * Pas de fallback :
+     * J-N doit exister exactement.
+     */
+    const targetRow =
+        filteredHistory.find(row =>
+            String(row.date)
+                .slice(0, 10) ===
+            targetDate
+        );
+
+    if (!targetRow) {
+        return {
+            valueChange: null,
+            constantChange: null
+        };
+    }
+
+    /*
+     * Évolution réelle du groupe :
+     * composition incluse.
+     */
+    const currentValues =
+        type === "edition"
+            ? latestRow.editionValues
+            : latestRow.categoryValues;
+
+    const previousValues =
+        type === "edition"
+            ? targetRow.editionValues
+            : targetRow.categoryValues;
+
+    const currentValue =
+        Number(
+            currentValues?.[name]
+        );
+
+    const previousValue =
+        Number(
+            previousValues?.[name]
+        );
+
+    const valueChange =
+        Number.isFinite(currentValue) &&
+        Number.isFinite(previousValue) &&
+        previousValue > 0
+            ? (
+                (
+                    currentValue -
+                    previousValue
+                ) /
+                previousValue
+            ) * 100
+            : null;
+
+    /*
+     * Exemplaires ajoutés après J-N :
+     * exclus du périmètre constant.
+     */
+    const addedAfterTargetIds =
+        new Set();
+
+    filteredHistory
+        .filter(row => {
+            const date =
+                String(row.date)
+                    .slice(0, 10);
+
+            return (
+                date > targetDate &&
+                date <= latestDate
+            );
+        })
+        .forEach(row => {
+
+            const added =
+                Array.isArray(
+                    row.collectionChanges?.added
+                )
+                    ? row.collectionChanges.added
+                    : [];
+
+            added.forEach(card => {
+
+                const id =
+                    card?.id ??
+                    card?.cardId;
+
+                if (
+                    id !== null &&
+                    id !== undefined
+                ) {
+                    addedAfterTargetIds.add(
+                        String(id)
+                    );
+                }
+            });
+        });
+
+    /*
+     * Dernier prix disponible de chaque
+     * exemplaire à la date de départ.
+     */
+    const historicalPricesById =
+        new Map();
+
+    estimatedPriceHistory
+        .filter(row =>
+            row?.cardId !== null &&
+            row?.cardId !== undefined &&
+            row?.date &&
+            String(row.date)
+                .slice(0, 10) >=
+                MODEL_START_DATE &&
+            String(row.date)
+                .slice(0, 10) <=
+                targetDate
+        )
+        .sort((a, b) =>
+            String(a.date)
+                .localeCompare(
+                    String(b.date)
+                )
+        )
+        .forEach(row => {
+
+            historicalPricesById.set(
+                String(row.cardId),
+                row
+            );
+        });
+
+    let previousConstantValue = 0;
+    let currentConstantValue = 0;
+    let comparableCards = 0;
+
+    allCards.forEach(card => {
+
+        const cardId =
+            String(card.id);
+
+        if (
+            addedAfterTargetIds.has(
+                cardId
+            )
+        ) {
+            return;
+        }
+
+        const cardGroup =
+            type === "edition"
+                ? String(
+                    card.edition ||
+                    "Édition inconnue"
+                ).trim()
+                : String(
+                    card.categorie ||
+                    "Non classé"
+                ).trim();
+
+        if (cardGroup !== name) {
+            return;
+        }
+
+        const historicalRow =
+            historicalPricesById.get(
+                cardId
+            );
+
+        if (!historicalRow) {
+            return;
+        }
+
+        let estimatedByCondition =
+            historicalRow
+                .estimatedByCondition;
+
+        if (
+            typeof estimatedByCondition ===
+            "string"
+        ) {
+            try {
+                estimatedByCondition =
+                    JSON.parse(
+                        estimatedByCondition
+                    );
+            } catch {
+                estimatedByCondition = {};
+            }
+        }
+
+        const condition =
+            String(
+                card.etat || "NM"
+            ).toUpperCase();
+
+        const historicalPrice =
+            Number(
+                estimatedByCondition?.[
+                    condition
+                ] ??
+                estimatedByCondition?.NM ??
+                historicalRow
+                    .estimatedConditionPrice ??
+                historicalRow
+                    .estimatedPrice
+            );
+
+        const currentPrice =
+            Number(
+                getEstimatedConditionPrice(
+                    card
+                )
+            );
+
+        if (
+            !Number.isFinite(
+                historicalPrice
+            ) ||
+            !Number.isFinite(
+                currentPrice
+            )
+        ) {
+            return;
+        }
+
+        previousConstantValue +=
+            historicalPrice;
+
+        currentConstantValue +=
+            currentPrice;
+
+        comparableCards += 1;
+    });
+
+    const constantChange =
+        comparableCards > 0 &&
+        previousConstantValue > 0
+            ? (
+                (
+                    currentConstantValue -
+                    previousConstantValue
+                ) /
+                previousConstantValue
+            ) * 100
+            : null;
+
+    return {
+        valueChange,
+        constantChange
+    };
 }
 
 async function loadCategorySummary() {
@@ -6479,296 +6790,6 @@ if (latestHistoryRow?.date) {
     }
 }
 
-const calculateSummaryPerformance = (
-    days,
-    type,
-    name
-) => {
-
-    const latestRow =
-        filteredHistory.length
-            ? filteredHistory[
-                filteredHistory.length - 1
-            ]
-            : null;
-
-    if (!latestRow?.date) {
-        return {
-            valueChange: null,
-            constantChange: null
-        };
-    }
-
-    const latestDate =
-        String(latestRow.date)
-            .slice(0, 10);
-
-    const targetDate =
-        shiftIsoDate(
-            latestDate,
-            -days
-        );
-
-    /*
-     * Aucun calcul ne doit traverser
-     * le changement de modèle du 13/09/2026.
-     */
-    if (targetDate < MODEL_START_DATE) {
-        return {
-            valueChange: null,
-            constantChange: null
-        };
-    }
-
-    /*
-     * Pas de fallback vers une date plus proche.
-     * Il faut disposer exactement de J-N.
-     */
-    const targetRow =
-        filteredHistory.find(row =>
-            String(row.date)
-                .slice(0, 10) ===
-            targetDate
-        );
-
-    if (!targetRow) {
-        return {
-            valueChange: null,
-            constantChange: null
-        };
-    }
-
-    /*
-     * Valeur actuelle et valeur historique
-     * du groupe, composition incluse.
-     */
-    const currentValues =
-        type === "edition"
-            ? latestRow.editionValues
-            : latestRow.categoryValues;
-
-    const previousValues =
-        type === "edition"
-            ? targetRow.editionValues
-            : targetRow.categoryValues;
-
-    const currentValue =
-        Number(
-            currentValues?.[name]
-        );
-
-    const previousValue =
-        Number(
-            previousValues?.[name]
-        );
-
-    const valueChange =
-        Number.isFinite(currentValue) &&
-        Number.isFinite(previousValue) &&
-        previousValue > 0
-            ? (
-                (
-                    currentValue -
-                    previousValue
-                ) /
-                previousValue
-            ) * 100
-            : null;
-
-    /*
-     * Copies ajoutées après J-N :
-     * elles sont exclues du périmètre constant.
-     */
-    const addedAfterTargetIds =
-        new Set();
-
-    filteredHistory
-        .filter(row =>
-            row.date > targetDate &&
-            row.date <= latestDate
-        )
-        .forEach(row => {
-
-            const added =
-                Array.isArray(
-                    row.collectionChanges?.added
-                )
-                    ? row.collectionChanges.added
-                    : [];
-
-            added.forEach(card => {
-
-                const id =
-                    card?.id ??
-                    card?.cardId;
-
-                if (
-                    id !== null &&
-                    id !== undefined
-                ) {
-                    addedAfterTargetIds.add(
-                        String(id)
-                    );
-                }
-            });
-        });
-
-    /*
-     * Dernier prix disponible de chaque exemplaire
-     * jusqu'à la date de départ.
-     */
-    const historicalPricesById =
-        new Map();
-
-    estimatedPriceHistory
-        .filter(row =>
-            row?.cardId !== null &&
-            row?.cardId !== undefined &&
-            row?.date &&
-            String(row.date)
-                .slice(0, 10) >=
-                MODEL_START_DATE &&
-            String(row.date)
-                .slice(0, 10) <=
-                targetDate
-        )
-        .sort((a, b) =>
-            String(a.date)
-                .localeCompare(
-                    String(b.date)
-                )
-        )
-        .forEach(row => {
-            historicalPricesById.set(
-                String(row.cardId),
-                row
-            );
-        });
-
-    let previousConstantValue = 0;
-    let currentConstantValue = 0;
-    let comparableCards = 0;
-
-    allCards.forEach(card => {
-
-        const cardId =
-            String(card.id);
-
-        /*
-         * Acquisition pendant la période :
-         * non comparable.
-         */
-        if (
-            addedAfterTargetIds.has(
-                cardId
-            )
-        ) {
-            return;
-        }
-
-        const cardGroup =
-            type === "edition"
-                ? String(
-                    card.edition ||
-                    "Édition inconnue"
-                ).trim()
-                : String(
-                    card.categorie ||
-                    "Non classé"
-                ).trim();
-
-        if (cardGroup !== name) {
-            return;
-        }
-
-        const historicalRow =
-            historicalPricesById.get(
-                cardId
-            );
-
-        if (!historicalRow) {
-            return;
-        }
-
-        let estimatedByCondition =
-            historicalRow
-                .estimatedByCondition;
-
-        if (
-            typeof estimatedByCondition ===
-            "string"
-        ) {
-            try {
-                estimatedByCondition =
-                    JSON.parse(
-                        estimatedByCondition
-                    );
-            } catch {
-                estimatedByCondition = {};
-            }
-        }
-
-        const condition =
-            String(
-                card.etat || "NM"
-            ).toUpperCase();
-
-        const historicalPrice =
-            Number(
-                estimatedByCondition?.[
-                    condition
-                ] ??
-                estimatedByCondition?.NM ??
-                historicalRow
-                    .estimatedConditionPrice ??
-                historicalRow
-                    .estimatedPrice
-            );
-
-        const currentPrice =
-            Number(
-                getEstimatedConditionPrice(
-                    card
-                )
-            );
-
-        if (
-            !Number.isFinite(
-                historicalPrice
-            ) ||
-            !Number.isFinite(
-                currentPrice
-            )
-        ) {
-            return;
-        }
-
-        previousConstantValue +=
-            historicalPrice;
-
-        currentConstantValue +=
-            currentPrice;
-
-        comparableCards += 1;
-    });
-
-    const constantChange =
-        comparableCards > 0 &&
-        previousConstantValue > 0
-            ? (
-                (
-                    currentConstantValue -
-                    previousConstantValue
-                ) /
-                previousConstantValue
-            ) * 100
-            : null;
-
-    return {
-        valueChange,
-        constantChange
-    };
-};
 
 const calculateFilteredConstantPerformance = (
     days
