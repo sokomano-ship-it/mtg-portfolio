@@ -25,6 +25,10 @@
     {
       "source": "/market-observations.html",
       "destination": "/frontend/market-observations.html"
+    },
+    {
+     "source": "/data/:path*",
+     "destination": "/frontend/data/:path*"
     }
   ],
 
