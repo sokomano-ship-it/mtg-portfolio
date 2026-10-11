@@ -1114,11 +1114,12 @@ function groupByCardEditionEtat(rows) {
     const grouped = new Map();
 
     rows.forEach(row => {
-        const key = [
-            row.nomCarte,
-            row.edition,
-            row.etat
-        ].join("|");
+const key = [
+    row.nomCarte,
+    row.edition,
+    row.langue,
+    row.etat
+].join("|");
 
         if (!grouped.has(key)) {
             grouped.set(key, {
