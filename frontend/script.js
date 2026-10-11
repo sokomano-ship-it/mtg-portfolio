@@ -744,7 +744,13 @@ async function loadCards() {
 
         status.textContent = `${allCards.length} cartes chargées`;
         totalCards.textContent = allCards.length;
-        totalValue.textContent = formatEuro(calculateCardsValue(allCards));
+
+/*
+ * La valeur totale officielle du portefeuille
+ * sera renseignée par loadPortfolioHistory()
+ * depuis portfolio-summary.json.
+ */
+totalValue.textContent = "-";
 
         populateCategories(allCards);
 
@@ -6401,9 +6407,24 @@ async function loadPortfolioHistory(historyPromise = null) {
         day: "2-digit"
     }).format(new Date());
 
-    const currentTotal = Number(
-        calculateCardsValue(allCards).toFixed(2)
+    /*
+ * Source de vérité pour la valeur totale :
+ * portfolio-summary.json généré par le backend.
+ *
+ * On ne recalcule plus le portefeuille complet
+ * à partir de cards.json.
+ */
+const backendTotal =
+    Number(
+        portfolioSummary?.estimatedTotalValue
     );
+
+const currentTotal =
+    Number.isFinite(backendTotal)
+        ? backendTotal
+        : Number(
+            calculateCardsValue(allCards).toFixed(2)
+        );
 
     const currentCategoryValues = {};
 const currentEditionValues = {};
