@@ -1199,73 +1199,100 @@ return {
                 Number(a.totalValue || 0)
         );
 
-        const formatPerformanceCell =
+const formatPerformanceCell =
     performance => {
 
         const valueChange =
-            Number(
-                performance?.valueChange
-            );
-
-        const constantChange =
-            Number(
-                performance?.constantChange
-            );
-
-        const validValue =
             performance?.valueChange !== null &&
             performance?.valueChange !== undefined &&
-            Number.isFinite(valueChange)
-                ? valueChange
+            Number.isFinite(
+                Number(performance.valueChange)
+            )
+                ? Number(performance.valueChange)
                 : null;
 
-        const validConstant =
+        const constantChange =
             performance?.constantChange !== null &&
             performance?.constantChange !== undefined &&
-            Number.isFinite(constantChange)
-                ? constantChange
+            Number.isFinite(
+                Number(performance.constantChange)
+            )
+                ? Number(performance.constantChange)
                 : null;
 
-        const valueClass =
-            validValue === null
+        const getClass = value =>
+            value === null
                 ? ""
-                : validValue >= 0
+                : value >= 0
                     ? "score-positive"
                     : "score-negative";
 
-        const constantClass =
-            validConstant === null
-                ? ""
-                : validConstant >= 0
-                    ? "score-positive"
-                    : "score-negative";
+        /*
+         * Si les deux performances sont identiques
+         * à l'affichage (2 décimales), une seule
+         * valeur est nécessaire.
+         */
+        const samePerformance =
+            valueChange !== null &&
+            constantChange !== null &&
+            Math.abs(
+                valueChange - constantChange
+            ) < 0.005;
 
+        if (samePerformance) {
+            return `
+                <td>
+                    <div class="${getClass(constantChange)}">
+                        <strong>
+                            ${formatPercent(constantChange)}
+                        </strong>
+                    </div>
+                </td>
+            `;
+        }
+
+        /*
+         * Périmètre constant = indicateur principal.
+         */
+        if (constantChange !== null) {
+            return `
+                <td>
+                    <div class="${getClass(constantChange)}">
+                        <strong>
+                            ${formatPercent(constantChange)}
+                        </strong>
+                    </div>
+
+                    ${
+                        valueChange !== null
+                            ? `
+                                <small class="${getClass(valueChange)}">
+                                    Total&nbsp;${formatPercent(valueChange)}
+                                </small>
+                            `
+                            : ""
+                    }
+                </td>
+            `;
+        }
+
+        /*
+         * Pas de périmètre constant disponible :
+         * on conserve la variation totale si elle existe.
+         */
         return `
             <td>
-                <div class="${valueClass}">
+                <div class="${getClass(valueChange)}">
                     ${
-                        validValue === null
+                        valueChange === null
                             ? "-"
-                            : formatPercent(
-                                validValue
-                            )
+                            : formatPercent(valueChange)
                     }
                 </div>
-
-                <small class="${constantClass}">
-                    Cst&nbsp;
-                    ${
-                        validConstant === null
-                            ? "-"
-                            : formatPercent(
-                                validConstant
-                            )
-                    }
-                </small>
             </td>
         `;
     };
-
+    
         tbody.innerHTML =
             rows
                 .map(row => {
@@ -1475,71 +1502,99 @@ async function loadEditionSummary() {
                 Number(a.totalValue || 0)
         );
 
-        const formatPerformanceCell =
-            performance => {
+const formatPerformanceCell =
+    performance => {
 
-                const valueChange =
-                    Number(
-                        performance?.valueChange
-                    );
+        const valueChange =
+            performance?.valueChange !== null &&
+            performance?.valueChange !== undefined &&
+            Number.isFinite(
+                Number(performance.valueChange)
+            )
+                ? Number(performance.valueChange)
+                : null;
 
-                const constantChange =
-                    Number(
-                        performance?.constantChange
-                    );
+        const constantChange =
+            performance?.constantChange !== null &&
+            performance?.constantChange !== undefined &&
+            Number.isFinite(
+                Number(performance.constantChange)
+            )
+                ? Number(performance.constantChange)
+                : null;
 
-                const validValue =
-                    performance?.valueChange !== null &&
-                    performance?.valueChange !== undefined &&
-                    Number.isFinite(valueChange)
-                        ? valueChange
-                        : null;
+        const getClass = value =>
+            value === null
+                ? ""
+                : value >= 0
+                    ? "score-positive"
+                    : "score-negative";
 
-                const validConstant =
-                    performance?.constantChange !== null &&
-                    performance?.constantChange !== undefined &&
-                    Number.isFinite(constantChange)
-                        ? constantChange
-                        : null;
+        /*
+         * Si les deux performances sont identiques
+         * à l'affichage (2 décimales), une seule
+         * valeur est nécessaire.
+         */
+        const samePerformance =
+            valueChange !== null &&
+            constantChange !== null &&
+            Math.abs(
+                valueChange - constantChange
+            ) < 0.005;
 
-                const valueClass =
-                    validValue === null
-                        ? ""
-                        : valueChange >= 0
-                            ? "score-positive"
-                            : "score-negative";
+        if (samePerformance) {
+            return `
+                <td>
+                    <div class="${getClass(constantChange)}">
+                        <strong>
+                            ${formatPercent(constantChange)}
+                        </strong>
+                    </div>
+                </td>
+            `;
+        }
 
-                const constantClass =
-                    validConstant === null
-                        ? ""
-                        : constantChange >= 0
-                            ? "score-positive"
-                            : "score-negative";
+        /*
+         * Périmètre constant = indicateur principal.
+         */
+        if (constantChange !== null) {
+            return `
+                <td>
+                    <div class="${getClass(constantChange)}">
+                        <strong>
+                            ${formatPercent(constantChange)}
+                        </strong>
+                    </div>
 
-                return `
-                    <td>
-                        <div class="${valueClass}">
-                            ${
-                                validValue === null
-                                    ? "-"
-                                    : formatPercent(
-                                        valueChange
-                                    )
-                            }
-                        </div>
+                    ${
+                        valueChange !== null
+                            ? `
+                                <small class="${getClass(valueChange)}">
+                                    Total&nbsp;${formatPercent(valueChange)}
+                                </small>
+                            `
+                            : ""
+                    }
+                </td>
+            `;
+        }
 
-                        <small class="${constantClass}">
-                            Cst&nbsp;${
-                                validConstant === null
-                                    ? "-"
-                                    : formatPercent(
-                                        constantChange
-                                    )
-                            }
-                        </small>
-                    </td>
-                `;
-            };
+        /*
+         * Pas de périmètre constant disponible :
+         * on conserve la variation totale si elle existe.
+         */
+        return `
+            <td>
+                <div class="${getClass(valueChange)}">
+                    ${
+                        valueChange === null
+                            ? "-"
+                            : formatPercent(valueChange)
+                    }
+                </div>
+            </td>
+        `;
+    };
 
         tbody.innerHTML =
             rows
