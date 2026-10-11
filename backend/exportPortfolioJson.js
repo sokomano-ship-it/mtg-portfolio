@@ -817,11 +817,8 @@ function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
                 .filter(row => Number(row.cardId) === Number(card.id))
                 .sort((a, b) => String(a.date).localeCompare(String(b.date)));
 
-            const latestSnapshot = historyRows[historyRows.length - 1] || null;
-
-            const currentEstimatedPrice = latestSnapshot
-                ? getEstimatedPriceFromSnapshot(latestSnapshot, card.etat)
-                : Number(getEstimatedConditionPrice(card) || 0);
+            const currentEstimatedPrice =
+    Number(getEstimatedConditionPrice(card) || 0);
 
             function buildPeriod(days) {
                 const previous = getPreviousSnapshot(historyRows, days);
