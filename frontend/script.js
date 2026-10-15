@@ -7055,6 +7055,7 @@ if (constantChangeLabel) {
  *    → inclut les entrées/sorties de cartes.
  */
 let selectedValueChange = null;
+let selectedValueAmount = null;
 
 const latestHistoryRow =
     filteredHistory.length
@@ -7122,6 +7123,9 @@ if (latestHistoryRow?.date) {
                         ) /
                         Number(startValue)
                     ) * 100;
+
+                selectedValueAmount =
+    Number(endValue) - Number(startValue);
             }
         }
     }
@@ -7131,6 +7135,8 @@ if (latestHistoryRow?.date) {
 const calculateFilteredConstantPerformance = (
     days
 ) => {
+
+    selectedConstantAmount = null;
 
     const latestRow =
         filteredHistory.length
@@ -7394,13 +7400,16 @@ const calculateFilteredConstantPerformance = (
         return null;
     }
 
-    return (
-        (
-            currentValue -
-            previousValue
-        ) /
+    selectedConstantAmount =
+    currentValue - previousValue;
+
+return (
+    (
+        currentValue -
         previousValue
-    ) * 100;
+    ) /
+    previousValue
+) * 100;
 };
 
 /*
@@ -7409,6 +7418,7 @@ const calculateFilteredConstantPerformance = (
  *      sur toute la période.
  */
 let selectedConstantChange = null;
+let selectedConstantAmount = null;
 
 if (noFilters) {
 
@@ -7517,6 +7527,43 @@ setKpiValue(
     selectedValueChange
 );
 
+const showKpiAmount = (element, amount, approximate = false) => {
+    if (!element) return;
+
+    let amountElement =
+        document.getElementById(`${element.id}-amount`);
+
+    if (!amountElement) {
+        amountElement = document.createElement("div");
+        amountElement.id = `${element.id}-amount`;
+        amountElement.style.fontSize = "0.82em";
+        amountElement.style.marginTop = "3px";
+
+        element.insertAdjacentElement("afterend", amountElement);
+    }
+
+    if (amount === null || !Number.isFinite(Number(amount))) {
+        amountElement.textContent = "—";
+        amountElement.className = "portfolio-kpi-unavailable";
+        return;
+    }
+
+    amountElement.textContent =
+        `${approximate ? "≈ " : ""}${formatSignedEuro(amount)}`;
+
+    amountElement.className =
+        Number(amount) >= 0
+            ? "score-positive"
+            : "score-negative";
+};
+
+showKpiAmount(valueChangeElement, selectedValueAmount);
+
+
+showKpiAmount(
+    constantChangeElement,
+    selectedConstantAmount
+);
 setKpiValue(
     constantChangeElement,
     selectedConstantChange
