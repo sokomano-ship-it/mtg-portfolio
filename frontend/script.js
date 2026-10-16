@@ -7469,6 +7469,23 @@ if (noFilters) {
         );
 }
 
+/*
+ * Calcul du montant exact à périmètre constant
+ * pour toutes les cartes ou une catégorie seule.
+ * Le pourcentage existant reste inchangé.
+ */
+if (
+    noFilters ||
+    (
+        selectedPortfolioCategory &&
+        !selectedPortfolioEdition &&
+        !selectedPortfolioCardKey
+    )
+) {
+    calculateFilteredConstantPerformance(
+        performanceDays
+    );
+}
 
 /*
  * Affichage des deux KPI.
