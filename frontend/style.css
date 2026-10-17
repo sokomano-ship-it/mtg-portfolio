@@ -5144,68 +5144,80 @@ strong.score-negative {
    RÉSUMÉS CATÉGORIE ET ÉDITION
    ======================================== */
 
-/* Agrandir la zone principale */
 main {
     max-width: 1900px;
     width: calc(100% - 40px);
 }
 
-/* Largeur identique pour les deux tableaux */
+/* Deux tableaux avec 16 colonnes identiques */
 .category-summary-table {
     width: 100%;
-    min-width: 1450px;
+    min-width: 1850px;
     table-layout: fixed;
+    border-collapse: collapse;
 }
 
-/* Première colonne : même largeur */
+/* Première colonne */
 .category-summary-table th:first-child,
 .category-summary-table td:first-child {
-    width: 215px;
-    min-width: 215px;
+    width: 230px;
     text-align: left;
     white-space: nowrap;
 }
 
-/* Cartes, valeur et poids */
+/* Cartes */
 .category-summary-table th:nth-child(2),
 .category-summary-table td:nth-child(2) {
-    width: 65px;
-}
-
-.category-summary-table th:nth-child(3),
-.category-summary-table td:nth-child(3) {
-    width: 105px;
-}
-
-.category-summary-table th:nth-child(4),
-.category-summary-table td:nth-child(4) {
     width: 75px;
 }
 
-/* Colonnes de performance */
+/* Valeur */
+.category-summary-table th:nth-child(3),
+.category-summary-table td:nth-child(3) {
+    width: 115px;
+}
+
+/* Poids */
+.category-summary-table th:nth-child(4),
+.category-summary-table td:nth-child(4) {
+    width: 80px;
+}
+
+/* Performances : 7j à 5 ans */
 .category-summary-table th:nth-child(n+5):nth-child(-n+12),
 .category-summary-table td:nth-child(n+5):nth-child(-n+12) {
-    width: 83px;
+    width: 100px;
 }
 
-/* Colonnes de seuils de prix */
+/* Seuils de prix */
 .category-summary-table th:nth-child(n+13),
 .category-summary-table td:nth-child(n+13) {
-    width: 72px;
+    width: 85px;
 }
 
-/* Lisibilité */
+/* En-têtes */
 .category-summary-table th {
-    font-size: 12px;
-    padding: 11px 9px;
+    font-size: 14px;
+    padding: 13px 10px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
+/* Valeurs */
 .category-summary-table td {
-    font-size: 12px;
-    padding: 12px 9px;
+    font-size: 14px;
+    padding: 14px 10px;
+    line-height: 1.45;
 }
 
-/* Conserver le défilement sur petit écran */
+/* Alignement numérique */
+.category-summary-table th:not(:first-child),
+.category-summary-table td:not(:first-child) {
+    text-align: right;
+}
+
+/* Défilement horizontal si nécessaire */
 .table-wrapper {
+    width: 100%;
     overflow-x: auto;
 }
