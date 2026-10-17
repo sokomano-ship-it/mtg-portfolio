@@ -1163,6 +1163,12 @@ const rows =
                     value => value >= 50
                 ).length;
 
+            const cardsOver100 =
+    prices.filter(value => value >= 100).length;
+
+const cardsOver250 =
+    prices.filter(value => value >= 250).length;
+
             const performances =
     Object.fromEntries(
         SUMMARY_PERFORMANCE_PERIODS.map(
@@ -1188,7 +1194,9 @@ return {
     totalValue,
     weight,
     cardsOver20,
-    cardsOver50,
+cardsOver50,
+cardsOver100,
+cardsOver250,
 
     performances
 };
@@ -1371,6 +1379,14 @@ const formatPerformanceCell =
                                 }
                             </td>
 
+                            <td>
+    ${Number(row.cardsOver100 || 0)}
+</td>
+
+<td>
+    ${Number(row.cardsOver250 || 0)}
+</td>
+
                         </tr>
                     `;
 
@@ -1472,6 +1488,12 @@ async function loadEditionSummary() {
                         value => value >= 50
                     ).length;
 
+                const cardsOver100 =
+    prices.filter(value => value >= 100).length;
+
+const cardsOver250 =
+    prices.filter(value => value >= 250).length;
+
                 const performances =
                     Object.fromEntries(
                         SUMMARY_PERFORMANCE_PERIODS.map(
@@ -1492,9 +1514,11 @@ async function loadEditionSummary() {
                         editionCards.length,
                     totalValue,
                     weight,
-                    cardsOver20,
-                    cardsOver50,
-                    performances
+cardsOver20,
+cardsOver50,
+cardsOver100,
+cardsOver250,
+performances
                 };
             });
 
@@ -1659,6 +1683,14 @@ const formatPerformanceCell =
                         <td>
                             ${Number(row.cardsOver50 || 0)}
                         </td>
+
+                        <td>
+    ${Number(row.cardsOver100 || 0)}
+</td>
+
+<td>
+    ${Number(row.cardsOver250 || 0)}
+</td>
 
                     </tr>
                 `)
@@ -6771,6 +6803,54 @@ if (cardMetaElement) {
             : Number(
                 calculateCardsValue(selectedCards).toFixed(2)
             );
+
+        
+/*
+ * Détails de valorisation de la carte sélectionnée.
+ * Les exemplaires sont regroupés par nom, édition,
+ * langue et état.
+ */
+if (cardMetaElement && selectedPortfolioCardKey) {
+
+    const validPrices = selectedCards
+        .map(card => Number(getEstimatedConditionPrice(card)))
+        .filter(Number.isFinite);
+
+    const quantity = selectedCards.length;
+
+    const unitPrice = validPrices.length === quantity &&
+        quantity > 0
+        ? validPrices.reduce((sum, price) => sum + price, 0) / quantity
+        : null;
+
+    const details = document.createElement("div");
+
+    details.style.marginTop = "12px";
+    details.style.paddingTop = "10px";
+    details.style.borderTop = "1px solid rgba(255,255,255,0.10)";
+    details.style.lineHeight = "1.8";
+    details.style.fontSize = "13px";
+
+    details.innerHTML = `
+        <div>
+            Prix estimé / carte :
+            <strong style="color:#60a5fa">
+                ${unitPrice === null ? "—" : formatEuro(unitPrice)}
+            </strong>
+        </div>
+        <div>
+            Quantité :
+            <strong>${quantity}</strong>
+        </div>
+        <div>
+            Valeur totale :
+            <strong>${formatEuro(currentValue)}</strong>
+        </div>
+    `;
+
+    cardMetaElement.appendChild(details);
+}
+
 
         const weightElement =
     document.getElementById(

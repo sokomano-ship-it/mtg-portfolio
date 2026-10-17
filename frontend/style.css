@@ -5139,3 +5139,73 @@ strong.score-negative {
     width: 100%;
     min-width: 0;
 }
+
+/* ========================================
+   RÉSUMÉS CATÉGORIE ET ÉDITION
+   ======================================== */
+
+/* Agrandir la zone principale */
+main {
+    max-width: 1900px;
+    width: calc(100% - 40px);
+}
+
+/* Largeur identique pour les deux tableaux */
+.category-summary-table {
+    width: 100%;
+    min-width: 1450px;
+    table-layout: fixed;
+}
+
+/* Première colonne : même largeur */
+.category-summary-table th:first-child,
+.category-summary-table td:first-child {
+    width: 215px;
+    min-width: 215px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Cartes, valeur et poids */
+.category-summary-table th:nth-child(2),
+.category-summary-table td:nth-child(2) {
+    width: 65px;
+}
+
+.category-summary-table th:nth-child(3),
+.category-summary-table td:nth-child(3) {
+    width: 105px;
+}
+
+.category-summary-table th:nth-child(4),
+.category-summary-table td:nth-child(4) {
+    width: 75px;
+}
+
+/* Colonnes de performance */
+.category-summary-table th:nth-child(n+5):nth-child(-n+12),
+.category-summary-table td:nth-child(n+5):nth-child(-n+12) {
+    width: 83px;
+}
+
+/* Colonnes de seuils de prix */
+.category-summary-table th:nth-child(n+13),
+.category-summary-table td:nth-child(n+13) {
+    width: 72px;
+}
+
+/* Lisibilité */
+.category-summary-table th {
+    font-size: 12px;
+    padding: 11px 9px;
+}
+
+.category-summary-table td {
+    font-size: 12px;
+    padding: 12px 9px;
+}
+
+/* Conserver le défilement sur petit écran */
+.table-wrapper {
+    overflow-x: auto;
+}
