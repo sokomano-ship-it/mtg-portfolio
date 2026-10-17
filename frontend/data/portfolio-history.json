@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T09:27:40.596Z",
+  "generatedAt": "2026-10-17T17:07:03.474Z",
   "portfolioHistory": [
     {
       "date": "2026-09-13",
@@ -10120,24 +10120,24 @@
     },
     {
       "date": "2026-10-17",
-      "totalValue": 25628.57,
+      "totalValue": 25672.21,
       "categoryValues": {
         "Classeur 3": 429.51,
         "Classeur 1": 933.78,
         "GG Mono Green": 1203.75,
         "RR Mono Red": 574.02,
-        "UB Blue Black": 1054.72,
-        "WB White Black": 530.15,
+        "UB Blue Black": 1055.89,
+        "WB White Black": 531.54,
         "WW Mono White": 858.25,
         "BB Mono Black": 766.81,
         "WR White Red": 2846.91,
         "UU Mono Blue": 703.21,
         "UG Blue Green": 731.26,
         "UR Blue Red": 2928.27,
-        "BG Black Green": 1440.72,
+        "BG Black Green": 1481.92,
         "RG Red Green": 1269.32,
         "Classeur 2": 273.75,
-        "BR Black Red": 1953.8,
+        "BR Black Red": 1953.68,
         "UW Blue White": 48.12,
         "WG White Green": 1519.02,
         "Classeur 5": 3581.02,
@@ -10151,17 +10151,17 @@
         "Exodus": 1109.67,
         "Fallen Empires": 26.92,
         "Fifth Edition": 35.3,
-        "Foreign Black Bordered": 535.34,
-        "Foreign White Bordered": 4730.6,
-        "Fourth Edition": 270.67,
+        "Foreign Black Bordered": 536.51,
+        "Foreign White Bordered": 4735.04,
+        "Fourth Edition": 272.06,
         "Homelands": 35.82,
         "Ice Age": 214.85,
         "Legends": 1094.53,
         "Legends Italian": 31.47,
         "Mirage": 695.19,
         "Portal Second Age": 23.87,
-        "Renaissance": 424.6,
-        "Revised": 5732.59,
+        "Renaissance": 465.8,
+        "Revised": 5728.03,
         "Sixth Edition": 7.26,
         "Stronghold": 907.33,
         "Tempest": 888.78,
@@ -10215,7 +10215,7 @@
         },
         "UB Blue Black": {
           "Antiquities": 971.58,
-          "Foreign Black Bordered": 13.64,
+          "Foreign Black Bordered": 14.81,
           "Foreign White Bordered": 27.54,
           "Fourth Edition": 14.7,
           "Legends": 10.56,
@@ -10225,7 +10225,7 @@
           "Antiquities": 216.05,
           "Foreign Black Bordered": 0.91,
           "Foreign White Bordered": 288.85,
-          "Fourth Edition": 11.03,
+          "Fourth Edition": 12.42,
           "Renaissance": 7.4,
           "Revised": 2.34,
           "Unlimited": 3.57
@@ -10304,7 +10304,7 @@
           "Foreign White Bordered": 864.86,
           "Fourth Edition": 10.01,
           "Legends": 44.56,
-          "Renaissance": 6.59,
+          "Renaissance": 47.79,
           "Revised": 26.35,
           "The Dark": 83.23
         },
@@ -10330,11 +10330,11 @@
           "Chronicles": 80.16,
           "Fallen Empires": 1.42,
           "Foreign Black Bordered": 90.77,
-          "Foreign White Bordered": 326.65,
+          "Foreign White Bordered": 331.09,
           "Fourth Edition": 8.64,
           "Legends": 18.2,
           "Renaissance": 15.91,
-          "Revised": 1334.37,
+          "Revised": 1329.81,
           "The Dark": 31.51,
           "Unlimited": 46.17
         },
@@ -10372,7 +10372,36 @@
         }
       },
       "historyStart": false,
-      "collectionChanges": null
+      "collectionChanges": {
+        "added": [
+          {
+            "id": "2874",
+            "nomCarte": "Greed",
+            "edition": "Fourth Edition",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "WB White Black"
+          },
+          {
+            "id": "2875",
+            "nomCarte": "Sylvan Library",
+            "edition": "Renaissance",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "BG Black Green"
+          },
+          {
+            "id": "2873",
+            "nomCarte": "Terror",
+            "edition": "Foreign Black Bordered",
+            "langue": "French",
+            "etat": "NM",
+            "categorie": "UB Blue Black"
+          }
+        ],
+        "removed": [],
+        "moved": []
+      }
     }
   ]
 }
