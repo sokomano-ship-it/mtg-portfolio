@@ -1907,6 +1907,68 @@ JSON.stringify(row)
     );
 }
 
+async function applyFbbMarketData(cards) {
+    const result = await turso.execute(`
+        SELECT tracked_id, trend_price, avg_1, avg_7,
+               avg_30, snapshot_json
+        FROM tracked_price_history
+        WHERE tracked_id LIKE 'fbb-market-%'
+          AND trend_price > 0
+          AND date = (
+              SELECT MAX(date)
+              FROM tracked_price_history
+              WHERE tracked_id LIKE 'fbb-market-%'
+          )
+    `);
+
+    const prices = new Map();
+
+    for (const row of result.rows) {
+        const id = Number(
+            String(row.tracked_id).replace("fbb-market-", "")
+        );
+        prices.set(id, row);
+    }
+
+    let updated = 0;
+
+    for (const card of cards) {
+        const name = getFbbBasicLandName(card);
+        if (!name) continue;
+
+        const match = String(card.nomCarte || "")
+            .match(/\(V\.([123])\)$/);
+
+        const version = match
+            ? `V.${match[1]}`
+            : String(card.version || "").trim();
+
+        const id = FBB_CARDMARKET_IDS[`${name}|${version}`];
+        const market = prices.get(id);
+
+        // Ne jamais reprendre Revised en l'absence de prix FBB.
+        card.trendPrice = market ? Number(market.trend_price) : null;
+        card.avg1 = market?.avg_1 ?? null;
+        card.avg7 = market?.avg_7 ?? null;
+        card.avg30 = market?.avg_30 ?? null;
+
+        card.referenceName = `${name} (${version})`;
+        card.referenceEdition = "Foreign Black Bordered";
+        card.referenceLanguage = "French";
+        card.referenceVersion = version;
+        card.referenceCardFound = Boolean(market);
+        card.marketReferenceType = "direct_fbb";
+        card.marketReferenceRole = "Évolution uniquement";
+        card.usesExternalReference = false;
+
+        if (market) updated++;
+    }
+
+    console.log(
+    `Cartes FBB mises à jour : ${updated} (15 références Cardmarket)`
+);
+}
+
 async function main() {
     const pricingMap = readPricingSimulation();
     const estimatedPriceHistory = readEstimatedPriceHistory();
@@ -3029,6 +3091,10 @@ try {
 // Utiliser les vrais historiques FBB pour les performances.
 const updatedFbbReferenceHistory =
     await loadFbbMarketHistory();
+
+// Mettre à jour les données Cardmarket affichées
+// sans recalculer les estimations par état.
+await applyFbbMarketData(cards);
 
 const investmentAnalysis = buildInvestmentAnalysis(
     cards,
