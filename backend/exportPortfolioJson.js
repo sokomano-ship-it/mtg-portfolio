@@ -1907,6 +1907,164 @@ JSON.stringify(row)
     );
 }
 
+// ============================================================
+// AJUSTEMENT DES ESTIMATIONS DES 15 TERRAINS FBB FRANCAIS
+// ============================================================
+
+const FBB_CONDITIONS = [
+    "NM", "EX", "GD", "LP", "PL", "PO"
+];
+
+const FBB_DEFAULT_RATIOS = {
+    NM: 1,
+    EX: 0.85,
+    GD: 0.72,
+    LP: 0.62,
+    PL: 0.48,
+    PO: 0.325
+};
+
+function applyFbbConditionEstimates(card, market) {
+
+    const avg30 = Number(market?.avg_30);
+    const trend = Number(market?.trend_price);
+
+    const anchor =
+        Number.isFinite(avg30) && avg30 > 0
+            ? avg30
+            : Number.isFinite(trend) && trend > 0
+                ? trend
+                : null;
+
+    if (anchor === null) {
+        return false;
+    }
+
+    const existing =
+        card.estimatedByCondition || {};
+
+    const ratios =
+        card.ratioByCondition || {};
+
+    const reliability =
+        card.observationReliabilityByCondition || {};
+
+    const updated = { ...existing };
+    const weights = {};
+
+    let changed = false;
+
+    for (const condition of FBB_CONDITIONS) {
+
+        const oldPrice =
+            Number(existing[condition]);
+
+        const learnedRatio =
+            Number(ratios[condition]);
+
+        const ratio =
+            Number.isFinite(learnedRatio) &&
+            learnedRatio > 0 &&
+            learnedRatio <= 2
+                ? learnedRatio
+                : FBB_DEFAULT_RATIOS[condition];
+
+        const rawReliability =
+            Number(reliability[condition]);
+
+        const confidence =
+            Number.isFinite(rawReliability)
+                ? Math.max(
+                    0,
+                    Math.min(100, rawReliability)
+                )
+                : 0;
+
+        // Au-dessus de 70 % de fiabilite,
+        // on conserve le prix Admin.
+
+        const marketWeight =
+            confidence >= 70
+                ? 0
+                : Math.min(
+                    0.6,
+                    (70 - confidence) / 70 * 0.6
+                );
+
+        if (
+            marketWeight === 0 &&
+            oldPrice > 0
+        ) {
+            continue;
+        }
+
+        const reference =
+            anchor * ratio;
+
+        // Limitation des corrections excessives.
+
+        const boundedReference =
+            oldPrice > 0
+                ? Math.max(
+                    oldPrice * 0.75,
+                    Math.min(
+                        oldPrice * 1.5,
+                        reference
+                    )
+                )
+                : reference;
+
+        const revised =
+            oldPrice > 0
+                ? oldPrice * (1 - marketWeight) +
+                  boundedReference * marketWeight
+                : reference;
+
+        if (!(revised > 0)) {
+            continue;
+        }
+
+        updated[condition] =
+            Number(revised.toFixed(2));
+
+        weights[condition] =
+            Number(marketWeight.toFixed(3));
+
+        changed =
+            changed ||
+            updated[condition] !== oldPrice;
+    }
+
+    if (!changed) {
+        return false;
+    }
+
+    card.estimatedByCondition = updated;
+
+    const condition =
+        String(card.etat || "NM").toUpperCase();
+
+    card.estimatedPrice =
+        updated[condition] ??
+        card.estimatedPrice;
+
+    card.fbbMarketAdjustment = {
+        anchorPrice: anchor,
+        anchorType:
+            Number.isFinite(avg30) && avg30 > 0
+                ? "avg30"
+                : "trend",
+        marketWeightsByCondition: weights,
+        originalPricingModel:
+            card.pricingModel || null
+    };
+
+    card.marketReferenceRole =
+        "Evolution et estimation (faible fiabilite)";
+
+    return true;
+}
+
 async function applyFbbMarketData(cards) {
     const result = await turso.execute(`
         SELECT tracked_id, trend_price, avg_1, avg_7,
@@ -1930,7 +2088,8 @@ async function applyFbbMarketData(cards) {
         prices.set(id, row);
     }
 
-    let updated = 0;
+let updated = 0;
+let estimatesAdjusted = 0;
 
     for (const card of cards) {
         const name = getFbbBasicLandName(card);
@@ -1961,11 +2120,19 @@ async function applyFbbMarketData(cards) {
         card.marketReferenceRole = "Évolution uniquement";
         card.usesExternalReference = false;
 
-        if (market) updated++;
+if (market) {
+    updated++;
+
+    if (applyFbbConditionEstimates(card, market)) {
+        estimatesAdjusted++;
+    }
+}
     }
 
-    console.log(
-    `Cartes FBB mises à jour : ${updated} (15 références Cardmarket)`
+console.log(
+    `Cartes FBB mises à jour : ${updated} ` +
+    `(15 références Cardmarket), ` +
+    `${estimatesAdjusted} estimations ajustées`
 );
 }
 
@@ -1999,6 +2166,21 @@ async function main() {
     .map(addPrixEtat)
     .map(card => addPricingSimulation(card, pricingMap))
     .map(card => applyReferenceCatalog(card, referenceCatalogMap));
+
+    // ============================================================
+// PRIX FBB : APPLIQUES AVANT LES TOTAUX DU PORTEFEUILLE
+// ============================================================
+
+try {
+    await saveFbbMarketHistory();
+} catch (error) {
+    console.warn(
+        "Synchronisation FBB ignorée :",
+        error.message
+    );
+}
+
+await applyFbbMarketData(cards);
 
     const categoryMap = {};
 
@@ -3077,24 +3259,13 @@ const watchlistCards =
 
 await saveTrackedPriceHistory(watchlistCards);
 
-// Historique quotidien Cardmarket des 15 terrains FBB.
-// Aucune modification des prix estimés ou des observations Admin.
-try {
-    await saveFbbMarketHistory();
-} catch (error) {
-    console.warn(
-        "Synchronisation FBB ignorée :",
-        error.message
-    );
-}
+
 
 // Utiliser les vrais historiques FBB pour les performances.
 const updatedFbbReferenceHistory =
     await loadFbbMarketHistory();
 
-// Mettre à jour les données Cardmarket affichées
-// sans recalculer les estimations par état.
-await applyFbbMarketData(cards);
+
 
 const investmentAnalysis = buildInvestmentAnalysis(
     cards,
