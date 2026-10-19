@@ -847,6 +847,161 @@ function getFbbBasicLandName(card) {
 }
 
 
+const FBB_CARDMARKET_IDS = {
+    "Forest|V.1": 15461,
+    "Forest|V.2": 15462,
+    "Forest|V.3": 15463,
+    "Island|V.1": 15464,
+    "Island|V.2": 15465,
+    "Island|V.3": 15466,
+    "Mountain|V.1": 15467,
+    "Mountain|V.2": 15468,
+    "Mountain|V.3": 15469,
+    "Plains|V.1": 15470,
+    "Plains|V.2": 15471,
+    "Plains|V.3": 15472,
+    "Swamp|V.1": 15476,
+    "Swamp|V.2": 15477,
+    "Swamp|V.3": 15478
+};
+
+async function saveFbbMarketHistory() {
+    const url =
+        "https://downloads.s3.cardmarket.com/productCatalog/priceGuide/price_guide_1.json";
+
+    const response = await fetch(url, {
+        signal: AbortSignal.timeout(30000)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Cardmarket HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data.priceGuides)) {
+        throw new Error("Format Cardmarket inattendu");
+    }
+
+    const byId = new Map(
+        data.priceGuides.map(row => [
+            Number(row.idProduct),
+            row
+        ])
+    );
+
+    const today = new Date().toISOString().slice(0, 10);
+    const statements = [];
+
+    for (const [key, cardmarketId] of Object.entries(FBB_CARDMARKET_IDS)) {
+        const market = byId.get(cardmarketId);
+
+        if (!market || !Number.isFinite(Number(market.trend)) ||
+            Number(market.trend) <= 0) {
+            throw new Error(`Prix FBB manquant : ${key} (${cardmarketId})`);
+        }
+
+        const [name, version] = key.split("|");
+
+        const snapshot = {
+            date: today,
+            trackedId: `fbb-market-${cardmarketId}`,
+            nomCarte: `${name} (${version})`,
+            edition: "Foreign Black Bordered",
+            langue: "French",
+            version,
+            cardmarketId,
+            source: "cardmarket_fbb_price_guide",
+            trendPrice: Number(market.trend),
+            avg1: market.avg1 ?? null,
+            avg7: market.avg7 ?? null,
+            avg30: market.avg30 ?? null,
+            avgPrice: market.avg ?? null,
+            lowPrice: market.low ?? null
+        };
+
+        statements.push({
+            sql: `
+                INSERT INTO tracked_price_history (
+                    tracked_id, date, trend_price,
+                    avg_1, avg_7, avg_30, snapshot_json
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(tracked_id, date)
+                DO UPDATE SET
+                    trend_price = excluded.trend_price,
+                    avg_1 = excluded.avg_1,
+                    avg_7 = excluded.avg_7,
+                    avg_30 = excluded.avg_30,
+                    snapshot_json = excluded.snapshot_json
+            `,
+            args: [
+                snapshot.trackedId,
+                today,
+                snapshot.trendPrice,
+                snapshot.avg1,
+                snapshot.avg7,
+                snapshot.avg30,
+                JSON.stringify(snapshot)
+            ]
+        });
+    }
+
+    if (statements.length !== 15) {
+        throw new Error("Les 15 références FBB sont requises");
+    }
+
+    await turso.batch(statements, "write");
+
+    console.log(
+        `FBB Cardmarket : ${statements.length} références enregistrées pour ${today}`
+    );
+}
+
+async function loadFbbMarketHistory() {
+    const ids = new Set(Object.values(FBB_CARDMARKET_IDS));
+
+    const result = await turso.execute({
+        sql: `
+            SELECT
+                tracked_id,
+                date,
+                trend_price
+            FROM tracked_price_history
+            WHERE tracked_id LIKE 'fbb-market-%'
+              AND trend_price > 0
+            ORDER BY date
+        `,
+        args: []
+    });
+
+    const history = new Map();
+
+    for (const row of result.rows) {
+        const id = Number(
+            String(row.tracked_id).replace("fbb-market-", "")
+        );
+
+        if (!ids.has(id)) continue;
+
+        const key = Object.keys(FBB_CARDMARKET_IDS)
+            .find(k => FBB_CARDMARKET_IDS[k] === id);
+
+        if (!key) continue;
+
+        if (!history.has(key)) {
+            history.set(key, []);
+        }
+
+        history.get(key).push({
+            date: String(row.date).slice(0, 10),
+            price: Number(row.trend_price)
+        });
+    }
+
+    return history;
+}
+
 async function loadFbbBasicLandReferenceHistory() {
     const expectedIds = {
         "Forest|V.1": 5812,
@@ -1755,8 +1910,7 @@ JSON.stringify(row)
 async function main() {
     const pricingMap = readPricingSimulation();
     const estimatedPriceHistory = readEstimatedPriceHistory();
-    const fbbReferenceHistory =
-    await loadFbbBasicLandReferenceHistory();
+
     const referenceCatalogMap = readReferenceCatalog();
 
     const cardsRaw = await all(`
@@ -2861,9 +3015,20 @@ const watchlistCards =
 
 await saveTrackedPriceHistory(watchlistCards);
 
-// Recharger les observations après leur enregistrement.
+// Historique quotidien Cardmarket des 15 terrains FBB.
+// Aucune modification des prix estimés ou des observations Admin.
+try {
+    await saveFbbMarketHistory();
+} catch (error) {
+    console.warn(
+        "Synchronisation FBB ignorée :",
+        error.message
+    );
+}
+
+// Utiliser les vrais historiques FBB pour les performances.
 const updatedFbbReferenceHistory =
-    await loadFbbBasicLandReferenceHistory();
+    await loadFbbMarketHistory();
 
 const investmentAnalysis = buildInvestmentAnalysis(
     cards,
