@@ -810,7 +810,158 @@ const targetInventory = new Map(
     };
 }
 
-function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
+
+const FBB_BASIC_LANDS = new Set([
+    "Forest", "Island", "Mountain", "Plains", "Swamp"
+]);
+
+
+function getFbbBasicLandName(card) {
+    if (
+        card.edition !== "Foreign Black Bordered" ||
+        card.langue !== "French"
+    ) {
+        return null;
+    }
+
+    const name = String(card.nomCarte || "").trim();
+
+    const match = name.match(
+        /^(Forest|Island|Mountain|Plains|Swamp)(?: \(V\.[123]\))?$/
+    );
+
+    if (!match) return null;
+
+    const embeddedVersion = name.match(/\(V\.([123])\)$/);
+    const separateVersion = String(card.version || "").trim();
+
+    const version = embeddedVersion
+        ? `V.${embeddedVersion[1]}`
+        : separateVersion;
+
+    if (!/^V\.[123]$/.test(version)) {
+        return null;
+    }
+
+    return match[1];
+}
+
+
+async function loadFbbBasicLandReferenceHistory() {
+    const expectedIds = {
+        "Forest|V.1": 5812,
+"Forest|V.2": 5813,
+"Forest|V.3": 5814,
+        "Island|V.1": 5815,
+        "Island|V.2": 5816,
+        "Island|V.3": 5817,
+        "Mountain|V.1": 5818,
+        "Mountain|V.2": 5819,
+        "Mountain|V.3": 5820,
+        "Plains|V.1": 5821,
+        "Plains|V.2": 5822,
+        "Plains|V.3": 5823,
+        "Swamp|V.1": 5827,
+        "Swamp|V.2": 5828,
+        "Swamp|V.3": 5829
+    };
+
+    const result = await turso.execute({
+        sql: `
+            SELECT
+                date,
+                json_extract(snapshot_json, '$.nomCarte') AS name,
+                json_extract(snapshot_json, '$.cardmarketId') AS cardmarketId,
+                trend_price AS price
+            FROM tracked_price_history
+            WHERE json_extract(snapshot_json, '$.edition') = 'Revised'
+              AND json_extract(snapshot_json, '$.langue') = 'English'
+              AND trend_price > 0
+            ORDER BY date
+        `,
+        args: []
+    });
+
+    const history = new Map();
+
+    for (const row of result.rows) {
+        const match = String(row.name || "").match(
+            /^(Forest|Island|Mountain|Plains|Swamp) \(V\.([123])\)$/
+        );
+
+        if (!match) continue;
+
+        const key = `${match[1]}|V.${match[2]}`;
+        const expectedId = expectedIds[key];
+
+        // Ignore les anciens historiques dont l'identifiant
+        // Cardmarket ne correspond pas à la bonne version.
+
+const isOriginalV1 = key.endsWith("|V.1");
+
+// Les observations historiques V.1 n'avaient pas de
+// cardmarketId, mais utilisaient déjà la bonne référence.
+// Pour V.2/V.3, on exige l'identifiant correct.
+if (
+    Number(row.cardmarketId) !== expectedId &&
+    !(isOriginalV1 && row.cardmarketId == null)
+) {
+    continue;
+}
+
+
+        if (!history.has(key)) {
+            history.set(key, new Map());
+        }
+
+        history.get(key).set(
+            String(row.date).slice(0, 10),
+            Number(row.price)
+        );
+    }
+
+    return new Map(
+        [...history].map(([key, dates]) => [
+            key,
+            [...dates]
+                .map(([date, price]) => ({ date, price }))
+                .sort((a, b) => a.date.localeCompare(b.date))
+        ])
+    );
+}
+
+function getFbbReferencePerformance(history, days) {
+    if (!history || !history.length) return null;
+
+    const latest = history[history.length - 1];
+
+    const target = new Date(
+        latest.date + "T12:00:00Z"
+    );
+
+    target.setUTCDate(target.getUTCDate() - days);
+
+    const targetDate = target.toISOString().slice(0, 10);
+
+    const previous = [...history].reverse().find(
+        row => row.date <= targetDate
+    );
+
+    if (!previous || previous.price <= 0) return null;
+
+    return calculatePerformance(
+        latest.price,
+        previous.price
+    );
+}
+
+
+
+function buildInvestmentAnalysis(
+    cards,
+    estimatedPriceHistory,
+    fbbReferenceHistory = new Map()
+) {
     return groupByCardEditionEtat(cards)
         .map(card => {
             const historyRows = estimatedPriceHistory
@@ -841,6 +992,39 @@ function buildInvestmentAnalysis(cards, estimatedPriceHistory) {
             const d60 = buildPeriod(60);
             const d180 = buildPeriod(180);
             const d365 = buildPeriod(365);
+
+
+const fbbLand = getFbbBasicLandName(card);
+
+if (fbbLand) {
+const versionMatch = String(card.nomCarte || "").match(
+    /\(V\.([123])\)$/
+);
+
+const version = versionMatch
+    ? `V.${versionMatch[1]}`
+    : String(card.version || "").trim();
+
+const referenceHistory =
+    fbbReferenceHistory.get(`${fbbLand}|${version}`);
+
+    // Sans historique suffisant, on n'invente
+    // aucune performance.
+    for (const [days, period] of [
+        [7, d7],
+        [30, d30],
+        [60, d60],
+        [180, d180],
+        [365, d365]
+    ]) {
+        period.performance =
+            getFbbReferencePerformance(
+                referenceHistory,
+                days
+            );
+    }
+}
+
 
             return {
                 id: card.id,
@@ -1248,21 +1432,41 @@ const estimatedNmPrice =
 const estimatedExPrice =
     Number(estimatedByCondition.EX || 0);
 
-        if (!estimatedNmPrice) {
-            continue;
-        }
+       const isRevisedBasicLand =
+    card.edition === "Revised" &&
+    card.langue === "English" &&
+    /^(Forest|Island|Mountain|Plains|Swamp) \(V\.[123]\)$/.test(
+        String(card.nomCarte || "")
+    ) &&
+    Number(card.cardmarketId) > 0;
+
+if (!estimatedNmPrice && !(isRevisedBasicLand && trendPrice > 0)) {
+    continue;
+}
 
         const row = {
             date: today,
 
-            trackedId: card.id,
-            nomCarte: card.nomCarte,
-            edition: card.edition,
-            version:
-                card.version || null,
-            langue: card.langue,
 
-            owned: false,
+trackedId: card.id,
+nomCarte: card.nomCarte,
+edition: card.edition,
+version: card.version || null,
+langue: card.langue,
+
+// Traçabilité de la référence Cardmarket utilisée.
+// Uniquement pour les 15 terrains de base Revised anglais.
+cardmarketId:
+    card.edition === "Revised" &&
+    card.langue === "English" &&
+    /^(Forest|Island|Mountain|Plains|Swamp) \(V\.[123]\)$/.test(
+        String(card.nomCarte || "")
+    )
+        ? (Number(card.cardmarketId) || null)
+        : undefined,
+
+owned: false,
+
 
             estimatedByCondition: {
     NM: Number(estimatedByCondition.NM || 0) || null,
@@ -1551,6 +1755,8 @@ JSON.stringify(row)
 async function main() {
     const pricingMap = readPricingSimulation();
     const estimatedPriceHistory = readEstimatedPriceHistory();
+    const fbbReferenceHistory =
+    await loadFbbBasicLandReferenceHistory();
     const referenceCatalogMap = readReferenceCatalog();
 
     const cardsRaw = await all(`
@@ -1603,9 +1809,9 @@ async function main() {
         }))
         .sort((a, b) => b.totalValue - a.totalValue);
 
-    
 
-    
+
+
 
 const estimatedTotalValue = cards.reduce(
     (sum, card) => sum + Number(getEstimatedConditionPrice(card) || 0),
@@ -1795,7 +2001,7 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
     const card =
         cardById.get(Number(row.cardId));
 
-    
+
 
     /*
      * Pour les ventilations historiques, une carte
@@ -1823,7 +2029,7 @@ function buildPortfolioHistoryFromEstimatedSnapshots(
             return;
         }
 
-        
+
 
         addCardValueToPortfolioHistory(
     summary,
@@ -1969,7 +2175,7 @@ const todaySummary =
     createEmptyPortfolioHistorySummary();
 
 cards.forEach(card => {
-    
+
 
     const value =
         Number(getEstimatedConditionPrice(card) || 0);
@@ -2629,10 +2835,6 @@ const portfolioSummary = {
             return bScore - aScore;
         });
 
-    const investmentAnalysis = buildInvestmentAnalysis(
-    cards,
-    estimatedPriceHistory
-);
 
     const trackedMarketCards =
     readTrackedMarketCards();
@@ -2657,8 +2859,16 @@ const watchlistCards =
     );
 
 
-await saveTrackedPriceHistory(
-    watchlistCards
+await saveTrackedPriceHistory(watchlistCards);
+
+// Recharger les observations après leur enregistrement.
+const updatedFbbReferenceHistory =
+    await loadFbbBasicLandReferenceHistory();
+
+const investmentAnalysis = buildInvestmentAnalysis(
+    cards,
+    estimatedPriceHistory,
+    updatedFbbReferenceHistory
 );
 
 
@@ -2854,13 +3064,13 @@ cardDetailsIndex[String(card.id)] = {
     }
 
     fs.mkdirSync(outputDir, { recursive: true });
-    
+
 
 
     const generatedAt = new Date().toISOString();
 
 
-    
+
     // Ancien fichier conservé temporairement pour compatibilité
 // Ancien fichier complet désactivé : trop gros pour GitHub Pages.
 // Les données sont maintenant servies via les fichiers séparés.
