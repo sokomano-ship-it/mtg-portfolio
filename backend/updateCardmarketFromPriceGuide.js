@@ -12,6 +12,57 @@ const PRICE_GUIDE_URL =
     "https://downloads.s3.cardmarket.com/productCatalog/priceGuide/price_guide_1.json";
 
 
+const FBB_LAND_IDS = {
+    "Forest|V.1": 15461,
+    "Forest|V.2": 15462,
+    "Forest|V.3": 15463,
+    "Island|V.1": 15464,
+    "Island|V.2": 15465,
+    "Island|V.3": 15466,
+    "Mountain|V.1": 15467,
+    "Mountain|V.2": 15468,
+    "Mountain|V.3": 15469,
+    "Plains|V.1": 15470,
+    "Plains|V.2": 15471,
+    "Plains|V.3": 15472,
+    "Swamp|V.1": 15476,
+    "Swamp|V.2": 15477,
+    "Swamp|V.3": 15478
+};
+
+function getFbbLandReference(card) {
+    if (
+        String(card.edition || "").trim() !==
+            "Foreign Black Bordered" ||
+        String(card.langue || "").trim() !== "French"
+    ) {
+        return null;
+    }
+
+    const match = String(card.nomCarte || "")
+        .trim()
+        .match(
+            /^(Forest|Island|Mountain|Plains|Swamp)(?:\s*\(V\.([123])\))?$/
+        );
+
+    if (!match) return null;
+
+    const version = match[2]
+        ? `V.${match[2]}`
+        : String(card.version || "").trim();
+
+    const key = `${match[1]}|${version}`;
+    const id = FBB_LAND_IDS[key];
+
+    if (!id) {
+        throw new Error(
+            `Version FBB non reconnue : ${card.nomCarte} / ${card.version}`
+        );
+    }
+
+    return { key, id };
+}
+
 
 function getCards() {
     return new Promise((resolve, reject) => {
@@ -107,6 +158,19 @@ async function main() {
     console.log(`${priceGuides.length} prix chargés.`);
 
     const indexes = buildIndexes(priceGuides);
+    
+const pricesByProductId = new Map();
+
+for (const row of priceGuides) {
+    const id = Number(getProductId(row));
+    if (Number.isInteger(id) && id > 0) {
+        if (pricesByProductId.has(id)) {
+            throw new Error(`Identifiant Cardmarket dupliqué : ${id}`);
+        }
+        pricesByProductId.set(id, row);
+    }
+}
+
     const cards = await getCards();
 
     console.log(`${cards.length} cartes de ta collection à valoriser.`);
@@ -115,7 +179,20 @@ async function main() {
     let missing = 0;
 
     for (const card of cards) {
-        const price = findPriceForCard(card, indexes);
+        
+const fbbReference = getFbbLandReference(card);
+
+const price = fbbReference
+    ? pricesByProductId.get(fbbReference.id)
+    : findPriceForCard(card, indexes);
+
+if (fbbReference && !price) {
+    throw new Error(
+        `Prix Cardmarket absent : ${fbbReference.key} ` +
+        `(ID ${fbbReference.id})`
+    );
+}
+
 
         if (!price) {
             console.log(
