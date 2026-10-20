@@ -1970,9 +1970,7 @@ if (market) {
     }
 
 console.log(
-    `Cartes FBB mises à jour : ${updated} ` +
-    `(15 références Cardmarket),
-
+    `Cartes FBB mises à jour : ${updated} (15 références Cardmarket)`
 );
 }
 
