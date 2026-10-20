@@ -48,6 +48,33 @@ function same(value1, value2) {
 
 function findReferenceRule(card, referenceCards) {
 
+
+
+
+  // Les 15 impressions de terrains de base FBB français
+  // utilisent leur propre prix Cardmarket, comme les autres FBB.
+  const landName = baseCardName(card)
+    .replace(/\s*\(V\.[123]\)\s*$/i, "")
+    .trim();
+
+  const version =
+    cardVersion(card) ||
+    cardName(card).match(/\(V\.[123]\)/i)?.[0] ||
+    baseCardName(card).match(/\(V\.[123]\)/i)?.[0];
+
+  const isFbbBasicLand =
+    same(card.edition, "Foreign Black Bordered") &&
+    same(card.langue, "French") &&
+    ["Forest", "Island", "Mountain", "Plains", "Swamp"]
+      .some(name => same(landName, name)) &&
+    /^V\.[123]$/i.test(
+      String(version || "").replace(/[()]/g, "")
+    );
+
+  if (isFbbBasicLand) {
+    return null; // Modèle standard, référence = carte elle-même
+  }
+
   /*
    * 1. Les règles explicites restent toujours prioritaires.
    *
