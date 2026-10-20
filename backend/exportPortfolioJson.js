@@ -1955,13 +1955,7 @@ let updated = 0;
         card.avg7 = market?.avg_7 ?? null;
         card.avg30 = market?.avg_30 ?? null;
 
-        card.referenceName = `${name} (${version})`;
-        card.referenceEdition = "Foreign Black Bordered";
-        card.referenceLanguage = "French";
-        card.referenceVersion = version;
-        card.referenceCardFound = Boolean(market);
-        card.marketReferenceType = "direct_fbb";
-        card.marketReferenceRole = "Évolution uniquement";
+
         card.usesExternalReference = false;
 
 if (market) {

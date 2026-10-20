@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const db = require("../database");
+const turso = require("../turso");
 
 const MODELS_PATH = path.join(__dirname, "..", "data", "pricingModels.json");
 const OUTPUT_PATH = path.join(__dirname, "..", "data", "pricingSimulation.json");
@@ -712,11 +713,83 @@ function stabilizeMissingPoEstimate(model, gradeEstimate) {
   return gradeEstimate;
 }
 
+const FBB_LAND_IDS = {
+  "Forest|V.1": 15461,
+  "Forest|V.2": 15462,
+  "Forest|V.3": 15463,
+  "Island|V.1": 15464,
+  "Island|V.2": 15465,
+  "Island|V.3": 15466,
+  "Mountain|V.1": 15467,
+  "Mountain|V.2": 15468,
+  "Mountain|V.3": 15469,
+  "Plains|V.1": 15470,
+  "Plains|V.2": 15471,
+  "Plains|V.3": 15472,
+  "Swamp|V.1": 15476,
+  "Swamp|V.2": 15477,
+  "Swamp|V.3": 15478
+};
 
+async function applyFbbSimulationPrices(cards) {
+  const result = await turso.execute(`
+    SELECT tracked_id, trend_price, avg_1, avg_7, avg_30
+    FROM tracked_price_history
+    WHERE tracked_id LIKE 'fbb-market-%'
+      AND trend_price > 0
+      AND date = (
+        SELECT MAX(date)
+        FROM tracked_price_history
+        WHERE tracked_id LIKE 'fbb-market-%'
+      )
+  `);
+
+  const prices = new Map(
+    result.rows.map(row => [String(row.tracked_id), row])
+  );
+
+  let updated = 0;
+
+  for (const card of cards) {
+    if (
+      card.edition !== "Foreign Black Bordered" ||
+      card.langue !== "French"
+    ) continue;
+
+    const match = String(card.nomCarte || "").match(
+      /^(Forest|Island|Mountain|Plains|Swamp)(?: \(V\.([123])\))?$/
+    );
+
+    if (!match) continue;
+
+    const version = match[2]
+      ? `V.${match[2]}`
+      : String(card.version || "").trim();
+
+    const id = FBB_LAND_IDS[`${match[1]}|${version}`];
+    if (!id) continue;
+
+    const market = prices.get(`fbb-market-${id}`);
+
+    if (!market) {
+      throw new Error(`Prix FBB introuvable : ${match[1]} ${version}`);
+    }
+
+    card.trendPrice = Number(market.trend_price);
+    card.avg1 = market.avg_1;
+    card.avg7 = market.avg_7;
+    card.avg30 = market.avg_30;
+
+    updated++;
+  }
+
+  console.log(`Simulation FBB : ${updated} cartes alimentées`);
+}
 
 async function main() {
   const collectionCards =
     await getCards();
+  await applyFbbSimulationPrices(collectionCards);
 
   const trackedCards =
     readTrackedMarketCards();
