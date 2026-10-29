@@ -102,6 +102,124 @@ function makeRowKey(
 }
 
 
+const REMOTE_PAGE_SIZE = 1000;
+const REMOTE_MAX_ATTEMPTS = 4;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function isRetryableNetworkError(error) {
+    const code = String(error?.code || error?.cause?.code || "");
+    const message = String(error?.message || "");
+    const causeMessage = String(error?.cause?.message || "");
+
+    return (
+        [
+            "UND_ERR_SOCKET",
+            "UND_ERR_CONNECT_TIMEOUT",
+            "UND_ERR_HEADERS_TIMEOUT",
+            "UND_ERR_BODY_TIMEOUT",
+            "ECONNRESET",
+            "ETIMEDOUT",
+            "EPIPE"
+        ].includes(code) ||
+        /fetch failed|other side closed|timeout|temporarily unavailable/i.test(
+            `${message} ${causeMessage}`
+        )
+    );
+}
+
+async function executeReadWithRetry(statement, label) {
+    for (let attempt = 1; attempt <= REMOTE_MAX_ATTEMPTS; attempt++) {
+        try {
+            return await turso.execute(statement);
+        } catch (error) {
+            if (
+                attempt === REMOTE_MAX_ATTEMPTS ||
+                !isRetryableNetworkError(error)
+            ) {
+                throw error;
+            }
+
+            const delayMs = 1000 * (2 ** (attempt - 1));
+
+            console.warn(
+                `⚠️ ${label} : erreur réseau, ` +
+                `tentative ${attempt}/${REMOTE_MAX_ATTEMPTS}. ` +
+                `Nouvel essai dans ${delayMs} ms.`
+            );
+
+            await sleep(delayMs);
+        }
+    }
+}
+
+async function readRemoteRowsPaginated(generationId, tableName) {
+    const remoteMap = new Map();
+    let lastRowKey = null;
+    let pageNumber = 0;
+
+    while (true) {
+        const result = await executeReadWithRetry(
+            {
+                sql: `
+                    SELECT
+                        row_key,
+                        rowid_value,
+                        row_json
+                    FROM portfolio_mirror_rows
+                    WHERE generation_id = ?
+                      AND table_name = ?
+                      AND (? IS NULL OR row_key > ?)
+                    ORDER BY row_key
+                    LIMIT ?
+                `,
+                args: [
+                    generationId,
+                    tableName,
+                    lastRowKey,
+                    lastRowKey,
+                    REMOTE_PAGE_SIZE
+                ]
+            },
+            `Lecture Turso ${tableName}, page ${pageNumber + 1}`
+        );
+
+        const pageRows = result.rows || [];
+
+        if (pageRows.length === 0) {
+            break;
+        }
+
+        for (const remoteRow of pageRows) {
+            const rowKey = String(remoteRow.row_key);
+
+            remoteMap.set(rowKey, {
+                rowidValue: remoteRow.rowid_value,
+                rowJson: String(remoteRow.row_json)
+            });
+
+            lastRowKey = rowKey;
+        }
+
+        pageNumber++;
+
+        if (pageNumber % 50 === 0) {
+            console.log(
+                `${tableName} : ${remoteMap.size} lignes Turso lues`
+            );
+        }
+
+        if (pageRows.length < REMOTE_PAGE_SIZE) {
+            break;
+        }
+    }
+
+    return remoteMap;
+}
+
+
 async function writeBatch(
     statements,
     chunkSize = 100
@@ -180,12 +298,15 @@ async function main() {
      * On ne crée plus une nouvelle génération complète à chaque
      * exécution.
      */
-    const generationResult =
-        await turso.execute(`
+const generationResult =
+    await executeReadWithRetry(
+        `
             SELECT value
             FROM portfolio_mirror_metadata
             WHERE key = 'current_generation'
-        `);
+        `,
+        "Lecture génération active"
+    );
 
     const generationId =
         generationResult.rows?.[0]
@@ -290,8 +411,8 @@ async function main() {
      * ----------------------------------------------------------
      */
 
-    const remoteSchemaResult =
-        await turso.execute({
+const remoteSchemaResult =
+    await executeReadWithRetry({
             sql: `
                 SELECT
                     object_type,
@@ -305,7 +426,7 @@ async function main() {
             args: [
                 generationId
             ]
-        });
+         }, "Lecture schéma Turso");
 
     const remoteSchemaMap =
         new Map();
@@ -546,53 +667,16 @@ async function main() {
             pkColumns.length > 0;
 
 
-        /*
-         * Lecture de l'état Turso actuel pour cette table.
-         *
-         * Cette opération consomme des lectures mais aucune
-         * écriture.
-         */
-        const remoteResult =
-            await turso.execute({
-                sql: `
-                    SELECT
-                        row_key,
-                        rowid_value,
-                        row_json
-                    FROM portfolio_mirror_rows
-                    WHERE
-                        generation_id = ?
-                        AND table_name = ?
-                `,
-                args: [
-                    generationId,
-                    table.name
-                ]
-            });
 
-        const remoteMap =
-            new Map();
+/*
+ * Lecture paginée de l'état Turso.
+ * Chaque page est protégée contre les erreurs réseau temporaires.
+ */
+const remoteMap = await readRemoteRowsPaginated(
+    generationId,
+    table.name
+);
 
-        for (
-            const remoteRow of
-            remoteResult.rows || []
-        ) {
-
-            remoteMap.set(
-                String(
-                    remoteRow.row_key
-                ),
-                {
-                    rowidValue:
-                        remoteRow.rowid_value,
-
-                    rowJson:
-                        String(
-                            remoteRow.row_json
-                        )
-                }
-            );
-        }
 
 
         const localKeys =
