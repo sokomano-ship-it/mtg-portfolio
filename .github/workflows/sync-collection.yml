@@ -90,9 +90,13 @@ jobs:
             git stash push --include-untracked -m "workflow-temp"
 
             git fetch origin main
-            git rebase origin/main
 
-            git push origin main
+            if ! git merge-base --is-ancestor origin/main HEAD; then
+              echo "::error::Main has changed during collection sync. Rerun the workflow."
+              exit 1
+            fi
+
+            git push origin HEAD:main
           fi
 
       - name: Configure Pages

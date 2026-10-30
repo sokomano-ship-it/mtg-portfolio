@@ -106,16 +106,18 @@ jobs:
       - name: Synchronize and push
         if: github.event_name != 'push'
         run: |
-          echo "Synchronizing with latest main..."
+          echo "Checking latest main..."
 
-          # Build/Turso steps may leave generated files modified
-          # outside the files intentionally committed above.
           git stash push --include-untracked -m "workflow-temp"
 
           git fetch origin main
-          git rebase origin/main
 
-          git push origin main
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            echo "::error::Main has changed during this workflow. Generated files must be rebuilt from the latest main. Rerun the workflow."
+            exit 1
+          fi
+
+          git push origin HEAD:main
 
       - name: Generate frontend files for push deployment
         if: github.event_name == 'push'
