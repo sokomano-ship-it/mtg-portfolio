@@ -11,6 +11,7 @@ let selectedInvestmentCardId = null;
 
 let currentInvestmentSort = "changeLot7d";
 let currentInvestmentDirection = "desc";
+let investmentVariationSortMode = "eur";
 let currentInvestmentSummaryPeriod = "7d";
 
 let investmentShowAll = false;
@@ -8485,6 +8486,17 @@ async function loadInvestmentAnalysis() {
 setupInvestmentFilters();
 setupInvestmentSummaryPeriodSelector();
 
+const variationSortSelect = document.getElementById("investment-variation-sort-mode");
+
+if (variationSortSelect) {
+    variationSortSelect.value = investmentVariationSortMode;
+
+    variationSortSelect.onchange = () => {
+        investmentVariationSortMode = variationSortSelect.value;
+        renderInvestmentAnalysis();
+    };
+}
+
         document
             .querySelectorAll("#tab-investment-analysis .sortable")
             .forEach(header => {
@@ -8575,6 +8587,17 @@ function getInvestmentPeriodChange(card, period) {
 }
 
 function getInvestmentSortValue(card, sortKey) {
+        const periodMatch = String(sortKey || "").match(
+        /^changeLot(7d|30d|60d|180d|365d)$/
+    );
+
+    if (periodMatch && investmentVariationSortMode === "pct") {
+        const performance = card[`perf${periodMatch[1]}`];
+
+        return hasInvestmentPerformanceValue(performance)
+            ? Number(performance)
+            : null;
+    }
     const lotChangeMatch =
         String(sortKey || "").match(
             /^changeLot(7d|30d|60d|180d|365d)$/
@@ -9241,8 +9264,10 @@ if (status) {
 }
 
 
-        const rankingSortKey =
-    `changeLot${currentInvestmentSummaryPeriod}`;
+const rankingSortKey =
+    /^changeLot(7d|30d|60d|180d|365d)$/.test(currentInvestmentSort)
+        ? currentInvestmentSort
+        : `changeLot${currentInvestmentSummaryPeriod}`;
 
 const rankingRows =
     [...filteredRows]
@@ -9306,7 +9331,11 @@ const seenInvestmentIds =
 const displayedRows =
     investmentShowAll
         ? sortedRows
-        : limitedRows;
+        : limitedRows.sort((a, b) => compareValues(
+            getInvestmentSortValue(a, currentInvestmentSort),
+            getInvestmentSortValue(b, currentInvestmentSort),
+            currentInvestmentDirection
+        ));
 
     tbody.innerHTML = "";
 
