@@ -58,6 +58,8 @@ if (!Array.isArray(cards)) {
   const setByName = new Map(sets.map(s => [norm(s.name), s.code]));
   const result = { generatedAt: new Date().toISOString(), priceSource: 'Scryfall', editions: [], warnings: [] };
   const cache = new Map();
+  // Normal: digits, optionally a/b/c/d. Other suffixes (77†, 187s) are special.
+  const isRegularNumber = number => /^\d+[a-d]?$/i.test(String(number ?? '').trim());
   const priceOf = (print, edition) => {
     // FWB uses Revised as a catalogue proxy, not the actual FWB printing.
     // Italian Legends also uses English Legends as a proxy. Never mislabel those prices.
@@ -74,16 +76,15 @@ const code = edition === 'Foreign White Bordered'
       if (!cache.has(code)) cache.set(code, await fetchSet(code));
       const prints = cache.get(code);
       const entries = prints
-  .filter(p => !(edition === 'Foreign Black Bordered' && p.collector_number === '306a'))
   .map(p => ({
         key: `${edition}|${p.id}`, scryfallId: p.id, name: p.name,
         collectorNumber: p.collector_number, imageUrl: p.image_uris?.normal || p.card_faces?.[0]?.image_uris?.normal || null,
-        variant: '', reserved: p.reserved === true, indicativePriceEur: priceOf(p, edition), owned: 0, conditions: {}, matchStatus: 'catalogue'
+        variant: '', category: isRegularNumber(p.collector_number) ? 'normal' : 'special', reserved: p.reserved === true, indicativePriceEur: priceOf(p, edition), owned: 0, conditions: {}, matchStatus: 'catalogue'
       }));
       for (const extra of overrides.variants.filter(v => v.edition === edition)) {
         entries.push({ key: `${edition}|custom:${extra.id}`, scryfallId: extra.scryfallId || null, name: extra.name,
           collectorNumber: extra.collectorNumber || '', imageUrl: extra.imageUrl || null,
-          variant: extra.variant || '',
+          variant: extra.variant || '', category: isRegularNumber(extra.collectorNumber) ? 'normal' : 'special',
           reserved: (() => {
             const match = prints.find(p => extra.scryfallId && p.id === extra.scryfallId)
               || prints.find(p => norm(p.name) === norm(extra.name));

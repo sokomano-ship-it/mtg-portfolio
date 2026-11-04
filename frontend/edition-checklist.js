@@ -15,6 +15,8 @@
   const normalize = value => String(value ?? '').toLocaleLowerCase('fr').trim();
   const collator = new Intl.Collator('fr', { numeric: true, sensitivity: 'base' });
   const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
+  const isNormal = card => card.category === 'normal' ||
+    (card.category == null && /^\d+[a-d]?$/i.test(String(card.collectorNumber ?? '').trim()));
   const priceOf = card => {
     const value = Number(card.indicativePriceEur);
     return card.indicativePriceEur != null && Number.isFinite(value) && value > 0 ? value : null;
@@ -55,6 +57,7 @@
     const edition = dataset.editions.find(e => e.name === $('checklist-edition').value);
     if (!edition) return;
     const mode = $('checklist-mode').value;
+    const categoryMode = $('checklist-category').value;
     const query = normalize($('checklist-search').value);
     const nameQuery = normalize($('checklist-filter-name').value);
     const numberQuery = normalize($('checklist-filter-number').value);
@@ -67,6 +70,8 @@
 
     const rows = edition.cards.filter(card => {
       const owned = Number(card.owned || 0);
+      if (categoryMode === 'normal' && !isNormal(card)) return false;
+      if (categoryMode === 'special' && isNormal(card)) return false;
       if (mode === 'owned' && owned <= 0) return false;
       if (mode === 'missing' && owned > 0) return false;
       if (query && !normalize(`${card.name} ${card.variant || ''} ${card.collectorNumber || ''}`).includes(query)) return false;
@@ -85,20 +90,30 @@
       return true;
     }).sort(compareCards);
 
-    const total = edition.cards.length;
-    const collected = edition.cards.filter(c => Number(c.owned || 0) > 0).length;
-    const ownedCopies = edition.cards.reduce((sum, c) => sum + Number(c.owned || 0), 0);
-    $('checklist-summary').replaceChildren(text('p',
-      `${edition.name} — ${ownedCopies} exemplaires possédés · ` +
-      `${collected} / ${total} impressions différentes ` +
-      `(${total ? (100 * collected / total).toFixed(1) : 0} %) · ` +
-      `${rows.length} lignes affichées`
-    ));
+    const normal = edition.cards.filter(isNormal);
+    const special = edition.cards.filter(card => !isNormal(card));
+    const stats = cards => ({
+      total: cards.length,
+      collected: cards.filter(c => Number(c.owned || 0) > 0).length,
+      copies: cards.reduce((sum, c) => sum + Number(c.owned || 0), 0)
+    });
+    const regularStats = stats(normal);
+    const specialStats = stats(special);
+    const summary = $('checklist-summary');
+    summary.replaceChildren(
+      text('p', `${edition.name} — Cartes normales : ${regularStats.copies} exemplaires possédés · ` +
+        `${regularStats.collected} / ${regularStats.total} impressions différentes ` +
+        `(${regularStats.total ? (100 * regularStats.collected / regularStats.total).toFixed(1) : 0} %)`),
+      text('p', `Spéciales / variantes : ${specialStats.copies} exemplaires possédés · ` +
+        `${specialStats.collected} / ${specialStats.total} impressions différentes ` +
+        `(${specialStats.total ? (100 * specialStats.collected / specialStats.total).toFixed(1) : 0} %) · ` +
+        `${rows.length} lignes affichées au total`)
+    );
     const progress = document.createElement('progress');
     progress.className = 'checklist-progress';
-    progress.max = total || 1;
-    progress.value = collected;
-    $('checklist-summary').append(progress);
+    progress.max = regularStats.total || 1;
+    progress.value = regularStats.collected;
+    summary.append(progress);
 
     const warnings = $('checklist-warnings');
     warnings.replaceChildren();
@@ -115,7 +130,17 @@
     });
 
     const fragment = document.createDocumentFragment();
-    for (const card of rows) {
+    // Normal cards first; special printings are listed and counted separately.
+    const groupedRows = [rows.filter(isNormal), rows.filter(card => !isNormal(card))];
+    for (const [index, group] of groupedRows.entries()) {
+      if (!group.length) continue;
+      const separator = document.createElement('tr');
+      separator.className = 'checklist-group-heading';
+      const cell = text('td', index === 0 ? `Cartes normales (${group.length})` : `Cartes spéciales / variantes (${group.length})`);
+      cell.colSpan = 14;
+      separator.append(cell);
+      fragment.append(separator);
+      for (const card of group) {
       const tr = document.createElement('tr');
       const imageCell = document.createElement('td');
       if (card.imageUrl) {
@@ -142,12 +167,14 @@
       tr.append(priceCell);
       if (!Number(card.owned || 0)) tr.className = 'checklist-muted';
       fragment.append(tr);
+      }
     }
     $('checklist-body').replaceChildren(fragment);
   }
 
   function resetFilters() {
     $('checklist-mode').value = 'all';
+    $('checklist-category').value = 'all';
     $('checklist-search').value = '';
     $('checklist-price-min').value = '';
     $('checklist-price-max').value = '';
@@ -178,7 +205,7 @@
       if (dataset.warnings?.length) {
         $('checklist-status').textContent += ' — Certaines éditions n’ont pas pu être chargées : ' + dataset.warnings.join('; ');
       }
-      for (const id of ['checklist-edition', 'checklist-mode', 'checklist-search', 'checklist-filter-name', 'checklist-filter-number',
+      for (const id of ['checklist-edition', 'checklist-mode', 'checklist-category', 'checklist-search', 'checklist-filter-name', 'checklist-filter-number',
                         'checklist-filter-owned', ...grades.map(g => `checklist-filter-${g}`), 'checklist-filter-best', 'checklist-filter-reserved', 'checklist-price-min', 'checklist-price-max']) {
         $(id).addEventListener(['checklist-search', 'checklist-filter-name', 'checklist-filter-number', 'checklist-price-min', 'checklist-price-max'].includes(id) ? 'input' : 'change', render);
       }
