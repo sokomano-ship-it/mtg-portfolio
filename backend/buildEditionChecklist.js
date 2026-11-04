@@ -77,13 +77,31 @@ const code = edition === 'Foreign White Bordered'
     try {
       if (!cache.has(code)) cache.set(code, await fetchSet(code));
       const prints = cache.get(code);
-      const entries = prints
+      // The six Unglued tokens are catalogued separately by Scryfall as TUGL.
+      // Keep the main UGL catalogue unchanged and do not count tokens as specials.
+      const tokenPrints = edition === 'Unglued' ? await (async () => {
+        if (!cache.has('tugl')) cache.set('tugl', await fetchSet('tugl'));
+        return cache.get('tugl');
+      })() : [];
+      const cataloguePrints = edition === 'Fifth Edition'
+        ? prints.filter(p => !(norm(p.name) === 'manabarbs' && !String(p.collector_number ?? '').trim()))
+        : prints;
+      const entries = cataloguePrints
   .map(p => ({
         key: `${edition}|${p.id}`, scryfallId: p.id, name: p.name,
         collectorNumber: p.collector_number, imageUrl: p.image_uris?.normal || p.card_faces?.[0]?.image_uris?.normal || null,
         variant: '', category: isRegularNumber(p.collector_number, edition) ? 'normal' : 'special', reserved: p.reserved === true, indicativePriceEur: priceOf(p, edition), owned: 0, conditions: {}, matchStatus: 'catalogue'
       }));
-      for (const extra of overrides.variants.filter(v => v.edition === edition)) {
+      for (const p of tokenPrints) {
+        entries.push({
+          key: `${edition}|${p.id}`, scryfallId: p.id, name: p.name,
+          collectorNumber: p.collector_number,
+          imageUrl: p.image_uris?.normal || p.card_faces?.[0]?.image_uris?.normal || null,
+          variant: '', category: 'token', reserved: false,
+          indicativePriceEur: priceOf(p, edition), owned: 0, conditions: {}, matchStatus: 'catalogue'
+        });
+      }
+      for (const extra of overrides.variants.filter(v => v.edition === edition && v.id !== 'owned-1649')) {
         entries.push({ key: `${edition}|custom:${extra.id}`, scryfallId: extra.scryfallId || null, name: extra.name,
           collectorNumber: extra.collectorNumber || '', imageUrl: extra.imageUrl || null,
           variant: extra.variant || '', category: isRegularNumber(extra.collectorNumber, edition) ? 'normal' : 'special',
@@ -111,6 +129,11 @@ const code = edition === 'Foreign White Bordered'
         if (explicit) {
           // Existing per-record override has priority.
           candidates = entries.filter(e => e.key === explicit);
+          // Legacy token override can be mapped to its official TUGL printing.
+          if (!candidates.length && edition === 'Unglued' && ownedKey === '1649') {
+            const tokenId = 'fbd728ed-d5dc-44b3-9159-6c86cab3be0c';
+            candidates = entries.filter(e => e.category === 'token' && e.scryfallId === tokenId);
+          }
         } else if (/^V\.\d+$/i.test(version)) {
           // Never guess a Cardmarket variant from Scryfall order or shared IDs.
           candidates = collectorNumber == null ? [] : entries.filter(e =>
@@ -126,6 +149,9 @@ const code = edition === 'Foreign White Bordered'
           );
           if (!candidates.length) {
             candidates = entries.filter(e => norm(baseName(e.name)) === name);
+            if (edition === 'Fifth Edition' && name === 'manabarbs' && candidates.length > 1) {
+              candidates = candidates.filter(e => String(e.collectorNumber) === '250');
+            }
           }
         }
         if (candidates.length !== 1) {
@@ -146,6 +172,9 @@ const code = edition === 'Foreign White Bordered'
         entry.owned += qty;
         entry.conditions[condition] = (entry.conditions[condition] || 0) + qty;
         entry.matchStatus = 'possédée';
+      }
+      if (edition === 'Unglued' && tokenPrints.length !== 6) {
+        throw new Error(`TUGL: ${tokenPrints.length} tokens reçus, 6 attendus`);
       }
       result.editions.push({ name: edition, code, cards: entries, unresolved });
       console.log(`${edition}: ${entries.length} impressions, ${unresolved.length} associations à vérifier`);

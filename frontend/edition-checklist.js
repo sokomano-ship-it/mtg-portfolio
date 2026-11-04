@@ -15,7 +15,9 @@
   const normalize = value => String(value ?? '').toLocaleLowerCase('fr').trim();
   const collator = new Intl.Collator('fr', { numeric: true, sensitivity: 'base' });
   const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
+  const isToken = card => card.category === 'token';
   const isNormal = (card, editionName) => {
+    if (isToken(card)) return false;
     if (editionName === 'Foreign Black Bordered' && String(card.collectorNumber ?? '').trim().toLowerCase() === '306a') return false;
     return card.category === 'normal' ||
       (card.category == null && /^\d+[a-d]?$/i.test(String(card.collectorNumber ?? '').trim()));
@@ -75,7 +77,8 @@
     const rows = edition.cards.filter(card => {
       const owned = Number(card.owned || 0);
       if (categoryMode === 'normal' && !normalCard(card)) return false;
-      if (categoryMode === 'special' && normalCard(card)) return false;
+      if (categoryMode === 'token' && !isToken(card)) return false;
+      if (categoryMode === 'special' && (normalCard(card) || isToken(card))) return false;
       if (mode === 'owned' && owned <= 0) return false;
       if (mode === 'missing' && owned > 0) return false;
       if (query && !normalize(`${card.name} ${card.variant || ''} ${card.collectorNumber || ''}`).includes(query)) return false;
@@ -95,7 +98,8 @@
     }).sort(compareCards);
 
     const normal = edition.cards.filter(normalCard);
-    const special = edition.cards.filter(card => !normalCard(card));
+    const special = edition.cards.filter(card => !normalCard(card) && !isToken(card));
+    const tokens = edition.cards.filter(isToken);
     const stats = cards => ({
       total: cards.length,
       collected: cards.filter(c => Number(c.owned || 0) > 0).length,
@@ -103,6 +107,7 @@
     });
     const regularStats = stats(normal);
     const specialStats = stats(special);
+    const tokenStats = stats(tokens);
     const summary = $('checklist-summary');
     const pct = value => `${value.total ? (100 * value.collected / value.total).toFixed(1).replace('.', ',') : '0'} %`;
     const mainSummary = text('p', `${edition.name} — Collection normale : ${regularStats.copies} exemplaires possédés · ` +
@@ -111,6 +116,10 @@
     if (specialStats.total > 0) {
       summary.append(text('p', `Cartes spéciales / variantes (hors progression normale) : ` +
         `${specialStats.copies} exemplaires possédés · ${specialStats.collected} / ${specialStats.total} impressions spéciales (${pct(specialStats)})`));
+    }
+    if (tokenStats.total > 0) {
+      summary.append(text('p', `Tokens (hors progression normale) : ` +
+        `${tokenStats.copies} exemplaires possédés · ${tokenStats.collected} / ${tokenStats.total} tokens (${pct(tokenStats)})`));
     }
     summary.append(text('p', `${rows.length} lignes affichées au total`));
     const progress = document.createElement('progress');
@@ -135,12 +144,12 @@
 
     const fragment = document.createDocumentFragment();
     // Normal cards first; special printings are listed and counted separately.
-    const groupedRows = [rows.filter(normalCard), rows.filter(card => !normalCard(card))];
+    const groupedRows = [rows.filter(normalCard), rows.filter(card => !normalCard(card) && !isToken(card)), rows.filter(isToken)];
     for (const [index, group] of groupedRows.entries()) {
       if (!group.length) continue;
       const separator = document.createElement('tr');
       separator.className = 'checklist-group-heading';
-      const cell = text('td', index === 0 ? `Cartes normales (${group.length})` : `Cartes spéciales / variantes (${group.length})`);
+      const cell = text('td', index === 0 ? `Cartes normales (${group.length})` : index === 1 ? `Cartes spéciales / variantes (${group.length})` : `Tokens (${group.length})`);
       cell.colSpan = 14;
       separator.append(cell);
       fragment.append(separator);
