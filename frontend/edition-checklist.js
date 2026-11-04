@@ -57,7 +57,7 @@
       if (grades.some(g => gradeFilters[g] === 'yes' && count(card, g) === 0 ||
                             gradeFilters[g] === 'no' && count(card, g) > 0)) return false;
       const best = bestGrade(card);
-      if (bestFilter !== 'all' && (bestFilter === 'none' ? best !== '' : best !== bestFilter)) return false;
+      if (bestFilter !== 'all' && (bestFilter === 'none' ? best !== '' : !best || grades.indexOf(best) > grades.indexOf(bestFilter))) return false;
       return true;
     }).sort(compareCards);
 
@@ -154,7 +154,7 @@
       $('checklist-reset').addEventListener('click', resetFilters);
       render();
     } catch (err) {
-      $('checklist-status').textContent = `Catalogue indisponible (${err.message}). Le portefeuille principal reste accessible.`;
+      $('checklist-status').textContent = `Erreur de chargement ou d'initialisation (${err.message}). Le portefeuille principal reste accessible.`;
     }
   }
   document.addEventListener('DOMContentLoaded', init);
