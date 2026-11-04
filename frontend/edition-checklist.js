@@ -23,8 +23,14 @@ $('checklist-summary').replaceChildren(
   )
 );    const progress = document.createElement('progress'); progress.className='checklist-progress'; progress.max=total||1; progress.value=collected; $('checklist-summary').append(progress);
     const warnings = $('checklist-warnings'); warnings.replaceChildren();
-    if (edition.unresolved.length) { const box=text('div', `${edition.unresolved.length} exemplaire(s) non associés de manière fiable : ${edition.unresolved.map(x => x.name + (x.version ? ' '+x.version : '')).join(', ')}. À corriger dans edition-checklist-overrides.json.`); box.className='checklist-warning'; warnings.append(box); }
-    const body=$('checklist-body'); body.replaceChildren();
+if (edition.unresolved.length) {
+  const box = text(
+    'div',
+    `${edition.unresolved.length} exemplaire(s) restent à associer à une impression précise. Ces cartes ne sont pas incluses dans les compteurs ci-dessus.`
+  );
+  box.className = 'checklist-warning';
+  warnings.append(box);
+}    const body=$('checklist-body'); body.replaceChildren();
     const fragment=document.createDocumentFragment();
     for (const card of rows) {
       const tr=document.createElement('tr');
