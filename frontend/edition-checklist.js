@@ -15,8 +15,11 @@
   const normalize = value => String(value ?? '').toLocaleLowerCase('fr').trim();
   const collator = new Intl.Collator('fr', { numeric: true, sensitivity: 'base' });
   const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
-  const isNormal = card => card.category === 'normal' ||
-    (card.category == null && /^\d+[a-d]?$/i.test(String(card.collectorNumber ?? '').trim()));
+  const isNormal = (card, editionName) => {
+    if (editionName === 'Foreign Black Bordered' && String(card.collectorNumber ?? '').trim().toLowerCase() === '306a') return false;
+    return card.category === 'normal' ||
+      (card.category == null && /^\d+[a-d]?$/i.test(String(card.collectorNumber ?? '').trim()));
+  };
   const priceOf = card => {
     const value = Number(card.indicativePriceEur);
     return card.indicativePriceEur != null && Number.isFinite(value) && value > 0 ? value : null;
@@ -58,6 +61,7 @@
     if (!edition) return;
     const mode = $('checklist-mode').value;
     const categoryMode = $('checklist-category').value;
+    const normalCard = card => isNormal(card, edition.name);
     const query = normalize($('checklist-search').value);
     const nameQuery = normalize($('checklist-filter-name').value);
     const numberQuery = normalize($('checklist-filter-number').value);
@@ -70,8 +74,8 @@
 
     const rows = edition.cards.filter(card => {
       const owned = Number(card.owned || 0);
-      if (categoryMode === 'normal' && !isNormal(card)) return false;
-      if (categoryMode === 'special' && isNormal(card)) return false;
+      if (categoryMode === 'normal' && !normalCard(card)) return false;
+      if (categoryMode === 'special' && normalCard(card)) return false;
       if (mode === 'owned' && owned <= 0) return false;
       if (mode === 'missing' && owned > 0) return false;
       if (query && !normalize(`${card.name} ${card.variant || ''} ${card.collectorNumber || ''}`).includes(query)) return false;
@@ -90,8 +94,8 @@
       return true;
     }).sort(compareCards);
 
-    const normal = edition.cards.filter(isNormal);
-    const special = edition.cards.filter(card => !isNormal(card));
+    const normal = edition.cards.filter(normalCard);
+    const special = edition.cards.filter(card => !normalCard(card));
     const stats = cards => ({
       total: cards.length,
       collected: cards.filter(c => Number(c.owned || 0) > 0).length,
@@ -100,15 +104,15 @@
     const regularStats = stats(normal);
     const specialStats = stats(special);
     const summary = $('checklist-summary');
-    summary.replaceChildren(
-      text('p', `${edition.name} — Cartes normales : ${regularStats.copies} exemplaires possédés · ` +
-        `${regularStats.collected} / ${regularStats.total} impressions différentes ` +
-        `(${regularStats.total ? (100 * regularStats.collected / regularStats.total).toFixed(1) : 0} %)`),
-      text('p', `Spéciales / variantes : ${specialStats.copies} exemplaires possédés · ` +
-        `${specialStats.collected} / ${specialStats.total} impressions différentes ` +
-        `(${specialStats.total ? (100 * specialStats.collected / specialStats.total).toFixed(1) : 0} %) · ` +
-        `${rows.length} lignes affichées au total`)
-    );
+    const pct = value => `${value.total ? (100 * value.collected / value.total).toFixed(1).replace('.', ',') : '0'} %`;
+    const mainSummary = text('p', `${edition.name} — Collection normale : ${regularStats.copies} exemplaires possédés · ` +
+      `${regularStats.collected} / ${regularStats.total} cartes normales (${pct(regularStats)} de la collection normale)`);
+    summary.replaceChildren(mainSummary);
+    if (specialStats.total > 0) {
+      summary.append(text('p', `Cartes spéciales / variantes (hors progression normale) : ` +
+        `${specialStats.copies} exemplaires possédés · ${specialStats.collected} / ${specialStats.total} impressions spéciales (${pct(specialStats)})`));
+    }
+    summary.append(text('p', `${rows.length} lignes affichées au total`));
     const progress = document.createElement('progress');
     progress.className = 'checklist-progress';
     progress.max = regularStats.total || 1;
@@ -131,7 +135,7 @@
 
     const fragment = document.createDocumentFragment();
     // Normal cards first; special printings are listed and counted separately.
-    const groupedRows = [rows.filter(isNormal), rows.filter(card => !isNormal(card))];
+    const groupedRows = [rows.filter(normalCard), rows.filter(card => !normalCard(card))];
     for (const [index, group] of groupedRows.entries()) {
       if (!group.length) continue;
       const separator = document.createElement('tr');
