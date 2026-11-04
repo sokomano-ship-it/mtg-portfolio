@@ -22,6 +22,9 @@
       result = collator.compare(`${a.name} ${a.variant || ''}`, `${b.name} ${b.variant || ''}`);
     } else if (key === 'number') {
       result = collator.compare(String(a.collectorNumber ?? ''), String(b.collectorNumber ?? ''));
+    } else if (key === 'reserved') {
+      const rank = card => card.reserved === true ? 0 : card.reserved === false ? 1 : 2;
+      result = rank(a) - rank(b);
     } else if (key === 'best') {
       const rank = card => { const grade = bestGrade(card); return grade ? grades.indexOf(grade) : grades.length; };
       result = rank(a) - rank(b);
@@ -45,6 +48,7 @@
     const quantity = $('checklist-filter-owned').value;
     const gradeFilters = Object.fromEntries(grades.map(g => [g, $(`checklist-filter-${g}`).value]));
     const bestFilter = $('checklist-filter-best').value;
+    const reservedFilter = $('checklist-filter-reserved').value;
 
     const rows = edition.cards.filter(card => {
       const owned = Number(card.owned || 0);
@@ -56,6 +60,9 @@
       if (quantity !== 'all' && (quantity === '4+' ? owned < 4 : owned !== Number(quantity))) return false;
       if (grades.some(g => gradeFilters[g] === 'yes' && count(card, g) === 0 ||
                             gradeFilters[g] === 'no' && count(card, g) > 0)) return false;
+      if (reservedFilter === 'yes' && card.reserved !== true) return false;
+      if (reservedFilter === 'no' && card.reserved !== false) return false;
+      if (reservedFilter === 'unknown' && typeof card.reserved === 'boolean') return false;
       const best = bestGrade(card);
       if (bestFilter !== 'all' && (bestFilter === 'none' ? best !== '' : !best || grades.indexOf(best) > grades.indexOf(bestFilter))) return false;
       return true;
@@ -106,6 +113,10 @@
       tr.append(text('td', card.collectorNumber));
       tr.append(text('td', card.owned));
       for (const grade of grades) tr.append(text('td', count(card, grade) || '–'));
+      const rlCell = text('td', card.reserved === true ? 'RL' : card.reserved === false ? '–' : '?');
+      if (card.reserved === true) { rlCell.className = 'checklist-rl'; rlCell.title = 'Reserved List'; }
+      else if (card.reserved == null) rlCell.title = 'Statut non disponible : régénérer le catalogue';
+      tr.append(rlCell);
       tr.append(text('td', bestGrade(card) || '–'));
       if (!Number(card.owned || 0)) tr.className = 'checklist-muted';
       fragment.append(tr);
@@ -117,7 +128,7 @@
     $('checklist-mode').value = 'all';
     $('checklist-search').value = '';
     for (const id of ['name', 'number']) $(`checklist-filter-${id}`).value = '';
-    for (const id of ['owned', ...grades, 'best']) $(`checklist-filter-${id}`).value = 'all';
+    for (const id of ['owned', ...grades, 'reserved', 'best']) $(`checklist-filter-${id}`).value = 'all';
     sortState.key = 'number';
     sortState.direction = 'asc';
     render();
@@ -128,6 +139,10 @@
       const res = await fetch(`data/edition-checklist.json?v=${Date.now()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       dataset = await res.json();
+      const hasReserved = dataset.editions.some(e => e.cards.some(c => typeof c.reserved === 'boolean'));
+      if (!hasReserved) {
+        $('checklist-status').title = 'Régénérer edition-checklist.json pour obtenir les statuts Reserved List';
+      }
       const select = $('checklist-edition');
       for (const edition of dataset.editions) {
         const option = document.createElement('option');
@@ -140,7 +155,7 @@
         $('checklist-status').textContent += ' — Certaines éditions n’ont pas pu être chargées : ' + dataset.warnings.join('; ');
       }
       for (const id of ['checklist-edition', 'checklist-mode', 'checklist-search', 'checklist-filter-name', 'checklist-filter-number',
-                        'checklist-filter-owned', ...grades.map(g => `checklist-filter-${g}`), 'checklist-filter-best']) {
+                        'checklist-filter-owned', ...grades.map(g => `checklist-filter-${g}`), 'checklist-filter-best', 'checklist-filter-reserved']) {
         $(id).addEventListener(['checklist-search', 'checklist-filter-name', 'checklist-filter-number'].includes(id) ? 'input' : 'change', render);
       }
       document.querySelectorAll('.checklist-sort').forEach(button => {

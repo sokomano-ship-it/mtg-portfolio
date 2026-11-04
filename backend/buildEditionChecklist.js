@@ -71,12 +71,18 @@ const code = edition === 'Foreign White Bordered'
   .map(p => ({
         key: `${edition}|${p.id}`, scryfallId: p.id, name: p.name,
         collectorNumber: p.collector_number, imageUrl: p.image_uris?.normal || p.card_faces?.[0]?.image_uris?.normal || null,
-        variant: '', owned: 0, conditions: {}, matchStatus: 'catalogue'
+        variant: '', reserved: p.reserved === true, owned: 0, conditions: {}, matchStatus: 'catalogue'
       }));
       for (const extra of overrides.variants.filter(v => v.edition === edition)) {
         entries.push({ key: `${edition}|custom:${extra.id}`, scryfallId: extra.scryfallId || null, name: extra.name,
           collectorNumber: extra.collectorNumber || '', imageUrl: extra.imageUrl || null,
-          variant: extra.variant || '', owned: 0, conditions: {}, matchStatus: 'catalogue' });
+          variant: extra.variant || '',
+          reserved: (() => {
+            const match = prints.find(p => extra.scryfallId && p.id === extra.scryfallId)
+              || prints.find(p => norm(p.name) === norm(extra.name));
+            return match ? match.reserved === true : null;
+          })(),
+          owned: 0, conditions: {}, matchStatus: 'catalogue' });
       }
       const unresolved = [];
       for (const card of cards.filter(c => c.edition === edition)) {
