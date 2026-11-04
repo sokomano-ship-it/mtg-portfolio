@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Collection par édition — MTG Portfolio</title><link rel="stylesheet" href="style.css?v=checklist-integrated-1">
+
+<style>
+.edition-checklist-page .checklist-filter-row th{position:sticky;top:38px;z-index:2;background:#202636;padding:6px}
+.edition-checklist-page .checklist-filter-row input,.edition-checklist-page .checklist-filter-row select{width:100%;min-width:65px;max-width:200px;background:#111827;color:#f5f5f5;border:1px solid #475269;border-radius:6px;padding:7px;font-size:12px}
+.edition-checklist-page .checklist-sort{background:transparent;border:0;color:inherit;font:inherit;font-weight:700;cursor:pointer;padding:4px 0;text-align:left;white-space:nowrap}
+.edition-checklist-page .checklist-sort:hover,.edition-checklist-page .checklist-sort[aria-sort="ascending"],.edition-checklist-page .checklist-sort[aria-sort="descending"]{color:#7fb7ff}
+.edition-checklist-page .checklist-sort::after{content:" ⇅";opacity:.55}
+.edition-checklist-page .checklist-sort[aria-sort="ascending"]::after{content:" ↑";opacity:1}
+.edition-checklist-page .checklist-sort[aria-sort="descending"]::after{content:" ↓";opacity:1}
+.edition-checklist-page .checklist-reset{background:#202636;color:#f5f5f5;border:1px solid #475269;border-radius:8px;padding:9px 13px;cursor:pointer}
+.edition-checklist-page .checklist-reset:hover{border-color:#7fb7ff}
+.edition-checklist-page .checklist-table th{z-index:3;background:#202636}
+.edition-checklist-page .checklist-table{min-width:1000px}
+@media(max-width:700px){.edition-checklist-page .checklist-filter-row th{top:36px}}
+</style>
 </head><body class="edition-checklist-page">
 <header><h1>MTG Portfolio</h1><p>Collection par édition</p></header>
 <nav class="tabs" aria-label="Navigation principale">
@@ -16,5 +31,5 @@
 <h2>Collection par édition</h2><p id="checklist-status">Chargement du catalogue…</p>
 <div class="checklist-controls"><label>Édition <select id="checklist-edition"></select></label><label>Afficher <select id="checklist-mode"><option value="all">Toutes les cartes</option><option value="owned">Possédées</option><option value="missing">Manquantes</option></select></label><label>Recherche <input id="checklist-search" placeholder="Nom ou variante"></label></div>
 <div id="checklist-summary"></div><div id="checklist-warnings"></div>
-<div class="checklist-scroll"><table class="checklist-table"><thead><tr><th>Illustration</th><th>Carte / variante</th><th>N°</th><th>Qté</th><th>NM</th><th>EX</th><th>GD</th><th>LP</th><th>PL</th><th>PO</th><th>Meilleur état</th></tr></thead><tbody id="checklist-body"></tbody></table></div>
-</main><script src="edition-checklist.js" defer></script></body></html>
+<div class="checklist-scroll"><table class="checklist-table"><thead><tr><th>Illustration</th><th><button type="button" class="checklist-sort" data-sort="name" aria-sort="none">Carte / variante</button></th><th><button type="button" class="checklist-sort" data-sort="number" aria-sort="none">N°</button></th><th><button type="button" class="checklist-sort" data-sort="owned" aria-sort="none">Qté</button></th><th><button type="button" class="checklist-sort" data-sort="NM" aria-sort="none">NM</button></th><th><button type="button" class="checklist-sort" data-sort="EX" aria-sort="none">EX</button></th><th><button type="button" class="checklist-sort" data-sort="GD" aria-sort="none">GD</button></th><th><button type="button" class="checklist-sort" data-sort="LP" aria-sort="none">LP</button></th><th><button type="button" class="checklist-sort" data-sort="PL" aria-sort="none">PL</button></th><th><button type="button" class="checklist-sort" data-sort="PO" aria-sort="none">PO</button></th><th><button type="button" class="checklist-sort" data-sort="best" aria-sort="none">Meilleur état</button></th></tr><tr class="checklist-filter-row"><th></th><th><input id="checklist-filter-name" aria-label="Filtrer par nom" placeholder="Nom / variante"></th><th><input id="checklist-filter-number" aria-label="Filtrer par numéro" placeholder="N°"></th><th><select id="checklist-filter-owned" aria-label="Filtrer par quantité"><option value="all">Toutes</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4+">4+</option></select></th><th><select id="checklist-filter-NM" aria-label="Filtrer état NM"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select id="checklist-filter-EX" aria-label="Filtrer état EX"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select id="checklist-filter-GD" aria-label="Filtrer état GD"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select id="checklist-filter-LP" aria-label="Filtrer état LP"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select id="checklist-filter-PL" aria-label="Filtrer état PL"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select id="checklist-filter-PO" aria-label="Filtrer état PO"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select id="checklist-filter-best" aria-label="Filtrer meilleur état"><option value="all">Tous</option><option value="NM">NM</option><option value="EX">EX</option><option value="GD">GD</option><option value="LP">LP</option><option value="PL">PL</option><option value="PO">PO</option><option value="none">Aucun</option></select></th></tr></thead><tbody id="checklist-body"></tbody></table></div>
+</main><script src="edition-checklist.js?v=tri-filtres-1" defer></script></body></html>

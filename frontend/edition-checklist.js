@@ -1,61 +1,161 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const grades = ['NM','EX','GD','LP','PL','PO'];
+  const grades = ['NM', 'EX', 'GD', 'LP', 'PL', 'PO'];
+  const sortState = { key: 'number', direction: 'asc' };
   let dataset;
-  const text = (tag, value) => { const el = document.createElement(tag); el.textContent = String(value ?? ''); return el; };
+
+  const text = (tag, value) => {
+    const el = document.createElement(tag);
+    el.textContent = String(value ?? '');
+    return el;
+  };
+  const count = (card, grade) => Number(card.conditions?.[grade] || 0);
+  const bestGrade = card => grades.find(grade => count(card, grade) > 0) || '';
+  const normalize = value => String(value ?? '').toLocaleLowerCase('fr').trim();
+  const collator = new Intl.Collator('fr', { numeric: true, sensitivity: 'base' });
+
+  function compareCards(a, b) {
+    const key = sortState.key;
+    let result = 0;
+    if (key === 'name') {
+      result = collator.compare(`${a.name} ${a.variant || ''}`, `${b.name} ${b.variant || ''}`);
+    } else if (key === 'number') {
+      result = collator.compare(String(a.collectorNumber ?? ''), String(b.collectorNumber ?? ''));
+    } else if (key === 'best') {
+      const rank = card => { const grade = bestGrade(card); return grade ? grades.indexOf(grade) : grades.length; };
+      result = rank(a) - rank(b);
+    } else {
+      const value = card => key === 'owned' ? Number(card.owned || 0) : count(card, key);
+      result = value(a) - value(b);
+    }
+    // Stable, predictable ordering for equal values.
+    if (result === 0) result = collator.compare(String(a.collectorNumber ?? ''), String(b.collectorNumber ?? ''));
+    return sortState.direction === 'asc' ? result : -result;
+  }
+
   function render() {
+    if (!dataset) return;
     const edition = dataset.editions.find(e => e.name === $('checklist-edition').value);
     if (!edition) return;
     const mode = $('checklist-mode').value;
-    const query = $('checklist-search').value.toLocaleLowerCase('fr');
-    const rows = edition.cards.filter(c => (mode === 'all' || (mode === 'owned' ? c.owned > 0 : c.owned === 0)) && `${c.name} ${c.variant} ${c.collectorNumber}`.toLocaleLowerCase('fr').includes(query));
-    const total = edition.cards.length;
-const collected = edition.cards.filter(c => c.owned > 0).length;
-const ownedCopies = edition.cards.reduce((sum, c) => sum + c.owned, 0);
+    const query = normalize($('checklist-search').value);
+    const nameQuery = normalize($('checklist-filter-name').value);
+    const numberQuery = normalize($('checklist-filter-number').value);
+    const quantity = $('checklist-filter-owned').value;
+    const gradeFilters = Object.fromEntries(grades.map(g => [g, $(`checklist-filter-${g}`).value]));
+    const bestFilter = $('checklist-filter-best').value;
 
-$('checklist-summary').replaceChildren(
-  text('p',
-    `${edition.name} — ${ownedCopies} exemplaires possédés · ` +
-    `${collected} / ${total} impressions différentes ` +
-    `(${total ? (100 * collected / total).toFixed(1) : 0} %) · ` +
-    `${rows.length} lignes affichées`
-  )
-);    const progress = document.createElement('progress'); progress.className='checklist-progress'; progress.max=total||1; progress.value=collected; $('checklist-summary').append(progress);
-    const warnings = $('checklist-warnings'); warnings.replaceChildren();
-if (edition.unresolved.length) {
-  const box = text(
-    'div',
-    `${edition.unresolved.length} exemplaire(s) restent à associer à une impression précise. Ces cartes ne sont pas incluses dans les compteurs ci-dessus.`
-  );
-  box.className = 'checklist-warning';
-  warnings.append(box);
-}    const body=$('checklist-body'); body.replaceChildren();
-    const fragment=document.createDocumentFragment();
-    for (const card of rows) {
-      const tr=document.createElement('tr');
-      const imageCell=document.createElement('td');
-      if(card.imageUrl){const img=document.createElement('img'); img.src=card.imageUrl; img.alt=card.name; img.loading='lazy'; imageCell.append(img);} tr.append(imageCell);
-      tr.append(text('td', card.name+(card.variant ? ` — ${card.variant}` : '')));
-      tr.append(text('td', card.collectorNumber)); tr.append(text('td',card.owned));
-      for (const grade of grades) tr.append(text('td',card.conditions[grade] || '–'));
-      tr.append(text('td', grades.find(g => card.conditions[g]>0) || '–'));
-      if(!card.owned) tr.className='checklist-muted'; fragment.append(tr);
+    const rows = edition.cards.filter(card => {
+      const owned = Number(card.owned || 0);
+      if (mode === 'owned' && owned <= 0) return false;
+      if (mode === 'missing' && owned > 0) return false;
+      if (query && !normalize(`${card.name} ${card.variant || ''} ${card.collectorNumber || ''}`).includes(query)) return false;
+      if (nameQuery && !normalize(`${card.name} ${card.variant || ''}`).includes(nameQuery)) return false;
+      if (numberQuery && !normalize(card.collectorNumber).includes(numberQuery)) return false;
+      if (quantity !== 'all' && (quantity === '4+' ? owned < 4 : owned !== Number(quantity))) return false;
+      if (grades.some(g => gradeFilters[g] === 'yes' && count(card, g) === 0 ||
+                            gradeFilters[g] === 'no' && count(card, g) > 0)) return false;
+      const best = bestGrade(card);
+      if (bestFilter !== 'all' && (bestFilter === 'none' ? best !== '' : best !== bestFilter)) return false;
+      return true;
+    }).sort(compareCards);
+
+    const total = edition.cards.length;
+    const collected = edition.cards.filter(c => Number(c.owned || 0) > 0).length;
+    const ownedCopies = edition.cards.reduce((sum, c) => sum + Number(c.owned || 0), 0);
+    $('checklist-summary').replaceChildren(text('p',
+      `${edition.name} — ${ownedCopies} exemplaires possédés · ` +
+      `${collected} / ${total} impressions différentes ` +
+      `(${total ? (100 * collected / total).toFixed(1) : 0} %) · ` +
+      `${rows.length} lignes affichées`
+    ));
+    const progress = document.createElement('progress');
+    progress.className = 'checklist-progress';
+    progress.max = total || 1;
+    progress.value = collected;
+    $('checklist-summary').append(progress);
+
+    const warnings = $('checklist-warnings');
+    warnings.replaceChildren();
+    if (edition.unresolved?.length) {
+      const box = text('div',
+        `${edition.unresolved.length} exemplaire(s) restent à associer à une impression précise. Ces cartes ne sont pas incluses dans les compteurs ci-dessus.`);
+      box.className = 'checklist-warning';
+      warnings.append(box);
     }
-    body.append(fragment);
+
+    document.querySelectorAll('.checklist-sort').forEach(button => {
+      button.setAttribute('aria-sort', button.dataset.sort === sortState.key
+        ? (sortState.direction === 'asc' ? 'ascending' : 'descending') : 'none');
+    });
+
+    const fragment = document.createDocumentFragment();
+    for (const card of rows) {
+      const tr = document.createElement('tr');
+      const imageCell = document.createElement('td');
+      if (card.imageUrl) {
+        const img = document.createElement('img');
+        img.src = card.imageUrl;
+        img.alt = card.name;
+        img.loading = 'lazy';
+        imageCell.append(img);
+      }
+      tr.append(imageCell);
+      tr.append(text('td', card.name + (card.variant ? ` — ${card.variant}` : '')));
+      tr.append(text('td', card.collectorNumber));
+      tr.append(text('td', card.owned));
+      for (const grade of grades) tr.append(text('td', count(card, grade) || '–'));
+      tr.append(text('td', bestGrade(card) || '–'));
+      if (!Number(card.owned || 0)) tr.className = 'checklist-muted';
+      fragment.append(tr);
+    }
+    $('checklist-body').replaceChildren(fragment);
   }
-  async function init(){
+
+  function resetFilters() {
+    $('checklist-mode').value = 'all';
+    $('checklist-search').value = '';
+    for (const id of ['name', 'number']) $(`checklist-filter-${id}`).value = '';
+    for (const id of ['owned', ...grades, 'best']) $(`checklist-filter-${id}`).value = 'all';
+    sortState.key = 'number';
+    sortState.direction = 'asc';
+    render();
+  }
+
+  async function init() {
     try {
-      const res=await fetch(`data/edition-checklist.json?v=${Date.now()}`,{cache:'no-store'});
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      dataset=await res.json();
-      const select=$('checklist-edition');
-      for(const edition of dataset.editions){const option=document.createElement('option');option.value=edition.name;option.textContent=edition.name;select.append(option);}
-      $('checklist-status').textContent=`Catalogue actualisé le ${new Date(dataset.generatedAt).toLocaleString('fr-FR')}`;
-      if(dataset.warnings?.length){$('checklist-status').textContent+=' — Certaines éditions n’ont pas pu être chargées : '+dataset.warnings.join('; ');}
-      for(const id of ['checklist-edition','checklist-mode','checklist-search']) $(id).addEventListener(id==='checklist-search'?'input':'change',render);
+      const res = await fetch(`data/edition-checklist.json?v=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      dataset = await res.json();
+      const select = $('checklist-edition');
+      for (const edition of dataset.editions) {
+        const option = document.createElement('option');
+        option.value = edition.name;
+        option.textContent = edition.name;
+        select.append(option);
+      }
+      $('checklist-status').textContent = `Catalogue actualisé le ${new Date(dataset.generatedAt).toLocaleString('fr-FR')}`;
+      if (dataset.warnings?.length) {
+        $('checklist-status').textContent += ' — Certaines éditions n’ont pas pu être chargées : ' + dataset.warnings.join('; ');
+      }
+      for (const id of ['checklist-edition', 'checklist-mode', 'checklist-search', 'checklist-filter-name', 'checklist-filter-number',
+                        'checklist-filter-owned', ...grades.map(g => `checklist-filter-${g}`), 'checklist-filter-best']) {
+        $(id).addEventListener(['checklist-search', 'checklist-filter-name', 'checklist-filter-number'].includes(id) ? 'input' : 'change', render);
+      }
+      document.querySelectorAll('.checklist-sort').forEach(button => {
+        button.addEventListener('click', () => {
+          const key = button.dataset.sort;
+          if (sortState.key === key) sortState.direction = sortState.direction === 'asc' ? 'desc' : 'asc';
+          else { sortState.key = key; sortState.direction = 'asc'; }
+          render();
+        });
+      });
+      $('checklist-reset').addEventListener('click', resetFilters);
       render();
-    } catch(err){$('checklist-status').textContent=`Catalogue indisponible (${err.message}). Le portefeuille principal reste accessible.`;}
+    } catch (err) {
+      $('checklist-status').textContent = `Catalogue indisponible (${err.message}). Le portefeuille principal reste accessible.`;
+    }
   }
-  document.addEventListener('DOMContentLoaded',init);
+  document.addEventListener('DOMContentLoaded', init);
 })();
