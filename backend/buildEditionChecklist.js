@@ -56,8 +56,15 @@ if (!Array.isArray(cards)) {
   const editions = [...new Set(cards.map(c => String(c.edition || '').trim()).filter(Boolean))].sort();
   const sets = (await getJson('https://api.scryfall.com/sets')).data || [];
   const setByName = new Map(sets.map(s => [norm(s.name), s.code]));
-  const result = { generatedAt: new Date().toISOString(), editions: [], warnings: [] };
+  const result = { generatedAt: new Date().toISOString(), priceSource: 'Scryfall', editions: [], warnings: [] };
   const cache = new Map();
+  const priceOf = (print, edition) => {
+    // FWB uses Revised as a catalogue proxy, not the actual FWB printing.
+    // Italian Legends also uses English Legends as a proxy. Never mislabel those prices.
+    if (edition === 'Foreign White Bordered' || edition === 'Legends Italian') return null;
+    const value = Number(print?.prices?.eur);
+    return Number.isFinite(value) && value > 0 ? value : null;
+  };
   for (const edition of editions) {
 const code = edition === 'Foreign White Bordered'
   ? '3ed'
@@ -71,7 +78,7 @@ const code = edition === 'Foreign White Bordered'
   .map(p => ({
         key: `${edition}|${p.id}`, scryfallId: p.id, name: p.name,
         collectorNumber: p.collector_number, imageUrl: p.image_uris?.normal || p.card_faces?.[0]?.image_uris?.normal || null,
-        variant: '', reserved: p.reserved === true, owned: 0, conditions: {}, matchStatus: 'catalogue'
+        variant: '', reserved: p.reserved === true, indicativePriceEur: priceOf(p, edition), owned: 0, conditions: {}, matchStatus: 'catalogue'
       }));
       for (const extra of overrides.variants.filter(v => v.edition === edition)) {
         entries.push({ key: `${edition}|custom:${extra.id}`, scryfallId: extra.scryfallId || null, name: extra.name,
@@ -82,6 +89,8 @@ const code = edition === 'Foreign White Bordered'
               || prints.find(p => norm(p.name) === norm(extra.name));
             return match ? match.reserved === true : null;
           })(),
+          // Custom variants have no verified one-to-one market price.
+          indicativePriceEur: null,
           owned: 0, conditions: {}, matchStatus: 'catalogue' });
       }
       const unresolved = [];

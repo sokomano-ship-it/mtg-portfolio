@@ -14,6 +14,11 @@
   const bestGrade = card => grades.find(grade => count(card, grade) > 0) || '';
   const normalize = value => String(value ?? '').toLocaleLowerCase('fr').trim();
   const collator = new Intl.Collator('fr', { numeric: true, sensitivity: 'base' });
+  const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
+  const priceOf = card => {
+    const value = Number(card.indicativePriceEur);
+    return card.indicativePriceEur != null && Number.isFinite(value) && value > 0 ? value : null;
+  };
 
   function compareCards(a, b) {
     const key = sortState.key;
@@ -22,6 +27,14 @@
       result = collator.compare(`${a.name} ${a.variant || ''}`, `${b.name} ${b.variant || ''}`);
     } else if (key === 'number') {
       result = collator.compare(String(a.collectorNumber ?? ''), String(b.collectorNumber ?? ''));
+    } else if (key === 'price') {
+      const pa = priceOf(a), pb = priceOf(b);
+      // Unavailable prices always appear last, regardless of sort direction.
+      if (pa === null || pb === null) {
+        if (pa === null && pb === null) return collator.compare(String(a.collectorNumber ?? ''), String(b.collectorNumber ?? ''));
+        return pa === null ? 1 : -1;
+      }
+      result = pa - pb;
     } else if (key === 'reserved') {
       const rank = card => card.reserved === true ? 0 : card.reserved === false ? 1 : 2;
       result = rank(a) - rank(b);
@@ -49,6 +62,8 @@
     const gradeFilters = Object.fromEntries(grades.map(g => [g, $(`checklist-filter-${g}`).value]));
     const bestFilter = $('checklist-filter-best').value;
     const reservedFilter = $('checklist-filter-reserved').value;
+    const minPrice = $('checklist-price-min').value === '' ? null : Number($('checklist-price-min').value);
+    const maxPrice = $('checklist-price-max').value === '' ? null : Number($('checklist-price-max').value);
 
     const rows = edition.cards.filter(card => {
       const owned = Number(card.owned || 0);
@@ -63,6 +78,8 @@
       if (reservedFilter === 'yes' && card.reserved !== true) return false;
       if (reservedFilter === 'no' && card.reserved !== false) return false;
       if (reservedFilter === 'unknown' && typeof card.reserved === 'boolean') return false;
+      const price = priceOf(card);
+      if ((minPrice !== null || maxPrice !== null) && (price === null || (minPrice !== null && price < minPrice) || (maxPrice !== null && price > maxPrice))) return false;
       const best = bestGrade(card);
       if (bestFilter !== 'all' && (bestFilter === 'none' ? best !== '' : !best || grades.indexOf(best) > grades.indexOf(bestFilter))) return false;
       return true;
@@ -118,6 +135,11 @@
       else if (card.reserved == null) rlCell.title = 'Statut non disponible : régénérer le catalogue';
       tr.append(rlCell);
       tr.append(text('td', bestGrade(card) || '–'));
+      const price = priceOf(card);
+      const priceCell = text('td', price === null ? '–' : euro.format(price));
+      priceCell.className = 'checklist-price';
+      priceCell.title = price === null ? 'Prix Scryfall indisponible pour cette impression' : 'Prix indicatif Scryfall, non ajusté à l’état';
+      tr.append(priceCell);
       if (!Number(card.owned || 0)) tr.className = 'checklist-muted';
       fragment.append(tr);
     }
@@ -127,6 +149,8 @@
   function resetFilters() {
     $('checklist-mode').value = 'all';
     $('checklist-search').value = '';
+    $('checklist-price-min').value = '';
+    $('checklist-price-max').value = '';
     for (const id of ['name', 'number']) $(`checklist-filter-${id}`).value = '';
     for (const id of ['owned', ...grades, 'reserved', 'best']) $(`checklist-filter-${id}`).value = 'all';
     sortState.key = 'number';
@@ -150,13 +174,13 @@
         option.textContent = edition.name;
         select.append(option);
       }
-      $('checklist-status').textContent = `Catalogue actualisé le ${new Date(dataset.generatedAt).toLocaleString('fr-FR')}`;
+      $('checklist-status').textContent = `Catalogue actualisé le ${new Date(dataset.generatedAt).toLocaleString('fr-FR')} · Prix indicatifs Scryfall (non ajustés à l’état)`;
       if (dataset.warnings?.length) {
         $('checklist-status').textContent += ' — Certaines éditions n’ont pas pu être chargées : ' + dataset.warnings.join('; ');
       }
       for (const id of ['checklist-edition', 'checklist-mode', 'checklist-search', 'checklist-filter-name', 'checklist-filter-number',
-                        'checklist-filter-owned', ...grades.map(g => `checklist-filter-${g}`), 'checklist-filter-best', 'checklist-filter-reserved']) {
-        $(id).addEventListener(['checklist-search', 'checklist-filter-name', 'checklist-filter-number'].includes(id) ? 'input' : 'change', render);
+                        'checklist-filter-owned', ...grades.map(g => `checklist-filter-${g}`), 'checklist-filter-best', 'checklist-filter-reserved', 'checklist-price-min', 'checklist-price-max']) {
+        $(id).addEventListener(['checklist-search', 'checklist-filter-name', 'checklist-filter-number', 'checklist-price-min', 'checklist-price-max'].includes(id) ? 'input' : 'change', render);
       }
       document.querySelectorAll('.checklist-sort').forEach(button => {
         button.addEventListener('click', () => {
