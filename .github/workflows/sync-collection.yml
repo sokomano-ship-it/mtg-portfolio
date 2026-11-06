@@ -59,6 +59,9 @@ jobs:
       - name: Build portfolio
         run: npm run build:pages
 
+      - name: Rebuild edition checklist from updated collection
+        run: node backend/buildEditionChecklist.js
+
       - name: Check SQLite Turso write budget
         run: node backend/syncSQLiteToTurso.js --dry-run
 
