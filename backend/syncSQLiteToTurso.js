@@ -161,28 +161,33 @@ async function readRemoteRowsPaginated(generationId, tableName) {
     let pageNumber = 0;
 
     while (true) {
-        const result = await executeReadWithRetry(
-            {
+        // Deux requêtes distinctes : le prédicat row_key > ? reste
+        // directement exploitable par un index composite.
+        const statement = lastRowKey === null
+            ? {
                 sql: `
-                    SELECT
-                        row_key,
-                        rowid_value,
-                        row_json
+                    SELECT row_key, rowid_value, row_json
                     FROM portfolio_mirror_rows
-                    WHERE generation_id = ?
-                      AND table_name = ?
-                      AND (? IS NULL OR row_key > ?)
+                    WHERE generation_id = ? AND table_name = ?
                     ORDER BY row_key
                     LIMIT ?
                 `,
-                args: [
-                    generationId,
-                    tableName,
-                    lastRowKey,
-                    lastRowKey,
-                    REMOTE_PAGE_SIZE
-                ]
-            },
+                args: [generationId, tableName, REMOTE_PAGE_SIZE]
+            }
+            : {
+                sql: `
+                    SELECT row_key, rowid_value, row_json
+                    FROM portfolio_mirror_rows
+                    WHERE generation_id = ? AND table_name = ?
+                      AND row_key > ?
+                    ORDER BY row_key
+                    LIMIT ?
+                `,
+                args: [generationId, tableName, lastRowKey, REMOTE_PAGE_SIZE]
+            };
+
+        const result = await executeReadWithRetry(
+            statement,
             `Lecture Turso ${tableName}, page ${pageNumber + 1}`
         );
 
