@@ -49,6 +49,60 @@ let radarFilters = {
 let currentCollectionSort = "nomCarte";
 let currentCollectionDirection = "asc";
 const expandedCollectionCards = new Set();
+const expandedCollectionEditions = new Set();
+
+// Ordre de collection personnalisé : les autres éditions suivent leur date de sortie.
+const COLLECTION_EDITION_ORDER = [
+    'Alpha', 'Beta', 'Unlimited', 'Arabian Nights', 'Antiquities',
+    'Revised', 'Foreign Black Bordered', 'Legends', 'The Dark',
+    'Fallen Empires', 'Foreign White Bordered', 'Fourth Edition',
+    'Ice Age', 'Chronicles', 'Homelands', 'Alliances', 'Mirage',
+    'Visions', 'Fifth Edition', 'Weatherlight', 'Tempest',
+    'Stronghold', 'Exodus', "Urza's Saga", "Urza's Legacy",
+    'Sixth Edition', "Urza's Destiny", 'Mercadian Masques',
+    'Nemesis', 'Prophecy', 'Invasion', 'Planeshift',
+    'Seventh Edition', 'Apocalypse', 'Odyssey', 'Torment',
+    'Judgment', 'Onslaught', 'Legions', 'Scourge',
+    'Eighth Edition', 'Mirrodin'
+];
+
+function collectionEditionRank(name) {
+    const normalized = String(name || '').trim().toLocaleLowerCase('en');
+    const aliases = {
+        'limited edition alpha': 'alpha',
+        'limited edition beta': 'beta',
+        'unlimited edition': 'unlimited',
+        'third edition': 'revised',
+        '3rd edition': 'revised',
+        '4th edition': 'fourth edition',
+        '5th edition': 'fifth edition',
+        '6th edition': 'sixth edition',
+        '7th edition': 'seventh edition',
+        '8th edition': 'eighth edition',
+        'fbb': 'foreign black bordered',
+        'fwb': 'foreign white bordered'
+    };
+    const canonical = aliases[normalized] || normalized;
+    const index = COLLECTION_EDITION_ORDER.findIndex(
+        item => item.toLocaleLowerCase('en') === canonical
+    );
+    return index < 0 ? Number.MAX_SAFE_INTEGER : index;
+}
+
+function compareCollectionEditions(a, b) {
+    return collectionEditionRank(a) - collectionEditionRank(b) ||
+        String(a).localeCompare(String(b), 'fr', { sensitivity: 'base' });
+}
+
+function toggleCollectionEdition(key) {
+    if (expandedCollectionEditions.has(key)) {
+        expandedCollectionEditions.delete(key);
+    } else {
+        expandedCollectionEditions.add(key);
+    }
+    filterCards();
+}
+
 let investmentChart = null;
 let investmentChartPeriod = "3m";
 let portfolioChart = null;
@@ -5759,11 +5813,41 @@ const maxUnitPrice =
 
 `;
 
-                    group.variants
-                        .forEach(variant => {
+                    const byEdition = new Map();
+                    for (const variant of group.variants) {
+                        const edition = String(variant.edition || 'Édition inconnue').trim();
+                        if (!byEdition.has(edition)) byEdition.set(edition, []);
+                        byEdition.get(edition).push(variant);
+                    }
 
-                            const card =
-                                variant.cards[0];
+                    const sortedEditions = [...byEdition.keys()].sort(compareCollectionEditions);
+                    for (const edition of sortedEditions) {
+                        const editionVariants = byEdition.get(edition);
+                        const editionQuantity = editionVariants.reduce((sum, v) => sum + v.quantity, 0);
+                        const editionValue = editionVariants.reduce((sum, v) => sum + v.totalValue, 0);
+                        const editionKey = JSON.stringify([group.key, edition]);
+                        const editionOpen = expandedCollectionEditions.has(editionKey);
+                        const safeEditionKey = escapeHtml(JSON.stringify(editionKey));
+
+                        html += `
+                            <tr class="collection-edition-group-row">
+                                <td></td><td></td>
+                                <td colspan="5">
+                                    <button type="button"
+                                        class="collection-edition-toggle"
+                                        aria-expanded="${editionOpen}"
+                                        onclick="toggleCollectionEdition(${safeEditionKey})">
+                                        <span class="collection-edition-chevron">${editionOpen ? '▼' : '▶'}</span>
+                                        <strong>${escapeHtml(edition)}</strong>
+                                        <span class="collection-edition-summary">×${editionQuantity} · ${formatEuro(editionValue)}</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+
+                        if (!editionOpen) continue;
+                        for (const variant of editionVariants) {
+const card = variant.cards[0];
 
 
                             const estimatedPrice =
@@ -5938,8 +6022,8 @@ const maxUnitPrice =
                                 </tr>
 
                             `;
-
-                        });
+                        }
+                    }
 
                 }
 
