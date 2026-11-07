@@ -54,7 +54,7 @@ const expandedCollectionEditions = new Set();
 // Ordre de collection personnalisé : les autres éditions suivent leur date de sortie.
 const COLLECTION_EDITION_ORDER = [
     'Alpha', 'Beta', 'Unlimited', 'Arabian Nights', 'Antiquities',
-    'Revised', 'Foreign Black Bordered', 'Legends', 'The Dark',
+    'Revised', 'Foreign Black Bordered', 'Legends', 'Legends Italian', 'The Dark', 'The Dark Italian',
     'Fallen Empires', 'Foreign White Bordered', 'Fourth Edition',
     'Ice Age', 'Chronicles', 'Homelands', 'Alliances', 'Mirage',
     'Visions', 'Fifth Edition', 'Weatherlight', 'Tempest',
