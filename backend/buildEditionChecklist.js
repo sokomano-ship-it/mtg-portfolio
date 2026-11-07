@@ -16,7 +16,7 @@ const editionAliases = {
   'Alliances': 'all', 'Mirage': 'mir', 'Visions': 'vis', 'Weatherlight': 'wth',
 'Foreign Black Bordered': 'fbb', 'Foreign White Bordered': '3ed',
 'Sixth Edition': '6ed',
-'Legends Italian': 'leg'
+'Legends Italian': 'leg', 'The Dark Italian': 'drk'
 };
 async function getJson(url) {
   for (let attempt = 0; attempt < 3; attempt++) {
@@ -64,8 +64,8 @@ if (!Array.isArray(cards)) {
     /^\d+[a-d]?$/i.test(String(number ?? '').trim());
   const priceOf = (print, edition) => {
     // FWB uses Revised as a catalogue proxy, not the actual FWB printing.
-    // Italian Legends also uses English Legends as a proxy. Never mislabel those prices.
-    if (edition === 'Foreign White Bordered' || edition === 'Legends Italian') return null;
+    // Italian Legends and Italian The Dark use English catalogues as proxies. Never mislabel those prices.
+    if (edition === 'Foreign White Bordered' || edition === 'Legends Italian' || edition === 'The Dark Italian') return null;
     const value = Number(print?.prices?.eur);
     return Number.isFinite(value) && value > 0 ? value : null;
   };

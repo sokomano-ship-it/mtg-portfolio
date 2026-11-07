@@ -7,6 +7,7 @@ const EDITION_TO_SCRYFALL_SET = {
     "Legends": "leg",
     "Legends Italian": "leg",
     "The Dark": "drk",
+    "The Dark Italian": "drk",
 
     "Fallen Empire": "fem",
     "Fallen Empires": "fem",
@@ -119,6 +120,16 @@ function isLegendsItalian(card) {
     return (
         edition === "legends italian" ||
         (edition === "legends" && langue === "italian")
+    );
+}
+
+function isTheDarkItalian(card) {
+    const edition = normalize(card.edition).toLowerCase();
+    const langue = normalize(card.langue).toLowerCase();
+
+    return (
+        edition === "the dark italian" ||
+        (edition === "the dark" && langue === "italian")
     );
 }
 
@@ -393,6 +404,23 @@ async function getCardmarketIdForPricing(card, displayedScryfallCard) {
 
         if (englishLegendsCard?.cardmarket_id) {
             return englishLegendsCard.cardmarket_id;
+        }
+    }
+
+    /*
+        The Dark Italian :
+        image = The Dark italien (si disponible dans Scryfall)
+        prix de référence = The Dark anglais
+        ajustement = à configurer dans conditionPricing.js
+    */
+    if (isTheDarkItalian(card)) {
+        const englishDarkCard = await searchScryfall(card, {
+            forceSetCode: "drk",
+            forceLangCode: "en"
+        });
+
+        if (englishDarkCard?.cardmarket_id) {
+            return englishDarkCard.cardmarket_id;
         }
     }
 
