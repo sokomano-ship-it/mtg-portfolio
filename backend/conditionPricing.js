@@ -31,6 +31,15 @@ function getEditionLanguageFactor(edition, langue, nmPrice) {
         return 0.20;
     }
 
+    // The Dark Italian: same pricing convention as Legends Italian.
+    // Apply only to Italian-language cards, never to English The Dark.
+    if (
+        (ed === "the dark italian" || ed === "the dark") &&
+        (lang === "italian" || lang === "italien")
+    ) {
+        return 0.20;
+    }
+
     if (
         ed === "foreign white bordered" ||
         ed === "foreign white border" ||
