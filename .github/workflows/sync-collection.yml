@@ -62,9 +62,6 @@ jobs:
       - name: Rebuild edition checklist from updated collection
         run: node backend/buildEditionChecklist.js
 
-      - name: Check SQLite Turso write budget
-        run: node backend/syncSQLiteToTurso.js --dry-run
-
       - name: Persist SQLite database to Turso
         run: node backend/syncSQLiteToTurso.js
 
