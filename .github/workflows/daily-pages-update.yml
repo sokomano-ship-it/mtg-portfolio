@@ -136,6 +136,20 @@ jobs:
       - name: Rebuild radar external enrichment
         run: node backend/updateExternalMarketRadar.js --rebuild-only
 
+      # Keep historical backups in Git, but do not publish them on Pages.
+      - name: Exclude backup JSON files from Pages artifact
+        shell: bash
+        run: |
+          echo "Pages payload before cleanup:"
+          du -sh frontend
+          find frontend/data -type f \( \
+            -name '*.before-turso.json' -o \
+            -name '*.before-rebuild.json' -o \
+            -name '*.backup.json' \
+          \) -print -delete
+          echo "Pages payload after cleanup:"
+          du -sh frontend
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
