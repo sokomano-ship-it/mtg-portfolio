@@ -117,7 +117,7 @@
     const titleRow = document.createElement('div');
     titleRow.className = 'checklist-edition-title-row';
     // The catalogue already supplies the canonical Scryfall set code.
-    const setCode = String(edition.code || '').toLowerCase();
+    const setCode = edition.name === 'Foreign Black Bordered' ? '3ed' : String(edition.code || '').toLowerCase();
     if (/^[a-z0-9]{2,8}$/.test(setCode)) {
       const symbol = document.createElement('img');
       symbol.className = 'checklist-edition-symbol';
@@ -141,6 +141,20 @@
     completionDetails.append(text('span', `${regularStats.collected} cartes différentes sur ${regularStats.total} · ${regularStats.copies} exemplaires au total`));
     completion.append(completionDetails);
     overview.append(completion);
+    const completionRate = regularStats.total ? 100 * regularStats.collected / regularStats.total : 0;
+    const progressTrack = document.createElement('div');
+    progressTrack.className = 'checklist-progress-track';
+    progressTrack.setAttribute('role', 'progressbar');
+    progressTrack.setAttribute('aria-label', 'Progression des cartes normales de l’édition');
+    progressTrack.setAttribute('aria-valuemin', '0');
+    progressTrack.setAttribute('aria-valuemax', '100');
+    progressTrack.setAttribute('aria-valuenow', completionRate.toFixed(1));
+    const progressFill = document.createElement('div');
+    progressFill.className = 'checklist-progress-fill';
+    progressFill.style.width = `${Math.min(100, Math.max(0, completionRate))}%`;
+    progressTrack.append(progressFill);
+    overview.append(progressTrack);
+    overview.append(Object.assign(text('p', `${regularStats.collected} / ${regularStats.total} cartes différentes · ${regularStats.copies} exemplaires physiques`), { className: 'checklist-progress-caption' }));
     overview.append(Object.assign(text('p', `${rows.length} lignes affichées`), { className: 'checklist-edition-detail' }));
     summary.replaceChildren(overview);
     if (specialStats.total > 0) {
@@ -190,11 +204,6 @@
     summary.append(breakdown);
     breakdown.title = 'Pourcentages sur les cartes normales possédées ; chaque carte est comptée une seule fois dans son meilleur état.';
 
-    const progress = document.createElement('progress');
-    progress.className = 'checklist-progress';
-    progress.max = regularStats.total || 1;
-    progress.value = regularStats.collected;
-    summary.append(progress);
 
     const warnings = $('checklist-warnings');
     warnings.replaceChildren();
