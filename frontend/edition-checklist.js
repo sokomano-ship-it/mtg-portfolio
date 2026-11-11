@@ -114,11 +114,33 @@
     overview.className = 'checklist-edition-overview';
     const editionTitle = text('h3', edition.name);
     editionTitle.className = 'checklist-edition-title';
-    overview.append(editionTitle);
-    const mainSummary = text('p', `Collection normale : ${regularStats.copies} exemplaires possédés · ` +
-      `${regularStats.collected} / ${regularStats.total} cartes (${pct(regularStats)})`);
-    mainSummary.className = 'checklist-edition-detail';
-    overview.append(mainSummary);
+    const titleRow = document.createElement('div');
+    titleRow.className = 'checklist-edition-title-row';
+    // The catalogue already supplies the canonical Scryfall set code.
+    const setCode = String(edition.code || '').toLowerCase();
+    if (/^[a-z0-9]{2,8}$/.test(setCode)) {
+      const symbol = document.createElement('img');
+      symbol.className = 'checklist-edition-symbol';
+      symbol.src = `https://svgs.scryfall.io/sets/${setCode}.svg`;
+      symbol.alt = `Symbole officiel de l'édition ${edition.name}`;
+      symbol.title = `${edition.name} (${setCode.toUpperCase()})`;
+      symbol.loading = 'lazy';
+      symbol.onerror = () => { symbol.hidden = true; };
+      titleRow.append(symbol);
+    }
+    titleRow.append(editionTitle);
+    overview.append(titleRow);
+    const completion = document.createElement('div');
+    completion.className = 'checklist-completion';
+    const completionNumber = text('strong', `${pct(regularStats)}`);
+    completionNumber.className = 'checklist-completion-number';
+    completion.append(completionNumber);
+    const completionDetails = document.createElement('div');
+    completionDetails.className = 'checklist-completion-details';
+    completionDetails.append(text('strong', `de l’édition complétée`));
+    completionDetails.append(text('span', `${regularStats.collected} cartes différentes sur ${regularStats.total} · ${regularStats.copies} exemplaires au total`));
+    completion.append(completionDetails);
+    overview.append(completion);
     overview.append(Object.assign(text('p', `${rows.length} lignes affichées`), { className: 'checklist-edition-detail' }));
     summary.replaceChildren(overview);
     if (specialStats.total > 0) {
@@ -159,7 +181,7 @@
       gradeItems.append(chip);
     }
     breakdown.append(gradeItems);
-    const gradeCaption = text('p', 'Pourcentages des cartes normales possédées : chaque carte est comptée une seule fois selon son meilleur état.');
+    const gradeCaption = text('p', 'Sur les cartes différentes possédées, chaque carte compte une seule fois, dans son meilleur état.');
     gradeCaption.className = 'checklist-grade-caption';
     breakdown.append(gradeCaption);
     if (unknownGrade) {
@@ -229,7 +251,17 @@
         bestCell.append(mark);
       } else bestCell.textContent = '–';
       tr.append(bestCell);
-      for (const grade of grades) tr.append(text('td', count(card, grade) || '–'));
+      for (const grade of grades) {
+        const gradeCell = document.createElement('td');
+        const amount = count(card, grade);
+        if (amount) {
+          const mark = text('span', amount);
+          mark.className = 'checklist-condition-count';
+          mark.dataset.grade = grade;
+          gradeCell.append(mark);
+        } else gradeCell.textContent = '–';
+        tr.append(gradeCell);
+      }
       const price = priceOf(card);
       const priceCell = text('td', price === null ? '–' : euro.format(price));
       priceCell.className = 'checklist-price';
