@@ -1,3 +1,32 @@
+
+// Symboles d'édition légers (SVG Scryfall, chargés uniquement lorsqu'affichés).
+// FBB et FWB reprennent volontairement le symbole Revised.
+const MTG_EDITION_CODES = Object.freeze({
+  'alpha':'lea','limited edition alpha':'lea','beta':'leb','limited edition beta':'leb',
+  'unlimited':'2ed','unlimited edition':'2ed','revised':'3ed','third edition':'3ed',
+  'foreign black bordered':'3ed','fbb':'3ed','foreign white bordered':'3ed','fwb':'3ed',
+  'fourth edition':'4ed','fifth edition':'5ed','sixth edition':'6ed',
+  'seventh edition':'7ed','eighth edition':'8ed','arabian nights':'arn',
+  'antiquities':'atq','legends':'leg','legends italian':'leg',
+  'the dark':'drk','the dark italian':'drk','fallen empires':'fem',
+  'ice age':'ice','chronicles':'chr','homelands':'hml','alliances':'all',
+  'mirage':'mir','visions':'vis','weatherlight':'wth','tempest':'tmp',
+  'stronghold':'sth','exodus':'exo',"urza's saga":'usg',
+  "urza's legacy":'ulg',"urza's destiny":'uds',
+  'mercadian masques':'mmq','nemesis':'nem','prophecy':'pcy',
+  'invasion':'inv','planeshift':'pls','apocalypse':'apc',
+  'odyssey':'ody','torment':'tor','judgment':'jud',
+  'onslaught':'ons','legions':'lgn','scourge':'scg',
+  'mirrodin':'mrd','portal second age':'p02'
+});
+function mtgEditionLabel(edition) {
+  const name = String(edition || '-');
+  const code = MTG_EDITION_CODES[name.trim().toLowerCase()];
+  const safe = escapeHtml(name);
+  if (!code) return `<span class="mtg-edition-name">${safe}</span>`;
+  return `<span class="mtg-edition-label"><img class="mtg-set-symbol" src="https://svgs.scryfall.io/sets/${code}.svg" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>${safe}</span></span>`;
+}
+
 ﻿let allCards = [];
 let allMovers = [];
 let allOpportunities = [];
@@ -1689,10 +1718,7 @@ const formatPerformanceCell =
                         <td>
                             <strong>
                                 ${
-                                    escapeHtml(
-                                        row.edition ||
-                                        "Édition inconnue"
-                                    )
+                                    mtgEditionLabel(row.edition || "Édition inconnue")
                                 }
                             </strong>
                         </td>
@@ -5838,7 +5864,7 @@ const maxUnitPrice =
                                         aria-expanded="${editionOpen}"
                                         onclick="toggleCollectionEdition(${safeEditionKey})">
                                         <span class="collection-edition-chevron">${editionOpen ? '▼' : '▶'}</span>
-                                        <strong>${escapeHtml(edition)}</strong>
+                                        <strong>${mtgEditionLabel(edition)}</strong>
                                         <span class="collection-edition-summary">×${editionQuantity} · ${formatEuro(editionValue)}</span>
                                     </button>
                                 </td>
@@ -9448,7 +9474,7 @@ const displayedRows =
                     <strong>${escapeHtml(card.nomCarte || "-")}</strong>
                 </td>
 
-                <td>${escapeHtml(card.edition || "-")}</td>
+                <td>${mtgEditionLabel(card.edition)}</td>
                 <td>${escapeHtml(card.langue || "-")}</td>
                 <td>${escapeHtml(card.etat || "-")}</td>
                 <td>${Number(card.quantity || 1)}</td>
@@ -10534,7 +10560,7 @@ function renderTopMovers() {
         tbody.innerHTML += `
             <tr>
                 <td><strong>${escapeHtml(card.nomCarte)}</strong></td>
-                <td>${escapeHtml(card.edition)}</td>
+                <td>${mtgEditionLabel(card.edition)}</td>
                 <td>${escapeHtml(card.etat || "-")}</td>
                 <td>${quantity}</td>
                 <td class="price">${formatEuro(card.currentPrice)}</td>
@@ -14347,7 +14373,7 @@ const opportunityScore =
             </div>
         </td>
 
-        <td>${escapeHtml(card.edition || "-")}</td>
+        <td>${mtgEditionLabel(card.edition)}</td>
         <td>${escapeHtml(card.langue || "-")}</td>
 
         <td>

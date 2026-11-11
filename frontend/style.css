@@ -5258,3 +5258,26 @@ main {
 .collection-edition-chevron { color: #7fb7ff; font-size: 11px; width: 13px; }
 .collection-edition-summary { margin-left: auto; color: #c8d0df; white-space: nowrap; font-size: 12px; }
 .collection-edition-group-row + .collection-variant-row { background: #131b29; }
+
+/* MTG Portfolio — Design refinement v1: no change to calculations or data */
+:root { --mtg-border:rgba(149,179,224,.14); --mtg-accent:#80baff; }
+main { max-width: 1780px; }
+.card, .portfolio-summary-card { border-color:var(--mtg-border); }
+.card { box-shadow:0 12px 34px rgba(0,0,0,.16); }
+.card h2 { letter-spacing:-.015em; }
+.tabs { gap:8px; }
+.tab-button { transition:background .16s ease,border-color .16s ease,transform .16s ease; }
+.tab-button:hover { border-color:rgba(127,183,255,.4); }
+.tab-button:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible { outline:2px solid #80baff; outline-offset:2px; }
+.table-wrapper { scrollbar-color:#354766 #141925; }
+thead th { color:#cbd7eb; font-weight:700; }
+tbody tr { transition:background-color .12s ease; }
+tbody tr:hover { background:rgba(111,165,238,.055); }
+.price { font-variant-numeric:tabular-nums; }
+.mtg-edition-label { display:inline-flex;align-items:center;gap:7px;white-space:nowrap;vertical-align:middle; }
+.mtg-set-symbol { width:17px;height:17px;object-fit:contain;flex:none;opacity:.9;filter:invert(1) brightness(1.25); }
+.collection-edition-toggle .mtg-set-symbol { width:18px;height:18px; }
+#edition-summary-body td:first-child { min-width:175px; }
+#tab-investment-analysis .mtg-edition-label,#tab-opportunities .mtg-edition-label { font-size:inherit; }
+@media (max-width:700px) { main {width:calc(100% - 24px);padding:16px 0;} .card {padding:15px;} .mtg-set-symbol{width:15px;height:15px;} }
+@media (prefers-reduced-motion:reduce) { .tab-button,tbody tr {transition:none;} }
