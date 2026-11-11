@@ -121,6 +121,35 @@
       summary.append(text('p', `Tokens (hors progression normale) : ` +
         `${tokenStats.copies} exemplaires possédés · ${tokenStats.collected} / ${tokenStats.total} tokens (${pct(tokenStats)})`));
     }
+    // Répartition exclusive : chaque impression possédée est classée selon son meilleur état.
+    // Le calcul porte sur les cartes normales de l'édition, sans compter les exemplaires multiples.
+    const ownedNormal = normal.filter(card => Number(card.owned || 0) > 0);
+    const gradeTotals = Object.fromEntries(grades.map(grade => [grade, 0]));
+    let unknownGrade = 0;
+    for (const card of ownedNormal) {
+      const grade = bestGrade(card);
+      if (grade) gradeTotals[grade] += 1;
+      else unknownGrade += 1;
+    }
+    const breakdown = document.createElement('div');
+    breakdown.className = 'checklist-grade-breakdown';
+    breakdown.append(text('strong', 'Meilleur état par carte :'));
+    for (const grade of grades) {
+      const chip = document.createElement('span');
+      chip.className = 'checklist-grade-chip';
+      const percentage = ownedNormal.length ? (100 * gradeTotals[grade] / ownedNormal.length) : 0;
+      chip.append(text('span', `${grade} :`));
+      chip.append(text('b', `${percentage.toFixed(1).replace('.', ',')} %`));
+      chip.title = `${gradeTotals[grade]} carte(s) sur ${ownedNormal.length} cartes normales possédées`;
+      breakdown.append(chip);
+    }
+    if (unknownGrade) {
+      const chip = text('span', `État non renseigné : ${(100 * unknownGrade / ownedNormal.length).toFixed(1).replace('.', ',')} %`);
+      chip.className = 'checklist-grade-chip';
+      breakdown.append(chip);
+    }
+    summary.append(breakdown);
+    summary.append(text('p', 'Pourcentages sur les cartes normales possédées ; chaque carte est comptée une seule fois dans son meilleur état.'));
     summary.append(text('p', `${rows.length} lignes affichées au total`));
     const progress = document.createElement('progress');
     progress.className = 'checklist-progress';
@@ -166,8 +195,8 @@
       tr.append(imageCell);
       tr.append(text('td', card.name + (card.variant ? ` — ${card.variant}` : '')));
       tr.append(text('td', card.collectorNumber));
-      tr.append(text('td', card.owned));
       for (const grade of grades) tr.append(text('td', count(card, grade) || '–'));
+      tr.append(text('td', card.owned));
       const rlCell = text('td', card.reserved === true ? 'RL' : card.reserved === false ? '–' : '?');
       if (card.reserved === true) { rlCell.className = 'checklist-rl'; rlCell.title = 'Reserved List'; }
       else if (card.reserved == null) rlCell.title = 'Statut non disponible : régénérer le catalogue';
