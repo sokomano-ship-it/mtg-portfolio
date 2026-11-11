@@ -33,6 +33,58 @@
 .edition-checklist-page .checklist-grade-note{font-size:12px;color:#aeb4c2;margin:3px 0 12px}
 .edition-checklist-page .checklist-rl{font-weight:700;color:#f0c674}
 @media(max-width:700px){.edition-checklist-page .checklist-filter-row th{top:36px}}
+
+/* Design premium — styles limités à la page checklist */
+.edition-checklist-page{background:#0d1220;color:#edf2fc}
+.edition-checklist-page .checklist-wrap{max-width:1540px;width:calc(100% - 64px)}
+.edition-checklist-page .checklist-wrap h2{font-size:30px;letter-spacing:-.6px;margin:6px 0 4px}
+.edition-checklist-page #checklist-status{color:#aab9d2;font-size:12px;margin:0 0 20px}
+.edition-checklist-page .checklist-controls{background:linear-gradient(130deg,#182235,#131b2c);border:1px solid #344660;border-radius:14px;padding:18px 22px;gap:16px;margin:18px 0}
+.edition-checklist-page .checklist-controls label{font-size:12px;gap:7px}
+.edition-checklist-page .checklist-controls input,.edition-checklist-page .checklist-controls select{background:#202d43;border:1px solid #526783;border-radius:8px;min-height:38px}
+.edition-checklist-page .checklist-reset{background:#263752;border:1px solid #57769b;border-radius:8px;min-height:38px}
+.edition-checklist-page #checklist-summary{display:grid;grid-template-columns:minmax(260px,1fr) minmax(440px,1.65fr);gap:4px 28px;align-items:center;background:linear-gradient(110deg,#1a2539,#151e30);border:1px solid #354963;border-radius:14px;padding:20px 24px;margin:16px 0 20px}
+.edition-checklist-page .checklist-edition-overview{grid-column:1;grid-row:1 / span 2;min-width:0}
+.edition-checklist-page .checklist-edition-title{font-size:24px;font-weight:800;margin:0 0 8px;color:#fff}
+.edition-checklist-page .checklist-edition-detail{font-size:14px;line-height:1.6;color:#d6e0f1;margin:0}
+.edition-checklist-page .checklist-grade-breakdown{grid-column:2;grid-row:1 / span 2;display:block;margin:0;padding:0;border:0;background:none}
+.edition-checklist-page .checklist-grade-heading{font-size:20px;font-weight:800;color:#f4f7ff;margin:0 0 12px}
+.edition-checklist-page .checklist-grade-items{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.edition-checklist-page .checklist-grade-chip{display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;background:#283449;border:1px solid #364860;border-radius:12px;padding:11px 7px;font-size:12px;color:#e4edff}
+.edition-checklist-page .checklist-grade-chip b{font-size:17px;color:#fff;font-variant-numeric:tabular-nums}
+.edition-checklist-page .checklist-grade-chip[data-grade="NM"]{background:#194b3c;border-color:#246c52}
+.edition-checklist-page .checklist-grade-chip[data-grade="EX"]{background:#244568;border-color:#35638e}
+.edition-checklist-page .checklist-grade-chip[data-grade="LP"]{background:#59431e;border-color:#8b6524}
+.edition-checklist-page .checklist-grade-caption{font-size:12px;color:#aebed5;margin:10px 0 0}
+.edition-checklist-page .checklist-summary-extra{grid-column:1 / -1;color:#aebed5;font-size:12px;margin:0}
+.edition-checklist-page .checklist-progress{grid-column:1 / -1;width:100%;height:5px;margin-top:8px;accent-color:#70a9ff}
+.edition-checklist-page .checklist-scroll{overflow-x:auto;border:1px solid #33445e;border-radius:14px;background:#141c2b}
+.edition-checklist-page .checklist-table{min-width:1150px;width:100%;table-layout:auto;border-collapse:collapse}
+.edition-checklist-page .checklist-table th,.edition-checklist-page .checklist-table td{border-left:0!important;border-right:0!important;box-shadow:none!important;border-bottom:1px solid rgba(165,187,219,.10);padding:10px 9px;vertical-align:middle}
+.edition-checklist-page .checklist-table thead th{background:#1d2a40;color:#e4ebf7;font-size:12px}
+.edition-checklist-page .checklist-filter-row th{background:#172235!important;padding:7px 5px!important}
+.edition-checklist-page .checklist-filter-row input,.edition-checklist-page .checklist-filter-row select{min-width:0;width:100%;max-width:none;background:#111c2e;border:1px solid #435b79;border-radius:6px;padding:6px 5px;font-size:11px}
+.edition-checklist-page .checklist-price-range{min-width:110px}
+.edition-checklist-page .checklist-price-range input{width:55px}
+.edition-checklist-page .checklist-table th:nth-child(1),.edition-checklist-page .checklist-table td:nth-child(1){width:74px}
+.edition-checklist-page .checklist-table th:nth-child(2),.edition-checklist-page .checklist-table td:nth-child(2){min-width:170px}
+.edition-checklist-page .checklist-table th:nth-child(3),.edition-checklist-page .checklist-table td:nth-child(3){width:62px;min-width:62px;max-width:62px;text-align:center}
+.edition-checklist-page .checklist-table th:nth-child(4),.edition-checklist-page .checklist-table td:nth-child(4){width:75px;text-align:center}
+.edition-checklist-page .checklist-table th:nth-child(5),.edition-checklist-page .checklist-table td:nth-child(5){width:64px;text-align:center}
+.edition-checklist-page .checklist-table th:nth-child(6),.edition-checklist-page .checklist-table td:nth-child(6){width:118px;text-align:center}
+.edition-checklist-page .checklist-table th:nth-child(n+7):nth-child(-n+12),.edition-checklist-page .checklist-table td:nth-child(n+7):nth-child(-n+12){width:57px;text-align:center}
+.edition-checklist-page .checklist-table tbody tr:nth-child(even):not(.checklist-group-heading){background:rgba(79,104,146,.07)}
+.edition-checklist-page .checklist-table tbody tr:hover:not(.checklist-group-heading){background:#23334d}
+.edition-checklist-page .checklist-group-heading td{background:#273b57!important;border:0;font-size:13px;font-weight:750}
+.edition-checklist-page .checklist-table .checklist-rl{display:table-cell;color:#f4c76b;font-weight:800}
+.edition-checklist-page .checklist-rl-mark{display:inline-block;background:#4a381a;border:1px solid #9b7428;color:#f8d181;border-radius:7px;padding:3px 8px;font-size:11px;font-weight:800}
+.edition-checklist-page .checklist-best-mark{display:inline-block;min-width:38px;border-radius:8px;padding:4px 7px;font-size:12px;font-weight:800;background:#27364b;color:#d9e6f8;border:1px solid #425c7a}
+.edition-checklist-page .checklist-best-mark[data-grade="NM"]{background:#164433;color:#91f4b3;border-color:#329865}
+.edition-checklist-page .checklist-best-mark[data-grade="EX"]{background:#1d4261;color:#9dd4ff;border-color:#498bc0}
+.edition-checklist-page .checklist-best-mark[data-grade="LP"]{background:#4b3c1f;color:#ffe19a;border-color:#96712e}
+.edition-checklist-page .checklist-table td:last-child{text-align:right;white-space:nowrap;font-weight:700}
+@media(max-width:900px){.edition-checklist-page #checklist-summary{grid-template-columns:1fr}.edition-checklist-page .checklist-edition-overview,.edition-checklist-page .checklist-grade-breakdown{grid-column:1;grid-row:auto}.edition-checklist-page .checklist-grade-items{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.edition-checklist-page .checklist-wrap{width:calc(100% - 24px)}.edition-checklist-page .checklist-grade-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head><body class="edition-checklist-page">
 <header><h1>MTG Portfolio</h1><p>Collection par édition</p></header>
@@ -50,4 +102,4 @@
 <div class="checklist-controls"><label>Édition <select id="checklist-edition"></select></label><label>Afficher <select id="checklist-mode"><option value="all">Toutes les cartes</option><option value="owned">Possédées</option><option value="missing">Manquantes</option></select></label><label>Type <select id="checklist-category"><option value="all">Normales + spéciales</option><option value="normal">Cartes normales</option><option value="special">Spéciales / variantes</option><option value="token">Tokens</option></select></label><label>Recherche <input id="checklist-search" placeholder="Nom ou variante"/></label><button class="checklist-reset" id="checklist-reset" type="button">Réinitialiser les filtres</button></div>
 <div id="checklist-summary"></div><div id="checklist-warnings"></div>
 <div class="checklist-scroll"><table class="checklist-table"><thead><tr><th>Illustration</th><th><button aria-sort="none" class="checklist-sort" data-sort="name" type="button">Carte / variante</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="number" type="button">N°</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="reserved" type="button">Reserved List</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="owned" type="button">Qté</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="best" type="button">Meilleur état</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="NM" type="button">NM</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="EX" type="button">EX</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="GD" type="button">GD</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="LP" type="button">LP</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="PL" type="button">PL</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="PO" type="button">PO</button></th><th><button aria-sort="none" class="checklist-sort" data-sort="price" title="Prix indicatif Scryfall en euros, non ajusté à l’état" type="button">Prix indicatif (€)</button></th></tr><tr class="checklist-filter-row"><th></th><th><input aria-label="Filtrer par nom" id="checklist-filter-name" placeholder="Nom / variante"/></th><th><input aria-label="Filtrer par numéro" id="checklist-filter-number" placeholder="N°"/></th><th><select aria-label="Filtrer Reserved List" id="checklist-filter-reserved"><option value="all">Toutes</option><option value="yes">RL</option><option value="no">Hors RL</option><option value="unknown">À vérifier</option></select></th><th><select aria-label="Filtrer par quantité" id="checklist-filter-owned"><option value="all">Toutes</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4+">4+</option></select></th><th><select aria-label="Filtrer par état minimum" id="checklist-filter-best"><option value="all">Tous</option><option value="NM">NM ou mieux</option><option value="EX">EX ou mieux</option><option value="GD">GD ou mieux</option><option value="LP">LP ou mieux</option><option value="PL">PL ou mieux</option><option value="PO">PO ou mieux</option><option value="none">Aucun état</option></select></th><th><select aria-label="Filtrer état NM" id="checklist-filter-NM"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select aria-label="Filtrer état EX" id="checklist-filter-EX"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select aria-label="Filtrer état GD" id="checklist-filter-GD"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select aria-label="Filtrer état LP" id="checklist-filter-LP"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select aria-label="Filtrer état PL" id="checklist-filter-PL"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><select aria-label="Filtrer état PO" id="checklist-filter-PO"><option value="all">Tous</option><option value="yes">≥ 1</option><option value="no">0</option></select></th><th><div class="checklist-price-range"><input aria-label="Prix minimum en euros" id="checklist-price-min" min="0" placeholder="Min €" step="0.01" type="number"/><input aria-label="Prix maximum en euros" id="checklist-price-max" min="0" placeholder="Max €" step="0.01" type="number"/></div></th></tr></thead><tbody id="checklist-body"></tbody></table></div>
-</main><script defer="" src="edition-checklist.js?v=best-grade-breakdown-1"></script></body></html>
+</main><script defer="" src="edition-checklist.js?v=premium-layout-1"></script></body></html>

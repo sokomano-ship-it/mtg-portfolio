@@ -110,16 +110,26 @@
     const tokenStats = stats(tokens);
     const summary = $('checklist-summary');
     const pct = value => `${value.total ? (100 * value.collected / value.total).toFixed(1).replace('.', ',') : '0'} %`;
-    const mainSummary = text('p', `${edition.name} — Collection normale : ${regularStats.copies} exemplaires possédés · ` +
-      `${regularStats.collected} / ${regularStats.total} cartes normales (${pct(regularStats)} de la collection normale)`);
-    summary.replaceChildren(mainSummary);
+    const overview = document.createElement('div');
+    overview.className = 'checklist-edition-overview';
+    const editionTitle = text('h3', edition.name);
+    editionTitle.className = 'checklist-edition-title';
+    overview.append(editionTitle);
+    const mainSummary = text('p', `Collection normale : ${regularStats.copies} exemplaires possédés · ` +
+      `${regularStats.collected} / ${regularStats.total} cartes (${pct(regularStats)})`);
+    mainSummary.className = 'checklist-edition-detail';
+    overview.append(mainSummary);
+    overview.append(Object.assign(text('p', `${rows.length} lignes affichées`), { className: 'checklist-edition-detail' }));
+    summary.replaceChildren(overview);
     if (specialStats.total > 0) {
-      summary.append(text('p', `Cartes spéciales / variantes (hors progression normale) : ` +
-        `${specialStats.copies} exemplaires possédés · ${specialStats.collected} / ${specialStats.total} impressions spéciales (${pct(specialStats)})`));
+      const extra = text('p', `Spéciales / variantes : ${specialStats.collected} / ${specialStats.total} (${pct(specialStats)})`);
+      extra.className = 'checklist-summary-extra';
+      summary.append(extra);
     }
     if (tokenStats.total > 0) {
-      summary.append(text('p', `Tokens (hors progression normale) : ` +
-        `${tokenStats.copies} exemplaires possédés · ${tokenStats.collected} / ${tokenStats.total} tokens (${pct(tokenStats)})`));
+      const extra = text('p', `Tokens : ${tokenStats.collected} / ${tokenStats.total} (${pct(tokenStats)})`);
+      extra.className = 'checklist-summary-extra';
+      summary.append(extra);
     }
     // Répartition exclusive : chaque impression possédée est classée selon son meilleur état.
     // Le calcul porte sur les cartes normales de l'édition, sans compter les exemplaires multiples.
@@ -133,24 +143,31 @@
     }
     const breakdown = document.createElement('div');
     breakdown.className = 'checklist-grade-breakdown';
-    breakdown.append(text('strong', 'Meilleur état par carte :'));
+    const gradeHeading = text('h3', 'Meilleur état par carte');
+    gradeHeading.className = 'checklist-grade-heading';
+    breakdown.append(gradeHeading);
+    const gradeItems = document.createElement('div');
+    gradeItems.className = 'checklist-grade-items';
     for (const grade of grades) {
       const chip = document.createElement('span');
       chip.className = 'checklist-grade-chip';
+      chip.dataset.grade = grade;
       const percentage = ownedNormal.length ? (100 * gradeTotals[grade] / ownedNormal.length) : 0;
-      chip.append(text('span', `${grade} : `));
+      chip.append(text('span', grade));
       chip.append(text('b', `${percentage.toFixed(1).replace('.', ',')} %`));
       chip.title = `${gradeTotals[grade]} carte(s) sur ${ownedNormal.length} cartes normales possédées`;
-      breakdown.append(chip);
+      gradeItems.append(chip);
     }
+    breakdown.append(gradeItems);
+    const gradeCaption = text('p', 'Pourcentages des cartes normales possédées : chaque carte est comptée une seule fois selon son meilleur état.');
+    gradeCaption.className = 'checklist-grade-caption';
+    breakdown.append(gradeCaption);
     if (unknownGrade) {
-      const chip = text('span', `État non renseigné : ${(100 * unknownGrade / ownedNormal.length).toFixed(1).replace('.', ',')} %`);
-      chip.className = 'checklist-grade-chip';
-      breakdown.append(chip);
+      breakdown.append(text('p', `État non renseigné : ${(100 * unknownGrade / ownedNormal.length).toFixed(1).replace('.', ',')} %`));
     }
     summary.append(breakdown);
     breakdown.title = 'Pourcentages sur les cartes normales possédées ; chaque carte est comptée une seule fois dans son meilleur état.';
-    summary.append(text('p', `${rows.length} lignes affichées au total`));
+
     const progress = document.createElement('progress');
     progress.className = 'checklist-progress';
     progress.max = regularStats.total || 1;
@@ -198,9 +215,20 @@
       const rlCell = text('td', card.reserved === true ? 'RL' : card.reserved === false ? '–' : '?');
       if (card.reserved === true) { rlCell.className = 'checklist-rl'; rlCell.title = 'Reserved List'; }
       else if (card.reserved == null) rlCell.title = 'Statut non disponible : régénérer le catalogue';
+      if (card.reserved === true) {
+        rlCell.replaceChildren(Object.assign(text('span', 'RL'), { className: 'checklist-rl-mark' }));
+      }
       tr.append(rlCell);
       tr.append(text('td', card.owned));
-      tr.append(text('td', bestGrade(card) || '–'));
+      const bestCell = document.createElement('td');
+      const best = bestGrade(card);
+      if (best) {
+        const mark = text('span', best);
+        mark.className = 'checklist-best-mark';
+        mark.dataset.grade = best;
+        bestCell.append(mark);
+      } else bestCell.textContent = '–';
+      tr.append(bestCell);
       for (const grade of grades) tr.append(text('td', count(card, grade) || '–'));
       const price = priceOf(card);
       const priceCell = text('td', price === null ? '–' : euro.format(price));
