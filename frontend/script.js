@@ -10,7 +10,7 @@ const MTG_EDITION_CODES = Object.freeze({
   'antiquities':'atq','legends':'leg','legends italian':'leg',
   'the dark':'drk','the dark italian':'drk','fallen empires':'fem',
   'ice age':'ice','chronicles':'chr','homelands':'hml','alliances':'all',
-  'mirage':'mir','visions':'vis','weatherlight':'wth','tempest':'tmp',
+  'mirage':'mir','renaissance':'ren','visions':'vis','weatherlight':'wth','tempest':'tmp',
   'stronghold':'sth','exodus':'exo',"urza's saga":'usg',
   "urza's legacy":'ulg',"urza's destiny":'uds',
   'mercadian masques':'mmq','nemesis':'nem','prophecy':'pcy',
@@ -24,7 +24,7 @@ function mtgEditionLabel(edition) {
   const code = MTG_EDITION_CODES[name.trim().toLowerCase()];
   const safe = escapeHtml(name);
   if (!code) return `<span class="mtg-edition-name">${safe}</span>`;
-  return `<span class="mtg-edition-label"><img class="mtg-set-symbol" src="https://svgs.scryfall.io/sets/${code}.svg" loading="lazy" decoding="async" alt="" aria-hidden="true"><span>${safe}</span></span>`;
+  return `<span class="mtg-edition-label"><img class="mtg-set-symbol" src="https://svgs.scryfall.io/sets/${code}.svg" loading="lazy" decoding="async" alt="" aria-hidden="true" onerror="this.style.display='none'"><span>${safe}</span></span>`;
 }
 
 ﻿let allCards = [];
@@ -92,7 +92,7 @@ const COLLECTION_EDITION_ORDER = [
     'Nemesis', 'Prophecy', 'Invasion', 'Planeshift',
     'Seventh Edition', 'Apocalypse', 'Odyssey', 'Torment',
     'Judgment', 'Onslaught', 'Legions', 'Scourge',
-    'Eighth Edition', 'Mirrodin'
+    'Eighth Edition', 'Mirrodin', 'Renaissance'
 ];
 
 function collectionEditionRank(name) {

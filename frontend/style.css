@@ -5281,3 +5281,47 @@ tbody tr:hover { background:rgba(111,165,238,.055); }
 #tab-investment-analysis .mtg-edition-label,#tab-opportunities .mtg-edition-label { font-size:inherit; }
 @media (max-width:700px) { main {width:calc(100% - 24px);padding:16px 0;} .card {padding:15px;} .mtg-set-symbol{width:15px;height:15px;} }
 @media (prefers-reduced-motion:reduce) { .tab-button,tbody tr {transition:none;} }
+
+
+/* MTG Portfolio — Design V2: visible hierarchy, no business-logic changes */
+:root { --v2-surface:#171f2d; --v2-border:#30415b; --v2-muted:#aabbd4; }
+body { background:#0d111a; }
+header { padding:23px max(28px,calc((100vw - 1780px)/2)); background:linear-gradient(110deg,#182438,#131923 62%,#10151f); }
+header h1 { font-size:30px;letter-spacing:-.035em; }
+header p {font-size:13px;color:#b0bfd4;}
+.tabs {padding-top:17px;padding-bottom:5px;}
+.tab-button {border-radius:10px;padding:10px 17px;font-size:13px;}
+.tab-button.active {box-shadow:0 4px 20px rgba(108,169,255,.17);}
+main {padding-top:24px;}
+#tab-general .portfolio-summary-cards {gap:14px;margin-bottom:24px;}
+#tab-general .portfolio-summary-card {min-height:116px;padding:20px 18px;background:linear-gradient(150deg,#1c293b,#141b29);border:1px solid #34425b;}
+#tab-general .portfolio-summary-content strong {letter-spacing:-.025em;}
+#tab-general .chart-card {border-color:#34425b;}
+#tab-general .chart-card h2 {font-size:23px;}
+#tab-investment-analysis .investment-summary-card {min-height:108px;background:linear-gradient(145deg,#1b2637,#111824);border-color:#32425b;}
+#tab-investment-analysis .investment-summary-card > strong {font-size:26px;}
+#tab-investment-analysis .investment-summary-card:first-child {border-left:3px solid #79b5ff;}
+#tab-investment-analysis .investment-summary-card:nth-child(2) {border-left:3px solid #f2cb75;}
+#tab-investment-analysis .investment-summary-card:nth-child(3) {border-left:3px solid #7de0b0;}
+#tab-investment-analysis .investment-summary-card:nth-child(4) {border-left:3px solid #ac9bff;}
+#tab-collection .card, #tab-opportunities .card, #tab-investment-analysis .card {border-color:#2b3a50;}
+#tab-collection .table-toolbar {padding:17px;background:#172235;border:1px solid #33445f;}
+#tab-collection .collection-edition-group-row {background:#19283d;}
+#tab-collection .collection-edition-toggle {min-height:38px;background:#22334b;border-color:#344c6c;}
+#tab-collection .collection-edition-toggle:hover {background:#304663;}
+#tab-collection .collection-edition-toggle strong {font-size:13px;}
+#tab-collection .collection-edition-summary {font-variant-numeric:tabular-nums;font-weight:700;color:#d3e1f5;}
+.mtg-edition-label {gap:9px;}
+.mtg-set-symbol {width:21px;height:21px;opacity:1;filter:invert(1) brightness(1.5);}
+.collection-edition-toggle .mtg-set-symbol {width:23px;height:23px;}
+#edition-summary-body .mtg-set-symbol {width:20px;height:20px;}
+#tab-investment-analysis .mtg-set-symbol,#tab-opportunities .mtg-set-symbol {width:19px;height:19px;}
+#edition-summary-body tr:hover {background:#22324a;}
+#tab-opportunities .radar-page-heading h2 {font-size:23px;}
+#tab-opportunities .radar-learning-banner {border-color:#3a5376;}
+#tab-opportunities tbody tr:hover,#tab-investment-analysis tbody tr:hover {background:rgba(94,155,240,.085);}
+#tab-collection table td,#tab-investment-analysis table td,#tab-opportunities table td {border-bottom-color:rgba(152,181,226,.095);}
+#tab-collection thead,#tab-investment-analysis thead,#tab-opportunities thead {background:#24334a;}
+#tab-collection thead th,#tab-investment-analysis thead th,#tab-opportunities thead th {color:#e0eaff;}
+@media(max-width:1050px){#tab-general .portfolio-summary-cards {grid-template-columns:repeat(2,minmax(0,1fr));}#tab-investment-analysis .investment-summary-cards{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:620px){#tab-general .portfolio-summary-cards,#tab-investment-analysis .investment-summary-cards{grid-template-columns:1fr;}header{padding:20px;} .mtg-set-symbol{width:17px;height:17px;}}
