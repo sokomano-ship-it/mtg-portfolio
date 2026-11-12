@@ -1,114 +1,110 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Observations Marché - MTG Portfolio</title>
-  <link rel="stylesheet" href="style.css?v=theme-clean-2" />
+<meta charset="utf-8"/>
+<title>Observations Marché - MTG Portfolio</title>
+<link href="style.css" rel="stylesheet"/>
 </head>
-
 <body class="observations-page">
-<header>
-  <h1>MTG Portfolio</h1>
-  <p>Contrôle des observations Cardmarket</p>
-</header>
-
-<nav class="tabs">
-  <button class="tab-button" onclick="window.location.href='index.html'">📊 Général</button>
-  <button class="tab-button" onclick="window.location.href='index.html#tab-movers'">📈 Top hausses / baisses</button>
-  <button class="tab-button" onclick="window.location.href='index.html#tab-opportunities'">🔥 Opportunités</button>
-  <button class="tab-button" onclick="window.location.href='index.html#tab-collection'">🃏 Ma collection</button>
-  <button class="tab-button" onclick="window.location.href='edition-checklist.html'">📚 Collection par édition</button>
-  <button class="tab-button active" onclick="window.location.href='market-observations.html'">📊 Observations Marché</button>
-  <button class="tab-button" onclick="window.location.href='admin.html'">⚙️ Administration</button>
-</nav>
-
-<div class="observations-wrap">
-  <h1>📊 Observations Marché</h1>
-  <p class="muted">Page de contrôle des prix minimum observés sur Cardmarket.</p>
-
-  <div class="observations-card">
-    <h2>Connexion API</h2>
-    <div class="admin-grid obs-login-grid">
-      <label>URL API Vercel
-        <input id="apiUrl" placeholder="https://mtg-portfolio-lac.vercel.app/api/market-data">
-      </label>
-      <label>Mot de passe admin
-        <input id="password" type="password">
-      </label>
-    </div>
-    <br>
-    <button onclick="saveSettings()">Sauvegarder paramètres</button>
-    <button onclick="loadData()">Charger observations</button>
-    <button onclick="deleteSelectedCardEverywhere()">Supprimer cette carte</button>
-  </div>
-
-  <div class="observations-card">
-    <h2>Sélection</h2>
-    <div class="admin-grid obs-filter-grid">
-      <label>Recherche carte / édition / langue
-  <input id="cardSearch" list="cardSuggestions" placeholder="Ex: Ali, Jihad, Crusade..." oninput="handleSearchInput()">
-  <datalist id="cardSuggestions"></datalist>
-</label>
-
-<input id="selectedCardKey" type="hidden">
-      <label>État affiché
-        <select id="conditionFilter" onchange="renderSelectedCard()">
-          <option value="all">Tous</option>
-          <option value="NM">NM</option>
-          <option value="EX">EX</option>
-          <option value="GD">GD</option>
-          <option value="LP">LP</option>
-          <option value="PL">PL</option>
-          <option value="PO">PO</option>
-        </select>
-      </label>
-    </div>
-  </div>
-
-  <div class="observations-card">
-    <h2>Résumé</h2>
-    <div class="obs-summary">
-      <div class="obs-summary-card"><span>Carte</span><strong id="summaryCard">—</strong></div>
-      <div class="obs-summary-card"><span>Observations</span><strong id="summaryCount">0</strong></div>
-      <div class="obs-summary-card"><span>Relevés distincts</span><strong id="summaryDates">0</strong></div>
-      <div class="obs-summary-card"><span>Dernière date</span><strong id="summaryLastDate">—</strong></div>
-    </div>
-    <div id="alertsBox"></div>
-  </div>
-
-  <div class="observations-card">
-    <h2>Graphique par état</h2>
-    <div id="chartBox" class="obs-chart-box">Charge les données pour afficher le graphique.</div>
-  </div>
-
-  <div class="observations-card">
-    <h2>Tableau consolidé par date</h2>
-    <p class="muted">Une ligne correspond à un relevé Cardmarket. Les boutons d’une cellule suppriment uniquement cette observation d’état.</p>
-    <div class="obs-table-wrapper">
-      <table class="obs-table obs-condition-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>PO</th>
-            <th>PL</th>
-            <th>LP</th>
-            <th>GD</th>
-            <th>EX</th>
-            <th>NM</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="obsBody"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="observations-card">
-    <h2>Log</h2>
-    <pre id="log" class="obs-log">Prêt.</pre>
-  </div>
+<header class="mtg-hero-header">
+<div class="mtg-hero-inner">
+<div aria-hidden="true" class="mtg-hero-emblem"><img alt="" decoding="async" src="https://svgs.scryfall.io/card-symbols/PW.svg"/></div>
+<div class="mtg-hero-title"><h1>MTG <span>Portfolio</span></h1><p>Suivi automatique de collection Magic avec prix Cardmarket</p></div>
 </div>
-
+</header>
+<nav class="tabs">
+<button class="tab-button" onclick="window.location.href='index.html#tab-general'">📊 Général</button>
+<button class="tab-button" onclick="window.location.href='index.html#tab-investment-analysis'">
+    📈 Analyse investissements
+</button>
+<button class="tab-button" onclick="window.location.href='index.html#tab-opportunities'">
+    📡 Radar d'achat
+</button>
+<button class="tab-button" onclick="window.location.href='index.html#tab-collection'">🃏 Ma collection</button>
+<button class="tab-button" onclick="window.location.href='edition-checklist.html'">📚 Collection par édition</button>
+<button class="tab-button active" onclick="window.location.href='market-observations.html'">📊 Observations Marché</button>
+<button class="tab-button" onclick="window.location.href='admin.html'">⚙️ Administration</button>
+</nav>
+<div class="observations-wrap">
+<h1>📊 Observations Marché</h1>
+<p class="muted">Page de contrôle des prix minimum observés sur Cardmarket.</p>
+<div class="observations-card">
+<h2>Connexion API</h2>
+<div class="admin-grid obs-login-grid">
+<label>URL API Vercel
+        <input id="apiUrl" placeholder="https://mtg-portfolio-lac.vercel.app/api/market-data"/>
+</label>
+<label>Mot de passe admin
+        <input id="password" type="password"/>
+</label>
+</div>
+<br/>
+<button onclick="saveSettings()">Sauvegarder paramètres</button>
+<button onclick="loadData()">Charger observations</button>
+<button onclick="deleteSelectedCardEverywhere()">Supprimer cette carte</button>
+</div>
+<div class="observations-card">
+<h2>Sélection</h2>
+<div class="admin-grid obs-filter-grid">
+<label>Recherche carte / édition / langue
+  <input id="cardSearch" list="cardSuggestions" oninput="handleSearchInput()" placeholder="Ex: Ali, Jihad, Crusade..."/>
+<datalist id="cardSuggestions"></datalist>
+</label>
+<input id="selectedCardKey" type="hidden"/>
+<label>État affiché
+        <select id="conditionFilter" onchange="renderSelectedCard()">
+<option value="all">Tous</option>
+<option value="NM">NM</option>
+<option value="EX">EX</option>
+<option value="GD">GD</option>
+<option value="LP">LP</option>
+<option value="PL">PL</option>
+<option value="PO">PO</option>
+</select>
+</label>
+</div>
+</div>
+<div class="observations-card">
+<h2>Résumé</h2>
+<div class="obs-summary">
+<div class="obs-summary-card"><span>Carte</span><strong id="summaryCard">—</strong></div>
+<div class="obs-summary-card"><span>Observations</span><strong id="summaryCount">0</strong></div>
+<div class="obs-summary-card"><span>Relevés distincts</span><strong id="summaryDates">0</strong></div>
+<div class="obs-summary-card"><span>Dernière date</span><strong id="summaryLastDate">—</strong></div>
+</div>
+<div id="alertsBox"></div>
+</div>
+<div class="observations-card">
+<h2>Graphique par état</h2>
+<div class="obs-chart-box" id="chartBox">Charge les données pour afficher le graphique.</div>
+</div>
+<div class="observations-card">
+<h2>Tableau consolidé par date</h2>
+<p class="muted">Une ligne correspond à un relevé Cardmarket. Les boutons d’une cellule suppriment uniquement cette observation d’état.</p>
+<div class="obs-table-wrapper">
+<table class="obs-table obs-condition-table">
+<thead>
+<tr>
+<th>Date</th>
+<th>PO</th>
+<th>PL</th>
+<th>LP</th>
+<th>GD</th>
+<th>EX</th>
+<th>NM</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="obsBody"></tbody>
+</table>
+</div>
+</div>
+<div class="observations-card">
+<h2>Log</h2>
+<pre class="obs-log" id="log">Prêt.</pre>
+</div>
+</div>
 <script>
 let observations = [];
 let trackedCards = [];

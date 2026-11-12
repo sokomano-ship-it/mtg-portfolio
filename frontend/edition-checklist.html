@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Collection par édition — MTG Portfolio</title><link href="style.css?v=checklist-integrated-1" rel="stylesheet"/>
+<title>Collection par édition — MTG Portfolio</title><link href="style.css" rel="stylesheet"/>
 <style>
 .edition-checklist-page .checklist-filter-row th{position:sticky;top:38px;z-index:2;background:#202636;padding:6px}
 .edition-checklist-page .checklist-filter-row input,.edition-checklist-page .checklist-filter-row select{width:100%;min-width:65px;max-width:200px;background:#111827;color:#f5f5f5;border:1px solid #475269;border-radius:6px;padding:7px;font-size:12px}
@@ -125,13 +125,22 @@
 @media(max-width:520px){.edition-checklist-page .checklist-completion-number{font-size:28px}.edition-checklist-page .checklist-edition-symbol{width:36px;height:36px}}
 </style>
 </head><body class="edition-checklist-page">
-<header><h1>MTG Portfolio</h1><p>Collection par édition</p></header>
-<nav aria-label="Navigation principale" class="tabs">
-<button class="tab-button" onclick="window.location.href='index.html'">📊 Général</button>
-<button class="tab-button" onclick="window.location.href='index.html#tab-investment-analysis'">📈 Analyse investissements</button>
-<button class="tab-button" onclick="window.location.href='index.html#tab-opportunities'">📡 Radar d'achat</button>
+<header class="mtg-hero-header">
+<div class="mtg-hero-inner">
+<div aria-hidden="true" class="mtg-hero-emblem"><img alt="" decoding="async" src="https://svgs.scryfall.io/card-symbols/PW.svg"/></div>
+<div class="mtg-hero-title"><h1>MTG <span>Portfolio</span></h1><p>Suivi automatique de collection Magic avec prix Cardmarket</p></div>
+</div>
+</header>
+<nav class="tabs">
+<button class="tab-button" onclick="window.location.href='index.html#tab-general'">📊 Général</button>
+<button class="tab-button" onclick="window.location.href='index.html#tab-investment-analysis'">
+    📈 Analyse investissements
+</button>
+<button class="tab-button" onclick="window.location.href='index.html#tab-opportunities'">
+    📡 Radar d'achat
+</button>
 <button class="tab-button" onclick="window.location.href='index.html#tab-collection'">🃏 Ma collection</button>
-<button aria-current="page" class="tab-button active">📚 Collection par édition</button>
+<button class="tab-button active" onclick="window.location.href='edition-checklist.html'">📚 Collection par édition</button>
 <button class="tab-button" onclick="window.location.href='market-observations.html'">📊 Observations Marché</button>
 <button class="tab-button" onclick="window.location.href='admin.html'">⚙️ Administration</button>
 </nav>
