@@ -5406,3 +5406,104 @@ body.admin-page .mtg-hero-header .mtg-hero-emblem img,body.observations-page .mt
 body.admin-page nav.tabs,body.observations-page nav.tabs,body.edition-checklist-page nav.tabs {display:flex;flex-wrap:wrap;align-items:center;padding:11px 24px 12px;gap:8px;border-bottom:1px solid #26364c;}
 body.admin-page nav.tabs .tab-button,body.observations-page nav.tabs .tab-button,body.edition-checklist-page nav.tabs .tab-button {white-space:nowrap;}
 @media(max-width:650px){body.admin-page .mtg-hero-header .mtg-hero-inner,body.observations-page .mtg-hero-header .mtg-hero-inner,body.edition-checklist-page .mtg-hero-header .mtg-hero-inner{width:calc(100% - 24px);min-height:80px;}body.admin-page header.mtg-hero-header h1,body.observations-page header.mtg-hero-header h1,body.edition-checklist-page header.mtg-hero-header h1{font-size:25px;}}
+
+
+/* ====================================================================
+   V6.4 — shared visual language across all seven portfolio views
+   One shared header, navigation, surface and control treatment.
+   The data tables, charts and application logic are unchanged.
+   ==================================================================== */
+:root {
+  --mtg-ui-surface:#151f30;
+  --mtg-ui-surface-deep:#111a29;
+  --mtg-ui-surface-raised:#1a2a40;
+  --mtg-ui-border:#30445e;
+  --mtg-ui-text:#e8f0fc;
+  --mtg-ui-muted:#a9bdd7;
+  --mtg-ui-accent:#6bb6ff;
+}
+/* All pages share the exact same centered masthead, regardless of body class. */
+body header.mtg-hero-header {
+  display:block; text-align:left; padding:0;
+  background:linear-gradient(110deg,#0b1322 0%,#172942 58%,#0c1727 100%);
+  border-bottom:1px solid #30455f;
+}
+body header.mtg-hero-header .mtg-hero-inner {
+  box-sizing:border-box; min-height:90px; width:calc(100% - 48px);
+  max-width:2200px; margin:0 auto; padding:10px 0;
+  display:flex; justify-content:center; align-items:center; gap:16px;
+}
+body header.mtg-hero-header .mtg-hero-emblem {
+  width:52px;height:54px;flex:0 0 52px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,#243951,#17263b);
+  border:1px solid #40546a;border-radius:12px;
+  box-shadow:0 8px 25px #0004;
+}
+body header.mtg-hero-header .mtg-hero-emblem img {
+  display:block;width:39px;height:43px;object-fit:contain;
+  filter:invert(63%) sepia(81%) saturate(1343%) hue-rotate(335deg) brightness(107%) contrast(102%);
+}
+body header.mtg-hero-header .mtg-hero-title h1 {
+  font:700 29px/1.1 Georgia,serif;letter-spacing:.1px;color:#fff;margin:0;
+}
+body header.mtg-hero-header .mtg-hero-title h1 span {font-weight:400;color:#dce8fa;}
+body header.mtg-hero-header .mtg-hero-title p {font-size:11px;line-height:1.35;color:#a8b9ce;margin:5px 0 0;}
+/* Navigation: same dimensions and active treatment on separate HTML pages. */
+body nav.tabs,body.admin-page nav.tabs,body.observations-page nav.tabs,body.edition-checklist-page nav.tabs {
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  padding:11px 24px 12px;background:#0b1220;
+  border-bottom:1px solid #26364c;
+}
+body nav.tabs .tab-button,body.admin-page nav.tabs .tab-button,
+body.observations-page nav.tabs .tab-button,body.edition-checklist-page nav.tabs .tab-button {
+  box-sizing:border-box;height:auto;min-height:32px;
+  padding:8px 12px;background:#121e30;color:#c8d8eb;
+  border:1px solid #344962;border-radius:8px;
+  font:700 12px/1.25 Inter,'Segoe UI',Arial,sans-serif;
+  white-space:nowrap;cursor:pointer;
+}
+body nav.tabs .tab-button:hover {background:#1c304a;border-color:#6386ae;color:#fff;}
+body nav.tabs .tab-button.active,body.admin-page nav.tabs .tab-button.active,
+body.observations-page nav.tabs .tab-button.active,body.edition-checklist-page nav.tabs .tab-button.active {
+  background:#328edc;border-color:#78b9f7;color:#fff;
+  box-shadow:0 0 0 1px #328edc22;
+}
+/* Same panel design; leave the dedicated edition-grade colors and alerts intact. */
+body .card,body.admin-page .admin-card,body.observations-page .observations-card,
+body.edition-checklist-page .checklist-controls,body.edition-checklist-page #checklist-summary,
+body.edition-checklist-page .checklist-scroll {
+  background:linear-gradient(150deg,#172338,#111c2d);
+  border:1px solid var(--mtg-ui-border);
+  border-radius:13px;
+  box-shadow:0 12px 30px #0002;
+}
+body.admin-page .admin-card,body.observations-page .observations-card {padding:18px 20px;}
+body.admin-page .admin-card h2,body.observations-page .observations-card h2 {
+  color:var(--mtg-ui-text);letter-spacing:-.01em;
+}
+body.admin-page input:not([type='checkbox']),body.admin-page select,
+body.observations-page input:not([type='checkbox']),body.observations-page select,
+body.edition-checklist-page .checklist-controls input,
+body.edition-checklist-page .checklist-controls select {
+  background:#121d2f;color:#e8f0fc;border:1px solid #3b506d;
+  border-radius:7px;min-height:32px;
+}
+body.admin-page input:focus-visible,body.admin-page select:focus-visible,
+body.observations-page input:focus-visible,body.observations-page select:focus-visible,
+body.edition-checklist-page input:focus-visible,body.edition-checklist-page select:focus-visible {
+  outline:2px solid #6bb6ff;outline-offset:1px;
+}
+body.edition-checklist-page .checklist-reset {
+  border-radius:8px;background:#233957;border:1px solid #456c99;color:#edf5ff;
+}
+body.edition-checklist-page .checklist-wrap {margin-top:22px;}
+body.edition-checklist-page .checklist-wrap h2 {margin-top:0;}
+@media(max-width:700px){
+  body header.mtg-hero-header .mtg-hero-inner {width:calc(100% - 24px);min-height:76px;gap:10px;}
+  body header.mtg-hero-header .mtg-hero-emblem {width:43px;height:45px;flex-basis:43px;}
+  body header.mtg-hero-header .mtg-hero-emblem img {width:32px;height:35px;}
+  body header.mtg-hero-header .mtg-hero-title h1 {font-size:23px;}
+  body nav.tabs,body.admin-page nav.tabs,body.observations-page nav.tabs,body.edition-checklist-page nav.tabs {padding:9px 12px;gap:6px;}
+  body nav.tabs .tab-button,body.admin-page nav.tabs .tab-button,body.observations-page nav.tabs .tab-button,body.edition-checklist-page nav.tabs .tab-button {font-size:11px;padding:7px 9px;}
+}
