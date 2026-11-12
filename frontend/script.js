@@ -17,8 +17,19 @@ const MTG_EDITION_CODES = Object.freeze({
   'invasion':'inv','planeshift':'pls','apocalypse':'apc',
   'odyssey':'ody','torment':'tor','judgment':'jud',
   'onslaught':'ons','legions':'lgn','scourge':'scg',
-  'mirrodin':'mrd','portal second age':'p02'
+  'mirrodin':'mrd','portal second age':'p02','unglued':'ugl'
 });
+function mtgCategoryLabel(category) {
+  const name = String(category || 'Non classé');
+  const safe = escapeHtml(name);
+  const match = name.match(/^([WUBRG]{2})\b/i);
+  const mana = match ? match[1].toUpperCase().split('') : [];
+  const icons = mana.length === 2
+    ? mana.map(c => `<img class="mtg-mana-symbol" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="" loading="lazy" decoding="async">`).join('')
+    : `<span class="mtg-binder-symbol" aria-hidden="true">✦</span>`;
+  return `<span class="mtg-category-label"><span class="mtg-category-icons">${icons}</span><span>${safe}</span></span>`;
+}
+
 function mtgEditionLabel(edition) {
   const name = String(edition || '-');
   const code = MTG_EDITION_CODES[name.trim().toLowerCase()];
@@ -172,82 +183,23 @@ let opportunityFilters = {
 };
 
 const VALUE_BUCKETS = [
-
-    {
-        key: "under1",
-        label: "< 1 €",
-        min: -Infinity,
-        max: 1
-    },
-
-    {
-        key: "1to2",
-        label: "1–2 €",
-        min: 1,
-        max: 2
-    },
-
-    {
-        key: "2to5",
-        label: "2–5 €",
-        min: 2,
-        max: 5
-    },
-
-    {
-        key: "5to10",
-        label: "5–10 €",
-        min: 5,
-        max: 10
-    },
-
-    {
-        key: "10to20",
-        label: "10–20 €",
-        min: 10,
-        max: 20
-    },
-
-    {
-        key: "20to50",
-        label: "20–50 €",
-        min: 20,
-        max: 50
-    },
-
-    {
-        key: "50to100",
-        label: "50–100 €",
-        min: 50,
-        max: 100
-    },
-
-{
-    key: "100to250",
-    label: "100–250 €",
-    min: 100,
-    max: 250
-},
-
-{
-    key: "250to500",
-    label: "250–500 €",
-    min: 250,
-    max: 500
-},
-
-    {
-        key: "over500",
-        label: "≥ 500 €",
-        min: 500,
-        max: Infinity
-    }
-
+  { key: "under05", label: "< 0,50 €", min: -Infinity, max: 0.5 },
+  { key: "05to1", label: "0,50–1 €", min: 0.5, max: 1 },
+  { key: "1to25", label: "1–2,50 €", min: 1, max: 2.5 },
+  { key: "25to5", label: "2,50–5 €", min: 2.5, max: 5 },
+  { key: "5to10", label: "5–10 €", min: 5, max: 10 },
+  { key: "10to20", label: "10–20 €", min: 10, max: 20 },
+  { key: "20to50", label: "20–50 €", min: 20, max: 50 },
+  { key: "50to100", label: "50–100 €", min: 50, max: 100 },
+  { key: "100to250", label: "100–250 €", min: 100, max: 250 },
+  { key: "250to500", label: "250–500 €", min: 250, max: 500 },
+  { key: "over500", label: "≥ 500 €", min: 500, max: Infinity }
 ];
 
 const VALUE_MIGRATION_THRESHOLDS = [
+    0.5,
     1,
-    2,
+    2.5,
     5,
     10,
     20,
@@ -265,8 +217,9 @@ const VALUE_MIGRATION_THRESHOLDS = [
  * toutes les tranches.
  */
 const VALUE_MIGRATION_CHART_THRESHOLDS = [
+    0.5,
     1,
-    2,
+    2.5,
     5,
     10,
     20,
@@ -1401,7 +1354,7 @@ const formatPerformanceCell =
                             <td>
                                 <strong>
                                     ${
-                                        escapeHtml(
+                                        mtgCategoryLabel(
                                             row.category ||
                                             "Non classé"
                                         )

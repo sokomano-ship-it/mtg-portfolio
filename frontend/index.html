@@ -9,9 +9,12 @@
 
 <body>
 
-<header>
-    <h1>MTG Portfolio</h1>
-    <p>Suivi automatique de collection Magic avec prix Cardmarket</p>
+<header class="mtg-hero-header">
+  <div class="mtg-hero-inner">
+    <div class="mtg-hero-emblem" aria-hidden="true"><svg viewBox="0 0 100 110" fill="currentColor"><path d="M50 104 39 69 26 82 23 47 10 62 3 12 28 33 34 3 50 30 66 3 72 33 97 12 90 62 77 47 74 82 61 69Z"/></svg></div>
+    <div class="mtg-hero-title"><h1>MTG <span>Portfolio</span></h1><p>Suivi automatique de collection Magic avec prix Cardmarket</p></div>
+    <div class="mtg-hero-right">COLLECTION &amp; INVESTISSEMENTS <span>✦</span></div>
+  </div>
 </header>
 
 <nav class="tabs">
@@ -366,8 +369,8 @@
 
         </section>
 
-        <section class="card">
-    <h2>📊 Résumé par catégorie</h2>
+        <section class="card mtg-summary-panel">
+    <div class="mtg-section-heading"><h2>◈ Répartition par catégorie</h2><button type="button" class="mtg-details-toggle" onclick="this.closest('.mtg-summary-panel').classList.toggle('mtg-show-all');this.textContent=this.closest('.mtg-summary-panel').classList.contains('mtg-show-all')?'Vue compacte':'Toutes les périodes'">Toutes les périodes</button></div>
 
     <div class="table-wrapper">
         <table class="category-summary-table">
@@ -398,8 +401,8 @@
     </div>
 </section>
 
-<section class="card">
-    <h2>📚 Résumé par édition</h2>
+<section class="card mtg-summary-panel">
+    <div class="mtg-section-heading"><h2>✦ Résumé par édition</h2><button type="button" class="mtg-details-toggle" onclick="this.closest('.mtg-summary-panel').classList.toggle('mtg-show-all');this.textContent=this.closest('.mtg-summary-panel').classList.contains('mtg-show-all')?'Vue compacte':'Toutes les périodes'">Toutes les périodes</button></div>
 
     <div class="table-wrapper">
         <table class="category-summary-table">
