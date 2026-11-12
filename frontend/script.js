@@ -26,7 +26,7 @@ function mtgCategoryLabel(category) {
   const mana = match ? match[1].toUpperCase().split('') : [];
   const icons = mana.length === 2
     ? mana.map(c => `<img class="mtg-mana-symbol" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="" loading="lazy" decoding="async">`).join('')
-    : `<span class="mtg-binder-symbol" aria-hidden="true">✦</span>`;
+    : `<span class="mtg-binder-symbol" aria-hidden="true">M</span>`;
   return `<span class="mtg-category-label"><span class="mtg-category-icons">${icons}</span><span>${safe}</span></span>`;
 }
 
@@ -1250,98 +1250,20 @@ cardsOver250,
                 Number(a.totalValue || 0)
         );
 
-const formatPerformanceCell =
-    performance => {
-
-        const valueChange =
-            performance?.valueChange !== null &&
-            performance?.valueChange !== undefined &&
-            Number.isFinite(
-                Number(performance.valueChange)
-            )
-                ? Number(performance.valueChange)
-                : null;
-
-        const constantChange =
-            performance?.constantChange !== null &&
-            performance?.constantChange !== undefined &&
-            Number.isFinite(
-                Number(performance.constantChange)
-            )
-                ? Number(performance.constantChange)
-                : null;
-
-        const getClass = value =>
-            value === null
-                ? ""
-                : value >= 0
-                    ? "score-positive"
-                    : "score-negative";
-
-        /*
-         * Si les deux performances sont identiques
-         * à l'affichage (2 décimales), une seule
-         * valeur est nécessaire.
-         */
-        const samePerformance =
-            valueChange !== null &&
-            constantChange !== null &&
-            Math.abs(
-                valueChange - constantChange
-            ) < 0.005;
-
-        if (samePerformance) {
-            return `
-                <td>
-                    <div class="${getClass(constantChange)}">
-                        <strong>
-                            ${formatPercent(constantChange)}
-                        </strong>
-                    </div>
-                </td>
-            `;
-        }
-
-        /*
-         * Périmètre constant = indicateur principal.
-         */
-        if (constantChange !== null) {
-            return `
-                <td>
-                    <div class="${getClass(constantChange)}">
-                        <strong>
-                            ${formatPercent(constantChange)}
-                        </strong>
-                    </div>
-
-                    ${
-                        valueChange !== null
-                            ? `
-                                <small class="${getClass(valueChange)}">
-                                    Total&nbsp;${formatPercent(valueChange)}
-                                </small>
-                            `
-                            : ""
-                    }
-                </td>
-            `;
-        }
-
-        /*
-         * Pas de périmètre constant disponible :
-         * on conserve la variation totale si elle existe.
-         */
-        return `
-            <td>
-                <div class="${getClass(valueChange)}">
-                    ${
-                        valueChange === null
-                            ? "-"
-                            : formatPercent(valueChange)
-                    }
-                </div>
-            </td>
-        `;
+const formatPerformanceCell = performance => {
+        const total = performance?.valueChange == null || !Number.isFinite(Number(performance.valueChange))
+            ? null : Number(performance.valueChange);
+        const constant = performance?.constantChange == null || !Number.isFinite(Number(performance.constantChange))
+            ? null : Number(performance.constantChange);
+        const principal = constant !== null ? constant : total;
+        const tone = value => value === null ? '' : value >= 0 ? 'score-positive' : 'score-negative';
+        const strongVariation = principal !== null && Math.abs(principal) >= 10;
+        const emphasis = strongVariation ? (principal >= 0 ? ' mtg-perf-strong-up' : ' mtg-perf-strong-down') : '';
+        const identical = constant !== null && total !== null && Math.abs(constant - total) < 0.005;
+        return `<td class="mtg-performance-td"><div class="mtg-performance-box${emphasis}">
+            <div class="mtg-performance-main ${tone(principal)}">${principal === null ? '-' : `<strong>${formatPercent(principal)}</strong>`}</div>
+            ${constant !== null && total !== null && !identical ? `<small class="mtg-performance-total ${tone(total)}">Total&nbsp;${formatPercent(total)}</small>` : ''}
+        </div></td>`;
     };
     
         tbody.innerHTML =
@@ -1569,98 +1491,20 @@ performances
                 Number(a.totalValue || 0)
         );
 
-const formatPerformanceCell =
-    performance => {
-
-        const valueChange =
-            performance?.valueChange !== null &&
-            performance?.valueChange !== undefined &&
-            Number.isFinite(
-                Number(performance.valueChange)
-            )
-                ? Number(performance.valueChange)
-                : null;
-
-        const constantChange =
-            performance?.constantChange !== null &&
-            performance?.constantChange !== undefined &&
-            Number.isFinite(
-                Number(performance.constantChange)
-            )
-                ? Number(performance.constantChange)
-                : null;
-
-        const getClass = value =>
-            value === null
-                ? ""
-                : value >= 0
-                    ? "score-positive"
-                    : "score-negative";
-
-        /*
-         * Si les deux performances sont identiques
-         * à l'affichage (2 décimales), une seule
-         * valeur est nécessaire.
-         */
-        const samePerformance =
-            valueChange !== null &&
-            constantChange !== null &&
-            Math.abs(
-                valueChange - constantChange
-            ) < 0.005;
-
-        if (samePerformance) {
-            return `
-                <td>
-                    <div class="${getClass(constantChange)}">
-                        <strong>
-                            ${formatPercent(constantChange)}
-                        </strong>
-                    </div>
-                </td>
-            `;
-        }
-
-        /*
-         * Périmètre constant = indicateur principal.
-         */
-        if (constantChange !== null) {
-            return `
-                <td>
-                    <div class="${getClass(constantChange)}">
-                        <strong>
-                            ${formatPercent(constantChange)}
-                        </strong>
-                    </div>
-
-                    ${
-                        valueChange !== null
-                            ? `
-                                <small class="${getClass(valueChange)}">
-                                    Total&nbsp;${formatPercent(valueChange)}
-                                </small>
-                            `
-                            : ""
-                    }
-                </td>
-            `;
-        }
-
-        /*
-         * Pas de périmètre constant disponible :
-         * on conserve la variation totale si elle existe.
-         */
-        return `
-            <td>
-                <div class="${getClass(valueChange)}">
-                    ${
-                        valueChange === null
-                            ? "-"
-                            : formatPercent(valueChange)
-                    }
-                </div>
-            </td>
-        `;
+const formatPerformanceCell = performance => {
+        const total = performance?.valueChange == null || !Number.isFinite(Number(performance.valueChange))
+            ? null : Number(performance.valueChange);
+        const constant = performance?.constantChange == null || !Number.isFinite(Number(performance.constantChange))
+            ? null : Number(performance.constantChange);
+        const principal = constant !== null ? constant : total;
+        const tone = value => value === null ? '' : value >= 0 ? 'score-positive' : 'score-negative';
+        const strongVariation = principal !== null && Math.abs(principal) >= 10;
+        const emphasis = strongVariation ? (principal >= 0 ? ' mtg-perf-strong-up' : ' mtg-perf-strong-down') : '';
+        const identical = constant !== null && total !== null && Math.abs(constant - total) < 0.005;
+        return `<td class="mtg-performance-td"><div class="mtg-performance-box${emphasis}">
+            <div class="mtg-performance-main ${tone(principal)}">${principal === null ? '-' : `<strong>${formatPercent(principal)}</strong>`}</div>
+            ${constant !== null && total !== null && !identical ? `<small class="mtg-performance-total ${tone(total)}">Total&nbsp;${formatPercent(total)}</small>` : ''}
+        </div></td>`;
     };
 
         tbody.innerHTML =
