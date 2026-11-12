@@ -5391,3 +5391,7 @@ main {max-width:2200px!important;width:calc(100% - 48px)!important;margin:0 auto
 #tab-general .mtg-category-icons {min-width:38px;}
 #tab-general .mtg-binder-symbol {width:18px;height:18px;overflow:hidden;flex:0 0 18px;vertical-align:middle;}
 #tab-general .mtg-binder-symbol img {position:absolute;top:0;left:-17px;width:100px;height:auto;max-width:none;display:block;}
+
+/* V6.2: user-selected Magic binder emblem, no SVG wordmark cropping */
+.mtg-binder-symbol, #tab-general .mtg-binder-symbol {width:18px!important;height:18px!important;overflow:visible!important;display:inline-flex!important;align-items:center;justify-content:center;}
+.mtg-binder-symbol img, #tab-general .mtg-binder-symbol img {position:static!important;width:18px!important;height:18px!important;max-width:18px!important;object-fit:contain!important;}

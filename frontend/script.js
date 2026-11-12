@@ -26,7 +26,7 @@ function mtgCategoryLabel(category) {
   const mana = match ? match[1].toUpperCase().split('') : [];
   const icons = mana.length === 2
     ? mana.map(c => `<img class="mtg-mana-symbol" src="https://svgs.scryfall.io/card-symbols/${c}.svg" alt="" loading="lazy" decoding="async">`).join('')
-    : `<span class="mtg-binder-symbol" aria-hidden="true"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Magicthegathering-logo.svg" alt="" loading="lazy" decoding="async"></span>`;
+    : `<span class="mtg-binder-symbol" aria-hidden="true"><img src="assets/magic-binder-icon.png" alt="" loading="lazy" decoding="async"></span>`;
   return `<span class="mtg-category-label"><span class="mtg-category-icons">${icons}</span><span>${safe}</span></span>`;
 }
 
