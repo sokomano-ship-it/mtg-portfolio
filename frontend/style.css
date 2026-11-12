@@ -5326,161 +5326,63 @@ main {padding-top:24px;}
 @media(max-width:1050px){#tab-general .portfolio-summary-cards {grid-template-columns:repeat(2,minmax(0,1fr));}#tab-investment-analysis .investment-summary-cards{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:620px){#tab-general .portfolio-summary-cards,#tab-investment-analysis .investment-summary-cards{grid-template-columns:1fr;}header{padding:20px;} .mtg-set-symbol{width:17px;height:17px;}}
 
-/* === MTG Portfolio V3: refonte de l'onglet Général === */
-body { background:#090e18; color:#eaf0fa; font-family:Inter,Segoe UI,Arial,sans-serif; }
-.mtg-hero-header {padding:0; background:radial-gradient(ellipse at 80% 0%,#243d5d 0%,transparent 55%),linear-gradient(105deg,#080d16,#15243a 70%,#0b1322);border-bottom:1px solid #2c405c;}
-.mtg-hero-inner {max-width:1700px;width:calc(100% - 60px);margin:auto;min-height:106px;display:flex;align-items:center;gap:23px;}
-.mtg-hero-emblem {color:#fa8a39;width:66px;height:74px;flex:none;filter:drop-shadow(0 0 15px #f4773b44);}
-.mtg-hero-emblem svg {width:100%;height:100%;}
-.mtg-hero-title h1 {font-family:Georgia,serif;font-size:35px;letter-spacing:.2px;color:#fff;margin:0;}
-.mtg-hero-title h1 span {font-weight:500;color:#f2f5fb;}
-.mtg-hero-title p {font-size:12px;color:#9eacc1;margin:7px 0 0;}
-.mtg-hero-right {margin-left:auto;font-size:11px;letter-spacing:2px;color:#92a6c1;white-space:nowrap;}
-.mtg-hero-right span {color:#ed9d4c;margin-left:10px;}
-.tabs {padding-top:13px;padding-bottom:12px;border-bottom:1px solid #1a2b41;gap:9px;}
-.tab-button {border-radius:12px;background:#111c2b;border-color:#30425a;padding:10px 15px;}
-.tab-button.active {background:linear-gradient(135deg,#67c8ff,#2389eb);box-shadow:0 0 17px #2e9bff48;}
-#tab-general .card {background:linear-gradient(140deg,#151f30,#101927);border:1px solid #2b3d55;box-shadow:0 12px 30px #0003;border-radius:15px;}
-#tab-general .card h2 {font-size:18px;letter-spacing:.1px;}
-#tab-general .portfolio-summary-card {background:linear-gradient(130deg,#152a42,#101b2c);border:1px solid #31445f;border-radius:14px;}
-#tab-general .portfolio-summary-content strong {letter-spacing:-.5px;}
-.mtg-section-heading {display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px;}
+
+/* ================================================================
+   MTG PORTFOLIO V6 — consolidated General page layout.
+   Previous V3/V4/V5 override layers removed to prevent conflicts.
+   ================================================================ */
+:root {--mtg-ink:#e7f0fc;--mtg-line:#2b3c52;--mtg-orange:#ff9c49;}
+body {background:#090f1b;color:var(--mtg-ink);font-family:Inter,"Segoe UI",Arial,sans-serif;}
+main {max-width:2200px!important;width:calc(100% - 48px)!important;margin:0 auto;padding:22px 0 35px;}
+.mtg-hero-header {padding:0;background:linear-gradient(110deg,#0b1322 0%,#172942 58%,#0c1727 100%);border-bottom:1px solid #30455f;}
+.mtg-hero-inner {max-width:2200px;width:calc(100% - 48px);min-height:96px;margin:auto;display:flex;align-items:center;gap:22px;}
+.mtg-hero-emblem {width:64px;height:66px;flex:0 0 64px;display:grid;place-items:center;background:linear-gradient(145deg,#243951,#17263b);border:1px solid #40546a;border-radius:15px;box-shadow:0 8px 25px #0004;}
+.mtg-hero-emblem img {width:47px;height:52px;object-fit:contain;display:block;filter:invert(63%) sepia(81%) saturate(1343%) hue-rotate(335deg) brightness(107%) contrast(102%) drop-shadow(0 0 5px #ff9c4960);}
+.mtg-hero-title h1 {font:700 32px/1.1 Georgia,serif;margin:0;color:#fff;letter-spacing:.2px;}
+.mtg-hero-title h1 span {font-weight:400;color:#dce8fa;}
+.mtg-hero-title p {font-size:12px;margin:7px 0 0;color:#a8b9ce;}
+.mtg-hero-right {margin-left:auto;font-size:11px;letter-spacing:1.8px;color:#8ba5c6;white-space:nowrap;}
+.mtg-hero-right span {color:var(--mtg-orange);}
+.tabs {padding:11px 24px 12px;gap:8px;border-bottom:1px solid #26364c;}
+.tab-button {background:#121e30;border:1px solid #344962;border-radius:8px;padding:9px 14px;}
+.tab-button.active {background:#328edc;border-color:#78b9f7;color:white;}
+#tab-general .card {background:linear-gradient(150deg,#172338,#111c2d);border:1px solid #31465f;border-radius:13px;box-shadow:0 12px 30px #0003;}
+#tab-general .card h2 {font-size:19px;}
+#tab-general .portfolio-summary-card {background:linear-gradient(140deg,#1a304a,#111d30);border:1px solid #344b67;border-radius:11px;}
+#tab-general .portfolio-summary-cards {gap:13px;}
+.mtg-section-heading {display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 .mtg-section-heading h2 {margin:0!important;}
-.mtg-details-toggle {border:1px solid #39516e;background:#1b2d44;color:#a9d7ff;padding:8px 13px;border-radius:9px;cursor:pointer;font-weight:700;font-size:12px;}
-.mtg-details-toggle:hover {background:#284362;}
-.mtg-category-label,.mtg-category-icons {display:inline-flex;align-items:center;}
-.mtg-category-label {gap:9px;white-space:nowrap;}
-.mtg-category-icons {min-width:32px;gap:1px;}
-.mtg-mana-symbol {width:17px;height:17px;object-fit:contain;}
-.mtg-binder-symbol {display:inline-flex;width:28px;height:24px;align-items:center;justify-content:center;color:#f19c46;font-size:23px;}
-#tab-general .mtg-set-symbol {width:18px;height:18px;}
-/* Tableau synthétique : colonnes secondaires masquées par défaut, sans barre horizontale. */
-#tab-general .mtg-summary-panel .table-wrapper {overflow-x:clip;scrollbar-width:none;}
-#tab-general .mtg-summary-panel .table-wrapper::-webkit-scrollbar {display:none;}
-#tab-general .mtg-summary-panel .category-summary-table {min-width:0!important;width:100%;table-layout:fixed;}
-#tab-general .mtg-summary-panel .category-summary-table th,
-#tab-general .mtg-summary-panel .category-summary-table td {width:auto!important;padding:10px 7px;font-size:12px;line-height:1.3;}
-#tab-general .mtg-summary-panel .category-summary-table th:first-child,
-#tab-general .mtg-summary-panel .category-summary-table td:first-child {width:29%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(2),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(2) {width:7%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(3),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(3) {width:12%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(4),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(4) {width:8%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(n+8):nth-child(-n+12),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(n+8):nth-child(-n+12),
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(16),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(16) {display:none;}
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table th:nth-child(n+8):nth-child(-n+12),
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table td:nth-child(n+8):nth-child(-n+12),
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table th:nth-child(16),
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table td:nth-child(16) {display:table-cell;}
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table th,
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table td {font-size:10px;padding:8px 3px;white-space:normal;overflow-wrap:anywhere;}
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table th:first-child,
-#tab-general .mtg-summary-panel.mtg-show-all .category-summary-table td:first-child {width:19%!important;}
-#tab-general .mtg-summary-panel tbody tr:nth-child(even) {background:#ffffff05;}
-#tab-general .mtg-summary-panel tbody tr:hover {background:#64baff12;}
-#tab-general .value-bucket-row {border-bottom:1px solid #26354a;}
-#tab-general .value-bucket-bar span {background:linear-gradient(90deg,#2b8cf3,#69c8ff);}
-@media(max-width:900px) {.mtg-hero-inner{width:calc(100% - 30px);min-height:88px;}.mtg-hero-right{display:none;}#tab-general .mtg-summary-panel .category-summary-table th:first-child,#tab-general .mtg-summary-panel .category-summary-table td:first-child{width:35%!important;}#tab-general .mtg-summary-panel .category-summary-table th,#tab-general .mtg-summary-panel .category-summary-table td{font-size:10px;padding:8px 4px;}}
-@media(max-width:620px){.mtg-hero-emblem{width:44px;height:52px;}.mtg-hero-title h1{font-size:27px;}#tab-general .mtg-summary-panel .category-summary-table th:nth-child(n+5):nth-child(-n+7),#tab-general .mtg-summary-panel .category-summary-table td:nth-child(n+5):nth-child(-n+7){display:none;}}
-
-/* === MTG Portfolio V4 — écran large et lecture immédiate === */
-@media(min-width:1100px) {
-  main {width:96%!important;max-width:2200px!important;padding-top:24px;}
-  .mtg-hero-inner {width:96%!important;max-width:2200px!important;}
-  .tabs {padding-left:2%!important;padding-right:2%!important;}
-}
-.mtg-hero-emblem {width:78px;height:87px;color:#ff8736;filter:drop-shadow(0 0 11px rgba(255,116,40,.27));}
-.mtg-hero-title h1 {font-size:39px;}
-.mtg-binder-symbol {font-family:Georgia,serif;font-weight:900;font-style:italic;font-size:23px;line-height:1;color:#f3a34f;text-shadow:0 0 8px #e77a2640;}
-#tab-general .mtg-summary-panel .table-wrapper {overflow-x:auto!important;scrollbar-width:none;}
-#tab-general .mtg-summary-panel .table-wrapper::-webkit-scrollbar {display:none;}
-#tab-general .mtg-summary-panel .category-summary-table {table-layout:fixed!important;min-width:1450px!important;width:100%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th,
-#tab-general .mtg-summary-panel .category-summary-table td {display:table-cell!important;width:auto!important;font-size:13px!important;padding:12px 5px!important;line-height:1.32!important;white-space:nowrap;}
-#tab-general .mtg-summary-panel .category-summary-table th:first-child,
-#tab-general .mtg-summary-panel .category-summary-table td:first-child {width:19%!important;text-align:left;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(2),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(2) {width:5%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(3),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(3) {width:8%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(4),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(4) {width:6%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(n+5):nth-child(-n+12),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(n+5):nth-child(-n+12) {width:6.5%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(n+13),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(n+13) {width:2.5%!important;}
-#tab-general .mtg-summary-panel .category-summary-table td.mtg-performance-td {padding:4px 3px!important;text-align:center!important;}
-.mtg-performance-box {display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:43px;padding:4px 2px;border:1px solid transparent;border-radius:7px;gap:2px;}
-.mtg-performance-main {font-size:13px;font-weight:750;font-variant-numeric:tabular-nums;}
-.mtg-performance-total {font-size:10px;font-weight:600;line-height:1.2;opacity:.85;white-space:nowrap;}
-.mtg-perf-strong-up {background:rgba(29,154,95,.14);border-color:rgba(54,218,126,.62);box-shadow:inset 0 0 0 1px rgba(44,175,104,.08);}
-.mtg-perf-strong-down {background:rgba(188,54,70,.14);border-color:rgba(255,94,110,.62);box-shadow:inset 0 0 0 1px rgba(201,64,76,.08);}
-.mtg-perf-strong-up .mtg-performance-main,.mtg-perf-strong-down .mtg-performance-main {font-size:14px;font-weight:850;}
-@media(max-width:1600px) {
- #tab-general .mtg-summary-panel .category-summary-table {min-width:1450px!important;}
-}
-@media(max-width:700px) {
- .mtg-hero-emblem {width:48px;height:55px;}
- .mtg-hero-title h1 {font-size:27px;}
- #tab-general .mtg-summary-panel .category-summary-table th,
- #tab-general .mtg-summary-panel .category-summary-table td {display:table-cell!important;}
-}
-
-
-/* === MTG Portfolio V5 — identité officielle et colonnes cohérentes === */
-/* Logo officiel Magic 2017 (Wizards of the Coast), via Wikimedia Commons. */
-.mtg-hero-inner {min-height:88px;gap:17px;}
-.mtg-hero-emblem {width:105px;height:62px;display:flex;align-items:center;justify-content:center;filter:none;}
-.mtg-hero-emblem img {display:block;width:105px;height:auto;max-height:62px;object-fit:contain;}
-.mtg-hero-title h1 {font-size:33px;}
-.mtg-binder-symbol {width:43px;height:22px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;text-shadow:none;}
-.mtg-binder-symbol img {width:43px;height:20px;object-fit:contain;display:block;}
-.mtg-category-icons:has(.mtg-binder-symbol) {min-width:43px;}
-/* Même grille de colonnes pour l'en-tête et le corps du tableau. */
-#tab-general .mtg-summary-panel .category-summary-table {
-  table-layout:fixed!important;width:100%!important;min-width:1480px!important;
-  border-collapse:collapse!important;
-}
-#tab-general .mtg-summary-panel .category-summary-table th,
-#tab-general .mtg-summary-panel .category-summary-table td {
-  box-sizing:border-box!important;
-  padding:10px 7px!important;
-  vertical-align:middle!important;
-  text-align:right!important;
-  font-size:12px!important;
-  white-space:nowrap!important;
-  overflow:hidden;
-  text-overflow:clip;
-}
-#tab-general .mtg-summary-panel .category-summary-table th:first-child,
-#tab-general .mtg-summary-panel .category-summary-table td:first-child {width:19%!important;text-align:left!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(2),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(2) {width:5%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(3),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(3) {width:8%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(4),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(4) {width:6%!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(n+5):nth-child(-n+12),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(n+5):nth-child(-n+12) {width:6.5%!important;text-align:center!important;}
-#tab-general .mtg-summary-panel .category-summary-table th:nth-child(n+13),
-#tab-general .mtg-summary-panel .category-summary-table td:nth-child(n+13) {width:2.5%!important;text-align:center!important;padding-left:2px!important;padding-right:2px!important;}
-#tab-general .mtg-summary-panel .category-summary-table td.mtg-performance-td {padding:3px 3px!important;}
-#tab-general .mtg-summary-panel .category-summary-table .mtg-performance-box {
-  min-height:37px;gap:1px;padding:4px 2px;border-radius:5px;
-  border:1px solid transparent;box-shadow:none;
-}
-#tab-general .mtg-summary-panel .category-summary-table .mtg-perf-strong-up {
-  background:rgba(31,137,91,.055);border-color:rgba(71,174,119,.24);box-shadow:none;
-}
-#tab-general .mtg-summary-panel .category-summary-table .mtg-perf-strong-down {
-  background:rgba(167,65,77,.055);border-color:rgba(206,103,111,.24);box-shadow:none;
-}
-#tab-general .mtg-summary-panel .category-summary-table .mtg-performance-main,
-#tab-general .mtg-summary-panel .category-summary-table .mtg-perf-strong-up .mtg-performance-main,
-#tab-general .mtg-summary-panel .category-summary-table .mtg-perf-strong-down .mtg-performance-main {font-size:12px;font-weight:750;}
-#tab-general .mtg-summary-panel .category-summary-table .mtg-performance-total {font-size:9px;opacity:.7;}
-@media(max-width:700px) {.mtg-hero-emblem{width:75px;height:48px}.mtg-hero-emblem img{width:75px;max-height:48px}}
+.mtg-category-label,.mtg-category-icons {display:inline-flex;align-items:center;vertical-align:middle;}
+.mtg-category-label {gap:10px;white-space:nowrap;}
+.mtg-category-icons {min-width:38px;gap:2px;justify-content:center;}
+.mtg-mana-symbol {width:18px;height:18px;object-fit:contain;}
+/* Crop the genuine 2011 Magic wordmark to its initial M, instead of a font imitation. */
+.mtg-binder-symbol {display:inline-block;width:25px;height:25px;position:relative;overflow:hidden;flex:none;}
+.mtg-binder-symbol img {position:absolute;left:0;top:2px;width:114px;height:auto;max-width:none;display:block;}
+#tab-general .mtg-summary-panel {padding:20px 22px;}
+#tab-general .mtg-summary-panel .table-wrapper {overflow-x:auto;scrollbar-width:thin;scrollbar-color:#344a67 transparent;}
+#tab-general .mtg-summary-panel .category-summary-table {table-layout:fixed;width:100%;min-width:1510px;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+#tab-general .category-summary-table col.mtg-col-name {width:17%;}
+#tab-general .category-summary-table col.mtg-col-count {width:4.5%;}
+#tab-general .category-summary-table col.mtg-col-value {width:7.5%;}
+#tab-general .category-summary-table col.mtg-col-weight {width:5%;}
+#tab-general .category-summary-table col.mtg-col-period {width:6.5%;}
+#tab-general .category-summary-table col.mtg-col-threshold {width:3.5%;}
+#tab-general .category-summary-table th,#tab-general .category-summary-table td {box-sizing:border-box;display:table-cell!important;width:auto!important;min-width:0!important;max-width:none!important;padding:9px 7px!important;font-size:13px!important;line-height:1.3;white-space:nowrap;text-align:center;vertical-align:middle;overflow:visible;}
+#tab-general .category-summary-table thead th {background:#24344c;color:#dce8fb;font-size:12px!important;font-weight:750;letter-spacing:.05px;}
+#tab-general .category-summary-table th:first-child,#tab-general .category-summary-table td:first-child {text-align:left!important;padding-left:13px!important;}
+#tab-general .category-summary-table td:nth-child(3) {color:#f0d27a;font-weight:750;}
+#tab-general .category-summary-table td:nth-child(3),#tab-general .category-summary-table td:nth-child(4) {text-align:right;}
+#tab-general .category-summary-table tbody tr {border-bottom:1px solid #2a3a4e;}
+#tab-general .category-summary-table tbody tr:hover {background:#1d3048;}
+#tab-general .category-summary-table .mtg-set-symbol {width:19px;height:19px;}
+#tab-general .category-summary-table td.mtg-performance-td {padding:4px 4px!important;}
+#tab-general .mtg-performance-box {display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:43px;gap:2px;padding:5px 3px;border:1px solid transparent;border-radius:5px;box-shadow:none;}
+#tab-general .mtg-performance-main {font-size:13px;font-weight:750;line-height:1.2;}
+#tab-general .mtg-performance-total {font-size:10px;font-weight:550;line-height:1.2;opacity:.76;white-space:nowrap;}
+#tab-general .mtg-performance-box.mtg-perf-strong-up {background:rgba(46,158,101,.035);border-color:rgba(76,184,129,.16);}
+#tab-general .mtg-performance-box.mtg-perf-strong-down {background:rgba(194,79,88,.035);border-color:rgba(220,103,111,.16);}
+#tab-general .mtg-performance-box.mtg-perf-strong-up .mtg-performance-main,#tab-general .mtg-performance-box.mtg-perf-strong-down .mtg-performance-main {font-weight:850;}
+@media (min-width:1650px) {#tab-general .mtg-summary-panel .category-summary-table {min-width:0;}}
+@media (max-width:1000px) {.mtg-hero-right{display:none;}#tab-general .portfolio-summary-cards{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:650px) {main{width:calc(100% - 24px)!important;}.mtg-hero-inner{width:calc(100% - 24px);min-height:80px;}.mtg-hero-title h1{font-size:25px;}.mtg-hero-emblem{width:52px;height:52px;flex-basis:52px;}.mtg-hero-emblem img{width:37px;height:40px;}#tab-general .portfolio-summary-cards{grid-template-columns:1fr;}}
