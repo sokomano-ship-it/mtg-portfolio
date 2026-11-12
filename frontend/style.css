@@ -5386,3 +5386,8 @@ main {max-width:2200px!important;width:calc(100% - 48px)!important;margin:0 auto
 @media (min-width:1650px) {#tab-general .mtg-summary-panel .category-summary-table {min-width:0;}}
 @media (max-width:1000px) {.mtg-hero-right{display:none;}#tab-general .portfolio-summary-cards{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media (max-width:650px) {main{width:calc(100% - 24px)!important;}.mtg-hero-inner{width:calc(100% - 24px);min-height:80px;}.mtg-hero-title h1{font-size:25px;}.mtg-hero-emblem{width:52px;height:52px;flex-basis:52px;}.mtg-hero-emblem img{width:37px;height:40px;}#tab-general .portfolio-summary-cards{grid-template-columns:1fr;}}
+
+/* V6.1: compact genuine SVG wordmark initial for binder categories */
+#tab-general .mtg-category-icons {min-width:38px;}
+#tab-general .mtg-binder-symbol {width:18px;height:18px;overflow:hidden;flex:0 0 18px;vertical-align:middle;}
+#tab-general .mtg-binder-symbol img {position:absolute;top:0;left:-17px;width:100px;height:auto;max-width:none;display:block;}
