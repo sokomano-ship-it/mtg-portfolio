@@ -110,6 +110,12 @@
   nécessitant un contrôle manuel, puis aux cartes pour lesquelles
   un nouveau relevé améliorera le plus le modèle.
 </p>
+<div class="obs-summary" aria-live="polite" style="margin: 14px 0;">
+<div class="obs-summary-card"><span>Cartes sans aucune saisie</span><strong id="statCardsWithoutObservations">—</strong></div>
+<div class="obs-summary-card"><span>Cartes avec au moins une saisie</span><strong id="statCardsWithObservations">—</strong></div>
+<div class="obs-summary-card"><span>Total des références disponibles</span><strong id="statCardsObservationTotal">—</strong></div>
+</div>
+<p class="muted" id="observationCoverageHint">Chargement des données nécessaire pour afficher les compteurs.</p>
 <div class="obs-table-wrapper">
 <table class="obs-table">
 <thead>
@@ -240,6 +246,8 @@ let portfolioCards = [];
 let cardSuggestionMap = new Map();
 let allSelectableCards = [];
 let selectedCardKey = "";
+let observationDataLoaded = false;
+let portfolioDataLoaded = false;
 
 const conditionOrder = ["PO", "PL", "LP", "GD", "EX", "NM"];
 
@@ -296,6 +304,25 @@ function saveSettings() {
 let randomCards = [];
 
 
+
+function updateObservationCoverage() {
+  const missing = $("statCardsWithoutObservations");
+  const observed = $("statCardsWithObservations");
+  const total = $("statCardsObservationTotal");
+  const hint = $("observationCoverageHint");
+  if (!observationDataLoaded || !portfolioDataLoaded) {
+    missing.textContent = observed.textContent = total.textContent = "—";
+    hint.textContent = "Charge les données API et le portefeuille pour afficher les compteurs.";
+    return;
+  }
+  const observedKeys = new Set(observations.map(cardKey));
+  const countObserved = allSelectableCards.filter(card => observedKeys.has(cardKey(card))).length;
+  const countTotal = allSelectableCards.length;
+  missing.textContent = (countTotal - countObserved).toLocaleString("fr-FR");
+  observed.textContent = countObserved.toLocaleString("fr-FR");
+  total.textContent = countTotal.toLocaleString("fr-FR");
+  hint.textContent = "Références distinctes par carte, édition et langue ; au moins une observation, quel que soit l'état.";
+}
 
 function observationCountForCard(card) {
   const key = cardKey(card);
@@ -1284,6 +1311,7 @@ async function loadData() {
     const data = await api("GET");
     trackedCards = data.trackedCards || [];
     observations = data.observations || [];
+    observationDataLoaded = true;
     renderTrackedCards();
     renderTrackedStats();
     rebuildSelectableCards();
@@ -1303,6 +1331,7 @@ async function loadPortfolio() {
     const data = await response.json();
     const rawCards = Array.isArray(data) ? data : (data.cards || data.portfolio || []);
     portfolioCards = dedupePortfolioCards(rawCards);
+    portfolioDataLoaded = true;
 
     rebuildSelectableCards();
 
@@ -1380,6 +1409,7 @@ function rebuildSelectableCards() {
   );
 
   buildSuggestions();
+  updateObservationCoverage();
 }
 
 function buildSuggestions() {
