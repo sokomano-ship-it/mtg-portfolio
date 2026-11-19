@@ -5512,3 +5512,80 @@ body.edition-checklist-page .checklist-wrap h2 {margin-top:0;}
 .portfolio-period-top{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:5px;margin-bottom:10px}
 .portfolio-period-top .chart-period-button{min-width:36px}
 @media(max-width:760px){.portfolio-period-top{justify-content:flex-start}}
+
+
+/* =====================================================
+   Portfolio: panneau fusionné contexte + top 5 variations
+   Le DOM conserve tous les IDs utilisés par script.js.
+   ===================================================== */
+.portfolio-chart-context {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: 12px;
+    min-height: 0;
+    width: 100%;
+    padding: 0;
+}
+.portfolio-insights-merged {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) minmax(410px, 2fr);
+    align-items: stretch;
+    width: min(100%, 800px);
+    min-width: 0;
+    background: linear-gradient(145deg,rgba(24,39,61,.94),rgba(10,21,37,.96));
+    border: 1px solid rgba(105,143,192,.35);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+.portfolio-insights-merged .portfolio-chart-context-info {
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 14px 15px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+.portfolio-insights-merged .portfolio-movers {
+    flex: initial;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    padding: 11px 14px;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid rgba(105,143,192,.30);
+    border-radius: 0;
+    align-self: stretch;
+}
+.portfolio-insights-merged .portfolio-movers-columns {
+    gap: 14px;
+}
+.portfolio-insights-merged .portfolio-movers-heading {
+    white-space: normal;
+}
+.portfolio-insights-merged .portfolio-movers-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media (max-width: 1100px) {
+    .portfolio-insights-merged {
+        grid-template-columns: minmax(150px, 0.8fr) minmax(360px, 2fr);
+        width: 100%;
+    }
+}
+@media (max-width: 720px) {
+    .portfolio-chart-context { flex-direction: column; }
+    .portfolio-insights-merged { grid-template-columns: minmax(0,1fr); }
+    .portfolio-insights-merged .portfolio-movers {
+        border-left: 0;
+        border-top: 1px solid rgba(105,143,192,.30);
+    }
+}
+@media (max-width: 420px) {
+    .portfolio-insights-merged .portfolio-movers-columns { grid-template-columns: minmax(0,1fr); }
+}
