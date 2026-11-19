@@ -5507,3 +5507,8 @@ body.edition-checklist-page .checklist-wrap h2 {margin-top:0;}
   body nav.tabs,body.admin-page nav.tabs,body.observations-page nav.tabs,body.edition-checklist-page nav.tabs {padding:9px 12px;gap:6px;}
   body nav.tabs .tab-button,body.admin-page nav.tabs .tab-button,body.observations-page nav.tabs .tab-button,body.edition-checklist-page nav.tabs .tab-button {font-size:11px;padding:7px 9px;}
 }
+
+/* Sélecteur temporel unique : graphique, KPI et Top 5 */
+.portfolio-period-top{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:5px;margin-bottom:10px}
+.portfolio-period-top .chart-period-button{min-width:36px}
+@media(max-width:760px){.portfolio-period-top{justify-content:flex-start}}

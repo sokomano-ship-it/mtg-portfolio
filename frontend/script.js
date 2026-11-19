@@ -151,7 +151,7 @@ let valueBucketChart = null;
 let cachedPortfolioHistory = [];
 let cachedEstimatedPriceHistory = [];
 
-let portfolioChartPeriod = "3m";
+let portfolioChartPeriod = "1m";
 let portfolioChartFrequency = "auto";
 let portfolioPerformancePeriod = 30;
 
@@ -5967,10 +5967,9 @@ function getPortfolioPeriodStartDate(
     );
 
     const daysByPeriod = {
-        "1m": 30,
-        "3m": 90,
-        "6m": 180,
-        "1y": 365
+        "1j": 1, "7j": 7, "14j": 14,
+        "1m": 30, "2m": 60, "3m": 90,
+        "6m": 180, "1y": 365, "2y": 730, "5y": 1825
     };
 
     const days =
@@ -6179,10 +6178,8 @@ function setupPortfolioPerformancePeriodButtons(
                     )
                     .forEach(periodButton => {
 
-                        periodButton.classList.toggle(
-                            "active",
-                            periodButton === button
-                        );
+                        periodButton.classList.toggle("active", periodButton === button);
+                        periodButton.setAttribute("aria-pressed", String(periodButton === button));
 
                     });
 
@@ -6201,10 +6198,9 @@ function setupPortfolioChartPeriodButtons(
         )
         .forEach(button => {
             button.onclick = () => {
-                portfolioChartPeriod =
-                    button.dataset
-                        .portfolioPeriod ||
-                    "3m";
+                portfolioChartPeriod = button.dataset.portfolioPeriod || "1m";
+                const daysByPeriod = {"1j":1,"7j":7,"14j":14,"1m":30,"2m":60,"3m":90,"6m":180,"1y":365,"2y":730,"5y":1825};
+                portfolioPerformancePeriod = daysByPeriod[portfolioChartPeriod] || 30;
 
                 document
                     .querySelectorAll(
@@ -6308,7 +6304,7 @@ function renderPortfolioMovers(selectedCards, chartHistory) {
     const lastDate = String(dates[dates.length - 1]?.date || "").slice(0, 10);
     const firstDate = String(dates[0]?.date || "").slice(0, 10);
     const startDate = getPortfolioPeriodStartDate(dates, portfolioChartPeriod) || firstDate;
-    const periodLabel = { "1m":"1M", "3m":"3M", "6m":"6M", "1y":"1A", all:"Tout" }[portfolioChartPeriod] || portfolioChartPeriod;
+    const periodLabel = {"1j":"1J","7j":"7J","14j":"14J","1m":"1M","2m":"2M","3m":"3M","6m":"6M","1y":"1A","2y":"2A","5y":"5A"}[portfolioChartPeriod] || portfolioChartPeriod;
     const periodNode = document.getElementById("portfolio-movers-period");
     if (periodNode) periodNode.textContent = `· ${periodLabel}`;
     const ranking = [];
@@ -8253,9 +8249,7 @@ setupPortfolioChartPeriodButtons(
 
 setupPortfolioChartFrequencyButtons(renderSelectedPortfolioChart);
 
-setupPortfolioPerformancePeriodButtons(
-    renderSelectedPortfolioChart
-);
+
 
 setupPortfolioChartResize(
     renderSelectedPortfolioChart
