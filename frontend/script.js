@@ -152,6 +152,7 @@ let cachedPortfolioHistory = [];
 let cachedEstimatedPriceHistory = [];
 
 let portfolioChartPeriod = "3m";
+let portfolioChartFrequency = "auto";
 let portfolioPerformancePeriod = 30;
 
 let portfolioChartResizeTimer = null;
@@ -6033,45 +6034,58 @@ function aggregatePortfolioHistoryWeekly(
 }
 
 
-function prepareResponsiveChartRows(
-    rows,
-    period,
-    canvas
-) {
-    let visibleRows =
-        filterPortfolioHistoryByPeriod(
-            rows,
-            period
-        );
+function aggregatePortfolioHistoryByFrequency(rows, frequency) {
+    const buckets = new Map();
+    rows.forEach(row => {
+        if (!row?.date) return;
+        const day = String(row.date).slice(0, 10);
+        const key = frequency === "week"
+            ? getIsoWeekKey(day)
+            : day.slice(0, 7);
+        if (!buckets.has(key)) {
+            buckets.set(key, { last: row, added: [], removed: [], moved: [] });
+        }
+        const bucket = buckets.get(key);
+        bucket.last = row; // Dernière valorisation disponible de la période.
+        const changes = row.collectionChanges || {};
+        for (const kind of ["added", "removed", "moved"]) {
+            if (Array.isArray(changes[kind])) bucket[kind].push(...changes[kind]);
+        }
+    });
+    return [...buckets.values()].map(bucket => ({
+        ...bucket.last,
+        collectionChanges: {
+            ...(bucket.last.collectionChanges || {}),
+            added: bucket.added,
+            removed: bucket.removed,
+            moved: bucket.moved
+        }
+    }));
+}
 
-    /*
-     * Jusqu'à 1 an :
-     * on conserve les données quotidiennes.
-     *
-     * Pour "Tout", si l'historique devient
-     * très long, on agrège uniquement
-     * l'affichage par semaine.
-     *
-     * Les données originales restent intactes.
-     */
-    if (
-        period === "all" &&
-        visibleRows.length > 365
-    ) {
-        visibleRows =
-            aggregatePortfolioHistoryWeekly(
-                visibleRows
-            );
+function prepareResponsiveChartRows(rows, period, canvas) {
+    const visibleRows = filterPortfolioHistoryByPeriod(rows, period);
+    const frequency = portfolioChartFrequency === "auto"
+        ? (period === "all" && visibleRows.length > 365 ? "week" : "day")
+        : portfolioChartFrequency;
+    if (frequency === "week" || frequency === "month") {
+        return aggregatePortfolioHistoryByFrequency(visibleRows, frequency);
     }
+    return visibleRows;
+}
 
-/*
- * Aucune période n'est tronquée.
- *
- * Pour "Tout", l'allègement éventuel
- * a déjà été effectué plus haut
- * par agrégation hebdomadaire.
- */
-return visibleRows;
+function setupPortfolioChartFrequencyButtons(renderChart) {
+    document.querySelectorAll("[data-chart-frequency]").forEach(button => {
+        button.onclick = () => {
+            portfolioChartFrequency = button.dataset.chartFrequency || "auto";
+            document.querySelectorAll("[data-chart-frequency]").forEach(item => {
+                const active = item === button;
+                item.classList.toggle("active", active);
+                item.setAttribute("aria-pressed", String(active));
+            });
+            renderChart();
+        };
+    });
 }
 
 function formatPortfolioFreshnessDate(dateString) {
@@ -8100,6 +8114,8 @@ currentPortfolioChartRenderer =
 setupPortfolioChartPeriodButtons(
     renderSelectedPortfolioChart
 );
+
+setupPortfolioChartFrequencyButtons(renderSelectedPortfolioChart);
 
 setupPortfolioPerformancePeriodButtons(
     renderSelectedPortfolioChart
