@@ -6257,6 +6257,138 @@ function setupPortfolioChartResize(
     );
 }
 
+// Classement des variations de prix par exemplaire, sur la même période que le graphique.
+let portfolioMoversMode = "eur";
+let portfolioMoversMinPrice = true;
+let portfolioMoversHistoryIndex = new Map();
+
+function buildPortfolioMoversHistoryIndex(rows) {
+    const index = new Map();
+    (Array.isArray(rows) ? rows : []).forEach(row => {
+        if (row?.cardId == null || !row?.date) return;
+        const date = String(row.date).slice(0, 10);
+        if (date < MODEL_START_DATE) return;
+        const key = String(row.cardId);
+        if (!index.has(key)) index.set(key, []);
+        index.get(key).push({ ...row, date });
+    });
+    index.forEach(history => history.sort((a, b) => a.date.localeCompare(b.date)));
+    return index;
+}
+
+function portfolioMoverPrice(row, condition) {
+    if (!row) return null;
+    let byCondition = row.estimatedByCondition;
+    if (typeof byCondition === "string") {
+        try { byCondition = JSON.parse(byCondition); } catch { byCondition = null; }
+    }
+    const raw = byCondition?.[condition] ?? byCondition?.NM ??
+        row.estimatedConditionPrice ?? row.estimatedPrice;
+    if (raw === null || raw === undefined || raw === "") return null;
+    const value = Number(raw);
+    return Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+function portfolioMoverAtOrBefore(history, date) {
+    if (!history?.length) return null;
+    let lo = 0, hi = history.length - 1, found = -1;
+    while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        if (history[mid].date <= date) { found = mid; lo = mid + 1; }
+        else hi = mid - 1;
+    }
+    return found >= 0 ? history[found] : null;
+}
+
+function renderPortfolioMovers(selectedCards, chartHistory) {
+    const up = document.getElementById("portfolio-movers-up");
+    const down = document.getElementById("portfolio-movers-down");
+    if (!up || !down) return;
+    const dates = chartHistory.filter(row => row?.date);
+    const lastDate = String(dates[dates.length - 1]?.date || "").slice(0, 10);
+    const firstDate = String(dates[0]?.date || "").slice(0, 10);
+    const startDate = getPortfolioPeriodStartDate(dates, portfolioChartPeriod) || firstDate;
+    const periodLabel = { "1m":"1M", "3m":"3M", "6m":"6M", "1y":"1A", all:"Tout" }[portfolioChartPeriod] || portfolioChartPeriod;
+    const periodNode = document.getElementById("portfolio-movers-period");
+    if (periodNode) periodNode.textContent = `· ${periodLabel}`;
+    const ranking = [];
+    const seen = new Set();
+    for (const card of selectedCards) {
+        if (card?.id == null || seen.has(String(card.id))) continue;
+        const id = String(card.id);
+        seen.add(id);
+        const history = portfolioMoversHistoryIndex.get(id);
+        if (!history?.length || !startDate || !lastDate) continue;
+        // Pas d'extrapolation: la référence doit disposer d'un prix à la date
+        // de début ou avant, et d'un prix à la fin ou avant.
+        const beforeRow = portfolioMoverAtOrBefore(history, startDate);
+        const afterRow = portfolioMoverAtOrBefore(history, lastDate);
+        if (!beforeRow || !afterRow || afterRow.date <= beforeRow.date) continue;
+        const condition = String(card.etat || "NM").toUpperCase();
+        const before = portfolioMoverPrice(beforeRow, condition);
+        const after = portfolioMoverPrice(afterRow, condition);
+        if (before === null || after === null || before <= 0) continue;
+        if (portfolioMoversMinPrice && before < 1) continue;
+        const delta = after - before;
+        if (Math.abs(delta) < 1e-9) continue;
+        ranking.push({
+            name: String(card.nomCarte || "Carte"),
+            edition: String(card.edition || ""),
+            language: String(card.langue || ""),
+            delta, pct: delta / before * 100
+        });
+    }
+    const metric = portfolioMoversMode === "pct" ? "pct" : "delta";
+    const sorted = [...ranking].sort((a, b) => b[metric] - a[metric]);
+    const euro = new Intl.NumberFormat("fr-FR", { style:"currency", currency:"EUR", minimumFractionDigits:2, maximumFractionDigits:2 });
+    const pct = new Intl.NumberFormat("fr-FR", { maximumFractionDigits:1, minimumFractionDigits:1 });
+    function fill(target, rows, direction) {
+        target.replaceChildren();
+        if (!rows.length) {
+            const empty = document.createElement("div");
+            empty.className = "portfolio-movers-empty";
+            empty.textContent = "Pas assez d'historique";
+            target.appendChild(empty);
+            return;
+        }
+        rows.forEach(item => {
+            const line = document.createElement("div");
+            line.className = "portfolio-movers-item";
+            const name = document.createElement("span");
+            name.className = "portfolio-movers-name";
+            name.textContent = `${item.name}${item.edition ? ` (${item.edition})` : ""}`;
+            name.title = [item.name, item.edition, item.language].filter(Boolean).join(" · ");
+            const amount = document.createElement("span");
+            amount.className = `portfolio-movers-amount ${direction}`;
+            const value = item[metric];
+            amount.textContent = `${value > 0 ? "+" : ""}${metric === "pct" ? pct.format(value) + " %" : euro.format(value)}`;
+            line.append(name, amount);
+            target.appendChild(line);
+        });
+    }
+    fill(up, sorted.filter(item => item.delta > 0).slice(0, 5), "up");
+    fill(down, sorted.filter(item => item.delta < 0).reverse().slice(0, 5), "down");
+}
+
+function setupPortfolioMoversControls() {
+    document.querySelectorAll("[data-movers-mode]").forEach(button => {
+        button.onclick = () => {
+            portfolioMoversMode = button.dataset.moversMode === "pct" ? "pct" : "eur";
+            document.querySelectorAll("[data-movers-mode]").forEach(b => {
+                const active = b === button;
+                b.classList.toggle("active", active);
+                b.setAttribute("aria-pressed", String(active));
+            });
+            currentPortfolioChartRenderer?.();
+        };
+    });
+    const minimum = document.getElementById("portfolio-movers-minimum");
+    if (minimum) minimum.onchange = () => {
+        portfolioMoversMinPrice = minimum.checked;
+        currentPortfolioChartRenderer?.();
+    };
+}
+
 async function loadPortfolioHistory(historyPromise = null) {
     const history = historyPromise
         ? await historyPromise
@@ -6294,6 +6426,7 @@ async function loadPortfolioHistory(historyPromise = null) {
 
         cachedEstimatedPriceHistory =
     estimatedPriceHistory;
+        portfolioMoversHistoryIndex = buildPortfolioMoversHistoryIndex(estimatedPriceHistory);
 
 
     } catch (error) {
@@ -6572,6 +6705,7 @@ if (freshnessElement) {
     function renderSelectedPortfolioChart() {
         const selectedCards =
             getSelectedPortfolioCards();
+        renderPortfolioMovers(selectedCards, filteredHistory);
 
         const noFilters =
             !selectedPortfolioCategory &&
@@ -8110,6 +8244,8 @@ if (moved.length) {
 
 currentPortfolioChartRenderer =
     renderSelectedPortfolioChart;
+
+setupPortfolioMoversControls();
 
 setupPortfolioChartPeriodButtons(
     renderSelectedPortfolioChart
