@@ -184,6 +184,31 @@ function getExternalRadarAssessment(
     marketRadar
 ) {
 
+    // Alerte US 1J : indépendante du Trend Cardmarket et des horizons 14-90j.
+    const oneDay = marketRadar?.tcgOneDay;
+    if (oneDay?.eligible === true && Number(oneDay.currentEur) >= 5 && Number(oneDay.changePct) >= 15) {
+        const pct = Number(oneDay.changePct);
+        return {
+            eligible: true,
+            score: pct >= 50 ? 100 : pct >= 30 ? 95 : 85,
+            type: oneDay.signal || "🚀 Hausse TCGplayer 1J",
+            signal: oneDay.signal || "🚀 Hausse TCGplayer 1J",
+            momentum: "Variation quotidienne US",
+            tcgOneDayPct: pct,
+            tcgOneDayDate: oneDay.date,
+            tcgOneDayPriceEur: Number(oneDay.currentEur),
+            cardmarketTrend: marketRadar?.cardmarket?.cardmarketTrend ?? null,
+            tcg14: getMarketTrend(marketRadar?.tcg, 14),
+            tcg30: getMarketTrend(marketRadar?.tcg, 30),
+            tcg60: getMarketTrend(marketRadar?.tcg, 60),
+            tcg90: getMarketTrend(marketRadar?.tcg, 90),
+            cm14: getMarketTrend(marketRadar?.cardmarket, 14),
+            cm30: getMarketTrend(marketRadar?.cardmarket, 30),
+            cm60: getMarketTrend(marketRadar?.cardmarket, 60),
+            cm90: getMarketTrend(marketRadar?.cardmarket, 90)
+        };
+    }
+
     const tcg =
         marketRadar?.tcg || {};
 
@@ -765,6 +790,7 @@ function buildRadarCardHtml(
             <h3>🇺🇸 TCGplayer</h3>
 
             <p>
+                ${card.tcgOneDayPct != null ? `<strong>1J :</strong> ${formatPercent(card.tcgOneDayPct)} (${escapeHtml(card.tcgOneDayDate || "")})<br>` : ""}
                 <strong>14j :</strong>
                 ${formatOptionalPercent(
                     card.tcg14
@@ -878,18 +904,16 @@ const radarCardsHtml =
                 <h2>📡 Radar — hausses à vérifier sur Cardmarket</h2>
 
                 <p>
-                    Le Radar statistique a identifié
+                    Le Radar a identifié
                     <strong>${radarAlerts.length}</strong>
-                    carte(s) présentant une hausse suffisamment
-                    forte, persistante et propre pour justifier
+                    carte(s) présentant un signal 1J US ou une hausse
+                    persistante pour justifier
                     une vérification manuelle des annonces Cardmarket.
                 </p>
 
                 <p>
-                    Le signal repose principalement sur les
-                    tendances 14 / 21 / 30 jours du modèle,
-                    leur persistance, le R², le bruit et
-                    la confiance du moteur.
+                    Les alertes TCGplayer 1J sont indépendantes des tendances
+                    14 / 30 / 60 jours et ne nécessitent pas de confirmation Cardmarket.
                 </p>
 
                 ${radarCardsHtml}

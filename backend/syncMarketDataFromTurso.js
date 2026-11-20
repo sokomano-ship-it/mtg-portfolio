@@ -2,7 +2,8 @@ const fs = require("fs");
 const path = require("path");
 
 const {
-    loadMarketObservations
+    loadMarketObservations,
+    loadTrackedMarketCards
 } = require("./tursoMarketDataStore");
 
 
@@ -12,6 +13,8 @@ const DATA_DIR =
         "data"
     );
 
+
+const TRACKED_PATH = path.join(DATA_DIR, "trackedMarketCards.json");
 
 const OBSERVATIONS_PATH =
     path.join(
@@ -75,6 +78,12 @@ async function main() {
         `Observations synchronisées : ${observations.length}`
     );
 
+
+    const tracked = await loadTrackedMarketCards();
+    if (!Array.isArray(tracked)) throw new Error("Cartes Administration Turso invalides");
+    // Source de vérité : Administration (Turso), sans ajout de carte en dur.
+    writeJson(TRACKED_PATH, tracked);
+    console.log(`Cartes suivies synchronisées depuis Administration : ${tracked.length}`);
 
     console.log(
         "Synchronisation Turso terminée."

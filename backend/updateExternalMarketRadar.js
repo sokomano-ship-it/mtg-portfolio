@@ -2315,6 +2315,9 @@ function detectTcgOneDaySpike(series, fx) {
     const prev = valid[valid.length - 2];
     const days = Math.round((Date.parse(last.date + "T00:00:00Z") - Date.parse(prev.date + "T00:00:00Z")) / 86400000);
     if (days !== 1) return { available: false, reason: "missing_previous_day", date: last.date };
+    // Ne pas renvoyer une ancienne explosion comme une nouvelle alerte.
+    const ageDays = Math.floor((Date.now() - Date.parse(last.date + "T00:00:00Z")) / 86400000);
+    if (ageDays > 2) return { available: false, reason: "stale_data", date: last.date };
     const currentEur = Number.isFinite(fx) && fx > 0 ? Number(last.price) * fx : null;
     const changePct = (Number(last.price) / Number(prev.price) - 1) * 100;
     const eligible = currentEur !== null && currentEur >= 5 && changePct >= 15;
@@ -2649,6 +2652,42 @@ let mappedTcg =
             false;
     }
 
+
+    // Univers automatique : cartes suivies dans Administration + cartes possédées.
+    // La liste Administration est synchronisée depuis Turso en début de workflow.
+    const tracked = readJson(path.join(ROOT, "backend", "data", "trackedMarketCards.json"), []);
+    const inventoryData = readJson(path.join(ROOT, "frontend", "data", "cards.json"), {});
+    const ownedCards = Array.isArray(inventoryData) ? inventoryData : (inventoryData.cards || []);
+    const monitoredPrintings = [
+        ...(Array.isArray(tracked) ? tracked : []),
+        ...ownedCards.filter(card => card && card.isActive !== 0 && !card.removedAt)
+    ].filter(row => row && row.nomCarte && row.edition && row.langue);
+
+    const ownedKeys = new Set(ownedCards.map(keyOf));
+    const existingPrintings = new Set(radar.rows.map(keyOf));
+    let added = 0;
+    for (const printing of monitoredPrintings) {
+        const key = keyOf(printing);
+        if (existingPrintings.has(key)) continue;
+        existingPrintings.add(key);
+        added++;
+        radar.rows.push({
+            printingKey: [normalize(printing.nomCarte), normalize(printing.edition), "", normalize(printing.langue)].join("|"),
+            nomCarte: printing.nomCarte,
+            edition: printing.edition,
+            langue: printing.langue,
+            version: printing.version || null,
+            condition: "NM",
+            historySource: "external-watch",
+            owned: ownedKeys.has(key),
+            latestPrice: null,
+            radarEligible: false,
+            convictionScore: 0,
+            signalLevel: "En apprentissage",
+            externalOnly: true
+        });
+    }
+    console.log(`[Radar coverage] administration=${Array.isArray(tracked) ? tracked.length : 0}, owned=${ownedCards.length}, added=${added}, total=${radar.rows.length}`);
 
     const printings =
         [
@@ -3574,6 +3613,11 @@ if (
             "MTGJSON paper.tcgplayer.retail.normal"
     };
 
+
+    radar.summary ||= {};
+    radar.summary.total = radar.rows.length;
+    radar.summary.tcgOneDayAlerts = radar.rows.filter(row => row.marketRadar?.tcgOneDay?.eligible).length;
+    radar.summary.externalOnly = radar.rows.filter(row => row.externalOnly).length;
 
     writeJson(
         RADAR_PATH,

@@ -44,8 +44,7 @@ jobs:
       - name: Rebuild estimated price history from Turso
         run: node backend/exportEstimatedPriceHistoryFromTurso.js
 
-      - name: Sync observations from Turso
-        if: github.event_name != 'push'
+      - name: Sync Administration cards and observations from Turso
         run: node backend/syncMarketDataFromTurso.js
 
       - name: Rebuild price history from Turso
