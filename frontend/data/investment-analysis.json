@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T18:11:37.920Z",
+  "generatedAt": "2026-11-20T20:11:44.048Z",
   "investmentAnalysis": [
     {
       "id": 1451,
@@ -3080,6 +3080,33 @@
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
+      "id": 1230,
+      "nomCarte": "Mind Twist",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "version": null,
+      "quantity": 2,
+      "scryfallId": "50fe99a2-2760-472d-a8f8-e3412170e168",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 8.08,
+      "lotValue": 16.16,
+      "price7d": 5.92,
+      "perf7d": 36.49,
+      "price30d": 5.84,
+      "perf30d": 38.36,
+      "price60d": 6.75,
+      "perf60d": 19.7,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
+    },
+    {
       "id": 2668,
       "nomCarte": "Snow-Covered Swamp",
       "edition": "Ice Age",
@@ -5265,6 +5292,33 @@
       "observationDaysCount": 1,
       "pricingModel": "standard_observed_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
+    },
+    {
+      "id": 1425,
+      "nomCarte": "Clone",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "version": null,
+      "quantity": 1,
+      "scryfallId": "08048b52-db75-4ecb-93b3-160941bc2477",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 0.29,
+      "lotValue": 0.29,
+      "price7d": 0.25,
+      "perf7d": 16,
+      "price30d": 0.23,
+      "perf30d": 26.09,
+      "price60d": 0.34,
+      "perf60d": -14.71,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
     },
     {
       "id": 1453,
@@ -9830,6 +9884,33 @@
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
+      "id": 2589,
+      "nomCarte": "Wrath of God",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "version": null,
+      "quantity": 3,
+      "scryfallId": "4e5884d4-c858-417d-9aaf-995623e9cd83",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 15.6,
+      "lotValue": 46.8,
+      "price7d": 10.93,
+      "perf7d": 42.73,
+      "price30d": 13.73,
+      "perf30d": 13.62,
+      "price60d": 10.49,
+      "perf60d": 48.71,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
+    },
+    {
       "id": 1303,
       "nomCarte": "Manabarbs",
       "edition": "Foreign White Bordered",
@@ -9853,7 +9934,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -11446,7 +11527,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -11689,7 +11770,7 @@
       "perf365d": null,
       "confidence": 70,
       "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
     },
     {
@@ -12202,7 +12283,7 @@
       "perf365d": null,
       "confidence": 59,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -13282,7 +13363,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -14391,33 +14472,6 @@
       "observationDaysCount": 1,
       "pricingModel": "standard_observed_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
-    },
-    {
-      "id": 1240,
-      "nomCarte": "Sorceress Queen",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "version": null,
-      "quantity": 1,
-      "scryfallId": "8da11774-68c7-434e-a188-4eb75a71535d",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 1.01,
-      "lotValue": 1.01,
-      "price7d": 1.13,
-      "perf7d": -10.62,
-      "price30d": 0.96,
-      "perf30d": 5.21,
-      "price60d": 1.09,
-      "perf60d": -7.34,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
     },
     {
       "id": 1541,
@@ -16657,7 +16711,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -17089,7 +17143,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -17444,6 +17498,33 @@
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
+      "id": 2755,
+      "nomCarte": "Scrubland",
+      "edition": "Foreign White Bordered",
+      "langue": "Italian",
+      "etat": "EX",
+      "version": null,
+      "quantity": 1,
+      "scryfallId": "334ccdb5-8141-435a-8e7f-75cf98b3f471",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 276.23,
+      "lotValue": 276.23,
+      "price7d": 277.47,
+      "perf7d": -0.45,
+      "price30d": 272.08,
+      "perf30d": 1.53,
+      "price60d": null,
+      "perf60d": null,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_observed_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
+    },
+    {
       "id": 1562,
       "nomCarte": "Undiscovered Paradise",
       "edition": "Visions",
@@ -17494,7 +17575,7 @@
       "perf365d": null,
       "confidence": 59,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -17822,33 +17903,6 @@
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
-      "id": 1746,
-      "nomCarte": "Balance",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "version": null,
-      "quantity": 1,
-      "scryfallId": "5dfea750-8a13-4932-acfe-caa3430158d9",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 2.89,
-      "lotValue": 2.89,
-      "price7d": 2.36,
-      "perf7d": 22.46,
-      "price30d": 2.88,
-      "perf30d": 0.35,
-      "price60d": 3.7,
-      "perf60d": -21.89,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
-    },
-    {
       "id": 1333,
       "nomCarte": "Jihad",
       "edition": "Arabian Nights",
@@ -17901,33 +17955,6 @@
       "observationDaysCount": 1,
       "pricingModel": "manual_synthetic_evolution",
       "gradeModelSource": "manual observations by condition + synthetic market evolution"
-    },
-    {
-      "id": 2755,
-      "nomCarte": "Scrubland",
-      "edition": "Foreign White Bordered",
-      "langue": "Italian",
-      "etat": "EX",
-      "version": null,
-      "quantity": 1,
-      "scryfallId": "334ccdb5-8141-435a-8e7f-75cf98b3f471",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 272.42,
-      "lotValue": 272.42,
-      "price7d": 277.47,
-      "perf7d": -1.82,
-      "price30d": 272.08,
-      "perf30d": 0.12,
-      "price60d": null,
-      "perf60d": null,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_fallback_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
     },
     {
       "id": 3465,
@@ -21868,7 +21895,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -21949,7 +21976,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -21976,7 +22003,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22005,33 +22032,6 @@
       "observationDaysCount": 0,
       "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + global/edition ratios"
-    },
-    {
-      "id": 1425,
-      "nomCarte": "Clone",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "version": null,
-      "quantity": 1,
-      "scryfallId": "08048b52-db75-4ecb-93b3-160941bc2477",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 0.23,
-      "lotValue": 0.23,
-      "price7d": 0.25,
-      "perf7d": -8,
-      "price30d": 0.23,
-      "perf30d": 0,
-      "price60d": 0.34,
-      "perf60d": -32.35,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
     },
     {
       "id": 1875,
@@ -22246,7 +22246,7 @@
       "perf365d": null,
       "confidence": 59,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22273,7 +22273,7 @@
       "perf365d": null,
       "confidence": 59,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22354,7 +22354,7 @@
       "perf365d": null,
       "confidence": 59,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22381,7 +22381,7 @@
       "perf365d": null,
       "confidence": 59,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22516,7 +22516,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22543,7 +22543,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22678,7 +22678,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22705,7 +22705,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22894,7 +22894,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22921,7 +22921,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22948,7 +22948,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -22975,7 +22975,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -23029,7 +23029,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -23083,7 +23083,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -23326,7 +23326,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -23353,7 +23353,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -23380,7 +23380,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -23461,7 +23461,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -28028,33 +28028,6 @@
       "gradeModelSource": "anchor + 3 observation day(s) + trained card ratios"
     },
     {
-      "id": 1230,
-      "nomCarte": "Mind Twist",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "version": null,
-      "quantity": 2,
-      "scryfallId": "50fe99a2-2760-472d-a8f8-e3412170e168",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 5.79,
-      "lotValue": 11.58,
-      "price7d": 5.92,
-      "perf7d": -2.2,
-      "price30d": 5.84,
-      "perf30d": -0.86,
-      "price60d": 6.75,
-      "perf60d": -14.22,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
-    },
-    {
       "id": 1781,
       "nomCarte": "Thran Dynamo",
       "edition": "Urza's Destiny",
@@ -29077,7 +29050,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -29243,6 +29216,33 @@
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
+      "id": 1439,
+      "nomCarte": "Lord of Atlantis",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "GD",
+      "version": null,
+      "quantity": 1,
+      "scryfallId": "3e6809d3-94fd-4e64-98b7-4cb518aee242",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 4.72,
+      "lotValue": 4.72,
+      "price7d": 4.33,
+      "perf7d": 9.01,
+      "price30d": 4.84,
+      "perf30d": -2.48,
+      "price60d": 4.34,
+      "perf60d": 8.76,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
+    },
+    {
       "id": 2777,
       "nomCarte": "Verduran Enchantress",
       "edition": "Foreign White Bordered",
@@ -29403,6 +29403,33 @@
       "observationDaysCount": 2,
       "pricingModel": "edition_observed_condition_ratio",
       "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
+    },
+    {
+      "id": 1416,
+      "nomCarte": "Lord of Atlantis",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "version": null,
+      "quantity": 3,
+      "scryfallId": "3e6809d3-94fd-4e64-98b7-4cb518aee242",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 5.77,
+      "lotValue": 17.31,
+      "price7d": 5.32,
+      "perf7d": 8.46,
+      "price30d": 5.93,
+      "perf30d": -2.7,
+      "price60d": 5.49,
+      "perf60d": 5.1,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
     },
     {
       "id": 2383,
@@ -30562,7 +30589,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -32668,7 +32695,7 @@
       "perf365d": null,
       "confidence": 57,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -37667,6 +37694,33 @@
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
+      "id": 1746,
+      "nomCarte": "Balance",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "version": null,
+      "quantity": 1,
+      "scryfallId": "5dfea750-8a13-4932-acfe-caa3430158d9",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 2.43,
+      "lotValue": 2.43,
+      "price7d": 2.36,
+      "perf7d": 2.97,
+      "price30d": 2.88,
+      "perf30d": -15.62,
+      "price60d": 3.7,
+      "perf60d": -34.32,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
+    },
+    {
       "id": 3328,
       "nomCarte": "Scathe Zombies",
       "edition": "Fourth Edition",
@@ -37829,33 +37883,6 @@
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
     },
     {
-      "id": 1416,
-      "nomCarte": "Lord of Atlantis",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "version": null,
-      "quantity": 3,
-      "scryfallId": "3e6809d3-94fd-4e64-98b7-4cb518aee242",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 4.97,
-      "lotValue": 14.91,
-      "price7d": 5.32,
-      "perf7d": -6.58,
-      "price30d": 5.93,
-      "perf30d": -16.19,
-      "price60d": 5.49,
-      "perf60d": -9.47,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
-    },
-    {
       "id": 1258,
       "nomCarte": "Underworld Dreams",
       "edition": "Legends",
@@ -37935,33 +37962,6 @@
       "observationDaysCount": 1,
       "pricingModel": "standard_observed_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
-    },
-    {
-      "id": 1439,
-      "nomCarte": "Lord of Atlantis",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "GD",
-      "version": null,
-      "quantity": 1,
-      "scryfallId": "3e6809d3-94fd-4e64-98b7-4cb518aee242",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 4.05,
-      "lotValue": 4.05,
-      "price7d": 4.33,
-      "perf7d": -6.47,
-      "price30d": 4.84,
-      "perf30d": -16.32,
-      "price60d": 4.34,
-      "perf60d": -6.68,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_observed_condition_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
     },
     {
       "id": 3261,
@@ -39364,7 +39364,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -39391,7 +39391,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -39852,6 +39852,33 @@
       "observationDaysCount": 1,
       "pricingModel": "standard_observed_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + trained card ratios"
+    },
+    {
+      "id": 1240,
+      "nomCarte": "Sorceress Queen",
+      "edition": "Foreign White Bordered",
+      "langue": "French",
+      "etat": "EX",
+      "version": null,
+      "quantity": 1,
+      "scryfallId": "8da11774-68c7-434e-a188-4eb75a71535d",
+      "scryfallUri": null,
+      "currentEstimatedPrice": 0.76,
+      "lotValue": 0.76,
+      "price7d": 1.13,
+      "perf7d": -32.74,
+      "price30d": 0.96,
+      "perf30d": -20.83,
+      "price60d": 1.09,
+      "perf60d": -30.28,
+      "price180d": null,
+      "perf180d": null,
+      "price365d": null,
+      "perf365d": null,
+      "confidence": 70,
+      "observationDaysCount": 2,
+      "pricingModel": "edition_fallback_condition_ratio",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios"
     },
     {
       "id": 3403,
@@ -41443,7 +41470,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -41985,33 +42012,6 @@
       "observationDaysCount": 1,
       "pricingModel": "standard_observed_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
-    },
-    {
-      "id": 2589,
-      "nomCarte": "Wrath of God",
-      "edition": "Foreign White Bordered",
-      "langue": "French",
-      "etat": "EX",
-      "version": null,
-      "quantity": 3,
-      "scryfallId": "4e5884d4-c858-417d-9aaf-995623e9cd83",
-      "scryfallUri": null,
-      "currentEstimatedPrice": 10.19,
-      "lotValue": 30.57,
-      "price7d": 10.93,
-      "perf7d": -6.77,
-      "price30d": 13.73,
-      "perf30d": -25.78,
-      "price60d": 10.49,
-      "perf60d": -2.86,
-      "price180d": null,
-      "perf180d": null,
-      "price365d": null,
-      "perf365d": null,
-      "confidence": 70,
-      "observationDaysCount": 2,
-      "pricingModel": "edition_missing_initial_ratio",
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios"
     },
     {
       "id": 3009,
@@ -43495,7 +43495,7 @@
       "perf365d": null,
       "confidence": 85,
       "observationDaysCount": 6,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios"
     },
     {
@@ -43549,7 +43549,7 @@
       "perf365d": null,
       "confidence": 60,
       "observationDaysCount": 1,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 1 observation day(s) + global/edition ratios"
     },
     {
@@ -43846,7 +43846,7 @@
       "perf365d": null,
       "confidence": 85,
       "observationDaysCount": 6,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios"
     },
     {
@@ -43900,7 +43900,7 @@
       "perf365d": null,
       "confidence": 85,
       "observationDaysCount": 6,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios"
     },
     {

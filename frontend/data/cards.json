@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T18:11:37.920Z",
+  "generatedAt": "2026-11-20T20:11:44.048Z",
   "cards": [
     {
       "id": 1761,
@@ -94513,30 +94513,30 @@
       "avg7": 4.36,
       "avg30": 4.13,
       "prixEtat": 3.97,
-      "estimatedPrice": 2.89,
-      "baseEstimatedPrice": 2.72,
+      "estimatedPrice": 2.43,
+      "baseEstimatedPrice": 3.02,
       "estimatedByCondition": {
-        "NM": 3.47,
-        "EX": 2.89,
-        "GD": 2.2,
-        "LP": 1.66,
-        "PL": 1.59,
-        "PO": 1.59
+        "NM": 3.36,
+        "EX": 2.43,
+        "GD": 1.97,
+        "LP": 1.85,
+        "PL": 1.7,
+        "PO": 1.03
       },
       "buyTargetByCondition": {
-        "NM": 3.12,
-        "EX": 2.54
+        "NM": 3.02,
+        "EX": 2.14
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.8334,
-        "GD": 0.6344,
-        "LP": 0.4787,
-        "PL": 0.459,
-        "PO": 0.459
+        "EX": 0.7224,
+        "GD": 0.5853,
+        "LP": 0.5498,
+        "PL": 0.5071,
+        "PO": 0.3433
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 3,
         "EX": 3,
@@ -94579,12 +94579,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.6304,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 4.31,
-      "referenceMarketAnchorPrice": 4.31,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -94592,7 +94592,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2520,
@@ -97769,7 +97769,7 @@
       "avg30": 0.2,
       "prixEtat": 0.16,
       "estimatedPrice": 0.02,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.11,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -97834,12 +97834,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.19,
-      "referenceMarketAnchorPrice": 0.19,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -97847,7 +97847,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3122,
@@ -97874,7 +97874,7 @@
       "avg30": 0.2,
       "prixEtat": 0.17,
       "estimatedPrice": 0.03,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.13,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -97939,12 +97939,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.19,
-      "referenceMarketAnchorPrice": 0.19,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -97952,7 +97952,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3123,
@@ -98399,7 +98399,7 @@
       "avg30": 0.35,
       "prixEtat": 0.15,
       "estimatedPrice": 0.02,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.12,
       "estimatedByCondition": {
         "NM": 0.08,
         "EX": 0.04,
@@ -98464,12 +98464,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.4489,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.27,
-      "referenceMarketAnchorPrice": 0.27,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -98477,7 +98477,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1941,
@@ -98504,7 +98504,7 @@
       "avg30": 0.35,
       "prixEtat": 0.22,
       "estimatedPrice": 0.03,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.15,
       "estimatedByCondition": {
         "NM": 0.08,
         "EX": 0.04,
@@ -98569,12 +98569,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.27,
-      "referenceMarketAnchorPrice": 0.27,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -98582,7 +98582,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2602,
@@ -98609,7 +98609,7 @@
       "avg30": 0.35,
       "prixEtat": 0.25,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.19,
       "estimatedByCondition": {
         "NM": 0.08,
         "EX": 0.04,
@@ -98674,12 +98674,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.27,
-      "referenceMarketAnchorPrice": 0.27,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -98687,7 +98687,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2603,
@@ -98714,7 +98714,7 @@
       "avg30": 0.35,
       "prixEtat": 0.25,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.19,
       "estimatedByCondition": {
         "NM": 0.08,
         "EX": 0.04,
@@ -98779,12 +98779,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.27,
-      "referenceMarketAnchorPrice": 0.27,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -98792,7 +98792,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3125,
@@ -98819,7 +98819,7 @@
       "avg30": 0.35,
       "prixEtat": 0.25,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.19,
       "estimatedByCondition": {
         "NM": 0.08,
         "EX": 0.04,
@@ -98884,12 +98884,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.27,
-      "referenceMarketAnchorPrice": 0.27,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -98897,7 +98897,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3126,
@@ -99028,30 +99028,30 @@
       "avg7": 0.63,
       "avg30": 0.61,
       "prixEtat": 0.52,
-      "estimatedPrice": 0.23,
-      "baseEstimatedPrice": 0.12,
+      "estimatedPrice": 0.29,
+      "baseEstimatedPrice": 0.4,
       "estimatedByCondition": {
-        "NM": 0.36,
-        "EX": 0.23,
-        "GD": 0.19,
-        "LP": 0.15,
-        "PL": 0.09,
-        "PO": 0.09
+        "NM": 0.43,
+        "EX": 0.29,
+        "GD": 0.21,
+        "LP": 0.21,
+        "PL": 0.14,
+        "PO": 0.13
       },
       "buyTargetByCondition": {
-        "NM": 0.32,
-        "EX": 0.2
+        "NM": 0.39,
+        "EX": 0.26
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.6291,
-        "GD": 0.5308,
-        "LP": 0.4137,
-        "PL": 0.2551,
-        "PO": 0.2551
+        "EX": 0.6787,
+        "GD": 0.5024,
+        "LP": 0.5024,
+        "PL": 0.3233,
+        "PO": 0.3421
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 0.38,
         "EX": 0.2,
@@ -99094,12 +99094,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.2163,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 0.57,
-      "referenceMarketAnchorPrice": 0.57,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -99107,7 +99107,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1875,
@@ -101090,7 +101090,7 @@
       "avg30": 0.46,
       "prixEtat": 0.44,
       "estimatedPrice": 0.08,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101155,12 +101155,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101168,7 +101168,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2593,
@@ -101195,7 +101195,7 @@
       "avg30": 0.46,
       "prixEtat": 0.44,
       "estimatedPrice": 0.08,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101260,12 +101260,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101273,7 +101273,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2594,
@@ -101300,7 +101300,7 @@
       "avg30": 0.46,
       "prixEtat": 0.44,
       "estimatedPrice": 0.08,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101365,12 +101365,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101378,7 +101378,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2595,
@@ -101405,7 +101405,7 @@
       "avg30": 0.46,
       "prixEtat": 0.44,
       "estimatedPrice": 0.08,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101470,12 +101470,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101483,7 +101483,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2799,
@@ -101510,7 +101510,7 @@
       "avg30": 0.46,
       "prixEtat": 0.44,
       "estimatedPrice": 0.08,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101575,12 +101575,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101588,7 +101588,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2800,
@@ -101615,7 +101615,7 @@
       "avg30": 0.46,
       "prixEtat": 0.44,
       "estimatedPrice": 0.08,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101680,12 +101680,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101693,7 +101693,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2801,
@@ -101720,7 +101720,7 @@
       "avg30": 0.46,
       "prixEtat": 0.48,
       "estimatedPrice": 0.15,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.5,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101785,12 +101785,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101798,7 +101798,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2802,
@@ -101825,7 +101825,7 @@
       "avg30": 0.46,
       "prixEtat": 0.48,
       "estimatedPrice": 0.15,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.5,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101890,12 +101890,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -101903,7 +101903,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3128,
@@ -101930,7 +101930,7 @@
       "avg30": 0.46,
       "prixEtat": 0.48,
       "estimatedPrice": 0.15,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.5,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.08,
@@ -101995,12 +101995,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -102008,7 +102008,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3172,
@@ -102140,7 +102140,7 @@
       "avg30": 1.5,
       "prixEtat": 1.33,
       "estimatedPrice": 0.29,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.02,
       "estimatedByCondition": {
         "NM": 0.45,
         "EX": 0.29,
@@ -102205,12 +102205,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 4,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 57,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.45,
-      "referenceMarketAnchorPrice": 1.45,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -102218,7 +102218,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3155,
@@ -102875,14 +102875,14 @@
       "avg30": 2.28,
       "prixEtat": 2.24,
       "estimatedPrice": 1.7,
-      "baseEstimatedPrice": 1.03,
+      "baseEstimatedPrice": 1.71,
       "estimatedByCondition": {
         "NM": 2.44,
         "EX": 1.7,
         "GD": 1.42,
         "LP": 1.23,
         "PL": 0.95,
-        "PO": 0.95
+        "PO": 0.81
       },
       "buyTargetByCondition": {
         "NM": 2.2,
@@ -102894,7 +102894,7 @@
         "GD": 0.5822,
         "LP": 0.506,
         "PL": 0.3877,
-        "PO": 0.3877
+        "PO": 0.332
       },
       "gradeModelConfidence": 70,
       "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
@@ -102940,12 +102940,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.4212,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 2.44,
-      "referenceMarketAnchorPrice": 2.44,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -102953,7 +102953,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1880,
@@ -102980,7 +102980,7 @@
       "avg30": 0.48,
       "prixEtat": 0.48,
       "estimatedPrice": 0.11,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.5,
       "estimatedByCondition": {
         "NM": 0.11,
         "EX": 0.06,
@@ -103045,12 +103045,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -103058,7 +103058,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1881,
@@ -103085,7 +103085,7 @@
       "avg30": 0.48,
       "prixEtat": 0.44,
       "estimatedPrice": 0.06,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.11,
         "EX": 0.06,
@@ -103150,12 +103150,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -103163,7 +103163,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1882,
@@ -103190,7 +103190,7 @@
       "avg30": 0.48,
       "prixEtat": 0.44,
       "estimatedPrice": 0.06,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.34,
       "estimatedByCondition": {
         "NM": 0.11,
         "EX": 0.06,
@@ -103255,12 +103255,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.48,
-      "referenceMarketAnchorPrice": 0.48,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -103268,7 +103268,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3157,
@@ -104450,7 +104450,7 @@
       "avg30": 0.34,
       "prixEtat": 0.34,
       "estimatedPrice": 0.03,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.26,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -104515,12 +104515,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.37,
-      "referenceMarketAnchorPrice": 0.37,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -104528,7 +104528,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2541,
@@ -104555,7 +104555,7 @@
       "avg30": 0.34,
       "prixEtat": 0.34,
       "estimatedPrice": 0.03,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.26,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -104620,12 +104620,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.37,
-      "referenceMarketAnchorPrice": 0.37,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -104633,7 +104633,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2542,
@@ -104660,7 +104660,7 @@
       "avg30": 0.34,
       "prixEtat": 0.34,
       "estimatedPrice": 0.03,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.26,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -104725,12 +104725,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.37,
-      "referenceMarketAnchorPrice": 0.37,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -104738,7 +104738,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2543,
@@ -104765,7 +104765,7 @@
       "avg30": 0.34,
       "prixEtat": 0.34,
       "estimatedPrice": 0.03,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.26,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -104830,12 +104830,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.37,
-      "referenceMarketAnchorPrice": 0.37,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -104843,7 +104843,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3188,
@@ -104870,7 +104870,7 @@
       "avg30": 0.34,
       "prixEtat": 0.37,
       "estimatedPrice": 0.06,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.39,
       "estimatedByCondition": {
         "NM": 0.06,
         "EX": 0.03,
@@ -104935,12 +104935,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.37,
-      "referenceMarketAnchorPrice": 0.37,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -104948,7 +104948,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3189,
@@ -107390,7 +107390,7 @@
       "avg30": 1.05,
       "prixEtat": 0.84,
       "estimatedPrice": 0.55,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.57,
       "estimatedByCondition": {
         "NM": 1.06,
         "EX": 0.71,
@@ -107455,12 +107455,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.03,
-      "referenceMarketAnchorPrice": 1.03,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -107468,7 +107468,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2263,
@@ -107495,7 +107495,7 @@
       "avg30": 1.05,
       "prixEtat": 0.95,
       "estimatedPrice": 0.71,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.72,
       "estimatedByCondition": {
         "NM": 1.06,
         "EX": 0.71,
@@ -107560,12 +107560,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.03,
-      "referenceMarketAnchorPrice": 1.03,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -107573,7 +107573,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3205,
@@ -107600,7 +107600,7 @@
       "avg30": 1.05,
       "prixEtat": 0.84,
       "estimatedPrice": 0.55,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.57,
       "estimatedByCondition": {
         "NM": 1.06,
         "EX": 0.71,
@@ -107665,12 +107665,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.03,
-      "referenceMarketAnchorPrice": 1.03,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -107678,7 +107678,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3191,
@@ -110750,7 +110750,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -110815,12 +110815,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -110828,7 +110828,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1226,
@@ -110855,7 +110855,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -110920,12 +110920,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -110933,7 +110933,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1759,
@@ -110960,7 +110960,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111025,12 +111025,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111038,7 +111038,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1760,
@@ -111065,7 +111065,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111130,12 +111130,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111143,7 +111143,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2483,
@@ -111170,7 +111170,7 @@
       "avg30": 2.67,
       "prixEtat": 2.75,
       "estimatedPrice": 1.68,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 2.87,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111235,12 +111235,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111248,7 +111248,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2533,
@@ -111275,7 +111275,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111340,12 +111340,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111353,7 +111353,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2534,
@@ -111380,7 +111380,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111445,12 +111445,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111458,7 +111458,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2535,
@@ -111485,7 +111485,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111550,12 +111550,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111563,7 +111563,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2606,
@@ -111590,7 +111590,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111655,12 +111655,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111668,7 +111668,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2607,
@@ -111695,7 +111695,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111760,12 +111760,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111773,7 +111773,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2676,
@@ -111800,7 +111800,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111865,12 +111865,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111878,7 +111878,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2677,
@@ -111905,7 +111905,7 @@
       "avg30": 2.67,
       "prixEtat": 2.53,
       "estimatedPrice": 1.2,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.93,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -111970,12 +111970,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -111983,7 +111983,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2679,
@@ -112010,7 +112010,7 @@
       "avg30": 2.67,
       "prixEtat": 2.25,
       "estimatedPrice": 0.92,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.53,
       "estimatedByCondition": {
         "NM": 1.68,
         "EX": 1.2,
@@ -112075,12 +112075,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.75,
-      "referenceMarketAnchorPrice": 2.75,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112088,7 +112088,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1922,
@@ -112115,7 +112115,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112180,12 +112180,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112193,7 +112193,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1923,
@@ -112220,7 +112220,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112285,12 +112285,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112298,7 +112298,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1924,
@@ -112325,7 +112325,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112390,12 +112390,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112403,7 +112403,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1925,
@@ -112430,7 +112430,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112495,12 +112495,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112508,7 +112508,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2536,
@@ -112535,7 +112535,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112600,12 +112600,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112613,7 +112613,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2537,
@@ -112640,7 +112640,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112705,12 +112705,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112718,7 +112718,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2538,
@@ -112745,7 +112745,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112810,12 +112810,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112823,7 +112823,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2539,
@@ -112850,7 +112850,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -112915,12 +112915,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -112928,7 +112928,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2758,
@@ -112955,7 +112955,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -113020,12 +113020,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113033,7 +113033,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2759,
@@ -113060,7 +113060,7 @@
       "avg30": 0.84,
       "prixEtat": 0.84,
       "estimatedPrice": 0.1,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.64,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -113125,12 +113125,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113138,7 +113138,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3192,
@@ -113165,7 +113165,7 @@
       "avg30": 0.84,
       "prixEtat": 0.91,
       "estimatedPrice": 0.15,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.95,
       "estimatedByCondition": {
         "NM": 0.15,
         "EX": 0.1,
@@ -113230,12 +113230,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.91,
-      "referenceMarketAnchorPrice": 0.91,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113243,7 +113243,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1416,
@@ -113269,30 +113269,30 @@
       "avg7": 5.99,
       "avg30": 6.79,
       "prixEtat": 5.78,
-      "estimatedPrice": 4.97,
-      "baseEstimatedPrice": 4.77,
+      "estimatedPrice": 5.77,
+      "baseEstimatedPrice": 4.41,
       "estimatedByCondition": {
-        "NM": 6.8,
-        "EX": 4.97,
-        "GD": 4.05,
-        "LP": 4.05,
-        "PL": 3.64,
+        "NM": 8.4,
+        "EX": 5.77,
+        "GD": 4.72,
+        "LP": 4.18,
+        "PL": 4.02,
         "PO": 2.65
       },
       "buyTargetByCondition": {
-        "NM": 6.12,
-        "EX": 4.37
+        "NM": 7.56,
+        "EX": 5.08
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7309,
-        "GD": 0.5953,
-        "LP": 0.5953,
-        "PL": 0.5346,
+        "EX": 0.6873,
+        "GD": 0.5613,
+        "LP": 0.4977,
+        "PL": 0.4782,
         "PO": 0.3533
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 7.5,
         "EX": 5,
@@ -113335,12 +113335,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.7591,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 6.28,
-      "referenceMarketAnchorPrice": 6.28,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113348,7 +113348,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1417,
@@ -113374,30 +113374,30 @@
       "avg7": 5.99,
       "avg30": 6.79,
       "prixEtat": 5.78,
-      "estimatedPrice": 4.97,
-      "baseEstimatedPrice": 4.77,
+      "estimatedPrice": 5.77,
+      "baseEstimatedPrice": 4.41,
       "estimatedByCondition": {
-        "NM": 6.8,
-        "EX": 4.97,
-        "GD": 4.05,
-        "LP": 4.05,
-        "PL": 3.64,
+        "NM": 8.4,
+        "EX": 5.77,
+        "GD": 4.72,
+        "LP": 4.18,
+        "PL": 4.02,
         "PO": 2.65
       },
       "buyTargetByCondition": {
-        "NM": 6.12,
-        "EX": 4.37
+        "NM": 7.56,
+        "EX": 5.08
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7309,
-        "GD": 0.5953,
-        "LP": 0.5953,
-        "PL": 0.5346,
+        "EX": 0.6873,
+        "GD": 0.5613,
+        "LP": 0.4977,
+        "PL": 0.4782,
         "PO": 0.3533
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 7.5,
         "EX": 5,
@@ -113440,12 +113440,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.7591,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 6.28,
-      "referenceMarketAnchorPrice": 6.28,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113453,7 +113453,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1439,
@@ -113479,30 +113479,30 @@
       "avg7": 5.99,
       "avg30": 6.79,
       "prixEtat": 5.15,
-      "estimatedPrice": 4.05,
-      "baseEstimatedPrice": 3.74,
+      "estimatedPrice": 4.72,
+      "baseEstimatedPrice": 3.49,
       "estimatedByCondition": {
-        "NM": 6.8,
-        "EX": 4.97,
-        "GD": 4.05,
-        "LP": 4.05,
-        "PL": 3.64,
+        "NM": 8.4,
+        "EX": 5.77,
+        "GD": 4.72,
+        "LP": 4.18,
+        "PL": 4.02,
         "PO": 2.65
       },
       "buyTargetByCondition": {
-        "NM": 6.12,
-        "EX": 4.37
+        "NM": 7.56,
+        "EX": 5.08
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7309,
-        "GD": 0.5953,
-        "LP": 0.5953,
-        "PL": 0.5346,
+        "EX": 0.6873,
+        "GD": 0.5613,
+        "LP": 0.4977,
+        "PL": 0.4782,
         "PO": 0.3533
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 7.5,
         "EX": 5,
@@ -113545,12 +113545,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.5958,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.5552,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 6.28,
-      "referenceMarketAnchorPrice": 6.28,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113558,7 +113558,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1446,
@@ -113584,30 +113584,30 @@
       "avg7": 5.99,
       "avg30": 6.79,
       "prixEtat": 5.78,
-      "estimatedPrice": 4.97,
-      "baseEstimatedPrice": 4.77,
+      "estimatedPrice": 5.77,
+      "baseEstimatedPrice": 4.41,
       "estimatedByCondition": {
-        "NM": 6.8,
-        "EX": 4.97,
-        "GD": 4.05,
-        "LP": 4.05,
-        "PL": 3.64,
+        "NM": 8.4,
+        "EX": 5.77,
+        "GD": 4.72,
+        "LP": 4.18,
+        "PL": 4.02,
         "PO": 2.65
       },
       "buyTargetByCondition": {
-        "NM": 6.12,
-        "EX": 4.37
+        "NM": 7.56,
+        "EX": 5.08
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7309,
-        "GD": 0.5953,
-        "LP": 0.5953,
-        "PL": 0.5346,
+        "EX": 0.6873,
+        "GD": 0.5613,
+        "LP": 0.4977,
+        "PL": 0.4782,
         "PO": 0.3533
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 7.5,
         "EX": 5,
@@ -113650,12 +113650,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 10,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.7591,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 6.28,
-      "referenceMarketAnchorPrice": 6.28,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113663,7 +113663,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1227,
@@ -113690,7 +113690,7 @@
       "avg30": 3.11,
       "prixEtat": 2.7,
       "estimatedPrice": 7.89,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 2.06,
       "estimatedByCondition": {
         "NM": 11.2,
         "EX": 7.89,
@@ -113755,12 +113755,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.93,
-      "referenceMarketAnchorPrice": 2.93,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113768,7 +113768,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1294,
@@ -113795,7 +113795,7 @@
       "avg30": 3.94,
       "prixEtat": 3.78,
       "estimatedPrice": 2.43,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 2.88,
       "estimatedByCondition": {
         "NM": 3.35,
         "EX": 2.43,
@@ -113860,12 +113860,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 4.11,
-      "referenceMarketAnchorPrice": 4.11,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113873,7 +113873,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1303,
@@ -113900,7 +113900,7 @@
       "avg30": 3.94,
       "prixEtat": 3.37,
       "estimatedPrice": 2.11,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 2.28,
       "estimatedByCondition": {
         "NM": 3.35,
         "EX": 2.43,
@@ -113965,12 +113965,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 4.11,
-      "referenceMarketAnchorPrice": 4.11,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -113978,7 +113978,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1228,
@@ -114215,7 +114215,7 @@
       "avg30": 0.17,
       "prixEtat": 0.24,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.25,
       "estimatedByCondition": {
         "NM": 0.04,
         "EX": 0.02,
@@ -114280,12 +114280,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.24,
-      "referenceMarketAnchorPrice": 0.24,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -114293,7 +114293,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1870,
@@ -114320,7 +114320,7 @@
       "avg30": 0.17,
       "prixEtat": 0.24,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.25,
       "estimatedByCondition": {
         "NM": 0.04,
         "EX": 0.02,
@@ -114385,12 +114385,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.24,
-      "referenceMarketAnchorPrice": 0.24,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -114398,7 +114398,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3142,
@@ -114425,7 +114425,7 @@
       "avg30": 0.17,
       "prixEtat": 0.24,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.25,
       "estimatedByCondition": {
         "NM": 0.04,
         "EX": 0.02,
@@ -114490,12 +114490,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.24,
-      "referenceMarketAnchorPrice": 0.24,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -114503,7 +114503,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3133,
@@ -114635,7 +114635,7 @@
       "avg30": 1.93,
       "prixEtat": 1.78,
       "estimatedPrice": 2.91,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.29,
       "estimatedByCondition": {
         "NM": 6.26,
         "EX": 4.36,
@@ -114700,12 +114700,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5083,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 2.54,
-      "referenceMarketAnchorPrice": 2.54,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -114713,7 +114713,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1230,
@@ -114739,30 +114739,30 @@
       "avg7": 5.4,
       "avg30": 5.44,
       "prixEtat": 4.74,
-      "estimatedPrice": 5.79,
-      "baseEstimatedPrice": 5.62,
+      "estimatedPrice": 8.08,
+      "baseEstimatedPrice": 3.61,
       "estimatedByCondition": {
-        "NM": 8.22,
-        "EX": 5.79,
-        "GD": 4.55,
-        "LP": 3.95,
-        "PL": 3.6,
-        "PO": 3.6
+        "NM": 11.2,
+        "EX": 8.08,
+        "GD": 6.52,
+        "LP": 6.11,
+        "PL": 5.58,
+        "PO": 3.42
       },
       "buyTargetByCondition": {
-        "NM": 7.4,
-        "EX": 5.1
+        "NM": 10.08,
+        "EX": 7.11
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7048,
-        "GD": 0.5538,
-        "LP": 0.4806,
-        "PL": 0.4379,
-        "PO": 0.4379
+        "EX": 0.7216,
+        "GD": 0.5821,
+        "LP": 0.5459,
+        "PL": 0.4986,
+        "PO": 0.342
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 10,
         "EX": 6.79,
@@ -114805,12 +114805,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 1.0912,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 5.15,
-      "referenceMarketAnchorPrice": 5.15,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -114818,7 +114818,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2490,
@@ -114844,30 +114844,30 @@
       "avg7": 5.4,
       "avg30": 5.44,
       "prixEtat": 4.74,
-      "estimatedPrice": 5.79,
-      "baseEstimatedPrice": 5.62,
+      "estimatedPrice": 8.08,
+      "baseEstimatedPrice": 3.61,
       "estimatedByCondition": {
-        "NM": 8.22,
-        "EX": 5.79,
-        "GD": 4.55,
-        "LP": 3.95,
-        "PL": 3.6,
-        "PO": 3.6
+        "NM": 11.2,
+        "EX": 8.08,
+        "GD": 6.52,
+        "LP": 6.11,
+        "PL": 5.58,
+        "PO": 3.42
       },
       "buyTargetByCondition": {
-        "NM": 7.4,
-        "EX": 5.1
+        "NM": 10.08,
+        "EX": 7.11
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.7048,
-        "GD": 0.5538,
-        "LP": 0.4806,
-        "PL": 0.4379,
-        "PO": 0.4379
+        "EX": 0.7216,
+        "GD": 0.5821,
+        "LP": 0.5459,
+        "PL": 0.4986,
+        "PO": 0.342
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 10,
         "EX": 6.79,
@@ -114910,12 +114910,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 1.0912,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 5.15,
-      "referenceMarketAnchorPrice": 5.15,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -114923,7 +114923,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3181,
@@ -115370,14 +115370,14 @@
       "avg30": 10.81,
       "prixEtat": 7.14,
       "estimatedPrice": 8.97,
-      "baseEstimatedPrice": 5.66,
+      "baseEstimatedPrice": 7.46,
       "estimatedByCondition": {
         "NM": 8.97,
         "EX": 6.23,
         "GD": 5.05,
         "LP": 4.84,
         "PL": 4.84,
-        "PO": 3.95
+        "PO": 3.08
       },
       "buyTargetByCondition": {
         "NM": 8.07,
@@ -115389,7 +115389,7 @@
         "GD": 0.5629,
         "LP": 0.5393,
         "PL": 0.5393,
-        "PO": 0.4401
+        "PO": 0.3426
       },
       "gradeModelConfidence": 85,
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios",
@@ -115435,12 +115435,12 @@
       },
       "observationDaysCount": 6,
       "observationRowsCount": 35,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 85,
-      "pricingRatio": 0.7923,
-      "pricingObservationCount": 5,
+      "pricingRatio": 1.0453,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 7.14,
-      "referenceMarketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -115448,7 +115448,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1232,
@@ -115475,14 +115475,14 @@
       "avg30": 10.81,
       "prixEtat": 6.57,
       "estimatedPrice": 6.23,
-      "baseEstimatedPrice": 2.7,
+      "baseEstimatedPrice": 5.01,
       "estimatedByCondition": {
         "NM": 8.97,
         "EX": 6.23,
         "GD": 5.05,
         "LP": 4.84,
         "PL": 4.84,
-        "PO": 3.95
+        "PO": 3.08
       },
       "buyTargetByCondition": {
         "NM": 8.07,
@@ -115494,7 +115494,7 @@
         "GD": 0.5629,
         "LP": 0.5393,
         "PL": 0.5393,
-        "PO": 0.4401
+        "PO": 0.3426
       },
       "gradeModelConfidence": 85,
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios",
@@ -115540,12 +115540,12 @@
       },
       "observationDaysCount": 6,
       "observationRowsCount": 35,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 85,
-      "pricingRatio": 0.3786,
-      "pricingObservationCount": 6,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 7.14,
-      "referenceMarketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -115553,7 +115553,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1306,
@@ -115580,14 +115580,14 @@
       "avg30": 10.81,
       "prixEtat": 6.57,
       "estimatedPrice": 6.23,
-      "baseEstimatedPrice": 2.7,
+      "baseEstimatedPrice": 5.01,
       "estimatedByCondition": {
         "NM": 8.97,
         "EX": 6.23,
         "GD": 5.05,
         "LP": 4.84,
         "PL": 4.84,
-        "PO": 3.95
+        "PO": 3.08
       },
       "buyTargetByCondition": {
         "NM": 8.07,
@@ -115599,7 +115599,7 @@
         "GD": 0.5629,
         "LP": 0.5393,
         "PL": 0.5393,
-        "PO": 0.4401
+        "PO": 0.3426
       },
       "gradeModelConfidence": 85,
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios",
@@ -115645,12 +115645,12 @@
       },
       "observationDaysCount": 6,
       "observationRowsCount": 35,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 85,
-      "pricingRatio": 0.3786,
-      "pricingObservationCount": 6,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 7.14,
-      "referenceMarketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -115658,7 +115658,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2459,
@@ -115685,14 +115685,14 @@
       "avg30": 10.81,
       "prixEtat": 7.14,
       "estimatedPrice": 8.97,
-      "baseEstimatedPrice": 5.66,
+      "baseEstimatedPrice": 7.46,
       "estimatedByCondition": {
         "NM": 8.97,
         "EX": 6.23,
         "GD": 5.05,
         "LP": 4.84,
         "PL": 4.84,
-        "PO": 3.95
+        "PO": 3.08
       },
       "buyTargetByCondition": {
         "NM": 8.07,
@@ -115704,7 +115704,7 @@
         "GD": 0.5629,
         "LP": 0.5393,
         "PL": 0.5393,
-        "PO": 0.4401
+        "PO": 0.3426
       },
       "gradeModelConfidence": 85,
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios",
@@ -115750,12 +115750,12 @@
       },
       "observationDaysCount": 6,
       "observationRowsCount": 35,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 85,
-      "pricingRatio": 0.7923,
-      "pricingObservationCount": 5,
+      "pricingRatio": 1.0453,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 7.14,
-      "referenceMarketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -115763,7 +115763,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2460,
@@ -115790,14 +115790,14 @@
       "avg30": 10.81,
       "prixEtat": 6.57,
       "estimatedPrice": 6.23,
-      "baseEstimatedPrice": 2.7,
+      "baseEstimatedPrice": 5.01,
       "estimatedByCondition": {
         "NM": 8.97,
         "EX": 6.23,
         "GD": 5.05,
         "LP": 4.84,
         "PL": 4.84,
-        "PO": 3.95
+        "PO": 3.08
       },
       "buyTargetByCondition": {
         "NM": 8.07,
@@ -115809,7 +115809,7 @@
         "GD": 0.5629,
         "LP": 0.5393,
         "PL": 0.5393,
-        "PO": 0.4401
+        "PO": 0.3426
       },
       "gradeModelConfidence": 85,
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios",
@@ -115855,12 +115855,12 @@
       },
       "observationDaysCount": 6,
       "observationRowsCount": 35,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 85,
-      "pricingRatio": 0.3786,
-      "pricingObservationCount": 6,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 7.14,
-      "referenceMarketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -115868,7 +115868,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2691,
@@ -115895,14 +115895,14 @@
       "avg30": 10.81,
       "prixEtat": 5.85,
       "estimatedPrice": 5.05,
-      "baseEstimatedPrice": 1.52,
+      "baseEstimatedPrice": 3.96,
       "estimatedByCondition": {
         "NM": 8.97,
         "EX": 6.23,
         "GD": 5.05,
         "LP": 4.84,
         "PL": 4.84,
-        "PO": 3.95
+        "PO": 3.08
       },
       "buyTargetByCondition": {
         "NM": 8.07,
@@ -115914,7 +115914,7 @@
         "GD": 0.5629,
         "LP": 0.5393,
         "PL": 0.5393,
-        "PO": 0.4401
+        "PO": 0.3426
       },
       "gradeModelConfidence": 85,
       "gradeModelSource": "anchor + 6 observation day(s) + global/edition ratios",
@@ -115960,12 +115960,12 @@
       },
       "observationDaysCount": 6,
       "observationRowsCount": 35,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 85,
-      "pricingRatio": 0.2135,
-      "pricingObservationCount": 6,
+      "pricingRatio": 0.5552,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 7.14,
-      "referenceMarketAnchorPrice": 7.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -115973,7 +115973,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1890,
@@ -116000,7 +116000,7 @@
       "avg30": 0.4,
       "prixEtat": 0.31,
       "estimatedPrice": 0.05,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.24,
       "estimatedByCondition": {
         "NM": 0.1,
         "EX": 0.05,
@@ -116065,12 +116065,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.34,
-      "referenceMarketAnchorPrice": 0.34,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -116078,7 +116078,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1891,
@@ -116105,7 +116105,7 @@
       "avg30": 0.4,
       "prixEtat": 0.28,
       "estimatedPrice": 0.04,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.19,
       "estimatedByCondition": {
         "NM": 0.1,
         "EX": 0.05,
@@ -116170,12 +116170,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.34,
-      "referenceMarketAnchorPrice": 0.34,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -116183,7 +116183,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3161,
@@ -116210,7 +116210,7 @@
       "avg30": 0.4,
       "prixEtat": 0.31,
       "estimatedPrice": 0.05,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.24,
       "estimatedByCondition": {
         "NM": 0.1,
         "EX": 0.05,
@@ -116275,12 +116275,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.34,
-      "referenceMarketAnchorPrice": 0.34,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -116288,7 +116288,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3134,
@@ -117365,7 +117365,7 @@
       "avg30": 1.54,
       "prixEtat": 1.44,
       "estimatedPrice": 0.68,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.09,
       "estimatedByCondition": {
         "NM": 1.01,
         "EX": 0.68,
@@ -117430,12 +117430,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.56,
-      "referenceMarketAnchorPrice": 1.56,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -117443,7 +117443,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3146,
@@ -119884,30 +119884,30 @@
       "avg7": 273.62,
       "avg30": 268.74,
       "prixEtat": 255.23,
-      "estimatedPrice": 272.42,
-      "baseEstimatedPrice": 204.95,
+      "estimatedPrice": 276.23,
+      "baseEstimatedPrice": 237.48,
       "estimatedByCondition": {
-        "NM": 322.19,
-        "EX": 272.42,
-        "GD": 252.41,
-        "LP": 248.72,
-        "PL": 241.2,
-        "PO": 99.34
+        "NM": 323.54,
+        "EX": 276.23,
+        "GD": 260.66,
+        "LP": 249.76,
+        "PL": 249.76,
+        "PO": 246.3
       },
       "buyTargetByCondition": {
-        "NM": 289.97,
-        "EX": 239.73
+        "NM": 291.19,
+        "EX": 243.08
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.8455,
-        "GD": 0.7834,
+        "EX": 0.8538,
+        "GD": 0.8056,
         "LP": 0.772,
-        "PL": 0.7486,
-        "PO": 0.3453
+        "PL": 0.772,
+        "PO": 0.7613
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
       "lastObservedMinByCondition": {
         "NM": 290.1,
         "EX": 249.95,
@@ -119950,12 +119950,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 11,
-      "pricingModel": "edition_fallback_condition_ratio",
+      "pricingModel": "edition_observed_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.7018,
-      "pricingObservationCount": 0,
+      "pricingRatio": 0.8132,
+      "pricingObservationCount": 2,
       "marketAnchorPrice": 292.03,
-      "referenceMarketAnchorPrice": null,
+      "referenceMarketAnchorPrice": 292.03,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -119963,7 +119963,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": false
+      "referenceCardFound": true
     },
     {
       "id": 3149,
@@ -122509,30 +122509,30 @@
       "avg7": 2.58,
       "avg30": 2.34,
       "prixEtat": 2.01,
-      "estimatedPrice": 1.01,
-      "baseEstimatedPrice": 1.25,
+      "estimatedPrice": 0.76,
+      "baseEstimatedPrice": 1.54,
       "estimatedByCondition": {
-        "NM": 1.25,
-        "EX": 1.01,
-        "GD": 0.93,
-        "LP": 0.75,
-        "PL": 0.4,
-        "PO": 0.4
+        "NM": 1.12,
+        "EX": 0.76,
+        "GD": 0.65,
+        "LP": 0.54,
+        "PL": 0.39,
+        "PO": 0.34
       },
       "buyTargetByCondition": {
-        "NM": 1.13,
-        "EX": 0.89
+        "NM": 1.01,
+        "EX": 0.67
       },
       "ratioByCondition": {
         "NM": 1,
-        "EX": 0.8098,
-        "GD": 0.7467,
-        "LP": 0.6043,
-        "PL": 0.3206,
-        "PO": 0.3206
+        "EX": 0.6829,
+        "GD": 0.5778,
+        "LP": 0.4862,
+        "PL": 0.3486,
+        "PO": 0.34
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 1,
         "EX": 1.8,
@@ -122575,12 +122575,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 12,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
-      "pricingRatio": 0.5707,
-      "pricingObservationCount": 2,
+      "pricingRatio": 0.7018,
+      "pricingObservationCount": 0,
       "marketAnchorPrice": 2.19,
-      "referenceMarketAnchorPrice": 2.19,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -122588,7 +122588,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3150,
@@ -124190,7 +124190,7 @@
       "avg30": 1.69,
       "prixEtat": 1.5,
       "estimatedPrice": 0.76,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.14,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124255,12 +124255,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124268,7 +124268,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1242,
@@ -124295,7 +124295,7 @@
       "avg30": 1.69,
       "prixEtat": 1.34,
       "estimatedPrice": 0.59,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.9,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124360,12 +124360,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124373,7 +124373,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1243,
@@ -124400,7 +124400,7 @@
       "avg30": 1.69,
       "prixEtat": 1.5,
       "estimatedPrice": 0.76,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.14,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124465,12 +124465,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124478,7 +124478,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1244,
@@ -124505,7 +124505,7 @@
       "avg30": 1.69,
       "prixEtat": 1.5,
       "estimatedPrice": 0.76,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.14,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124570,12 +124570,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124583,7 +124583,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2201,
@@ -124610,7 +124610,7 @@
       "avg30": 1.69,
       "prixEtat": 1.5,
       "estimatedPrice": 0.76,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.14,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124675,12 +124675,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124688,7 +124688,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2238,
@@ -124715,7 +124715,7 @@
       "avg30": 1.69,
       "prixEtat": 1.63,
       "estimatedPrice": 1.12,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 1.7,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124780,12 +124780,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124793,7 +124793,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2682,
@@ -124820,7 +124820,7 @@
       "avg30": 1.69,
       "prixEtat": 1.34,
       "estimatedPrice": 0.59,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.9,
       "estimatedByCondition": {
         "NM": 1.12,
         "EX": 0.76,
@@ -124885,12 +124885,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.63,
-      "referenceMarketAnchorPrice": 1.63,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -124898,7 +124898,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3154,
@@ -125030,7 +125030,7 @@
       "avg30": 1.09,
       "prixEtat": 0.96,
       "estimatedPrice": 0.6,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.73,
       "estimatedByCondition": {
         "NM": 0.92,
         "EX": 0.6,
@@ -125095,12 +125095,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 5,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 59,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 1.04,
-      "referenceMarketAnchorPrice": 1.04,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -125108,7 +125108,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3197,
@@ -126185,7 +126185,7 @@
       "avg30": 0.43,
       "prixEtat": 0.34,
       "estimatedPrice": 0.12,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.23,
       "estimatedByCondition": {
         "NM": 0.28,
         "EX": 0.16,
@@ -126250,12 +126250,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.41,
-      "referenceMarketAnchorPrice": 0.41,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -126263,7 +126263,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2466,
@@ -126290,7 +126290,7 @@
       "avg30": 0.43,
       "prixEtat": 0.34,
       "estimatedPrice": 0.12,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.23,
       "estimatedByCondition": {
         "NM": 0.28,
         "EX": 0.16,
@@ -126355,12 +126355,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.5552,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.41,
-      "referenceMarketAnchorPrice": 0.41,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -126368,7 +126368,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2467,
@@ -126395,7 +126395,7 @@
       "avg30": 0.43,
       "prixEtat": 0.38,
       "estimatedPrice": 0.16,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.29,
       "estimatedByCondition": {
         "NM": 0.28,
         "EX": 0.16,
@@ -126460,12 +126460,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.41,
-      "referenceMarketAnchorPrice": 0.41,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -126473,7 +126473,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3185,
@@ -126500,7 +126500,7 @@
       "avg30": 0.43,
       "prixEtat": 0.41,
       "estimatedPrice": 0.28,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 0.43,
       "estimatedByCondition": {
         "NM": 0.28,
         "EX": 0.16,
@@ -126565,12 +126565,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 1.0453,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 0.41,
-      "referenceMarketAnchorPrice": 0.41,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -126578,7 +126578,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 1245,
@@ -127969,30 +127969,30 @@
       "avg7": 9.79,
       "avg30": 9.41,
       "prixEtat": 7.49,
-      "estimatedPrice": 10.19,
-      "baseEstimatedPrice": 0,
+      "estimatedPrice": 15.6,
+      "baseEstimatedPrice": 5.71,
       "estimatedByCondition": {
-        "NM": 14.63,
-        "EX": 10.19,
-        "GD": 5.9,
-        "LP": 5.61,
-        "PL": 5.61,
-        "PO": 5.5
+        "NM": 22.4,
+        "EX": 15.6,
+        "GD": 12.62,
+        "LP": 12.08,
+        "PL": 12.08,
+        "PO": 6.66
       },
       "buyTargetByCondition": {
-        "NM": 13.17,
-        "EX": 8.97
+        "NM": 20.16,
+        "EX": 13.73
       },
       "ratioByCondition": {
         "NM": 1,
         "EX": 0.6964,
-        "GD": 0.4034,
-        "LP": 0.3836,
-        "PL": 0.3836,
-        "PO": 0.3757
+        "GD": 0.5634,
+        "LP": 0.5394,
+        "PL": 0.5394,
+        "PO": 0.333
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 20,
         "EX": 6.9,
@@ -128035,12 +128035,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 11,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 8.14,
-      "referenceMarketAnchorPrice": 8.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -128048,7 +128048,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2590,
@@ -128074,30 +128074,30 @@
       "avg7": 9.79,
       "avg30": 9.41,
       "prixEtat": 7.49,
-      "estimatedPrice": 10.19,
-      "baseEstimatedPrice": 0,
+      "estimatedPrice": 15.6,
+      "baseEstimatedPrice": 5.71,
       "estimatedByCondition": {
-        "NM": 14.63,
-        "EX": 10.19,
-        "GD": 5.9,
-        "LP": 5.61,
-        "PL": 5.61,
-        "PO": 5.5
+        "NM": 22.4,
+        "EX": 15.6,
+        "GD": 12.62,
+        "LP": 12.08,
+        "PL": 12.08,
+        "PO": 6.66
       },
       "buyTargetByCondition": {
-        "NM": 13.17,
-        "EX": 8.97
+        "NM": 20.16,
+        "EX": 13.73
       },
       "ratioByCondition": {
         "NM": 1,
         "EX": 0.6964,
-        "GD": 0.4034,
-        "LP": 0.3836,
-        "PL": 0.3836,
-        "PO": 0.3757
+        "GD": 0.5634,
+        "LP": 0.5394,
+        "PL": 0.5394,
+        "PO": 0.333
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 20,
         "EX": 6.9,
@@ -128140,12 +128140,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 11,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 8.14,
-      "referenceMarketAnchorPrice": 8.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -128153,7 +128153,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2591,
@@ -128179,30 +128179,30 @@
       "avg7": 9.79,
       "avg30": 9.41,
       "prixEtat": 7.49,
-      "estimatedPrice": 10.19,
-      "baseEstimatedPrice": 0,
+      "estimatedPrice": 15.6,
+      "baseEstimatedPrice": 5.71,
       "estimatedByCondition": {
-        "NM": 14.63,
-        "EX": 10.19,
-        "GD": 5.9,
-        "LP": 5.61,
-        "PL": 5.61,
-        "PO": 5.5
+        "NM": 22.4,
+        "EX": 15.6,
+        "GD": 12.62,
+        "LP": 12.08,
+        "PL": 12.08,
+        "PO": 6.66
       },
       "buyTargetByCondition": {
-        "NM": 13.17,
-        "EX": 8.97
+        "NM": 20.16,
+        "EX": 13.73
       },
       "ratioByCondition": {
         "NM": 1,
         "EX": 0.6964,
-        "GD": 0.4034,
-        "LP": 0.3836,
-        "PL": 0.3836,
-        "PO": 0.3757
+        "GD": 0.5634,
+        "LP": 0.5394,
+        "PL": 0.5394,
+        "PO": 0.333
       },
       "gradeModelConfidence": 70,
-      "gradeModelSource": "anchor + 2 observation day(s) + trained card ratios",
+      "gradeModelSource": "anchor + 2 observation day(s) + global/edition ratios",
       "lastObservedMinByCondition": {
         "NM": 20,
         "EX": 6.9,
@@ -128245,12 +128245,12 @@
       },
       "observationDaysCount": 2,
       "observationRowsCount": 11,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 70,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 8.14,
-      "referenceMarketAnchorPrice": 8.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -128258,7 +128258,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 2816,
@@ -128285,7 +128285,7 @@
       "avg30": 9.41,
       "prixEtat": 7.11,
       "estimatedPrice": 9.5,
-      "baseEstimatedPrice": 0,
+      "baseEstimatedPrice": 5.71,
       "estimatedByCondition": {
         "NM": 13.44,
         "EX": 9.5,
@@ -128350,12 +128350,12 @@
       },
       "observationDaysCount": 1,
       "observationRowsCount": 6,
-      "pricingModel": "edition_missing_initial_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "pricingConfidence": 60,
       "pricingRatio": 0.7018,
       "pricingObservationCount": 0,
       "marketAnchorPrice": 8.14,
-      "referenceMarketAnchorPrice": 8.14,
+      "referenceMarketAnchorPrice": null,
       "marketReferenceType": "same_card_different_printing_proxy",
       "marketReferenceRole": "evolution_only",
       "usesExternalReference": true,
@@ -128363,7 +128363,7 @@
       "referenceEdition": "Revised",
       "referenceLanguage": "English",
       "referenceVersion": null,
-      "referenceCardFound": true
+      "referenceCardFound": false
     },
     {
       "id": 3309,
