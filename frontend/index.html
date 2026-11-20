@@ -5,26 +5,7 @@
     <title>MTG Portfolio</title>
     <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-/* Top 5 — styles existants, panneau fusionné via style.css */
-.portfolio-movers{flex:0 0 390px;max-width:100%;min-width:0;padding:9px 11px;background:rgba(10,19,33,.48);border:1px solid rgba(110,137,173,.23);border-radius:9px;color:#c7d4e6;font-size:11px;align-self:stretch}
-.portfolio-movers-heading{display:flex;align-items:center;justify-content:space-between;gap:7px;font-size:12px;font-weight:650;white-space:nowrap}
-.portfolio-movers-heading small{color:#8799b0;font-size:10px;font-weight:400}
-.portfolio-movers-switch{display:flex;gap:2px;flex-shrink:0}
-.portfolio-movers-mode{border:1px solid #354963;background:#101b2e;color:#a6b8d0;border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer}
-.portfolio-movers-mode.active{background:#2b6eaf;border-color:#498ed1;color:#fff}
-.portfolio-movers-minimum{display:flex;align-items:center;gap:5px;color:#93a5bc;font-size:10px;margin:5px 0 7px;cursor:pointer}
-.portfolio-movers-minimum input{accent-color:#3e9ced;width:12px;height:12px;margin:0}
-.portfolio-movers-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
-.portfolio-movers-label{font-size:10px;font-weight:650;margin-bottom:4px}
-.portfolio-movers-label.up,.portfolio-movers-amount.up{color:#72d4a4}
-.portfolio-movers-label.down,.portfolio-movers-amount.down{color:#e89b9e}
-.portfolio-movers-item{display:flex;justify-content:space-between;align-items:baseline;gap:4px;line-height:1.65;min-width:0}
-.portfolio-movers-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#b5c4d7}
-.portfolio-movers-amount{flex-shrink:0;font-variant-numeric:tabular-nums;font-size:10px}
-.portfolio-movers-empty{color:#7d8da4;font-size:10px;line-height:1.5}
-@media(max-width:950px){.portfolio-movers{flex:1 1 100%;width:100%}}
-</style>
+
 </head>
 
 <body>
@@ -206,9 +187,8 @@
                  <button type="button" class="chart-period-button" data-chart-frequency="week" aria-pressed="false">Semaine</button>
                  <button type="button" class="chart-period-button" data-chart-frequency="month" aria-pressed="false">Mois</button>
              </div>
-             <div class="portfolio-chart-top">
-
-    <div class="portfolio-chart-filters">
+             <div class="portfolio-chart-top mtg-layout-v2">
+<div class="portfolio-chart-filters">
 
     <label>
         Catégorie
@@ -246,69 +226,34 @@
     </button>
 </div>
 
-<div class="portfolio-chart-context">
 
-    <div
-        id="portfolio-card-preview"
-        class="portfolio-card-preview"
-        hidden
-    >
-        <img
-            id="portfolio-card-preview-image"
-            alt=""
-        >
-    </div>
-
-
-    <div class="portfolio-insights-merged">
-    <div class="portfolio-chart-context-info">
-
-    <div
-        id="portfolio-chart-context-category"
-        class="portfolio-chart-context-category"
-    ></div>
-
-    <div id="portfolio-chart-selection">
-        📊 Portefeuille total
-    </div>
-
-    <div
-        id="portfolio-chart-card-meta"
-        class="portfolio-chart-card-meta"
-        hidden
-    >
-    </div>
-
-    <div
-        id="portfolio-data-freshness"
-        class="portfolio-data-freshness"
-    >
-        Chargement des dates...
-    </div>
-
+<div class="portfolio-insights-merged mtg-insights-v2">
+ <div class="mtg-insights-overview">
+  <div id="portfolio-chart-context-category" class="portfolio-chart-context-category"></div>
+  <div class="mtg-overview-title">Vue de la sélection</div>
+  <div id="portfolio-data-freshness" class="portfolio-data-freshness">Chargement des dates...</div>
+ </div>
+ <div class="mtg-selected-card" id="mtg-selected-card">
+  <div id="portfolio-card-preview" class="portfolio-card-preview" hidden><img id="portfolio-card-preview-image" alt=""></div>
+  <div class="portfolio-chart-context-info">
+   <div id="portfolio-chart-selection">📊 Portefeuille total</div>
+   <div id="portfolio-chart-card-meta" class="portfolio-chart-card-meta" hidden></div>
+  </div>
+ </div>
+ <aside class="portfolio-movers" aria-label="Plus fortes variations des cartes">
+  <div class="portfolio-movers-heading"><span>Top 5 variations des cartes <small id="portfolio-movers-period">· 2M</small></span>
+   <div class="portfolio-movers-switch" role="group" aria-label="Classement par variation">
+    <button type="button" class="portfolio-movers-mode active" data-movers-mode="eur" aria-pressed="true">€</button>
+    <button type="button" class="portfolio-movers-mode" data-movers-mode="pct" aria-pressed="false">%</button>
+   </div>
+  </div>
+  <label class="portfolio-movers-minimum"><input id="portfolio-movers-minimum" type="checkbox" checked> Prix initial ≥ 1 €</label>
+  <div class="portfolio-movers-columns">
+   <div><div class="portfolio-movers-label up">↗ 5 plus fortes hausses</div><div id="portfolio-movers-up" class="portfolio-movers-list">—</div></div>
+   <div><div class="portfolio-movers-label down">↘ 5 plus fortes baisses</div><div id="portfolio-movers-down" class="portfolio-movers-list">—</div></div>
+  </div>
+ </aside>
 </div>
-
-  <aside class="portfolio-movers" aria-label="Plus fortes variations des cartes">
-    <div class="portfolio-movers-heading">
-      <span>Variations des cartes <small id="portfolio-movers-period">· 3M</small></span>
-      <div class="portfolio-movers-switch" role="group" aria-label="Classement par variation">
-        <button type="button" class="portfolio-movers-mode active" data-movers-mode="eur" aria-pressed="true">€</button>
-        <button type="button" class="portfolio-movers-mode" data-movers-mode="pct" aria-pressed="false">%</button>
-      </div>
-    </div>
-    <label class="portfolio-movers-minimum"><input id="portfolio-movers-minimum" type="checkbox" checked> Prix initial ≥ 1 €</label>
-    <div class="portfolio-movers-columns">
-      <div><div class="portfolio-movers-label up">↗ Hausses</div><div id="portfolio-movers-up" class="portfolio-movers-list">—</div></div>
-      <div><div class="portfolio-movers-label down">↘ Baisses</div><div id="portfolio-movers-down" class="portfolio-movers-list">—</div></div>
-    </div>
-  </aside>
-  </div><!-- /portfolio-insights-merged -->
-
-</div>
-
-
-
-
 </div>
 
 <canvas id="portfolioChart"></canvas>
