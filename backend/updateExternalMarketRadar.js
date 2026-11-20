@@ -2307,6 +2307,21 @@ function classifyAcceleration(
     };
 }
 
+// Compare les deux derniers jours calendaires disponibles, sans extrapoler une hausse 7j.
+function detectTcgOneDaySpike(series, fx) {
+    const valid = (series || []).filter(p => /^\d{4}-\d{2}-\d{2}$/.test(p.date) && Number.isFinite(Number(p.price)) && Number(p.price) > 0).sort((a,b) => a.date.localeCompare(b.date));
+    if (valid.length < 2) return { available: false, reason: "insufficient_history" };
+    const last = valid[valid.length - 1];
+    const prev = valid[valid.length - 2];
+    const days = Math.round((Date.parse(last.date + "T00:00:00Z") - Date.parse(prev.date + "T00:00:00Z")) / 86400000);
+    if (days !== 1) return { available: false, reason: "missing_previous_day", date: last.date };
+    const currentEur = Number.isFinite(fx) && fx > 0 ? Number(last.price) * fx : null;
+    const changePct = (Number(last.price) / Number(prev.price) - 1) * 100;
+    const eligible = currentEur !== null && currentEur >= 5 && changePct >= 15;
+    const level = eligible ? (changePct >= 50 ? 3 : changePct >= 30 ? 2 : 1) : 0;
+    return { available: true, date: last.date, previousDate: prev.date, previousUsd: round(Number(prev.price)), currentUsd: round(Number(last.price)), currentEur: round(currentEur), changePct: round(changePct, 1), eligible, level, signal: level === 3 ? "🔥 Explosion majeure 1J US" : level === 2 ? "🚀 Explosion 1J US" : level === 1 ? "⚡ Hausse rapide 1J US" : "—" };
+}
+
 function analyzeMarket(
     series,
     sparse = false
@@ -3277,6 +3292,8 @@ console.log(
                 ] || {};
 
 
+            const tcgOneDay = detectTcgOneDaySpike(entry.tcg || [], fx);
+
             const tcg =
                 analyzeMarket(
                     entry.tcg || [],
@@ -3457,7 +3474,9 @@ if (
 
                 marketRadar: {
 
-    finalSignal,
+    finalSignal: tcgOneDay.eligible ? tcgOneDay.signal : finalSignal,
+    underlyingTrendSignal: finalSignal,
+    tcgOneDay,
 
     momentumSignal,
 

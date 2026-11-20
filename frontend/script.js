@@ -11770,6 +11770,12 @@ function getRadarAlertAssessment(group) {
     const values =
         getRadarGroupValues(group);
 
+    // Signal indépendant 24h : le prix TCGplayer en EUR doit être >= 5 €.
+    const spike = group.marketRadar?.tcgOneDay;
+    if (spike?.available && spike?.eligible && Number(spike.currentEur) >= 5) {
+        return { eligible: true, score: spike.level === 3 ? 100 : spike.level === 2 ? 90 : 75,
+            priority: "🔴 Prioritaire", type: spike.signal, oneDaySpike: true };
+    }
 
     /*
      * Filtre économique principal.
@@ -12178,6 +12184,7 @@ function radarGroupHasSignal(group) {
             row.marketRadar?.finalSignal;
 
         return (
+            row.marketRadar?.tcgOneDay?.eligible === true ||
             signal === "🔥 Hausse confirmée" ||
             signal === "🇺🇸 Hausse TCG" ||
             signal === "🇪🇺 Hausse Cardmarket"
@@ -12341,6 +12348,8 @@ function getRadarSignalClass(row) {
     const signal =
         row.marketRadar?.finalSignal ||
         "— Neutre";
+
+    if (row.marketRadar?.tcgOneDay?.eligible) return "radar-signal-strong";
 
     switch (signal) {
 
