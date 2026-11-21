@@ -5622,3 +5622,35 @@ body.edition-checklist-page .checklist-wrap h2 {margin-top:0;}
 @media(max-width:1350px){.mtg-layout-v2 .portfolio-insights-merged.mtg-insights-v2{grid-template-columns:minmax(180px,1fr) minmax(300px,1.5fr);}.mtg-insights-v2 .portfolio-movers{grid-column:1/-1;border-top:1px solid #48617d;}.mtg-selected-card{border-right:0;}}
 @media(max-width:780px){.mtg-layout-v2 .portfolio-insights-merged.mtg-insights-v2{grid-template-columns:minmax(0,1fr);}.mtg-selected-card{border-left:0;border-top:1px solid #48617d;justify-content:flex-start;}.mtg-insights-v2 .portfolio-movers{grid-column:auto;}.mtg-insights-v2 .portfolio-movers-columns{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}}
 @media(max-width:480px){.mtg-insights-v2 .portfolio-movers-columns{grid-template-columns:minmax(0,1fr);}.mtg-selected-card{flex-wrap:wrap;}}
+
+/* ===== Bandeau central validé — disposition 3 panneaux ===== */
+.chart-card .portfolio-chart-top {display:flex;flex-direction:column;align-items:stretch;gap:18px;margin:16px 0 24px;min-width:0;}
+.chart-card .portfolio-chart-filters {display:flex;flex-wrap:wrap;align-items:end;gap:14px;width:100%;min-width:0;}
+.chart-card .portfolio-chart-context.mtg-centred-context {display:block;width:100%;min-width:0;max-width:none;margin:0;padding:0;}
+.chart-card .mtg-centred-insights {display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.15fr) minmax(0,1.55fr);width:100%;max-width:none;min-width:0;gap:14px;align-items:stretch;background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;}
+.mtg-centred-insights > section,.mtg-centred-insights > aside {min-width:0;min-height:210px;padding:18px 20px;border-radius:13px;background:linear-gradient(145deg,#112c45,#0c1d32);border:1px solid #426c94;box-shadow:0 6px 20px rgba(0,0,0,.22);}
+.mtg-centred-insights .mtg-insights-overview {display:flex;flex-direction:column;justify-content:center;gap:13px;border-color:#2aab65;}
+.mtg-centred-insights .mtg-overview-title {font-size:15px;font-weight:750;color:#e9f4ff;}
+.mtg-centred-insights .mtg-overview-name {font-size:21px;font-weight:800;overflow-wrap:anywhere;}
+.mtg-centred-insights .mtg-overview-totals {display:grid;grid-template-columns:1fr 1.2fr;gap:12px;padding:13px 0;border-top:1px solid #35526b;border-bottom:1px solid #35526b;}
+.mtg-centred-insights .mtg-overview-totals span {display:block;font-size:11px;color:#a8c1d9;margin-bottom:6px;}
+.mtg-centred-insights .mtg-overview-totals strong {display:block;font-size:19px;color:#fff;white-space:nowrap;}
+.mtg-centred-insights .portfolio-data-freshness {font-size:11px;color:#9db5d1;line-height:1.5;overflow-wrap:anywhere;}
+.mtg-centred-insights .mtg-selected-card {display:flex;align-items:center;justify-content:center;gap:18px;border-color:#39aafa;}
+.mtg-centred-insights .portfolio-card-preview {flex:0 0 112px;width:112px;min-width:0;display:flex;align-items:center;justify-content:center;margin:0;padding:0;background:none;border:0;}
+.mtg-centred-insights .portfolio-card-preview[hidden] {display:none!important;}
+.mtg-centred-insights .portfolio-card-preview img {width:112px;max-width:100%;height:auto;max-height:170px;object-fit:contain;border-radius:7px;}
+.mtg-centred-insights .portfolio-chart-context-info {min-width:0;flex:1;width:auto;min-height:0;padding:0;background:none;border:0;box-shadow:none;display:flex;flex-direction:column;justify-content:center;gap:9px;}
+.mtg-centred-insights #portfolio-chart-selection {font-size:17px;line-height:1.35;font-weight:800;overflow-wrap:anywhere;}
+.mtg-centred-insights .portfolio-chart-card-meta {overflow-wrap:anywhere;}
+.mtg-centred-insights .mtg-selection-placeholder {color:#a6bdd5;font-size:12px;line-height:1.6;margin:0;}
+.mtg-centred-insights .mtg-selection-placeholder[hidden] {display:none;}
+.mtg-centred-insights .portfolio-movers {width:auto;max-width:none;flex:initial;align-self:stretch;margin:0;border-color:#6688ad;font-size:12px;}
+.mtg-centred-insights .portfolio-movers-heading {font-size:14px;white-space:normal;padding-bottom:9px;border-bottom:1px solid #375775;}
+.mtg-centred-insights .portfolio-movers-columns {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;}
+.mtg-centred-insights .portfolio-movers-label {font-size:12px;margin-bottom:7px;}
+.mtg-centred-insights .portfolio-movers-item {line-height:1.8;}
+.mtg-centred-insights .portfolio-movers-name {color:#d4e3f4;}
+@media(max-width:1200px){.chart-card .mtg-centred-insights{grid-template-columns:repeat(2,minmax(0,1fr));}.mtg-centred-insights .portfolio-movers{grid-column:1/-1;}}
+@media(max-width:700px){.chart-card .mtg-centred-insights{grid-template-columns:minmax(0,1fr);}.mtg-centred-insights .portfolio-movers{grid-column:auto;}.mtg-centred-insights > section,.mtg-centred-insights > aside{min-height:0;}}
+@media(max-width:420px){.mtg-centred-insights .portfolio-movers-columns{grid-template-columns:minmax(0,1fr);}}

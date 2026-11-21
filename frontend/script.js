@@ -6904,6 +6904,16 @@ if (cardMetaElement && selectedPortfolioCardKey) {
 }
 
 
+        // Bandeau central : mêmes données que les KPI et le graphique.
+        const overviewName = document.getElementById("portfolio-overview-name");
+        const overviewCount = document.getElementById("portfolio-overview-count");
+        const overviewValue = document.getElementById("portfolio-overview-value");
+        const selectionPlaceholder = document.getElementById("portfolio-selection-placeholder");
+        if (overviewName) overviewName.textContent = displayName;
+        if (overviewCount) overviewCount.textContent = String(currentCards);
+        if (overviewValue) overviewValue.textContent = formatEuro(currentValue);
+        if (selectionPlaceholder) selectionPlaceholder.hidden = Boolean(selectedPortfolioCardKey);
+
         const weightElement =
     document.getElementById(
         "portfolio-category-weight"
