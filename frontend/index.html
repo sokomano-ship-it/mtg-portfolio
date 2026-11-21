@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MTG Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261121-fusion-v4">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 /* Top 5 — styles existants, panneau fusionné via style.css */
@@ -24,6 +24,40 @@
 .portfolio-movers-amount{flex-shrink:0;font-variant-numeric:tabular-nums;font-size:10px}
 .portfolio-movers-empty{color:#7d8da4;font-size:10px;line-height:1.5}
 @media(max-width:950px){.portfolio-movers{flex:1 1 100%;width:100%}}
+</style>
+<style id="mtg-fusion-layout-critical-v4">
+/* Correctif V4 : grille verrouillée et portée limitée au bandeau du graphique */
+.chart-card .portfolio-chart-top.mtg-fusion-layout{display:block!important;width:100%;margin:14px 0 20px;min-width:0}
+.chart-card .mtg-fusion-layout .mtg-fusion-row{display:grid!important;grid-template-columns:minmax(185px,.7fr) minmax(320px,1.12fr) minmax(360px,1.22fr)!important;gap:14px;align-items:stretch;width:100%}
+.chart-card .mtg-fusion-layout .mtg-fusion-filters{display:flex!important;min-width:0;align-items:center;padding:12px 0}
+.chart-card .mtg-fusion-layout .mtg-fusion-filters .portfolio-chart-filters{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;width:100%!important;min-width:0}
+.chart-card .mtg-fusion-layout .mtg-fusion-filters .portfolio-chart-filters label{display:flex;flex-direction:column;width:100%!important;max-width:none;min-width:0;gap:5px}
+.chart-card .mtg-fusion-layout .mtg-fusion-filters select,.chart-card .mtg-fusion-layout .mtg-fusion-filters input{width:100%!important;max-width:100%;min-width:0}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary,.chart-card .mtg-fusion-layout .mtg-fusion-movers>.portfolio-movers{display:flex!important;flex-direction:column;min-width:0;min-height:205px;border-radius:12px;background:linear-gradient(140deg,#102b44,#0d1d32);padding:16px!important;box-shadow:0 8px 22px #0003}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary{border:1px solid #31bd80!important;gap:9px}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary-head{font-size:14px;font-weight:750}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary-body{display:flex!important;flex:1;align-items:center;gap:15px;min-width:0}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.chart-card .mtg-fusion-layout .mtg-overview-name{font-size:20px;font-weight:800;line-height:1.25}
+.chart-card .mtg-fusion-layout .mtg-overview-name:empty{display:none}
+.chart-card .mtg-fusion-layout .mtg-fusion-selection{display:none}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary.has-card .mtg-fusion-selection{display:block;font-size:16px;font-weight:750}
+.chart-card .mtg-fusion-layout .mtg-fusion-summary.has-card .mtg-overview-totals{display:none}
+.chart-card .mtg-fusion-layout .mtg-overview-totals{display:grid;grid-template-columns:1fr 1.25fr;gap:10px;padding:10px 0;border-top:1px solid #34546b;border-bottom:1px solid #34546b}
+.chart-card .mtg-fusion-layout .mtg-overview-totals span{display:block;font-size:11px;color:#a9bed5}
+.chart-card .mtg-fusion-layout .mtg-overview-totals strong{font-size:19px}
+.chart-card .mtg-fusion-layout .portfolio-card-preview{position:static!important;display:block;flex:0 0 94px!important;width:94px!important;min-width:94px;margin:0!important;padding:0!important;background:none;border:0}
+.chart-card .mtg-fusion-layout .portfolio-card-preview[hidden]{display:none!important}
+.chart-card .mtg-fusion-layout .portfolio-card-preview img{position:static!important;display:block;width:94px!important;max-width:94px!important;height:auto!important;max-height:145px!important;object-fit:contain}
+.chart-card .mtg-fusion-layout .portfolio-chart-card-meta{font-size:12px;line-height:1.5}
+.chart-card .mtg-fusion-layout .portfolio-data-freshness{font-size:10px;color:#9fb4cd;border-top:1px solid #294c64;padding-top:8px}
+.chart-card .mtg-fusion-layout .mtg-fusion-movers{min-width:0;display:flex}
+.chart-card .mtg-fusion-layout .mtg-fusion-movers>.portfolio-movers{width:100%!important;max-width:none!important;flex:1!important;margin:0!important;border:1px solid #3a9eef!important;font-size:12px}
+.chart-card .mtg-fusion-layout .portfolio-movers-heading{font-size:13px;white-space:normal;padding-bottom:9px;border-bottom:1px solid #345675}
+.chart-card .mtg-fusion-layout .portfolio-movers-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.chart-card .mtg-fusion-layout .portfolio-movers-item{line-height:1.8}
+@media(max-width:1050px){.chart-card .mtg-fusion-layout .mtg-fusion-row{grid-template-columns:minmax(175px,.7fr) minmax(0,1.3fr)!important}.chart-card .mtg-fusion-layout .mtg-fusion-movers{grid-column:1/-1}}
+@media(max-width:680px){.chart-card .mtg-fusion-layout .mtg-fusion-row{grid-template-columns:minmax(0,1fr)!important}.chart-card .mtg-fusion-layout .mtg-fusion-movers{grid-column:auto}.chart-card .mtg-fusion-layout .mtg-fusion-summary,.chart-card .mtg-fusion-layout .mtg-fusion-movers>.portfolio-movers{min-height:0}}
 </style>
 </head>
 
