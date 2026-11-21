@@ -7069,17 +7069,20 @@ if (selectedPortfolioCardKey) {
     const date =
         String(row.date).slice(0, 10);
 
-    const historicalValue =
-        selectedCardHistoryByDate.get(date);
-
-    if (
-        historicalValue === null ||
-        historicalValue === undefined ||
-        Number.isNaN(Number(historicalValue))
-    ) {
-        return null;
+    // Le snapshot du jour provient des cartes réellement possédées.
+    // Le fichier d'historique des prix peut ne pas encore inclure ce jour.
+    // Utiliser exactement la même valeur pour le tracé et les KPI.
+    if (date === today) {
+        return Number.isFinite(Number(currentValue))
+            ? Number(currentValue)
+            : null;
     }
 
+    const historicalValue = selectedCardHistoryByDate.get(date);
+    if (historicalValue === null || historicalValue === undefined ||
+        !Number.isFinite(Number(historicalValue))) {
+        return null;
+    }
     return Number(historicalValue);
 }
 
@@ -7249,14 +7252,17 @@ if (latestHistoryRow?.date) {
                     latestHistoryRow
                 );
 
+            // Une valeur absente ne doit jamais être convertie en zéro :
+            // Number(null) === 0 produisait des variations artificielles de -100 %.
             if (
-                Number.isFinite(
-                    Number(startValue)
-                ) &&
-                Number.isFinite(
-                    Number(endValue)
-                ) &&
-                Number(startValue) > 0
+                startValue !== null &&
+                startValue !== undefined &&
+                endValue !== null &&
+                endValue !== undefined &&
+                Number.isFinite(Number(startValue)) &&
+                Number.isFinite(Number(endValue)) &&
+                Number(startValue) > 0 &&
+                Number(endValue) > 0
             ) {
 
                 selectedValueChange =
