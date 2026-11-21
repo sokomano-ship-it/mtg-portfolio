@@ -5654,3 +5654,42 @@ body.edition-checklist-page .checklist-wrap h2 {margin-top:0;}
 @media(max-width:1200px){.chart-card .mtg-centred-insights{grid-template-columns:repeat(2,minmax(0,1fr));}.mtg-centred-insights .portfolio-movers{grid-column:1/-1;}}
 @media(max-width:700px){.chart-card .mtg-centred-insights{grid-template-columns:minmax(0,1fr);}.mtg-centred-insights .portfolio-movers{grid-column:auto;}.mtg-centred-insights > section,.mtg-centred-insights > aside{min-height:0;}}
 @media(max-width:420px){.mtg-centred-insights .portfolio-movers-columns{grid-template-columns:minmax(0,1fr);}}
+
+/* ===== MTG Fusion: filtres à gauche, résumé unique au centre, variations à droite ===== */
+.chart-card .portfolio-chart-top.mtg-fusion-layout {display:block;width:100%;margin:16px 0 22px;min-width:0;}
+.mtg-fusion-row {display:grid;grid-template-columns:minmax(220px,.72fr) minmax(360px,1.16fr) minmax(440px,1.24fr);gap:16px;align-items:stretch;width:100%;}
+.mtg-fusion-filters {min-width:0;display:flex;align-items:center;justify-content:center;padding:10px 0;}
+.chart-card .mtg-fusion-filters .portfolio-chart-filters {display:flex;flex-direction:column;align-items:stretch;gap:12px;width:100%;min-width:0;}
+.mtg-fusion-filters .portfolio-chart-filters label {width:100%;max-width:none;min-width:0;}
+.mtg-fusion-filters .portfolio-chart-filters select,.mtg-fusion-filters .portfolio-chart-filters input {width:100%;max-width:none;min-width:0;}
+.mtg-fusion-filters #portfolio-clear-card {align-self:flex-start;}
+.mtg-fusion-summary,.mtg-fusion-movers>.portfolio-movers {min-width:0;min-height:225px;border-radius:14px;background:linear-gradient(145deg,#103149,#0b1c31);box-shadow:0 8px 24px rgba(0,0,0,.25);padding:17px 20px;}
+.mtg-fusion-summary {border:1px solid #39c46c;display:flex;flex-direction:column;gap:11px;}
+.mtg-fusion-summary-head {font-size:15px;font-weight:750;color:#eaf5ff;}
+.mtg-fusion-summary-body {display:flex;gap:16px;align-items:center;flex:1;min-width:0;}
+.mtg-fusion-summary-main {min-width:0;flex:1;display:flex;flex-direction:column;gap:7px;}
+.mtg-fusion-summary .mtg-overview-name {font-size:23px;font-weight:800;line-height:1.2;overflow-wrap:anywhere;}
+.mtg-fusion-summary .mtg-overview-name:empty {display:none;}
+.mtg-fusion-summary .mtg-fusion-selection {display:none;font-size:18px;font-weight:800;line-height:1.3;overflow-wrap:anywhere;}
+.mtg-fusion-summary.has-card .mtg-fusion-selection {display:block;}
+.mtg-fusion-summary .portfolio-chart-context-category {font-size:12px;color:#a9c7df;}
+.mtg-fusion-summary.has-card .portfolio-chart-context-category {display:none;}
+.mtg-fusion-summary .mtg-overview-totals {display:grid;grid-template-columns:1fr 1.2fr;gap:12px;margin-top:6px;padding:12px 0;border-top:1px solid #36566d;border-bottom:1px solid #36566d;}
+.mtg-fusion-summary .mtg-overview-totals span {display:block;font-size:11px;color:#a9bed5;margin-bottom:6px;}
+.mtg-fusion-summary .mtg-overview-totals strong {font-size:20px;font-weight:800;color:#fff;white-space:nowrap;}
+.mtg-fusion-summary.has-card .mtg-overview-totals {display:none;}
+.mtg-fusion-summary .portfolio-card-preview {flex:0 0 104px;width:104px;min-width:0;padding:0;margin:0;background:none;border:0;}
+.mtg-fusion-summary .portfolio-card-preview[hidden] {display:none!important;}
+.mtg-fusion-summary .portfolio-card-preview img {width:104px;height:auto;max-height:160px;object-fit:contain;border-radius:7px;display:block;}
+.mtg-fusion-summary .portfolio-chart-card-meta {font-size:12px;line-height:1.5;overflow-wrap:anywhere;}
+.mtg-fusion-summary .portfolio-data-freshness {font-size:11px;color:#a2b9d2;line-height:1.5;border-top:1px solid #294c64;padding-top:9px;overflow-wrap:anywhere;}
+.mtg-fusion-movers {min-width:0;display:flex;}
+.mtg-fusion-movers>.portfolio-movers {width:100%;max-width:none;flex:1;margin:0;border:1px solid #3a9eef;font-size:12px;align-self:stretch;}
+.mtg-fusion-movers .portfolio-movers-heading {font-size:14px;white-space:normal;padding-bottom:9px;border-bottom:1px solid #345675;}
+.mtg-fusion-movers .portfolio-movers-columns {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;}
+.mtg-fusion-movers .portfolio-movers-label {font-size:12px;margin-bottom:7px;}
+.mtg-fusion-movers .portfolio-movers-item {line-height:1.85;}
+.mtg-fusion-movers .portfolio-movers-name {color:#d8e7f6;}
+@media(max-width:1180px){.mtg-fusion-row{grid-template-columns:minmax(210px,.65fr) minmax(0,1.35fr);}.mtg-fusion-movers{grid-column:1/-1;}}
+@media(max-width:700px){.mtg-fusion-row{grid-template-columns:minmax(0,1fr);}.mtg-fusion-movers{grid-column:auto;}.mtg-fusion-filters{padding:0;}.mtg-fusion-summary,.mtg-fusion-movers>.portfolio-movers{min-height:0;}}
+@media(max-width:420px){.mtg-fusion-movers .portfolio-movers-columns{grid-template-columns:minmax(0,1fr);}.mtg-fusion-summary-body{flex-wrap:wrap;}}

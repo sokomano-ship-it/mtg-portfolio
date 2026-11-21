@@ -6909,10 +6909,12 @@ if (cardMetaElement && selectedPortfolioCardKey) {
         const overviewCount = document.getElementById("portfolio-overview-count");
         const overviewValue = document.getElementById("portfolio-overview-value");
         const selectionPlaceholder = document.getElementById("portfolio-selection-placeholder");
-        if (overviewName) overviewName.textContent = displayName;
+        if (overviewName) overviewName.textContent = selectedPortfolioCardKey ? "" : displayName;
         if (overviewCount) overviewCount.textContent = String(currentCards);
         if (overviewValue) overviewValue.textContent = formatEuro(currentValue);
-        if (selectionPlaceholder) selectionPlaceholder.hidden = Boolean(selectedPortfolioCardKey);
+        if (selectionPlaceholder) selectionPlaceholder.hidden = true;
+        const fusionSummary = document.querySelector(".mtg-fusion-summary");
+        if (fusionSummary) fusionSummary.classList.toggle("has-card", Boolean(selectedPortfolioCardKey));
 
         const weightElement =
     document.getElementById(

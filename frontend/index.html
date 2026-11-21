@@ -206,9 +206,10 @@
                  <button type="button" class="chart-period-button" data-chart-frequency="week" aria-pressed="false">Semaine</button>
                  <button type="button" class="chart-period-button" data-chart-frequency="month" aria-pressed="false">Mois</button>
              </div>
-             <div class="portfolio-chart-top">
-
-    <div class="portfolio-chart-filters">
+             <div class="portfolio-chart-top mtg-fusion-layout">
+  <div class="mtg-fusion-row">
+    <div class="mtg-fusion-filters" aria-label="Filtres du portefeuille">
+<div class="portfolio-chart-filters">
 
     <label>
         Catégorie
@@ -246,27 +247,27 @@
     </button>
 </div>
 
-<div class="portfolio-chart-context mtg-centred-context">
-  <div class="portfolio-insights-merged mtg-centred-insights">
-    <section class="mtg-insights-overview" aria-label="Résumé de la sélection">
-      <div class="mtg-overview-title">📁 Catégorie / sélection</div>
-      <div id="portfolio-overview-name" class="mtg-overview-name">Portefeuille total</div>
-      <div class="mtg-overview-totals">
-        <div><span>Cartes</span><strong id="portfolio-overview-count">—</strong></div>
-        <div><span>Valeur estimée</span><strong id="portfolio-overview-value">—</strong></div>
+    </div>
+    <div class="mtg-fusion-summary" aria-label="Résumé et carte sélectionnée">
+      <div class="mtg-fusion-summary-head">📁 <span id="portfolio-fusion-title">Sélection du portefeuille</span></div>
+      <div class="mtg-fusion-summary-body">
+        <div id="portfolio-card-preview" class="portfolio-card-preview" hidden><img id="portfolio-card-preview-image" alt=""></div>
+        <div class="mtg-fusion-summary-main">
+          <div id="portfolio-overview-name" class="mtg-overview-name">Portefeuille total</div>
+          <div id="portfolio-chart-context-category" class="portfolio-chart-context-category"></div>
+          <div id="portfolio-chart-selection" class="mtg-fusion-selection">📊 Portefeuille total</div>
+          <div id="portfolio-chart-card-meta" class="portfolio-chart-card-meta" hidden></div>
+          <p id="portfolio-selection-placeholder" class="mtg-selection-placeholder" hidden></p>
+          <div class="mtg-overview-totals">
+            <div><span>Cartes</span><strong id="portfolio-overview-count">—</strong></div>
+            <div><span>Valeur estimée</span><strong id="portfolio-overview-value">—</strong></div>
+          </div>
+        </div>
       </div>
       <div id="portfolio-data-freshness" class="portfolio-data-freshness">Chargement des dates...</div>
-    </section>
-    <section class="mtg-selected-card" aria-label="Carte sélectionnée">
-      <div id="portfolio-card-preview" class="portfolio-card-preview" hidden><img id="portfolio-card-preview-image" alt=""></div>
-      <div class="portfolio-chart-context-info">
-        <div id="portfolio-chart-context-category" class="portfolio-chart-context-category"></div>
-        <div id="portfolio-chart-selection">📊 Portefeuille total</div>
-        <div id="portfolio-chart-card-meta" class="portfolio-chart-card-meta" hidden></div>
-        <p id="portfolio-selection-placeholder" class="mtg-selection-placeholder">Sélectionne une carte pour voir son illustration, son édition et sa valorisation.</p>
-      </div>
-    </section>
-    <aside class="portfolio-movers" aria-label="Plus fortes variations des cartes">
+    </div>
+    <div class="mtg-fusion-movers">
+<aside class="portfolio-movers" aria-label="Plus fortes variations des cartes">
       <div class="portfolio-movers-heading"><span>📊 Variations des cartes <small id="portfolio-movers-period">· 1M</small></span>
         <div class="portfolio-movers-switch" role="group" aria-label="Classement par variation">
           <button type="button" class="portfolio-movers-mode active" data-movers-mode="eur" aria-pressed="true">€</button>
@@ -278,10 +279,8 @@
         <div><div class="portfolio-movers-label up">↗ Hausses</div><div id="portfolio-movers-up" class="portfolio-movers-list">—</div></div>
         <div><div class="portfolio-movers-label down">↘ Baisses</div><div id="portfolio-movers-down" class="portfolio-movers-list">—</div></div>
       </div>
-    </aside>
+    </aside>    </div>
   </div>
-</div>
-</div>
 </div>
 
 <canvas id="portfolioChart"></canvas>
