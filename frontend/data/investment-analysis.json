@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T14:07:36.635Z",
+  "generatedAt": "2026-11-21T15:00:49.335Z",
   "investmentAnalysis": [
     {
       "id": 1451,
@@ -8692,7 +8692,7 @@
       "perf365d": null,
       "confidence": 74,
       "observationDaysCount": 3,
-      "pricingModel": "edition_observed_condition_ratio",
+      "pricingModel": "edition_fallback_condition_ratio",
       "gradeModelSource": "anchor + 3 observation day(s) + trained card ratios"
     },
     {
