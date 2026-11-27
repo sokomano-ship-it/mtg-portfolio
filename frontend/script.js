@@ -6320,7 +6320,7 @@ function renderPortfolioMovers(selectedCards, chartHistory) {
         const beforeRow = portfolioMoverAtOrBefore(history, startDate);
         const afterRow = portfolioMoverAtOrBefore(history, lastDate);
         if (!beforeRow || !afterRow || afterRow.date <= beforeRow.date) continue;
-        const condition = String(card.etat || "NM").toUpperCase();
+        const condition = String(card.etat || "NM").trim().toUpperCase();
         const before = portfolioMoverPrice(beforeRow, condition);
         const after = portfolioMoverPrice(afterRow, condition);
         if (before === null || after === null || before <= 0) continue;
@@ -6331,6 +6331,7 @@ function renderPortfolioMovers(selectedCards, chartHistory) {
             name: String(card.nomCarte || "Carte"),
             edition: String(card.edition || ""),
             language: String(card.langue || ""),
+            condition,
             delta, pct: delta / before * 100
         });
     }
@@ -6352,8 +6353,8 @@ function renderPortfolioMovers(selectedCards, chartHistory) {
             line.className = "portfolio-movers-item";
             const name = document.createElement("span");
             name.className = "portfolio-movers-name";
-            name.textContent = `${item.name}${item.edition ? ` (${item.edition})` : ""}`;
-            name.title = [item.name, item.edition, item.language].filter(Boolean).join(" · ");
+            name.textContent = `${item.name}${item.edition ? ` (${item.edition})` : ""} — ${item.condition}`;
+            name.title = [item.name, item.edition, item.condition, item.language].filter(Boolean).join(" · ");
             const amount = document.createElement("span");
             amount.className = `portfolio-movers-amount ${direction}`;
             const value = item[metric];
@@ -6362,8 +6363,20 @@ function renderPortfolioMovers(selectedCards, chartHistory) {
             target.appendChild(line);
         });
     }
-    fill(up, sorted.filter(item => item.delta > 0).slice(0, 5), "up");
-    fill(down, sorted.filter(item => item.delta < 0).reverse().slice(0, 5), "down");
+    // Une seule entrée par carte, édition et état, indépendamment de la langue.
+    // Le premier résultat du classement est conservé avant la limite de cinq.
+    function uniqueTopFive(rows) {
+        const keys = new Set();
+        return rows.filter(item => {
+            const key = JSON.stringify([item.name, item.edition, item.condition]
+                .map(value => String(value).trim().toLowerCase()));
+            if (keys.has(key)) return false;
+            keys.add(key);
+            return true;
+        }).slice(0, 5);
+    }
+    fill(up, uniqueTopFive(sorted.filter(item => item.delta > 0)), "up");
+    fill(down, uniqueTopFive(sorted.filter(item => item.delta < 0).reverse()), "down");
 }
 
 function setupPortfolioMoversControls() {
